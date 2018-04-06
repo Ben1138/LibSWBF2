@@ -19,6 +19,12 @@
     <Filter Include="Headerdateien\Log">
       <UniqueIdentifier>{77dac549-bc61-4ba3-ba9d-04744f950415}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\Types">
+      <UniqueIdentifier>{eb10aa7c-7bae-4d6b-9eab-d7d143e0dba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Types">
+      <UniqueIdentifier>{b069effa-269c-49fd-93e4-73c291e277e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math.h">
@@ -30,6 +36,18 @@
     <ClInclude Include="LogEntry.h">
       <Filter>Headerdateien\Log</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Headerdateien\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Headerdateien\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Headerdateien\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Headerdateien\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math.cpp">
@@ -40,6 +58,15 @@
     </ClCompile>
     <ClCompile Include="LogEntry.cpp">
       <Filter>Quelldateien\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Quelldateien\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Quelldateien\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Quelldateien\Types</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
