@@ -3,16 +3,18 @@
 #include <vector>
 #include "LogEntry.h"
 
+#define DllExport __declspec(dllexport)
+
 namespace LibSWBF2
 {
 	namespace Log
 	{
-		class Log
+		extern "C" class Log
 		{
 		public:
-			static void Add(const std::string &message, const LogType &level);
-			static std::string* getAllLines(const LogType &level);
-			static std::string* getLastLines(const LogType &level);
+			static DllExport void add(const std::string &message, const LogType &level);
+			static DllExport void getAllLines(const LogType &level, char* buffer);
+			static DllExport void getLastLines(const LogType &level, char* buffer);
 		private:
 			static std::vector<LogEntry> logEntrys;
 			static int lastIndex;
