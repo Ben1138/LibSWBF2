@@ -50,9 +50,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>Quelldateien\Log</Filter>
     </ClCompile>
