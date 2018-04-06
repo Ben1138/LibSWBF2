@@ -3,7 +3,6 @@
 #include "LogEntry.h"
 #include "Log.h"
 
-
 namespace LibSWBF2
 {
 	namespace Log
@@ -11,43 +10,44 @@ namespace LibSWBF2
 		int Log::lastIndex = 0;
 		std::vector<LogEntry> Log::logEntrys;
 
-		void Log::Add(const std::string &message, const LogType &level)
+		
+		void Log::add(const std::string &message, const LogType &level)
 		{
 			if (message.length() > 0)
 				logEntrys.push_back(LogEntry(message, level));
 		}
 
-		std::string* Log::getAllLines(const LogType &level)
+		void Log::getAllLines(const LogType &level, char* buffer)
 		{
-			std::vector<std::string> resLines;
+			std::string resLines;
 
 			for (unsigned int i = 0; i < logEntrys.size(); i++)
 			{
 				if (logEntrys[i].getLevel() >= level)
 				{
-					resLines.push_back(logEntrys[i].getMessage());
+					resLines += logEntrys[i].getMessage() + "\n";
 				}
 			}
 
-			return &resLines[0];
+			strcpy_s(buffer, resLines.length() + 1, resLines.c_str());
 		}
 
-		std::string* Log::getLastLines(const LogType &level)
+		void Log::getLastLines(const LogType &level, char* buffer)
 		{
-			std::vector<std::string> resLines;
+			std::string resLines;
 
 			for (unsigned int i = lastIndex; i < logEntrys.size(); i++)
 			{
 				if (logEntrys[i].getLevel() >= level)
 				{
-					resLines.push_back(logEntrys[i].getMessage());
+					resLines += logEntrys[i].getMessage() + "\n";
 				}
 			}
 
 			//save position for next request
 			lastIndex = logEntrys.size() - 1;
 
-			return &resLines[0];
+			strcpy_s(buffer, resLines.length() + 1, resLines.c_str());
 		}
 	}
 }
