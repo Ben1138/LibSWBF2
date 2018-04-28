@@ -3,15 +3,12 @@
 
 namespace LibSWBF2
 {
-	namespace Types
+	class Vector3 : public Vector2
 	{
-		class Vector3 : public Vector2
-		{
-		public:
-			float z;
+	public:
+		float z;
 
-			Vector3();
-			Vector3(const float &x, const float &y, const float &z);
-		};
-	}
+		Vector3();
+		Vector3(const float &x, const float &y, const float &z);
+	};
 }

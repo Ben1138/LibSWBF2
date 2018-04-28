@@ -7,63 +7,69 @@
     </Filter>
     <Filter Include="Headerdateien">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Ressourcendateien">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Quelldateien\Log">
-      <UniqueIdentifier>{4af49946-e7b8-44dd-a796-32ba26ede625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Log">
-      <UniqueIdentifier>{77dac549-bc61-4ba3-ba9d-04744f950415}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\Types">
-      <UniqueIdentifier>{eb10aa7c-7bae-4d6b-9eab-d7d143e0dba1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Types">
-      <UniqueIdentifier>{b069effa-269c-49fd-93e4-73c291e277e4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="API.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h">
-      <Filter>Headerdateien\Log</Filter>
-    </ClInclude>
-    <ClInclude Include="LogEntry.h">
-      <Filter>Headerdateien\Log</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Vector4.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Headerdateien\Types</Filter>
+    <ClInclude Include="LoggerEntry.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Log.cpp">
-      <Filter>Quelldateien\Log</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="LogEntry.cpp">
-      <Filter>Quelldateien\Log</Filter>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
-      <Filter>Quelldateien\Types</Filter>
+      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Quelldateien\Types</Filter>
+      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Vector4.cpp">
-      <Filter>Quelldateien\Types</Filter>
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="API.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggerEntry.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

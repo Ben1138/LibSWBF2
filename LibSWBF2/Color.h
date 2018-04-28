@@ -2,15 +2,12 @@
 
 namespace LibSWBF2
 {
-	namespace Types
+	struct Color
 	{
-		struct Color
-		{
-		public:
-			float r;
-			float g;
-			float b;
-			float a;
-		};
-	}
+	public:
+		float r;
+		float g;
+		float b;
+		float a;
+	};
 }
