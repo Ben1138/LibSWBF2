@@ -6,19 +6,22 @@
 
 namespace LibSWBF2
 {
+	using std::string;
+	using std::vector;
+
 	int Logger::lastIndex = 0;
-	std::vector<LoggerEntry> Logger::logEntrys;
+	vector<LoggerEntry> Logger::logEntrys;
 
 	
-	void Logger::Add(const std::string &message, const ELogType &level)
+	void Logger::Add(const string &message, const ELogType &level)
 	{
 		if (message.length() > 0)
 			logEntrys.push_back(LoggerEntry(message, level));
 	}
 
-	void Logger::GetAllLines(const ELogType &level, char* buffer)
+	string Logger::GetAllLines(const ELogType &level)
 	{
-		std::string resLines;
+		string resLines;
 
 		for (unsigned int i = 0; i < logEntrys.size(); i++)
 		{
@@ -28,12 +31,12 @@ namespace LibSWBF2
 			}
 		}
 
-		strcpy_s(buffer, resLines.length() + 1, resLines.c_str());
+		return resLines;
 	}
 
-	void Logger::GetLastLines(const ELogType &level, char* buffer)
+	string Logger::GetLastLines(const ELogType &level)
 	{
-		std::string resLines;
+		string resLines;
 
 		for (unsigned int i = lastIndex; i < logEntrys.size(); i++)
 		{
@@ -46,6 +49,6 @@ namespace LibSWBF2
 		//save position for next request
 		lastIndex = logEntrys.size() - 1;
 
-		strcpy_s(buffer, resLines.length() + 1, resLines.c_str());
+		return resLines;
 	}
 }
