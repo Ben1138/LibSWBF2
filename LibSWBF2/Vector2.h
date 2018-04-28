@@ -2,7 +2,7 @@
 
 namespace LibSWBF2
 {
-	class Vector2
+	struct Vector2
 	{
 	public:
 		float x;

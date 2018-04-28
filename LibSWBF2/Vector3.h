@@ -3,7 +3,7 @@
 
 namespace LibSWBF2
 {
-	class Vector3 : public Vector2
+	struct Vector3 : public Vector2
 	{
 	public:
 		float z;
