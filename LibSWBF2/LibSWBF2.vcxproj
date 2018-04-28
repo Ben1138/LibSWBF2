@@ -159,6 +159,7 @@
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="API.cpp" />
     <ClCompile Include="Logger.cpp" />

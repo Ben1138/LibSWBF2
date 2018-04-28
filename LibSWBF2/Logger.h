@@ -5,14 +5,17 @@
 
 namespace LibSWBF2
 {
+	using std::string;
+	using std::vector;
+
 	class Logger
 	{
 	public:
 		static void Add(const std::string &message, const ELogType &level);
-		static void GetAllLines(const ELogType &level, char* buffer);
-		static void GetLastLines(const ELogType &level, char* buffer);
+		static string GetAllLines(const ELogType &level);
+		static string GetLastLines(const ELogType &level);
 	private:
-		static std::vector<LoggerEntry> logEntrys;
+		static vector<LoggerEntry> logEntrys;
 		static int lastIndex;
 
 		Logger() {};
