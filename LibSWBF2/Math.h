@@ -1,4 +1,5 @@
 #pragma once
+#include <type_traits>
 
 namespace LibSWBF2 {
 	/// <summary>
@@ -31,7 +32,7 @@ namespace LibSWBF2 {
 		/// <returns>The clamped value</returns>
 		template<typename T>
 		static T Clamp01(const T &value) {
-			return Clamp(value, 0, 1);
+			return Clamp((float)value, 0.0f, 1.0f);
 		}
 	private:
 		Math() {};
