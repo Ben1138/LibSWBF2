@@ -25,6 +25,12 @@
     <Filter Include="Quelldateien\Log">
       <UniqueIdentifier>{19878125-6f08-4504-be4e-88026dc144c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Chunks">
+      <UniqueIdentifier>{cddad6d4-f0de-4a7a-a281-49a8f9f92ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Chunks">
+      <UniqueIdentifier>{b21a9de8-812a-43af-95dc-5ec4a88bdf4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -57,6 +63,12 @@
     <ClInclude Include="Logger.h">
       <Filter>Headerdateien\Log</Filter>
     </ClInclude>
+    <ClInclude Include="MSH.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseChunk.h">
+      <Filter>Headerdateien\Chunks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="LoggerEntry.cpp">
       <Filter>Quelldateien\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="MSH.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseChunk.cpp">
+      <Filter>Quelldateien\Chunks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

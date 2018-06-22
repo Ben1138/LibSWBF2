@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Types
 {
     public class Color
     {
-        struct _Color
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct _Color
         {
             public float r;
             public float g;
@@ -16,47 +14,51 @@ namespace LibSWBF2.Types
             public float a;
         }
 
-        IntPtr pointer;
-        _Color color;
+        internal unsafe _Color* ptr;
 
         public float R
         {
-            get { return color.r; }
-            set { color.r = value; }
+            get { unsafe { return ptr->r; } }
+            set { unsafe { ptr->r = value; } }
         }
 
         public float G
         {
-            get { return color.g; }
-            set { color.g = value; }
+            get { unsafe { return ptr->g; } }
+            set { unsafe { ptr->g = value; } }
         }
 
         public float B
         {
-            get { return color.b; }
-            set { color.b = value; }
+            get { unsafe { return ptr->b; } }
+            set { unsafe { ptr->b = value; } }
         }
 
         public float A
         {
-            get { return color.a; }
-            set { color.a = value; }
+            get { unsafe { return ptr->a; } }
+            set { unsafe { ptr->a = value; } }
         }
 
-        public Color() : this(0f, 0f, 0f, 0f) { }
-
-        public Color(float r, float g, float b) : this(r, g, b, 0f) { }
-
-        public Color(float r, float g, float b, float a)
+        public void SetColor(Color newColor)
         {
-            pointer = API.Color_Create(r, g, b, a);
-            color = (_Color)Marshal.PtrToStructure(pointer, typeof(_Color));
+            SetColor(newColor.R, newColor.G, newColor.B, newColor.A);
         }
 
-        ~Color()
+        public void SetColor(float r, float g, float b, float a=1f)
         {
-            API.Color_Delete(pointer);
-            pointer = IntPtr.Zero;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
+        }
+        
+        internal unsafe Color(_Color* ptr)
+        {
+            if (ptr == null)
+                throw new NullReferenceException("Given Pointer was NULL!");
+
+            this.ptr = ptr;
         }
     }
 }
