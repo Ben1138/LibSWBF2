@@ -69,6 +69,9 @@
     <ClInclude Include="BaseChunk.h">
       <Filter>Headerdateien\Chunks</Filter>
     </ClInclude>
+    <ClInclude Include="SHVO.h">
+      <Filter>Headerdateien\Chunks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +105,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="BaseChunk.cpp">
+      <Filter>Quelldateien\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="SHVO.cpp">
       <Filter>Quelldateien\Chunks</Filter>
     </ClCompile>
   </ItemGroup>
