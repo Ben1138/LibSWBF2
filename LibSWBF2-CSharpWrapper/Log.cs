@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace LibSWBF2
 {
+    public enum ELogType
+    {
+        Info = 0,
+        Warning = 1,
+        Error = 2
+    };
+
     public static class Log
     {
         public static void Add(string message, ELogType level)

@@ -5,32 +5,32 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2
 {
-    public enum ELogType
+    internal static class API
     {
-        Info = 0,
-        Warning = 1,
-        Error = 2
-    };
+        const int MARSH_STRING_BUFFER_SIZE = 4096;
 
-    static class API
-    {
-        [DllImport("LibSWBF2.dll")]
-        public static extern IntPtr Color_Create(float r, float g, float b, float a);
 
         [DllImport("LibSWBF2.dll")]
-        public static extern void Color_Delete(IntPtr color);
+        public static extern unsafe MSH._MSH* MSH_LoadFromFile(string path);
+
+        [DllImport("LibSWBF2.dll")]
+        public static extern unsafe MSH._MSH* MSH_Create();
+
+        [DllImport("LibSWBF2.dll")]
+        public static extern unsafe void MSH_Delete(MSH._MSH* color);
 
 
-        [DllImport("LibSWBF2.dll", CallingConvention = CallingConvention.Cdecl)]
+
+        [DllImport("LibSWBF2.dll")]
         public static extern void AddLogMessage(string message, ELogType Type);
 
-        [DllImport("LibSWBF2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("LibSWBF2.dll")]
         static extern void GetLogMessages(StringBuilder messages, int length, ELogType Type);
         public static string[] GetLogMessages(ELogType Type)
         {
             List<string> result = new List<string>();
 
-            StringBuilder builder = new StringBuilder(4096);
+            StringBuilder builder = new StringBuilder(MARSH_STRING_BUFFER_SIZE);
             GetLogMessages(builder, builder.Capacity, Type);
 
             string currLine = "";
@@ -55,13 +55,13 @@ namespace LibSWBF2
             return result.ToArray();
         }
 
-        [DllImport("LibSWBF2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("LibSWBF2.dll")]
         static extern void GetLastLogMessages(StringBuilder messages, int length, ELogType Type);
         public static string[] GetLastLogMessages(ELogType Type)
         {
             List<string> result = new List<string>();
 
-            StringBuilder builder = new StringBuilder(4096);
+            StringBuilder builder = new StringBuilder(MARSH_STRING_BUFFER_SIZE);
             GetLastLogMessages(builder, builder.Capacity, Type);
 
             string currLine = "";

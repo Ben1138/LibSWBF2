@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibSWBF2.Types;
+using LibSWBF2;
 
-namespace LibSWBF2
+namespace Test
 {
     static class MainTest
     {
@@ -26,12 +27,15 @@ namespace LibSWBF2
             Log.Add("Test55555555", ELogType.Info);
 
             PrintLastLines();
-
-            Color color = new Color(0.5f, 0.5f, 0.5f);
+            
+            MSH msh = new MSH("test");
 
             PrintLastLines();
 
-            Console.WriteLine(color.R);
+            Color lol = msh.Color;
+            lol.R = 0.42f;
+
+            Console.WriteLine(msh.Color.R);
 
             Console.ReadKey();
         }

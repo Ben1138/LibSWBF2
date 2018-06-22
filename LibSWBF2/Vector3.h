@@ -9,6 +9,7 @@ namespace LibSWBF2
 		float z;
 
 		Vector3();
-		Vector3(const float &x, const float &y, const float &z);
+		Vector3(const float& x, const float& y, const float& z);
+		~Vector3();
 	};
 }
