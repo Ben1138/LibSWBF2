@@ -12,7 +12,6 @@ namespace LibSWBF2
 
 	struct LoggerEntry
 	{
-	public:
 		LoggerEntry(const std::string &message, const ELogType &level);
 
 		std::string GetLogMessage();

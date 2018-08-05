@@ -1,13 +1,15 @@
 #pragma once
 #include "stdafx.h"
-#include "Color.h"
+#include "BaseChunk.h"
+#include "SHVO.h"
 
 namespace LibSWBF2
 {
-	class MSH
+	struct MSH : public BaseChunk
 	{
-	public:
 		MSH();
 		~MSH();
+	private:
+		SHVO shvo;
 	};
 }

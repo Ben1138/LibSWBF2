@@ -6,15 +6,13 @@ namespace LibSWBF2
 {
 	struct SHVO : public BaseChunk
 	{
-	private:
-		int ShadowVolume;
-
-	public:
 		SHVO();
 		~SHVO();
 
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 
+	private:
+		int ShadowVolume;
 	};
 }
