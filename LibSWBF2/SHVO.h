@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include "BaseChunk.h"
 
 namespace LibSWBF2

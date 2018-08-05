@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <vector>
 #include "LoggerEntry.h"
 
 namespace LibSWBF2

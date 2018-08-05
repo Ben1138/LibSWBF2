@@ -1,7 +1,4 @@
-#include <string>
-#include <vector>
 #include "stdafx.h"
-#include "LoggerEntry.h"
 #include "Logger.h"
 
 namespace LibSWBF2

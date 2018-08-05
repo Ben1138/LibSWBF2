@@ -1,4 +1,3 @@
-#include <string>
 #include "stdafx.h"
 #include "LoggerEntry.h"
 
