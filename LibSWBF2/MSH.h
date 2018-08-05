@@ -7,8 +7,6 @@ namespace LibSWBF2
 	class MSH
 	{
 	public:
-		Color MyColor;
-
 		MSH();
 		~MSH();
 	};
