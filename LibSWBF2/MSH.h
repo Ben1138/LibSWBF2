@@ -9,6 +9,10 @@ namespace LibSWBF2
 	{
 		MSH();
 		~MSH();
+
+		void WriteToStream(ofstream& stream) override;
+		void ReadFromStream(ifstream& stream) override;
+
 	private:
 		SHVO shvo;
 	};
