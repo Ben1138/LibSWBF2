@@ -22,14 +22,4 @@ namespace LibSWBF2
 	{
 		stream >> Header >> Size;
 	}
-
-	ofstream& operator<<(ofstream& stream, BaseChunk& chunk)
-	{
-		chunk.WriteToStream(stream);
-	}
-
-	ifstream& operator>>(ifstream& stream, BaseChunk& chunk)
-	{
-		chunk.ReadFromStream(stream);
-	}
 }

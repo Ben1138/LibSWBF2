@@ -16,7 +16,5 @@ namespace LibSWBF2
 		virtual void WriteToStream(ofstream& stream);
 		virtual void ReadFromStream(ifstream& stream);
 
-		friend ofstream& operator<<(ofstream& stream, const BaseChunk& chunk);
-		friend ifstream& operator>>(ifstream& stream, BaseChunk& chunk);
 	};
 }

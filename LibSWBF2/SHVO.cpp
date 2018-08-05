@@ -24,14 +24,4 @@ namespace LibSWBF2
 		BaseChunk::ReadFromStream(stream);
 		stream >> ShadowVolume;
 	}
-
-	ofstream& operator<<(ofstream& stream, SHVO& chunk)
-	{
-		chunk.WriteToStream(stream);
-	}
-
-	ifstream& operator>>(ifstream& stream, SHVO& chunk)
-	{
-		chunk.ReadFromStream(stream);
-	}
 }
