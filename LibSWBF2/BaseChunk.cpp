@@ -22,4 +22,15 @@ namespace LibSWBF2
 	{
 		stream >> Header >> Size;
 	}
+
+	int BaseChunk::PeekHeader(ifstream& stream)
+	{
+		auto pos = stream.tellg();
+
+		int head;
+		stream >> head;
+		stream.seekg(pos);
+
+		return head;
+	}
 }
