@@ -1,10 +1,12 @@
 #pragma once
+#include "Logger.h"
 #include "LoggerEntry.h"
 #include "Color.h"
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "MSH.h"
+#include "SHVO.h"
 
 #ifdef LIBSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
