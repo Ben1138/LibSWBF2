@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Types
 {
-    public class Color
+    public unsafe class Color
     {
         [StructLayout(LayoutKind.Sequential)]
         internal struct _Color
@@ -14,30 +14,30 @@ namespace LibSWBF2.Types
             public float a;
         }
 
-        internal unsafe _Color* ptr;
+        internal _Color* ptr;
 
         public float R
         {
-            get { unsafe { return ptr->r; } }
-            set { unsafe { ptr->r = value; } }
+            get { return ptr->r; }
+            set { ptr->r = value; }
         }
 
         public float G
         {
-            get { unsafe { return ptr->g; } }
-            set { unsafe { ptr->g = value; } }
+            get { return ptr->g; }
+            set { ptr->g = value; }
         }
 
         public float B
         {
-            get { unsafe { return ptr->b; } }
-            set { unsafe { ptr->b = value; } }
+            get { return ptr->b; }
+            set { ptr->b = value; }
         }
 
         public float A
         {
-            get { unsafe { return ptr->a; } }
-            set { unsafe { ptr->a = value; } }
+            get { return ptr->a; }
+            set { ptr->a = value; }
         }
 
         public void SetColor(Color newColor)
@@ -53,7 +53,7 @@ namespace LibSWBF2.Types
             A = a;
         }
         
-        internal unsafe Color(_Color* ptr)
+        internal Color(_Color* ptr)
         {
             if (ptr == null)
                 throw new NullReferenceException("Given Pointer was NULL!");

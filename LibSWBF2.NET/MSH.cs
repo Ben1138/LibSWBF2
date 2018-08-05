@@ -4,7 +4,7 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2
 {
-    public class MSH
+    public unsafe class MSH
     {
         [StructLayout(LayoutKind.Sequential)]
         internal struct _MSH
@@ -12,12 +12,12 @@ namespace LibSWBF2
             public Color._Color color;
         }
 
-        internal unsafe _MSH* ptr;
+        internal _MSH* ptr;
 
         public Color Color { get; private set; }
 
 
-        public unsafe MSH(string path)
+        public MSH(string path)
         {
             ptr = API.MSH_LoadFromFile(path);
 
@@ -27,7 +27,7 @@ namespace LibSWBF2
             Color = new Color(&ptr->color);
         }
 
-        unsafe ~MSH()
+        ~MSH()
         {
             API.MSH_Delete(ptr);
         }
