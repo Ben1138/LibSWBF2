@@ -12,4 +12,16 @@ namespace LibSWBF2
 	{
 
 	}
+
+	void MSH::WriteToStream(ofstream& stream)
+	{
+		BaseChunk::WriteToStream(stream);
+		shvo.WriteToStream(stream);
+	}
+
+	void MSH::ReadFromStream(ifstream& stream)
+	{
+		BaseChunk::ReadFromStream(stream);
+		shvo.ReadFromStream(stream);
+	}
 }
