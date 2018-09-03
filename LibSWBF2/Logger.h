@@ -14,7 +14,7 @@ namespace LibSWBF2
 		static string GetLastLines(const ELogType &level);
 	private:
 		static vector<LoggerEntry> logEntrys;
-		static int lastIndex;
+		static int32_t lastIndex;
 
 		Logger() {};
 		~Logger() {};

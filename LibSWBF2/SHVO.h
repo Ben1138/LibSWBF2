@@ -12,6 +12,6 @@ namespace LibSWBF2
 		void ReadFromStream(ifstream& stream) override;
 
 	private:
-		int ShadowVolume;
+		int32_t ShadowVolume;
 	};
 }

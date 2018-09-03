@@ -5,13 +5,13 @@ namespace LibSWBF2
 	struct Color
 	{
 		Color();
-		Color(const float& r, const float& g, const float& b);
-		Color(const float& r, const float& g, const float& b, const float& a);
+		Color(const float_t& r, const float_t& g, const float_t& b);
+		Color(const float_t& r, const float_t& g, const float_t& b, const float_t& a);
 		~Color();
 
-		float r;
-		float g;
-		float b;
-		float a;
+		float_t r;
+		float_t g;
+		float_t b;
+		float_t a;
 	};
 }

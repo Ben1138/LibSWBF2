@@ -23,7 +23,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void MSH_Delete(MSH* ptr);
 
 		LIBSWBF2_API void AddLogMessage(const char* message, const ELogType logType);
-		LIBSWBF2_API void GetLogMessages(char* messages, const int length, const ELogType logType);
-		LIBSWBF2_API void GetLastLogMessages(char* messages, const int length, const ELogType logType);
+		LIBSWBF2_API void GetLogMessages(char* messages, const int32_t length, const ELogType logType);
+		LIBSWBF2_API void GetLastLogMessages(char* messages, const int32_t length, const ELogType logType);
 	}
 }

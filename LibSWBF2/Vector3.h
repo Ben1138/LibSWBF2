@@ -6,9 +6,9 @@ namespace LibSWBF2
 	struct Vector3 : public Vector2
 	{
 		Vector3();
-		Vector3(const float& x, const float& y, const float& z);
+		Vector3(const float_t& x, const float_t& y, const float_t& z);
 		~Vector3();
 
-		float z;
+		float_t z;
 	};
 }

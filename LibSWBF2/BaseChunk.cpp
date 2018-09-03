@@ -23,11 +23,11 @@ namespace LibSWBF2
 		stream >> Header >> Size;
 	}
 
-	int BaseChunk::PeekHeader(ifstream& stream)
+	int32_t BaseChunk::PeekHeader(ifstream& stream)
 	{
 		auto pos = stream.tellg();
 
-		int head;
+		int32_t head;
 		stream >> head;
 		stream.seekg(pos);
 
