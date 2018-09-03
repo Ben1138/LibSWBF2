@@ -3,65 +3,65 @@
 
 namespace LibSWBF2::Chunks::HeaderNames
 {
-	constexpr int32_t HeaderToInt(const char* str)
+	constexpr ChunkHeader GetHeaderValue(const char* str)
 	{
-		return *(int32_t*)str;
+		return *(ChunkHeader*)str;
 	}
 
-	static string IntToHeader(const int32_t& hedr)
+	static string GetHeaderString(const ChunkHeader& hedr)
 	{
 		return string((char*)&hedr);
 	}
 
-	const int32_t HEDR = HeaderToInt("HEDR");
-	const int32_t SHVO = HeaderToInt("SHVO");
-	const int32_t MSH2 = HeaderToInt("MSH2");
-	const int32_t SINF = HeaderToInt("SINF");
-	const int32_t NAME = HeaderToInt("NAME");
-	const int32_t FRAM = HeaderToInt("FRAM");
-	const int32_t BBOX = HeaderToInt("BBOX");
-	const int32_t CAMR = HeaderToInt("CAMR");
-	const int32_t DATA = HeaderToInt("DATA");
-	const int32_t MATL = HeaderToInt("MATL");
-	const int32_t MATD = HeaderToInt("MATD");
-	const int32_t ATRB = HeaderToInt("ATRB");
-	const int32_t TX0D = HeaderToInt("TX0D");
-	const int32_t TX1D = HeaderToInt("TX1D");
-	const int32_t MODL = HeaderToInt("MODL");
-	const int32_t MTYP = HeaderToInt("MTYP");
-	const int32_t MNDX = HeaderToInt("MNDX");
-	const int32_t PRNT = HeaderToInt("PRNT");
-	const int32_t FLGS = HeaderToInt("FLGS");
-	const int32_t TRAN = HeaderToInt("TRAN");
-	const int32_t GEOM = HeaderToInt("GEOM");
-	const int32_t SEGM = HeaderToInt("SEGM");
-	const int32_t SHDW = HeaderToInt("SHDW");
-	const int32_t MATI = HeaderToInt("MATI");
-	const int32_t POSL = HeaderToInt("POSL");
-	const int32_t CLRL = HeaderToInt("CLRL");
-	const int32_t CLRB = HeaderToInt("CLRB");
-	const int32_t WGHT = HeaderToInt("WGHT");
-	const int32_t NRML = HeaderToInt("NRML");
-	const int32_t UV0L = HeaderToInt("UV0L");
-	const int32_t NDXL = HeaderToInt("NDXL");
-	const int32_t NDXT = HeaderToInt("NDXT");
-	const int32_t STRP = HeaderToInt("STRP");
-	const int32_t CLTH = HeaderToInt("CLTH");
-	const int32_t CPOS = HeaderToInt("CPOS");
-	const int32_t CUV0 = HeaderToInt("CUV0");
-	const int32_t FIDX = HeaderToInt("FIDX");
-	const int32_t FWGT = HeaderToInt("FWGT");
-	const int32_t CMSH = HeaderToInt("CMSH");
-	const int32_t SPRS = HeaderToInt("SPRS");
-	const int32_t CPRS = HeaderToInt("CPRS");
-	const int32_t BPRS = HeaderToInt("BPRS");
-	const int32_t COLL = HeaderToInt("COLL");
-	const int32_t ENVL = HeaderToInt("ENVL");
-	const int32_t SWCI = HeaderToInt("SWCI");
-	const int32_t BLN2 = HeaderToInt("BLN2");
-	const int32_t SKL2 = HeaderToInt("SKL2");
-	const int32_t ANM2 = HeaderToInt("ANM2");
-	const int32_t CYCL = HeaderToInt("CYCL");
-	const int32_t KFR3 = HeaderToInt("KFR3");
-	const int32_t CL1L = HeaderToInt("CL1L");
+	const ChunkHeader HEDR = GetHeaderValue("HEDR");
+	const ChunkHeader SHVO = GetHeaderValue("SHVO");
+	const ChunkHeader MSH2 = GetHeaderValue("MSH2");
+	const ChunkHeader SINF = GetHeaderValue("SINF");
+	const ChunkHeader NAME = GetHeaderValue("NAME");
+	const ChunkHeader FRAM = GetHeaderValue("FRAM");
+	const ChunkHeader BBOX = GetHeaderValue("BBOX");
+	const ChunkHeader CAMR = GetHeaderValue("CAMR");
+	const ChunkHeader DATA = GetHeaderValue("DATA");
+	const ChunkHeader MATL = GetHeaderValue("MATL");
+	const ChunkHeader MATD = GetHeaderValue("MATD");
+	const ChunkHeader ATRB = GetHeaderValue("ATRB");
+	const ChunkHeader TX0D = GetHeaderValue("TX0D");
+	const ChunkHeader TX1D = GetHeaderValue("TX1D");
+	const ChunkHeader MODL = GetHeaderValue("MODL");
+	const ChunkHeader MTYP = GetHeaderValue("MTYP");
+	const ChunkHeader MNDX = GetHeaderValue("MNDX");
+	const ChunkHeader PRNT = GetHeaderValue("PRNT");
+	const ChunkHeader FLGS = GetHeaderValue("FLGS");
+	const ChunkHeader TRAN = GetHeaderValue("TRAN");
+	const ChunkHeader GEOM = GetHeaderValue("GEOM");
+	const ChunkHeader SEGM = GetHeaderValue("SEGM");
+	const ChunkHeader SHDW = GetHeaderValue("SHDW");
+	const ChunkHeader MATI = GetHeaderValue("MATI");
+	const ChunkHeader POSL = GetHeaderValue("POSL");
+	const ChunkHeader CLRL = GetHeaderValue("CLRL");
+	const ChunkHeader CLRB = GetHeaderValue("CLRB");
+	const ChunkHeader WGHT = GetHeaderValue("WGHT");
+	const ChunkHeader NRML = GetHeaderValue("NRML");
+	const ChunkHeader UV0L = GetHeaderValue("UV0L");
+	const ChunkHeader NDXL = GetHeaderValue("NDXL");
+	const ChunkHeader NDXT = GetHeaderValue("NDXT");
+	const ChunkHeader STRP = GetHeaderValue("STRP");
+	const ChunkHeader CLTH = GetHeaderValue("CLTH");
+	const ChunkHeader CPOS = GetHeaderValue("CPOS");
+	const ChunkHeader CUV0 = GetHeaderValue("CUV0");
+	const ChunkHeader FIDX = GetHeaderValue("FIDX");
+	const ChunkHeader FWGT = GetHeaderValue("FWGT");
+	const ChunkHeader CMSH = GetHeaderValue("CMSH");
+	const ChunkHeader SPRS = GetHeaderValue("SPRS");
+	const ChunkHeader CPRS = GetHeaderValue("CPRS");
+	const ChunkHeader BPRS = GetHeaderValue("BPRS");
+	const ChunkHeader COLL = GetHeaderValue("COLL");
+	const ChunkHeader ENVL = GetHeaderValue("ENVL");
+	const ChunkHeader SWCI = GetHeaderValue("SWCI");
+	const ChunkHeader BLN2 = GetHeaderValue("BLN2");
+	const ChunkHeader SKL2 = GetHeaderValue("SKL2");
+	const ChunkHeader ANM2 = GetHeaderValue("ANM2");
+	const ChunkHeader CYCL = GetHeaderValue("CYCL");
+	const ChunkHeader KFR3 = GetHeaderValue("KFR3");
+	const ChunkHeader CL1L = GetHeaderValue("CL1L");
 }

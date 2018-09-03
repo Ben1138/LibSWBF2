@@ -4,7 +4,7 @@ namespace LibSWBF2::Types
 {
 	struct Color
 	{
-		static const int32_t Size = sizeof(float_t) * 4;
+		static const ChunkSize Size = sizeof(float_t) * 4;
 
 		Color();
 		Color(const float_t& r, const float_t& g, const float_t& b);

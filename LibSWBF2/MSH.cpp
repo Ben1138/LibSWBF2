@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "MSH.h"
-#include "HeaderNames.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
@@ -30,7 +29,7 @@ namespace LibSWBF2::Chunks::MSH
 	void MSH::ReadFromStream(ifstream& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		int32_t head = BaseChunk::PeekHeader(stream);
+		ChunkHeader head = BaseChunk::PeekHeader(stream);
 
 		if (head == HeaderNames::SHVO)
 			shvo.ReadFromStream(stream);
