@@ -10,6 +10,9 @@ namespace LibSWBF2
 		Vector3(const float_t& x, const float_t& y, const float_t& z);
 		~Vector3();
 
+		void WriteToStream(ofstream& stream) override;
+		void ReadFromStream(ifstream& stream) override;
+
 		float_t z;
 	};
 }
