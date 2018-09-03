@@ -14,6 +14,13 @@ namespace LibSWBF2::Chunks::MSH
 
 	}
 
+	void MSH::RefreshSize()
+	{
+		shvo.RefreshSize();
+
+		Size = shvo.GetSize();
+	}
+
 	void MSH::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);

@@ -9,6 +9,7 @@ namespace LibSWBF2::Chunks::MSH
 		MSH();
 		~MSH();
 
+		void RefreshSize() override;
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 

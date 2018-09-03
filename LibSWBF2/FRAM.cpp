@@ -13,6 +13,11 @@ namespace LibSWBF2::Chunks::MSH
 
 	}
 
+	void FRAM::RefreshSize()
+	{
+		Size = sizeof(int32_t) + sizeof(int32_t) + sizeof(float_t);
+	}
+
 	void FRAM::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);

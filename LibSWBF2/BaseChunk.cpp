@@ -24,8 +24,14 @@ namespace LibSWBF2::Chunks
 		return head;
 	}
 
+	void BaseChunk::RefreshSize()
+	{
+		Size = 0;
+	}
+
 	void BaseChunk::WriteToStream(ofstream& stream)
 	{
+		RefreshSize();
 		stream << Header << Size;
 	}
 

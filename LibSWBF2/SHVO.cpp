@@ -13,6 +13,12 @@ namespace LibSWBF2::Chunks::MSH
 
 	}
 
+	void SHVO::RefreshSize()
+	{
+		// TODO: proper implementation
+		Size = 0;
+	}
+
 	void SHVO::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);

@@ -3,9 +3,6 @@
 
 namespace LibSWBF2::Logging
 {
-	using std::string;
-	using std::vector;
-
 	class Logger
 	{
 	public:

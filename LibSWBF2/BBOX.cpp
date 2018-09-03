@@ -13,6 +13,11 @@ namespace LibSWBF2::Chunks::MSH
 
 	}
 
+	void BBOX::RefreshSize()
+	{
+		Size = Vector4::Size + Vector3::Size + Vector3::Size + sizeof(float_t);
+	}
+
 	void BBOX::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);
