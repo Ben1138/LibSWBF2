@@ -32,7 +32,7 @@ namespace LibSWBF2 {
 		/// <returns>The clamped value</returns>
 		template<typename T>
 		static T Clamp01(const T &value) {
-			return Clamp((float)value, 0.0f, 1.0f);
+			return Clamp((float_t)value, 0.0f, 1.0f);
 		}
 	private:
 		Math() {};

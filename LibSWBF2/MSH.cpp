@@ -22,7 +22,7 @@ namespace LibSWBF2
 	void MSH::ReadFromStream(ifstream& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		int head = BaseChunk::PeekHeader(stream);
+		int32_t head = BaseChunk::PeekHeader(stream);
 
 		if (head == HeaderNames::SHVO)
 			shvo.ReadFromStream(stream);

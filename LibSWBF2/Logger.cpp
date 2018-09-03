@@ -6,7 +6,7 @@ namespace LibSWBF2
 	using std::string;
 	using std::vector;
 
-	int Logger::lastIndex = 0;
+	int32_t Logger::lastIndex = 0;
 	vector<LoggerEntry> Logger::logEntrys;
 
 	
@@ -20,7 +20,7 @@ namespace LibSWBF2
 	{
 		string resLines;
 
-		for (unsigned int i = 0; i < logEntrys.size(); i++)
+		for (unsigned int32_t i = 0; i < logEntrys.size(); i++)
 		{
 			if (logEntrys[i].GetLogLevel() >= level)
 			{
@@ -35,7 +35,7 @@ namespace LibSWBF2
 	{
 		string resLines;
 
-		for (unsigned int i = lastIndex; i < logEntrys.size(); i++)
+		for (unsigned int32_t i = lastIndex; i < logEntrys.size(); i++)
 		{
 			if (logEntrys[i].GetLogLevel() >= level)
 			{
