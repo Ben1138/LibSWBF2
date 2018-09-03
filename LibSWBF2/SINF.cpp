@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "SHVO.h"
+#include "SINF.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	SHVO::SHVO()
+	SINF::SINF()
 	{
 
 	}
 
-	SHVO::~SHVO()
+	SINF::~SINF()
 	{
 
 	}
 
-	void SHVO::WriteToStream(ofstream& stream)
+	void SINF::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		stream << ShadowVolume;
 	}
 
-	void SHVO::ReadFromStream(ifstream& stream)
+	void SINF::ReadFromStream(ifstream& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		stream >> ShadowVolume;

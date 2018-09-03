@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Vector2.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Types
 {
 	Vector2::Vector2() : x(x), y(y) 
 	{

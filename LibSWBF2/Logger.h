@@ -1,8 +1,7 @@
 #pragma once
-#include "stdafx.h"
 #include "LoggerEntry.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Logging
 {
 	using std::string;
 	using std::vector;
@@ -15,7 +14,7 @@ namespace LibSWBF2
 		static string GetLastLines(const ELogType &level);
 	private:
 		static vector<LoggerEntry> logEntrys;
-		static int32_t lastIndex;
+		static size_t lastIndex;
 
 		Logger() {};
 		~Logger() {};

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BaseChunk.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Chunks
 {
 	BaseChunk::BaseChunk()
 	{

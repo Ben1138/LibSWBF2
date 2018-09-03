@@ -1,18 +1,17 @@
 #pragma once
 #include "BaseChunk.h"
-#include "SHVO.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct MSH : public BaseChunk
+	struct MSH2 : public BaseChunk
 	{
-		MSH();
-		~MSH();
+		MSH2();
+		~MSH2();
 
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 
 	private:
-		SHVO shvo;
+		int32_t ShadowVolume;
 	};
 }

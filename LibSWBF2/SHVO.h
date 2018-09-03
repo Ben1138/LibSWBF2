@@ -1,8 +1,7 @@
 #pragma once
-#include "stdafx.h"
 #include "BaseChunk.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Chunks::MSH
 {
 	struct SHVO : public BaseChunk
 	{

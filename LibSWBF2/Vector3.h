@@ -1,8 +1,7 @@
 #pragma once
-#include "stdafx.h"
 #include "Vector2.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Types
 {
 	struct Vector3 : public Vector2
 	{

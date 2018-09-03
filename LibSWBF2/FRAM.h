@@ -1,18 +1,19 @@
 #pragma once
 #include "BaseChunk.h"
-#include "SHVO.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct MSH : public BaseChunk
+	struct FRAM : public BaseChunk
 	{
-		MSH();
-		~MSH();
+		FRAM();
+		~FRAM();
 
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 
 	private:
-		SHVO shvo;
+		int32_t FrameRangeStart;
+		int32_t FrameRangeEnd;
+		float_t FramesPerSecond;
 	};
 }
