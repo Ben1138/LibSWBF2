@@ -8,6 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 		FRAM();
 		~FRAM();
 
+		void RefreshSize() override;
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 

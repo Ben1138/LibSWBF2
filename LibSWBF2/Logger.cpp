@@ -3,9 +3,6 @@
 
 namespace LibSWBF2::Logging
 {
-	using std::string;
-	using std::vector;
-
 	size_t Logger::lastIndex = 0;
 	vector<LoggerEntry> Logger::logEntrys;
 

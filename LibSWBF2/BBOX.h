@@ -4,15 +4,15 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	using LibSWBF2::Types::Vector2;
-	using LibSWBF2::Types::Vector3;
-	using LibSWBF2::Types::Vector4;
+	using Types::Vector3;
+	using Types::Vector4;
 
 	struct BBOX : public BaseChunk
 	{
 		BBOX();
 		~BBOX();
 
+		void RefreshSize() override;
 		void WriteToStream(ofstream& stream) override;
 		void ReadFromStream(ifstream& stream) override;
 

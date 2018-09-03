@@ -13,6 +13,12 @@ namespace LibSWBF2::Chunks::MSH
 
 	}
 
+	void SINF::RefreshSize()
+	{
+		// TODO: proper implementation
+		Size = 0;
+	}
+
 	void SINF::WriteToStream(ofstream& stream)
 	{
 		BaseChunk::WriteToStream(stream);
