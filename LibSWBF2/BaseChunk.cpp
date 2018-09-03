@@ -13,11 +13,11 @@ namespace LibSWBF2::Chunks
 
 	}
 
-	int32_t BaseChunk::PeekHeader(ifstream& stream)
+	ChunkHeader BaseChunk::PeekHeader(ifstream& stream)
 	{
 		auto pos = stream.tellg();
 
-		int32_t head;
+		ChunkHeader head;
 		stream >> head;
 		stream.seekg(pos);
 
@@ -40,12 +40,12 @@ namespace LibSWBF2::Chunks
 		stream >> Header >> Size;
 	}
 
-	int32_t BaseChunk::GetHeader()
+	ChunkHeader BaseChunk::GetHeader()
 	{
 		return Header;
 	}
 
-	int32_t BaseChunk::GetSize()
+	ChunkSize BaseChunk::GetSize()
 	{
 		return Size;
 	}
