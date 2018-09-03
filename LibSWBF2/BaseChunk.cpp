@@ -13,6 +13,17 @@ namespace LibSWBF2
 
 	}
 
+	int32_t BaseChunk::PeekHeader(ifstream& stream)
+	{
+		auto pos = stream.tellg();
+
+		int32_t head;
+		stream >> head;
+		stream.seekg(pos);
+
+		return head;
+	}
+
 	void BaseChunk::WriteToStream(ofstream& stream)
 	{
 		stream << Header << Size;
@@ -23,14 +34,13 @@ namespace LibSWBF2
 		stream >> Header >> Size;
 	}
 
-	int32_t BaseChunk::PeekHeader(ifstream& stream)
+	int32_t BaseChunk::GetHeader()
 	{
-		auto pos = stream.tellg();
+		return Header;
+	}
 
-		int32_t head;
-		stream >> head;
-		stream.seekg(pos);
-
-		return head;
+	int32_t BaseChunk::GetSize()
+	{
+		return Size;
 	}
 }
