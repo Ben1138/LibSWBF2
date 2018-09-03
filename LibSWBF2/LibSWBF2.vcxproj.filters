@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Headerdateien\Types">
-      <UniqueIdentifier>{6971bb2b-5181-4758-9ae8-7e0a6a69bcd6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quelldateien\Types">
       <UniqueIdentifier>{6f77d6d1-97bb-4b76-95ca-016e6bb5fecf}</UniqueIdentifier>
     </Filter>
@@ -31,6 +28,15 @@
     <Filter Include="Quelldateien\Chunks">
       <UniqueIdentifier>{b21a9de8-812a-43af-95dc-5ec4a88bdf4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Chunks\MSH">
+      <UniqueIdentifier>{84f3babe-a91b-4eed-b97a-a2367163c22b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Chunks\MSH">
+      <UniqueIdentifier>{c44b84f0-0e69-4f57-8e8f-a886c2d2ca96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\BaseTypes">
+      <UniqueIdentifier>{6971bb2b-5181-4758-9ae8-7e0a6a69bcd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -42,20 +48,17 @@
     <ClInclude Include="API.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien\BaseTypes</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien\BaseTypes</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien\BaseTypes</Filter>
     </ClInclude>
     <ClInclude Include="Vector4.h">
-      <Filter>Headerdateien\Types</Filter>
+      <Filter>Headerdateien\BaseTypes</Filter>
     </ClInclude>
     <ClInclude Include="LoggerEntry.h">
       <Filter>Headerdateien\Log</Filter>
@@ -63,13 +66,31 @@
     <ClInclude Include="Logger.h">
       <Filter>Headerdateien\Log</Filter>
     </ClInclude>
-    <ClInclude Include="MSH.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="BaseChunk.h">
       <Filter>Headerdateien\Chunks</Filter>
     </ClInclude>
+    <ClInclude Include="MSH2.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
     <ClInclude Include="SHVO.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="SINF.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="NAME.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="FRAM.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="BBOX.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MSH.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderNames.h">
       <Filter>Headerdateien\Chunks</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,14 +122,29 @@
     <ClCompile Include="LoggerEntry.cpp">
       <Filter>Quelldateien\Log</Filter>
     </ClCompile>
-    <ClCompile Include="MSH.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="BaseChunk.cpp">
       <Filter>Quelldateien\Chunks</Filter>
     </ClCompile>
+    <ClCompile Include="MSH2.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
     <ClCompile Include="SHVO.cpp">
-      <Filter>Quelldateien\Chunks</Filter>
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="SINF.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="NAME.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="FRAM.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="BBOX.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MSH.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

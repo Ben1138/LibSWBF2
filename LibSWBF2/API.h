@@ -6,7 +6,6 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "MSH.h"
-#include "SHVO.h"
 
 #ifdef LIBSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
@@ -14,8 +13,14 @@
 #define LIBSWBF2_API __declspec(dllimport)
 #endif
 
-namespace LibSWBF2
+namespace LibSWBF2::API
 {
+	// be carefull in the futute!
+	// there might be multiple chunks with the same name
+	using namespace Chunks::MSH;
+	using namespace Types;
+	using namespace Logging;
+
 	extern "C"
 	{
 		LIBSWBF2_API MSH* MSH_LoadFromFile(const char* path);

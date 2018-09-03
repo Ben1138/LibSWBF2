@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LoggerEntry.h"
 
-namespace LibSWBF2 
+namespace LibSWBF2::Logging
 {
 	LoggerEntry::LoggerEntry(const std::string &message, const ELogType &level)
 	{

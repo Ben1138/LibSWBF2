@@ -1,7 +1,6 @@
 #pragma once
-#include "stdafx.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Types
 {
 	struct Vector2
 	{

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Vector4.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Types
 {
 	Vector4::Vector4() : Vector3(), w(0)
 	{

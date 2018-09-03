@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Logger.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Logging
 {
 	using std::string;
 	using std::vector;
 
-	int32_t Logger::lastIndex = 0;
+	size_t Logger::lastIndex = 0;
 	vector<LoggerEntry> Logger::logEntrys;
 
 	
@@ -20,7 +20,7 @@ namespace LibSWBF2
 	{
 		string resLines;
 
-		for (unsigned int32_t i = 0; i < logEntrys.size(); i++)
+		for (size_t i = 0; i < logEntrys.size(); i++)
 		{
 			if (logEntrys[i].GetLogLevel() >= level)
 			{
@@ -35,7 +35,7 @@ namespace LibSWBF2
 	{
 		string resLines;
 
-		for (unsigned int32_t i = lastIndex; i < logEntrys.size(); i++)
+		for (size_t i = lastIndex; i < logEntrys.size(); i++)
 		{
 			if (logEntrys[i].GetLogLevel() >= level)
 			{

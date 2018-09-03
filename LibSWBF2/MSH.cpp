@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "MSH.h"
+#include "HeaderNames.h"
 
-namespace LibSWBF2
+namespace LibSWBF2::Chunks::MSH
 {
 	MSH::MSH()
 	{
