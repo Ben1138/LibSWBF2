@@ -11,8 +11,8 @@ namespace LibSWBF2::Types
 		Vector4(const float_t& x, const float_t& y, const float_t& z, const float_t& w);
 		~Vector4();
 
-		void WriteToStream(ofstream& stream) override;
-		void ReadFromStream(ifstream& stream) override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 
 		float_t w;
 	};

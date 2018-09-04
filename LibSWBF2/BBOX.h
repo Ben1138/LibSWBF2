@@ -13,8 +13,8 @@ namespace LibSWBF2::Chunks::MSH
 		~BBOX();
 
 		void RefreshSize() override;
-		void WriteToStream(ofstream& stream) override;
-		void ReadFromStream(ifstream& stream) override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 
 	private:
 		Vector4 Quaternion;

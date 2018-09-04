@@ -15,19 +15,18 @@ namespace LibSWBF2::Chunks::MSH
 
 	void SHVO::RefreshSize()
 	{
-		// TODO: proper implementation
-		Size = 0;
+		Size = sizeof(int32_t);
 	}
 
-	void SHVO::WriteToStream(ofstream& stream)
+	void SHVO::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream << ShadowVolume;
+		stream.WriteInt32(ShadowVolume);
 	}
 
-	void SHVO::ReadFromStream(ifstream& stream)
+	void SHVO::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		stream >> ShadowVolume;
+		ShadowVolume = stream.ReadInt32();
 	}
 }

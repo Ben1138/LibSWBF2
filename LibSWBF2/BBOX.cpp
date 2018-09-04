@@ -18,21 +18,21 @@ namespace LibSWBF2::Chunks::MSH
 		Size = Vector4::Size + Vector3::Size + Vector3::Size + sizeof(float_t);
 	}
 
-	void BBOX::WriteToStream(ofstream& stream)
+	void BBOX::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		Quaternion.WriteToStream(stream);
 		Center.WriteToStream(stream);
 		Extent.WriteToStream(stream);
-		stream << SphereRadius;
+		stream.WriteFloat(SphereRadius);
 	}
 
-	void BBOX::ReadFromStream(ifstream& stream)
+	void BBOX::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		Quaternion.ReadFromStream(stream);
 		Center.ReadFromStream(stream);
 		Extent.ReadFromStream(stream);
-		stream >> SphereRadius;
+		SphereRadius = stream.ReadFloat();
 	}
 }

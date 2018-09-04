@@ -10,8 +10,8 @@ namespace LibSWBF2::Chunks::MSH
 		~MSH();
 
 		void RefreshSize() override;
-		void WriteToStream(ofstream& stream) override;
-		void ReadFromStream(ifstream& stream) override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 
 	private:
 		SHVO shvo;

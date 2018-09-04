@@ -18,13 +18,15 @@ namespace LibSWBF2::Types
 
 	}
 
-	void Vector2::WriteToStream(ofstream& stream)
+	void Vector2::WriteToStream(FileWriter& stream)
 	{
-		stream << x << y;
+		stream.WriteFloat(x);
+		stream.WriteFloat(y);
 	}
 
-	void Vector2::ReadFromStream(ifstream& stream)
+	void Vector2::ReadFromStream(FileReader& stream)
 	{
-		stream >> x >> y;
+		x = stream.ReadFloat();
+		y = stream.ReadFloat();
 	}
 }

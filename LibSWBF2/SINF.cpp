@@ -19,15 +19,15 @@ namespace LibSWBF2::Chunks::MSH
 		Size = 0;
 	}
 
-	void SINF::WriteToStream(ofstream& stream)
+	void SINF::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream << ShadowVolume;
+		stream.WriteInt32(ShadowVolume);
 	}
 
-	void SINF::ReadFromStream(ifstream& stream)
+	void SINF::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		stream >> ShadowVolume;
+		ShadowVolume = stream.ReadInt32();
 	}
 }
