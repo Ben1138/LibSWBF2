@@ -31,7 +31,18 @@ namespace LibSWBF2::Chunks::MSH
 		BaseChunk::ReadFromStream(stream);
 		ChunkHeader head = stream.ReadChunkHeader(true);
 
+		// sadly, switch-case is not possible here (Error C2051)
 		if (head == HeaderNames::SHVO)
+		{
 			shvo.ReadFromStream(stream);
+		}
+		else if (head == HeaderNames::MSH2)
+		{
+			msh2.ReadFromStream(stream);
+		}
+		else
+		{
+			Logger::Add("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+		}
 	}
 }

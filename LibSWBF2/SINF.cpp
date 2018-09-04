@@ -15,19 +15,41 @@ namespace LibSWBF2::Chunks::MSH
 
 	void SINF::RefreshSize()
 	{
-		// TODO: proper implementation
-		Size = 0;
+		name.RefreshSize();
+		fram.RefreshSize();
+		bbox.RefreshSize();
+
+		Size = name.GetSize() + fram.GetSize() + bbox.GetSize();
 	}
 
 	void SINF::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteInt32(ShadowVolume);
+		name.WriteToStream(stream);
+		fram.WriteToStream(stream);
+		bbox.WriteToStream(stream);
 	}
 
 	void SINF::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ShadowVolume = stream.ReadInt32();
+		ChunkHeader head = stream.ReadChunkHeader(true);
+
+		if (head == HeaderNames::NAME)
+		{
+			name.ReadFromStream(stream);
+		}
+		else if (head == HeaderNames::FRAM)
+		{
+			fram.ReadFromStream(stream);
+		}
+		else if (head == HeaderNames::BBOX)
+		{
+			bbox.ReadFromStream(stream);
+		}
+		else
+		{
+			Logger::Add("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+		}
 	}
 }

@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseChunk.h"
+#include "NAME.h"
+#include "FRAM.h"
+#include "BBOX.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
@@ -13,6 +16,8 @@ namespace LibSWBF2::Chunks::MSH
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		int32_t ShadowVolume;
+		NAME name;
+		FRAM fram;
+		BBOX bbox;
 	};
 }

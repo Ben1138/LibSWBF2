@@ -2,9 +2,19 @@
 #include "HeaderNames.h"
 #include "FileWriter.h"
 #include "FileReader.h"
+#include "Logger.h"
+#include "Color.h"
+#include "Vector4.h"
 
 namespace LibSWBF2::Chunks
 {
+	using Logging::Logger;
+	using Logging::ELogType;
+	using Types::Color;
+	using Types::Vector2;
+	using Types::Vector3;
+	using Types::Vector4;
+
 	struct BaseChunk
 	{
 		BaseChunk();

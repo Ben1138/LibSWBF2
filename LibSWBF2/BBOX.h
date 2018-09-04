@@ -1,12 +1,8 @@
 #pragma once
 #include "BaseChunk.h"
-#include "Vector4.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	using Types::Vector3;
-	using Types::Vector4;
-
 	struct BBOX : public BaseChunk
 	{
 		BBOX();

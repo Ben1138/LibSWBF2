@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseChunk.h"
 #include "SHVO.h"
+#include "MSH2.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
@@ -15,5 +16,6 @@ namespace LibSWBF2::Chunks::MSH
 
 	private:
 		SHVO shvo;
+		MSH2 msh2;
 	};
 }
