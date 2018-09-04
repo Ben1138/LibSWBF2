@@ -1,4 +1,6 @@
 #pragma once
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {
@@ -10,8 +12,8 @@ namespace LibSWBF2::Types
 		Vector2(const float_t& x, const float_t& y);
 		~Vector2();
 
-		virtual void WriteToStream(ofstream& stream);
-		virtual void ReadFromStream(ifstream& stream);
+		virtual void WriteToStream(FileWriter& stream);
+		virtual void ReadFromStream(FileReader& stream);
 
 		float_t x;
 		float_t y;

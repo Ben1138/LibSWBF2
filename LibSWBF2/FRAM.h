@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::MSH
 		~FRAM();
 
 		void RefreshSize() override;
-		void WriteToStream(ofstream& stream) override;
-		void ReadFromStream(ifstream& stream) override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 
 	private:
 		int32_t FrameRangeStart;

@@ -18,13 +18,19 @@ namespace LibSWBF2::Types
 
 	}
 
-	void Vector4::WriteToStream(ofstream& stream)
+	void Vector4::WriteToStream(FileWriter& stream)
 	{
-		stream << x << y << z << w;
+		stream.WriteFloat(x);
+		stream.WriteFloat(y);
+		stream.WriteFloat(z);
+		stream.WriteFloat(w);
 	}
 
-	void Vector4::ReadFromStream(ifstream& stream)
+	void Vector4::ReadFromStream(FileReader& stream)
 	{
-		stream >> x >> y >> z >> w;
+		x = stream.ReadFloat();
+		y = stream.ReadFloat();
+		z = stream.ReadFloat();
+		w = stream.ReadFloat();
 	}
 }

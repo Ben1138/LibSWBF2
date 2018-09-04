@@ -18,19 +18,19 @@ namespace LibSWBF2::Chunks::MSH
 		Size = sizeof(int32_t) + sizeof(int32_t) + sizeof(float_t);
 	}
 
-	void FRAM::WriteToStream(ofstream& stream)
+	void FRAM::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream << FrameRangeStart;
-		stream << FrameRangeEnd;
-		stream << FramesPerSecond;
+		stream.WriteInt32(FrameRangeStart);
+		stream.WriteInt32(FrameRangeEnd);
+		stream.WriteFloat(FramesPerSecond);
 	}
 
-	void FRAM::ReadFromStream(ifstream& stream)
+	void FRAM::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		stream >> FrameRangeStart;
-		stream >> FrameRangeEnd;
-		stream >> FramesPerSecond;
+		FrameRangeStart = stream.ReadInt32();
+		FrameRangeEnd = stream.ReadInt32();
+		FramesPerSecond = stream.ReadFloat();
 	}
 }

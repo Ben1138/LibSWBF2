@@ -1,5 +1,7 @@
 #pragma once
 #include "HeaderNames.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -7,12 +9,11 @@ namespace LibSWBF2::Chunks
 	{
 		BaseChunk();
 		~BaseChunk();
-		static ChunkHeader PeekHeader(ifstream& stream);
 
 		// These MUST be overridden in subclasses!
 		virtual void RefreshSize();
-		virtual void WriteToStream(ofstream& stream);
-		virtual void ReadFromStream(ifstream& stream);
+		virtual void WriteToStream(FileWriter& stream);
+		virtual void ReadFromStream(FileReader& stream);
 
 		ChunkHeader GetHeader();
 		ChunkSize GetSize();

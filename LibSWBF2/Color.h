@@ -1,4 +1,6 @@
 #pragma once
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {
@@ -11,8 +13,8 @@ namespace LibSWBF2::Types
 		Color(const float_t& r, const float_t& g, const float_t& b, const float_t& a);
 		~Color();
 
-		void WriteToStream(ofstream& stream);
-		void ReadFromStream(ifstream& stream);
+		void WriteToStream(FileWriter& stream);
+		void ReadFromStream(FileReader& stream);
 
 		float_t r;
 		float_t g;

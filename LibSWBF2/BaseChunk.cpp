@@ -13,31 +13,22 @@ namespace LibSWBF2::Chunks
 
 	}
 
-	ChunkHeader BaseChunk::PeekHeader(ifstream& stream)
-	{
-		auto pos = stream.tellg();
-
-		ChunkHeader head;
-		stream >> head;
-		stream.seekg(pos);
-
-		return head;
-	}
-
 	void BaseChunk::RefreshSize()
 	{
 		Size = 0;
 	}
 
-	void BaseChunk::WriteToStream(ofstream& stream)
+	void BaseChunk::WriteToStream(FileWriter& stream)
 	{
 		RefreshSize();
-		stream << Header << Size;
+		stream.WriteChunkHeader(Header);
+		stream.WriteChunkSize(Size);
 	}
 
-	void BaseChunk::ReadFromStream(ifstream& stream)
+	void BaseChunk::ReadFromStream(FileReader& stream)
 	{
-		stream >> Header >> Size;
+		Header = stream.ReadChunkHeader(false);
+		Size = stream.ReadChunkSize();
 	}
 
 	ChunkHeader BaseChunk::GetHeader()

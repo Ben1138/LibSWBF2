@@ -20,16 +20,16 @@ namespace LibSWBF2::Chunks::MSH
 		Size = shvo.GetSize();
 	}
 
-	void MSH::WriteToStream(ofstream& stream)
+	void MSH::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		shvo.WriteToStream(stream);
 	}
 
-	void MSH::ReadFromStream(ifstream& stream)
+	void MSH::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ChunkHeader head = BaseChunk::PeekHeader(stream);
+		ChunkHeader head = stream.ReadChunkHeader(true);
 
 		if (head == HeaderNames::SHVO)
 			shvo.ReadFromStream(stream);

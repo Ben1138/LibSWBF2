@@ -21,13 +21,19 @@ namespace LibSWBF2::Types
 		
 	}
 
-	void Color::WriteToStream(ofstream& stream)
+	void Color::WriteToStream(FileWriter& stream)
 	{
-		stream << r << g << b << a;
+		stream.WriteFloat(r);
+		stream.WriteFloat(g);
+		stream.WriteFloat(b);
+		stream.WriteFloat(a);
 	}
 
-	void Color::ReadFromStream(ifstream& stream)
+	void Color::ReadFromStream(FileReader& stream)
 	{
-		stream >> r >> g >> b >> a;
+		r = stream.ReadFloat();
+		g = stream.ReadFloat();
+		b = stream.ReadFloat();
+		a = stream.ReadFloat();
 	}
 }
