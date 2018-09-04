@@ -2,6 +2,8 @@
 
 namespace LibSWBF2
 {
+	using std::ifstream;
+
 	class FileReader : private ifstream
 	{
 	public:
@@ -9,12 +11,16 @@ namespace LibSWBF2
 		~FileReader();
 
 		bool Open(const string& File);
+		ChunkHeader ReadChunkHeader(const bool& peek);
+		ChunkSize ReadChunkSize();
 		int32_t ReadInt32();
 		float_t ReadFloat();
+		string ReadString(size_t length);
 		void Close();
 	private:
-		void CheckGood();
+		bool CheckGood(size_t ReadSize);
 
+		size_t FileSize;
 		string FileName;
 	};
 }

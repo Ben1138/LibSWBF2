@@ -33,16 +33,58 @@ namespace LibSWBF2
 		return true;
 	}
 
+	void FileWriter::WriteChunkHeader(const ChunkHeader& value)
+	{
+		if (CheckGood())
+		{
+			operator<<(value);
+		}
+	}
+
+	void FileWriter::WriteChunkSize(const ChunkSize& value)
+	{
+		if (CheckGood())
+		{
+			operator<<(value);
+		}
+	}
+
 	void FileWriter::WriteInt32(const int32_t& value)
 	{
-		CheckGood();
-		operator<<(value);
+		if (CheckGood())
+		{
+			operator<<(value);
+		}
 	}
 
 	void FileWriter::WriteFloat(const float_t& value)
 	{
-		CheckGood();
-		operator<<(value);
+		if (CheckGood())
+		{
+			operator<<(value);
+		}
+	}
+
+	void FileWriter::WriteString(const string& value, const bool& SizeShouldBeMultipleOfFour)
+	{
+		// string in chunk needs to be a zero terminated c-string
+		// size must be a multiple of 4
+		// remaining bytes should be filled with 0x00
+
+		if (CheckGood())
+		{
+			size_t length = value.size();
+			write(value.c_str(), length);
+
+			int remaining = 4 - (length % 4);
+			char* empty = new char[remaining];
+
+			for (int i = 0; i < remaining; i++)
+				empty[i] = 0;
+
+			write(empty, remaining);
+			delete[] empty;
+		}
 	}
 
 	void FileWriter::Close()
@@ -57,12 +99,20 @@ namespace LibSWBF2
 		close();
 	}
 
-	void FileWriter::CheckGood()
+	bool FileWriter::CheckGood()
 	{
 		if (!is_open())
-			Logger::Add("Error during write process! File '"+ FileName +"' is not open!", ELogType::Error);
+		{
+			Logger::Add("Error during write process! File '" + FileName + "' is not open!", ELogType::Error);
+			return false;
+		}
 
 		if (!good())
-			Logger::Add("Error during write process in '"+ FileName +"'!", ELogType::Error);
+		{
+			Logger::Add("Error during write process in '" + FileName + "'!", ELogType::Error);
+			return false;
+		}
+
+		return true;
 	}
 }

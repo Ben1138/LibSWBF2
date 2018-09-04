@@ -19,7 +19,7 @@ namespace LibSWBF2
 
 	bool FileReader::Open(const string& File)
 	{
-		open(File, std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+		open(File, std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
 		bool success = good() && is_open();
 
 		if (!success)
@@ -29,23 +29,70 @@ namespace LibSWBF2
 			return false;
 		}
 
+		FileSize = tellg();
+		seekg(0);
+
 		FileName = File;
 		return true;
 	}
 
+	ChunkHeader FileReader::ReadChunkHeader(const bool& peek)
+	{
+		ChunkHeader value = 0;
+		if (CheckGood(sizeof(ChunkHeader)))
+		{
+			auto pos = tellg();
+			operator>>(value);
+
+			// do not advance our reading position when peeking
+			if (peek)
+			{
+				seekg(pos);
+			}
+		}
+		return value;
+	}
+
+	ChunkSize FileReader::ReadChunkSize()
+	{
+		ChunkSize value = 0;
+		if (CheckGood(sizeof(ChunkSize)))
+		{
+			operator>>(value);
+		}
+		return value;
+	}
+
 	int32_t FileReader::ReadInt32()
 	{
-		CheckGood();
-		int32_t value;
-		operator>>(value);
+		int32_t value = 0;
+		if (CheckGood(sizeof(int32_t)))
+		{
+			operator>>(value);
+		}
 		return value;
 	}
 
 	float_t FileReader::ReadFloat()
 	{
-		CheckGood();
-		float_t value;
-		operator>>(value);
+		float_t value = 0;
+		if (CheckGood(sizeof(float_t)))
+		{
+			operator>>(value);
+		}
+		return value;
+	}
+
+	string FileReader::ReadString(size_t length)
+	{
+		string value = "";
+		if (CheckGood(length))
+		{
+			char* str = new char[length];
+			read(str, length);
+			value = str;
+			delete[] str;
+		}
 		return value;
 	}
 
@@ -61,12 +108,27 @@ namespace LibSWBF2
 		close();
 	}
 
-	void FileReader::CheckGood()
+	bool FileReader::CheckGood(size_t ReadSize)
 	{
 		if (!is_open())
+		{
 			Logger::Add("Error during read process! File '" + FileName + "' is not open!", ELogType::Error);
+			return false;
+		}
 
 		if (!good())
+		{
 			Logger::Add("Error during read process in '" + FileName + "'!", ELogType::Error);
+			return false;
+		}
+
+		size_t current = tellg();
+		if (current + FileSize >= FileSize)
+		{
+			Logger::Add("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(FileSize), ELogType::Error);
+			return false;
+		}
+
+		return true;
 	}
 }
