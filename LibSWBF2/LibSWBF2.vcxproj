@@ -152,6 +152,8 @@
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FRAM.h" />
     <ClInclude Include="HeaderNames.h" />
     <ClInclude Include="MSH2.h" />
@@ -173,6 +175,8 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="API.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="FRAM.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerEntry.cpp" />

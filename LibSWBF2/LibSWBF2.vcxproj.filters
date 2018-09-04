@@ -93,6 +93,12 @@
     <ClInclude Include="HeaderNames.h">
       <Filter>Headerdateien\Chunks</Filter>
     </ClInclude>
+    <ClInclude Include="FileWriter.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="MSH.cpp">
       <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWriter.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
