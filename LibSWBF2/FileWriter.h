@@ -2,6 +2,8 @@
 
 namespace LibSWBF2
 {
+	using std::ofstream;
+
 	class FileWriter : private ofstream
 	{
 	public:
@@ -9,11 +11,14 @@ namespace LibSWBF2
 		~FileWriter();
 
 		bool Open(const string& File);
+		void WriteChunkHeader(const ChunkHeader& value);
+		void WriteChunkSize(const ChunkSize& value);
 		void WriteInt32(const int32_t& value);
 		void WriteFloat(const float_t& value);
+		void WriteString(const string& value, const bool& SizeShouldBeMultipleOfFour);
 		void Close();
 	private:
-		void CheckGood();
+		bool CheckGood();
 
 		string FileName;
 	};
