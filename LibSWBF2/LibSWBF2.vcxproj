@@ -149,13 +149,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API.h" />
+    <ClInclude Include="ATRB.h" />
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
+    <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FRAM.h" />
     <ClInclude Include="HeaderNames.h" />
+    <ClInclude Include="MATD.h" />
+    <ClInclude Include="MATD_DATA.h" />
+    <ClInclude Include="MATL.h" />
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerEntry.h" />
@@ -170,6 +175,7 @@
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ATRB.cpp" />
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="BBOX.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -180,6 +186,9 @@
     <ClCompile Include="FRAM.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerEntry.cpp" />
+    <ClCompile Include="MATD.cpp" />
+    <ClCompile Include="MATD_DATA.cpp" />
+    <ClCompile Include="MATL.cpp" />
     <ClCompile Include="MSH.cpp" />
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="NAME.cpp" />

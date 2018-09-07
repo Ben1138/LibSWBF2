@@ -3,15 +3,19 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct NAME : public BaseChunk
+	struct MATD_DATA : public BaseChunk
 	{
-		NAME();
-		~NAME();
+		MATD_DATA();
+		~MATD_DATA();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		string Text;
+	private:
+		Color Diffuse;
+		Color Specular;
+		Color Ambient;
+		float_t SpecularSharpness;
 	};
 }

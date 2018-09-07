@@ -27,6 +27,8 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader ATRB = GetHeaderValue("ATRB");
 	const ChunkHeader TX0D = GetHeaderValue("TX0D");
 	const ChunkHeader TX1D = GetHeaderValue("TX1D");
+	const ChunkHeader TX2D = GetHeaderValue("TX2D");
+	const ChunkHeader TX3D = GetHeaderValue("TX3D");
 	const ChunkHeader MODL = GetHeaderValue("MODL");
 	const ChunkHeader MTYP = GetHeaderValue("MTYP");
 	const ChunkHeader MNDX = GetHeaderValue("MNDX");
