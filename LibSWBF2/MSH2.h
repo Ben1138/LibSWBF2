@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseChunk.h"
 #include "SINF.h"
+#include "MATL.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
@@ -14,6 +15,7 @@ namespace LibSWBF2::Chunks::MSH
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		int32_t ShadowVolume;
+		SINF sinf;
+		MATL matl;
 	};
 }

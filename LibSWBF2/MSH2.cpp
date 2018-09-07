@@ -15,18 +15,23 @@ namespace LibSWBF2::Chunks::MSH
 
 	void MSH2::RefreshSize()
 	{
-		Size = sizeof(int32_t);
+		sinf.RefreshSize();
+		matl.RefreshSize();
+
+		Size = sinf.GetSize() + matl.GetSize();
 	}
 
 	void MSH2::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteInt32(ShadowVolume);
+		sinf.WriteToStream(stream);
+		matl.WriteToStream(stream);
 	}
 
 	void MSH2::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ShadowVolume = stream.ReadInt32();
+		sinf.ReadFromStream(stream);
+		matl.ReadFromStream(stream);
 	}
 }

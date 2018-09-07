@@ -1,17 +1,20 @@
 #pragma once
 #include "BaseChunk.h"
+#include "NAME.h"
+#include "MATD.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct NAME : public BaseChunk
+	struct MATL : public BaseChunk
 	{
-		NAME();
-		~NAME();
+		MATL();
+		~MATL();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		string Text;
+	private:
+		vector<MATD> Materials;
 	};
 }

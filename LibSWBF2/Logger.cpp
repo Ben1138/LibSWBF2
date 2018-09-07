@@ -45,4 +45,9 @@ namespace LibSWBF2::Logging
 
 		return resLines;
 	}
+
+	bool Logger::HasNewLogs()
+	{
+		return lastIndex < logEntrys.size() - 1;
+	}
 }

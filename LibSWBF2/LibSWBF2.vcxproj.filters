@@ -99,6 +99,21 @@
     <ClInclude Include="FileReader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="CAMR.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MATD.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MATD_DATA.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MATL.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="ATRB.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -157,6 +172,18 @@
     </ClCompile>
     <ClCompile Include="FileReader.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="MATD_DATA.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MATD.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MATL.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="ATRB.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
