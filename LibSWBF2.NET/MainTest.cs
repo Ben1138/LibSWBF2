@@ -20,6 +20,9 @@ namespace Test
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Press any key...");
+            Console.ReadKey();
+
             Log.Add("Test1", ELogType.Info);
             Log.Add("Test2fdgdfg", ELogType.Info);
             Log.Add("Testdfgd3", ELogType.Info);

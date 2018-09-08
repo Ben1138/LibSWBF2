@@ -3,14 +3,35 @@
 
 namespace LibSWBF2::Logging
 {
-	size_t Logger::lastIndex = 0;
-	vector<LoggerEntry> Logger::logEntrys;
+	unique_ptr<Logger> Logger::instance = nullptr;
 
+	Logger::Logger()
+	{
+		writer.Open(LOG_FILE, true);
+	}
+
+	Logger::~Logger()
+	{
+		writer.Close();
+	}
+
+	unique_ptr<Logger>& Logger::GetInstance()
+	{
+		if (instance == nullptr)
+		{
+			instance = std::make_unique<Logger>();
+		}
+
+		return instance;
+	}
 	
 	void Logger::Add(const string &message, const ELogType &level)
 	{
 		if (message.length() > 0)
+		{
 			logEntrys.push_back(LoggerEntry(message, level));
+			writer.WriteLine("[" + SLogType[level] + "] " + message);
+		}
 	}
 
 	string Logger::GetAllLines(const ELogType &level)
