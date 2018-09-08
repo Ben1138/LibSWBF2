@@ -69,6 +69,14 @@ namespace LibSWBF2
 		}
 	}
 
+	void FileWriter::WriteUInt32(const uint32_t& value)
+	{
+		if (CheckGood())
+		{
+			operator<<(value);
+		}
+	}
+
 	void FileWriter::WriteFloat(const float_t& value)
 	{
 		if (CheckGood())

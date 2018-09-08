@@ -1,21 +1,26 @@
 #pragma once
 #include "BaseChunk.h"
 #include "NAME.h"
-#include "FRAM.h"
-#include "BBOX.h"
+#include "MTYP.h"
+#include "FLGS.h"
+#include "TRAN.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct MATL : public BaseChunk
+	struct MODL : public BaseChunk
 	{
-		MATL();
-		~MATL();
+		MODL();
+		~MODL();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t Length;
+		NAME name;
+		MTYP mtyp;
+		NAME prnt;
+		FLGS flgs;
+		TRAN tran;
 	};
 }

@@ -83,6 +83,16 @@ namespace LibSWBF2
 		return value;
 	}
 
+	uint32_t FileReader::ReadUInt32()
+	{
+		uint32_t value = 0;
+		if (CheckGood(sizeof(uint32_t)))
+		{
+			operator>>(value);
+		}
+		return value;
+	}
+
 	float_t FileReader::ReadFloat()
 	{
 		float_t value = 0;

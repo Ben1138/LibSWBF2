@@ -15,6 +15,7 @@ namespace LibSWBF2
 		ChunkSize ReadChunkSize();
 		uint8_t ReadByte();
 		int32_t ReadInt32();
+		uint32_t ReadUInt32();
 		float_t ReadFloat();
 		string ReadString(size_t length);
 		void Close();

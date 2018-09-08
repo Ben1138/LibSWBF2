@@ -1,21 +1,27 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
-#include "FRAM.h"
-#include "BBOX.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct MATL : public BaseChunk
+	enum EModelType : uint32_t
 	{
-		MATL();
-		~MATL();
+		Null = 0,
+		Skin = 1,
+		Envelope = 3,
+		Static = 4,
+		Shadow = 6
+	};
+
+	struct MTYP : public BaseChunk
+	{
+		MTYP();
+		~MTYP();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t Length;
+		EModelType ModelType;
 	};
 }
