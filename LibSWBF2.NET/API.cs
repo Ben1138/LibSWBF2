@@ -5,19 +5,19 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2
 {
-    internal static class API
+    internal static unsafe class API
     {
         const int MARSH_STRING_BUFFER_SIZE = 4096;
 
 
         [DllImport("LibSWBF2.dll")]
-        public static extern unsafe MSH._MSH* MSH_LoadFromFile(string path);
+        public static extern MSH._MSH* MSH_LoadFromFile(string path);
 
         [DllImport("LibSWBF2.dll")]
-        public static extern unsafe MSH._MSH* MSH_Create();
+        public static extern MSH._MSH* MSH_Create();
 
         [DllImport("LibSWBF2.dll")]
-        public static extern unsafe void MSH_Delete(MSH._MSH* color);
+        public static extern void MSH_Delete(MSH._MSH* color);
 
 
 

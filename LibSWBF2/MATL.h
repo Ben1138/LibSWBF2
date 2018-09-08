@@ -15,6 +15,6 @@ namespace LibSWBF2::Chunks::MSH
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		vector<MATD> Materials;
+		vector<MATD> matl;
 	};
 }

@@ -9,14 +9,21 @@ namespace LibSWBF2::Logging
 		Error = 2
 	};
 
+	const string SLogType[] = 
+	{
+		"Info",
+		"Warning",
+		"Error"
+	};
+
 	struct LoggerEntry
 	{
 		LoggerEntry(const std::string &message, const ELogType &level);
 
-		std::string GetLogMessage();
+		string GetLogMessage();
 		ELogType GetLogLevel();
 	private:
-		std::string message;
+		string message;
 		ELogType level;
 	};
 }

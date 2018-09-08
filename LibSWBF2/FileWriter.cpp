@@ -12,19 +12,23 @@ namespace LibSWBF2
 		
 	}
 
-
 	FileWriter::~FileWriter()
 	{
 	}
 
 	bool FileWriter::Open(const string& File)
 	{
-		open(File, std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+		return Open(File, false);
+	}
+
+	bool FileWriter::Open(const string& File, const bool& LogFile)
+	{
+		open(File, std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
 		bool success = good() && is_open();
 
 		if (!success)
 		{
-			Logger::Add("File '" + File + "' could not be found / created!", ELogType::Error);
+			Log("File '" + File + "' could not be found / created!", ELogType::Error);
 			FileName = "";
 			return false;
 		}
@@ -95,11 +99,21 @@ namespace LibSWBF2
 		}
 	}
 
+	void FileWriter::WriteLine(const string& line)
+	{
+		if (CheckGood())
+		{
+			string tmp = line + "\n";
+			write(tmp.c_str(), tmp.size());
+			flush();
+		}
+	}
+
 	void FileWriter::Close()
 	{
 		if (!is_open())
 		{
-			Logger::Add("Nothing has been opened yet!", ELogType::Error);
+			Log("Nothing has been opened yet!", ELogType::Error);
 			return;
 		}
 
@@ -111,13 +125,13 @@ namespace LibSWBF2
 	{
 		if (!is_open())
 		{
-			Logger::Add("Error during write process! File '" + FileName + "' is not open!", ELogType::Error);
+			Log("Error during write process! File '" + FileName + "' is not open!", ELogType::Error);
 			return false;
 		}
 
 		if (!good())
 		{
-			Logger::Add("Error during write process in '" + FileName + "'!", ELogType::Error);
+			Log("Error during write process in '" + FileName + "'!", ELogType::Error);
 			return false;
 		}
 

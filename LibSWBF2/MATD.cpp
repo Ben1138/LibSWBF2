@@ -87,7 +87,7 @@ namespace LibSWBF2::Chunks::MSH
 		}
 		else
 		{
-			Logger::Add("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+			Log("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
 		}
 	}
 }

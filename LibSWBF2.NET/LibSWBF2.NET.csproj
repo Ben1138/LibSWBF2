@@ -72,6 +72,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /Y "$(SolutionDir)x64\Debug\LibSWBF2.dll" "$(TargetDir)LibSWBF2.dll"</PreBuildEvent>
+    <PreBuildEvent>copy /Y "$(SolutionDir)x64\Debug\LibSWBF2.dll" "$(TargetDir)LibSWBF2.dll"
+copy /Y "$(SolutionDir)x64\Debug\LibSWBF2.pdb" "$(TargetDir)LibSWBF2.pdb"</PreBuildEvent>
   </PropertyGroup>
 </Project>
