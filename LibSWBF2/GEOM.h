@@ -6,16 +6,16 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct MATL : public BaseChunk
+	struct GEOM : public BaseChunk
 	{
-		MATL();
-		~MATL();
+		GEOM();
+		~GEOM();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t Length;
+		BBOX bbox;
 	};
 }

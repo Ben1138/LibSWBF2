@@ -78,9 +78,6 @@
     <ClInclude Include="SINF.h">
       <Filter>Headerdateien\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="NAME.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
-    </ClInclude>
     <ClInclude Include="FRAM.h">
       <Filter>Headerdateien\Chunks\MSH</Filter>
     </ClInclude>
@@ -112,6 +109,18 @@
       <Filter>Headerdateien\Chunks\MSH</Filter>
     </ClInclude>
     <ClInclude Include="ATRB.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MODL.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MTYP.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="MNDX.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="NAME.h">
       <Filter>Headerdateien\Chunks\MSH</Filter>
     </ClInclude>
   </ItemGroup>
@@ -183,6 +192,15 @@
       <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
     <ClCompile Include="ATRB.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MODL.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MTYP.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MNDX.cpp">
       <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
   </ItemGroup>

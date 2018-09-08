@@ -16,6 +16,7 @@ namespace LibSWBF2
 		void WriteChunkSize(const ChunkSize& value);
 		void WriteByte(const uint8_t& value);
 		void WriteInt32(const int32_t& value);
+		void WriteUInt32(const uint32_t& value);
 		void WriteFloat(const float_t& value);
 		void WriteString(const string& value, const bool& SizeShouldBeMultipleOfFour);
 		void WriteLine(const string& line);
