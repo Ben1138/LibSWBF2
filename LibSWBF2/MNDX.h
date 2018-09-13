@@ -3,15 +3,6 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	enum EModelType : uint32_t
-	{
-		Null = 0,
-		Skin = 1,
-		Envelope = 3,
-		Static = 4,
-		Shadow = 6
-	};
-
 	struct MNDX : public BaseChunk
 	{
 		MNDX();
