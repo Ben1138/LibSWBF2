@@ -27,6 +27,6 @@ namespace LibSWBF2::Chunks::MSH
 	void MNDX::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ModelIndex = (EModelType)stream.ReadUInt32();
+		ModelIndex = stream.ReadUInt32();
 	}
 }

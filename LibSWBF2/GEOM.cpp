@@ -15,24 +15,24 @@ namespace LibSWBF2::Chunks::MSH
 
 	void GEOM::RefreshSize()
 	{
-		name.RefreshSize();
+		/*name.RefreshSize();
 		fram.RefreshSize();
 		bbox.RefreshSize();
 
-		Size = name.GetSize() + fram.GetSize() + bbox.GetSize();
+		Size = name.GetSize() + fram.GetSize() + bbox.GetSize();*/
 	}
 
 	void GEOM::WriteToStream(FileWriter& stream)
 	{
-		BaseChunk::WriteToStream(stream);
+		/*BaseChunk::WriteToStream(stream);
 		name.WriteToStream(stream);
 		fram.WriteToStream(stream);
-		bbox.WriteToStream(stream);
+		bbox.WriteToStream(stream);*/
 	}
 
 	void GEOM::ReadFromStream(FileReader& stream)
 	{
-		BaseChunk::ReadFromStream(stream);
+		/*BaseChunk::ReadFromStream(stream);
 		ChunkHeader head = stream.ReadChunkHeader(true);
 
 		if (head == HeaderNames::NAME)
@@ -50,6 +50,6 @@ namespace LibSWBF2::Chunks::MSH
 		else
 		{
 			Log("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
-		}
+		}*/
 	}
 }
