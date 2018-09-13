@@ -123,6 +123,15 @@
     <ClInclude Include="NAME.h">
       <Filter>Headerdateien\Chunks\MSH</Filter>
     </ClInclude>
+    <ClInclude Include="FLGS.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="TRAN.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="GEOM.h">
+      <Filter>Headerdateien\Chunks\MSH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -201,6 +210,15 @@
       <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
     <ClCompile Include="MNDX.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="FLGS.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="TRAN.cpp">
+      <Filter>Quelldateien\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="GEOM.cpp">
       <Filter>Quelldateien\Chunks\MSH</Filter>
     </ClCompile>
   </ItemGroup>
