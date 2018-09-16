@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MATL.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	MATL::MATL()
 	{

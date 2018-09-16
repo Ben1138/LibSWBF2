@@ -17,7 +17,7 @@ namespace LibSWBF2::API
 {
 	// be carefull in the futute!
 	// there might be multiple chunks with the same name
-	using namespace Chunks::MSH;
+	using namespace Chunks::Mesh;
 	using namespace Types;
 	using namespace Logging;
 

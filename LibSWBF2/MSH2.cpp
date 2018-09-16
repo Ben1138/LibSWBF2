@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MSH2.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	MSH2::MSH2()
 	{

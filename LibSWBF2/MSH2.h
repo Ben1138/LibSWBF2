@@ -3,7 +3,7 @@
 #include "SINF.h"
 #include "MATL.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH2 : public BaseChunk
 	{

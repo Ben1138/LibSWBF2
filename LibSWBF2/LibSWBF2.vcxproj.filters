@@ -28,14 +28,14 @@
     <Filter Include="Quelldateien\Chunks">
       <UniqueIdentifier>{b21a9de8-812a-43af-95dc-5ec4a88bdf4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien\Chunks\MSH">
-      <UniqueIdentifier>{84f3babe-a91b-4eed-b97a-a2367163c22b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quelldateien\Chunks\MSH">
       <UniqueIdentifier>{c44b84f0-0e69-4f57-8e8f-a886c2d2ca96}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headerdateien\BaseTypes">
       <UniqueIdentifier>{6971bb2b-5181-4758-9ae8-7e0a6a69bcd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Chunks\Mesh">
+      <UniqueIdentifier>{84f3babe-a91b-4eed-b97a-a2367163c22b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,22 +70,22 @@
       <Filter>Headerdateien\Chunks</Filter>
     </ClInclude>
     <ClInclude Include="MSH2.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="SHVO.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="SINF.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="FRAM.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="BBOX.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MSH.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="HeaderNames.h">
       <Filter>Headerdateien\Chunks</Filter>
@@ -97,40 +97,40 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="CAMR.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MATD.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MATD_DATA.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MATL.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ATRB.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MODL.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MTYP.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MNDX.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="NAME.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="FLGS.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="TRAN.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="GEOM.h">
-      <Filter>Headerdateien\Chunks\MSH</Filter>
+      <Filter>Headerdateien\Chunks\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
