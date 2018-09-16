@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseChunk.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	struct MNDX : public BaseChunk
 	{

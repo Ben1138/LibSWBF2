@@ -3,7 +3,7 @@
 #include "SHVO.h"
 #include "MSH2.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH : public BaseChunk
 	{

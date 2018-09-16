@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MATD_DATA.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	MATD_DATA::MATD_DATA()
 	{

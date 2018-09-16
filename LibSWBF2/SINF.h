@@ -4,7 +4,7 @@
 #include "FRAM.h"
 #include "BBOX.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	struct SINF : public BaseChunk
 	{

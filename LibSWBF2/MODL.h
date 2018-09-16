@@ -5,7 +5,7 @@
 #include "FLGS.h"
 #include "TRAN.h"
 
-namespace LibSWBF2::Chunks::MSH
+namespace LibSWBF2::Chunks::Mesh
 {
 	struct MODL : public BaseChunk
 	{
