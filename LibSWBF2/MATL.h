@@ -15,6 +15,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		vector<MATD> matl;
+		vector<MATD> m_Materials;
 	};
 }

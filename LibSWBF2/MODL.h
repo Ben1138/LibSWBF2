@@ -17,10 +17,10 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		NAME name;
-		MTYP mtyp;
-		NAME prnt;
-		FLGS flgs;
-		TRAN tran;
+		NAME m_NAME;
+		MTYP m_MTYP;
+		NAME m_PRNT;
+		FLGS m_FLGS;
+		TRAN m_TRAN;
 	};
 }

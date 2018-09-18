@@ -9,16 +9,16 @@ namespace LibSWBF2::Types
 		static const ChunkSize Size = sizeof(float_t) * 4;
 
 		Color();
-		Color(const float_t& r, const float_t& g, const float_t& b);
-		Color(const float_t& r, const float_t& g, const float_t& b, const float_t& a);
+		Color(const float_t& Red, const float_t& Green, const float_t& Blue);
+		Color(const float_t& Red, const float_t& Green, const float_t& Blue, const float_t& Alpha);
 		~Color();
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		float_t r;
-		float_t g;
-		float_t b;
-		float_t a;
+		float_t m_Red;
+		float_t m_Green;
+		float_t m_Blue;
+		float_t m_Alpha;
 	};
 }

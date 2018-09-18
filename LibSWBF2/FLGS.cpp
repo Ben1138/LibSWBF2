@@ -15,18 +15,18 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void FLGS::RefreshSize()
 	{
-		Size = sizeof(uint32_t);
+		m_Size = sizeof(uint32_t);
 	}
 
 	void FLGS::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32(ModelDisplayFlags);
+		stream.WriteUInt32(m_ModelDisplayFlags);
 	}
 
 	void FLGS::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ModelDisplayFlags = stream.ReadUInt32();
+		m_ModelDisplayFlags = stream.ReadUInt32();
 	}
 }

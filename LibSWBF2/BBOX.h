@@ -13,9 +13,9 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		Vector4 Quaternion;
-		Vector3 Center;
-		Vector3 Extent;
-		float_t SphereRadius;
+		Vector4 m_Quaternion;
+		Vector3 m_Center;
+		Vector3 m_Extent;
+		float_t m_SphereRadius;
 	};
 }

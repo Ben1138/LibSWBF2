@@ -13,8 +13,8 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		Vector3 Scale;
-		Vector4 Rotation;
-		Vector3 Translation;
+		Vector3 m_Scale;
+		Vector4 m_Rotation;
+		Vector3 m_Translation;
 	};
 }

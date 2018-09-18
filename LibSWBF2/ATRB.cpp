@@ -15,24 +15,24 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void ATRB::RefreshSize()
 	{
-		Size = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);
+		m_Size = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);
 	}
 
 	void ATRB::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteByte(RenderFlags);
-		stream.WriteByte(RenderType);
-		stream.WriteByte(Data0);
-		stream.WriteByte(Data1);
+		stream.WriteByte(m_RenderFlags);
+		stream.WriteByte(m_RenderType);
+		stream.WriteByte(m_Data0);
+		stream.WriteByte(m_Data1);
 	}
 
 	void ATRB::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		RenderFlags = (ERenderFlags)stream.ReadByte();
-		RenderType = (ERenderType)stream.ReadByte();
-		Data0 = stream.ReadByte();
-		Data1 = stream.ReadByte();
+		m_RenderFlags = (ERenderFlags)stream.ReadByte();
+		m_RenderType = (ERenderType)stream.ReadByte();
+		m_Data0 = stream.ReadByte();
+		m_Data1 = stream.ReadByte();
 	}
 }

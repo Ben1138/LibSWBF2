@@ -19,11 +19,11 @@ namespace LibSWBF2::Logging
 		string GetLastLines(const ELogType &level);
 		bool HasNewLogs();
 	private:
-		static unique_ptr<Logger> instance;
+		static unique_ptr<Logger> m_Instance;
 
-		FileWriter writer;
-		vector<LoggerEntry> logEntrys;
-		size_t lastIndex = 0;
+		FileWriter m_Writer;
+		vector<LoggerEntry> m_LogEntrys;
+		size_t m_LastIndex = 0;
 	};
 
 	inline void Log(const std::string &message, const ELogType &level)

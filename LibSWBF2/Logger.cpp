@@ -3,34 +3,34 @@
 
 namespace LibSWBF2::Logging
 {
-	unique_ptr<Logger> Logger::instance = nullptr;
+	unique_ptr<Logger> Logger::m_Instance = nullptr;
 
 	Logger::Logger()
 	{
-		writer.Open(LOG_FILE, true);
+		m_Writer.Open(LOG_FILE, true);
 	}
 
 	Logger::~Logger()
 	{
-		writer.Close();
+		m_Writer.Close();
 	}
 
 	unique_ptr<Logger>& Logger::GetInstance()
 	{
-		if (instance == nullptr)
+		if (m_Instance == nullptr)
 		{
-			instance = std::make_unique<Logger>();
+			m_Instance = std::make_unique<Logger>();
 		}
 
-		return instance;
+		return m_Instance;
 	}
 	
 	void Logger::Add(const string &message, const ELogType &level)
 	{
 		if (message.length() > 0)
 		{
-			logEntrys.push_back(LoggerEntry(message, level));
-			writer.WriteLine("[" + SLogType[level] + "] " + message);
+			m_LogEntrys.push_back(LoggerEntry(message, level));
+			m_Writer.WriteLine("[" + SLogType[level] + "] " + message);
 		}
 	}
 
@@ -38,11 +38,11 @@ namespace LibSWBF2::Logging
 	{
 		string resLines;
 
-		for (size_t i = 0; i < logEntrys.size(); i++)
+		for (size_t i = 0; i < m_LogEntrys.size(); i++)
 		{
-			if (logEntrys[i].GetLogLevel() >= level)
+			if (m_LogEntrys[i].GetLogLevel() >= level)
 			{
-				resLines += logEntrys[i].GetLogMessage() + "\n";
+				resLines += m_LogEntrys[i].GetLogMessage() + "\n";
 			}
 		}
 
@@ -53,22 +53,22 @@ namespace LibSWBF2::Logging
 	{
 		string resLines;
 
-		for (size_t i = lastIndex; i < logEntrys.size(); i++)
+		for (size_t i = m_LastIndex; i < m_LogEntrys.size(); i++)
 		{
-			if (logEntrys[i].GetLogLevel() >= level)
+			if (m_LogEntrys[i].GetLogLevel() >= level)
 			{
-				resLines += logEntrys[i].GetLogMessage() + "\n";
+				resLines += m_LogEntrys[i].GetLogMessage() + "\n";
 			}
 		}
 
 		//save position for next request
-		lastIndex = logEntrys.size() - 1;
+		m_LastIndex = m_LogEntrys.size() - 1;
 
 		return resLines;
 	}
 
 	bool Logger::HasNewLogs()
 	{
-		return lastIndex < logEntrys.size() - 1;
+		return m_LastIndex < m_LogEntrys.size() - 1;
 	}
 }

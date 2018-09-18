@@ -24,6 +24,6 @@ namespace LibSWBF2
 	private:
 		bool CheckGood();
 
-		string FileName;
+		string m_FileName;
 	};
 }

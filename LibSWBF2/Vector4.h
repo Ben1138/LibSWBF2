@@ -14,6 +14,6 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		float_t w;
+		float_t m_W;
 	};
 }

@@ -165,7 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibSWBF2\LibSWBF2.vcxproj">
-      <Project>{c901f2c7-c8d3-4309-8f0e-351fd722a500}</Project>
+      <Project>{6b0dc0e0-c1ff-49d4-bf4a-dbe195212030}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,11 +15,11 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		NAME name;
-		MATD_DATA data;
-		NAME tx0d;
-		NAME tx1d;
-		NAME tx2d;
-		NAME tx3d;
+		NAME m_NAME;
+		MATD_DATA m_DATA;
+		NAME m_TX0D;
+		NAME m_TX1D;
+		NAME m_TX2D;
+		NAME m_TX3D;
 	};
 }

@@ -5,25 +5,19 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Chunks">
-      <UniqueIdentifier>{e29ad2ff-fd30-45a8-b7b5-4e3a4539ce2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Chunks\Mesh">
-      <UniqueIdentifier>{c4893b89-dd00-4db7-8f72-dba5ce55833b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\Chunks">
-      <UniqueIdentifier>{7693ab9b-6a94-44bc-a934-cbf9b05006a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Chunks\MSH">
-      <UniqueIdentifier>{6d273336-6d6e-4b4d-b9a1-8b509c7168ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Mesh">
+      <UniqueIdentifier>{c4893b89-dd00-4db7-8f72-dba5ce55833b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mesh">
+      <UniqueIdentifier>{6d273336-6d6e-4b4d-b9a1-8b509c7168ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,7 +31,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MSH.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+      <Filter>Header Files\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,7 +45,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MSH.cpp">
-      <Filter>Source Files\Chunks\MSH</Filter>
+      <Filter>Source Files\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		SINF sinf;
-		MATL matl;
+		SINF m_SINF;
+		MATL m_MATL;
 	};
 }

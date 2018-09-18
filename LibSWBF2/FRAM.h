@@ -13,8 +13,8 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		int32_t FrameRangeStart;
-		int32_t FrameRangeEnd;
-		float_t FramesPerSecond;
+		int32_t m_FrameRangeStart;
+		int32_t m_FrameRangeEnd;
+		float_t m_FramesPerSecond;
 	};
 }

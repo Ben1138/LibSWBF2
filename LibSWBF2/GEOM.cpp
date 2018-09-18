@@ -15,19 +15,19 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void GEOM::RefreshSize()
 	{
-		/*name.RefreshSize();
+		/*m_NAME.RefreshSize();
 		fram.RefreshSize();
-		bbox.RefreshSize();
+		m_BBOX.RefreshSize();
 
-		Size = name.GetSize() + fram.GetSize() + bbox.GetSize();*/
+		Size = m_NAME.GetSize() + fram.GetSize() + m_BBOX.GetSize();*/
 	}
 
 	void GEOM::WriteToStream(FileWriter& stream)
 	{
 		/*BaseChunk::WriteToStream(stream);
-		name.WriteToStream(stream);
+		m_NAME.WriteToStream(stream);
 		fram.WriteToStream(stream);
-		bbox.WriteToStream(stream);*/
+		m_BBOX.WriteToStream(stream);*/
 	}
 
 	void GEOM::ReadFromStream(FileReader& stream)
@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 		if (head == HeaderNames::NAME)
 		{
-			name.ReadFromStream(stream);
+			m_NAME.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::FRAM)
 		{
@@ -45,7 +45,7 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 		else if (head == HeaderNames::BBOX)
 		{
-			bbox.ReadFromStream(stream);
+			m_BBOX.ReadFromStream(stream);
 		}
 		else
 		{
