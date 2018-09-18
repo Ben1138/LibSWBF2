@@ -10,6 +10,16 @@ namespace LibSWBF2NET::Mesh
 	public:
 		MSH();
 
+		bool WriteToFile(String^ Path)
+		{
+			return GetInstance()->WriteToFile(MarshalString(Path));
+		}
+
+		bool ReadFromFile(String^ Path)
+		{
+			return GetInstance()->ReadFromFile(MarshalString(Path));
+		}
+
 		property int ShadowVolume
 		{
 			int get()

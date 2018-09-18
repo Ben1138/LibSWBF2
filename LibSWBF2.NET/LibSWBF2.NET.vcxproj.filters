@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Mesh">
       <UniqueIdentifier>{6d273336-6d6e-4b4d-b9a1-8b509c7168ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Logging">
+      <UniqueIdentifier>{2e4d9814-1433-4b95-8218-f9e7389957d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logging">
+      <UniqueIdentifier>{d3f06a53-ca2f-4b41-bf35-39f4e45a55a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -33,6 +39,9 @@
     <ClInclude Include="MSH.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -46,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="MSH.cpp">
       <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Logging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
