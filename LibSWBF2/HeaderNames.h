@@ -10,7 +10,14 @@ namespace LibSWBF2::Chunks::HeaderNames
 
 	static string GetHeaderString(const ChunkHeader& hedr)
 	{
-		return string((char*)&hedr);
+		if (hedr == 0)
+		{
+			return "EMPTY";
+		}
+		else
+		{
+			return string((char*)&hedr);
+		}
 	}
 
 	const ChunkHeader HEDR = GetHeaderValue("HEDR");
