@@ -12,7 +12,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-	private:
 		Color m_Diffuse;
 		Color m_Specular;
 		Color m_Ambient;
