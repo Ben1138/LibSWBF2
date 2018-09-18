@@ -15,7 +15,6 @@ namespace LibSWBF2::Chunks::Mesh
 		int32_t GetShadowVolume();
 		void SetShadowVolume(int32_t ShadowVolume);
 
-	private:
 		int32_t m_ShadowVolume;
 	};
 }

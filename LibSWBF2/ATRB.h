@@ -73,7 +73,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-	private:
 		ERenderFlags m_RenderFlags;
 		ERenderType m_RenderType;
 		uint8_t m_Data0;		// what are these for ??

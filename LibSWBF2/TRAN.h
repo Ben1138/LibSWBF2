@@ -12,7 +12,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-	private:
 		Vector3 m_Scale;
 		Vector4 m_Rotation;
 		Vector3 m_Translation;
