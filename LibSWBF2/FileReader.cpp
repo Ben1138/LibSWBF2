@@ -26,6 +26,7 @@ namespace LibSWBF2
 		{
 			Log("File '" + File + "' could not be found / opened!", ELogType::Error);
 			m_FileName = "";
+			close();
 			return false;
 		}
 
