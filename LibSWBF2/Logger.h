@@ -8,26 +8,23 @@ namespace LibSWBF2::Logging
 	class Logger
 	{
 	public:
-		Logger();
+		Logger();	// do not call anywhere else!
 		~Logger();
 
 		const string LOG_FILE = "LibSWBF2.log";
 		static unique_ptr<Logger>& GetInstance();
 
-		void Add(const std::string &message, const ELogType &level);
-		string GetAllLines(const ELogType &level);
-		string GetLastLines(const ELogType &level);
-		bool HasNewLogs();
+		function<void(LoggerEntry)> m_OnLogCallback;
+
+		void Log(const std::string &message, const ELogType &level);
+
 	private:
 		static unique_ptr<Logger> m_Instance;
-
 		FileWriter m_Writer;
-		vector<LoggerEntry> m_LogEntrys;
-		size_t m_LastIndex = 0;
 	};
 
 	inline void Log(const std::string &message, const ELogType &level)
 	{
-		Logger::GetInstance()->Add(message, level);
+		Logger::GetInstance()->Log(message, level);
 	}
 }
