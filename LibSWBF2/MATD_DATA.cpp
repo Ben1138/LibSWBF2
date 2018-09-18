@@ -15,24 +15,24 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MATD_DATA::RefreshSize()
 	{
-		Size = Color::Size + Color::Size + Color::Size + sizeof(float_t);
+		m_Size = Color::Size + Color::Size + Color::Size + sizeof(float_t);
 	}
 
 	void MATD_DATA::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		Diffuse.WriteToStream(stream);
-		Specular.WriteToStream(stream);
-		Ambient.WriteToStream(stream);
-		stream.WriteFloat(SpecularSharpness);
+		m_Diffuse.WriteToStream(stream);
+		m_Specular.WriteToStream(stream);
+		m_Ambient.WriteToStream(stream);
+		stream.WriteFloat(m_SpecularSharpness);
 	}
 
 	void MATD_DATA::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		Diffuse.ReadFromStream(stream);
-		Specular.ReadFromStream(stream);
-		Ambient.ReadFromStream(stream);
-		SpecularSharpness = stream.ReadFloat();
+		m_Diffuse.ReadFromStream(stream);
+		m_Specular.ReadFromStream(stream);
+		m_Ambient.ReadFromStream(stream);
+		m_SpecularSharpness = stream.ReadFloat();
 	}
 }

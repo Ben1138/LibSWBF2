@@ -74,9 +74,9 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		ERenderFlags RenderFlags;
-		ERenderType RenderType;
-		uint8_t Data0;		// what are these for ??
-		uint8_t Data1;
+		ERenderFlags m_RenderFlags;
+		ERenderType m_RenderType;
+		uint8_t m_Data0;		// what are these for ??
+		uint8_t m_Data1;
 	};
 }

@@ -15,22 +15,22 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void TRAN::RefreshSize()
 	{
-		Size = Vector3::Size + Vector4::Size + Vector3::Size;
+		m_Size = Vector3::Size + Vector4::Size + Vector3::Size;
 	}
 
 	void TRAN::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		Scale.WriteToStream(stream);
-		Rotation.WriteToStream(stream);
-		Translation.WriteToStream(stream);
+		m_Scale.WriteToStream(stream);
+		m_Rotation.WriteToStream(stream);
+		m_Translation.WriteToStream(stream);
 	}
 
 	void TRAN::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		Scale.ReadFromStream(stream);
-		Rotation.ReadFromStream(stream);
-		Translation.ReadFromStream(stream);
+		m_Scale.ReadFromStream(stream);
+		m_Rotation.ReadFromStream(stream);
+		m_Translation.ReadFromStream(stream);
 	}
 }

@@ -15,19 +15,19 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void SINF::RefreshSize()
 	{
-		name.RefreshSize();
-		fram.RefreshSize();
-		bbox.RefreshSize();
+		m_NAME.RefreshSize();
+		m_FRAM.RefreshSize();
+		m_BBOX.RefreshSize();
 
-		Size = name.GetSize() + fram.GetSize() + bbox.GetSize();
+		m_Size = m_NAME.GetSize() + m_FRAM.GetSize() + m_BBOX.GetSize();
 	}
 
 	void SINF::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		name.WriteToStream(stream);
-		fram.WriteToStream(stream);
-		bbox.WriteToStream(stream);
+		m_NAME.WriteToStream(stream);
+		m_FRAM.WriteToStream(stream);
+		m_BBOX.WriteToStream(stream);
 	}
 
 	void SINF::ReadFromStream(FileReader& stream)
@@ -37,15 +37,15 @@ namespace LibSWBF2::Chunks::Mesh
 
 		if (head == HeaderNames::NAME)
 		{
-			name.ReadFromStream(stream);
+			m_NAME.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::FRAM)
 		{
-			fram.ReadFromStream(stream);
+			m_FRAM.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::BBOX)
 		{
-			bbox.ReadFromStream(stream);
+			m_BBOX.ReadFromStream(stream);
 		}
 		else
 		{

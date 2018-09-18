@@ -16,6 +16,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t Length;
+		uint32_t m_Length;
 	};
 }

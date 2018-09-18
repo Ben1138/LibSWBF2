@@ -22,7 +22,7 @@ namespace LibSWBF2
 	private:
 		bool CheckGood(size_t ReadSize);
 
-		size_t FileSize;
-		string FileName;
+		size_t m_FileSize;
+		string m_FileName;
 	};
 }

@@ -15,18 +15,18 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MNDX::RefreshSize()
 	{
-		Size = sizeof(uint32_t);
+		m_Size = sizeof(uint32_t);
 	}
 
 	void MNDX::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32(ModelIndex);
+		stream.WriteUInt32(m_ModelIndex);
 	}
 
 	void MNDX::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ModelIndex = stream.ReadUInt32();
+		m_ModelIndex = stream.ReadUInt32();
 	}
 }

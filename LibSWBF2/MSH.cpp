@@ -15,15 +15,15 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MSH::RefreshSize()
 	{
-		shvo.RefreshSize();
+		m_SHVO.RefreshSize();
 
-		Size = shvo.GetSize();
+		m_Size = m_SHVO.GetSize();
 	}
 
 	void MSH::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		shvo.WriteToStream(stream);
+		m_SHVO.WriteToStream(stream);
 	}
 
 	void MSH::ReadFromStream(FileReader& stream)
@@ -34,11 +34,11 @@ namespace LibSWBF2::Chunks::Mesh
 		// sadly, switch-case is not possible here (Error C2051)
 		if (head == HeaderNames::SHVO)
 		{
-			shvo.ReadFromStream(stream);
+			m_SHVO.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::MSH2)
 		{
-			msh2.ReadFromStream(stream);
+			m_MSH2.ReadFromStream(stream);
 		}
 		else
 		{

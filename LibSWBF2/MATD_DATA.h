@@ -13,9 +13,9 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		Color Diffuse;
-		Color Specular;
-		Color Ambient;
-		float_t SpecularSharpness;
+		Color m_Diffuse;
+		Color m_Specular;
+		Color m_Ambient;
+		float_t m_SpecularSharpness;
 	};
 }

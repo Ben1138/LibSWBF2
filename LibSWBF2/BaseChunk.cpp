@@ -16,30 +16,30 @@ namespace LibSWBF2::Chunks
 	// must be overwritten by inheriting classes!
 	void BaseChunk::RefreshSize()
 	{
-		Size = 0;
+		m_Size = 0;
 		Logging::Log("RefreshSize() of BaseChunk called! This should never happen!", ELogType::Error);
 	}
 
 	void BaseChunk::WriteToStream(FileWriter& stream)
 	{
 		RefreshSize();
-		stream.WriteChunkHeader(Header);
-		stream.WriteChunkSize(Size);
+		stream.WriteChunkHeader(m_Header);
+		stream.WriteChunkSize(m_Size);
 	}
 
 	void BaseChunk::ReadFromStream(FileReader& stream)
 	{
-		Header = stream.ReadChunkHeader(false);
-		Size = stream.ReadChunkSize();
+		m_Header = stream.ReadChunkHeader(false);
+		m_Size = stream.ReadChunkSize();
 	}
 
 	ChunkHeader BaseChunk::GetHeader()
 	{
-		return Header;
+		return m_Header;
 	}
 
 	ChunkSize BaseChunk::GetSize()
 	{
-		return Size;
+		return m_Size;
 	}
 }

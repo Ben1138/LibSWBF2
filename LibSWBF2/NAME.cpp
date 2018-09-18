@@ -16,19 +16,19 @@ namespace LibSWBF2::Chunks::Mesh
 	void NAME::RefreshSize()
 	{
 		// size must be a multiple of 4
-		Size = (ChunkSize)Text.size();
-		Size += 4 - (Size % 4);
+		m_Size = (ChunkSize)m_Text.size();
+		m_Size += 4 - (m_Size % 4);
 	}
 
 	void NAME::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteString(Text, Size);
+		stream.WriteString(m_Text, m_Size);
 	}
 
 	void NAME::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		Text = stream.ReadString(Size);
+		m_Text = stream.ReadString(m_Size);
 	}
 }

@@ -23,7 +23,7 @@ namespace LibSWBF2::Logging
 		string GetLogMessage();
 		ELogType GetLogLevel();
 	private:
-		string message;
-		ELogType level;
+		string m_Message;
+		ELogType m_Level;
 	};
 }

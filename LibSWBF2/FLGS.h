@@ -15,6 +15,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t ModelDisplayFlags;	// unknown?
+		uint32_t m_ModelDisplayFlags;	// unknown?
 	};
 }

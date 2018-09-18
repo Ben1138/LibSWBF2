@@ -22,6 +22,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		EModelType ModelType;
+		EModelType m_ModelType;
 	};
 }

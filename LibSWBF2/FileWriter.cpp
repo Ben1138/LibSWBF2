@@ -29,11 +29,11 @@ namespace LibSWBF2
 		if (!success)
 		{
 			Log("File '" + File + "' could not be found / created!", ELogType::Error);
-			FileName = "";
+			m_FileName = "";
 			return false;
 		}
 		
-		FileName = File;
+		m_FileName = File;
 		return true;
 	}
 
@@ -125,7 +125,7 @@ namespace LibSWBF2
 			return;
 		}
 
-		FileName = "";
+		m_FileName = "";
 		close();
 	}
 
@@ -133,13 +133,13 @@ namespace LibSWBF2
 	{
 		if (!is_open())
 		{
-			Log("Error during write process! File '" + FileName + "' is not open!", ELogType::Error);
+			Log("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
 			return false;
 		}
 
 		if (!good())
 		{
-			Log("Error during write process in '" + FileName + "'!", ELogType::Error);
+			Log("Error during write process in '" + m_FileName + "'!", ELogType::Error);
 			return false;
 		}
 

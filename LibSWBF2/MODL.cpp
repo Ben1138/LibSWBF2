@@ -16,22 +16,22 @@ namespace LibSWBF2::Chunks::Mesh
 	void MODL::RefreshSize()
 	{
 		/*sinf.RefreshSize();
-		matl.RefreshSize();
+		m_MATL.RefreshSize();
 
-		Size = sinf.GetSize() + matl.GetSize();*/
+		Size = sinf.GetSize() + m_MATL.GetSize();*/
 	}
 
 	void MODL::WriteToStream(FileWriter& stream)
 	{
 		/*BaseChunk::WriteToStream(stream);
 		sinf.WriteToStream(stream);
-		matl.WriteToStream(stream);*/
+		m_MATL.WriteToStream(stream);*/
 	}
 
 	void MODL::ReadFromStream(FileReader& stream)
 	{
 		/*BaseChunk::ReadFromStream(stream);
 		sinf.ReadFromStream(stream);
-		matl.ReadFromStream(stream);*/
+		m_MATL.ReadFromStream(stream);*/
 	}
 }

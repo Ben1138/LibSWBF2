@@ -15,18 +15,18 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MTYP::RefreshSize()
 	{
-		Size = sizeof(uint32_t);
+		m_Size = sizeof(uint32_t);
 	}
 
 	void MTYP::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32(ModelType);
+		stream.WriteUInt32(m_ModelType);
 	}
 
 	void MTYP::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ModelType = (EModelType)stream.ReadUInt32();
+		m_ModelType = (EModelType)stream.ReadUInt32();
 	}
 }

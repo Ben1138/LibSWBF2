@@ -14,8 +14,7 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-	private:
-		SHVO shvo;
-		MSH2 msh2;
+		SHVO m_SHVO;
+		MSH2 m_MSH2;
 	};
 }

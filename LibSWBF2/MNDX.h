@@ -13,6 +13,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		uint32_t ModelIndex;
+		uint32_t m_ModelIndex;
 	};
 }

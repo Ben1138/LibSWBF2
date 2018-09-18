@@ -25,14 +25,14 @@ namespace LibSWBF2
 		if (!success)
 		{
 			Log("File '" + File + "' could not be found / opened!", ELogType::Error);
-			FileName = "";
+			m_FileName = "";
 			return false;
 		}
 
-		FileSize = tellg();
+		m_FileSize = tellg();
 		seekg(0);
 
-		FileName = File;
+		m_FileName = File;
 		return true;
 	}
 
@@ -124,7 +124,7 @@ namespace LibSWBF2
 			return;
 		}
 
-		FileName = "";
+		m_FileName = "";
 		close();
 	}
 
@@ -132,20 +132,20 @@ namespace LibSWBF2
 	{
 		if (!is_open())
 		{
-			Log("Error during read process! File '" + FileName + "' is not open!", ELogType::Error);
+			Log("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
 			return false;
 		}
 
 		if (!good())
 		{
-			Log("Error during read process in '" + FileName + "'!", ELogType::Error);
+			Log("Error during read process in '" + m_FileName + "'!", ELogType::Error);
 			return false;
 		}
 
 		size_t current = tellg();
-		if (current + FileSize >= FileSize)
+		if (current + m_FileSize >= m_FileSize)
 		{
-			Log("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(FileSize), ELogType::Error);
+			Log("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
 			return false;
 		}
 

@@ -16,6 +16,6 @@ namespace LibSWBF2::Chunks::Mesh
 		void ReadFromStream(FileReader& stream) override;
 
 	private:
-		BBOX bbox;
+		BBOX m_BBOX;
 	};
 }

@@ -31,7 +31,7 @@ namespace LibSWBF2::Chunks
 	protected:
 		// since these variables are critical
 		// we should keep them protected
-		ChunkHeader Header;
-		ChunkSize Size;
+		ChunkHeader m_Header;
+		ChunkSize m_Size;
 	};
 }

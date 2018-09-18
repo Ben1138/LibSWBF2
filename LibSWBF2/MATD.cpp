@@ -15,45 +15,45 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MATD::RefreshSize()
 	{
-		name.RefreshSize();
-		data.RefreshSize();
-		tx0d.RefreshSize();
-		tx1d.RefreshSize();
-		tx2d.RefreshSize();
-		tx3d.RefreshSize();
+		m_NAME.RefreshSize();
+		m_DATA.RefreshSize();
+		m_TX0D.RefreshSize();
+		m_TX1D.RefreshSize();
+		m_TX2D.RefreshSize();
+		m_TX3D.RefreshSize();
 
-		Size = name.GetSize() + data.GetSize();
+		m_Size = m_NAME.GetSize() + m_DATA.GetSize();
 
-		if (tx0d.Text.size() > 0)
-			Size += tx0d.GetSize();
+		if (m_TX0D.m_Text.size() > 0)
+			m_Size += m_TX0D.GetSize();
 
-		if (tx1d.Text.size() > 0)
-			Size += tx1d.GetSize();
+		if (m_TX1D.m_Text.size() > 0)
+			m_Size += m_TX1D.GetSize();
 
-		if (tx2d.Text.size() > 0)
-			Size += tx2d.GetSize();
+		if (m_TX2D.m_Text.size() > 0)
+			m_Size += m_TX2D.GetSize();
 
-		if (tx3d.Text.size() > 0)
-			Size += tx3d.GetSize();
+		if (m_TX3D.m_Text.size() > 0)
+			m_Size += m_TX3D.GetSize();
 	}
 
 	void MATD::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		name.WriteToStream(stream);
-		data.WriteToStream(stream);
+		m_NAME.WriteToStream(stream);
+		m_DATA.WriteToStream(stream);
 
-		if (tx0d.Text.size() > 0)
-			tx0d.WriteToStream(stream);
+		if (m_TX0D.m_Text.size() > 0)
+			m_TX0D.WriteToStream(stream);
 
-		if (tx1d.Text.size() > 0)
-			tx1d.WriteToStream(stream);
+		if (m_TX1D.m_Text.size() > 0)
+			m_TX1D.WriteToStream(stream);
 
-		if (tx2d.Text.size() > 0)
-			tx2d.WriteToStream(stream);
+		if (m_TX2D.m_Text.size() > 0)
+			m_TX2D.WriteToStream(stream);
 
-		if (tx3d.Text.size() > 0)
-			tx3d.WriteToStream(stream);
+		if (m_TX3D.m_Text.size() > 0)
+			m_TX3D.WriteToStream(stream);
 	}
 
 	void MATD::ReadFromStream(FileReader& stream)
@@ -63,27 +63,27 @@ namespace LibSWBF2::Chunks::Mesh
 
 		if (head == HeaderNames::NAME)
 		{
-			name.ReadFromStream(stream);
+			m_NAME.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::DATA)
 		{
-			data.ReadFromStream(stream);
+			m_DATA.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::TX0D)
 		{
-			tx0d.ReadFromStream(stream);
+			m_TX0D.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::TX1D)
 		{
-			tx1d.ReadFromStream(stream);
+			m_TX1D.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::TX2D)
 		{
-			tx2d.ReadFromStream(stream);
+			m_TX2D.ReadFromStream(stream);
 		}
 		else if (head == HeaderNames::TX3D)
 		{
-			tx3d.ReadFromStream(stream);
+			m_TX3D.ReadFromStream(stream);
 		}
 		else
 		{
