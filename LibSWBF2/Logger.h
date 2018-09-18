@@ -15,7 +15,6 @@ namespace LibSWBF2::Logging
 		static unique_ptr<Logger>& GetInstance();
 
 		function<void(LoggerEntry)> m_OnLogCallback;
-
 		void Log(const std::string &message, const ELogType &level);
 
 	private:
