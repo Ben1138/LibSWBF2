@@ -33,6 +33,34 @@ namespace LibSWBF2::Chunks
 		m_Size = stream.ReadChunkSize();
 	}
 
+	bool BaseChunk::WriteToFile(const string& Path)
+	{
+		FileWriter writer;
+		
+		if (writer.Open(Path))
+		{
+			WriteToStream(writer);
+			writer.Close();
+			return true;
+		}
+
+		return false;
+	}
+
+	bool BaseChunk::ReadFromFile(const string& Path)
+	{
+		FileReader reader;
+
+		if (reader.Open(Path))
+		{
+			ReadFromStream(reader);
+			reader.Close();
+			return true;
+		}
+
+		return false;
+	}
+
 	ChunkHeader BaseChunk::GetHeader()
 	{
 		return m_Header;
