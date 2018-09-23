@@ -28,14 +28,21 @@ namespace LibSWBF2
 
 		if (!success)
 		{
-			LOG("File '" + File + "' could not be found / created!", ELogType::Error);
+			if (!LogFile)
+			{
+				LOG("File '" + File + "' could not be found / created!", ELogType::Error);
+			}
 			m_FileName = "";
 			m_Writer.close();
 			return false;
 		}
-		
+
 		m_FileName = File;
-		LOG("File '" + m_FileName + "' successfully created/opened.", ELogType::Info);
+
+		if (!LogFile)
+		{
+			LOG("File '" + m_FileName + "' successfully created/opened.", ELogType::Info);
+		}
 		return true;
 	}
 
