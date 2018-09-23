@@ -44,10 +44,7 @@ namespace LibSWBF2
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
 			auto pos = m_Reader.tellg();
-			LOG("pos: " + std::to_string(pos), ELogType::Info);
-			m_Reader >> value;
-			LOG("value: " + std::to_string(value), ELogType::Info);
-			LOG("pos: " + std::to_string(pos), ELogType::Info);
+			m_Reader.read((char*)&value, sizeof(value));
 
 			// do not advance our reading position when peeking
 			if (peek)
@@ -63,7 +60,7 @@ namespace LibSWBF2
 		ChunkSize value = 0;
 		if (CheckGood(sizeof(ChunkSize)))
 		{
-			m_Reader >> value;
+			m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -73,7 +70,7 @@ namespace LibSWBF2
 		uint8_t value = 0;
 		if (CheckGood(sizeof(uint8_t)))
 		{
-			m_Reader.read((char*)&value, 1);
+			m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -83,7 +80,7 @@ namespace LibSWBF2
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
 		{
-			m_Reader >> value;
+			m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -93,7 +90,7 @@ namespace LibSWBF2
 		uint32_t value = 0;
 		if (CheckGood(sizeof(uint32_t)))
 		{
-			m_Reader >> value;
+			m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -103,7 +100,7 @@ namespace LibSWBF2
 		float_t value = 0;
 		if (CheckGood(sizeof(float_t)))
 		{
-			m_Reader >> value;
+			m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -148,7 +145,20 @@ namespace LibSWBF2
 
 		if (!m_Reader.good())
 		{
-			LOG("Error during read process in '" + m_FileName + "'!", ELogType::Error);
+			string reason = "";
+			if (m_Reader.eof())
+			{
+				reason += " End of File reached!";
+			}
+			if (m_Reader.fail())
+			{
+				reason += " Logical Error on I/O operation!";
+			}
+			if (m_Reader.bad())
+			{
+				reason += " Reading Error on I/O operation!";
+			}
+			LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
 			return false;
 		}
 

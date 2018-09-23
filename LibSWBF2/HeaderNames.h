@@ -16,7 +16,13 @@ namespace LibSWBF2::Chunks::HeaderNames
 		}
 		else
 		{
-			return string((char*)&hedr);
+			// just passing the hedr address will result 
+			// in an arbitrary string length, we need to
+			// zero terminate it
+			char arr[5];
+			arr[4] = 0;
+			memcpy(arr, &hedr, 4);
+			return string(arr);
 		}
 	}
 
