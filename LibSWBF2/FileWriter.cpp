@@ -152,7 +152,7 @@ namespace LibSWBF2
 			}
 			if (m_Writer.bad())
 			{
-				reason += " Reading Error on I/O operation!";
+				reason += " Writing Error on I/O operation!";
 			}
 			LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
 			return false;
