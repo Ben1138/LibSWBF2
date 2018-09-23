@@ -31,6 +31,9 @@ namespace LibSWBF2::Chunks
 	{
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
+
+		LOG("Header: " + HeaderNames::GetHeaderString(m_Header), ELogType::Info);
+		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
 	}
 
 	bool BaseChunk::WriteToFile(const string& Path)
