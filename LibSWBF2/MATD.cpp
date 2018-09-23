@@ -87,7 +87,7 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 		else
 		{
-			LOG("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
 		}
 	}
 }

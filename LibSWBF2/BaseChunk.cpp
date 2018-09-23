@@ -34,6 +34,11 @@ namespace LibSWBF2::Chunks
 
 		LOG("Header: " + HeaderNames::GetHeaderString(m_Header), ELogType::Info);
 		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
+
+		if (stream.GetPosition() + m_Size > stream.GetFileSize())
+		{
+			LOG("Chunk is too big and will end up out of file! Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Warning);
+		}
 	}
 
 	bool BaseChunk::WriteToFile(const string& Path)

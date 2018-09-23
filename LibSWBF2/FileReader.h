@@ -19,6 +19,7 @@ namespace LibSWBF2
 		float_t ReadFloat();
 		string ReadString(size_t length);
 		size_t GetPosition();
+		size_t GetFileSize();
 		void Close();
 	private:
 		bool CheckGood(size_t ReadSize);
