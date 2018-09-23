@@ -20,6 +20,7 @@ namespace LibSWBF2
 		void WriteFloat(const float_t& value);
 		void WriteString(const string& value, const bool& SizeShouldBeMultipleOfFour);
 		void WriteLine(const string& line);
+		size_t GetPosition();
 		void Close();
 	private:
 		bool CheckGood();
