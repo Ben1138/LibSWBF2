@@ -35,6 +35,7 @@ namespace LibSWBF2
 		}
 		
 		m_FileName = File;
+		LOG("File '" + m_FileName + "' successfully created/opened.", ELogType::Info);
 		return true;
 	}
 
@@ -42,7 +43,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -50,7 +51,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -58,7 +59,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -66,7 +67,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -74,7 +75,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -82,7 +83,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			m_Writer << value;
+			m_Writer.write((char*)&value, sizeof(value));
 		}
 	}
 
@@ -140,7 +141,20 @@ namespace LibSWBF2
 
 		if (!m_Writer.good())
 		{
-			LOG("Error during write process in '" + m_FileName + "'!", ELogType::Error);
+			string reason = "";
+			if (m_Writer.eof())
+			{
+				reason += " End of File reached!";
+			}
+			if (m_Writer.fail())
+			{
+				reason += " Logical Error on I/O operation!";
+			}
+			if (m_Writer.bad())
+			{
+				reason += " Reading Error on I/O operation!";
+			}
+			LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
 			return false;
 		}
 
