@@ -49,7 +49,7 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 		else
 		{
-			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()), ELogType::Warning);
 		}
 	}
 }
