@@ -4,7 +4,7 @@ namespace LibSWBF2
 {
 	using std::ofstream;
 
-	class FileWriter : private ofstream
+	class FileWriter
 	{
 	public:
 		FileWriter();
@@ -26,5 +26,6 @@ namespace LibSWBF2
 		bool CheckGood();
 
 		string m_FileName;
+		ofstream m_Writer;
 	};
 }

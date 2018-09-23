@@ -23,14 +23,14 @@ namespace LibSWBF2
 
 	bool FileWriter::Open(const string& File, const bool& LogFile)
 	{
-		open(File, std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
-		bool success = good() && is_open();
+		m_Writer.open(File, std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
+		bool success = m_Writer.good() && m_Writer.is_open();
 
 		if (!success)
 		{
 			LOG("File '" + File + "' could not be found / created!", ELogType::Error);
 			m_FileName = "";
-			close();
+			m_Writer.close();
 			return false;
 		}
 		
@@ -42,7 +42,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -50,7 +50,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -58,7 +58,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -66,7 +66,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -74,7 +74,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -82,7 +82,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood())
 		{
-			operator<<(value);
+			m_Writer << value;
 		}
 	}
 
@@ -95,7 +95,7 @@ namespace LibSWBF2
 		if (CheckGood())
 		{
 			size_t length = value.size();
-			write(value.c_str(), length);
+			m_Writer.write(value.c_str(), length);
 
 			int remaining = 4 - (length % 4);
 			char* empty = new char[remaining];
@@ -103,7 +103,7 @@ namespace LibSWBF2
 			for (int i = 0; i < remaining; i++)
 				empty[i] = 0;
 
-			write(empty, remaining);
+			m_Writer.write(empty, remaining);
 			delete[] empty;
 		}
 	}
@@ -113,32 +113,32 @@ namespace LibSWBF2
 		if (CheckGood())
 		{
 			string tmp = line + "\n";
-			write(tmp.c_str(), tmp.size());
-			flush();
+			m_Writer.write(tmp.c_str(), tmp.size());
+			m_Writer.flush();
 		}
 	}
 
 	void FileWriter::Close()
 	{
-		if (!is_open())
+		if (!m_Writer.is_open())
 		{
 			LOG("Nothing has been opened yet!", ELogType::Error);
 			return;
 		}
 
 		m_FileName = "";
-		close();
+		m_Writer.close();
 	}
 
 	bool FileWriter::CheckGood()
 	{
-		if (!is_open())
+		if (!m_Writer.is_open())
 		{
 			LOG("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
 			return false;
 		}
 
-		if (!good())
+		if (!m_Writer.good())
 		{
 			LOG("Error during write process in '" + m_FileName + "'!", ELogType::Error);
 			return false;
@@ -149,6 +149,6 @@ namespace LibSWBF2
 
 	size_t FileWriter::GetPosition()
 	{
-		return tellp();
+		return m_Writer.tellp();
 	}
 }
