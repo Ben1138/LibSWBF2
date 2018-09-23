@@ -129,6 +129,11 @@ namespace LibSWBF2
 		close();
 	}
 
+	size_t FileReader::GetPosition()
+	{
+		return tellg();
+	}
+
 	bool FileReader::CheckGood(size_t ReadSize)
 	{
 		if (!is_open())

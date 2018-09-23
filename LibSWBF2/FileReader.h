@@ -18,6 +18,7 @@ namespace LibSWBF2
 		uint32_t ReadUInt32();
 		float_t ReadFloat();
 		string ReadString(size_t length);
+		size_t GetPosition();
 		void Close();
 	private:
 		bool CheckGood(size_t ReadSize);

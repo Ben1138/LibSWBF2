@@ -146,4 +146,9 @@ namespace LibSWBF2
 
 		return true;
 	}
+
+	size_t FileWriter::GetPosition()
+	{
+		return tellp();
+	}
 }
