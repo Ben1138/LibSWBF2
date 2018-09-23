@@ -144,7 +144,7 @@ namespace LibSWBF2
 		}
 
 		size_t current = tellg();
-		if (current + m_FileSize >= m_FileSize)
+		if (current + ReadSize >= m_FileSize)
 		{
 			LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
 			return false;
