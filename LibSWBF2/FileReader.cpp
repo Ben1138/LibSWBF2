@@ -146,11 +146,11 @@ namespace LibSWBF2
 			return false;
 		}
 
-		/*if (!good())
+		if (!m_Reader.good())
 		{
 			LOG("Error during read process in '" + m_FileName + "'!", ELogType::Error);
 			return false;
-		}*/
+		}
 
 		size_t current = m_Reader.tellg();
 		if (current + ReadSize >= m_FileSize)
