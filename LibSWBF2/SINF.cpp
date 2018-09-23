@@ -49,7 +49,7 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 		else
 		{
-			Log("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
+			LOG("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace LibSWBF2::Chunks
 	void BaseChunk::RefreshSize()
 	{
 		m_Size = 0;
-		Logging::Log("RefreshSize() of BaseChunk called! This should never happen!", ELogType::Error);
+		LOG("RefreshSize() of BaseChunk called! This should never happen!", ELogType::Error);
 	}
 
 	void BaseChunk::WriteToStream(FileWriter& stream)

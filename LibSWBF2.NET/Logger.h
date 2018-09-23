@@ -13,7 +13,7 @@ namespace LibSWBF2NET::Logging
 	public:
 		static Logger();
 
-		static void Log(String^ Message, ELogType Level);
+		static void Log(String^ Message, ELogType Level, UINT64 Line, String^ File);
 		static Action<LoggerEntry>^ OnLogCallback;
 	private:
 		static void NativeLogCallback(NativeEntry Entry);

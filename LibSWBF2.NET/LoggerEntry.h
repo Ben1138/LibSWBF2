@@ -7,9 +7,7 @@ namespace LibSWBF2NET::Logging
 
 	public enum class ELogType : Byte
 	{
-		Info = 0,
-		Warning = 1,
-		Error = 2
+		ENUM_LOGTYPE
 	};
 
 	public value struct LoggerEntry
@@ -17,6 +15,8 @@ namespace LibSWBF2NET::Logging
 	internal:
 		String^ m_Message;
 		ELogType^ m_Level;
+		UINT64 m_Line;
+		String^ m_File;
 
 	public:
 		property String^ Message
@@ -35,9 +35,25 @@ namespace LibSWBF2NET::Logging
 			}
 		}
 
+		property UINT64 LineNumber
+		{
+			UINT64 get()
+			{
+				return m_Line;
+			}
+		}
+
+		property String^ FileName
+		{
+			String^ get()
+			{
+				return m_File;
+			}
+		}
+
 		String^ ToString() override
 		{
-			return "[" + m_Level + "] " + m_Message;
+			return "[" + m_Level + "] " + m_Message + " - IN " + m_Line + " " + m_File;
 		}
 	};
 }
