@@ -14,7 +14,7 @@ namespace LibSWBF2NET::Logging
 	{
 	internal:
 		String^ m_Message;
-		ELogType^ m_Level;
+		ELogType m_Level;
 		UINT64 m_Line;
 		String^ m_File;
 
@@ -27,9 +27,9 @@ namespace LibSWBF2NET::Logging
 			}
 		}
 
-		property ELogType^ Level
+		property ELogType Level
 		{
-			ELogType^ get()
+			ELogType get()
 			{
 				return m_Level;
 			}
@@ -53,7 +53,14 @@ namespace LibSWBF2NET::Logging
 
 		String^ ToString() override
 		{
-			return "[" + m_Level + "] " + m_Message + " - IN " + m_Line + " " + m_File;
+			if (m_Level == ELogType::Info)
+			{
+				return "[" + m_Level.ToString() + "] " + m_Message;
+			}
+			else
+			{
+				return "[" + m_Level.ToString() + "] " + m_Message + " - IN " + m_Line + " " + m_File;
+			}
 		}
 	};
 }

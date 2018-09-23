@@ -29,7 +29,14 @@ namespace LibSWBF2::Logging
 	{
 		if (message.length() > 0)
 		{
-			m_Writer.WriteLine("[" + SLogType[level] + "] " + message + " - IN " + std::to_string(line) + " " + file);
+			if (level == ELogType::Info)
+			{
+				m_Writer.WriteLine("[" + SLogType[level] + "] " + message);
+			}
+			else
+			{
+				m_Writer.WriteLine("[" + SLogType[level] + "] " + message + " - IN " + std::to_string(line) + " " + file);
+			}
 
 			if (m_OnLogCallback)
 			{
