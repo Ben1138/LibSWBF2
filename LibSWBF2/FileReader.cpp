@@ -135,6 +135,11 @@ namespace LibSWBF2
 		return m_Reader.tellg();
 	}
 
+	size_t FileReader::GetFileSize()
+	{
+		return m_FileSize;
+	}
+
 	bool FileReader::CheckGood(size_t ReadSize)
 	{
 		if (!m_Reader.is_open())
