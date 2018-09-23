@@ -4,7 +4,7 @@ namespace LibSWBF2
 {
 	using std::ifstream;
 
-	class FileReader : private ifstream
+	class FileReader
 	{
 	public:
 		FileReader();
@@ -25,5 +25,6 @@ namespace LibSWBF2
 
 		size_t m_FileSize;
 		string m_FileName;
+		ifstream m_Reader;
 	};
 }
