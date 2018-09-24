@@ -26,6 +26,8 @@ namespace LibSWBF2::Chunks
 		virtual void ReadFromStream(FileReader& stream);
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);
+		bool PositionInChunk(const size_t& CurrentPosition);
+		bool SkipChunk(FileReader& stream);
 
 		ChunkHeader GetHeader();
 		ChunkSize GetSize();
@@ -35,5 +37,6 @@ namespace LibSWBF2::Chunks
 		// we should keep them protected
 		ChunkHeader m_Header;
 		ChunkSize m_Size;
+		size_t m_ChunkDataPosition;	// in File (for reading process)
 	};
 }

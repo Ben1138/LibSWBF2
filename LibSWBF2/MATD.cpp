@@ -59,35 +59,39 @@ namespace LibSWBF2::Chunks::Mesh
 	void MATD::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ChunkHeader head = stream.ReadChunkHeader(true);
 
-		if (head == HeaderNames::NAME)
+		while (PositionInChunk(stream.GetPosition()))
 		{
-			m_NAME.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::DATA)
-		{
-			m_DATA.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::TX0D)
-		{
-			m_TX0D.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::TX1D)
-		{
-			m_TX1D.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::TX2D)
-		{
-			m_TX2D.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::TX3D)
-		{
-			m_TX3D.ReadFromStream(stream);
-		}
-		else
-		{
-			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			ChunkHeader head = stream.ReadChunkHeader(true);
+
+			if (head == HeaderNames::NAME)
+			{
+				m_NAME.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::DATA)
+			{
+				m_DATA.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::TX0D)
+			{
+				m_TX0D.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::TX1D)
+			{
+				m_TX1D.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::TX2D)
+			{
+				m_TX2D.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::TX3D)
+			{
+				m_TX3D.ReadFromStream(stream);
+			}
+			else
+			{
+				SkipChunk(stream);
+			}
 		}
 	}
 }

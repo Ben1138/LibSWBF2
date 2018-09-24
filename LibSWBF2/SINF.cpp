@@ -33,23 +33,27 @@ namespace LibSWBF2::Chunks::Mesh
 	void SINF::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ChunkHeader head = stream.ReadChunkHeader(true);
 
-		if (head == HeaderNames::NAME)
+		while (PositionInChunk(stream.GetPosition()))
 		{
-			m_NAME.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::FRAM)
-		{
-			m_FRAM.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::BBOX)
-		{
-			m_BBOX.ReadFromStream(stream);
-		}
-		else
-		{
-			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			ChunkHeader head = stream.ReadChunkHeader(true);
+		
+			if (head == HeaderNames::NAME)
+			{
+				m_NAME.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::FRAM)
+			{
+				m_FRAM.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::BBOX)
+			{
+				m_BBOX.ReadFromStream(stream);
+			}
+			else
+			{
+				SkipChunk(stream);
+			}
 		}
 	}
 }
