@@ -31,6 +31,7 @@ namespace LibSWBF2::Chunks
 	{
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
+		m_ChunkDataPosition = stream.GetPosition();
 
 		LOG("Header: " + HeaderNames::GetHeaderString(m_Header), ELogType::Info);
 		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
@@ -77,5 +78,19 @@ namespace LibSWBF2::Chunks
 	ChunkSize BaseChunk::GetSize()
 	{
 		return m_Size;
+	}
+
+	bool BaseChunk::PositionInChunk(const size_t& CurrentPosition)
+	{
+		return CurrentPosition >= m_ChunkDataPosition && CurrentPosition < m_ChunkDataPosition + m_Size;
+	}
+
+	bool BaseChunk::SkipChunk(FileReader& stream)
+	{
+		ChunkHeader head = stream.ReadChunkHeader(false);
+		ChunkSize size = stream.ReadChunkSize();
+
+		LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(size) + " Bytes...", ELogType::Warning);
+		return stream.SkipBytes(size);
 	}
 }

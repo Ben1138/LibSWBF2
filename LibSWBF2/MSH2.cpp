@@ -31,7 +31,23 @@ namespace LibSWBF2::Chunks::Mesh
 	void MSH2::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		m_SINF.ReadFromStream(stream);
-		m_MATL.ReadFromStream(stream);
+
+		while (PositionInChunk(stream.GetPosition()))
+		{
+			ChunkHeader head = stream.ReadChunkHeader(true);
+
+			if (head == HeaderNames::SINF)
+			{
+				m_SINF.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::MATL)
+			{
+				m_MATL.ReadFromStream(stream);
+			}
+			else
+			{
+				SkipChunk(stream);
+			}
+		}
 	}
 }

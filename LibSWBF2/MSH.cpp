@@ -29,20 +29,24 @@ namespace LibSWBF2::Chunks::Mesh
 	void MSH::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		ChunkHeader head = stream.ReadChunkHeader(true);
 
-		// sadly, switch-case is not possible here (Error C2051)
-		if (head == HeaderNames::SHVO)
+		while (PositionInChunk(stream.GetPosition()))
 		{
-			m_SHVO.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::MSH2)
-		{
-			m_MSH2.ReadFromStream(stream);
-		}
-		else
-		{
-			LOG("Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			ChunkHeader head = stream.ReadChunkHeader(true);
+
+			// sadly, switch-case is not possible here (Error C2051)
+			if (head == HeaderNames::SHVO)
+			{
+				m_SHVO.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::MSH2)
+			{
+				m_MSH2.ReadFromStream(stream);
+			}
+			else
+			{
+				SkipChunk(stream);
+			}
 		}
 	}
 }

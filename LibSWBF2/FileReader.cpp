@@ -176,4 +176,14 @@ namespace LibSWBF2
 
 		return true;
 	}
+
+	bool FileReader::SkipBytes(const size_t& Amount)
+	{
+		if (CheckGood(GetPosition() + Amount))
+		{
+			m_Reader.seekg(GetPosition() + Amount);
+			return true;
+		}
+		return false;
+	}
 }
