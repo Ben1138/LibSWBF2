@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MATD_DATA::RefreshSize()
 	{
-		m_Size = Color::Size + Color::Size + Color::Size + sizeof(float_t);
+		m_Size = Color::SIZE + Color::SIZE + Color::SIZE + sizeof(float_t);
 	}
 
 	void MATD_DATA::WriteToStream(FileWriter& stream)

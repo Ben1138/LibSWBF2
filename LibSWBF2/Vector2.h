@@ -6,7 +6,7 @@ namespace LibSWBF2::Types
 {
 	struct Vector2
 	{
-		static const ChunkSize Size = sizeof(float_t) * 2;
+		static const ChunkSize SIZE = sizeof(float_t) * 2;
 
 		Vector2();
 		Vector2(const float_t& x, const float_t& y);

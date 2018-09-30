@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void UV0L::RefreshSize()
 	{
-		m_Size = sizeof(uint32_t) + m_UVs.size() * Vector2::Size;
+		m_Size = sizeof(uint32_t) + m_UVs.size() * Vector2::SIZE;
 	}
 
 	void UV0L::WriteToStream(FileWriter& stream)

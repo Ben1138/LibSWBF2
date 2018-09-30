@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void BBOX::RefreshSize()
 	{
-		m_Size = Vector4::Size + Vector3::Size + Vector3::Size + sizeof(float_t);
+		m_Size = Vector4::SIZE + Vector3::SIZE + Vector3::SIZE + sizeof(float_t);
 	}
 
 	void BBOX::WriteToStream(FileWriter& stream)

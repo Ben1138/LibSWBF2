@@ -6,7 +6,7 @@ namespace LibSWBF2::Types
 {
 	struct BoneWeight
 	{
-		static const ChunkSize Size = sizeof(float_t) + sizeof(uint32_t);
+		static const ChunkSize SIZE = sizeof(float_t) + sizeof(uint32_t);
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
