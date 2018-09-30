@@ -144,6 +144,12 @@
     <ClInclude Include="BoneWeight.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="NRML.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="UV0L.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -238,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="BoneWeight.cpp">
       <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="NRML.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="UV0L.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

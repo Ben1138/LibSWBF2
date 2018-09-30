@@ -174,6 +174,7 @@
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="MTYP.h" />
     <ClInclude Include="NAME.h" />
+    <ClInclude Include="NRML.h" />
     <ClInclude Include="POSL.h" />
     <ClInclude Include="SEGM.h" />
     <ClInclude Include="SHVO.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TRAN.h" />
+    <ClInclude Include="UV0L.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="MTYP.cpp" />
     <ClCompile Include="NAME.cpp" />
+    <ClCompile Include="NRML.cpp" />
     <ClCompile Include="POSL.cpp" />
     <ClCompile Include="SHVO.cpp" />
     <ClCompile Include="SINF.cpp" />
@@ -219,6 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TRAN.cpp" />
+    <ClCompile Include="UV0L.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
