@@ -153,6 +153,7 @@
     <ClInclude Include="ATRB.h" />
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
+    <ClInclude Include="BoneWeight.h" />
     <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FileReader.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="LoggerEntry.h" />
     <ClInclude Include="MATD.h" />
     <ClInclude Include="MATD_DATA.h" />
+    <ClInclude Include="MATI.h" />
     <ClInclude Include="MATL.h" />
     <ClInclude Include="MNDX.h" />
     <ClInclude Include="MODL.h" />
@@ -172,6 +174,8 @@
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="MTYP.h" />
     <ClInclude Include="NAME.h" />
+    <ClInclude Include="POSL.h" />
+    <ClInclude Include="SEGM.h" />
     <ClInclude Include="SHVO.h" />
     <ClInclude Include="SINF.h" />
     <ClInclude Include="stdafx.h" />
@@ -180,11 +184,13 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="WGHT.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATRB.cpp" />
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="BBOX.cpp" />
+    <ClCompile Include="BoneWeight.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
@@ -195,6 +201,7 @@
     <ClCompile Include="LoggerEntry.cpp" />
     <ClCompile Include="MATD.cpp" />
     <ClCompile Include="MATD_DATA.cpp" />
+    <ClCompile Include="MATI.cpp" />
     <ClCompile Include="MATL.cpp" />
     <ClCompile Include="MNDX.cpp" />
     <ClCompile Include="MODL.cpp" />
@@ -202,6 +209,7 @@
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="MTYP.cpp" />
     <ClCompile Include="NAME.cpp" />
+    <ClCompile Include="POSL.cpp" />
     <ClCompile Include="SHVO.cpp" />
     <ClCompile Include="SINF.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -214,6 +222,7 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
+    <ClCompile Include="WGHT.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

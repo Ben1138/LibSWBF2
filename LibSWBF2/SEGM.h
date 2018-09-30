@@ -1,22 +1,24 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
-#include "FRAM.h"
-#include "BBOX.h"
-#include "SEGM.h"
+#include "MATI.h"
+#include "POSL.h"
+#include "WGHT.h"
+#include "NRML.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct GEOM : public BaseChunk
+	struct SEGM : public BaseChunk
 	{
-		GEOM();
-		~GEOM();
+		SEGM();
+		~SEGM();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		BBOX m_BBOX;
-		vector<SEGM> m_Segments;
+		MATI m_MATI;
+		POSL m_POSL;
+		WGHT m_WGHT;
+		NRML m_NRML;
 	};
 }
