@@ -2,6 +2,7 @@
 #include "BaseChunk.h"
 #include "SINF.h"
 #include "MATL.h"
+#include "MODL.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -16,5 +17,6 @@ namespace LibSWBF2::Chunks::Mesh
 
 		SINF m_SINF;
 		MATL m_MATL;
+		MODL m_MODL;
 	};
 }

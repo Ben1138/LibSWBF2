@@ -1,22 +1,20 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
-#include "FRAM.h"
-#include "BBOX.h"
-#include "SEGM.h"
+#include "BoneWeight.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct GEOM : public BaseChunk
+	using LibSWBF2::Types::BoneWeight;
+
+	struct WGHT : public BaseChunk
 	{
-		GEOM();
-		~GEOM();
+		WGHT();
+		~WGHT();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		BBOX m_BBOX;
-		vector<SEGM> m_Segments;
+		vector<BoneWeight> m_Weights;
 	};
 }
