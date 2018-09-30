@@ -14,11 +14,11 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		NAME m_NAME;
+		STRING m_NAME;
 		MATD_DATA m_DATA;
-		NAME m_TX0D;
-		NAME m_TX1D;
-		NAME m_TX2D;
-		NAME m_TX3D;
+		STRING m_TX0D;
+		STRING m_TX1D;
+		STRING m_TX2D;
+		STRING m_TX3D;
 	};
 }

@@ -3,10 +3,10 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct NAME : public BaseChunk
+	struct STRING : public BaseChunk
 	{
-		NAME();
-		~NAME();
+		STRING();
+		~STRING();
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

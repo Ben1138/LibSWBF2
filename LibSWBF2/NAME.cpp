@@ -3,30 +3,30 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	NAME::NAME()
+	STRING::STRING()
 	{
 
 	}
 
-	NAME::~NAME()
+	STRING::~STRING()
 	{
 
 	}
 
-	void NAME::RefreshSize()
+	void STRING::RefreshSize()
 	{
 		// size must be a multiple of 4
 		m_Size = (ChunkSize)m_Text.size();
 		m_Size += 4 - (m_Size % 4);
 	}
 
-	void NAME::WriteToStream(FileWriter& stream)
+	void STRING::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteString(m_Text, m_Size);
+		stream.WriteString(m_Text, true);
 	}
 
-	void NAME::ReadFromStream(FileReader& stream)
+	void STRING::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_Text = stream.ReadString(m_Size);
