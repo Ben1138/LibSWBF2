@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void WGHT::RefreshSize()
 	{
-		m_Size = m_Weights.size() * BoneWeight::Size;
+		m_Size = m_Weights.size() * BoneWeight::SIZE;
 	}
 
 	void WGHT::WriteToStream(FileWriter& stream)

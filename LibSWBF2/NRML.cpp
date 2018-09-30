@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void NRML::RefreshSize()
 	{
-		m_Size = sizeof(uint32_t) + m_Normals.size() * Vector3::Size;
+		m_Size = sizeof(uint32_t) + m_Normals.size() * Vector3::SIZE;
 	}
 
 	void NRML::WriteToStream(FileWriter& stream)
