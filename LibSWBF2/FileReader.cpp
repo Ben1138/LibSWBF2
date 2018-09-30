@@ -31,7 +31,7 @@ namespace LibSWBF2
 		}
 
 		m_FileName = File;
-		m_FileSize = m_Reader.tellg();
+		m_FileSize = (size_t)m_Reader.tellg();
 		m_Reader.seekg(0);
 
 		LOG("File '"+ m_FileName +"' ("+ std::to_string(m_FileSize) +" bytes) successfully opened.", ELogType::Info);
@@ -132,7 +132,7 @@ namespace LibSWBF2
 
 	size_t FileReader::GetPosition()
 	{
-		return m_Reader.tellg();
+		return (size_t)m_Reader.tellg();
 	}
 
 	size_t FileReader::GetFileSize()
@@ -167,7 +167,7 @@ namespace LibSWBF2
 			return false;
 		}
 
-		size_t current = m_Reader.tellg();
+		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
 			LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);

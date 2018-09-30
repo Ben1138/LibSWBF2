@@ -170,6 +170,6 @@ namespace LibSWBF2
 
 	size_t FileWriter::GetPosition()
 	{
-		return m_Writer.tellp();
+		return (size_t)m_Writer.tellp();
 	}
 }
