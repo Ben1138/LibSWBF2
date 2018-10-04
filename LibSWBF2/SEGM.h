@@ -4,6 +4,8 @@
 #include "POSL.h"
 #include "WGHT.h"
 #include "NRML.h"
+#include "UV0L.h"
+#include "STRP.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -20,5 +22,7 @@ namespace LibSWBF2::Chunks::Mesh
 		POSL m_VertexList;
 		WGHT m_WeightList;
 		NRML m_NormalList;
+		UV0L m_UVList;
+		STRP m_TriangleList;
 	};
 }
