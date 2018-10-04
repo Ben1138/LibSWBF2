@@ -1,7 +1,5 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
-#include "MTYP.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
