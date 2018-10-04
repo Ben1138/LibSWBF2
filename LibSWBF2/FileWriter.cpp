@@ -86,6 +86,14 @@ namespace LibSWBF2
 		}
 	}
 
+	void FileWriter::WriteUInt16(const uint16_t& value)
+	{
+		if (CheckGood())
+		{
+			m_Writer.write((char*)&value, sizeof(value));
+		}
+	}
+
 	void FileWriter::WriteFloat(const float_t& value)
 	{
 		if (CheckGood())
