@@ -1,8 +1,5 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
-#include "FRAM.h"
-#include "BBOX.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
