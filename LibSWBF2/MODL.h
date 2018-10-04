@@ -18,12 +18,12 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		STRING m_NAME;
-		MTYP m_MTYP;
-		MNDX m_MNDX;
-		STRING m_PRNT;
-		FLGS m_FLGS;
-		TRAN m_TRAN;
-		GEOM m_GEOM;
+		STRING m_Name;
+		MTYP m_ModelType;
+		MNDX m_ModelIndex;
+		STRING m_Parent;
+		FLGS m_Flags;
+		TRAN m_Transition;
+		GEOM m_Geometry;
 	};
 }

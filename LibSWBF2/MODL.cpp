@@ -15,32 +15,32 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MODL::RefreshSize()
 	{
-		m_NAME.RefreshSize();
-		m_MTYP.RefreshSize();
-		m_PRNT.RefreshSize();
-		m_FLGS.RefreshSize();
-		m_TRAN.RefreshSize();
+		m_Name.RefreshSize();
+		m_ModelType.RefreshSize();
+		m_Parent.RefreshSize();
+		m_Flags.RefreshSize();
+		m_Transition.RefreshSize();
 
-		m_Size = m_NAME.GetSize() + m_MTYP.GetSize() + m_PRNT.GetSize() + m_FLGS.GetSize() + m_TRAN.GetSize();
+		m_Size = m_Name.GetSize() + m_ModelType.GetSize() + m_Parent.GetSize() + m_Flags.GetSize() + m_Transition.GetSize();
 	}
 
 	void MODL::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		m_NAME.WriteToStream(stream);
-		m_MTYP.WriteToStream(stream);
-		m_PRNT.WriteToStream(stream);
-		m_FLGS.WriteToStream(stream);
-		m_TRAN.WriteToStream(stream);
+		m_Name.WriteToStream(stream);
+		m_ModelType.WriteToStream(stream);
+		m_Parent.WriteToStream(stream);
+		m_Flags.WriteToStream(stream);
+		m_Transition.WriteToStream(stream);
 	}
 
 	void MODL::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		m_NAME.ReadFromStream(stream);
-		m_MTYP.ReadFromStream(stream);
-		m_PRNT.ReadFromStream(stream);
-		m_FLGS.ReadFromStream(stream);
-		m_TRAN.ReadFromStream(stream);
+		m_Name.ReadFromStream(stream);
+		m_ModelType.ReadFromStream(stream);
+		m_Parent.ReadFromStream(stream);
+		m_Flags.ReadFromStream(stream);
+		m_Transition.ReadFromStream(stream);
 	}
 }

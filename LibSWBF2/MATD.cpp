@@ -15,45 +15,45 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MATD::RefreshSize()
 	{
-		m_NAME.RefreshSize();
-		m_DATA.RefreshSize();
-		m_TX0D.RefreshSize();
-		m_TX1D.RefreshSize();
-		m_TX2D.RefreshSize();
-		m_TX3D.RefreshSize();
+		m_Name.RefreshSize();
+		m_Data.RefreshSize();
+		m_Texture0.RefreshSize();
+		m_Texture1.RefreshSize();
+		m_Texture2.RefreshSize();
+		m_Texture3.RefreshSize();
 
-		m_Size = m_NAME.GetSize() + m_DATA.GetSize();
+		m_Size = m_Name.GetSize() + m_Data.GetSize();
 
-		if (m_TX0D.m_Text.size() > 0)
-			m_Size += m_TX0D.GetSize();
+		if (m_Texture0.m_Text.size() > 0)
+			m_Size += m_Texture0.GetSize();
 
-		if (m_TX1D.m_Text.size() > 0)
-			m_Size += m_TX1D.GetSize();
+		if (m_Texture1.m_Text.size() > 0)
+			m_Size += m_Texture1.GetSize();
 
-		if (m_TX2D.m_Text.size() > 0)
-			m_Size += m_TX2D.GetSize();
+		if (m_Texture2.m_Text.size() > 0)
+			m_Size += m_Texture2.GetSize();
 
-		if (m_TX3D.m_Text.size() > 0)
-			m_Size += m_TX3D.GetSize();
+		if (m_Texture3.m_Text.size() > 0)
+			m_Size += m_Texture3.GetSize();
 	}
 
 	void MATD::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		m_NAME.WriteToStream(stream);
-		m_DATA.WriteToStream(stream);
+		m_Name.WriteToStream(stream);
+		m_Data.WriteToStream(stream);
 
-		if (m_TX0D.m_Text.size() > 0)
-			m_TX0D.WriteToStream(stream);
+		if (m_Texture0.m_Text.size() > 0)
+			m_Texture0.WriteToStream(stream);
 
-		if (m_TX1D.m_Text.size() > 0)
-			m_TX1D.WriteToStream(stream);
+		if (m_Texture1.m_Text.size() > 0)
+			m_Texture1.WriteToStream(stream);
 
-		if (m_TX2D.m_Text.size() > 0)
-			m_TX2D.WriteToStream(stream);
+		if (m_Texture2.m_Text.size() > 0)
+			m_Texture2.WriteToStream(stream);
 
-		if (m_TX3D.m_Text.size() > 0)
-			m_TX3D.WriteToStream(stream);
+		if (m_Texture3.m_Text.size() > 0)
+			m_Texture3.WriteToStream(stream);
 	}
 
 	void MATD::ReadFromStream(FileReader& stream)
@@ -66,27 +66,27 @@ namespace LibSWBF2::Chunks::Mesh
 
 			if (head == HeaderNames::NAME)
 			{
-				m_NAME.ReadFromStream(stream);
+				m_Name.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::DATA)
 			{
-				m_DATA.ReadFromStream(stream);
+				m_Data.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::TX0D)
 			{
-				m_TX0D.ReadFromStream(stream);
+				m_Texture0.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::TX1D)
 			{
-				m_TX1D.ReadFromStream(stream);
+				m_Texture1.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::TX2D)
 			{
-				m_TX2D.ReadFromStream(stream);
+				m_Texture2.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::TX3D)
 			{
-				m_TX3D.ReadFromStream(stream);
+				m_Texture3.ReadFromStream(stream);
 			}
 			else
 			{

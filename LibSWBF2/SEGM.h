@@ -16,9 +16,9 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		MATI m_MATI;
-		POSL m_POSL;
-		WGHT m_WGHT;
-		NRML m_NRML;
+		MATI m_MaterialIndex;
+		POSL m_VertexList;
+		WGHT m_WeightList;
+		NRML m_NormalList;
 	};
 }

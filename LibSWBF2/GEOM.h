@@ -16,7 +16,7 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		BBOX m_BBOX;
+		BBOX m_BoundingBox;
 		vector<SEGM> m_Segments;
 	};
 }
