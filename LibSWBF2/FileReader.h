@@ -16,6 +16,7 @@ namespace LibSWBF2
 		uint8_t ReadByte();
 		int32_t ReadInt32();
 		uint32_t ReadUInt32();
+		uint16_t ReadUInt16();
 		float_t ReadFloat();
 		string ReadString(size_t length);
 		size_t GetPosition();
