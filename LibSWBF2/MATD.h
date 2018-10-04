@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
+#include "STRING.h"
 #include "MATD_DATA.h"
 
 namespace LibSWBF2::Chunks::Mesh

@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseChunk.h"
-#include "NAME.h"
+#include "STRING.h"
 #include "MTYP.h"
 #include "MNDX.h"
 #include "FLGS.h"

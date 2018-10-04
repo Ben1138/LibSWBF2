@@ -173,13 +173,14 @@
     <ClInclude Include="MSH.h" />
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="MTYP.h" />
-    <ClInclude Include="NAME.h" />
+    <ClInclude Include="STRING.h" />
     <ClInclude Include="NRML.h" />
     <ClInclude Include="POSL.h" />
     <ClInclude Include="SEGM.h" />
     <ClInclude Include="SHVO.h" />
     <ClInclude Include="SINF.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="STRP.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TRAN.h" />
     <ClInclude Include="UV0L.h" />
@@ -210,7 +211,7 @@
     <ClCompile Include="MSH.cpp" />
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="MTYP.cpp" />
-    <ClCompile Include="NAME.cpp" />
+    <ClCompile Include="STRING.cpp" />
     <ClCompile Include="NRML.cpp" />
     <ClCompile Include="POSL.cpp" />
     <ClCompile Include="SHVO.cpp" />

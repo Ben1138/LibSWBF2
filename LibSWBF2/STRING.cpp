@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NAME.h"
+#include "STRING.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
