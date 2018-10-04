@@ -15,8 +15,8 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		STRING m_NAME;
-		FRAM m_FRAM;
-		BBOX m_BBOX;
+		STRING m_Name;
+		FRAM m_FrameInformation;
+		BBOX m_BoundingBox;
 	};
 }

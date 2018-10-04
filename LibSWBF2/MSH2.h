@@ -15,8 +15,8 @@ namespace LibSWBF2::Chunks::Mesh
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		SINF m_SINF;
-		MATL m_MATL;
-		MODL m_MODL;
+		SINF m_SceneInformation;
+		MATL m_MaterialList;
+		vector<MODL> m_Models;
 	};
 }

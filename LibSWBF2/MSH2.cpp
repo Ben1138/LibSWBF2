@@ -15,17 +15,17 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MSH2::RefreshSize()
 	{
-		m_SINF.RefreshSize();
-		m_MATL.RefreshSize();
+		m_SceneInformation.RefreshSize();
+		m_MaterialList.RefreshSize();
 
-		m_Size = m_SINF.GetSize() + m_MATL.GetSize();
+		m_Size = m_SceneInformation.GetSize() + m_MaterialList.GetSize();
 	}
 
 	void MSH2::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		m_SINF.WriteToStream(stream);
-		m_MATL.WriteToStream(stream);
+		m_SceneInformation.WriteToStream(stream);
+		m_MaterialList.WriteToStream(stream);
 	}
 
 	void MSH2::ReadFromStream(FileReader& stream)
@@ -38,11 +38,11 @@ namespace LibSWBF2::Chunks::Mesh
 
 			if (head == HeaderNames::SINF)
 			{
-				m_SINF.ReadFromStream(stream);
+				m_SceneInformation.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::MATL)
 			{
-				m_MATL.ReadFromStream(stream);
+				m_MaterialList.ReadFromStream(stream);
 			}
 			else
 			{
