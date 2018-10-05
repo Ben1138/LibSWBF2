@@ -26,6 +26,7 @@ namespace LibSWBF2::Chunks::HeaderNames
 		}
 	}
 
+	const ChunkHeader EMPTY = 0;
 	const ChunkHeader HEDR = GetHeaderValue("HEDR");
 	const ChunkHeader SHVO = GetHeaderValue("SHVO");
 	const ChunkHeader MSH2 = GetHeaderValue("MSH2");

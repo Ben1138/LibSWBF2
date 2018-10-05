@@ -24,6 +24,7 @@ namespace LibSWBF2::Chunks
 		virtual void RefreshSize();
 		virtual void WriteToStream(FileWriter& stream);
 		virtual void ReadFromStream(FileReader& stream);
+
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);
 		bool PositionInChunk(const size_t& CurrentPosition);
