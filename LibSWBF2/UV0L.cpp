@@ -39,9 +39,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (uint32_t i = 0; i < numVertices; ++i)
 		{
-			Vector2 uv;
+			Vector2& uv = m_UVs.emplace_back();
 			uv.ReadFromStream(stream);
-			m_UVs.emplace_back(uv);
 		}
 	}
 }

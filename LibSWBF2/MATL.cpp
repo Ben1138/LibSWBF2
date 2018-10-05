@@ -46,8 +46,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (uint32_t i = 0; i < MaterialsSize; ++i)
 		{
-			m_Materials.emplace_back(MATD());
-			m_Materials[m_Materials.size() - 1].ReadFromStream(stream);
+			MATD& material = m_Materials.emplace_back();
+			material.ReadFromStream(stream);
 		}
 	}
 }

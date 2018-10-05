@@ -39,9 +39,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (uint32_t i = 0; i < WeightSize; ++i)
 		{
-			BoneWeight weight;
+			BoneWeight& weight = m_Weights.emplace_back();
 			weight.ReadFromStream(stream);
-			m_Weights.emplace_back(weight);
 		}
 	}
 }
