@@ -200,7 +200,7 @@ namespace LibSWBF2
 
 	bool FileReader::SkipBytes(const size_t& Amount)
 	{
-		if (CheckGood(GetPosition() + Amount))
+		if (CheckGood(Amount))
 		{
 			m_Reader.seekg(GetPosition() + Amount);
 			return true;
