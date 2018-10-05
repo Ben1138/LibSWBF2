@@ -44,6 +44,11 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				m_MaterialList.ReadFromStream(stream);
 			}
+			else if (head == HeaderNames::MODL)
+			{
+				MODL& model = m_Models.emplace_back();
+				model.ReadFromStream(stream);
+			}
 			else
 			{
 				UnexpectedChunk(stream);
