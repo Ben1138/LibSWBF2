@@ -28,5 +28,6 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_ModelDisplayFlags = stream.ReadUInt32();
+		BaseChunk::EnsureEnd(stream);
 	}
 }

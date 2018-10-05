@@ -32,5 +32,6 @@ namespace LibSWBF2::Chunks::Mesh
 		m_FrameRangeStart = stream.ReadInt32();
 		m_FrameRangeEnd = stream.ReadInt32();
 		m_FramesPerSecond = stream.ReadFloat();
+		BaseChunk::EnsureEnd(stream);
 	}
 }

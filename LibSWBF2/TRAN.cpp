@@ -32,5 +32,6 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Scale.ReadFromStream(stream);
 		m_Rotation.ReadFromStream(stream);
 		m_Translation.ReadFromStream(stream);
+		BaseChunk::EnsureEnd(stream);
 	}
 }

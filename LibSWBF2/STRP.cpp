@@ -41,5 +41,7 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			m_Triangles.emplace_back(stream.ReadUInt16());
 		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }

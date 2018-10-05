@@ -34,5 +34,6 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Center.ReadFromStream(stream);
 		m_Extent.ReadFromStream(stream);
 		m_SphereRadius = stream.ReadFloat();
+		BaseChunk::EnsureEnd(stream);
 	}
 }

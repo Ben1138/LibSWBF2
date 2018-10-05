@@ -42,5 +42,7 @@ namespace LibSWBF2::Chunks::Mesh
 			Vector2& uv = m_UVs.emplace_back();
 			uv.ReadFromStream(stream);
 		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }

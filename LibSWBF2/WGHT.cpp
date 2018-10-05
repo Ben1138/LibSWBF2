@@ -42,5 +42,7 @@ namespace LibSWBF2::Chunks::Mesh
 			BoneWeight& weight = m_Weights.emplace_back();
 			weight.ReadFromStream(stream);
 		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }

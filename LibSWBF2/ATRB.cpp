@@ -34,5 +34,6 @@ namespace LibSWBF2::Chunks::Mesh
 		m_RenderType = (ERenderType)stream.ReadByte();
 		m_Data0 = stream.ReadByte();
 		m_Data1 = stream.ReadByte();
+		BaseChunk::EnsureEnd(stream);
 	}
 }

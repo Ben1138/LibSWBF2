@@ -34,5 +34,6 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Specular.ReadFromStream(stream);
 		m_Ambient.ReadFromStream(stream);
 		m_SpecularSharpness = stream.ReadFloat();
+		BaseChunk::EnsureEnd(stream);
 	}
 }
