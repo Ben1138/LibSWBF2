@@ -2,6 +2,7 @@
 #include "BaseChunk.h"
 #include "STRING.h"
 #include "MATD_DATA.h"
+#include "ATRB.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -16,6 +17,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 		STRING m_Name;
 		MATD_DATA m_Data;
+		ATRB m_Attribute;
 		STRING m_Texture0;		// TX0D
 		STRING m_Texture1;		// TX1D
 		STRING m_Texture2;		// TX2D
