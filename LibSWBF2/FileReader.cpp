@@ -133,7 +133,7 @@ namespace LibSWBF2
 		if (!m_Reader.is_open())
 		{
 			LOG("Nothing has been opened yet!", ELogType::Error);
-			return;
+			throw 666;
 		}
 
 		m_FileName = "";
@@ -155,7 +155,7 @@ namespace LibSWBF2
 		if (!m_Reader.is_open())
 		{
 			LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			return false;
+			throw 666;
 		}
 
 		if (!m_Reader.good())
@@ -174,14 +174,14 @@ namespace LibSWBF2
 				reason += " Reading Error on I/O operation!";
 			}
 			LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			return false;
+			throw 666;
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
 			LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
-			return false;
+			throw 666;
 		}
 
 		return true;

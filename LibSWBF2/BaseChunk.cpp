@@ -18,6 +18,7 @@ namespace LibSWBF2::Chunks
 	{
 		m_Size = 0;
 		LOG("RefreshSize() of BaseChunk called! This should never happen!", ELogType::Error);
+		throw 666;
 	}
 
 	void BaseChunk::WriteToStream(FileWriter& stream)
@@ -38,35 +39,50 @@ namespace LibSWBF2::Chunks
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
-			LOG("Chunk is too big and will end up out of file! Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Warning);
+			LOG("Chunk is too big and will end up out of file! Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
+			throw 666;
 		}
 	}
 
 	bool BaseChunk::WriteToFile(const string& Path)
 	{
 		FileWriter writer;
-		
 		if (writer.Open(Path))
 		{
-			WriteToStream(writer);
-			writer.Close();
+			try
+			{
+				WriteToStream(writer);
+				writer.Close();
+			}
+			catch (int& e)
+			{
+				e; // avoid C4101 warning
+				LOG("Aborting write process...", ELogType::Error);
+				return false;
+			}
 			return true;
 		}
-
 		return false;
 	}
 
 	bool BaseChunk::ReadFromFile(const string& Path)
 	{
 		FileReader reader;
-
 		if (reader.Open(Path))
 		{
-			ReadFromStream(reader);
-			reader.Close();
+			try
+			{
+				ReadFromStream(reader);
+				reader.Close();
+			}
+			catch (int& e)
+			{
+				e; // avoid C4101 warning
+				LOG("Aborting read process...", ELogType::Error);
+				return false;
+			}
 			return true;
 		}
-
 		return false;
 	}
 
