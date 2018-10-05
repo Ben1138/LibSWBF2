@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void POSL::RefreshSize()
 	{
-		m_Size = sizeof(uint32_t) + m_Vertices.size() * Vector3::SIZE;
+		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Vertices.size() * Vector3::SIZE);
 	}
 
 	void POSL::WriteToStream(FileWriter& stream)
