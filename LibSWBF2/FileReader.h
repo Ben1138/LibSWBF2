@@ -20,6 +20,7 @@ namespace LibSWBF2
 		float_t ReadFloat();
 		string ReadString(size_t length);
 		size_t GetPosition();
+		void SetPosition(size_t NewPosition);
 		size_t GetFileSize();
 		bool SkipBytes(const size_t& Amount);
 		void Close();

@@ -117,4 +117,14 @@ namespace LibSWBF2::Chunks
 		LOG("["+Chunks::HeaderNames::GetHeaderString(m_Header)+"] Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(size) + " (Data Block Size) Bytes...", ELogType::Warning);
 		return stream.SkipBytes(size);
 	}
+
+	void BaseChunk::EnsureEnd(FileReader& stream)
+	{
+		size_t endPos = m_ChunkDataPosition + m_Size;
+		if (stream.GetPosition() != endPos)
+		{
+			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
+			stream.SetPosition(endPos);
+		}
+	}
 }

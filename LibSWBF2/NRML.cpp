@@ -42,5 +42,7 @@ namespace LibSWBF2::Chunks::Mesh
 			Vector3& vertex = m_Normals.emplace_back();
 			vertex.ReadFromStream(stream);
 		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }

@@ -30,5 +30,6 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_Text = stream.ReadString(m_Size);
+		BaseChunk::EnsureEnd(stream);
 	}
 }

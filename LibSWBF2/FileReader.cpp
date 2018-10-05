@@ -145,6 +145,17 @@ namespace LibSWBF2
 		return (size_t)m_Reader.tellg();
 	}
 
+	void FileReader::SetPosition(size_t NewPosition)
+	{
+		if (NewPosition < 0 || NewPosition > m_FileSize)
+		{
+			LOG("Cannot set read position to " + std::to_string(NewPosition) + " because it is out of range! Range: 0 - " + std::to_string(m_FileSize), ELogType::Error);
+			return;
+		}
+
+		m_Reader.seekg(NewPosition);
+	}
+
 	size_t FileReader::GetFileSize()
 	{
 		return m_FileSize;

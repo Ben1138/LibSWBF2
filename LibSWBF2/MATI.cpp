@@ -28,5 +28,6 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_MaterialIndex = stream.ReadInt32();
+		BaseChunk::EnsureEnd(stream);
 	}
 }

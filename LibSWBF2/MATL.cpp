@@ -49,5 +49,7 @@ namespace LibSWBF2::Chunks::Mesh
 			MATD& material = m_Materials.emplace_back();
 			material.ReadFromStream(stream);
 		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }
