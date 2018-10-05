@@ -15,41 +15,48 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void GEOM::RefreshSize()
 	{
-		/*m_NAME.RefreshSize();
-		fram.RefreshSize();
-		m_BBOX.RefreshSize();
+		m_BoundingBox.RefreshSize();
+		m_Size = m_BoundingBox.GetSize();
 
-		Size = m_NAME.GetSize() + fram.GetSize() + m_BBOX.GetSize();*/
+		for (size_t i = 0; i < m_Segments.size(); ++i)
+		{
+			m_Segments[i].RefreshSize();
+			m_Size += m_BoundingBox.GetSize();
+		}
 	}
 
 	void GEOM::WriteToStream(FileWriter& stream)
 	{
-		/*BaseChunk::WriteToStream(stream);
-		m_NAME.WriteToStream(stream);
-		fram.WriteToStream(stream);
-		m_BBOX.WriteToStream(stream);*/
+		BaseChunk::WriteToStream(stream);
+		m_BoundingBox.WriteToStream(stream);
+
+		for (size_t i = 0; i < m_Segments.size(); ++i)
+		{
+			m_Segments[i].WriteToStream(stream);
+		}
 	}
 
 	void GEOM::ReadFromStream(FileReader& stream)
 	{
-		/*BaseChunk::ReadFromStream(stream);
-		ChunkHeader head = stream.ReadChunkHeader(true);
+		BaseChunk::ReadFromStream(stream);
 
-		if (head == HeaderNames::NAME)
+		while (PositionInChunk(stream.GetPosition()))
 		{
-			m_NAME.ReadFromStream(stream);
+			ChunkHeader head = stream.ReadChunkHeader(true);
+
+			if (head == HeaderNames::BBOX)
+			{
+				m_BoundingBox.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::SEGM)
+			{
+				SEGM& segment = m_Segments.emplace_back();
+				segment.ReadFromStream(stream);
+			}
+			else
+			{
+				SkipChunk(stream);
+			}
 		}
-		else if (head == HeaderNames::FRAM)
-		{
-			fram.ReadFromStream(stream);
-		}
-		else if (head == HeaderNames::BBOX)
-		{
-			m_BBOX.ReadFromStream(stream);
-		}
-		else
-		{
-			LOG("Unknown Chunk found: " + HeaderNames::GetHeaderString(head), ELogType::Warning);
-		}*/
 	}
 }
