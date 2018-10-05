@@ -211,6 +211,7 @@
     <ClCompile Include="MSH.cpp" />
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="MTYP.cpp" />
+    <ClCompile Include="SEGM.cpp" />
     <ClCompile Include="STRING.cpp" />
     <ClCompile Include="NRML.cpp" />
     <ClCompile Include="POSL.cpp" />

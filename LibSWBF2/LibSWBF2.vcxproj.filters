@@ -257,5 +257,8 @@
     <ClCompile Include="STRP.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="SEGM.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
