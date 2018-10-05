@@ -11,6 +11,7 @@
 #define LIBSWBF2_API __declspec(dllexport)
 #else
 #define LIBSWBF2_API __declspec(dllimport)
+#pragma comment(lib, "LibSWBF2.dll")
 #endif
 
 namespace LibSWBF2::API
@@ -23,8 +24,9 @@ namespace LibSWBF2::API
 
 	extern "C"
 	{
-		LIBSWBF2_API MSH* MSH_LoadFromFile(const char* path);
+		LIBSWBF2_API MSH* MSH_Create();
 		LIBSWBF2_API void MSH_Delete(MSH* ptr);
+		LIBSWBF2_API void MSH_ReadFromFile(MSH* ptr, const char* path);
 
 		LIBSWBF2_API void AddLogMessage(const char* message, const ELogType logType);
 	}
