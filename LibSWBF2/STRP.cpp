@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void STRP::RefreshSize()
 	{
-		m_Size = sizeof(uint32_t) + m_Triangles.size() * sizeof(uint16_t);
+		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Triangles.size() * sizeof(uint16_t));
 	}
 
 	void STRP::WriteToStream(FileWriter& stream)
