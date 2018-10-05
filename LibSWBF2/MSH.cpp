@@ -45,7 +45,7 @@ namespace LibSWBF2::Chunks::Mesh
 			}
 			else
 			{
-				SkipChunk(stream);
+				UnexpectedChunk(stream);
 			}
 		}
 	}
