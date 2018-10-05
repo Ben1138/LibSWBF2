@@ -45,11 +45,41 @@ namespace LibSWBF2::Chunks::Mesh
 	void SEGM::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		m_MaterialIndex.ReadFromStream(stream);
-		m_VertexList.ReadFromStream(stream);
-		m_WeightList.ReadFromStream(stream);
-		m_NormalList.ReadFromStream(stream);
-		m_UVList.ReadFromStream(stream);
-		m_TriangleList.ReadFromStream(stream);
+
+		while (PositionInChunk(stream.GetPosition()))
+		{
+			ChunkHeader head = stream.ReadChunkHeader(true);
+
+			if (head == HeaderNames::MATI)
+			{
+				m_MaterialIndex.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::POSL)
+			{
+				m_VertexList.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::WGHT)
+			{
+				m_WeightList.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::NRML)
+			{
+				m_NormalList.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::UV0L)
+			{
+				m_UVList.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::STRP)
+			{
+				m_TriangleList.ReadFromStream(stream);
+			}
+			else
+			{
+				UnexpectedChunk(stream);
+			}
+		}
+
+		BaseChunk::EnsureEnd(stream);
 	}
 }
