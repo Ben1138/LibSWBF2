@@ -43,6 +43,12 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				m_MSH2.ReadFromStream(stream);
 			}
+			else if (head == HeaderNames::CL1L)
+			{
+				// EoF reached;
+				LOG("Reached end of file!", ELogType::Info);
+				return;
+			}
 			else
 			{
 				UnexpectedChunk(stream);

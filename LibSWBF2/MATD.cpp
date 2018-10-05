@@ -26,16 +26,24 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Size = m_Name.GetSize() + m_Data.GetSize() + m_Attribute.GetSize();
 
 		if (m_Texture0.m_Text.size() > 0)
+		{
 			m_Size += m_Texture0.GetSize();
+		}
 
 		if (m_Texture1.m_Text.size() > 0)
+		{
 			m_Size += m_Texture1.GetSize();
+		}
 
 		if (m_Texture2.m_Text.size() > 0)
+		{
 			m_Size += m_Texture2.GetSize();
+		}
 
 		if (m_Texture3.m_Text.size() > 0)
+		{
 			m_Size += m_Texture3.GetSize();
+		}
 	}
 
 	void MATD::WriteToStream(FileWriter& stream)
@@ -46,16 +54,24 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Attribute.WriteToStream(stream);
 
 		if (m_Texture0.m_Text.size() > 0)
+		{
 			m_Texture0.WriteToStream(stream);
+		}
 
 		if (m_Texture1.m_Text.size() > 0)
+		{
 			m_Texture1.WriteToStream(stream);
+		}
 
 		if (m_Texture2.m_Text.size() > 0)
+		{
 			m_Texture2.WriteToStream(stream);
+		}
 
 		if (m_Texture3.m_Text.size() > 0)
+		{
 			m_Texture3.WriteToStream(stream);
+		}
 	}
 
 	void MATD::ReadFromStream(FileReader& stream)
