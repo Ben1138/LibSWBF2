@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);
 		bool PositionInChunk(const size_t& CurrentPosition);
-		bool SkipChunk(FileReader& stream);
+		bool UnexpectedChunk(FileReader& stream);
 
 		ChunkHeader GetHeader();
 		ChunkSize GetSize();

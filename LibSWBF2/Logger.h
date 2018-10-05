@@ -22,5 +22,6 @@ namespace LibSWBF2::Logging
 		FileWriter m_Writer;
 	};
 
-#define LOG(message, level) Logger::GetInstance()->Log(message, level, __LINE__, __FILE__);
+#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+#define LOG(message, level) Logger::GetInstance()->Log(message, level, __LINE__, __FILENAME__);
 }
