@@ -11,26 +11,6 @@ namespace LibSWBF2::Logging
 		this->m_File = file;
 	}
 
-	string LoggerEntry::GetLogMessage()
-	{
-		return m_Message;
-	}
-
-	ELogType LoggerEntry::GetLogLevel()
-	{
-		return m_Level;
-	}
-
-	uint64_t LoggerEntry::GetLineNumber()
-	{
-		return m_Line;
-	}
-
-	string LoggerEntry::GetFileName()
-	{
-		return m_File;
-	}
-
 	string LoggerEntry::ToString()
 	{
 		if (m_Level == ELogType::Info)

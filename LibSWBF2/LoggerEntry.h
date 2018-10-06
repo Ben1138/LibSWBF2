@@ -19,13 +19,8 @@ namespace LibSWBF2::Logging
 	struct LoggerEntry
 	{
 		LoggerEntry(const string &message, const ELogType &level, const uint64_t &line, const string &file);
-
-		string GetLogMessage();
-		ELogType GetLogLevel();
-		uint64_t GetLineNumber();
-		string GetFileName();
 		string ToString();
-	private:
+
 		string m_Message;
 		ELogType m_Level;
 		uint64_t m_Line;
