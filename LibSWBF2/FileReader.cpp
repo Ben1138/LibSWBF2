@@ -24,7 +24,7 @@ namespace LibSWBF2
 
 		if (!success)
 		{
-			LOG("File '" + File + "' could not be found / opened!", ELogType::Error);
+			LOG("File '" + File + "' could not be found / opened!", ELogType::Warning);
 			m_FileName = "";
 			m_Reader.close();
 			return false;
@@ -132,7 +132,7 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			LOG("Nothing has been opened yet!", ELogType::Error);
+			LOG("Nothing has been opened yet!", ELogType::Warning);
 			throw 666;
 		}
 
