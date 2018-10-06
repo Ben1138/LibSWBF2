@@ -30,4 +30,16 @@ namespace LibSWBF2::Logging
 	{
 		return m_File;
 	}
+
+	string LoggerEntry::ToString()
+	{
+		if (m_Level == ELogType::Info)
+		{
+			return "[" + SLogType[m_Level] + "] " + m_Message;
+		}
+		else
+		{
+			return "[" + SLogType[m_Level] + "] " + m_Message + " - IN " + std::to_string(m_Line) + " " + m_File;
+		}
+	}
 }
