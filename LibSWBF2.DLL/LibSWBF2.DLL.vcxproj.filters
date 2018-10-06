@@ -23,6 +23,12 @@
     <ClInclude Include="API.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="req.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LibSWBF2API.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

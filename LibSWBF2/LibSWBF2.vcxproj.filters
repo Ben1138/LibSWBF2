@@ -153,6 +153,12 @@
     <ClInclude Include="STRING.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="req.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LibSWBF2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
