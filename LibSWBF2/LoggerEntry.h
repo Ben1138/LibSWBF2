@@ -24,6 +24,7 @@ namespace LibSWBF2::Logging
 		ELogType GetLogLevel();
 		uint64_t GetLineNumber();
 		string GetFileName();
+		string ToString();
 	private:
 		string m_Message;
 		ELogType m_Level;

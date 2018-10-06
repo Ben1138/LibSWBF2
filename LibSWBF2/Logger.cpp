@@ -29,18 +29,12 @@ namespace LibSWBF2::Logging
 	{
 		if (message.length() > 0)
 		{
-			if (level == ELogType::Info)
-			{
-				m_Writer.WriteLine("[" + SLogType[level] + "] " + message);
-			}
-			else
-			{
-				m_Writer.WriteLine("[" + SLogType[level] + "] " + message + " - IN " + std::to_string(line) + " " + file);
-			}
+			auto entry = LoggerEntry(message, level, line, file);
+			m_Writer.WriteLine(entry.ToString());
 
 			if (m_OnLogCallback)
 			{
-				m_OnLogCallback(LoggerEntry(message, level, line, file));
+				m_OnLogCallback(entry);
 			}
 		}
 	}
