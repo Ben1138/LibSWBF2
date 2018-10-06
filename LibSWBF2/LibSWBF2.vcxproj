@@ -167,6 +167,7 @@
     <ClInclude Include="FRAM.h" />
     <ClInclude Include="GEOM.h" />
     <ClInclude Include="HeaderNames.h" />
+    <ClInclude Include="LibSWBF2.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerEntry.h" />
     <ClInclude Include="MATD.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="MSH.h" />
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="MTYP.h" />
+    <ClInclude Include="req.h" />
     <ClInclude Include="STRING.h" />
     <ClInclude Include="NRML.h" />
     <ClInclude Include="POSL.h" />
