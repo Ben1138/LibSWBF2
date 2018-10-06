@@ -69,6 +69,7 @@ namespace LibSWBF2::Chunks
 			LOG("Successfully finished writing process!", ELogType::Info);
 			return true;
 		}
+		LOG("Could not write to File " + Path + "!", ELogType::Warning);
 		return false;
 	}
 
@@ -91,6 +92,7 @@ namespace LibSWBF2::Chunks
 			LOG("Successfully finished reading process!", ELogType::Info);
 			return true;
 		}
+		LOG("Could not open File "+Path+"! Non existent?", ELogType::Warning);
 		return false;
 	}
 
