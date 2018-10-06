@@ -17,7 +17,6 @@ namespace LibSWBF2::API
 	{
 		// Logging //
 		LIBSWBF2_API void LOG_SetCallbackMethod(function<void(LoggerEntry)>* Callback);
-		LIBSWBF2_API const char* LOG_LoggerEntryToString(LoggerEntry* Entry);
 		LIBSWBF2_API void LOG_Log(const char* message, const ELogType logType);
 
 		// MSH //
