@@ -179,6 +179,7 @@
     <ClInclude Include="MSH.h" />
     <ClInclude Include="MSH2.h" />
     <ClInclude Include="MTYP.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="req.h" />
     <ClInclude Include="STRING.h" />
     <ClInclude Include="NRML.h" />
