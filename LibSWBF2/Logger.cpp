@@ -24,6 +24,11 @@ namespace LibSWBF2::Logging
 
 		return m_Instance;
 	}
+
+	void Logger::SetLogCallback(const LogCallback& Callback)
+	{
+		GetInstance()->m_OnLogCallback = Callback;
+	}
 	
 	void Logger::Log(const string &message, const ELogType &level, const unsigned long line, const char* file)
 	{
