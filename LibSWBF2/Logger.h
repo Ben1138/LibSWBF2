@@ -4,6 +4,8 @@
 
 namespace LibSWBF2::Logging
 {
+	typedef function<void(LoggerEntry)> LogCallback;
+
 	// Singleton
 	class Logger
 	{
@@ -14,11 +16,12 @@ namespace LibSWBF2::Logging
 		const string LOG_FILE = "LibSWBF2.log";
 		static unique_ptr<Logger>& GetInstance();
 
-		function<void(LoggerEntry)> m_OnLogCallback;
+		LIBSWBF2_EXP static void SetLogCallback(const LogCallback& Callback);
 		void Log(const std::string &message, const ELogType &level, const unsigned long line, const char* file);
 
 	private:
 		static unique_ptr<Logger> m_Instance;
+		LogCallback m_OnLogCallback;
 		FileWriter m_Writer;
 	};
 
