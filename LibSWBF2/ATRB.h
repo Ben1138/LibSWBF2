@@ -64,18 +64,23 @@ namespace LibSWBF2::Chunks::Mesh
 	using RenderFlags::ERenderFlags;
 	using RenderType::ERenderType;
 
+	struct MATD;
+
 	struct ATRB : public BaseChunk
 	{
 		ATRB();
 		~ATRB();
 
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
-
 		ERenderFlags m_RenderFlags;
 		ERenderType m_RenderType;
 		uint8_t m_Data0;		// what are these for ??
 		uint8_t m_Data1;
+
+	protected:
+		friend MATD;
+
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 	};
 }

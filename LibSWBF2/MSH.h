@@ -10,11 +10,12 @@ namespace LibSWBF2::Chunks::Mesh
 		MSH();
 		~MSH();
 
+		SHVO m_SHVO;
+		MSH2 m_MSH2;
+
+	protected:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		SHVO m_SHVO;
-		MSH2 m_MSH2;
 	};
 }

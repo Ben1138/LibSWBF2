@@ -6,17 +6,22 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	struct MSH2;
+
 	struct SINF : public BaseChunk
 	{
 		SINF();
 		~SINF();
 
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
-
 		STRING m_Name;
 		FRAM m_FrameInformation;
 		BBOX m_BoundingBox;
+
+	protected:
+		friend MSH2;
+
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 	};
 }

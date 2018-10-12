@@ -6,15 +6,20 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	using LibSWBF2::Types::BoneWeight;
 
+	struct SEGM;
+
 	struct WGHT : public BaseChunk
 	{
 		WGHT();
 		~WGHT();
 
+		vector<BoneWeight> m_Weights;
+
+	protected:
+		friend SEGM;
+
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		vector<BoneWeight> m_Weights;
 	};
 }
