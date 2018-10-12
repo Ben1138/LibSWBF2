@@ -19,10 +19,10 @@ namespace LibSWBF2NET::Logging
 		if (OnLogCallback)
 		{
 			LoggerEntry log;
-			log.m_Message = MarshalString(Entry.GetLogMessage());
-			log.m_Level = (ELogType)Entry.GetLogLevel();
-			log.m_Line = Entry.GetLineNumber();
-			log.m_File = MarshalString(Entry.GetFileName());
+			log.m_Message = MarshalString(Entry.m_Message);
+			log.m_Level = (ELogType)Entry.m_Level;
+			log.m_Line = Entry.m_Line;
+			log.m_File = MarshalString(Entry.m_File);
 			OnLogCallback->Invoke(log);
 		}
 	}
