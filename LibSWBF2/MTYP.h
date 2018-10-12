@@ -12,15 +12,20 @@ namespace LibSWBF2::Chunks::Mesh
 		Shadow = 6
 	};
 
+	struct MODL;
+
 	struct MTYP : public BaseChunk
 	{
 		MTYP();
 		~MTYP();
 
+		EModelType m_ModelType;
+
+	protected:
+		friend MODL;
+
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		EModelType m_ModelType;
 	};
 }

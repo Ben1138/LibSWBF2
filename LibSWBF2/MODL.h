@@ -9,14 +9,12 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	struct MSH2;
+
 	struct MODL : public BaseChunk
 	{
 		MODL();
 		~MODL();
-
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
 
 		STRING m_Name;
 		MTYP m_ModelType;
@@ -25,5 +23,12 @@ namespace LibSWBF2::Chunks::Mesh
 		FLGS m_Flags;
 		TRAN m_Transition;
 		GEOM m_Geometry;
+
+	protected:
+		friend MSH2;
+
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 	};
 }

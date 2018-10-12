@@ -6,14 +6,12 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	struct MATL;
+
 	struct MATD : public BaseChunk
 	{
 		MATD();
 		~MATD();
-
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
 
 		STRING m_Name;
 		MATD_DATA m_Data;
@@ -22,5 +20,12 @@ namespace LibSWBF2::Chunks::Mesh
 		STRING m_Texture1;		// TX1D
 		STRING m_Texture2;		// TX2D
 		STRING m_Texture3;		// TX3D
+
+	protected:
+		friend MATL;
+
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
 	};
 }

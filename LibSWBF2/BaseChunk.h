@@ -20,13 +20,15 @@ namespace LibSWBF2::Chunks
 		BaseChunk();
 		~BaseChunk();
 
+		bool WriteToFile(const string& Path);
+		bool ReadFromFile(const string& Path);
+
+	protected:
 		// These MUST be overridden in subclasses!
 		virtual void RefreshSize();
 		virtual void WriteToStream(FileWriter& stream);
 		virtual void ReadFromStream(FileReader& stream);
 
-		bool WriteToFile(const string& Path);
-		bool ReadFromFile(const string& Path);
 		bool PositionInChunk(const size_t& CurrentPosition);
 		bool UnexpectedChunk(FileReader& stream);
 		void EnsureEnd(FileReader& stream);
@@ -34,7 +36,6 @@ namespace LibSWBF2::Chunks
 		ChunkHeader GetHeader();
 		ChunkSize GetSize();
 
-	protected:
 		// since these variables are critical
 		// we should keep them protected
 		ChunkHeader m_Header;
