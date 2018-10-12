@@ -26,15 +26,12 @@
     <ClInclude Include="req.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LibSWBF2API.h">
+    <ClInclude Include="LibSWBF2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LibSWBF2.DLL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
