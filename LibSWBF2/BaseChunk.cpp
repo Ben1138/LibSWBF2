@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks
 {
-	BaseChunk::BaseChunk()
-	{
-		
-	}
-
-	BaseChunk::~BaseChunk()
-	{
-
-	}
-
 	// must be overwritten by inheriting classes!
 	void BaseChunk::RefreshSize()
 	{

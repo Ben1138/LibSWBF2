@@ -17,13 +17,13 @@ namespace LibSWBF2::Chunks
 
 	struct BaseChunk
 	{
-		BaseChunk();
-		~BaseChunk();
-
-		bool WriteToFile(const string& Path);
-		bool ReadFromFile(const string& Path);
+		LIBSWBF2_EXP bool WriteToFile(const string& Path);
+		LIBSWBF2_EXP bool ReadFromFile(const string& Path);
 
 	protected:
+		BaseChunk() = default;
+		~BaseChunk() = default;
+
 		// These MUST be overridden in subclasses!
 		virtual void RefreshSize();
 		virtual void WriteToStream(FileWriter& stream);
