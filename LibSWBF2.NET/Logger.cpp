@@ -6,7 +6,7 @@ namespace LibSWBF2NET::Logging
 {
 	Logger::Logger()
 	{
-		NativeLogger::GetInstance()->m_OnLogCallback = NativeLogCallback;
+		NativeLogger::SetLogCallback(NativeLogCallback);
 	}
 
 	void Logger::Log(String^ Message, ELogType Level, UINT64 Line, String^ File)
