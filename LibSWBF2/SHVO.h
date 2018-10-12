@@ -18,10 +18,5 @@ namespace LibSWBF2::Chunks::Mesh
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		int32_t GetShadowVolume();
-		void SetShadowVolume(int32_t ShadowVolume);
-
-		int32_t m_ShadowVolume;
 	};
 }

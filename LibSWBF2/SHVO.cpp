@@ -30,14 +30,4 @@ namespace LibSWBF2::Chunks::Mesh
 		m_ShadowVolume = stream.ReadInt32();
 		BaseChunk::EnsureEnd(stream);
 	}
-
-	int32_t SHVO::GetShadowVolume()
-	{
-		return m_ShadowVolume;
-	}
-
-	void SHVO::SetShadowVolume(int32_t ShadowVolume)
-	{
-		m_ShadowVolume = ShadowVolume;
-	}
 }
