@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MATL::MATL()
-	{
-
-	}
-
-	MATL::~MATL()
-	{
-		
-	}
-
 	void MATL::RefreshSize()
 	{
 		ChunkSize matChunksSize = 0;

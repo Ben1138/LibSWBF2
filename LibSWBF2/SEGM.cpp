@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	SEGM::SEGM()
-	{
-
-	}
-
-	SEGM::~SEGM()
-	{
-
-	}
-
 	void SEGM::RefreshSize()
 	{
 		m_MaterialIndex.RefreshSize();

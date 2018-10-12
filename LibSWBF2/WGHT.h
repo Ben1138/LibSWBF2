@@ -10,8 +10,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct WGHT : public BaseChunk
 	{
-		WGHT();
-		~WGHT();
+		WGHT() = default;
+		~WGHT() = default;
 
 		vector<BoneWeight> m_Weights;
 

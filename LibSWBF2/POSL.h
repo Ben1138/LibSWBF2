@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct POSL : public BaseChunk
 	{
-		POSL();
-		~POSL();
+		POSL() = default;
+		~POSL() = default;
 
 		vector<Vector3> m_Vertices;
 

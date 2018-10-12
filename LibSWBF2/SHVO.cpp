@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	SHVO::SHVO()
-	{
-
-	}
-
-	SHVO::~SHVO()
-	{
-
-	}
-
 	void SHVO::RefreshSize()
 	{
 		m_Size = sizeof(int32_t);

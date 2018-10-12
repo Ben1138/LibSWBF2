@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	UV0L::UV0L()
-	{
-
-	}
-
-	UV0L::~UV0L()
-	{
-
-	}
-
 	void UV0L::RefreshSize()
 	{
 		m_Size = (ChunkSize)(sizeof(uint32_t) + m_UVs.size() * Vector2::SIZE);

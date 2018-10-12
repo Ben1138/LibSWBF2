@@ -13,8 +13,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct SEGM : public BaseChunk
 	{
-		SEGM();
-		~SEGM();
+		SEGM() = default;
+		~SEGM() = default;
 
 		MATI m_MaterialIndex;
 		POSL m_VertexList;
@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	protected:
 		friend GEOM;
-
+		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	ATRB::ATRB()
-	{
-
-	}
-
-	ATRB::~ATRB()
-	{
-
-	}
-
 	void ATRB::RefreshSize()
 	{
 		m_Size = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);

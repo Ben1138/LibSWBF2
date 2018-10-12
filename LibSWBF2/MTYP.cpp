@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MTYP::MTYP()
-	{
-
-	}
-
-	MTYP::~MTYP()
-	{
-
-	}
-
 	void MTYP::RefreshSize()
 	{
 		m_Size = sizeof(uint32_t);

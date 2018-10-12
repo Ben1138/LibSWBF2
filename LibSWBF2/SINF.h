@@ -10,8 +10,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct SINF : public BaseChunk
 	{
-		SINF();
-		~SINF();
+		SINF() = default;
+		~SINF() = default;
 
 		STRING m_Name;
 		FRAM m_FrameInformation;
@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	protected:
 		friend MSH2;
-
+		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

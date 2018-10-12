@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MNDX::MNDX()
-	{
-
-	}
-
-	MNDX::~MNDX()
-	{
-
-	}
-
 	void MNDX::RefreshSize()
 	{
 		m_Size = sizeof(uint32_t);

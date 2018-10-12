@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct GEOM : public BaseChunk
 	{
-		GEOM();
-		~GEOM();
+		GEOM() = default;
+		~GEOM() = default;
 
 		BBOX m_BoundingBox;
 		vector<SEGM> m_Segments;

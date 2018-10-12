@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MATD_DATA : public BaseChunk
 	{
-		MATD_DATA();
-		~MATD_DATA();
+		MATD_DATA() = default;
+		~MATD_DATA() = default;
 
 		Color m_Diffuse;
 		Color m_Specular;

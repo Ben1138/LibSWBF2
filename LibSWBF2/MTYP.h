@@ -16,8 +16,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MTYP : public BaseChunk
 	{
-		MTYP();
-		~MTYP();
+		MTYP() = default;
+		~MTYP() = default;
 
 		EModelType m_ModelType;
 

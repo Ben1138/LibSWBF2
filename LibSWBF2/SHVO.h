@@ -7,14 +7,14 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct SHVO : public BaseChunk
 	{
-		SHVO();
-		~SHVO();
+		SHVO() = default;
+		~SHVO() = default;
 
 		int32_t m_ShadowVolume;
 
 	protected:
 		friend MSH;
-
+		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

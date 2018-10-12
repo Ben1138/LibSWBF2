@@ -13,8 +13,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MODL : public BaseChunk
 	{
-		MODL();
-		~MODL();
+		MODL() = default;
+		~MODL() = default;
 
 		STRING m_Name;
 		MTYP m_ModelType;

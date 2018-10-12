@@ -10,15 +10,15 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MSH2 : public BaseChunk
 	{
-		MSH2();
-		~MSH2();
-
 		SINF m_SceneInformation;
 		MATL m_MaterialList;
 		vector<MODL> m_Models;
 
 	protected:
 		friend MSH;
+
+		MSH2() = default;
+		~MSH2() = default;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

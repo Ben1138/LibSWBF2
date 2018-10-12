@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MATD::MATD()
-	{
-
-	}
-
-	MATD::~MATD()
-	{
-
-	}
-
 	void MATD::RefreshSize()
 	{
 		m_Name.RefreshSize();

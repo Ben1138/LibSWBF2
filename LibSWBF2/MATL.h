@@ -8,8 +8,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MATL : public BaseChunk
 	{
-		MATL();
-		~MATL();
+		MATL() = default;
+		~MATL() = default;
 
 		vector<MATD> m_Materials;
 

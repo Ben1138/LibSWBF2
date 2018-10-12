@@ -3,16 +3,16 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct MATL : public BaseChunk
-	{
-		MATL();
-		~MATL();
-				
+	struct CAMR : public BaseChunk
+	{				
 		uint32_t m_Length;
 
 	protected:
-		void RefreshSize() override;
+		CAMR() = default;
+		~CAMR() = default;
+
+		/*void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
+		void ReadFromStream(FileReader& stream) override;*/
 	};
 }

@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	SINF::SINF()
-	{
-
-	}
-
-	SINF::~SINF()
-	{
-
-	}
-
 	void SINF::RefreshSize()
 	{
 		m_Name.RefreshSize();

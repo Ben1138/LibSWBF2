@@ -68,8 +68,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct ATRB : public BaseChunk
 	{
-		ATRB();
-		~ATRB();
+		ATRB() = default;
+		~ATRB() = default;
 
 		ERenderFlags m_RenderFlags;
 		ERenderType m_RenderType;

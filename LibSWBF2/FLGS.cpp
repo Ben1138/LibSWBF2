@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	FLGS::FLGS()
-	{
-
-	}
-
-	FLGS::~FLGS()
-	{
-
-	}
-
 	void FLGS::RefreshSize()
 	{
 		m_Size = sizeof(uint32_t);

@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MATI::MATI()
-	{
-
-	}
-
-	MATI::~MATI()
-	{
-
-	}
-
 	void MATI::RefreshSize()
 	{
 		m_Size = sizeof(int32_t);

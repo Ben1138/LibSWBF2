@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	TRAN::TRAN()
-	{
-
-	}
-
-	TRAN::~TRAN()
-	{
-
-	}
-
 	void TRAN::RefreshSize()
 	{
 		m_Size = Vector3::SIZE + Vector4::SIZE + Vector3::SIZE;

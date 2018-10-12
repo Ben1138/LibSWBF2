@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct FLGS : public BaseChunk
 	{
-		FLGS();
-		~FLGS();
+		FLGS() = default;
+		~FLGS() = default;
 
 		uint32_t m_ModelDisplayFlags;	// unknown?
 

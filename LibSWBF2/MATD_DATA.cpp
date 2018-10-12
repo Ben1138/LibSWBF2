@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MATD_DATA::MATD_DATA()
-	{
-
-	}
-
-	MATD_DATA::~MATD_DATA()
-	{
-
-	}
-
 	void MATD_DATA::RefreshSize()
 	{
 		m_Size = Color::SIZE + Color::SIZE + Color::SIZE + sizeof(float_t);

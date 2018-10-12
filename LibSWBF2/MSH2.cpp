@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MSH2::MSH2()
-	{
-
-	}
-
-	MSH2::~MSH2()
-	{
-
-	}
-
 	void MSH2::RefreshSize()
 	{
 		m_SceneInformation.RefreshSize();
