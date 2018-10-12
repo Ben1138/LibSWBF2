@@ -24,5 +24,6 @@ namespace LibSWBF2::API
 		LIBSWBF2_API MSH* MSH_Create();
 		LIBSWBF2_API void MSH_Delete(MSH* msh);
 		LIBSWBF2_API void MSH_ReadFromFile(MSH* msh, const char* path);
+		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
 	}
 }
