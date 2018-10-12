@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	BBOX::BBOX()
-	{
-
-	}
-
-	BBOX::~BBOX()
-	{
-
-	}
-
 	void BBOX::RefreshSize()
 	{
 		m_Size = Vector4::SIZE + Vector3::SIZE + Vector3::SIZE + sizeof(float_t);

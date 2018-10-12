@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	NRML::NRML()
-	{
-
-	}
-
-	NRML::~NRML()
-	{
-
-	}
-
 	void NRML::RefreshSize()
 	{
 		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Normals.size() * Vector3::SIZE);

@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct UV0L : public BaseChunk
 	{
-		UV0L();
-		~UV0L();
+		UV0L() = default;
+		~UV0L() = default;
 
 		vector<Vector2> m_UVs;
 

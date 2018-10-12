@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	STRING::STRING()
-	{
-
-	}
-
-	STRING::~STRING()
-	{
-
-	}
-
 	void STRING::RefreshSize()
 	{
 		// size must be a multiple of 4

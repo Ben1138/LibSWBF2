@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct FRAM : public BaseChunk
 	{
-		FRAM();
-		~FRAM();
+		FRAM() = default;
+		~FRAM() = default;
 
 		int32_t m_FrameRangeStart;
 		int32_t m_FrameRangeEnd;

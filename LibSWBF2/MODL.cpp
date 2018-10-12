@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	MODL::MODL()
-	{
-
-	}
-
-	MODL::~MODL()
-	{
-
-	}
-
 	void MODL::RefreshSize()
 	{
 		m_Name.RefreshSize();

@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	STRP::STRP()
-	{
-
-	}
-
-	STRP::~STRP()
-	{
-
-	}
-
 	void STRP::RefreshSize()
 	{
 		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Triangles.size() * sizeof(uint16_t));

@@ -8,8 +8,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct BBOX : public BaseChunk
 	{
-		BBOX();
-		~BBOX();
+		BBOX() = default;
+		~BBOX() = default;
 
 		Vector4 m_Quaternion;
 		Vector3 m_Center;
@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::Mesh
 	protected:
 		friend GEOM;
 		friend SINF;
-
+		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

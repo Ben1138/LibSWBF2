@@ -10,8 +10,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MATD : public BaseChunk
 	{
-		MATD();
-		~MATD();
+		MATD() = default;
+		~MATD() = default;
 
 		STRING m_Name;
 		MATD_DATA m_Data;

@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MATI : public BaseChunk
 	{
-		MATI();
-		~MATI();
+		MATI() = default;
+		~MATI() = default;
 
 		uint32_t m_MaterialIndex;
 

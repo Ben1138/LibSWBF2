@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct STRP : public BaseChunk
 	{
-		STRP();
-		~STRP();
+		STRP() = default;
+		~STRP() = default;
 
 		// List of Triangle Strips. Each entry contains a vertex index (16 bit unsigned int)
 		// Triangles are listed CW, CCW, CW, CCW, ...

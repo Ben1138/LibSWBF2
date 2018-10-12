@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct STRING : public BaseChunk
 	{
-		STRING();
-		~STRING();
+		STRING() = default;
+		~STRING() = default;
 
 		string m_Text;
 

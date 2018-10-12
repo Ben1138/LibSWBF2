@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	GEOM::GEOM()
-	{
-
-	}
-
-	GEOM::~GEOM()
-	{
-
-	}
-
 	void GEOM::RefreshSize()
 	{
 		m_BoundingBox.RefreshSize();

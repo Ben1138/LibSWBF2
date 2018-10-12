@@ -7,8 +7,8 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct NRML : public BaseChunk
 	{
-		NRML();
-		~NRML();
+		NRML() = default;
+		~NRML() = default;
 
 		vector<Vector3> m_Normals;
 

@@ -3,16 +3,6 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	FRAM::FRAM()
-	{
-
-	}
-
-	FRAM::~FRAM()
-	{
-
-	}
-
 	void FRAM::RefreshSize()
 	{
 		m_Size = sizeof(int32_t) + sizeof(int32_t) + sizeof(float_t);
