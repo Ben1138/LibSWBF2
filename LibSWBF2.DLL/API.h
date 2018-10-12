@@ -13,6 +13,8 @@ namespace LibSWBF2::API
 	using namespace Types;
 	using namespace Logging;
 
+	// Provide mangling free functions to keep
+	// compatibility to compilers other than VS2017
 	extern "C"
 	{
 		// Logging //
