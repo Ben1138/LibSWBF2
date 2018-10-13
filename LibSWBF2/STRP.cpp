@@ -46,7 +46,6 @@ namespace LibSWBF2::Chunks::Mesh
 		size_t triCount = 0;
 		Polygon poly;
 		bool CW = true;
-		//bool startNewPolygon = true;
 
 		for (size_t i = 0; i < m_Triangles.size(); ++i)
 		{
@@ -55,14 +54,19 @@ namespace LibSWBF2::Chunks::Mesh
 
 			// check if highest bit is set
 			// two consecutive indices with the highest bit set indicate the start of a triangle strip
-			// we can shorten that by checking over 32 bit instead of 16 bit
-			if ((((uint32_t)vertex) & 0x80008000) != 0)
+			// so lets AND combine this and the next vertex index and check if the highest bit is still set
+			if (i+1 < m_Triangles.size() && (vertex & m_Triangles[i+1]) & 0x8000)
 			{
-				vertex &= 0x7FFF;	// get real vertex index
-				
 				vInd.clear();
 				triCount = 0;
 				CW = true;
+			}
+
+			// always get the real vertex index if the high bit is set
+			// by applying a respective bitmask
+			if ((vertex & 0x8000) != 0)
+			{
+				vertex &= 0x7FFF;
 			}
 
 			vInd.push_back(vertex);

@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::Mesh
 		// The start of each Strip is indicated by two entries in a row where the high bit is set (0x8000)
 		vector<uint16_t> m_Triangles;
 
-		// Converted Triangle Strips to Polygons.
+		// Converted Triangle Strips to Polygons. Each polygon consits of 3 vertex indices
 		// Call CalcPolygons() beforehand!
 		vector<Polygon> m_Polygons;
 
