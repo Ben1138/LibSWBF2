@@ -162,6 +162,15 @@
     <ClInclude Include="Polygon.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="ANM2.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CYCL.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="KFR3.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -267,6 +276,12 @@
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="SEGM.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CYCL.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="KFR3.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
