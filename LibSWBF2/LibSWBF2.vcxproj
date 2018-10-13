@@ -155,18 +155,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ANM2.h" />
     <ClInclude Include="ATRB.h" />
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
     <ClInclude Include="BoneWeight.h" />
     <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="CYCL.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FLGS.h" />
     <ClInclude Include="FRAM.h" />
     <ClInclude Include="GEOM.h" />
     <ClInclude Include="HeaderNames.h" />
+    <ClInclude Include="KFR3.h" />
     <ClInclude Include="LibSWBF2.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerEntry.h" />
@@ -203,11 +206,13 @@
     <ClCompile Include="BBOX.cpp" />
     <ClCompile Include="BoneWeight.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CYCL.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="FLGS.cpp" />
     <ClCompile Include="FRAM.cpp" />
     <ClCompile Include="GEOM.cpp" />
+    <ClCompile Include="KFR3.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerEntry.cpp" />
     <ClCompile Include="MATD.cpp" />
