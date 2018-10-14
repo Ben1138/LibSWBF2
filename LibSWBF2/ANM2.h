@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct HEDR;
+	struct MSH;
 
 	struct ANM2 : public BaseChunk
 	{
@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::Mesh
 		KFR3 m_KeyFrames;
 
 	protected:
-		friend ANM2;
+		friend MSH;
 
 		ANM2() = default;
 		~ANM2() = default;

@@ -155,10 +155,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="ANM2.h" />
     <ClInclude Include="ATRB.h" />
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
+    <ClInclude Include="BoneFrames.h" />
     <ClInclude Include="BoneWeight.h" />
     <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="MTYP.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="req.h" />
+    <ClInclude Include="RotationFrame.h" />
     <ClInclude Include="STRING.h" />
     <ClInclude Include="NRML.h" />
     <ClInclude Include="POSL.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="STRP.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TRAN.h" />
+    <ClInclude Include="TranslationFrame.h" />
     <ClInclude Include="UV0L.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
@@ -201,9 +205,12 @@
     <ClInclude Include="WGHT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ANM2.cpp" />
     <ClCompile Include="ATRB.cpp" />
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="BBOX.cpp" />
+    <ClCompile Include="BoneFrames.cpp" />
     <ClCompile Include="BoneWeight.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CYCL.cpp" />
@@ -224,6 +231,7 @@
     <ClCompile Include="MSH.cpp" />
     <ClCompile Include="MSH2.cpp" />
     <ClCompile Include="MTYP.cpp" />
+    <ClCompile Include="RotationFrame.cpp" />
     <ClCompile Include="SEGM.cpp" />
     <ClCompile Include="STRING.cpp" />
     <ClCompile Include="NRML.cpp" />
@@ -238,6 +246,7 @@
     </ClCompile>
     <ClCompile Include="STRP.cpp" />
     <ClCompile Include="TRAN.cpp" />
+    <ClCompile Include="TranslationFrame.cpp" />
     <ClCompile Include="UV0L.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />

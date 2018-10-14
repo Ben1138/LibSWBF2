@@ -20,7 +20,8 @@ namespace LibSWBF2NET::Mesh
 			NativeMSH::Destroy(msh);
 		}
 	}
-	bool MSH::WriteToFile(String^ Path)
+
+	bool MSH::WriteToFile(String^ Path)
 	{
 		return msh->WriteToFile(MarshalString(Path));
 	}
@@ -32,6 +33,6 @@ namespace LibSWBF2NET::Mesh
 
 	int MSH::ShadowVolume::get()
 	{
-		return msh->m_SHVO.m_ShadowVolume;
+		return msh->m_ShadowVolume.m_ShadowVolume;
 	}
 }

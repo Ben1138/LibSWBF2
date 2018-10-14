@@ -5,29 +5,34 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	void CYCL::RefreshSize()
 	{
-		m_Size = sizeof(uint32_t) + sizeof(STRING) + sizeof(float_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t);
+		m_Size = (uint32_t)(sizeof(uint32_t) + (Animation::SIZE * m_Animations.size()));
 	}
 
 	void CYCL::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32(m_NumberOfAnimations);
-		stream.WriteString(m_AnimationName);
-		stream.WriteFloat(m_FrameRate);
-		stream.WriteUInt32(m_PlayStyle);
-		stream.WriteUInt32(m_FirstFrame);
-		stream.WriteUInt32(m_LastFrame);
+		stream.WriteUInt32((uint32_t)m_Animations.size());
+
+		for (size_t i = 0; i < m_Animations.size(); ++i)
+		{
+			m_Animations[i].WriteToStream(stream);
+		}
 	}
 
 	void CYCL::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		m_NumberOfAnimations = stream.ReadUInt32();
-		m_AnimationName = stream.ReadString();
-		m_FrameRate = stream.ReadFloat();
-		m_PlayStyle = stream.ReadUInt32();
-		m_FirstFrame = stream.ReadUInt32();
-		m_LastFrame = stream.ReadUInt32();
+		uint32_t numOfAnims = stream.ReadUInt32();
+		
+		m_Animations.clear();
+		m_Animations.reserve(numOfAnims);
+
+		for (size_t i = 0; i < numOfAnims; ++i)
+		{
+			Animation& anim = m_Animations.emplace_back();
+			anim.ReadFromStream(stream);
+		}
+
 		BaseChunk::EnsureEnd(stream);
 	}
 }

@@ -1,25 +1,24 @@
 #pragma once
 #include "BaseChunk.h"
-#include "STRING.h"
+#include "Animation.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	using Types::Animation;
+
 	struct ANM2;
 
 	struct CYCL : public BaseChunk
 	{
+		const int ANIMATION_NAME_STR_SIZE = 64;
+
 		CYCL() = default;
 		~CYCL() = default;
 
-		uint32_t m_NumberOfAnimations;
-		STRING m_AnimationName;
-		float_t m_FrameRate;
-		uint32_t m_PlayStyle;
-		uint32_t m_FirstFrame;
-		uint32_t m_LastFrame;
+		vector<Animation> m_Animations;
 
 	protected:
-		friend CYCL;
+		friend ANM2;
 		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

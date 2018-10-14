@@ -102,7 +102,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteString(const string& value, const bool& SizeShouldBeMultipleOfFour)
+	void FileWriter::WriteString(const string& value)
 	{
 		// string in chunk needs to be a zero terminated c-string
 		// size must be a multiple of 4
@@ -121,6 +121,23 @@ namespace LibSWBF2
 
 			m_Writer.write(empty, remaining);
 			delete[] empty;
+		}
+	}
+
+	void FileWriter::WriteString(const string& value, uint16_t fixedSize)
+	{
+		if (CheckGood())
+		{
+			if (value.size() > fixedSize)
+			{
+				LOG("Actual string size ("+std::to_string(value.size())+") is greater than fixed size ("+std::to_string(fixedSize)+") !", ELogType::Error);
+				return;
+			}
+
+			char* str = new char[fixedSize];
+			strcpy_s(str, value.size(), value.c_str());
+			m_Writer.write(str, fixedSize);
+			delete[] str;
 		}
 	}
 
