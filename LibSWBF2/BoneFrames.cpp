@@ -35,6 +35,11 @@ namespace LibSWBF2::Types
 		const uint32_t numTranFrames = stream.ReadUInt32();
 		const uint32_t numRotFrames = stream.ReadUInt32();
 
+		m_TranslationFrames.clear();
+		m_TranslationFrames.reserve(numTranFrames);
+		m_RotationFrames.clear();
+		m_RotationFrames.reserve(numRotFrames);
+
 		for (size_t i = 0; i < numTranFrames; ++i)
 		{
 			TranslationFrame& tran = m_TranslationFrames.emplace_back();
