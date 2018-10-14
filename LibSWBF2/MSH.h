@@ -2,6 +2,7 @@
 #include "BaseChunk.h"
 #include "SHVO.h"
 #include "MSH2.h"
+#include "ANM2.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -10,8 +11,9 @@ namespace LibSWBF2::Chunks::Mesh
 		LIBSWBF2_EXP static MSH* Create();
 		LIBSWBF2_EXP static void Destroy(MSH* msh);
 
-		SHVO m_SHVO;
-		MSH2 m_MSH2;
+		SHVO m_ShadowVolume;
+		MSH2 m_MeshBlock;
+		ANM2 m_Animations;
 
 	protected:
 		MSH() = default;

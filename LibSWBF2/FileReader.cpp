@@ -122,7 +122,7 @@ namespace LibSWBF2
 		{
 			char* str = new char[length];
 			m_Reader.read(str, length);
-			value = str;
+			value = string(str);
 			delete[] str;
 		}
 		return value;

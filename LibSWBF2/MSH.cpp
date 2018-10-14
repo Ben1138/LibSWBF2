@@ -21,15 +21,19 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void MSH::RefreshSize()
 	{
-		m_SHVO.RefreshSize();
+		m_ShadowVolume.RefreshSize();
+		m_MeshBlock.RefreshSize();
+		m_Animations.RefreshSize();
 
-		m_Size = m_SHVO.GetSize();
+		m_Size = m_ShadowVolume.GetSize() + m_MeshBlock.GetSize() + m_Animations.GetSize();
 	}
 
 	void MSH::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		m_SHVO.WriteToStream(stream);
+		m_ShadowVolume.WriteToStream(stream);
+		m_MeshBlock.WriteToStream(stream);
+		m_Animations.WriteToStream(stream);
 	}
 
 	void MSH::ReadFromStream(FileReader& stream)
@@ -43,11 +47,15 @@ namespace LibSWBF2::Chunks::Mesh
 			// sadly, switch-case is not possible here (Error C2051)
 			if (head == HeaderNames::SHVO)
 			{
-				m_SHVO.ReadFromStream(stream);
+				m_ShadowVolume.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::MSH2)
 			{
-				m_MSH2.ReadFromStream(stream);
+				m_MeshBlock.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::ANM2)
+			{
+				m_Animations.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::CL1L)
 			{

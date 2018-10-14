@@ -1,8 +1,11 @@
 #pragma once
 #include "BaseChunk.h"
+#include "BoneFrames.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	using LibSWBF2::Types::BoneFrames;
+
 	struct ANM2;
 
 	struct KFR3 : public BaseChunk
@@ -10,18 +13,10 @@ namespace LibSWBF2::Chunks::Mesh
 		KFR3() = default;
 		~KFR3() = default;
 
-		uint32_t m_NumberOfBonesInThisAnimation;
-		uint32_t m_CRCchecksum;
-		uint32_t m_KeyFrameType;
-		uint32_t m_NumberOfTranslationFrames;
-		uint32_t m_NumberOfRotationFrames;
-		uint32_t m_TranslationFrameIndex;
-		vector<Vector3> m_TranslationInXYZ;
-		uint32_t m_RotationFrameIndex;
-		vector<Vector4> m_QuaternionRotationInXYZW;
+		vector<BoneFrames> m_BoneFrames;
 
 	protected:
-		friend KFR3;
+		friend ANM2;
 		
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

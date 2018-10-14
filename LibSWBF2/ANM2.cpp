@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::CYCLE)
+			if (head == HeaderNames::CYCL)
 			{
 				m_AnimationCycle.ReadFromStream(stream);
 			}
