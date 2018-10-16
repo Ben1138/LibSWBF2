@@ -32,6 +32,17 @@ namespace LibSWBF2::Chunks::Mesh
 			m_Triangles.emplace_back(stream.ReadUInt16());
 		}
 
+		// in some STRP Chunks, there are an additional two bytes (0x00 each)
+		// that are NOT included in the overall Chunk size!
+		// So lets mark our position and read 16 bits.
+		// If it doesn't equal zero, there weren't any additional bytes
+		// in the first place and we have to jump back.
+		size_t pos = stream.GetPosition();
+		if (stream.ReadUInt16() != 0)
+		{
+			stream.SetPosition(pos);
+		}
+
 		BaseChunk::EnsureEnd(stream);
 	}
 
