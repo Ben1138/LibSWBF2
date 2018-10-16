@@ -11,20 +11,27 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH2;
 
-	enum EModelPurpose
+	// Flags
+	enum EModelPurpose : uint8_t
 	{
-		RegularMesh = 0,
-		LowrezMesh = 1,
-		Collision = 2,
-		VehicleCollision = 3,
-		ShadowVolume = 4,
-		TerrainCut = 5,
-		HardPoint = 6,
+		// Unknown
+		Miscellaneous = 0,
+
+		// Meshes
+		RegularMesh = 1,
+		LowrezMesh = 2,
+		Collision = 3,
+		VehicleCollision = 4,
+		ShadowVolume = 5,
+		TerrainCut = 6,
+
+		// Just Points
 		EmptyTransform = 7,
-		BoneRoot = 8,
-		BoneLimb = 9,
-		BoneEnd = 10,
-		Miscellaneous = 11,
+		HardPoint = 8,
+		SkeletonRoot = 9,
+		BoneRoot = 10,
+		BoneLimb = 11,
+		BoneEnd = 12,
 	};
 
 	struct MODL : public BaseChunk

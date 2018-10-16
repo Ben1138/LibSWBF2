@@ -36,6 +36,11 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 
 		// Bones and stuff
+		if (m_Name.m_Text == "bone_root")
+		{
+			return EModelPurpose::SkeletonRoot;
+		}
+
 		if (m_ModelType.m_ModelType == EModelType::Null || m_ModelType.m_ModelType == EModelType::Envelope)
 		{
 			if (m_Name.m_Text._Starts_with("hp_"))
