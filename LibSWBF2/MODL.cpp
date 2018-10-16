@@ -5,17 +5,17 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	EModelPurpose MODL::GetEstimatedPurpose()
 	{
-		if (m_Name.m_Text.find("lowrez") >= 0)
+		if (m_Name.m_Text.find("lowrez") != string::npos)
 		{
 			return EModelPurpose::LowrezMesh;
 		}
 
 		// check vehicle collision BEFORE regular collision
-		if (m_Name.m_Text.find("v-collision") >= 0 || m_Name.m_Text.find("p_vehicle") >= 0)
+		if (m_Name.m_Text.find("v-collision") != string::npos || m_Name.m_Text.find("p_vehicle") != string::npos)
 		{
 			return EModelPurpose::VehicleCollision;
 		}
-		else if (m_Name.m_Text.find("collision") >= 0)
+		else if (m_Name.m_Text.find("collision") != string::npos)
 		{
 			return EModelPurpose::Collision;
 		}
@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::Mesh
 			return EModelPurpose::ShadowVolume;
 		}
 
-		if (m_Name.m_Text.find("terraincutter") >= 0)
+		if (m_Name.m_Text.find("terraincutter") != string::npos)
 		{
 			return EModelPurpose::TerrainCut;
 		}
@@ -36,7 +36,7 @@ namespace LibSWBF2::Chunks::Mesh
 		}
 
 		// Bones and stuff
-		if (m_ModelType.m_ModelType == EModelType::Null)
+		if (m_ModelType.m_ModelType == EModelType::Null || m_ModelType.m_ModelType == EModelType::Envelope)
 		{
 			if (m_Name.m_Text._Starts_with("hp_"))
 			{
