@@ -3,6 +3,64 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
+	EModelPurpose MODL::GetEstimatedPurpose()
+	{
+		if (m_Name.m_Text.find("lowrez") >= 0)
+		{
+			return EModelPurpose::LowrezMesh;
+		}
+
+		// check vehicle collision BEFORE regular collision
+		if (m_Name.m_Text.find("v-collision") >= 0 || m_Name.m_Text.find("p_vehicle") >= 0)
+		{
+			return EModelPurpose::VehicleCollision;
+		}
+		else if (m_Name.m_Text.find("collision") >= 0)
+		{
+			return EModelPurpose::Collision;
+		}
+
+		if (m_Name.m_Text._Starts_with("sv_"))
+		{
+			return EModelPurpose::ShadowVolume;
+		}
+
+		if (m_Name.m_Text.find("terraincutter") >= 0)
+		{
+			return EModelPurpose::TerrainCut;
+		}
+
+		if (m_Name.m_Text._Starts_with("p_"))
+		{
+			return EModelPurpose::Miscellaneous;
+		}
+
+		// Bones and stuff
+		if (m_ModelType.m_ModelType == EModelType::Null)
+		{
+			if (m_Name.m_Text._Starts_with("hp_"))
+			{
+				return EModelPurpose::HardPoint;
+			}
+			else if (m_Name.m_Text._Starts_with("root_"))
+			{
+				return EModelPurpose::BoneRoot;
+			}
+			else if (m_Name.m_Text._Starts_with("bone_"))
+			{
+				return EModelPurpose::BoneLimb;
+			}
+			else if (m_Name.m_Text._Starts_with("eff_"))
+			{
+				return EModelPurpose::BoneEnd;
+			}
+
+			return EModelPurpose::EmptyTransform;
+		}
+
+		return EModelPurpose::RegularMesh;
+	}
+
 	void MODL::RefreshSize()
 	{
 		m_Name.RefreshSize();
