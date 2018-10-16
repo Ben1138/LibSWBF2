@@ -11,10 +11,28 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH2;
 
+	enum EModelPurpose
+	{
+		RegularMesh = 0,
+		LowrezMesh = 1,
+		Collision = 2,
+		VehicleCollision = 3,
+		ShadowVolume = 4,
+		TerrainCut = 5,
+		HardPoint = 6,
+		EmptyTransform = 7,
+		BoneRoot = 8,
+		BoneLimb = 9,
+		BoneEnd = 10,
+		Miscellaneous = 11,
+	};
+
 	struct MODL : public BaseChunk
 	{
 		MODL() = default;
 		~MODL() = default;
+
+		LIBSWBF2_EXP EModelPurpose GetEstimatedPurpose();
 
 		STRING m_Name;
 		MTYP m_ModelType;
