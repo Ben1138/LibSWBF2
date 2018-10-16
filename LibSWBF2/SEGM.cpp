@@ -67,7 +67,7 @@ namespace LibSWBF2::Chunks::Mesh
 			else if (head == HeaderNames::NDXL || head == HeaderNames::NDXT)
 			{
 				// NDXL and NDXT are deprecated and thus not supported
-				continue;
+				UnexpectedChunk(stream, false);
 			}
 			else
 			{
