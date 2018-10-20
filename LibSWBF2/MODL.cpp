@@ -35,10 +35,16 @@ namespace LibSWBF2::Chunks::Mesh
 			return EModelPurpose::Miscellaneous;
 		}
 
-		// Bones and stuff
+		// Sekelton Root and Hard Points sometimes have meshes
+		// attached to them (probably for developing purposes)
+		// so their Model Type is "Static" and not "Null"
 		if (m_Name.m_Text == "bone_root")
 		{
 			return EModelPurpose::Skeleton_Root;
+		}
+		else if (m_Name.m_Text._Starts_with("hp_"))
+		{
+			return EModelPurpose::Point_HardPoint;
 		}
 
 		if (m_ModelType.m_ModelType == EModelType::Null || m_ModelType.m_ModelType == EModelType::Envelope)
@@ -46,10 +52,6 @@ namespace LibSWBF2::Chunks::Mesh
 			if (m_Name.m_Text == "DummyRoot")
 			{
 				return EModelPurpose::Point_DummyRoot;
-			}
-			else if (m_Name.m_Text._Starts_with("hp_"))
-			{
-				return EModelPurpose::Point_HardPoint;
 			}
 			else if (m_Name.m_Text._Starts_with("root_"))
 			{
