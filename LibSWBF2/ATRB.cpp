@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::WriteToStream(stream);
 		stream.WriteByte(m_RenderFlags);
-		stream.WriteByte(m_RenderType);
+		stream.WriteByte((uint8_t)m_RenderType);
 		stream.WriteByte(m_Data0);
 		stream.WriteByte(m_Data1);
 	}
