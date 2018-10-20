@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::Mesh
 	void MTYP::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32(m_ModelType);
+		stream.WriteUInt32((uint32_t)m_ModelType);
 	}
 
 	void MTYP::ReadFromStream(FileReader& stream)

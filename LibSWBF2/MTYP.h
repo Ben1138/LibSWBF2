@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	enum EModelType : uint32_t
+	enum class EModelType : uint32_t
 	{
 		Null = 0,
 		Skin = 1,
