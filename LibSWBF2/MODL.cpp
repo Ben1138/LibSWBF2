@@ -7,27 +7,27 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		if (m_Name.m_Text.find("lowrez") != string::npos)
 		{
-			return EModelPurpose::LowrezMesh;
+			return EModelPurpose::Mesh_Lowrez;
 		}
 
 		// check vehicle collision BEFORE regular collision
 		if (m_Name.m_Text.find("v-collision") != string::npos || m_Name.m_Text.find("p_vehicle") != string::npos)
 		{
-			return EModelPurpose::VehicleCollision;
+			return EModelPurpose::Mesh_VehicleCollision;
 		}
 		else if (m_Name.m_Text.find("collision") != string::npos)
 		{
-			return EModelPurpose::Collision;
+			return EModelPurpose::Mesh_Collision;
 		}
 
 		if (m_Name.m_Text._Starts_with("sv_"))
 		{
-			return EModelPurpose::ShadowVolume;
+			return EModelPurpose::Mesh_ShadowVolume;
 		}
 
 		if (m_Name.m_Text.find("terraincutter") != string::npos)
 		{
-			return EModelPurpose::TerrainCut;
+			return EModelPurpose::Mesh_TerrainCut;
 		}
 
 		if (m_Name.m_Text._Starts_with("p_"))
@@ -38,32 +38,36 @@ namespace LibSWBF2::Chunks::Mesh
 		// Bones and stuff
 		if (m_Name.m_Text == "bone_root")
 		{
-			return EModelPurpose::SkeletonRoot;
+			return EModelPurpose::Skeleton_Root;
 		}
 
 		if (m_ModelType.m_ModelType == EModelType::Null || m_ModelType.m_ModelType == EModelType::Envelope)
 		{
-			if (m_Name.m_Text._Starts_with("hp_"))
+			if (m_Name.m_Text == "DummyRoot")
 			{
-				return EModelPurpose::HardPoint;
+				return EModelPurpose::Point_DummyRoot;
+			}
+			else if (m_Name.m_Text._Starts_with("hp_"))
+			{
+				return EModelPurpose::Point_HardPoint;
 			}
 			else if (m_Name.m_Text._Starts_with("root_"))
 			{
-				return EModelPurpose::BoneRoot;
+				return EModelPurpose::Skeleton_BoneRoot;
 			}
 			else if (m_Name.m_Text._Starts_with("bone_"))
 			{
-				return EModelPurpose::BoneLimb;
+				return EModelPurpose::Skeleton_BoneLimb;
 			}
 			else if (m_Name.m_Text._Starts_with("eff_"))
 			{
-				return EModelPurpose::BoneEnd;
+				return EModelPurpose::Skeleton_BoneEnd;
 			}
 
-			return EModelPurpose::EmptyTransform;
+			return EModelPurpose::Point_EmptyTransform;
 		}
 
-		return EModelPurpose::RegularMesh;
+		return EModelPurpose::Mesh_Regular;
 	}
 
 	void MODL::RefreshSize()
