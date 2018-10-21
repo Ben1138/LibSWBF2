@@ -25,6 +25,6 @@ namespace LibSWBF2::API
 		LIBSWBF2_API void MSH_Delete(MSH* msh);
 		LIBSWBF2_API void MSH_ReadFromFile(MSH* msh, const char* path);
 		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
-		LIBSWBF2_API EModelPurpose GetEstimatedPurpose(MODL* modl);
+		LIBSWBF2_API EModelPurpose MODL_GetEstimatedPurpose(MODL* modl);
 	}
 }
