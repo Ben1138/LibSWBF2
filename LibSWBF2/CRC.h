@@ -12,6 +12,6 @@ namespace LibSWBF2
 		static uint8_t toLower[256];
 
 	public:
-		LIBSWBF2_EXP static uint32_t CalcLowerCRC(const char* str);
+		LIBSWBF2_EXP static CRCChecksum CalcLowerCRC(const char* str);
 	};
 }
