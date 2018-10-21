@@ -183,6 +183,9 @@
     <ClInclude Include="RotationFrame.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="CRC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="BoneFrames.cpp">
       <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CRC.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

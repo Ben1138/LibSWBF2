@@ -26,5 +26,5 @@ namespace LibSWBF2::Logging
 	};
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define LOG(message, level) Logger::GetInstance()->Log(message, level, __LINE__, __FILENAME__);
+#define LOG(message, level) LibSWBF2::Logging::Logger::GetInstance()->Log(message, level, __LINE__, __FILENAME__);
 }
