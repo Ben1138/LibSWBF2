@@ -164,6 +164,7 @@
     <ClInclude Include="BoneWeight.h" />
     <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="CRC.h" />
     <ClInclude Include="CYCL.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="BoneFrames.cpp" />
     <ClCompile Include="BoneWeight.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CRC.cpp" />
     <ClCompile Include="CYCL.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
