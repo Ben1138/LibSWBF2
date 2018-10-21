@@ -27,6 +27,6 @@ namespace LibSWBF2::API
 		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
 		LIBSWBF2_API EModelPurpose MODL_GetEstimatedPurpose(MODL* modl);
 
-		LIBSWBF2_API uint32_t CalcLowerCRC(const char* str);
+		LIBSWBF2_API CRCChecksum CalcLowerCRC(const char* str);
 	}
 }

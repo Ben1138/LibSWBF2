@@ -32,4 +32,5 @@ namespace LibSWBF2
 	// define types
 	typedef int32_t ChunkHeader;
 	typedef uint32_t ChunkSize;
+	typedef uint32_t CRCChecksum;
 }

@@ -12,7 +12,7 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		uint32_t m_CRCchecksum;
+		CRCChecksum m_CRCchecksum;		// The Bone this refers to
 		uint32_t m_KeyFrameType;
 
 		vector<TranslationFrame> m_TranslationFrames;

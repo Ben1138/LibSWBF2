@@ -109,7 +109,7 @@ namespace LibSWBF2
 		0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff,
 	};
 
-	uint32_t CRC::CalcLowerCRC(const char* str)
+	CRCChecksum CRC::CalcLowerCRC(const char* str)
 	{
 		if (str == nullptr)
 		{
@@ -117,7 +117,7 @@ namespace LibSWBF2
 			return 0;
 		}
 
-		uint32_t crc = 0xFFFFFFFF;
+		CRCChecksum crc = 0xFFFFFFFF;
 		for (const unsigned char* p = (const unsigned char*)str; *p; p++)
 		{
 			crc = (crc << 8) ^ table32[(crc >> 24) ^ toLower[*p]];
