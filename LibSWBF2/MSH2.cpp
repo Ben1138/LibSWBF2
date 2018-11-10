@@ -30,6 +30,10 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				m_SceneInformation.ReadFromStream(stream);
 			}
+			else if (head == HeaderNames::CAMR)
+			{
+				//CAMR Chunks not supported
+			}
 			else if (head == HeaderNames::MATL)
 			{
 				m_MaterialList.ReadFromStream(stream);

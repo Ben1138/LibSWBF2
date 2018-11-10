@@ -53,6 +53,10 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				m_MeshBlock.ReadFromStream(stream);
 			}
+			else if (head == HeaderNames::BLN2)
+			{
+				// Blend Chunks not supported
+			}
 			else if (head == HeaderNames::ANM2)
 			{
 				m_Animations.ReadFromStream(stream);
