@@ -64,8 +64,10 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				m_TriangleList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::NDXL || head == HeaderNames::NDXT)
+			else if (head == HeaderNames::CLRL || head == HeaderNames::CLRB ||
+					 head == HeaderNames::NDXL || head == HeaderNames::NDXT)
 			{
+				// CLRL and CLRB are not supported
 				// NDXL and NDXT are deprecated and thus not supported
 				SkipChunk(stream, false);
 			}

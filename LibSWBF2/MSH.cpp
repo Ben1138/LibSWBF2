@@ -58,6 +58,11 @@ namespace LibSWBF2::Chunks::Mesh
 				// Blend Chunks not supported
 				SkipChunk(stream, false);
 			}
+			else if (head == HeaderNames::SKL2)
+			{
+				// possibly deprecated, not supported
+				SkipChunk(stream, false);
+			}
 			else if (head == HeaderNames::ANM2)
 			{
 				m_Animations.ReadFromStream(stream);
