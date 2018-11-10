@@ -81,13 +81,15 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Flags.RefreshSize();
 		m_Transition.RefreshSize();
 		m_Geometry.RefreshSize();
+		m_CollisionPrimitive.RefreshSize();
 
 		m_Size =
 			m_Name.GetSize() +
 			m_ModelType.GetSize() +
 			m_ModelIndex.GetSize() +
 			m_Flags.GetSize() +
-			m_Transition.GetSize();
+			m_Transition.GetSize() +
+			m_CollisionPrimitive.GetSize();
 
 		if (m_Parent.m_Text.size() > 0)
 		{
@@ -118,6 +120,11 @@ namespace LibSWBF2::Chunks::Mesh
 		if (m_ModelType.m_ModelType != EModelType::Null)
 		{
 			m_Geometry.WriteToStream(stream);
+		}
+
+		if (m_CollisionPrimitive.m_PrimitiveType != ECollisionPrimitive::None)
+		{
+			m_CollisionPrimitive.WriteToStream(stream);
 		}
 	}
 
@@ -156,6 +163,10 @@ namespace LibSWBF2::Chunks::Mesh
 			else if (head == HeaderNames::GEOM)
 			{
 				m_Geometry.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::SWCI)
+			{
+				m_CollisionPrimitive.ReadFromStream(stream);
 			}
 			else
 			{

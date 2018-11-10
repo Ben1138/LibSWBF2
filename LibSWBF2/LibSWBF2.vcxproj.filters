@@ -186,6 +186,12 @@
     <ClInclude Include="CRC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ENVL.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SWCI.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -316,6 +322,12 @@
     </ClCompile>
     <ClCompile Include="CRC.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ENVL.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SWCI.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

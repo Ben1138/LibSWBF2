@@ -6,7 +6,8 @@ namespace LibSWBF2::Chunks::Mesh
 	void GEOM::RefreshSize()
 	{
 		m_BoundingBox.RefreshSize();
-		m_Size = m_BoundingBox.GetSize();
+		m_Envelope.RefreshSize();
+		m_Size = m_BoundingBox.GetSize() + m_Envelope.GetSize();
 
 		for (size_t i = 0; i < m_Segments.size(); ++i)
 		{
@@ -24,6 +25,8 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			m_Segments[i].WriteToStream(stream);
 		}
+
+		m_Envelope.WriteToStream(stream);
 	}
 
 	void GEOM::ReadFromStream(FileReader& stream)
@@ -42,6 +45,10 @@ namespace LibSWBF2::Chunks::Mesh
 			{
 				SEGM& segment = m_Segments.emplace_back();
 				segment.ReadFromStream(stream);
+			}
+			else if (head == HeaderNames::ENVL)
+			{
+				m_Envelope.ReadFromStream(stream);
 			}
 			else
 			{

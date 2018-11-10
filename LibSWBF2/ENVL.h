@@ -1,24 +1,19 @@
 #pragma once
 #include "BaseChunk.h"
-#include "BBOX.h"
-#include "SEGM.h"
-#include "ENVL.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct MODL;
+	struct GEOM;
 
-	struct GEOM : public BaseChunk
+	struct ENVL : public BaseChunk
 	{
-		GEOM() = default;
-		~GEOM() = default;
+		ENVL() = default;
+		~ENVL() = default;
 
-		BBOX m_BoundingBox;
-		vector<SEGM> m_Segments;
-		ENVL m_Envelope;
+		vector<uint32_t> m_ModelIndices;
 
 	protected:
-		friend MODL;
+		friend GEOM;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
