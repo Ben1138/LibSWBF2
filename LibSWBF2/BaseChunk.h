@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks
 		virtual void ReadFromStream(FileReader& stream);
 
 		bool PositionInChunk(const size_t& CurrentPosition);
-		bool UnexpectedChunk(FileReader& stream, const bool& printWarn = true);
+		bool SkipChunk(FileReader& stream, const bool& printWarn = true);
 		void EnsureEnd(FileReader& stream);
 
 		ChunkHeader GetHeader();

@@ -33,6 +33,7 @@ namespace LibSWBF2::Chunks::Mesh
 			else if (head == HeaderNames::CAMR)
 			{
 				//CAMR Chunks not supported
+				SkipChunk(stream, false);
 			}
 			else if (head == HeaderNames::MATL)
 			{
@@ -45,7 +46,7 @@ namespace LibSWBF2::Chunks::Mesh
 			}
 			else
 			{
-				UnexpectedChunk(stream);
+				SkipChunk(stream);
 			}
 		}
 
