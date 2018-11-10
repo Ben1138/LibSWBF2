@@ -17,6 +17,7 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <array>
 
 namespace LibSWBF2
 {
@@ -28,6 +29,7 @@ namespace LibSWBF2
 	using std::queue;
 	using std::unique_ptr;
 	using std::function;
+	using std::array;
 
 	// define types
 	typedef int32_t ChunkHeader;

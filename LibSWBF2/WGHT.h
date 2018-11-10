@@ -13,7 +13,8 @@ namespace LibSWBF2::Chunks::Mesh
 		WGHT() = default;
 		~WGHT() = default;
 
-		vector<BoneWeight> m_Weights;
+		// there are 4 weights for each vertex
+		vector<array<BoneWeight, 4>> m_Weights;
 
 	protected:
 		friend SEGM;

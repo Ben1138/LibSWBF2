@@ -15,7 +15,10 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (size_t i = 0; i < m_Weights.size(); ++i)
 		{
-			m_Weights[i].WriteToStream(stream);
+			m_Weights[i][0].WriteToStream(stream);
+			m_Weights[i][1].WriteToStream(stream);
+			m_Weights[i][2].WriteToStream(stream);
+			m_Weights[i][3].WriteToStream(stream);
 		}
 	}
 
@@ -29,8 +32,11 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (uint32_t i = 0; i < WeightSize; ++i)
 		{
-			BoneWeight& weight = m_Weights.emplace_back();
-			weight.ReadFromStream(stream);
+			array<BoneWeight, 4>& weight = m_Weights.emplace_back();
+			weight[0].ReadFromStream(stream);
+			weight[1].ReadFromStream(stream);
+			weight[2].ReadFromStream(stream);
+			weight[3].ReadFromStream(stream);
 		}
 
 		BaseChunk::EnsureEnd(stream);
