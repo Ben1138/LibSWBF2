@@ -56,6 +56,7 @@ namespace LibSWBF2::Chunks::Mesh
 			else if (head == HeaderNames::BLN2)
 			{
 				// Blend Chunks not supported
+				SkipChunk(stream, false);
 			}
 			else if (head == HeaderNames::ANM2)
 			{
@@ -69,7 +70,7 @@ namespace LibSWBF2::Chunks::Mesh
 			}
 			else
 			{
-				UnexpectedChunk(stream);
+				SkipChunk(stream);
 			}
 		}
 

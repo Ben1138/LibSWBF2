@@ -101,7 +101,7 @@ namespace LibSWBF2::Chunks
 		return CurrentPosition >= m_ChunkDataPosition && CurrentPosition < m_ChunkDataPosition + m_Size;
 	}
 
-	bool BaseChunk::UnexpectedChunk(FileReader& stream, const bool& printWarn)
+	bool BaseChunk::SkipChunk(FileReader& stream, const bool& printWarn)
 	{
 		ChunkHeader head = stream.ReadChunkHeader(false);
 		ChunkSize size = stream.ReadChunkSize();
