@@ -6,6 +6,7 @@
 #include "FLGS.h"
 #include "TRAN.h"
 #include "GEOM.h"
+#include "SWCI.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -54,6 +55,7 @@ namespace LibSWBF2::Chunks::Mesh
 		FLGS m_Flags;
 		TRAN m_Transition;
 		GEOM m_Geometry;
+		SWCI m_CollisionPrimitive;
 
 	protected:
 		friend MSH2;
