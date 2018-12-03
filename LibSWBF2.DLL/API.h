@@ -18,13 +18,13 @@ namespace LibSWBF2::API
 	extern "C"
 	{
 		// Logging //
-		LIBSWBF2_API void LOG_SetCallbackMethod(LogCallback* Callback);
+		LIBSWBF2_API void LOG_SetCallbackMethod(const LogCallback Callback);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
 
 		// MSH //
 		LIBSWBF2_API MSH* MSH_Create();
-		LIBSWBF2_API void MSH_Delete(MSH* msh);
-		LIBSWBF2_API void MSH_ReadFromFile(MSH* msh, const char* path);
+		LIBSWBF2_API bool MSH_Delete(MSH* msh);
+		LIBSWBF2_API bool MSH_ReadFromFile(MSH* msh, const char* path);
 		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
 		LIBSWBF2_API EModelPurpose MODL_GetEstimatedPurpose(MODL* modl);
 

@@ -2,11 +2,11 @@
 
 namespace LibSWBF2::Logging
 {
-#define ENUM_LOGTYPE Info = 0, Warning = 1, Error = 2
-
-	enum ELogType
+	enum ELogType : uint8_t
 	{
-		ENUM_LOGTYPE
+		Info = 0,
+		Warning = 1,
+		Error = 2
 	};
 
 	const string SLogType[] = 

@@ -3,19 +3,13 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	LIBSWBF2_EXP MSH* MSH::Create()
+	MSH* MSH::Create()
 	{
 		return new MSH();
 	}
 
-	LIBSWBF2_EXP void MSH::Destroy(MSH* msh)
+	void MSH::Destroy(MSH* msh)
 	{
-		if (msh == nullptr)
-		{
-			LOG("Given MSH Pointer was NULL!", ELogType::Error);
-			return;
-		}
-
 		delete msh;
 	}
 
