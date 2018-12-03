@@ -17,12 +17,14 @@ namespace LibSWBF2::Logging
 		static unique_ptr<Logger>& GetInstance();
 
 		LIBSWBF2_EXP static void SetLogCallback(const LogCallback& Callback);
+		LIBSWBF2_EXP static void SetLogfileLevel(const ELogType LogfileLevel);
 		void Log(const std::string &message, const ELogType &level, const unsigned long line, const char* file);
 
 	private:
 		static unique_ptr<Logger> m_Instance;
 		LogCallback m_OnLogCallback;
 		FileWriter m_Writer;
+		ELogType m_LogfileLevel = ELogType::Warning;
 	};
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)

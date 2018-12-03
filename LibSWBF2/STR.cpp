@@ -1,22 +1,22 @@
 #include "stdafx.h"
-#include "STRING.h"
+#include "STR.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	void STRING::RefreshSize()
+	void STR::RefreshSize()
 	{
 		// size must be a multiple of 4
 		m_Size = (ChunkSize)m_Text.size();
 		m_Size += 4 - (m_Size % 4);
 	}
 
-	void STRING::WriteToStream(FileWriter& stream)
+	void STR::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		stream.WriteString(m_Text, true);
 	}
 
-	void STRING::ReadFromStream(FileReader& stream)
+	void STR::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_Text = stream.ReadString(m_Size);

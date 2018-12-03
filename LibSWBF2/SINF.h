@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseChunk.h"
-#include "STRING.h"
+#include "STR.h"
 #include "FRAM.h"
 #include "BBOX.h"
 
@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::Mesh
 		SINF() = default;
 		~SINF() = default;
 
-		STRING m_Name;
+		STR m_Name;
 		FRAM m_FrameInformation;
 		BBOX m_BoundingBox;
 

@@ -189,7 +189,7 @@
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="req.h" />
     <ClInclude Include="RotationFrame.h" />
-    <ClInclude Include="STRING.h" />
+    <ClInclude Include="STR.h" />
     <ClInclude Include="NRML.h" />
     <ClInclude Include="POSL.h" />
     <ClInclude Include="SEGM.h" />
@@ -238,7 +238,7 @@
     <ClCompile Include="MTYP.cpp" />
     <ClCompile Include="RotationFrame.cpp" />
     <ClCompile Include="SEGM.cpp" />
-    <ClCompile Include="STRING.cpp" />
+    <ClCompile Include="STR.cpp" />
     <ClCompile Include="NRML.cpp" />
     <ClCompile Include="POSL.cpp" />
     <ClCompile Include="SHVO.cpp" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseChunk.h"
-#include "STRING.h"
+#include "STR.h"
 #include "MTYP.h"
 #include "MNDX.h"
 #include "FLGS.h"
@@ -48,10 +48,10 @@ namespace LibSWBF2::Chunks::Mesh
 
 		LIBSWBF2_EXP EModelPurpose GetEstimatedPurpose();
 
-		STRING m_Name;
+		STR m_Name;
 		MTYP m_ModelType;
 		MNDX m_ModelIndex;
-		STRING m_Parent;
+		STR m_Parent;
 		FLGS m_Flags;
 		TRAN m_Transition;
 		GEOM m_Geometry;

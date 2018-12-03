@@ -40,6 +40,11 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::ReadFromStream(stream);
 
+		if (m_Header != HeaderNames::HEDR)
+		{
+			LOG("This is not a valid MSH file!", ELogType::Error);
+		}
+
 		while (PositionInChunk(stream.GetPosition()))
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);

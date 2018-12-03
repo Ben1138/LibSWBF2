@@ -19,6 +19,7 @@ namespace LibSWBF2::API
 	{
 		// Logging //
 		LIBSWBF2_API void LOG_SetCallbackMethod(LogCallback* Callback);
+		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
 
 		// MSH //
 		LIBSWBF2_API MSH* MSH_Create();

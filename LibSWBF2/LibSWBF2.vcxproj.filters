@@ -150,9 +150,6 @@
     <ClInclude Include="STRP.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="STRING.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="req.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -190,6 +187,9 @@
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="SWCI.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="STR.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
@@ -290,9 +290,6 @@
     <ClCompile Include="UV0L.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="STRING.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="STRP.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
@@ -327,6 +324,9 @@
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="SWCI.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="STR.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
   </ItemGroup>

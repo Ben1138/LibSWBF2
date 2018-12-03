@@ -29,13 +29,22 @@ namespace LibSWBF2::Logging
 	{
 		GetInstance()->m_OnLogCallback = Callback;
 	}
+
+	void Logger::SetLogfileLevel(const ELogType LogfileLevel)
+	{
+		GetInstance()->m_LogfileLevel = LogfileLevel;
+	}
 	
 	void Logger::Log(const string &message, const ELogType &level, const unsigned long line, const char* file)
 	{
 		if (message.length() > 0)
 		{
 			auto entry = LoggerEntry(message, level, line, file);
-			m_Writer.WriteLine(entry.ToString());
+
+			if (level >= m_LogfileLevel)
+			{
+				m_Writer.WriteLine(entry.ToString());
+			}
 
 			if (m_OnLogCallback)
 			{

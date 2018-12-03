@@ -7,10 +7,10 @@ namespace LibSWBF2::Chunks::Mesh
 	struct MODL;
 	struct SINF;
 
-	struct STRING : public BaseChunk
+	struct STR : public BaseChunk
 	{
-		STRING() = default;
-		~STRING() = default;
+		STR() = default;
+		~STR() = default;
 
 		string m_Text;
 
