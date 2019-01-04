@@ -12,15 +12,14 @@ namespace LibSWBF2.Logging
     public static class Logger
     {
         public static Action<LoggerEntry> OnLog;
-        static bool bInit = false;
 
         static APIWrapper.LogCallback logCallback = new APIWrapper.LogCallback(ReceivedLog);
         static void ReceivedLog(IntPtr LoggerEntryPtr)
         {
-            var nativeLoggerEntry = (LoggerEntry._NativeStruct)Marshal.PtrToStructure(LoggerEntryPtr, typeof(LoggerEntry._NativeStruct));
+            var nativeLoggerEntry = (LoggerEntry.NativeStruct)Marshal.PtrToStructure(LoggerEntryPtr, typeof(LoggerEntry.NativeStruct));
             var log = new LoggerEntry(
-                Marshal.PtrToStringAuto(nativeLoggerEntry.m_Message),
-                nativeLoggerEntry.m_Level,
+                Marshal.PtrToStringAnsi(nativeLoggerEntry.m_Message),
+                (ELogType)nativeLoggerEntry.m_Level,
                 nativeLoggerEntry.m_Line,
                 Marshal.PtrToStringAuto(nativeLoggerEntry.m_File)
             );
@@ -28,21 +27,14 @@ namespace LibSWBF2.Logging
             OnLog?.Invoke(log);
         }
 
-        public static void Initialize()
+        static Logger()
         {
-            if (!bInit)
-            {
-                APIWrapper.LOG_SetCallbackMethod(logCallback);
-                bInit = true;
-            }
+            APIWrapper.LOG_SetCallbackMethod(logCallback);
         }
 
         public static void SetLogLevel(ELogType level)
         {
-            if (bInit)
-            {
-                APIWrapper.LOG_SetLogfileLevel(level);
-            }
+            APIWrapper.LOG_SetLogfileLevel(level);
         }
     }
 }

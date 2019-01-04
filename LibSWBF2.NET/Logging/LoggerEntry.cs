@@ -16,10 +16,10 @@ namespace LibSWBF2.Logging
     public class LoggerEntry
     {
         [StructLayout(LayoutKind.Sequential)]
-        internal struct _NativeStruct
+        internal struct NativeStruct
         {
             public IntPtr m_Message;
-            public ELogType m_Level;
+            public byte m_Level;
             public ulong m_Line;
             public IntPtr m_File;
         }
