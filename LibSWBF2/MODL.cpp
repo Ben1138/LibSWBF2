@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::Mesh
 			return EModelPurpose::Mesh_TerrainCut;
 		}
 
-		if (m_Name.m_Text._Starts_with("p_"))
+		if (m_Name.m_Text._Starts_with("p_") || m_Name.m_Text._Starts_with("c_"))
 		{
 			return EModelPurpose::Miscellaneous;
 		}
