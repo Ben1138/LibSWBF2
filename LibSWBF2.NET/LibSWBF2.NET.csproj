@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,10 +44,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\APIWrapper.cs" />
+    <Compile Include="Chunks\BaseChunk.cs" />
+    <Compile Include="Chunks\Mesh\BBOX.cs" />
+    <Compile Include="Chunks\Mesh\FRAM.cs" />
+    <Compile Include="Chunks\Mesh\MATD.cs" />
+    <Compile Include="Chunks\Mesh\MATL.cs" />
     <Compile Include="Chunks\Mesh\MSH.cs" />
+    <Compile Include="Chunks\Mesh\MSH2.cs" />
+    <Compile Include="Chunks\Mesh\SHVO.cs" />
+    <Compile Include="Chunks\Mesh\SINF.cs" />
+    <Compile Include="Chunks\Mesh\STR.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LoggerEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\String.cs" />
+    <Compile Include="Types\Vector2.cs" />
+    <Compile Include="Types\Vector3.cs" />
+    <Compile Include="Types\Vector4.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
