@@ -12,7 +12,7 @@ namespace LibSWBF2::Types
 		void ReadFromStream(FileReader& stream);
 
 		uint32_t m_EnvelopeIndex = 0;
-		float_t m_WeightValue = 0;		// 0.0-1.0
+		float_t m_WeightValue = 0.0f;		// 0.0-1.0
 	};
 
 	struct LIBSWBF2_EXP VertexWeights

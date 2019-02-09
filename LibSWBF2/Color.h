@@ -16,9 +16,9 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		float_t m_Red = 0;
-		float_t m_Green = 0;
-		float_t m_Blue = 0;
-		float_t m_Alpha = 0;
+		float_t m_Red = 0.0f;
+		float_t m_Green = 0.0f;
+		float_t m_Blue = 0.0f;
+		float_t m_Alpha = 0.0f;
 	};
 }

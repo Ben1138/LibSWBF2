@@ -14,7 +14,7 @@ namespace LibSWBF2::Types
 		void ReadFromStream(FileReader& stream);
 
 		String m_AnimationName;
-		float_t m_FrameRate = 0;
+		float_t m_FrameRate = 0.0f;
 		uint32_t m_PlayStyle = 0;
 		uint32_t m_FirstFrame = 0;
 		uint32_t m_LastFrame = 0;
