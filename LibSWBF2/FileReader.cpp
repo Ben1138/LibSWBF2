@@ -108,7 +108,7 @@ namespace LibSWBF2
 
 	float_t FileReader::ReadFloat()
 	{
-		float_t value = 0;
+		float_t value = 0.0f;
 		if (CheckGood(sizeof(float_t)))
 		{
 			m_Reader.read((char*)&value, sizeof(value));

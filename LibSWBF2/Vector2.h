@@ -15,7 +15,7 @@ namespace LibSWBF2::Types
 		virtual void WriteToStream(FileWriter& stream);
 		virtual void ReadFromStream(FileReader& stream);
 
-		float_t m_X = 0;
-		float_t m_Y = 0;
+		float_t m_X = 0.0f;
+		float_t m_Y = 0.0f;
 	};
 }
