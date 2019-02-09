@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::Mesh
 		CYCL() = default;
 		~CYCL() = default;
 
-		vector<Animation> m_Animations;
+		List<Animation> m_Animations;
 
 	protected:
 		friend ANM2;

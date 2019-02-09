@@ -2,16 +2,15 @@
 #include <vector>
 #include "FileWriter.h"
 #include "FileReader.h"
+#include "List.h"
 
 namespace LibSWBF2::Types
 {
-	using std::vector;
-
-	struct Polygon
+	struct LIBSWBF2_EXP Polygon
 	{
 		Polygon() = default;
 		~Polygon() = default;
 
-		vector<uint16_t> m_VertexIndices;
+		List<uint16_t> m_VertexIndices;
 	};
 }

@@ -192,6 +192,12 @@
     <ClInclude Include="STR.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="LibString.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -328,6 +334,12 @@
     </ClCompile>
     <ClCompile Include="STR.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="LibString.cpp">
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

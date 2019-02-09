@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct Vector3 : public Vector2
+	struct LIBSWBF2_EXP Vector3 : public Vector2
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 3;
 
@@ -14,6 +14,6 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		float_t m_Z;
+		float_t m_Z = 0;
 	};
 }

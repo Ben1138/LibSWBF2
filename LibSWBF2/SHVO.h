@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		SHVO() = default;
 		~SHVO() = default;
 
-		int32_t m_ShadowVolume;
+		int32_t m_ShadowVolume = 0;
 
 	protected:
 		friend MSH;

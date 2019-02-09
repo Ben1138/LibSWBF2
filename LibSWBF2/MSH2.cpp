@@ -41,7 +41,7 @@ namespace LibSWBF2::Chunks::Mesh
 			}
 			else if (head == HeaderNames::MODL)
 			{
-				MODL& model = m_Models.emplace_back();
+				MODL& model = m_Models.Emplace();
 				model.ReadFromStream(stream);
 			}
 			else

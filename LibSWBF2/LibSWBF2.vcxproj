@@ -174,7 +174,9 @@
     <ClInclude Include="GEOM.h" />
     <ClInclude Include="HeaderNames.h" />
     <ClInclude Include="KFR3.h" />
+    <ClInclude Include="LibString.h" />
     <ClInclude Include="LibSWBF2.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerEntry.h" />
     <ClInclude Include="MATD.h" />
@@ -225,6 +227,8 @@
     <ClCompile Include="FRAM.cpp" />
     <ClCompile Include="GEOM.cpp" />
     <ClCompile Include="KFR3.cpp" />
+    <ClCompile Include="LibString.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerEntry.cpp" />
     <ClCompile Include="MATD.cpp" />

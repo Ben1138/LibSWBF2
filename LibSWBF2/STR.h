@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::Mesh
 		STR() = default;
 		~STR() = default;
 
-		string m_Text;
+		String m_Text;
 
 	protected:
 		friend MATD;

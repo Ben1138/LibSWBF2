@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks::Mesh
 		~GEOM() = default;
 
 		BBOX m_BoundingBox;
-		vector<SEGM> m_Segments;
+		List<SEGM> m_Segments;
 		ENVL m_Envelope;
 
 	protected:

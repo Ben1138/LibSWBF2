@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FileReader.h"
 #include "Logger.h"
+#include "LibString.h"
 
 namespace LibSWBF2
 {
@@ -115,14 +116,14 @@ namespace LibSWBF2
 		return value;
 	}
 
-	string FileReader::ReadString(size_t length)
+	String FileReader::ReadString(size_t length)
 	{
-		string value = "";
+		String value;
 		if (CheckGood(length))
 		{
 			char* str = new char[length];
 			m_Reader.read(str, length);
-			value = string(str);
+			value = str;
 			delete[] str;
 		}
 		return value;

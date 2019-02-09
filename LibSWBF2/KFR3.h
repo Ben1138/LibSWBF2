@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::Mesh
 		KFR3() = default;
 		~KFR3() = default;
 
-		vector<BoneFrames> m_BoneFrames;
+		List<BoneFrames> m_BoneFrames;
 
 	protected:
 		friend ANM2;

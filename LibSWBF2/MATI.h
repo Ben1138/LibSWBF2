@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		MATI() = default;
 		~MATI() = default;
 
-		uint32_t m_MaterialIndex;
+		uint32_t m_MaterialIndex = 0;
 
 	protected:
 		friend SEGM;

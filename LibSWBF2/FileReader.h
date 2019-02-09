@@ -4,6 +4,9 @@ namespace LibSWBF2
 {
 	using std::ifstream;
 
+	namespace Types{ struct String; }
+	using LibSWBF2::Types::String;
+
 	class FileReader
 	{
 	public:
@@ -18,7 +21,7 @@ namespace LibSWBF2
 		uint32_t ReadUInt32();
 		uint16_t ReadUInt16();
 		float_t ReadFloat();
-		string ReadString(size_t length);
+		String ReadString(size_t length);
 		size_t GetPosition();
 		void SetPosition(size_t NewPosition);
 		size_t GetFileSize();
@@ -27,7 +30,7 @@ namespace LibSWBF2
 	private:
 		bool CheckGood(size_t ReadSize);
 
-		size_t m_FileSize;
+		size_t m_FileSize = 0;
 		string m_FileName;
 		ifstream m_Reader;
 	};

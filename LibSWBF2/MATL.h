@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::Mesh
 		MATL() = default;
 		~MATL() = default;
 
-		vector<MATD> m_Materials;
+		List<MATD> m_Materials;
 
 	protected:
 		friend MSH2;

@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		POSL() = default;
 		~POSL() = default;
 
-		vector<Vector3> m_Vertices;
+		List<Vector3> m_Vertices;
 
 	protected:
 		friend SEGM;

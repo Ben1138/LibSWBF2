@@ -5,15 +5,15 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	void STRP::RefreshSize()
 	{
-		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Triangles.size() * sizeof(uint16_t));
+		m_Size = (ChunkSize)(sizeof(uint32_t) + m_Triangles.Size() * sizeof(uint16_t));
 	}
 
 	void STRP::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32((uint32_t)m_Triangles.size());
+		stream.WriteUInt32((uint32_t)m_Triangles.Size());
 
-		for (size_t i = 0; i < m_Triangles.size(); ++i)
+		for (size_t i = 0; i < m_Triangles.Size(); ++i)
 		{
 			stream.WriteUInt16(m_Triangles[i]);
 		}
@@ -24,12 +24,12 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::ReadFromStream(stream);
 		uint32_t numIndices = stream.ReadUInt32();
 
-		m_Triangles.clear();
-		m_Triangles.reserve(numIndices);
+		m_Triangles.Clear();
+		m_Triangles.Resize(numIndices);
 
 		for (uint32_t i = 0; i < numIndices; ++i)
 		{
-			m_Triangles.emplace_back(stream.ReadUInt16());
+			m_Triangles.Add(stream.ReadUInt16());
 		}
 
 		// in some STRP Chunks, there are an additional two bytes (0x00 each)
@@ -48,27 +48,27 @@ namespace LibSWBF2::Chunks::Mesh
 
 	void STRP::CalcPolygons()
 	{
-		m_Polygons.clear();
+		m_Polygons.Clear();
 
 		// in MSH, polygons are defined as triangle strips.
 		// so we have to strip them ourselfs
-		//triangles are listed CW CCW CW CCW...
+		// triangles are listed CW CCW CW CCW...
 
 		size_t triCount = 0;
 		Polygon poly;
 		bool CW = true;
 
-		for (size_t i = 0; i < m_Triangles.size(); ++i)
+		for (size_t i = 0; i < m_Triangles.Size(); ++i)
 		{
-			auto& vInd = poly.m_VertexIndices;
+			List<uint16_t>& vInd = poly.m_VertexIndices;
 			uint16_t vertex = m_Triangles[i];
 
 			// check if highest bit is set
 			// two consecutive indices with the highest bit set indicate the start of a triangle strip
 			// so lets AND combine this and the next vertex index and check if the highest bit is still set
-			if (i+1 < m_Triangles.size() && (vertex & m_Triangles[i+1]) & 0x8000)
+			if (i+1 < m_Triangles.Size() && (vertex & m_Triangles[i+1]) & 0x8000)
 			{
-				vInd.clear();
+				vInd.Clear();
 				triCount = 0;
 				CW = true;
 			}
@@ -80,7 +80,7 @@ namespace LibSWBF2::Chunks::Mesh
 				vertex &= 0x7FFF;
 			}
 
-			vInd.push_back(vertex);
+			vInd.Add(vertex);
 			++triCount;
 
 			if (triCount >= 3)
@@ -91,14 +91,14 @@ namespace LibSWBF2::Chunks::Mesh
 				if (!CW)
 				{
 					// switch vertices if CCW
-					uint16_t temp = vInd[vInd.size() - 1];
-					vInd[vInd.size() - 1] = vInd[vInd.size() - 3];
-					vInd[vInd.size() - 3] = temp;
+					uint16_t temp = vInd[vInd.Size() - 1];
+					vInd[vInd.Size() - 1] = vInd[vInd.Size() - 3];
+					vInd[vInd.Size() - 3] = temp;
 				}
 				CW = !CW;
 
-				m_Polygons.push_back(poly);
-				vInd.clear();
+				m_Polygons.Add(poly);
+				vInd.Clear();
 			}
 		}
 	}

@@ -4,6 +4,9 @@ namespace LibSWBF2
 {
 	using std::ofstream;
 
+	namespace Types { struct String; }
+	using LibSWBF2::Types::String;
+
 	class FileWriter
 	{
 	public:
@@ -19,8 +22,8 @@ namespace LibSWBF2
 		void WriteUInt32(const uint32_t& value);
 		void WriteUInt16(const uint16_t& value);
 		void WriteFloat(const float_t& value);
-		void WriteString(const string& value);
-		void WriteString(const string& value, uint16_t fixedSize);
+		void WriteString(const String& value);
+		void WriteString(const String& value, uint16_t fixedSize);
 		void WriteLine(const string& line);
 		size_t GetPosition();
 		void Close();

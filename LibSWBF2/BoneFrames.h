@@ -3,19 +3,20 @@
 #include "FileReader.h"
 #include "TranslationFrame.h"
 #include "RotationFrame.h"
+#include "List.h"
 
 namespace LibSWBF2::Types
 {
-	struct BoneFrames
+	struct LIBSWBF2_EXP BoneFrames
 	{
 		uint32_t GetSize();
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		CRCChecksum m_CRCchecksum;		// The Bone this refers to
-		uint32_t m_KeyFrameType;
+		CRCChecksum m_CRCchecksum = 0;		// The Bone this refers to
+		uint32_t m_KeyFrameType = 0;
 
-		vector<TranslationFrame> m_TranslationFrames;
-		vector<RotationFrame> m_RotationFrames;
+		List<TranslationFrame> m_TranslationFrames;
+		List<RotationFrame> m_RotationFrames;
 	};
 }

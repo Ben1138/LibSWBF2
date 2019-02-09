@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::Mesh
 		MTYP() = default;
 		~MTYP() = default;
 
-		EModelType m_ModelType;
+		EModelType m_ModelType = EModelType::Null;
 
 	protected:
 		friend MODL;

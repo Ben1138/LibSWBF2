@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		m_Size = 0;
 
-		for (size_t i = 0; i < m_BoneFrames.size(); ++i)
+		for (size_t i = 0; i < m_BoneFrames.Size(); ++i)
 		{
 			m_Size += m_BoneFrames[i].GetSize();
 		}
@@ -16,9 +16,9 @@ namespace LibSWBF2::Chunks::Mesh
 	void KFR3::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32((uint32_t)m_BoneFrames.size());
+		stream.WriteUInt32((uint32_t)m_BoneFrames.Size());
 
-		for (size_t i = 0; i < m_BoneFrames.size(); ++i)
+		for (size_t i = 0; i < m_BoneFrames.Size(); ++i)
 		{
 			m_BoneFrames[i].WriteToStream(stream);
 		}
@@ -29,12 +29,12 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::ReadFromStream(stream);
 		uint32_t num = stream.ReadUInt32();
 
-		m_BoneFrames.clear();
-		m_BoneFrames.reserve(num);
+		m_BoneFrames.Clear();
+		m_BoneFrames.Resize(num);
 
 		for (uint32_t i = 0; i < num; ++i)
 		{
-			BoneFrames& bf = m_BoneFrames.emplace_back();
+			BoneFrames& bf = m_BoneFrames.Emplace();
 			bf.ReadFromStream(stream);
 		}
 

@@ -10,9 +10,9 @@ namespace LibSWBF2::Chunks::Mesh
 		FRAM() = default;
 		~FRAM() = default;
 
-		int32_t m_FrameRangeStart;
-		int32_t m_FrameRangeEnd;
-		float_t m_FramesPerSecond;
+		int32_t m_FrameRangeStart = 0;
+		int32_t m_FrameRangeEnd = 0;
+		float_t m_FramesPerSecond = 0;
 
 	protected:
 		friend SINF;

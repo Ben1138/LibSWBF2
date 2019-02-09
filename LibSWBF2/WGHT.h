@@ -5,6 +5,7 @@
 namespace LibSWBF2::Chunks::Mesh
 {
 	using LibSWBF2::Types::BoneWeight;
+	using LibSWBF2::Types::VertexWeights;
 
 	struct SEGM;
 
@@ -13,8 +14,7 @@ namespace LibSWBF2::Chunks::Mesh
 		WGHT() = default;
 		~WGHT() = default;
 
-		// there are 4 weights for each vertex
-		vector<array<BoneWeight, 4>> m_Weights;
+		List<VertexWeights> m_Weights;
 
 	protected:
 		friend SEGM;

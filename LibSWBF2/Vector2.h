@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct Vector2
+	struct LIBSWBF2_EXP Vector2
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 2;
 
@@ -15,7 +15,7 @@ namespace LibSWBF2::Types
 		virtual void WriteToStream(FileWriter& stream);
 		virtual void ReadFromStream(FileReader& stream);
 
-		float_t m_X;
-		float_t m_Y;
+		float_t m_X = 0;
+		float_t m_Y = 0;
 	};
 }

@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		MNDX() = default;
 		~MNDX() = default;
 
-		uint32_t m_ModelIndex;
+		uint32_t m_ModelIndex = 0;
 
 	protected:
 		friend MODL;

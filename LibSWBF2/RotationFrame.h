@@ -5,14 +5,14 @@
 
 namespace LibSWBF2::Types
 {
-	struct RotationFrame
+	struct LIBSWBF2_EXP RotationFrame
 	{
 		static const ChunkSize SIZE = sizeof(uint32_t) + Vector4::SIZE;
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		uint32_t m_FrameIndex;
+		uint32_t m_FrameIndex = 0;
 		Vector4 m_Rotation;
 	};
 }
