@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::Mesh
 	void STR::RefreshSize()
 	{
 		// size must be a multiple of 4
-		m_Size = (ChunkSize)m_Text.size();
+		m_Size = (ChunkSize)m_Text.Length();
 		m_Size += 4 - (m_Size % 4);
 	}
 

@@ -60,10 +60,10 @@ namespace LibSWBF2::Chunks::Mesh
 		ATRB() = default;
 		~ATRB() = default;
 
-		ERenderFlags m_RenderFlags;
-		ERenderType m_RenderType;
-		uint8_t m_Data0;		// what are these for ??
-		uint8_t m_Data1;
+		ERenderFlags m_RenderFlags = (ERenderFlags)0;
+		ERenderType m_RenderType = ERenderType::Normal;
+		uint8_t m_Data0 = 0;		// what are these for ??
+		uint8_t m_Data1 = 0;
 
 	protected:
 		friend MATD;

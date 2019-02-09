@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		UV0L() = default;
 		~UV0L() = default;
 
-		vector<Vector2> m_UVs;
+		List<Vector2> m_UVs;
 
 	protected:
 		friend SEGM;

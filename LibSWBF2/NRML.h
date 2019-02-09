@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		NRML() = default;
 		~NRML() = default;
 
-		vector<Vector3> m_Normals;
+		List<Vector3> m_Normals;
 
 	protected:
 		friend SEGM;

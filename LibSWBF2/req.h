@@ -1,8 +1,6 @@
 // This file should include all requirements
 
-#if defined NETEXPORT
-#define LIBSWBF2_EXP
-#elif defined _LIB || defined LIBSWBF2DLL_EXPORTS
+#if defined _LIB || defined LIBSWBF2DLL_EXPORTS
 #define LIBSWBF2_EXP __declspec(dllexport)
 #else
 #define LIBSWBF2_EXP __declspec(dllimport)
@@ -10,14 +8,12 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include <queue>
 #include <fstream>
 #include <type_traits>
 #include <cmath>
 #include <algorithm>
 #include <functional>
-#include <array>
 
 namespace LibSWBF2
 {
@@ -25,11 +21,9 @@ namespace LibSWBF2
 	// so just lift up what we need
 	using std::clamp;
 	using std::string;
-	using std::vector;
 	using std::queue;
 	using std::unique_ptr;
 	using std::function;
-	using std::array;
 
 	// define types
 	typedef int32_t ChunkHeader;

@@ -11,9 +11,9 @@ namespace LibSWBF2::Chunks::Mesh
 	void ENVL::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32((uint32_t)m_ModelIndices.size());
+		stream.WriteUInt32((uint32_t)m_ModelIndices.Size());
 
-		for (size_t i = 0; i < m_ModelIndices.size(); ++i)
+		for (size_t i = 0; i < m_ModelIndices.Size(); ++i)
 		{
 			stream.WriteUInt32((uint32_t)m_ModelIndices[i]);
 		}
@@ -24,12 +24,12 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::ReadFromStream(stream);
 		uint32_t length = stream.ReadUInt32();
 
-		m_ModelIndices.clear();
-		m_ModelIndices.reserve(length);
+		m_ModelIndices.Clear();
+		m_ModelIndices.Resize(length);
 
 		for (size_t i = 0; i < length; ++i)
 		{
-			m_ModelIndices.emplace_back(stream.ReadUInt32());
+			m_ModelIndices.Add(stream.ReadUInt32());
 		}
 
 		BaseChunk::EnsureEnd(stream);

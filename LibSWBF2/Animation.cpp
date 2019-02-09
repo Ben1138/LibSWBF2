@@ -5,7 +5,7 @@ namespace LibSWBF2::Types
 {
 	void Animation::WriteToStream(FileWriter& stream)
 	{
-		stream.WriteString(m_AnimationName, ANIMATION_NAME_STR_SIZE);
+		stream.WriteString(m_AnimationName.Buffer(), ANIMATION_NAME_STR_SIZE);
 		stream.WriteFloat(m_FrameRate);
 		stream.WriteUInt32(m_PlayStyle);
 		stream.WriteUInt32(m_FirstFrame);

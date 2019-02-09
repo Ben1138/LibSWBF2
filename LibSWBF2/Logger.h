@@ -7,6 +7,7 @@ namespace LibSWBF2::Logging
 	typedef void(*LogCallback)(const LoggerEntry*);
 
 	// Singleton
+	// TODO: Make static class instead of singleton
 	class Logger
 	{
 	public:

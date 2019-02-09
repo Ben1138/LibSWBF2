@@ -5,38 +5,32 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	void WGHT::RefreshSize()
 	{
-		m_Size = (ChunkSize)(m_Weights.size() * BoneWeight::SIZE);
+		m_Size = (ChunkSize)(m_Weights.Size() * BoneWeight::SIZE);
 	}
 
 	void WGHT::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32((uint32_t)m_Weights.size());
+		stream.WriteUInt32((uint32_t)m_Weights.Size());
 
-		for (size_t i = 0; i < m_Weights.size(); ++i)
+		for (size_t i = 0; i < m_Weights.Size(); ++i)
 		{
-			m_Weights[i][0].WriteToStream(stream);
-			m_Weights[i][1].WriteToStream(stream);
-			m_Weights[i][2].WriteToStream(stream);
-			m_Weights[i][3].WriteToStream(stream);
+			m_Weights[i].WriteToStream(stream);
 		}
 	}
 
 	void WGHT::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		uint32_t WeightSize = stream.ReadUInt32();
+		uint32_t WeightSize = stream.ReadUInt32();	// stores the number of indices (4 weight multiples), not the total amount of weights!
 
-		m_Weights.clear();
-		m_Weights.reserve(WeightSize);
+		m_Weights.Clear();
+		m_Weights.Resize(WeightSize);
 
 		for (uint32_t i = 0; i < WeightSize; ++i)
 		{
-			array<BoneWeight, 4>& weight = m_Weights.emplace_back();
-			weight[0].ReadFromStream(stream);
-			weight[1].ReadFromStream(stream);
-			weight[2].ReadFromStream(stream);
-			weight[3].ReadFromStream(stream);
+			VertexWeights& weights = m_Weights.Emplace();
+			weights.ReadFromStream(stream);
 		}
 
 		BaseChunk::EnsureEnd(stream);

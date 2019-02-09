@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FileWriter.h"
 #include "Logger.h"
+#include "LibString.h"
 
 namespace LibSWBF2
 {
@@ -102,7 +103,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteString(const string& value)
+	void FileWriter::WriteString(const String& value)
 	{
 		// string in chunk needs to be a zero terminated c-string
 		// size must be a multiple of 4
@@ -110,8 +111,8 @@ namespace LibSWBF2
 
 		if (CheckGood())
 		{
-			size_t length = value.size();
-			m_Writer.write(value.c_str(), length);
+			size_t length = value.Length();
+			m_Writer.write(value.Buffer(), length);
 
 			int remaining = 4 - (length % 4);
 			char* empty = new char[remaining];
@@ -124,18 +125,18 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteString(const string& value, uint16_t fixedSize)
+	void FileWriter::WriteString(const String& value, uint16_t fixedSize)
 	{
 		if (CheckGood())
 		{
-			if (value.size() > fixedSize)
+			if (value.Length() > fixedSize)
 			{
-				LOG("Actual string size ("+std::to_string(value.size())+") is greater than fixed size ("+std::to_string(fixedSize)+") !", ELogType::Error);
+				LOG("Actual string size ("+std::to_string(value.Length())+") is greater than fixed size ("+std::to_string(fixedSize)+") !", ELogType::Error);
 				return;
 			}
 
 			char* str = new char[fixedSize];
-			strcpy_s(str, value.size(), value.c_str());
+			strcpy_s(str, value.Length(), value.Buffer());
 			m_Writer.write(str, fixedSize);
 			delete[] str;
 		}

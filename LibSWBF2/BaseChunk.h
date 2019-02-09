@@ -5,6 +5,8 @@
 #include "Logger.h"
 #include "Color.h"
 #include "Vector4.h"
+#include "List.h"
+#include "LibString.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -14,6 +16,8 @@ namespace LibSWBF2::Chunks
 	using Types::Vector2;
 	using Types::Vector3;
 	using Types::Vector4;
+	using LibSWBF2::Types::List;
+	using LibSWBF2::Types::String;
 
 	struct BaseChunk
 	{
@@ -38,8 +42,8 @@ namespace LibSWBF2::Chunks
 
 		// since these variables are critical
 		// we should keep them protected
-		ChunkHeader m_Header;
-		ChunkSize m_Size;
-		size_t m_ChunkDataPosition;	// in File (for reading process)
+		ChunkHeader m_Header = 0;
+		ChunkSize m_Size = 0;
+		size_t m_ChunkDataPosition = 0;	// in File (for reading process)
 	};
 }

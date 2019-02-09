@@ -5,32 +5,35 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	EModelPurpose MODL::GetEstimatedPurpose()
 	{
-		if (m_Name.m_Text.find("lowrez") != string::npos)
+		// TODO: Implement own find/starts with methods
+		string stdStr = m_Name.m_Text.Buffer();
+
+		if (stdStr.find("lowrez") != string::npos)
 		{
 			return EModelPurpose::Mesh_Lowrez;
 		}
 
 		// check vehicle collision BEFORE regular collision
-		if (m_Name.m_Text.find("v-collision") != string::npos || m_Name.m_Text.find("p_vehicle") != string::npos)
+		if (stdStr.find("v-collision") != string::npos || stdStr.find("p_vehicle") != string::npos)
 		{
 			return EModelPurpose::Mesh_VehicleCollision;
 		}
-		else if (m_Name.m_Text.find("collision") != string::npos)
+		else if (stdStr.find("collision") != string::npos)
 		{
 			return EModelPurpose::Mesh_Collision;
 		}
 
-		if (m_Name.m_Text._Starts_with("sv_"))
+		if (stdStr._Starts_with("sv_"))
 		{
 			return EModelPurpose::Mesh_ShadowVolume;
 		}
 
-		if (m_Name.m_Text.find("terraincutter") != string::npos)
+		if (stdStr.find("terraincutter") != string::npos)
 		{
 			return EModelPurpose::Mesh_TerrainCut;
 		}
 
-		if (m_Name.m_Text._Starts_with("p_") || m_Name.m_Text._Starts_with("c_"))
+		if (stdStr._Starts_with("p_") || stdStr._Starts_with("c_"))
 		{
 			return EModelPurpose::Miscellaneous;
 		}
@@ -38,30 +41,30 @@ namespace LibSWBF2::Chunks::Mesh
 		// Sekelton Root and Hard Points sometimes have meshes
 		// attached to them (probably for developing purposes)
 		// so their Model Type is "Static" and not "Null"
-		if (m_Name.m_Text == "bone_root")
+		if (stdStr == "bone_root")
 		{
 			return EModelPurpose::Skeleton_Root;
 		}
-		else if (m_Name.m_Text._Starts_with("hp_"))
+		else if (stdStr._Starts_with("hp_"))
 		{
 			return EModelPurpose::Point_HardPoint;
 		}
 
 		if (m_ModelType.m_ModelType == EModelType::Null || m_ModelType.m_ModelType == EModelType::Envelope)
 		{
-			if (m_Name.m_Text == "DummyRoot")
+			if (stdStr == "DummyRoot")
 			{
 				return EModelPurpose::Point_DummyRoot;
 			}
-			else if (m_Name.m_Text._Starts_with("root_"))
+			else if (stdStr._Starts_with("root_"))
 			{
 				return EModelPurpose::Skeleton_BoneRoot;
 			}
-			else if (m_Name.m_Text._Starts_with("bone_"))
+			else if (stdStr._Starts_with("bone_"))
 			{
 				return EModelPurpose::Skeleton_BoneLimb;
 			}
-			else if (m_Name.m_Text._Starts_with("eff_"))
+			else if (stdStr._Starts_with("eff_"))
 			{
 				return EModelPurpose::Skeleton_BoneEnd;
 			}
@@ -91,7 +94,7 @@ namespace LibSWBF2::Chunks::Mesh
 			m_Transition.GetSize() +
 			m_CollisionPrimitive.GetSize();
 
-		if (m_Parent.m_Text.size() > 0)
+		if (m_Parent.m_Text.Length() > 0)
 		{
 			m_Size += m_Parent.GetSize();
 		}
@@ -109,7 +112,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_ModelType.WriteToStream(stream);
 		m_ModelIndex.WriteToStream(stream);
 
-		if (m_Parent.m_Text.size() > 0)
+		if (m_Parent.m_Text.Length() > 0)
 		{
 			m_Parent.WriteToStream(stream);
 		}

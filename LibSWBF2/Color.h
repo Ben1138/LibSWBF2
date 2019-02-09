@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct Color
+	struct LIBSWBF2_EXP Color
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 4;
 
@@ -16,9 +16,9 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		float_t m_Red;
-		float_t m_Green;
-		float_t m_Blue;
-		float_t m_Alpha;
+		float_t m_Red = 0;
+		float_t m_Green = 0;
+		float_t m_Blue = 0;
+		float_t m_Alpha = 0;
 	};
 }

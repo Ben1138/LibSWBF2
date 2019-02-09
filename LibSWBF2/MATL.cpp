@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::Mesh
 	void MATL::RefreshSize()
 	{
 		ChunkSize matChunksSize = 0;
-		for (size_t i = 0; i < m_Materials.size(); ++i)
+		for (size_t i = 0; i < m_Materials.Size(); ++i)
 		{
 			m_Materials[i].RefreshSize();
 			matChunksSize += m_Materials[i].GetSize();
@@ -18,9 +18,9 @@ namespace LibSWBF2::Chunks::Mesh
 	void MATL::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
-		stream.WriteUInt32((uint32_t)m_Materials.size());
+		stream.WriteUInt32((uint32_t)m_Materials.Size());
 
-		for (size_t i = 0; i < m_Materials.size(); ++i)
+		for (size_t i = 0; i < m_Materials.Size(); ++i)
 		{
 			m_Materials[i].WriteToStream(stream);
 		}
@@ -31,12 +31,12 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::ReadFromStream(stream);
 		uint32_t MaterialsSize = stream.ReadUInt32();
 
-		m_Materials.clear();
-		m_Materials.reserve(MaterialsSize);
+		m_Materials.Clear();
+		m_Materials.Resize(MaterialsSize);
 
 		for (uint32_t i = 0; i < MaterialsSize; ++i)
 		{
-			MATD& material = m_Materials.emplace_back();
+			MATD& material = m_Materials.Emplace();
 			material.ReadFromStream(stream);
 		}
 

@@ -10,7 +10,7 @@ namespace LibSWBF2::Chunks::Mesh
 		ENVL() = default;
 		~ENVL() = default;
 
-		vector<uint32_t> m_ModelIndices;
+		List<uint32_t> m_ModelIndices;
 
 	protected:
 		friend GEOM;

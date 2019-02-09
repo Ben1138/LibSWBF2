@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		SINF m_SceneInformation;
 		MATL m_MaterialList;
-		vector<MODL> m_Models;
+		List<MODL> m_Models;
 
 	protected:
 		friend MSH;

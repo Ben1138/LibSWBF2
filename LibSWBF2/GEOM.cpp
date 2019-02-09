@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Envelope.RefreshSize();
 		m_Size = m_BoundingBox.GetSize() + m_Envelope.GetSize();
 
-		for (size_t i = 0; i < m_Segments.size(); ++i)
+		for (size_t i = 0; i < m_Segments.Size(); ++i)
 		{
 			m_Segments[i].RefreshSize();
 			m_Size += m_BoundingBox.GetSize();
@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::WriteToStream(stream);
 		m_BoundingBox.WriteToStream(stream);
 
-		for (size_t i = 0; i < m_Segments.size(); ++i)
+		for (size_t i = 0; i < m_Segments.Size(); ++i)
 		{
 			m_Segments[i].WriteToStream(stream);
 		}
@@ -43,7 +43,7 @@ namespace LibSWBF2::Chunks::Mesh
 			}
 			else if (head == HeaderNames::SEGM)
 			{
-				SEGM& segment = m_Segments.emplace_back();
+				SEGM& segment = m_Segments.Emplace();
 				segment.ReadFromStream(stream);
 			}
 			else if (head == HeaderNames::ENVL)
