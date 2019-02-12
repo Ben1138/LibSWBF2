@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TERR.h"
 #include <algorithm>
+#include <vector>
 
 namespace LibSWBF2::Chunks::Terrain
 {
@@ -19,6 +20,7 @@ namespace LibSWBF2::Chunks::Terrain
 			return;
 		}
 
+		#pragma region Header
 		/*
 			Type: long int
 			Size: 4 Bytes
@@ -213,6 +215,18 @@ namespace LibSWBF2::Chunks::Terrain
 		for (int i = 0; i < 8; i++)
 			unk5[i] = stream.ReadByte();
 
+		#pragma endregion Header
+
+		#pragma region Blocks
+		/*
+			Type: signed short
+			Size: MapSize * MapSize * 2
+			Height value for every point on the grid. This value will be multiplied with the map scale multiplier
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				Heights[x][y] = stream.ReadUInt16();
+		#pragma endregion Blocks
 		// .....
 	}
 

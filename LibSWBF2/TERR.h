@@ -29,6 +29,7 @@ namespace LibSWBF2::Chunks::Terrain
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);
 
+		#pragma region Header
 		uint32_t FileVersion;
 		uint16_t TerrainExtents[4];
 		uint32_t unk1;
@@ -45,6 +46,14 @@ namespace LibSWBF2::Chunks::Terrain
 		char RoadDecalTextureNames[16][32];
 		uint32_t unk4;
 		uint8_t unk5[8];
+		#pragma endregion Header
+
+		#pragma region Blocks
+		List<List<uint16_t>> Heights;
+		List<List<uint8_t[4]>> Color;
+		List<List<uint8_t[4]>> Color2;
+		List<List<uint8_t[16]>> Texture;
+		#pragma endregion Blocks
 	};
 
 	struct TextureLayer
