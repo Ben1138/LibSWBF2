@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::Mesh
 	struct MODL;
 	struct SINF;
 
-	struct STR : public BaseChunk
+	struct LIBSWBF2_EXP STR : public BaseChunk
 	{
 		STR() = default;
 		~STR() = default;

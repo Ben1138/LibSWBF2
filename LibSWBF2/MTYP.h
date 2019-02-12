@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct MODL;
 
-	struct MTYP : public BaseChunk
+	struct LIBSWBF2_EXP MTYP : public BaseChunk
 	{
 		MTYP() = default;
 		~MTYP() = default;

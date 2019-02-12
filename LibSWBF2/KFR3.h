@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct ANM2;
 
-	struct KFR3 : public BaseChunk
+	struct LIBSWBF2_EXP KFR3 : public BaseChunk
 	{
 		KFR3() = default;
 		~KFR3() = default;
