@@ -201,6 +201,7 @@
     <ClInclude Include="STRP.h" />
     <ClInclude Include="SWCI.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TERR.h" />
     <ClInclude Include="TRAN.h" />
     <ClInclude Include="TranslationFrame.h" />
     <ClInclude Include="UV0L.h" />
@@ -255,6 +256,7 @@
     </ClCompile>
     <ClCompile Include="STRP.cpp" />
     <ClCompile Include="SWCI.cpp" />
+    <ClCompile Include="TERR.cpp" />
     <ClCompile Include="TRAN.cpp" />
     <ClCompile Include="TranslationFrame.cpp" />
     <ClCompile Include="UV0L.cpp" />
