@@ -30,5 +30,40 @@ namespace LibSWBF2::Chunks::Terrain
 		bool ReadFromFile(const string& Path);
 
 		uint32_t FileVersion;
+		uint16_t TerrainExtents[4];
+		uint32_t unk1;
+		float_t TileRange[16];
+		uint8_t TextureLayerMapping[16];
+		uint8_t unk2[64];
+		float_t MapHeightMultiplier;
+		float_t GridScale;
+		uint32_t unk3;
+		uint32_t MapSize;
+		uint32_t TerrainOptions;
+		TextureLayer TextureLayers[16];
+		WaterLayer WaterLayers[16];
+		char RoadDecalTextureNames[16][32];
+		uint32_t unk4;
+		uint8_t unk5[8];
+	};
+
+	struct TextureLayer
+	{
+		char DiffuseName[32];
+		char DetailName[32];
+
+		TextureLayer(string DiffuseName, string DetailName);
+	};
+
+	struct WaterLayer
+	{
+		float_t WaterHeight[2];
+		uint8_t unk[8];
+		float_t UVAnimationVelocity[2];
+		float_t UVAnimationRepeat[2];
+		uint8_t RGBA[4];
+		char TextureName[32];
+
+		WaterLayer(float_t WaterHeight[], uint8_t unk[], float_t UVAnimationVelocity[], float_t UVAnimationRepeat[], uint8_t RGBA[], string TextureName);
 	};
 }
