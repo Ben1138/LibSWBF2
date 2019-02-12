@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MODL;
 
-	struct MNDX : public BaseChunk
+	struct LIBSWBF2_EXP MNDX : public BaseChunk
 	{
 		MNDX() = default;
 		~MNDX() = default;

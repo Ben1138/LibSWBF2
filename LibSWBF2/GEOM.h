@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MODL;
 
-	struct GEOM : public BaseChunk
+	struct LIBSWBF2_EXP GEOM : public BaseChunk
 	{
 		GEOM() = default;
 		~GEOM() = default;

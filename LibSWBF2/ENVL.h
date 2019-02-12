@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct GEOM;
 
-	struct ENVL : public BaseChunk
+	struct LIBSWBF2_EXP ENVL : public BaseChunk
 	{
 		ENVL() = default;
 		~ENVL() = default;

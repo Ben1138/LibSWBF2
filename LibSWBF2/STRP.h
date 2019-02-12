@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::Mesh
 
 	struct SEGM;
 
-	struct STRP : public BaseChunk
+	struct LIBSWBF2_EXP STRP : public BaseChunk
 	{
 		STRP() = default;
 		~STRP() = default;
 
-		LIBSWBF2_EXP void CalcPolygons();
+		void CalcPolygons();
 
 		// List of Triangle Strips. Each entry contains a vertex index (16 bit unsigned int)
 		// Triangles are listed CW, CCW, CW, CCW, ...

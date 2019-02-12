@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct SEGM;
 
-	struct UV0L : public BaseChunk
+	struct LIBSWBF2_EXP UV0L : public BaseChunk
 	{
 		UV0L() = default;
 		~UV0L() = default;
