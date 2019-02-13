@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::Terrain
 			return;
 		}
 
-		#pragma region Header
+#pragma region Header
 		/*
 			Type: long int
 			Size: 4 Bytes
@@ -206,7 +206,7 @@ namespace LibSWBF2::Chunks::Terrain
 			4x4 terrain blocks covered by decals (?)
 		*/
 		unk4 = stream.ReadUInt32();
-		
+
 		/*
 			Type: byte[8]
 			Size: 8 Bytes
@@ -215,9 +215,9 @@ namespace LibSWBF2::Chunks::Terrain
 		for (int i = 0; i < 8; i++)
 			unk5[i] = stream.ReadByte();
 
-		#pragma endregion Header
+#pragma endregion Header
 
-		#pragma region Blocks
+#pragma region Blocks
 		/*
 			Type: signed short
 			Size: MapSize * MapSize * 2
@@ -226,7 +226,58 @@ namespace LibSWBF2::Chunks::Terrain
 		for (int x = 0; x < MapSize; x++)
 			for (int y = 0; y < MapSize; y++)
 				Heights[x][y] = stream.ReadUInt16();
-		#pragma endregion Blocks
+
+		/*
+			Type: byte [4]
+			Size: MapSize * MapSize * 4
+			Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				for (int i = 0; i < 4; i++)
+					Color[x][y][i] = stream.ReadByte();
+
+		/*
+			Type: byte [4]
+			Size: MapSize * MapSize * 4
+			Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				for (int i = 0; i < 4; i++)
+					Color2[x][y][i] = stream.ReadByte();
+
+		/*
+			Type: byte [16]
+			Size: MapSize * MapSize * 16
+			One byte (0-255) for each TextureLayer indicating the transparency of the corresponding texture layer
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				for (int i = 0; i < 16; i++)
+					Texture[x][y][i] = stream.ReadByte();
+
+		/*
+			Type: byte [2]
+			Size: MapSize * MapSize * 2
+			Last used blend heights for every block, possibly lower-left and upper-right values of the blend tool
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				for (int i = 0; i < 2; i++)
+					BlendHeights1[x][y][i] = stream.ReadByte();
+
+		/*
+			Type: byte [2]
+			Size: MapSize * MapSize * 2
+			Last used blend heights for every block, possibly lower-left and upper-right values of the blend tool
+		*/
+		for (int x = 0; x < MapSize; x++)
+			for (int y = 0; y < MapSize; y++)
+				for (int i = 0; i < 2; i++)
+					BlendHeights2[x][y][i] = stream.ReadByte();
+
+#pragma endregion Blocks
 		// .....
 	}
 

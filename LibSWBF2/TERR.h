@@ -53,6 +53,9 @@ namespace LibSWBF2::Chunks::Terrain
 		List<List<uint8_t[4]>> Color;
 		List<List<uint8_t[4]>> Color2;
 		List<List<uint8_t[16]>> Texture;
+
+		List<List<uint8_t[2]>> BlendHeights1;
+		List<List<uint8_t[2]>> BlendHeights2;
 		#pragma endregion Blocks
 	};
 
