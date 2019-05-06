@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct SEGM;
 
-	struct POSL : public BaseChunk
+	struct LIBSWBF2_EXP POSL : public BaseChunk
 	{
 		POSL() = default;
 		~POSL() = default;

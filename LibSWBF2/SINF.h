@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH2;
 
-	struct SINF : public BaseChunk
+	struct LIBSWBF2_EXP SINF : public BaseChunk
 	{
 		SINF() = default;
 		~SINF() = default;

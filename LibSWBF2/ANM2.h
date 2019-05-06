@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct MSH;
 
-	struct ANM2 : public BaseChunk
+	struct LIBSWBF2_EXP ANM2 : public BaseChunk
 	{
 		CYCL m_AnimationCycle;
 		KFR3 m_KeyFrames;

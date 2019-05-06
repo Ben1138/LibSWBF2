@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct SINF;
 
-	struct FRAM : public BaseChunk
+	struct LIBSWBF2_EXP FRAM : public BaseChunk
 	{
 		FRAM() = default;
 		~FRAM() = default;

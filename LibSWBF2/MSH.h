@@ -6,10 +6,10 @@
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	struct MSH : public BaseChunk
+	struct LIBSWBF2_EXP MSH : public BaseChunk
 	{
-		LIBSWBF2_EXP static MSH* Create();
-		LIBSWBF2_EXP static void Destroy(MSH* msh);
+		static MSH* Create();
+		static void Destroy(MSH* msh);
 
 		SHVO m_ShadowVolume;
 		MSH2 m_MeshBlock;

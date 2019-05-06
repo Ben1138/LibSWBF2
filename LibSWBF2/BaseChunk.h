@@ -19,10 +19,10 @@ namespace LibSWBF2::Chunks
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::String;
 
-	struct BaseChunk
+	struct LIBSWBF2_EXP BaseChunk
 	{
-		LIBSWBF2_EXP bool WriteToFile(const string& Path);
-		LIBSWBF2_EXP bool ReadFromFile(const string& Path);
+		bool WriteToFile(const string& Path);
+		bool ReadFromFile(const string& Path);
 
 	protected:
 		BaseChunk() = default;

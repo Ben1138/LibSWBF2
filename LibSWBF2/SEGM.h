@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct GEOM;
 
-	struct SEGM : public BaseChunk
+	struct LIBSWBF2_EXP SEGM : public BaseChunk
 	{
 		SEGM() = default;
 		~SEGM() = default;
