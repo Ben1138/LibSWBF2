@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::Mesh
 	struct GEOM;
 	struct SINF;
 
-	struct BBOX : public BaseChunk
+	struct LIBSWBF2_EXP BBOX : public BaseChunk
 	{
 		BBOX() = default;
 		~BBOX() = default;

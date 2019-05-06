@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::Mesh
 {
 	struct SEGM;
 
-	struct MATI : public BaseChunk
+	struct LIBSWBF2_EXP MATI : public BaseChunk
 	{
 		MATI() = default;
 		~MATI() = default;

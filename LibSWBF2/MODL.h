@@ -41,12 +41,12 @@ namespace LibSWBF2::Chunks::Mesh
 		Skeleton_BoneEnd = 4096,
 	};
 
-	struct MODL : public BaseChunk
+	struct LIBSWBF2_EXP MODL : public BaseChunk
 	{
 		MODL() = default;
 		~MODL() = default;
 
-		LIBSWBF2_EXP EModelPurpose GetEstimatedPurpose();
+		EModelPurpose GetEstimatedPurpose();
 
 		STR m_Name;
 		MTYP m_ModelType;
