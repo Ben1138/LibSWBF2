@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::Terrain
 {
 	void TERR::WriteToStream(FileWriter& stream)
 	{
-
+		LOG("Not implemented yet!", ELogType::Warning);
 	}
 
 	void TERR::ReadFromStream(FileReader& stream)
@@ -42,7 +42,7 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: 4 Bytes
 			Unknown
 		*/
-		unk1 = stream.ReadUInt32();
+		stream.SkipBytes(4);
 
 		/*
 			Type: float [16]
@@ -66,8 +66,7 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: 64 Bytes
 			Unknown
 		*/
-		for (int i = 0; i < 64; i++)
-			unk2[i] = stream.ReadByte();
+		stream.SkipBytes(64);
 
 		/*
 			Type: float
@@ -88,7 +87,7 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: 4 Bytes
 			Unknown
 		*/
-		unk3 = stream.ReadUInt32();
+		stream.SkipBytes(4);
 
 		/*
 			Type: long int
@@ -128,7 +127,10 @@ namespace LibSWBF2::Chunks::Terrain
 			--Detail texture name
 		*/
 		for (int i = 0; i < 16; i++)
-			TextureLayers[i] = TextureLayer(stream.ReadString(32).~String, stream.ReadString(32).~String);
+		{
+			TextureLayers[i].DiffuseName = stream.ReadString(32);
+			TextureLayers[i].DetailName = stream.ReadString(32);
+		}
 
 		/*
 			Type: WaterLayer[16]
@@ -142,54 +144,44 @@ namespace LibSWBF2::Chunks::Terrain
 				Size 8 Bytes
 				Water height value (twice)
 			*/
-			float_t WaterHeight[2];
-			for (int i = 0; i < 2; i++)
-				WaterHeight[i] = stream.ReadFloat();
+			WaterLayers[i].WaterHeight = stream.ReadFloat();
+			stream.SkipBytes(sizeof(float_t)); // just ignore second height
 
 			/*
 				Type: byte[8]
 				Size 8 Bytes
 				Unknown
 			*/
-			uint8_t unk[8];
-			for (int i = 0; i < 8; i++)
-				unk[i] = stream.ReadByte();
+			stream.SkipBytes(8);
 
 			/*
 				Type: float[2]
 				Size: 8 Bytes
 				UV animation velocity
 			*/
-			float_t UVAnimationVelocity[2];
-			for (int i = 0; i < 2; i++)
-				UVAnimationVelocity[i] = stream.ReadFloat();
+			WaterLayers[i].UVAnimationVelocity.ReadFromStream(stream);
 
 			/*
 				Type: float[2]
 				Size: 8 Bytes
 				UV animation repeat
 			*/
-			float_t UVAnimationRepeat[2];
-			for (int i = 0; i < 2; i++)
-				UVAnimationRepeat[i] = stream.ReadFloat();
+			WaterLayers[i].UVAnimationRepeat.ReadFromStream(stream);
 
 			/*
 				Type: byte[4]
 				Size: 4 Bytes
 				RGBA color values
 			*/
-			uint8_t RGBA[4];
-			for (int i = 0; i < 4; i++)
-				RGBA[i] = stream.ReadByte();
+			for (int j = 0; j < 4; j++)
+				WaterLayers[i].RGBA[j] = stream.ReadByte();
 
 			/*
 				Type: char[32]
 				Size: 32 Bytes
 				Water texture name
 			*/
-			string TextureName = stream.ReadString(32).~String;
-
-			WaterLayers[i] = WaterLayer(WaterHeight, unk, UVAnimationVelocity, UVAnimationRepeat, RGBA, TextureName);
+			WaterLayers[i].TextureName = stream.ReadString(32);
 		}
 
 		/*
@@ -198,22 +190,21 @@ namespace LibSWBF2::Chunks::Terrain
 			Road decal texture names
 		*/
 		for (int i = 0; i < 16; i++)
-			strcpy(RoadDecalTextureNames[i], stream.ReadString(32).~String.c_str());
+			RoadDecalTextureNames[i] = stream.ReadString(32);
 
 		/*
 			Type: long int
 			Size: 4 Bytes
 			4x4 terrain blocks covered by decals (?)
 		*/
-		unk4 = stream.ReadUInt32();
+		stream.SkipBytes(4);
 
 		/*
 			Type: byte[8]
 			Size: 8 Bytes
 			Unknown
 		*/
-		for (int i = 0; i < 8; i++)
-			unk5[i] = stream.ReadByte();
+		stream.SkipBytes(8);
 
 #pragma endregion Header
 
@@ -223,8 +214,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 2
 			Height value for every point on the grid. This value will be multiplied with the map scale multiplier
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				Heights[x][y] = stream.ReadUInt16();
 
 		/*
@@ -232,8 +223,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 4
 			Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				for (int i = 0; i < 4; i++)
 					Color[x][y][i] = stream.ReadByte();
 
@@ -242,8 +233,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 4
 			Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				for (int i = 0; i < 4; i++)
 					Color2[x][y][i] = stream.ReadByte();
 
@@ -252,8 +243,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 16
 			One byte (0-255) for each TextureLayer indicating the transparency of the corresponding texture layer
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				for (int i = 0; i < 16; i++)
 					Texture[x][y][i] = stream.ReadByte();
 
@@ -262,8 +253,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 2
 			Last used blend heights for every block, possibly lower-left and upper-right values of the blend tool
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				for (int i = 0; i < 2; i++)
 					BlendHeights1[x][y][i] = stream.ReadByte();
 
@@ -272,8 +263,8 @@ namespace LibSWBF2::Chunks::Terrain
 			Size: MapSize * MapSize * 2
 			Last used blend heights for every block, possibly lower-left and upper-right values of the blend tool
 		*/
-		for (int x = 0; x < MapSize; x++)
-			for (int y = 0; y < MapSize; y++)
+		for (uint32_t x = 0; x < MapSize; x++)
+			for (uint32_t y = 0; y < MapSize; y++)
 				for (int i = 0; i < 2; i++)
 					BlendHeights2[x][y][i] = stream.ReadByte();
 
@@ -308,21 +299,5 @@ namespace LibSWBF2::Chunks::Terrain
 		}
 		LOG("Could not open File " + Path + "! Non existent?", ELogType::Warning);
 		return false;
-	}
-
-	TextureLayer::TextureLayer(string DiffuseName, string DetailName)
-	{
-		strcpy(this->DiffuseName, DiffuseName.c_str());
-		strcpy(this->DetailName, DetailName.c_str());
-	}
-
-	WaterLayer::WaterLayer(float_t WaterHeight[], uint8_t unk[], float_t UVAnimationVelocity[], float_t UVAnimationRepeat[], uint8_t RGBA[], string TextureName)
-	{
-		std::copy(WaterHeight, WaterHeight, this->WaterHeight);
-		std::copy(unk, unk, this->unk);
-		std::copy(UVAnimationVelocity, UVAnimationVelocity, this->UVAnimationVelocity);
-		std::copy(UVAnimationRepeat, UVAnimationRepeat, this->UVAnimationRepeat);
-		std::copy(RGBA, RGBA, this->RGBA);
-		strcpy(this->TextureName, TextureName.c_str());
 	}
 }
