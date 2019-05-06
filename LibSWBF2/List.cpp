@@ -245,6 +245,7 @@ namespace LibSWBF2
 	using namespace Types;
 	using namespace Chunks::Mesh;
 
+	template LIBSWBF2_EXP class List<uint8_t>;
 	template LIBSWBF2_EXP class List<uint16_t>;
 	template LIBSWBF2_EXP class List<uint32_t>;
 	template LIBSWBF2_EXP class List<Vector2>;
