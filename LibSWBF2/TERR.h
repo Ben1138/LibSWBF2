@@ -34,9 +34,14 @@ namespace LibSWBF2::Chunks::Terrain
 
 	struct LIBSWBF2_EXP TERR
 	{
+		static TERR* Create();
+		static void Destroy(TERR* terrain);
+
+	protected:
 		TERR() = default;
 		~TERR() = default;
 
+	public:
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 		bool WriteToFile(const string& Path);
@@ -57,13 +62,13 @@ namespace LibSWBF2::Chunks::Terrain
 #pragma endregion Header
 
 #pragma region Blocks
-		List<List<uint16_t>> Heights;
-		List<List<uint8_t[4]>> Color;
-		List<List<uint8_t[4]>> Color2;
-		List<List<uint8_t[16]>> Texture;
+		//List<List<uint16_t>> Heights;
+		//List<List<uint8_t[4]>> Color;
+		//List<List<uint8_t[4]>> Color2;
+		//List<List<uint8_t[16]>> Texture;
 
-		List<List<uint8_t[2]>> BlendHeights1;
-		List<List<uint8_t[2]>> BlendHeights2;
+		//List<List<uint8_t[2]>> BlendHeights1;
+		//List<List<uint8_t[2]>> BlendHeights2;
 #pragma endregion Blocks
 	};
 }

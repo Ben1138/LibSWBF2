@@ -9,6 +9,7 @@
 #include "BoneWeight.h"
 #include "MSH.h"
 #include "CRC.h"
+#include "TERR.h"
 
 // Include this file to statically link against LibSWBF2
 // This header should not be included in its own project
