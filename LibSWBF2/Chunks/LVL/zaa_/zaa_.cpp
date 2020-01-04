@@ -20,11 +20,6 @@ namespace LibSWBF2::Chunks::LVL::animation
 	{
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
-		
-		//BaseChunk::EnsureEnd(stream);
-		//return;
-
-
 
 		READ_CHILD(stream, p_Name);
 
@@ -37,6 +32,9 @@ namespace LibSWBF2::Chunks::LVL::animation
 		}
 		catch (LibException le)
 		{
+
+			LOG_ERROR(le.what());
+
 			p_Bin = nullptr;
 		}
 
