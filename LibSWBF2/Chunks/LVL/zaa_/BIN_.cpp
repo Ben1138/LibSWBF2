@@ -32,6 +32,8 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 		if (m_DebugLevel != 0 || m_Version != 8)
 		{
+			LOG_ERROR("Encountered zaa_(BIN_) chunk with unusual version ({}) or debug level ({})...", m_Version, m_DebugLevel);
+
 			while (ThereIsAnother(stream))
 			{
 				READ_CHILD_GENERIC(stream);

@@ -65,7 +65,7 @@ namespace LibSWBF2::Wrappers
 		if (p_Skeleton == nullptr)
 			return false;
 
-		return p_Skeleton->p_Info->m_BoneCount > 1 ? true : false;
+		return p_Skeleton->p_Info->m_BoneCount > 0 ? true : false;
 	}
 
 
