@@ -20,11 +20,14 @@ namespace LibSWBF2::Chunks::LVL::animation
 	void TADA::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+
+		m_Size = dynamic_cast<BIN_*>(GetParent()) -> m_DataBufferLength;
+
 		Check(stream);
 
 		//Temp solution, size would explode if this chunk
 		//stored proper frame structs
-		m_DataBufferLength = GetDataSize();
+		m_DataBufferLength = m_Size;//GetDataSize();
 		p_DataBuffer = new uint8_t[m_DataBufferLength];
 		stream.ReadBytes(p_DataBuffer, m_DataBufferLength);
 
@@ -38,6 +41,6 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 	TADA::~TADA()
 	{
-		delete[] p_DataBuffer;
+		delete p_DataBuffer;
 	}
 }
