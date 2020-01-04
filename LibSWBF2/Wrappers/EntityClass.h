@@ -51,5 +51,9 @@ namespace LibSWBF2::Wrappers
 
 		// will fall back to base class, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
+
+
+
+		bool GetOverriddenProperties(List<FNVHash>& hashes, List<String>& values) const;
 	};
 }

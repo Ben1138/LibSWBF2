@@ -137,6 +137,29 @@ namespace LibSWBF2::Wrappers
 		}
 		return GetProperty(FNV::Hash(propertyName), outValue);
 	}
+
+
+	bool EntityClass::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
+	{
+		List<FNVHash> hashes;
+		List<String> values;
+
+		List<PROP*>& properties = p_classChunk -> m_Properties;
+
+		for (int i = 0; i < properties.Size(); i++)
+		{
+			hashes.Add(properties[i] -> m_PropertyName);
+			values.Add(properties[i] -> m_Value);
+		}
+
+		hashesOut = std::move(hashes);
+		valuesOut = std::move(values);
+
+		return true;
+	}
+
+
+
 	
 
 	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, entc* classChunk, EntityClass& out);
