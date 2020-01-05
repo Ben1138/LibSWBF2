@@ -21,7 +21,12 @@ namespace LibSWBF2.Wrappers
         static Container()
         {
             wrapperMap = new Dictionary<Type, uint>();
-            wrapperMap[typeof(Model)] = 0;
+            wrapperMap[typeof(Light)]        = 0;
+            wrapperMap[typeof(Model)]        = 1;
+            wrapperMap[typeof(Texture)]      = 2;
+            wrapperMap[typeof(World)]        = 3;
+            wrapperMap[typeof(EntityClass)]  = 4;
+            wrapperMap[typeof(AnimationSet)] = 5;
         }        
 
         public uint AddLevel(string path)

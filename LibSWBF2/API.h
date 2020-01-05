@@ -79,17 +79,18 @@ namespace LibSWBF2
 		LIBSWBF2_API const AnimationSet* Level_GetAnimationSet(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
-		LIBSWBF2_API const bool   Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& w, int&h);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 
-		LIBSWBF2_API const void Texture_GetMetadata(const Texture* tex, int32_t width, int32_t height);
-		LIBSWBF2_API const uint8_t Texture_DumpRGBA(const Texture* tex, void* buffer);
+		LIBSWBF2_API const bool    Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer);
+		LIBSWBF2_API const bool    Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name);
+		LIBSWBF2_API const uint8_t Texture_GetBytesRGBA(const Texture* tex, const uint8_t*& buffer);
 
 		// Wrappers - Model
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
 		LIBSWBF2_API const void  Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount);
 		LIBSWBF2_API uint8_t 	 Model_IsSkeletalMesh(const Model* model);
+		LIBSWBF2_API uint8_t     Model_HasNonTrivialHierarchy(const Model* model);
 		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
@@ -112,6 +113,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const int32_t  Segment_GetTopology(const Segment* segment);
 		LIBSWBF2_API const uint32_t Segment_GetMaterialFlags(const Segment* segment);
 		LIBSWBF2_API const void     Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
+		LIBSWBF2_API const char*    Segment_GetBone(const Segment* segment);
 		
 
 		// Wrappers - CollisionMesh

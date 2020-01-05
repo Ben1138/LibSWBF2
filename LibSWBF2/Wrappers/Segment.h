@@ -62,5 +62,8 @@ namespace LibSWBF2::Wrappers
 		// count corresponmds to number of vertices, NOT number of bytes!
 		// returns false if there are no vertex weights present
 		bool GetVertexWeights(uint32_t& count, VertexWeight*& weightBuffer) const;
+
+		// returns the skeleton bone this segment belongs to
+		String GetBone() const;
 	};
 }

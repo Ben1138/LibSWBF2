@@ -108,14 +108,8 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
 
-
-
-
-        //Basic texture handling
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
-                                                        out IntPtr imgData, out int width, out int height);
+        public static extern IntPtr Level_GetTexture(IntPtr level, string texName);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -160,6 +154,10 @@ namespace LibSWBF2
         public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount, out int inc);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Model_HasNonTrivialHierarchy(IntPtr model);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Model_GetCollisionMesh(IntPtr model);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -201,6 +199,10 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint Segment_GetMaterialFlags(IntPtr seg);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Segment_GetBone(IntPtr seg);
+
+
 
          // World //
 
@@ -239,15 +241,17 @@ namespace LibSWBF2
         // Texture //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Texture_GetMetaData(IntPtr texture, out uint height, 
-                                                        out uint width, out IntPtr namePtr);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Texture_GetBytes(IntPtr texture);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Texture_GetMetadata(IntPtr texture, out int width, 
+                                                        out int height, out IntPtr namePtr);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern unsafe bool Texture_DumpRGBA(IntPtr texture, void *buffer);         
+        public static extern bool Texture_GetData(IntPtr texture, out int width, out int height, out IntPtr bufferPtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Texture_GetBytesRGBA(IntPtr texture, out IntPtr buffer);         
 
 
         // CollisionMesh //

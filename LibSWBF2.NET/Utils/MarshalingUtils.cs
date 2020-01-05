@@ -12,6 +12,9 @@ namespace LibSWBF2.Utils
 {
     class MemUtils {
 
+
+        // Given a pointer to a buffer of class instances, a count, and the size of the C++ class, this method will
+        // return NativeWrappers using the offsets of each class element in the native buffer.
         public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count, int elSize) where T : NativeWrapper, new()
         {
             if (nativePtr == IntPtr.Zero) return new T[0];
@@ -27,6 +30,8 @@ namespace LibSWBF2.Utils
         }
 
 
+        // Given a pointer to a buffer of pointers to class instances and an instance count, this method will return
+        // an array of NativeWrappers using each pointer element of the native buffer.
         public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
             if (nativePtr == IntPtr.Zero) return new T[0];
@@ -44,6 +49,9 @@ namespace LibSWBF2.Utils
         }
 
 
+        // Using the memcpy wrapper (Memory_Blit), this method will extract an array of unmanaged
+        // types from a native buffer. Works for all primitive unmanaged types, as well as unmanaged structs
+        // (e.g. VertexWeight and soon the Vector types).
         public static T[] IntPtrToArray<T>(IntPtr dataPtr, int count) where T : unmanaged
         {
             T[] array = new T[count];
@@ -63,28 +71,9 @@ namespace LibSWBF2.Utils
             return array;
         }
 
-        /*
-        public static T[] IntPtrToArray<T>(IntPtr dataPtr, int count, int struct_size) where T : new()
-        {
-            T[] array = new T[count];
-
-            if (dataPtr == IntPtr.Zero || count == 0) return array;
-            
-            unsafe
-            {
-                int numBytes = count * struct_size;
-                T* srcPtr = (T*) dataPtr.ToPointer();
-                fixed (T* destPtr = array)
-                {
-                    APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
-                }
-            }    
-            
-            return array;
-        }
-        */
 
 
+        // Extracts managed strings from an unmanaged array of char pointers.
         public static List<string> IntPtrToStringList(IntPtr nativePtr, int count)
         {
             List<string> strings = new List<string>();

@@ -157,21 +157,14 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public bool GetTexture(string name, out int width, out int height, out byte[] texBytes)
+        public Texture GetTexture(string name)
         {
-            texBytes = null;
-            bool result = APIWrapper.Level_GetTextureData(NativeInstance, name, out IntPtr bytesRaw, out width, out height);
-            if (result)
+            IntPtr texPtr = APIWrapper.Level_GetTexture(NativeInstance, name);
+            if (texPtr == null)
             {
-                texBytes = new byte[width * height * 4];
-                Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
+                return null;
             }
-            else
-            {
-                texBytes = new byte[0];
-            }
-
-            return result;
+            return new Texture(texPtr);
         }
 
         public AnimationSet GetAnimationSet(string setName)

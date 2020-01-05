@@ -30,10 +30,21 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                //return false;
                 return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
             }
         }
+
+
+        public bool HasNonTrivialHierarchy
+        {
+            get
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                return APIWrapper.Model_HasNonTrivialHierarchy(NativeInstance);
+            }
+        }
+
+
 
         public Bone[] GetSkeleton()
         {
