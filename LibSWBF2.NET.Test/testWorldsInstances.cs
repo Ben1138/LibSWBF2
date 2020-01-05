@@ -62,6 +62,13 @@ namespace LibSWBF2.NET.Test
                                         "  Rotation: " + rot.ToString() +
                                         "  Position: " + pos.ToString());
 
+                        /*
+                        if (ec.GetOverriddenProperties(out uint[] props, out string[] values))
+                        {
+                            Console.WriteLine()
+                        }
+                        */
+
                         //Console.WriteLine("\t\tAttached ODF = " + ec.GetProperty("AttachODF"));
 
                     }

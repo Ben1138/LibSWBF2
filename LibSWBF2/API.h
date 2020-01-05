@@ -99,6 +99,7 @@ namespace LibSWBF2
 		// Wrappers - EntityClass
 		LIBSWBF2_API const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
 		LIBSWBF2_API const char *EntityClass_GetBaseName(const EntityClass *ec);
+		LIBSWBF2_API uint8_t     EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t &count);
 
 		// Wrappers - Bone
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
