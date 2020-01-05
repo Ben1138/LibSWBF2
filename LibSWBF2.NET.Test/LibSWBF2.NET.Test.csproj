@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestBench.cs" />
-    <Compile Include="REPLACEME.cs"/>
+    <Compile Include="testTerrain.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
