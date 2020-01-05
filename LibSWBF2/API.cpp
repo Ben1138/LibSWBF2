@@ -114,14 +114,31 @@ namespace LibSWBF2
 		container -> StartLoading();
 	}
 
+	/*
+	wrapperMap[typeof(Light)]        = 0;
+    wrapperMap[typeof(Model)]        = 1;
+    wrapperMap[typeof(Texture)]      = 2;
+    wrapperMap[typeof(World)]        = 3;
+    wrapperMap[typeof(EntityClass)]  = 4;
+    wrapperMap[typeof(AnimationSet)] = 5;
+	*/
+
 	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
 	{
 		switch (type)
 		{
 			case 0:
-				return static_cast<const void *>(container -> FindModel(name));
+				return static_cast<const void *>(container -> FindLight(name));
 			case 1:
+				return static_cast<const void *>(container -> FindModel(name));
+			case 2:
 				return static_cast<const void *>(container -> FindTexture(name));
+			case 3:
+				return static_cast<const void *>(container -> FindWorld(name));
+			case 4:
+				return static_cast<const void *>(container -> FindEntityClass(name));
+			case 5:
+				return static_cast<const void *>(container -> FindAnimationSet(name));
 			default:
 				return nullptr;
 		}
@@ -169,37 +186,12 @@ namespace LibSWBF2
 	}
 
 
-	//TEMPORARY: Basic texture handling until I push the other wrappers...
-    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imageDataOut, int& width, int& height)
-    {
-    	static const uint8_t *imageData = nullptr;
-    	delete imageData;
+	const Texture* Level_GetTexture(const Level* level, const char* texName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetTexture(texName);
+	}
 
-    	width = height = 0;
-    	imageData = imageDataOut = nullptr;
-    	CheckPtr(level, false);
-
-    	const Texture *tex = level -> GetTexture(texName);
-    	if (tex == nullptr)
-    	{
-    		return false;
-    	}
-
-    	uint16_t w,h;
-
-    	if (tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData))
-    	{
-	    	height = h;
-	    	width = w;
-	    	imageDataOut = imageData;
-	    	return true;
-	    }
-	    else 
-	    {
-   	    	imageData = imageDataOut = nullptr;
-	    	return false;
-	    }
-    }
 
 
 	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
@@ -297,6 +289,66 @@ namespace LibSWBF2
 	{
 		CheckPtr(level, nullptr);
 		return level -> GetAnimationSet(setName);
+	}
+
+
+	// Texture
+
+	const bool Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name)
+	{
+		static String texName;
+		CheckPtr(tex, false);
+
+		texName = tex -> GetName();
+
+		uint16_t w, h;
+		ETextureFormat fmt;
+		bool status = tex -> GetImageMetadata(w, h, fmt);
+
+		width = (int32_t) w;
+		height = (int32_t) h;
+
+		name = texName.Buffer();
+
+		return status;
+	}
+
+	const bool Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer)
+	{
+		static const uint8_t* imageData = nullptr;
+    	delete imageData;
+    	imageData = nullptr;
+
+		CheckPtr(tex,false);
+
+		uint16_t w,h;
+	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
+
+	    width = (int32_t) w;
+	    height = (int32_t) h;
+    	
+    	if (conversionStatus)
+    		buffer = imageData;
+
+    	return conversionStatus;
+	}
+
+
+	const uint8_t Texture_GetBytesRGBA(const Texture* tex, const uint8_t*& buffer)
+	{
+	   	static const uint8_t* imageData = nullptr;
+    	delete imageData;
+    	imageData = nullptr;
+
+		CheckPtr(tex,false);
+
+		uint16_t w,h;
+	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
+    	
+    	if (conversionStatus)
+    		buffer = imageData;
+
+    	return conversionStatus;
 	}
 
 
@@ -413,6 +465,14 @@ namespace LibSWBF2
 		inc = sizeof(Bone);
 		return true;
 	}
+
+
+	uint8_t Model_HasNonTrivialHierarchy(const Model* model)
+	{
+		CheckPtr(model, false);
+		return model -> HasNonTrivialHierarchy();
+	}
+
 
 
 	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
@@ -652,16 +712,23 @@ namespace LibSWBF2
 		return nameString.Buffer();
 	}
 
-
 	const int32_t Segment_GetTopology(const Segment* segment)
 	{
 		return (int32_t) segment -> GetTopology();
 	}
 
-
 	const uint32_t Segment_GetMaterialFlags(const Segment* segment)
 	{
 		return segment == nullptr ? 0 : (uint32_t) segment->GetMaterial().GetFlags();
+	}
+
+	const char* Segment_GetBone(const Segment* segment)
+	{
+		static String boneName = "";
+		CheckPtr(segment, "");
+
+		boneName = segment -> GetBone();
+		return boneName.Buffer();
 	}
 
 	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)

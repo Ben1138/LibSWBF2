@@ -5,9 +5,6 @@
 #include "Logging/Logger.h"
 #include <cstring>
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace DXTexCrossPlat {
 
 CrossPlatImage::CrossPlatImage(uint16_t w, uint16_t h,

@@ -59,6 +59,19 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
+
+	bool Model::HasNonTrivialHierarchy() const
+	{
+		if (p_Skeleton == nullptr)
+			return false;
+
+		return p_Skeleton->p_Info->m_BoneCount > 1 ? true : false;
+	}
+
+
+
+
+
 	bool Model::GetSkeleton(List<Bone>& bones) const
 	{
 		if (p_Skeleton == nullptr)

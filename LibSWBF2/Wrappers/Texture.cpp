@@ -3,6 +3,9 @@
 #include "InternalHelpers.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 
+
+#include <iostream>
+
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::LVL_texture::LVL_;
@@ -58,6 +61,23 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_FMT->p_Info->m_MipmapCount;
 	}
+
+
+	bool Texture::GetImageMetadata(uint16_t& width, uint16_t& height, ETextureFormat& format) const
+	{
+		if (p_FMT->p_Info == nullptr)
+			LOG_ERROR("Failed to get texture metadata");
+			return false;
+
+		width  = (uint16_t) p_FMT->p_Info->m_Width;
+		height = (uint16_t) p_FMT->p_Info->m_Height;
+		//format = p_FMT->p_Info->m_Format;
+
+		return true;
+	}
+
+
+
 
 	bool Texture::GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, const uint8_t*& data) const
 	{

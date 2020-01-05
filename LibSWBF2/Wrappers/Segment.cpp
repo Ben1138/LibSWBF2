@@ -211,4 +211,14 @@ namespace LibSWBF2::Wrappers
 		weightBuffer = m_VertexWeights.GetArrayPtr();
 		return count > 0;
 	}
+
+	String Segment::GetBone() const
+	{
+		if (p_Segment -> p_Parent != nullptr)
+		{
+			return p_Segment -> p_Parent -> m_Text;
+		}
+
+		return "";
+	}
 }

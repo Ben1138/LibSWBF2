@@ -48,6 +48,7 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 		const List<Segment>& GetSegments() const;
 		bool IsSkeletalMesh() const;
+		bool HasNonTrivialHierarchy() const;
 		bool GetSkeleton(List<Bone>& bones) const;
 
 		const CollisionMesh& GetCollisionMesh() const;

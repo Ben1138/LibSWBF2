@@ -27,9 +27,9 @@ namespace LibSWBF2.NET.Test
             int j = 0;
             foreach (Model model in models)
             {   
-                Console.WriteLine(model.Name + ": ");
+                Console.WriteLine("\n" + model.Name + ": ");
 
-                if (model.IsSkeletalMesh)
+                if (model.IsSkeletalMesh || model.HasNonTrivialHierarchy)
                 {
                     Console.WriteLine("\tSkeleton: ");
                     
@@ -62,13 +62,18 @@ namespace LibSWBF2.NET.Test
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
                     }
 
+                    if (model.HasNonTrivialHierarchy)
+                    {
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
+                    }
 
-                    Console.Write("\n\t\tTexture: " + texName);
-
-                    byte[] data;
-                    level.GetTexture(texName, out int w, out int h, out data);
                     
-                    Console.WriteLine(" Height: {0} Width: {1} Num bytes: {2}", h, w, data.Length);
+                    Console.Write("\n\t\tTexture: " + texName);
+                    Texture tex = level.GetTexture(texName);
+                    if (tex != null)
+                    {
+                        Console.WriteLine(" Height: {0} Width: {1}", tex.height, tex.width);
+                    }
                 }
             } 
 
