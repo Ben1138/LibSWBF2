@@ -15,7 +15,7 @@ public enum LightType : uint
 }
 
 
-public enum  MaterialFlags : uint
+public enum MaterialFlags : uint
 {
 	Normal = 1,
 	Hardedged = 2,

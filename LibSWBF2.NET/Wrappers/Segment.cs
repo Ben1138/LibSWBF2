@@ -95,11 +95,16 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Segment_GetTopology(NativeInstance);            
         }
 
-
         public string GetBone()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return Marshal.PtrToStringAnsi(APIWrapper.Segment_GetBone(NativeInstance));
+        }
+
+        public Material GetMaterial()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            return new Material(APIWrapper.Segment_GetMaterial(NativeInstance));            
         }
 
 
