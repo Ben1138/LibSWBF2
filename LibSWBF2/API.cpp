@@ -115,11 +115,11 @@ namespace LibSWBF2
 	}
 
 	/*
-	wrapperMap[typeof(Light)]        = 0;
-    wrapperMap[typeof(Model)]        = 1;
-    wrapperMap[typeof(Texture)]      = 2;
-    wrapperMap[typeof(World)]        = 3;
-    wrapperMap[typeof(EntityClass)]  = 4;
+	wrapperMap[typeof(Light)]         = 0;
+    wrapperMap[typeof(Model)]         = 1;
+    wrapperMap[typeof(Texture)]       = 2;
+    wrapperMap[typeof(World)]         = 3;
+    wrapperMap[typeof(EntityClass)]   = 4;
     wrapperMap[typeof(AnimationBank)] = 5;
 	*/
 
@@ -695,6 +695,11 @@ namespace LibSWBF2
 		}
 	}
 
+	const Material* Segment_GetMaterial(const Segment* segment)
+	{
+		return &(segment -> GetMaterial());
+	}
+
 	
 	const char* Segment_GetMaterialTexName(const Segment* segment)
 	{
@@ -736,12 +741,49 @@ namespace LibSWBF2
 		return boneName.Buffer();
 	}
 
-
 	const uint8_t Segment_IsPretransformed(const Segment* segment)
 	{
 		CheckPtr(segment, false);
 		return segment -> IsPretransformed();
 	}
+
+
+    uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
+                    Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
+                    char* attachedLightName, uint32_t& matFlags, uint32_t& specExp)
+    {	
+    	static Vector3 specCache, diffCache;
+    	static char** texNamePtrsCache = new char*[4];
+    	static String namesCache[4];
+    	static char* attachedLightNameCache = nullptr;
+
+    	CheckPtr(matPtr, false);
+
+    	uint8_t count = 0;
+    	while (count < 4 && matPtr -> GetTextureName(count, namesCache[count]))
+    	{
+    		texNamePtrsCache[count] = const_cast<char *>(namesCache[count].Buffer());
+    		count++;
+    	}
+    	numTexes = count;
+    	texPtrs = texNamePtrsCache;
+
+    	specExp = matPtr -> GetSpecularExponent();
+    	matFlags = (uint32_t) matPtr -> GetFlags();  
+
+    	Color d = matPtr -> GetDiffuseColor();
+    	Color s = matPtr -> GetSpecularColor();
+
+    	diffCache = Vector3(d.m_Red,d.m_Green,d.m_Blue); 
+    	specCache = Vector3(s.m_Red,s.m_Green,s.m_Blue);
+
+    	diffuse = &diffCache;
+    	specular = &specCache; 
+
+    	attachedLightName = const_cast<char *>(matPtr -> GetAttachedLight().Buffer());
+
+    	return true;
+    }
 
 
 	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)
@@ -1012,4 +1054,8 @@ namespace LibSWBF2
 		CheckPtr(setPtr, false);
 		return setPtr -> GetAnimationMetadata(animCRC, numFrames, numBones);
     }
+
+
+
+
 }

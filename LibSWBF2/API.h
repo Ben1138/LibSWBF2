@@ -106,18 +106,18 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
 		// Wrappers - Segment
-		LIBSWBF2_API const void     Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
-		LIBSWBF2_API const void     Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void     Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
-		LIBSWBF2_API const uint32_t Segment_GetVertexBufferLength(const Segment* segment);
-		LIBSWBF2_API const void     Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
-		LIBSWBF2_API const char*    Segment_GetMaterialTexName(const Segment* segment);
-		LIBSWBF2_API const int32_t  Segment_GetTopology(const Segment* segment);
-		LIBSWBF2_API const uint32_t Segment_GetMaterialFlags(const Segment* segment);
-		LIBSWBF2_API const void     Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
-		LIBSWBF2_API const char*    Segment_GetBone(const Segment* segment);
-		LIBSWBF2_API const uint8_t  Segment_IsPretransformed(const Segment* segment);
-		
+		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
+		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
+		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
+		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
+		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
+		LIBSWBF2_API const char*     Segment_GetMaterialTexName(const Segment* segment);
+		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
+		LIBSWBF2_API const uint32_t  Segment_GetMaterialFlags(const Segment* segment);
+		LIBSWBF2_API const void      Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
+		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);
+		LIBSWBF2_API const uint8_t   Segment_IsPretransformed(const Segment* segment);
+		LIBSWBF2_API const Material* Segment_GetMaterial(const Segment* segment); 
 
 		// Wrappers - CollisionMesh
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);
@@ -160,13 +160,19 @@ namespace LibSWBF2
 				                                    Vector3*& colPtr, float_t& range,
 				                                    Vector2*& conePtr);
 
-
+		// Wrappers - AnimationBank
 		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
                                                         const uint16_t*& indicesBuffer, const float_t*& valuesBuffer,
                                                         int& numKeys);
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int& numFrames, int& numBones);
+
+
+        // Wrappers - Material
+        LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
+                                Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
+                                char* attachedLightName, uint32_t& matFlags, uint32_t& specExp);
 
 
 		// Wrappers - Vectors

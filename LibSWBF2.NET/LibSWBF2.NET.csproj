@@ -85,10 +85,12 @@
     <Compile Include="Wrappers\Bone.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
     <Compile Include="Wrappers\Texture.cs" />
+    <Compile Include="Wrappers\Material.cs" />
     <Compile Include="Wrappers\CollisionPrimitive.cs" />
     <Compile Include="Wrappers\AnimationBank.cs" />
     <Compile Include="Wrappers\Container.cs" />
     <Compile Include="Wrappers\EntityClass.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MarshalingUtils.cs" />
     <Compile Include="Utils\Hashing.cs" />
   </ItemGroup>

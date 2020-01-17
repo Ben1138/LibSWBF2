@@ -54,5 +54,18 @@ namespace LibSWBF2.Wrappers
             Marshal.Copy(bytesNative, byteArray, 0, dataLength);
             data = byteArray; 
         } 
+
+
+        public T[] GetPositions<T>() where T : unmanaged
+        {
+            return new T[1];
+        }
+
+        public int[] GetIndices()
+        {
+            return new int[0];
+        }
+
+
     }
 }

@@ -210,8 +210,12 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Segment_IsPretransformed(IntPtr seg);
 
-         // World //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Segment_GetMaterial(IntPtr segPtr);
 
+
+         // World //
+        
          [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr World_GetName(IntPtr world);
 
@@ -315,6 +319,15 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool EntityClass_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
+
+        // Material //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Material_FetchAllFields(IntPtr matPtr, out IntPtr specular,
+                                out IntPtr diffuse, out IntPtr texNames, out int numTexes,
+                                out IntPtr attachedLightName, out uint matFlags, out uint specExp);
 
     }
 }

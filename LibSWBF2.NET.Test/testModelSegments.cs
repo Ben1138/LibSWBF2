@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
+using LibSWBF2.Utils;
 
 
 
@@ -47,7 +48,7 @@ namespace LibSWBF2.NET.Test
                 {
                     Console.WriteLine("\tSegment " + i++ + ": ");
                     float[] vBuf = seg.GetVertexBuffer();                        
-                    string texName = seg.GetMaterialTexName();
+                    //string texName = seg.GetMaterialTexName();
 
                     VertexWeight[] weights = seg.GetVertexWeights();
 
@@ -60,6 +61,7 @@ namespace LibSWBF2.NET.Test
                     if (model.IsSkeletalMesh)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
+                        Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
                     }
                     else
                     {
@@ -69,14 +71,24 @@ namespace LibSWBF2.NET.Test
                         }
                     }
 
-                    Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
-                    
-                    Console.Write("\n\t\tTexture: " + texName);
-                    Texture tex = level.GetTexture(texName);
-                    if (tex != null)
-                    {
-                        Console.WriteLine(" Height: {0} Width: {1}", tex.height, tex.width);
+                    Material mat = seg.GetMaterial();
+
+                    Console.WriteLine("\n\t\tMaterial textures used: ");
+
+                    foreach (string texName in mat.textures)
+                    {   
+                        if (texName == "") continue;
+
+                        Console.Write("\t\t\t" + texName);
+                        Texture tex = level.GetTexture(texName);
+                        if (tex != null)
+                        {
+                            Console.WriteLine(" Height: {0} Width: {1}", tex.height, tex.width);
+                        }                        
                     }
+
+                    Console.WriteLine("\t\tMaterial flags: ");
+                    Console.WriteLine("\t\t\t" + EnumUtils.MaterialFlagsToString(mat.materialFlags));
                 }
             } 
 
