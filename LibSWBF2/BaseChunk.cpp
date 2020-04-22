@@ -3,12 +3,9 @@
 
 namespace LibSWBF2::Chunks
 {
-	// must be overwritten by inheriting classes!
 	void BaseChunk::RefreshSize()
 	{
-		m_Size = 0;
-		LOG("RefreshSize() of BaseChunk called! This should never happen!", ELogType::Error);
-		throw 666;
+		// must be overwritten by inheriting classes!
 	}
 
 	void BaseChunk::WriteToStream(FileWriter& stream)

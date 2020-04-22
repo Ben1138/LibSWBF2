@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Chunks\Terrain">
       <UniqueIdentifier>{d4d2abb4-f87e-4dd6-b6b0-5f94e99c35c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL">
+      <UniqueIdentifier>{5630c7cb-b2a2-4aa4-a6e5-0317cf15830c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL">
+      <UniqueIdentifier>{50de561c-cac0-4867-bd9c-5e453216190b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -207,6 +213,9 @@
     <ClInclude Include="TERR.h">
       <Filter>Header Files\Chunks\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="LVL.h">
+      <Filter>Header Files\Chunks\LVL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="TERR.cpp">
       <Filter>Source Files\Chunks\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="LVL.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
