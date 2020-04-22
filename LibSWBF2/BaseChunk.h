@@ -24,7 +24,6 @@ namespace LibSWBF2::Chunks
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);
 
-	protected:
 		BaseChunk() = default;
 		~BaseChunk() = default;
 
@@ -40,6 +39,7 @@ namespace LibSWBF2::Chunks
 		ChunkHeader GetHeader();
 		ChunkSize GetSize();
 
+	protected:
 		// since these variables are critical
 		// we should keep them protected
 		ChunkHeader m_Header = 0;

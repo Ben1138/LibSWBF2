@@ -28,7 +28,7 @@ namespace LibSWBF2::Chunks::HeaderNames
 
 	const ChunkHeader EMPTY = 0;
 
-	// Mesh
+	// Mesh / LVL
 	const ChunkHeader HEDR = GetHeaderValue("HEDR");
 	const ChunkHeader SHVO = GetHeaderValue("SHVO");
 	const ChunkHeader MSH2 = GetHeaderValue("MSH2");
@@ -85,4 +85,9 @@ namespace LibSWBF2::Chunks::HeaderNames
 
 	// Terrain
 	const ChunkHeader TERR = GetHeaderValue("TERR");
+
+	// LVL
+	const ChunkHeader LVLHeader = GetHeaderValue("ucfb");
+	const ChunkHeader INFO = GetHeaderValue("INFO");
+	const ChunkHeader BODY = GetHeaderValue("BODY");
 }

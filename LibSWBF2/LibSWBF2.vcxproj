@@ -179,6 +179,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerEntry.h" />
+    <ClInclude Include="LVL.h" />
     <ClInclude Include="MATD.h" />
     <ClInclude Include="MATD_DATA.h" />
     <ClInclude Include="MATI.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="List.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerEntry.cpp" />
+    <ClCompile Include="LVL.cpp" />
     <ClCompile Include="MATD.cpp" />
     <ClCompile Include="MATD_DATA.cpp" />
     <ClCompile Include="MATI.cpp" />
