@@ -171,6 +171,7 @@
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FLGS.h" />
     <ClInclude Include="FRAM.h" />
+    <ClInclude Include="GenericChunk.h" />
     <ClInclude Include="GEOM.h" />
     <ClInclude Include="HeaderNames.h" />
     <ClInclude Include="KFR3.h" />
@@ -227,7 +228,9 @@
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="FLGS.cpp" />
     <ClCompile Include="FRAM.cpp" />
+    <ClCompile Include="GenericChunk.cpp" />
     <ClCompile Include="GEOM.cpp" />
+    <ClCompile Include="HeaderNames.cpp" />
     <ClCompile Include="KFR3.cpp" />
     <ClCompile Include="LibString.cpp" />
     <ClCompile Include="List.cpp" />
