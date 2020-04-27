@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include <set>
 
 namespace LibSWBF2::Chunks::HeaderNames
 {
@@ -8,23 +9,9 @@ namespace LibSWBF2::Chunks::HeaderNames
 		return *(ChunkHeader*)str;
 	}
 
-	static string GetHeaderString(const ChunkHeader& hedr)
-	{
-		if (hedr == 0)
-		{
-			return "EMPTY";
-		}
-		else
-		{
-			// just passing the hedr address will result 
-			// in an arbitrary string length, we need to
-			// zero terminate it
-			char arr[5];
-			arr[4] = 0;
-			memcpy(arr, &hedr, 4);
-			return string(arr);
-		}
-	}
+	string GetHeaderString(const ChunkHeader& hedr);
+	bool IsValidHeader(const ChunkHeader hedr);
+	bool IsKnownHeader(const ChunkHeader hedr);
 
 	const ChunkHeader EMPTY = 0;
 
@@ -87,7 +74,20 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader TERR = GetHeaderValue("TERR");
 
 	// LVL
-	const ChunkHeader LVLHeader = GetHeaderValue("ucfb");
+	const ChunkHeader LVL_ = GetHeaderValue("LVL_");
+	const ChunkHeader ucfb = GetHeaderValue("ucfb");
+	const ChunkHeader mcfg = GetHeaderValue("mcfg");
+	const ChunkHeader scr_ = GetHeaderValue("scr_");
 	const ChunkHeader INFO = GetHeaderValue("INFO");
 	const ChunkHeader BODY = GetHeaderValue("BODY");
+	const ChunkHeader SCOP = GetHeaderValue("SCOP");
+	const ChunkHeader skel = GetHeaderValue("skel");
+	const ChunkHeader XFRM = GetHeaderValue("XFRM");
+	const ChunkHeader VRTX = GetHeaderValue("VRTX");
+	const ChunkHeader SKY_ = GetHeaderValue("SKY_");
+	const ChunkHeader RTYP = GetHeaderValue("RTYP");
+	const ChunkHeader TNAM = GetHeaderValue("TNAM");
+	const ChunkHeader VBUF = GetHeaderValue("VBUF");
+	const ChunkHeader IBUF = GetHeaderValue("IBUF");
+
 }

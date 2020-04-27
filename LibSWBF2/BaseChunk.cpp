@@ -100,6 +100,9 @@ namespace LibSWBF2::Chunks
 
 	bool BaseChunk::SkipChunk(FileReader& stream, const bool& printWarn)
 	{
+		if (stream.GetPosition() == stream.GetFileSize())
+			return false;
+
 		ChunkHeader head = stream.ReadChunkHeader(false);
 		ChunkSize size = stream.ReadChunkSize();
 
@@ -113,11 +116,29 @@ namespace LibSWBF2::Chunks
 
 	void BaseChunk::EnsureEnd(FileReader& stream)
 	{
+		if (stream.GetPosition() == stream.GetFileSize())
+			return;
+
 		size_t endPos = m_ChunkDataPosition + m_Size;
-		if (stream.GetPosition() != endPos)
+		if (stream.GetPosition() < endPos)
 		{
 			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
 			stream.SetPosition(endPos);
+		}
+		else
+		{
+			// if we've got trailing bytes, skip them too
+			ForwardToNextHeader(stream);
+		}
+	}
+
+	void BaseChunk::ForwardToNextHeader(FileReader& stream)
+	{
+		// if we've got any trailing bytes, skip them too
+		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !HeaderNames::IsKnownHeader(stream.ReadChunkHeader(true)))
+		{
+			stream.SetPosition(stream.GetPosition() + 1);
+			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 		}
 	}
 }

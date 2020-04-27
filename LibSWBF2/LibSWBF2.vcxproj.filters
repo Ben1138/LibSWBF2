@@ -216,6 +216,9 @@
     <ClInclude Include="LVL.h">
       <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
+    <ClInclude Include="GenericChunk.h">
+      <Filter>Header Files\Chunks\LVL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -364,6 +367,12 @@
     </ClCompile>
     <ClCompile Include="LVL.cpp">
       <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericChunk.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderNames.cpp">
+      <Filter>Source Files\Chunks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
