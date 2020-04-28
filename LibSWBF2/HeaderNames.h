@@ -89,5 +89,16 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader TNAM = GetHeaderValue("TNAM");
 	const ChunkHeader VBUF = GetHeaderValue("VBUF");
 	const ChunkHeader IBUF = GetHeaderValue("IBUF");
-
+	const ChunkHeader DXT1 = GetHeaderValue("DXT1");
+	const ChunkHeader DXT3 = GetHeaderValue("DXT3");
+	const ChunkHeader MTRL = GetHeaderValue("MTRL");
+	const ChunkHeader PROP = GetHeaderValue("PROP");
+	const ChunkHeader BNAM = GetHeaderValue("BNAM");
+	const ChunkHeader NODE = GetHeaderValue("NODE");
+	const ChunkHeader LEAF = GetHeaderValue("LEAF");
+	const ChunkHeader GSHD = GetHeaderValue("GSHD");
+	const ChunkHeader LOWD = GetHeaderValue("LOWD");
+	const ChunkHeader FMT_ = GetHeaderValue("FMT_");
+	const ChunkHeader FACE = GetHeaderValue("FACE");
+	const ChunkHeader TYPE = GetHeaderValue("TYPE");
 }

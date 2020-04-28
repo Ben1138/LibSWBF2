@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks
 		LOG("Header: " + HeaderNames::GetHeaderString(m_Header), ELogType::Info);
 		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
 
-		if (m_Header == HeaderNames::EMPTY || m_Size <= 0)
+		if (m_Header == HeaderNames::EMPTY || m_Size < 0)
 		{
 			LOG("Invalid Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
 			throw 666;

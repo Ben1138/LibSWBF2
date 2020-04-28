@@ -29,14 +29,27 @@ namespace LibSWBF2::Chunks
 				 * Most of the time it's 3 bytes, but also encountered other numbers...
 				 */
 
-				GenericChunk& unkChunk = m_children.emplace_back();
-				unkChunk.ReadFromStream(stream);
-				//unkChunk.m_parent = this;
 
-				LOG("Adding Child '"+unkChunk.GetHeaderName()+"' to '"+GetHeaderName()+"'", ELogType::Info);
+				try
+				{
+					GenericChunk unkChunk;
+					unkChunk.ReadFromStream(stream);
+					m_children.emplace_back(unkChunk);
+					LOG("Adding Child '"+unkChunk.GetHeaderName()+"' to '"+GetHeaderName()+"'", ELogType::Info);
+				}
+				catch (int& e)
+				{
+					LOG("Skipping illegal Chunk: '" + HeaderNames::GetHeaderString(head) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
+					ForwardToNextHeader(stream);
+				}
 			}
 			else
 			{
+				// this log is just for research purposes and should be removed when done
+				if (HeaderNames::IsValidHeader(head))
+				{
+					LOG("Skipping unknown Chunk: '" + HeaderNames::GetHeaderString(head) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
+				}
 				stream.SkipBytes(m_Size);
 
 				// if we've got trailing bytes, skip them too
