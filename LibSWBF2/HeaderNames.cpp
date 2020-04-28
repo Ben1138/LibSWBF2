@@ -27,9 +27,10 @@ namespace LibSWBF2::Chunks::HeaderNames
 		auto checkChar = [](char c)
 		{
 			return
-				(c >= 48 && c <= 57) ||	// is a number
-				(c >= 65 && c <= 90) ||	// is an uppercase letter
-				(c >= 97 && c <= 122);	// is an lowercase letter
+				(c >= 48 && c <= 57) ||		// is a number
+				(c >= 65 && c <= 90) ||		// is an uppercase letter
+				(c >= 97 && c <= 122) ||	// is an lowercase letter
+				(c == 137);					// is an underscore _
 		};
 
 		char* raw = (char*)&hedr;
@@ -111,6 +112,18 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == RTYP ||
 			hedr == TNAM ||
 			hedr == VBUF ||
-			hedr == IBUF;
+			hedr == IBUF ||
+			hedr == DXT1 ||
+			hedr == DXT3 ||
+			hedr == MTRL ||
+			hedr == PROP ||
+			hedr == BNAM ||
+			hedr == NODE ||
+			hedr == LEAF ||
+			hedr == GSHD ||
+			hedr == LOWD ||
+			hedr == FMT_ ||
+			hedr == FACE ||
+			hedr == TYPE;
 	}
 }
