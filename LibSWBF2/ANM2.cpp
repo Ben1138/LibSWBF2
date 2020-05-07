@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_AnimationCycle.RefreshSize();
 		m_KeyFrames.RefreshSize();
 
-		m_Size = m_AnimationCycle.GetSize() + m_KeyFrames.GetSize();
+		m_Size = m_AnimationCycle.GetDataSize() + m_KeyFrames.GetDataSize();
 	}
 
 	void ANM2::WriteToStream(FileWriter& stream)

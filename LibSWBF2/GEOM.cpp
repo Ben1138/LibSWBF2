@@ -7,12 +7,12 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		m_BoundingBox.RefreshSize();
 		m_Envelope.RefreshSize();
-		m_Size = m_BoundingBox.GetSize() + m_Envelope.GetSize();
+		m_Size = m_BoundingBox.GetDataSize() + m_Envelope.GetDataSize();
 
 		for (size_t i = 0; i < m_Segments.Size(); ++i)
 		{
 			m_Segments[i].RefreshSize();
-			m_Size += m_BoundingBox.GetSize();
+			m_Size += m_BoundingBox.GetDataSize();
 		}
 	}
 

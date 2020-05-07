@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::HeaderNames
 
 	const ChunkHeader EMPTY = 0;
 
-	// Mesh / LVL
+	// MSH / LVL
 	const ChunkHeader HEDR = GetHeaderValue("HEDR");
 	const ChunkHeader SHVO = GetHeaderValue("SHVO");
 	const ChunkHeader MSH2 = GetHeaderValue("MSH2");
@@ -101,4 +101,15 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader FMT_ = GetHeaderValue("FMT_");
 	const ChunkHeader FACE = GetHeaderValue("FACE");
 	const ChunkHeader TYPE = GetHeaderValue("TYPE");
+	const ChunkHeader SPHR = GetHeaderValue("SPHR");
+	const ChunkHeader gmod = GetHeaderValue("gmod");
+
+	// LVL - odf
+	const ChunkHeader wpnc = GetHeaderValue("wpnc");
+	const ChunkHeader entc = GetHeaderValue("entc");
+	const ChunkHeader ordc = GetHeaderValue("ordc");
+	const ChunkHeader expc = GetHeaderValue("expc");
+
+	// LVL - msh
+	const ChunkHeader modl = GetHeaderValue("modl");
 }

@@ -22,38 +22,38 @@ namespace LibSWBF2::Chunks
 
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
 		{
-			ChunkHeader head = stream.ReadChunkHeader(true);
-			if (HeaderNames::IsKnownHeader(head))
+			ChunkHeader nextHead = stream.ReadChunkHeader(true);
+			//if (HeaderNames::IsKnownHeader(nextHead))
+			if (HeaderNames::IsValidHeader(nextHead))
 			{
-				/* NOTE: Apparently DATA chunks contain trailing bytes.
-				 * Most of the time it's 3 bytes, but also encountered other numbers...
-				 */
-
-
 				try
 				{
 					GenericChunk unkChunk;
 					unkChunk.ReadFromStream(stream);
-					m_children.emplace_back(unkChunk);
+					m_children.Add(unkChunk);
 					LOG("Adding Child '"+unkChunk.GetHeaderName()+"' to '"+GetHeaderName()+"'", ELogType::Info);
 				}
 				catch (int& e)
 				{
-					LOG("Skipping illegal Chunk: '" + HeaderNames::GetHeaderString(head) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
-					ForwardToNextHeader(stream);
+					e; // avoid C4101 warning
+					LOG("Skipping invalid Chunk: '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
+					//ForwardToNextHeader(stream);
+					stream.SetPosition(stream.GetPosition() - (sizeof(ChunkHeader)*2) - (sizeof(ChunkSize)*2));
+					SkipChunk(stream, false);
 				}
 			}
 			else
 			{
-				// this log is just for research purposes and should be removed when done
-				if (HeaderNames::IsValidHeader(head))
-				{
-					LOG("Skipping unknown Chunk: '" + HeaderNames::GetHeaderString(head) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
-				}
-				stream.SkipBytes(m_Size);
+				//stream.SkipBytes(m_Size);
+				//SkipChunk(stream);
 
-				// if we've got trailing bytes, skip them too
-				ForwardToNextHeader(stream);
+				//if (HeaderNames::IsValidHeader(nextHead))
+				//{
+				//	LOG("Unknwon Chunk '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+				//}
+				//throw 666;
+				stream.SetPosition(stream.GetPosition() - sizeof(ChunkHeader) - sizeof(ChunkSize));
+				SkipChunk(stream, false);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace LibSWBF2::Chunks
 		return HeaderNames::GetHeaderString(m_Header);
 	}
 
-	const vector<GenericChunk>& GenericChunk::GetChildren() const
+	const List<GenericChunk>& GenericChunk::GetChildren() const
 	{
 		return m_children;
 	}

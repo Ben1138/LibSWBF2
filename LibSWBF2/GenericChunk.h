@@ -3,15 +3,13 @@
 
 namespace LibSWBF2::Chunks
 {
-	using std::vector;
-
 	struct LIBSWBF2_EXP GenericChunk : public BaseChunk
 	{
 		GenericChunk() = default;
 		~GenericChunk() = default;
 
 		string GetHeaderName() const;
-		const vector<GenericChunk>& GetChildren() const;
+		const List<GenericChunk>& GetChildren() const;
 
 	protected:
 		void RefreshSize() override;
@@ -20,7 +18,7 @@ namespace LibSWBF2::Chunks
 
 	private:
 		//GenericChunk* m_parent = nullptr;
-		vector<GenericChunk> m_children;
+		List<GenericChunk> m_children;
 		void* m_data = nullptr;
 	};
 }

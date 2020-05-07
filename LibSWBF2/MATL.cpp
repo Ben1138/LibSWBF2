@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::Mesh
 		for (size_t i = 0; i < m_Materials.Size(); ++i)
 		{
 			m_Materials[i].RefreshSize();
-			matChunksSize += m_Materials[i].GetSize();
+			matChunksSize += m_Materials[i].GetDataSize();
 		}
 
 		m_Size = sizeof(uint32_t) + matChunksSize;

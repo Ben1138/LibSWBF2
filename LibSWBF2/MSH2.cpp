@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_SceneInformation.RefreshSize();
 		m_MaterialList.RefreshSize();
 
-		m_Size = m_SceneInformation.GetSize() + m_MaterialList.GetSize();
+		m_Size = m_SceneInformation.GetDataSize() + m_MaterialList.GetDataSize();
 	}
 
 	void MSH2::WriteToStream(FileWriter& stream)

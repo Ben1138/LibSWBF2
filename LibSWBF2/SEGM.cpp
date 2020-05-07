@@ -13,12 +13,12 @@ namespace LibSWBF2::Chunks::Mesh
 		m_TriangleList.RefreshSize();
 
 		m_Size =
-			m_MaterialIndex.GetSize() +
-			m_VertexList.GetSize() +
-			m_WeightList.GetSize() +
-			m_NormalList.GetSize() +
-			m_UVList.GetSize() +
-			m_TriangleList.GetSize();
+			m_MaterialIndex.GetDataSize() +
+			m_VertexList.GetDataSize() +
+			m_WeightList.GetDataSize() +
+			m_NormalList.GetDataSize() +
+			m_UVList.GetDataSize() +
+			m_TriangleList.GetDataSize();
 	}
 
 	void SEGM::WriteToStream(FileWriter& stream)
