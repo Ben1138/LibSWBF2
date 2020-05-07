@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Types
 {
-	uint32_t BoneFrames::GetSize()
+	uint32_t BoneFrames::GetDataSize()
 	{
 		return (uint32_t)((sizeof(uint32_t) * 2) + (TranslationFrame::SIZE * m_TranslationFrames.Size()) + (RotationFrame::SIZE * m_RotationFrames.Size()));
 	}

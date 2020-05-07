@@ -9,7 +9,7 @@ namespace LibSWBF2::Types
 {
 	struct LIBSWBF2_EXP BoneFrames
 	{
-		uint32_t GetSize();
+		uint32_t GetDataSize();
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 

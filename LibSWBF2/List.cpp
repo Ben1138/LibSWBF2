@@ -108,6 +108,10 @@ namespace LibSWBF2::Types
 	template<class T>
 	void List<T>::Add(const T& Element)
 	{
+		if (ArrayPtr == nullptr)
+		{
+			Init(LIST_DEFAULT_INIT_SIZE);
+		}
 		if (NumElements >= MaxElements || ArrayPtr == nullptr)
 		{
 			Resize(MaxElements * 2);
@@ -119,6 +123,10 @@ namespace LibSWBF2::Types
 	template<class T>
 	T& List<T>::Emplace()
 	{
+		if (ArrayPtr == nullptr)
+		{
+			Init(LIST_DEFAULT_INIT_SIZE);
+		}
 		if (NumElements >= MaxElements || ArrayPtr == nullptr)
 		{
 			Resize(MaxElements * 2);
@@ -239,10 +247,12 @@ namespace LibSWBF2::Types
 #include "SEGM.h"
 #include "MATD.h"
 #include "MODL.h"
+#include "GenericChunk.h"
 
 namespace LibSWBF2
 {
 	using namespace Types;
+	using namespace Chunks;
 	using namespace Chunks::Mesh;
 
 	template LIBSWBF2_EXP class List<uint8_t>;
@@ -259,4 +269,5 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<SEGM>;
 	template LIBSWBF2_EXP class List<MATD>;
 	template LIBSWBF2_EXP class List<MODL>;
+	template LIBSWBF2_EXP class List<GenericChunk>;
 }

@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_FrameInformation.RefreshSize();
 		m_BoundingBox.RefreshSize();
 
-		m_Size = m_Name.GetSize() + m_FrameInformation.GetSize() + m_BoundingBox.GetSize();
+		m_Size = m_Name.GetDataSize() + m_FrameInformation.GetDataSize() + m_BoundingBox.GetDataSize();
 	}
 
 	void SINF::WriteToStream(FileWriter& stream)

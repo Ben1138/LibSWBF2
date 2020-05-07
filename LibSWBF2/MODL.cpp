@@ -87,21 +87,21 @@ namespace LibSWBF2::Chunks::Mesh
 		m_CollisionPrimitive.RefreshSize();
 
 		m_Size =
-			m_Name.GetSize() +
-			m_ModelType.GetSize() +
-			m_ModelIndex.GetSize() +
-			m_Flags.GetSize() +
-			m_Transition.GetSize() +
-			m_CollisionPrimitive.GetSize();
+			m_Name.GetDataSize() +
+			m_ModelType.GetDataSize() +
+			m_ModelIndex.GetDataSize() +
+			m_Flags.GetDataSize() +
+			m_Transition.GetDataSize() +
+			m_CollisionPrimitive.GetDataSize();
 
 		if (m_Parent.m_Text.Length() > 0)
 		{
-			m_Size += m_Parent.GetSize();
+			m_Size += m_Parent.GetDataSize();
 		}
 
 		if (m_ModelType.m_ModelType != EModelType::Null)
 		{
-			m_Size += m_Geometry.GetSize();
+			m_Size += m_Geometry.GetDataSize();
 		}
 	}
 

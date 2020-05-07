@@ -13,26 +13,26 @@ namespace LibSWBF2::Chunks::Mesh
 		m_Texture2.RefreshSize();
 		m_Texture3.RefreshSize();
 
-		m_Size = m_Name.GetSize() + m_Data.GetSize() + m_Attribute.GetSize();
+		m_Size = m_Name.GetDataSize() + m_Data.GetDataSize() + m_Attribute.GetDataSize();
 
 		if (m_Texture0.m_Text.Length() > 0)
 		{
-			m_Size += m_Texture0.GetSize();
+			m_Size += m_Texture0.GetDataSize();
 		}
 
 		if (m_Texture1.m_Text.Length() > 0)
 		{
-			m_Size += m_Texture1.GetSize();
+			m_Size += m_Texture1.GetDataSize();
 		}
 
 		if (m_Texture2.m_Text.Length() > 0)
 		{
-			m_Size += m_Texture2.GetSize();
+			m_Size += m_Texture2.GetDataSize();
 		}
 
 		if (m_Texture3.m_Text.Length() > 0)
 		{
-			m_Size += m_Texture3.GetSize();
+			m_Size += m_Texture3.GetDataSize();
 		}
 	}
 

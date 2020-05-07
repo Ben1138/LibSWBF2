@@ -16,8 +16,8 @@ namespace LibSWBF2::Types
 		void CopyFrom(const List<T>& other);
 
 	public:
+		List() = default;
 		List(size_t ReservedSize);
-		List() : List(LIST_DEFAULT_INIT_SIZE) {}
 		List(const List<T>& other);
 		List(List<T>&& other);
 		~List();

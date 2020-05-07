@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::Mesh
 
 		for (size_t i = 0; i < m_BoneFrames.Size(); ++i)
 		{
-			m_Size += m_BoneFrames[i].GetSize();
+			m_Size += m_BoneFrames[i].GetDataSize();
 		}
 	}
 

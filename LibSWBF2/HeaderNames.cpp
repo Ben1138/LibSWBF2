@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::HeaderNames
 				(c >= 48 && c <= 57) ||		// is a number
 				(c >= 65 && c <= 90) ||		// is an uppercase letter
 				(c >= 97 && c <= 122) ||	// is an lowercase letter
-				(c == 137);					// is an underscore _
+				(c == 95);					// is an underscore _
 		};
 
 		char* raw = (char*)&hedr;
@@ -44,6 +44,7 @@ namespace LibSWBF2::Chunks::HeaderNames
 	bool IsKnownHeader(const ChunkHeader hedr)
 	{
 		return
+			// MSH / LVL
 			hedr == HEDR ||
 			hedr == SHVO ||
 			hedr == MSH2 ||
@@ -97,7 +98,11 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == CYCL ||
 			hedr == KFR3 ||
 			hedr == CL1L ||
+
+			// Terrain
 			hedr == TERR ||
+
+			// LVL
 			hedr == LVL_ ||
 			hedr == ucfb ||
 			hedr == mcfg ||
@@ -124,6 +129,17 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == LOWD ||
 			hedr == FMT_ ||
 			hedr == FACE ||
-			hedr == TYPE;
+			hedr == TYPE ||
+			hedr == SPHR ||
+			hedr == gmod ||
+
+			// LVL - odf
+			hedr == wpnc ||
+			hedr == entc ||
+			hedr == ordc ||
+			hedr == expc ||
+
+			// LVL - msh
+			hedr == modl;
 	}
 }

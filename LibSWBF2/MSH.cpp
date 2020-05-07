@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::Mesh
 		m_MeshBlock.RefreshSize();
 		m_Animations.RefreshSize();
 
-		m_Size = m_ShadowVolume.GetSize() + m_MeshBlock.GetSize() + m_Animations.GetSize();
+		m_Size = m_ShadowVolume.GetDataSize() + m_MeshBlock.GetDataSize() + m_Animations.GetDataSize();
 	}
 
 	void MSH::WriteToStream(FileWriter& stream)
