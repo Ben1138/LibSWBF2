@@ -84,22 +84,32 @@ namespace LibSWBF2::Chunks
 		return false;
 	}
 
-	ChunkHeader BaseChunk::GetHeader()
+	ChunkHeader BaseChunk::GetHeader() const
 	{
 		return m_Header;
 	}
 
-	ChunkSize BaseChunk::GetDataSize()
+	ChunkSize BaseChunk::GetDataSize() const
 	{
 		return m_Size;
 	}
 
-	ChunkSize BaseChunk::GetAlignedSize()
+	ChunkSize BaseChunk::GetAlignedSize() const
 	{
 		return (ChunkSize)ceil(m_Size / 4.0f) * 4;
 	}
 
-	size_t BaseChunk::GetDataPosition()
+	ChunkSize BaseChunk::GetFullSize() const
+	{
+		return GetAlignedSize() + sizeof(ChunkHeader) + sizeof(ChunkSize);
+	}
+	
+	size_t BaseChunk::GetPosition() const
+	{
+		return m_ChunkPosition;
+	}
+
+	size_t BaseChunk::GetDataPosition() const
 	{
 		return m_ChunkPosition + sizeof(ChunkHeader) + sizeof(ChunkSize);
 	}
