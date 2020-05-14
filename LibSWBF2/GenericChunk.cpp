@@ -52,8 +52,10 @@ namespace LibSWBF2::Chunks
 				//	LOG("Unknwon Chunk '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 				//}
 				//throw 666;
-				stream.SetPosition(stream.GetPosition() - sizeof(ChunkHeader) - sizeof(ChunkSize));
-				SkipChunk(stream, false);
+				//stream.SetPosition(stream.GetPosition() - sizeof(ChunkHeader) - sizeof(ChunkSize));
+				//SkipChunk(stream, false);
+				//ForwardToNextHeader(stream);
+				break;
 			}
 		}
 

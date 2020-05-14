@@ -153,17 +153,17 @@ namespace LibSWBF2::Chunks
 		else
 		{
 			// if we've got trailing bytes, skip them too
-			//ForwardToNextHeader(stream);
+			ForwardToNextHeader(stream);
 		}
 	}
 
-	//void BaseChunk::ForwardToNextHeader(FileReader& stream)
-	//{
-	//	// if we've got any trailing bytes, skip them too
-	//	while (stream.GetFileSize() - stream.GetPosition() >= 4 && !HeaderNames::IsKnownHeader(stream.ReadChunkHeader(true)))
-	//	{
-	//		stream.SetPosition(stream.GetPosition() + 1);
-	//		LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
-	//	}
-	//}
+	void BaseChunk::ForwardToNextHeader(FileReader& stream)
+	{
+		// if we've got any trailing bytes, skip them too
+		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !HeaderNames::IsKnownHeader(stream.ReadChunkHeader(true)))
+		{
+			stream.SetPosition(stream.GetPosition() + 1);
+			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+		}
+	}
 }
