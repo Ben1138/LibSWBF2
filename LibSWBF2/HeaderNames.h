@@ -98,11 +98,14 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader LEAF = GetHeaderValue("LEAF");
 	const ChunkHeader GSHD = GetHeaderValue("GSHD");
 	const ChunkHeader LOWD = GetHeaderValue("LOWD");
-	const ChunkHeader FMT_ = GetHeaderValue("FMT_");
-	const ChunkHeader FACE = GetHeaderValue("FACE");
 	const ChunkHeader TYPE = GetHeaderValue("TYPE");
 	const ChunkHeader SPHR = GetHeaderValue("SPHR");
 	const ChunkHeader gmod = GetHeaderValue("gmod");
+
+	// LVL - texture
+	const ChunkHeader tex_ = GetHeaderValue("tex_");
+	const ChunkHeader FMT_ = GetHeaderValue("FMT_");
+	const ChunkHeader FACE = GetHeaderValue("FACE");
 
 	// LVL - odf
 	const ChunkHeader wpnc = GetHeaderValue("wpnc");
@@ -113,3 +116,5 @@ namespace LibSWBF2::Chunks::HeaderNames
 	// LVL - msh
 	const ChunkHeader modl = GetHeaderValue("modl");
 }
+
+#define ASSERT_HEADER(a, b) if (a != b) LOG("Expected '"+LibSWBF2::Chunks::HeaderNames::GetHeaderString(b)+"' but got '"+LibSWBF2::Chunks::HeaderNames::GetHeaderString(a)+"'", ELogType::Error);

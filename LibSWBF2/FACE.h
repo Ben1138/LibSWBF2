@@ -1,21 +1,17 @@
 #pragma once
 #include "GenericChunk.h"
+#include "LVL_.h"
 
-namespace LibSWBF2::Chunks
+namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP STR : public GenericChunk
+	struct LIBSWBF2_EXP FACE : public GenericChunk
 	{
-		STR() = default;
-		~STR() = default;
-
 	public:
-		String m_Text;
+		List<LVL_*> m_LVLs;
 
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		String ToString() override;
 	};
 }

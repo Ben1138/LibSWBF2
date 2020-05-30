@@ -1,17 +1,14 @@
 #pragma once
 #include "GenericChunk.h"
+#include "D3D9Types.h"
 
-namespace LibSWBF2::Chunks
+namespace LibSWBF2::Chunks::LVL::texture
 {
-	struct LIBSWBF2_EXP STR : public GenericChunk
+	struct LIBSWBF2_EXP INFO : public GenericChunk
 	{
-		STR() = default;
-		~STR() = default;
+		uint32_t m_FormatCount;
+		List<D3DFORMAT> m_Formats;
 
-	public:
-		String m_Text;
-
-	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

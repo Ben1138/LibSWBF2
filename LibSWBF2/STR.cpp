@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "STR.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks
 {
 	void STR::RefreshSize()
 	{
@@ -21,5 +21,10 @@ namespace LibSWBF2::Chunks::Mesh
 		BaseChunk::ReadFromStream(stream);
 		m_Text = stream.ReadString(m_Size);
 		BaseChunk::EnsureEnd(stream);
+	}
+
+	String STR::ToString()
+	{
+		return m_Text;
 	}
 }

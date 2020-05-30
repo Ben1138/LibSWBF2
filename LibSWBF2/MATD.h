@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseChunk.h"
 #include "STR.h"
-#include "MATD_DATA.h"
+#include "DATA.h"
 #include "ATRB.h"
 
 namespace LibSWBF2::Chunks::Mesh
@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks::Mesh
 		~MATD() = default;
 
 		STR m_Name;
-		MATD_DATA m_Data;
+		DATA m_Data;
 		ATRB m_Attribute;
 		STR m_Texture0;		// TX0D
 		STR m_Texture1;		// TX1D

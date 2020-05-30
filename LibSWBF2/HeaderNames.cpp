@@ -127,11 +127,14 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == LEAF ||
 			hedr == GSHD ||
 			hedr == LOWD ||
-			hedr == FMT_ ||
-			hedr == FACE ||
 			hedr == TYPE ||
 			hedr == SPHR ||
 			hedr == gmod ||
+
+			// LVL - texture
+			hedr == tex_ ||
+			hedr == FMT_ ||
+			hedr == FACE ||
 
 			// LVL - odf
 			hedr == wpnc ||

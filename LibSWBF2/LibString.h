@@ -13,11 +13,16 @@ namespace LibSWBF2::Types
 		~String();
 
 		const char* Buffer() const;
-		size_t Length() const;
+		size_t Length() const; // without NULL terminator
 
 		String& operator=(const String& other);
 		bool operator==(const String& other);
 		bool operator!=(const String& other);
+
+		String& operator+=(const String& a);
+		friend String operator+(const String&, const String&);
+		friend String operator+(const String&, const char*);
+		friend String operator+(const char*, const String&);
 
 	private:
 		const static size_t WARN_LENGTH = 0xffff;

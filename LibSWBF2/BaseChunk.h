@@ -41,8 +41,8 @@ namespace LibSWBF2::Chunks
 
 		ChunkHeader GetHeader() const;
 		ChunkSize GetDataSize() const;		// just the size of the data
-		ChunkSize GetAlignedSize() const;	// size of the data, including trailing bytes
-		ChunkSize GetFullSize() const;		// size of the whole chunk, including complete header and trailling bytes
+		ChunkSize GetAlignedSize() const;	// size of the data, including trailing bytes, exclude header
+		ChunkSize GetFullSize() const;		// size of the whole chunk, including header and trailling bytes
 
 	protected:
 		// since these variables are critical
