@@ -1,21 +1,19 @@
 #pragma once
 #include "GenericChunk.h"
+#include "FMT_.INFO.h"
+#include "FACE.h"
 
-namespace LibSWBF2::Chunks
+namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP STR : public GenericChunk
+	struct LIBSWBF2_EXP FMT_ : public GenericChunk
 	{
-		STR() = default;
-		~STR() = default;
-
 	public:
-		String m_Text;
+		FMT::INFO* p_Info = nullptr;
+		FACE* p_Face = nullptr;
 
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		String ToString() override;
 	};
 }

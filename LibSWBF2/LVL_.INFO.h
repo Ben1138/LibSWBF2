@@ -1,15 +1,13 @@
 #pragma once
 #include "GenericChunk.h"
 
-namespace LibSWBF2::Chunks
+namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
-	struct LIBSWBF2_EXP STR : public GenericChunk
+	struct LIBSWBF2_EXP INFO : public GenericChunk
 	{
-		STR() = default;
-		~STR() = default;
-
 	public:
-		String m_Text;
+		uint32_t m_MipLevel;
+		uint32_t m_BodySize; // why did they put that here...
 
 	public:
 		void RefreshSize() override;

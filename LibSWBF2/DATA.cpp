@@ -1,14 +1,14 @@
 #include "stdafx.h"
-#include "MATD_DATA.h"
+#include "DATA.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
-	void MATD_DATA::RefreshSize()
+	void DATA::RefreshSize()
 	{
 		m_Size = Color::SIZE + Color::SIZE + Color::SIZE + sizeof(float_t);
 	}
 
-	void MATD_DATA::WriteToStream(FileWriter& stream)
+	void DATA::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		m_Diffuse.WriteToStream(stream);
@@ -17,7 +17,7 @@ namespace LibSWBF2::Chunks::Mesh
 		stream.WriteFloat(m_SpecularSharpness);
 	}
 
-	void MATD_DATA::ReadFromStream(FileReader& stream)
+	void DATA::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		m_Diffuse.ReadFromStream(stream);

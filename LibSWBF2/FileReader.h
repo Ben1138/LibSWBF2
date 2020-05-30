@@ -17,6 +17,7 @@ namespace LibSWBF2
 		ChunkHeader ReadChunkHeader(const bool& peek);
 		ChunkSize ReadChunkSize();
 		uint8_t ReadByte();
+		bool ReadBytes(uint8_t* data, size_t length);
 		int32_t ReadInt32();
 		uint32_t ReadUInt32();
 		uint16_t ReadUInt16();

@@ -144,16 +144,16 @@ namespace LibSWBF2::Chunks
 		if (stream.GetPosition() == stream.GetFileSize())
 			return;
 
-		size_t endPos = GetDataPosition() + m_Size;
+		size_t endPos = GetDataPosition() + GetAlignedSize();
 		if (stream.GetPosition() < endPos)
 		{
-			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
+			//LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
 			stream.SetPosition(endPos);
 		}
 		else
 		{
 			// if we've got trailing bytes, skip them too
-			ForwardToNextHeader(stream);
+			//ForwardToNextHeader(stream);
 		}
 	}
 

@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Chunks\LVL">
       <UniqueIdentifier>{50de561c-cac0-4867-bd9c-5e453216190b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\tex_">
+      <UniqueIdentifier>{badfa052-1cfb-4d73-9281-cac86adc8810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\tex_">
+      <UniqueIdentifier>{e01c1057-8e7f-4782-8afd-fc7b21b28d3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -85,9 +91,6 @@
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MATD.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MATD_DATA.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MATL.h">
@@ -201,9 +204,6 @@
     <ClInclude Include="SWCI.h">
       <Filter>Header Files\Chunks\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="STR.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="List.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
@@ -216,8 +216,41 @@
     <ClInclude Include="LVL.h">
       <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
+    <ClInclude Include="D3D9Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="STR.h">
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
+    <ClInclude Include="tex_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="tex_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="DATA.h">
+      <Filter>Header Files\Chunks\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="FMT_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="FMT_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
     <ClInclude Include="GenericChunk.h">
-      <Filter>Header Files\Chunks\LVL</Filter>
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
+    <ClInclude Include="FACE.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="LVL_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="LVL_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="BODY.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +279,6 @@
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="MATD.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MATD_DATA.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="MATL.cpp">
@@ -353,9 +383,6 @@
     <ClCompile Include="SWCI.cpp">
       <Filter>Source Files\Chunks\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="STR.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="List.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
@@ -368,11 +395,44 @@
     <ClCompile Include="LVL.cpp">
       <Filter>Source Files\Chunks\LVL</Filter>
     </ClCompile>
-    <ClCompile Include="GenericChunk.cpp">
-      <Filter>Source Files\Chunks\LVL</Filter>
-    </ClCompile>
     <ClCompile Include="HeaderNames.cpp">
       <Filter>Source Files\Chunks</Filter>
     </ClCompile>
+    <ClCompile Include="STR.cpp">
+      <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="tex_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="tex_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="DATA.cpp">
+      <Filter>Source Files\Chunks\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="FMT_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="FMT_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericChunk.cpp">
+      <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="FACE.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="LVL_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="LVL_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="BODY.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

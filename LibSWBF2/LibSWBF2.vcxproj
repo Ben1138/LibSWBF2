@@ -95,11 +95,17 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,11 +116,17 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,6 +139,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,6 +148,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,6 +164,8 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +173,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -160,20 +184,29 @@
     <ClInclude Include="ATRB.h" />
     <ClInclude Include="BaseChunk.h" />
     <ClInclude Include="BBOX.h" />
+    <ClInclude Include="BODY.h" />
     <ClInclude Include="BoneFrames.h" />
     <ClInclude Include="BoneWeight.h" />
     <ClInclude Include="CAMR.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="CRC.h" />
     <ClInclude Include="CYCL.h" />
+    <ClInclude Include="D3D9Types.h" />
     <ClInclude Include="ENVL.h" />
+    <ClInclude Include="FACE.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FLGS.h" />
+    <ClInclude Include="FMT_.h" />
+    <ClInclude Include="FMT_.INFO.h" />
     <ClInclude Include="FRAM.h" />
     <ClInclude Include="GenericChunk.h" />
     <ClInclude Include="GEOM.h" />
     <ClInclude Include="HeaderNames.h" />
+    <ClInclude Include="LVL_.h" />
+    <ClInclude Include="LVL_.INFO.h" />
+    <ClInclude Include="tex_.INFO.h" />
+    <ClInclude Include="tex_.h" />
     <ClInclude Include="KFR3.h" />
     <ClInclude Include="LibString.h" />
     <ClInclude Include="LibSWBF2.h" />
@@ -182,7 +215,7 @@
     <ClInclude Include="LoggerEntry.h" />
     <ClInclude Include="LVL.h" />
     <ClInclude Include="MATD.h" />
-    <ClInclude Include="MATD_DATA.h" />
+    <ClInclude Include="DATA.h" />
     <ClInclude Include="MATI.h" />
     <ClInclude Include="MATL.h" />
     <ClInclude Include="MNDX.h" />
@@ -218,19 +251,27 @@
     <ClCompile Include="ATRB.cpp" />
     <ClCompile Include="BaseChunk.cpp" />
     <ClCompile Include="BBOX.cpp" />
+    <ClCompile Include="BODY.cpp" />
     <ClCompile Include="BoneFrames.cpp" />
     <ClCompile Include="BoneWeight.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CRC.cpp" />
     <ClCompile Include="CYCL.cpp" />
     <ClCompile Include="ENVL.cpp" />
+    <ClCompile Include="FACE.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="FLGS.cpp" />
+    <ClCompile Include="FMT_.cpp" />
+    <ClCompile Include="FMT_.INFO.cpp" />
     <ClCompile Include="FRAM.cpp" />
     <ClCompile Include="GenericChunk.cpp" />
     <ClCompile Include="GEOM.cpp" />
     <ClCompile Include="HeaderNames.cpp" />
+    <ClCompile Include="LVL_.cpp" />
+    <ClCompile Include="LVL_.INFO.cpp" />
+    <ClCompile Include="tex_.INFO.cpp" />
+    <ClCompile Include="tex_.cpp" />
     <ClCompile Include="KFR3.cpp" />
     <ClCompile Include="LibString.cpp" />
     <ClCompile Include="List.cpp" />
@@ -238,7 +279,7 @@
     <ClCompile Include="LoggerEntry.cpp" />
     <ClCompile Include="LVL.cpp" />
     <ClCompile Include="MATD.cpp" />
-    <ClCompile Include="MATD_DATA.cpp" />
+    <ClCompile Include="DATA.cpp" />
     <ClCompile Include="MATI.cpp" />
     <ClCompile Include="MATL.cpp" />
     <ClCompile Include="MNDX.cpp" />
@@ -270,7 +311,17 @@
     <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="WGHT.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets'))" />
+  </Target>
 </Project>

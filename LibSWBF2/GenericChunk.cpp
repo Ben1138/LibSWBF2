@@ -1,8 +1,17 @@
 #include "stdafx.h"
 #include "GenericChunk.h"
+#include "tex_.h"
 
 namespace LibSWBF2::Chunks
 {
+	GenericChunk::~GenericChunk()
+	{
+		for (size_t i = 0; i < m_Children.Size(); ++i)
+		{
+			delete m_Children[i];
+		}
+	}
+
 	void GenericChunk::RefreshSize()
 	{
 		// TODO
@@ -26,16 +35,34 @@ namespace LibSWBF2::Chunks
 			//if (HeaderNames::IsKnownHeader(nextHead))
 			if (HeaderNames::IsValidHeader(nextHead))
 			{
+				GenericChunk* chunk = nullptr;
 				try
 				{
-					GenericChunk unkChunk;
-					unkChunk.ReadFromStream(stream);
-					m_children.Add(unkChunk);
-					LOG("Adding Child '"+unkChunk.GetHeaderName()+"' to '"+GetHeaderName()+"'", ELogType::Info);
+					if (nextHead == HeaderNames::tex_)
+					{
+						LVL::tex_* texture = new LVL::tex_();
+						texture->ReadFromStream(stream);
+						chunk = texture;
+					}
+					else
+					{
+						chunk = new GenericChunk();
+						chunk->ReadFromStream(stream);
+					}
+
+					chunk->m_Parent = this;
+					m_Children.Add(chunk);
+					LOG("Adding Child '" + chunk->GetHeaderName() + "' to '" + GetHeaderName() + "'", ELogType::Info);
 				}
 				catch (int& e)
 				{
 					e; // avoid C4101 warning
+
+					if (chunk != nullptr)
+					{
+						delete chunk;
+					}
+
 					LOG("Skipping invalid Chunk: '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
 					//ForwardToNextHeader(stream);
 					stream.SetPosition(stream.GetPosition() - (sizeof(ChunkHeader)*2) - (sizeof(ChunkSize)*2));
@@ -67,8 +94,18 @@ namespace LibSWBF2::Chunks
 		return HeaderNames::GetHeaderString(m_Header);
 	}
 
-	const List<GenericChunk>& GenericChunk::GetChildren() const
+	GenericChunk* GenericChunk::GetParent() const
 	{
-		return m_children;
+		return m_Parent;
+	}
+
+	const List<GenericChunk*>& GenericChunk::GetChildren() const
+	{
+		return m_Children;
+	}
+
+	String GenericChunk::ToString()
+	{
+		return "No Info";
 	}
 }

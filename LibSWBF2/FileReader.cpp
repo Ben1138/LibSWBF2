@@ -76,6 +76,16 @@ namespace LibSWBF2
 		return value;
 	}
 
+	bool FileReader::ReadBytes(uint8_t* data, size_t length)
+	{
+		if (CheckGood(length))
+		{
+			m_Reader.read((char*)data, length);
+			return true;
+		}
+		return false;
+	}
+
 	int32_t FileReader::ReadInt32()
 	{
 		int32_t value = 0;
