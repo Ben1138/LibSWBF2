@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GenericChunk.h"
+#include "Exceptions.h"
 #include "tex_.h"
 
 namespace LibSWBF2::Chunks
@@ -14,31 +15,45 @@ namespace LibSWBF2::Chunks
 
 	void GenericChunk::RefreshSize()
 	{
-		// TODO
+		throw std::runtime_error("Not implemented!");
 	}
 
 	void GenericChunk::WriteToStream(FileWriter& stream)
 	{
-		BaseChunk::WriteToStream(stream);
-		//TODO
-		//we're probably not going to implement this now
-		LOG("NOT IMPLEMENTED", ELogType::Error);
+		throw std::runtime_error("Not implemented!");
 	}
 
 	void GenericChunk::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 
+		// check if current "chunk" exceeds parents data size
+		if (m_Parent != nullptr && (stream.GetPosition() + m_Size) > (m_Parent->GetDataPosition() + m_Parent->GetDataSize()))
+		{
+			throw InvalidSizeException(m_Size);
+		}
+
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
 		{
+			if (stream.GetPosition() == 19199604)
+			{
+				LOG("", ELogType::Info);
+			}
+
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
-			//if (HeaderNames::IsKnownHeader(nextHead))
-			if (HeaderNames::IsValidHeader(nextHead))
+			if (HeaderNames::IsKnownHeader(nextHead))
+			//if (HeaderNames::IsValidHeader(nextHead))
 			{
 				GenericChunk* chunk = nullptr;
 				try
 				{
-					if (nextHead == HeaderNames::tex_)
+					if (nextHead == HeaderNames::NAME)
+					{
+						STR* name = new STR();
+						name->ReadFromStream(stream);
+						chunk = name;
+					}
+					else if (nextHead == HeaderNames::tex_)
 					{
 						LVL::tex_* texture = new LVL::tex_();
 						texture->ReadFromStream(stream);
@@ -52,9 +67,9 @@ namespace LibSWBF2::Chunks
 
 					chunk->m_Parent = this;
 					m_Children.Add(chunk);
-					LOG("Adding Child '" + chunk->GetHeaderName() + "' to '" + GetHeaderName() + "'", ELogType::Info);
+					LOG(string("Adding Child '") + chunk->GetHeaderName().Buffer() + "' to '" + GetHeaderName().Buffer() + "'", ELogType::Info);
 				}
-				catch (int& e)
+				catch (InvalidSizeException& e)
 				{
 					e; // avoid C4101 warning
 
@@ -65,8 +80,9 @@ namespace LibSWBF2::Chunks
 
 					LOG("Skipping invalid Chunk: '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
 					//ForwardToNextHeader(stream);
-					stream.SetPosition(stream.GetPosition() - (sizeof(ChunkHeader)*2) - (sizeof(ChunkSize)*2));
-					SkipChunk(stream, false);
+					//stream.SetPosition(stream.GetPosition() - (sizeof(ChunkHeader)*2) - (sizeof(ChunkSize)*2));
+					//SkipChunk(stream, false);
+					break;
 				}
 			}
 			else
@@ -78,7 +94,7 @@ namespace LibSWBF2::Chunks
 				//{
 				//	LOG("Unknwon Chunk '" + HeaderNames::GetHeaderString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 				//}
-				//throw 666;
+				//throw std::runtime_error("NOPE");
 				//stream.SetPosition(stream.GetPosition() - sizeof(ChunkHeader) - sizeof(ChunkSize));
 				//SkipChunk(stream, false);
 				//ForwardToNextHeader(stream);
@@ -89,9 +105,9 @@ namespace LibSWBF2::Chunks
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	string GenericChunk::GetHeaderName() const
+	String GenericChunk::GetHeaderName() const
 	{
-		return HeaderNames::GetHeaderString(m_Header);
+		return HeaderNames::GetHeaderString(m_Header).c_str();
 	}
 
 	GenericChunk* GenericChunk::GetParent() const

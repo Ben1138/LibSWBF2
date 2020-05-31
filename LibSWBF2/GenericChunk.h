@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks
 		GenericChunk() = default;
 		~GenericChunk();
 
-		string GetHeaderName() const;
+		String GetHeaderName() const;
 		GenericChunk* GetParent() const;
 		const List<GenericChunk*>& GetChildren() const;
 
@@ -18,7 +18,6 @@ namespace LibSWBF2::Chunks
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
 
 		template<class T>
 		void ReadChildExplicit(FileReader& stream, T*& memberPtr, ChunkHeader expectedHeader)

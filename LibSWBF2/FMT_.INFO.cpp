@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FMT_.INFO.h"
 #include "Logger.h"
+#include "DXHelpers.h"
 
 namespace LibSWBF2::Chunks::LVL::FMT
 {
@@ -30,7 +31,7 @@ namespace LibSWBF2::Chunks::LVL::FMT
 
 	String INFO::ToString()
 	{
-		string result = "Format:\t" + std::to_string(m_Format) + "\n";
+		string result = "Format:\t" + D3DToString(m_Format) + "\n";
 		result += "Width:\t" + std::to_string(m_Width) + "\n";
 		result += "Height:\t" + std::to_string(m_Height) + "\n";
 		result += "Depth:\t" + std::to_string(m_Depth) + "\n";

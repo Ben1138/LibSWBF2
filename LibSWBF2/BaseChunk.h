@@ -40,7 +40,7 @@ namespace LibSWBF2::Chunks
 		void ForwardToNextHeader(FileReader& stream);
 
 		ChunkHeader GetHeader() const;
-		ChunkSize GetDataSize() const;		// just the size of the data
+		ChunkSize GetDataSize() const;		// just the size of the data (m_Size)
 		ChunkSize GetAlignedSize() const;	// size of the data, including trailing bytes, exclude header
 		ChunkSize GetFullSize() const;		// size of the whole chunk, including header and trailling bytes
 
@@ -48,7 +48,7 @@ namespace LibSWBF2::Chunks
 		// since these variables are critical
 		// we should keep them protected
 		ChunkHeader m_Header = 0;
-		ChunkSize m_Size = 0;
+		ChunkSize m_Size = 0; // Data Size, no header, no trailling bytes
 		size_t m_ChunkPosition = 0;	// pointing to the chunks header
 	};
 }

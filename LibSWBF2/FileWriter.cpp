@@ -168,8 +168,8 @@ namespace LibSWBF2
 	{
 		if (!m_Writer.is_open())
 		{
-			LOG("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			throw 666;
+			//LOG("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
+			throw std::runtime_error("Error during write process! File '" + m_FileName + "' is not open!");
 		}
 
 		if (!m_Writer.good())
@@ -187,8 +187,8 @@ namespace LibSWBF2
 			{
 				reason += " Writing Error on I/O operation!";
 			}
-			LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			throw 666;
+			//LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
+			throw std::runtime_error("Error during write process in '" + m_FileName + "'! Reason: " + reason);
 		}
 
 		return true;

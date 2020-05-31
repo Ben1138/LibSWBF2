@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Chunks\LVL\tex_">
       <UniqueIdentifier>{e01c1057-8e7f-4782-8afd-fc7b21b28d3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DirectX">
+      <UniqueIdentifier>{bca4304c-57e5-4cc1-b123-9bb9852e1409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DirectX">
+      <UniqueIdentifier>{cf272b5a-1c33-45fc-a628-5008f924903f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -216,9 +222,6 @@
     <ClInclude Include="LVL.h">
       <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
-    <ClInclude Include="D3D9Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="STR.h">
       <Filter>Header Files\Chunks</Filter>
     </ClInclude>
@@ -251,6 +254,15 @@
     </ClInclude>
     <ClInclude Include="BODY.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9Types.h">
+      <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DXHelpers.h">
+      <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="BODY.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="DXHelpers.cpp">
+      <Filter>Source Files\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

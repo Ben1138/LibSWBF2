@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "tex_.INFO.h"
 #include "Logger.h"
+#include "DXHelpers.h"
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
@@ -32,7 +33,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 		string result = "Number of formats: " + std::to_string(m_FormatCount) + "\n";
 		for (size_t i = 0; i < m_Formats.Size(); ++i)
 		{
-			result += "\tFormat: " + std::to_string(m_Formats[i]) + "\n";
+			result += "\tFormat: " + D3DToString(m_Formats[i]) + "\n";
 		}
 		return result.c_str();
 	}

@@ -75,13 +75,12 @@ namespace LibSWBF2::Chunks::HeaderNames
 
 	// LVL
 	const ChunkHeader LVL_ = GetHeaderValue("LVL_");
+	const ChunkHeader lvl_ = GetHeaderValue("lvl_");
 	const ChunkHeader ucfb = GetHeaderValue("ucfb");
 	const ChunkHeader mcfg = GetHeaderValue("mcfg");
-	const ChunkHeader scr_ = GetHeaderValue("scr_");
 	const ChunkHeader INFO = GetHeaderValue("INFO");
 	const ChunkHeader BODY = GetHeaderValue("BODY");
 	const ChunkHeader SCOP = GetHeaderValue("SCOP");
-	const ChunkHeader skel = GetHeaderValue("skel");
 	const ChunkHeader XFRM = GetHeaderValue("XFRM");
 	const ChunkHeader VRTX = GetHeaderValue("VRTX");
 	const ChunkHeader SKY_ = GetHeaderValue("SKY_");
@@ -98,9 +97,46 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader LEAF = GetHeaderValue("LEAF");
 	const ChunkHeader GSHD = GetHeaderValue("GSHD");
 	const ChunkHeader LOWD = GetHeaderValue("LOWD");
+	const ChunkHeader BASE = GetHeaderValue("BASE");
 	const ChunkHeader TYPE = GetHeaderValue("TYPE");
 	const ChunkHeader SPHR = GetHeaderValue("SPHR");
+	const ChunkHeader ARCS = GetHeaderValue("ARCS");
+	const ChunkHeader path = GetHeaderValue("path");
+	const ChunkHeader port = GetHeaderValue("port");
+	const ChunkHeader comb = GetHeaderValue("comb");
+	const ChunkHeader sanm = GetHeaderValue("sanm");
+	const ChunkHeader hud_ = GetHeaderValue("hud_");
 	const ChunkHeader gmod = GetHeaderValue("gmod");
+	const ChunkHeader plnp = GetHeaderValue("plnp");
+	const ChunkHeader SHDV = GetHeaderValue("SHDV");
+	const ChunkHeader SHDI = GetHeaderValue("SHDI");
+	const ChunkHeader LPTC = GetHeaderValue("LPTC");
+	const ChunkHeader LUMI = GetHeaderValue("LUMI");
+	const ChunkHeader PCHS = GetHeaderValue("PCHS");
+	const ChunkHeader PTCH = GetHeaderValue("PTCH");
+	const ChunkHeader FLAG = GetHeaderValue("FLAG");
+	const ChunkHeader MASK = GetHeaderValue("MASK");
+	const ChunkHeader ROTN = GetHeaderValue("ROTN");
+	const ChunkHeader COMN = GetHeaderValue("COMN");
+	const ChunkHeader HEXP = GetHeaderValue("HEXP");
+	const ChunkHeader HGT8 = GetHeaderValue("HGT8");
+	const ChunkHeader LTEX = GetHeaderValue("LTEX");
+	const ChunkHeader SCAL = GetHeaderValue("SCAL");
+	const ChunkHeader AXIS = GetHeaderValue("AXIS");
+	const ChunkHeader SNAM = GetHeaderValue("SNAM");
+	const ChunkHeader BARR = GetHeaderValue("BARR");
+	const ChunkHeader DTEX = GetHeaderValue("DTEX");
+	const ChunkHeader DTLX = GetHeaderValue("DTLX");
+	const ChunkHeader PLNS = GetHeaderValue("PLNS");
+	const ChunkHeader CUTR = GetHeaderValue("CUTR");
+	const ChunkHeader FOLG = GetHeaderValue("FOLG");
+	const ChunkHeader SIZE = GetHeaderValue("SIZE");
+	const ChunkHeader CUTS = GetHeaderValue("CUTS");
+	const ChunkHeader POSI = GetHeaderValue("POSI");
+	const ChunkHeader CSHD = GetHeaderValue("CSHD");
+	const ChunkHeader TREE = GetHeaderValue("TREE");
+	const ChunkHeader LOWR = GetHeaderValue("LOWR");
+	const ChunkHeader DCAL = GetHeaderValue("DCAL");
 
 	// LVL - texture
 	const ChunkHeader tex_ = GetHeaderValue("tex_");
@@ -113,8 +149,31 @@ namespace LibSWBF2::Chunks::HeaderNames
 	const ChunkHeader ordc = GetHeaderValue("ordc");
 	const ChunkHeader expc = GetHeaderValue("expc");
 
-	// LVL - msh
+	// LVL - effects (fx)
+	const ChunkHeader fx__ = GetHeaderValue("fx__");
+
+	// LVL - world
+	const ChunkHeader wrld = GetHeaderValue("wrld");
+	const ChunkHeader sky_ = GetHeaderValue("sky_");
+	const ChunkHeader bnd_ = GetHeaderValue("bnd_");
+	const ChunkHeader lght = GetHeaderValue("lght");
+	const ChunkHeader plan = GetHeaderValue("plan");
+	const ChunkHeader PATH = GetHeaderValue("PATH");
+	const ChunkHeader tern = GetHeaderValue("tern");
+
+	// LVL - model
 	const ChunkHeader modl = GetHeaderValue("modl");
+	const ChunkHeader segm = GetHeaderValue("segm");
+	const ChunkHeader skel = GetHeaderValue("skel");
+	const ChunkHeader coll = GetHeaderValue("coll");
+	const ChunkHeader prim = GetHeaderValue("prim");
+	const ChunkHeader Locl = GetHeaderValue("Locl");
+	const ChunkHeader scr_ = GetHeaderValue("scr_");
+	const ChunkHeader SHDR = GetHeaderValue("SHDR");
+	const ChunkHeader LOD0 = GetHeaderValue("LOD0");
+	const ChunkHeader font = GetHeaderValue("font");
+	const ChunkHeader zaa_ = GetHeaderValue("zaa_");
+	const ChunkHeader zaf_ = GetHeaderValue("zaf_");
 }
 
 #define ASSERT_HEADER(a, b) if (a != b) LOG("Expected '"+LibSWBF2::Chunks::HeaderNames::GetHeaderString(b)+"' but got '"+LibSWBF2::Chunks::HeaderNames::GetHeaderString(a)+"'", ELogType::Error);

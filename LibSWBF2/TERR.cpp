@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TERR.h"
+#include "Exceptions.h"
 #include <algorithm>
 #include <vector>
 
@@ -17,7 +18,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 	void TERR::WriteToStream(FileWriter& stream)
 	{
-		LOG("Not implemented yet!", ELogType::Warning);
+		throw std::runtime_error("Not implemented!");
 	}
 
 	void TERR::ReadFromStream(FileReader& stream)
@@ -299,7 +300,7 @@ namespace LibSWBF2::Chunks::Terrain
 				ReadFromStream(reader);
 				reader.Close();
 			}
-			catch (int& e)
+			catch (InvalidChunkException& e)
 			{
 				e; // avoid C4101 warning
 				LOG("Aborting read process...", ELogType::Error);
