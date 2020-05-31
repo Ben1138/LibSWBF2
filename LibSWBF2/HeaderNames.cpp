@@ -106,11 +106,9 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == LVL_ ||
 			hedr == ucfb ||
 			hedr == mcfg ||
-			hedr == scr_ ||
 			hedr == INFO ||
 			hedr == BODY ||
 			hedr == SCOP ||
-			hedr == skel ||
 			hedr == XFRM ||
 			hedr == VRTX ||
 			hedr == SKY_ ||
@@ -127,9 +125,46 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == LEAF ||
 			hedr == GSHD ||
 			hedr == LOWD ||
+			hedr == BASE ||
 			hedr == TYPE ||
 			hedr == SPHR ||
+			hedr == ARCS ||
+			hedr == path ||
+			hedr == port ||
+			hedr == comb ||
+			hedr == sanm ||
+			hedr == hud_ ||
 			hedr == gmod ||
+			hedr == plnp ||
+			hedr == SHDV ||
+			hedr == SHDI ||
+			hedr == LPTC ||
+			hedr == LUMI ||
+			hedr == PCHS ||
+			hedr == PTCH ||
+			hedr == FLAG ||
+			hedr == MASK ||
+			hedr == ROTN ||
+			hedr == COMN ||
+			hedr == HEXP ||
+			hedr == HGT8 ||
+			hedr == LTEX ||
+			hedr == SCAL ||
+			hedr == AXIS ||
+			hedr == SNAM ||
+			hedr == BARR ||
+			hedr == DTEX ||
+			hedr == DTLX ||
+			hedr == PLNS ||
+			hedr == CUTR ||
+			hedr == FOLG ||
+			hedr == SIZE ||
+			hedr == CUTS ||
+			hedr == POSI ||
+			hedr == CSHD ||
+			hedr == TREE ||
+			hedr == LOWR ||
+			hedr == DCAL ||
 
 			// LVL - texture
 			hedr == tex_ ||
@@ -142,7 +177,30 @@ namespace LibSWBF2::Chunks::HeaderNames
 			hedr == ordc ||
 			hedr == expc ||
 
-			// LVL - msh
-			hedr == modl;
+			// LVL - effects (fx)
+			hedr == fx__ ||
+
+			// LVL - world
+			hedr == wrld ||
+			hedr == sky_ ||
+			hedr == bnd_ ||
+			hedr == lght ||
+			hedr == plan ||
+			hedr == PATH ||
+			hedr == tern ||
+
+			// LVL - model
+			hedr == modl ||
+			hedr == segm ||
+			hedr == skel ||
+			hedr == coll ||
+			hedr == prim ||
+			hedr == Locl ||
+			hedr == scr_ ||
+			hedr == SHDR ||
+			hedr == LOD0 ||
+			hedr == font ||
+			hedr == zaa_ ||
+			hedr == zaf_;
 	}
 }

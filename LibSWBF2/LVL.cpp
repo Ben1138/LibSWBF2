@@ -8,9 +8,9 @@ namespace LibSWBF2::Chunks::LVL
 		return new LVL();
 	}
 
-	void LVL::Destroy(LVL* msh)
+	void LVL::Destroy(LVL* lvl)
 	{
-		delete msh;
+		delete lvl;
 	}
 
 	void LVL::ReadFromStream(FileReader& stream)

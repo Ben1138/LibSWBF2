@@ -7,7 +7,6 @@ namespace LibSWBF2::Chunks
 	{
 		// size must be a multiple of 4
 		m_Size = (ChunkSize)m_Text.Length();
-		m_Size += 4 - (m_Size % 4);
 	}
 
 	void STR::WriteToStream(FileWriter& stream)

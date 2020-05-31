@@ -192,7 +192,9 @@
     <ClInclude Include="CRC.h" />
     <ClInclude Include="CYCL.h" />
     <ClInclude Include="D3D9Types.h" />
+    <ClInclude Include="DXHelpers.h" />
     <ClInclude Include="ENVL.h" />
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="FACE.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
@@ -257,6 +259,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CRC.cpp" />
     <ClCompile Include="CYCL.cpp" />
+    <ClCompile Include="DXHelpers.cpp" />
     <ClCompile Include="ENVL.cpp" />
     <ClCompile Include="FACE.cpp" />
     <ClCompile Include="FileReader.cpp" />

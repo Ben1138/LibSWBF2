@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BaseChunk.h"
+#include "Exceptions.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -27,13 +28,13 @@ namespace LibSWBF2::Chunks
 		if (!HeaderNames::IsValidHeader(m_Header) || m_Size < 0)
 		{
 			LOG("Invalid Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
-			throw 666;
+			throw InvalidHeaderException(m_Header);
 		}
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
 			LOG("Chunk is too big and will end up out of file! Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
-			throw 666;
+			throw InvalidSizeException(m_Size);
 		}
 	}
 
@@ -47,9 +48,9 @@ namespace LibSWBF2::Chunks
 				WriteToStream(writer);
 				writer.Close();
 			}
-			catch (int& e)
+			catch (InvalidChunkException& e)
 			{
-				e; // avoid C4101 warning
+				LOG(e.what(), ELogType::Error);
 				LOG("Aborting write process...", ELogType::Error);
 				return false;
 			}
@@ -70,9 +71,9 @@ namespace LibSWBF2::Chunks
 				ReadFromStream(reader);
 				reader.Close();
 			}
-			catch (int& e)
+			catch (std::runtime_error& e)
 			{
-				e; // avoid C4101 warning
+				LOG(e.what(), ELogType::Error);
 				LOG("Aborting read process...", ELogType::Error);
 				reader.Close();
 				return false;

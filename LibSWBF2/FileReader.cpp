@@ -131,8 +131,9 @@ namespace LibSWBF2
 		String value;
 		if (CheckGood(length))
 		{
-			char* str = new char[length];
+			char* str = new char[length+1];
 			m_Reader.read(str, length);
+			str[length] = 0;
 			value = str;
 			delete[] str;
 		}
@@ -143,8 +144,8 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			LOG("Nothing has been opened yet!", ELogType::Warning);
-			throw 666;
+			//LOG("Nothing has been opened yet!", ELogType::Error);
+			throw std::runtime_error("Nothing has been opened yet!");
 		}
 
 		m_FileName = "";
@@ -176,8 +177,8 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			throw 666;
+			//LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
+			throw std::runtime_error("Error during read process! File '" + m_FileName + "' is not open!");
 		}
 
 		if (!m_Reader.good())
@@ -195,20 +196,15 @@ namespace LibSWBF2
 			{
 				reason += " Reading Error on I/O operation!";
 			}
-			LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			throw 666;
+			//LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
+			throw std::runtime_error("Error during read process in '" + m_FileName + "'! Reason: " + reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
-			if (ReadSize == 3369825280)
-			{
-				LOG("LOL", ELogType::Error);
-			}
-
-			LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
-			throw 666;
+			//LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
+			throw std::runtime_error("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize));
 		}
 
 		return true;

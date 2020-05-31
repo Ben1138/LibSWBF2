@@ -1,12 +1,17 @@
 #pragma once
 #include "GenericChunk.h"
 #include "FMT_.INFO.h"
-#include "D3D9Types.h"
+
+// forward declare to avoid including the DirectX header
+namespace DirectX { struct ScratchImage; }
 
 namespace LibSWBF2::Chunks::LVL
 {
 	struct LIBSWBF2_EXP BODY : public GenericChunk
 	{
+	private:
+		DirectX::ScratchImage* p_Image = nullptr;
+
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
