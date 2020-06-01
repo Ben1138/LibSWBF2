@@ -3,11 +3,11 @@
 #include "FMT_.INFO.h"
 
 // forward declare to avoid including the DirectX header
-namespace DirectX { struct ScratchImage; }
+namespace DirectX { class ScratchImage; }
 
 namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP BODY : public GenericChunk
+	struct LIBSWBF2_EXP BODY : public GenericChunk<"BODY"_m>
 	{
 	private:
 		DirectX::ScratchImage* p_Image = nullptr;

@@ -37,16 +37,16 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::BBOX)
+			if (head == "BBOX"_h)
 			{
 				m_BoundingBox.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::SEGM)
+			else if (head == "SEGM"_h)
 			{
 				SEGM& segment = m_Segments.Emplace();
 				segment.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::ENVL)
+			else if (head == "ENVL"_h)
 			{
 				m_Envelope.ReadFromStream(stream);
 			}

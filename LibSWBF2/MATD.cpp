@@ -72,31 +72,31 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::NAME)
+			if (head == "NAME"_h)
 			{
 				m_Name.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::DATA)
+			else if (head == "DATA"_h)
 			{
 				m_Data.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::ATRB)
+			else if (head == "ATRB"_h)
 			{
 				m_Attribute.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::TX0D)
+			else if (head == "TX0D"_h)
 			{
 				m_Texture0.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::TX1D)
+			else if (head == "TX1D"_h)
 			{
 				m_Texture1.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::TX2D)
+			else if (head == "TX2D"_h)
 			{
 				m_Texture2.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::TX3D)
+			else if (head == "TX3D"_h)
 			{
 				m_Texture3.ReadFromStream(stream);
 			}

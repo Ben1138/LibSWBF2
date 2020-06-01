@@ -14,7 +14,7 @@ namespace LibSWBF2
 	{
 	public:
 		InvalidHeaderException(ChunkHeader header) 
-			: InvalidChunkException("Illegal chunk header: "+Chunks::HeaderNames::GetHeaderString(header))
+			: InvalidChunkException("Illegal chunk header: "+ header.ToString())
 		{
 			m_Header = header;
 		}

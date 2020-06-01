@@ -37,6 +37,7 @@ namespace LibSWBF2::Chunks
 		bool PositionInChunk(const size_t& CurrentPosition);
 		bool SkipChunk(FileReader& stream, const bool& printWarn = true);
 		void EnsureEnd(FileReader& stream);
+		void EnsureTrallingBytes(FileWriter& stream); // TODO
 		void ForwardToNextHeader(FileReader& stream);
 
 		ChunkHeader GetHeader() const;
@@ -47,7 +48,7 @@ namespace LibSWBF2::Chunks
 	protected:
 		// since these variables are critical
 		// we should keep them protected
-		ChunkHeader m_Header = 0;
+		ChunkHeader m_Header;
 		ChunkSize m_Size = 0; // Data Size, no header, no trailling bytes
 		size_t m_ChunkPosition = 0;	// pointing to the chunks header
 	};

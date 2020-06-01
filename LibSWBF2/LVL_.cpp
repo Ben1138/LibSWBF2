@@ -17,8 +17,8 @@ namespace LibSWBF2::Chunks::LVL
 	{
 		BaseChunk::ReadFromStream(stream);
 
-		ReadChildExplicit(stream, p_Info, HeaderNames::INFO);
-		ReadChildExplicit(stream, p_Body, HeaderNames::BODY);
+		READ_CHILD(stream, p_Info);
+		READ_CHILD(stream, p_Body);
 
 		BaseChunk::EnsureEnd(stream);
 	}

@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::Mesh
 		SINF() = default;
 		~SINF() = default;
 
-		STR m_Name;
+		STR<"NAME"_m> m_Name;
 		FRAM m_FrameInformation;
 		BBOX m_BoundingBox;
 

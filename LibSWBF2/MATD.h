@@ -13,13 +13,13 @@ namespace LibSWBF2::Chunks::Mesh
 		MATD() = default;
 		~MATD() = default;
 
-		STR m_Name;
+		STR<"NAME"_m> m_Name;
 		DATA m_Data;
 		ATRB m_Attribute;
-		STR m_Texture0;		// TX0D
-		STR m_Texture1;		// TX1D
-		STR m_Texture2;		// TX2D
-		STR m_Texture3;		// TX3D
+		STR<"TX0D"_m> m_Texture0;		// TX0D
+		STR<"TX1D"_m> m_Texture1;		// TX1D
+		STR<"TX2D"_m> m_Texture2;		// TX2D
+		STR<"TX3D"_m> m_Texture3;		// TX3D
 
 	protected:
 		friend MATL;

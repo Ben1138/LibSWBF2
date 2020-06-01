@@ -26,20 +26,20 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::SINF)
+			if (head == "SINF"_h)
 			{
 				m_SceneInformation.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::CAMR)
+			else if (head == "CAMR"_h)
 			{
 				//CAMR Chunks not supported
 				SkipChunk(stream, false);
 			}
-			else if (head == HeaderNames::MATL)
+			else if (head == "MATL"_h)
 			{
 				m_MaterialList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::MODL)
+			else if (head == "MODL"_h)
 			{
 				MODL& model = m_Models.Emplace();
 				model.ReadFromStream(stream);

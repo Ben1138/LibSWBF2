@@ -40,32 +40,32 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::MATI)
+			if (head == "MATI"_h)
 			{
 				m_MaterialIndex.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::POSL)
+			else if (head == "POSL"_h)
 			{
 				m_VertexList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::WGHT)
+			else if (head == "WGHT"_h)
 			{
 				m_WeightList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::NRML)
+			else if (head == "NRML"_h)
 			{
 				m_NormalList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::UV0L)
+			else if (head == "UV0L"_h)
 			{
 				m_UVList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::STRP)
+			else if (head == "STRP"_h)
 			{
 				m_TriangleList.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::CLRL || head == HeaderNames::CLRB ||
-					 head == HeaderNames::NDXL || head == HeaderNames::NDXT)
+			else if (head == "CLRL"_h || head == "CLRB"_h ||
+					 head == "NDXL"_h || head == "NDXT"_h)
 			{
 				// CLRL and CLRB are not supported
 				// NDXL and NDXT are deprecated and thus not supported

@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP FACE : public GenericChunk
+	struct LIBSWBF2_EXP FACE : public GenericChunk<"FACE"_m>
 	{
 	public:
 		List<LVL_*> m_LVLs;

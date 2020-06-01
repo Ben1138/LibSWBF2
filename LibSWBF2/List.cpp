@@ -272,7 +272,7 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<SEGM>;
 	template LIBSWBF2_EXP class List<MATD>;
 	template LIBSWBF2_EXP class List<MODL>;
-	template LIBSWBF2_EXP class List<GenericChunk*>;
+	template LIBSWBF2_EXP class List<GenericBaseChunk*>;
 	template LIBSWBF2_EXP class List<D3DFORMAT>;
 	template LIBSWBF2_EXP class List<LVL::FMT_*>;
 	template LIBSWBF2_EXP class List<LVL::LVL_*>;

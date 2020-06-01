@@ -1,40 +1,69 @@
 #pragma once
 #include "BaseChunk.h"
+#include "HeaderNames.h"
 
 namespace LibSWBF2::Chunks
 {
-	struct LIBSWBF2_EXP GenericChunk : public BaseChunk
+	struct LIBSWBF2_EXP GenericBaseChunk : public BaseChunk
 	{
-		GenericChunk() = default;
-		~GenericChunk();
+		GenericBaseChunk() = default;
+		~GenericBaseChunk();
 
 		String GetHeaderName() const;
-		GenericChunk* GetParent() const;
-		const List<GenericChunk*>& GetChildren() const;
+		GenericBaseChunk* GetParent() const;
+		const List<GenericBaseChunk*>& GetChildren() const;
 
 		virtual String ToString();
 
-	protected:
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
-
-		template<class T>
-		void ReadChildExplicit(FileReader& stream, T*& memberPtr, ChunkHeader expectedHeader)
+	public:
+		template<class ChildType>
+		void ReadChildExplicit(GenericBaseChunk* parent, FileReader& stream, ChildType*& memberPtr)
 		{
-			T* chunk = new T();
+			ChildType* chunk = new ChildType();
 			memberPtr = chunk;
-			m_Children.Add(chunk);
-			chunk->m_Parent = this;
+			parent->m_Children.Add(chunk);
+			chunk->m_Parent = parent;
 
 			// Important: start reading AFTER parent and child have been set!
 			chunk->ReadFromStream(stream);
-			ASSERT_HEADER(chunk->GetHeader(), expectedHeader);
 		}
 
 	private:
-		GenericChunk* m_Parent = nullptr;
-		List<GenericChunk*> m_Children;
-		void* m_data = nullptr;
+		GenericBaseChunk* m_Parent = nullptr;
+		List<GenericBaseChunk*> m_Children;
 	};
+
+	template<uint32_t Header>
+	struct LIBSWBF2_EXP GenericChunk : public GenericBaseChunk
+	{
+	public:
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
+	};
+
+	// do not perform any checks on this one
+	struct LIBSWBF2_EXP GenericChunkNC : public GenericChunk<0> {};
+
+	//template<class ChildType>
+	//void ReadChildExplicit(GenericBaseChunk* parent, FileReader& stream, ChildType*& memberPtr)
+	//{
+	//	ChildType* chunk = new ChildType();
+	//	memberPtr = chunk;
+	//	parent->m_Children.Add(chunk);
+	//	chunk->m_Parent = parent;
+
+	//	// Important: start reading AFTER parent and child have been set!
+	//	chunk->ReadFromStream(stream);
+	//}
+
+
+#define READ_CHILD(stream, member) ReadChildExplicit(this, stream, member);
+//#define READ_CHILD(stream, member, Type) \
+//	{ \
+//		Type* chunk = new Type(); \
+//		member = chunk; \
+//		this->m_Children.Add(chunk); \
+//		chunk->m_Parent = this;\
+//	}
 }

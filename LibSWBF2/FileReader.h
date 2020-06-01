@@ -1,4 +1,5 @@
 #pragma once
+#include "HeaderNames.h"
 
 namespace LibSWBF2
 {

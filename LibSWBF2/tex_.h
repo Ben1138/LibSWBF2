@@ -7,10 +7,10 @@
 
 namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP tex_ : public GenericChunk
+	struct LIBSWBF2_EXP tex_ : public GenericChunk<"tex_"_m>
 	{
 	public:
-		STR* p_Name;
+		STR<"NAME"_m>* p_Name;
 		texture::INFO* p_Info;
 		List<FMT_*> m_FMTs;
 

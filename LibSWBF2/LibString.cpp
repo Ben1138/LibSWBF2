@@ -101,7 +101,7 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
-	String& String::operator+=(const String& a)
+	String String::operator+=(const String& a)
 	{
 		String result;
 		delete[] result.buffer;
