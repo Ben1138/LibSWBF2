@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ANM2.h"
+#include "HeaderNames.h"
 
 namespace LibSWBF2::Chunks::Mesh
 {
@@ -26,11 +27,11 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::CYCL)
+			if (head == "CYCL"_h)
 			{
 				m_AnimationCycle.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::KFR3)
+			else if (head == "KFR3"_h)
 			{
 				m_KeyFrames.ReadFromStream(stream);
 			}

@@ -19,7 +19,7 @@ namespace LibSWBF2::Types
 		bool operator==(const String& other);
 		bool operator!=(const String& other);
 
-		String& operator+=(const String& a);
+		String operator+=(const String& a);
 		friend String operator+(const String&, const String&);
 		friend String operator+(const String&, const char*);
 		friend String operator+(const char*, const String&);

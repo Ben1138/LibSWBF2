@@ -139,35 +139,35 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
-			if (head == HeaderNames::NAME)
+			if (head == "NAME"_h)
 			{
 				m_Name.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::MTYP)
+			else if (head == "MTYP"_h)
 			{
 				m_ModelType.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::MNDX)
+			else if (head == "MNDX"_h)
 			{
 				m_ModelIndex.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::PRNT)
+			else if (head == "PRNT"_h)
 			{
 				m_Parent.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::FLGS)
+			else if (head == "FLGS"_h)
 			{
 				m_Flags.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::TRAN)
+			else if (head == "TRAN"_h)
 			{
 				m_Transition.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::GEOM)
+			else if (head == "GEOM"_h)
 			{
 				m_Geometry.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::SWCI)
+			else if (head == "SWCI"_h)
 			{
 				m_CollisionPrimitive.ReadFromStream(stream);
 			}

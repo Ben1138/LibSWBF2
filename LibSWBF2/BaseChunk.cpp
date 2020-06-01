@@ -22,18 +22,18 @@ namespace LibSWBF2::Chunks
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
 
-		LOG("Header: " + HeaderNames::GetHeaderString(m_Header), ELogType::Info);
+		LOG("Header: " + m_Header.ToString(), ELogType::Info);
 		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
 
-		if (!HeaderNames::IsValidHeader(m_Header) || m_Size < 0)
+		if (!IsValidHeader(m_Header) || m_Size < 0)
 		{
-			LOG("Invalid Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
+			LOG("Invalid Chunk: " + m_Header.ToString() + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
 			throw InvalidHeaderException(m_Header);
 		}
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
-			LOG("Chunk is too big and will end up out of file! Chunk: " + HeaderNames::GetHeaderString(m_Header) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
+			LOG("Chunk is too big and will end up out of file! Chunk: " + m_Header.ToString() + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
 			throw InvalidSizeException(m_Size);
 		}
 	}
@@ -134,7 +134,7 @@ namespace LibSWBF2::Chunks
 
 		if (printWarn)
 		{
-			LOG("["+Chunks::HeaderNames::GetHeaderString(m_Header)+"] Unexpected Chunk found: " + HeaderNames::GetHeaderString(head) + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(alignedSize) + " Bytes...", ELogType::Warning);
+			LOG("["+m_Header.ToString()+"] Unexpected Chunk found: " + head.ToString() + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(alignedSize) + " Bytes...", ELogType::Warning);
 		}
 
 		return stream.SkipBytes(alignedSize);
@@ -148,7 +148,7 @@ namespace LibSWBF2::Chunks
 		size_t endPos = GetDataPosition() + GetAlignedSize();
 		if (stream.GetPosition() < endPos)
 		{
-			//LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
+			//LOG("[" + Chunks::"GetH"_headerString(m_Header) + "] We did not end up at the Chunks end position ("+std::to_string(endPos)+")! Instead we are here: "+std::to_string(stream.GetPosition())+"! Moving Position to Chunks end position...", ELogType::Warning);
 			stream.SetPosition(endPos);
 		}
 		else
@@ -161,10 +161,10 @@ namespace LibSWBF2::Chunks
 	void BaseChunk::ForwardToNextHeader(FileReader& stream)
 	{
 		// if we've got any trailing bytes, skip them too
-		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !HeaderNames::IsKnownHeader(stream.ReadChunkHeader(true)))
+		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !IsKnownHeader(stream.ReadChunkHeader(true)))
 		{
 			stream.SetPosition(stream.GetPosition() + 1);
-			LOG("[" + Chunks::HeaderNames::GetHeaderString(m_Header) + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			LOG("[" + m_Header.ToString() + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 		}
 	}
 }

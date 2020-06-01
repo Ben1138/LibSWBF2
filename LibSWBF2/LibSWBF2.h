@@ -13,5 +13,5 @@
 #include "LVL.h"
 #include "tex_.h"
 
-// Include this file to statically link against LibSWBF2
+// Include this file when LibSWBF2 externally
 // This header should not be included in its own project

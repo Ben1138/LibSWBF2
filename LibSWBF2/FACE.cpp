@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL
 		while (PositionInChunk(stream.GetPosition()))
 		{
 			LVL_* lvl = new LVL_();
-			ReadChildExplicit(stream, lvl, HeaderNames::LVL_);
+			READ_CHILD(stream, lvl);
 			m_LVLs.Add(lvl);
 		}
 

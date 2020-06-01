@@ -34,7 +34,7 @@ namespace LibSWBF2::Chunks::Mesh
 	{
 		BaseChunk::ReadFromStream(stream);
 
-		if (m_Header != HeaderNames::HEDR)
+		if (m_Header != "HEDR"_h)
 		{
 			LOG("This is not a valid MSH file!", ELogType::Error);
 		}
@@ -44,29 +44,29 @@ namespace LibSWBF2::Chunks::Mesh
 			ChunkHeader head = stream.ReadChunkHeader(true);
 
 			// sadly, switch-case is not possible here (Error C2051)
-			if (head == HeaderNames::SHVO)
+			if (head == "SHVO"_h)
 			{
 				m_ShadowVolume.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::MSH2)
+			else if (head == "MSH2"_h)
 			{
 				m_MeshBlock.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::BLN2)
+			else if (head == "BLN2"_h)
 			{
 				// Blend Chunks not supported
 				SkipChunk(stream, false);
 			}
-			else if (head == HeaderNames::SKL2)
+			else if (head == "SKL2"_h)
 			{
 				// possibly deprecated, not supported
 				SkipChunk(stream, false);
 			}
-			else if (head == HeaderNames::ANM2)
+			else if (head == "ANM2"_h)
 			{
 				m_Animations.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::CL1L)
+			else if (head == "CL1L"_h)
 			{
 				// EoF reached;
 				LOG("Reached end of file!", ELogType::Info);

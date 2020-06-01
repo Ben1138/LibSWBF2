@@ -1,25 +1,59 @@
 #include "stdafx.h"
 #include "HeaderNames.h"
-#include <set>
+#include <array>
 
-namespace LibSWBF2::Chunks::HeaderNames
+namespace LibSWBF2
 {
-	string GetHeaderString(const ChunkHeader& hedr)
+	const std::set<ChunkHeader> KNOWN_HEADERS =
 	{
-		if (hedr == 0)
-		{
-			return "EMPTY";
-		}
-		else
-		{
-			// just passing the hedr address will result 
-			// in an arbitrary string length, we need to
-			// zero terminate it
-			char arr[5];
-			arr[4] = 0;
-			memcpy(arr, &hedr, 4);
-			return string(arr);
-		}
+		"HEDR"_h, "SHVO"_h, "MSH2"_h, "SINF"_h, "NAME"_h, "FRAM"_h, "BBOX"_h, "CAMR"_h,
+		"DATA"_h, "MATL"_h, "MATD"_h, "ATRB"_h, "TX0D"_h, "TX1D"_h, "TX2D"_h, "TX3D"_h,
+		"MODL"_h, "MTYP"_h, "MNDX"_h, "PRNT"_h, "FLGS"_h, "TRAN"_h, "GEOM"_h, "SEGM"_h,
+		"SHDW"_h, "MATI"_h, "POSL"_h, "CLRL"_h, "CLRB"_h, "WGHT"_h, "NRML"_h, "UV0L"_h,
+		"NDXL"_h, "NDXT"_h, "STRP"_h, "CLTH"_h, "CPOS"_h, "CUV0"_h, "FIDX"_h, "FWGT"_h,
+		"CMSH"_h, "SPRS"_h, "CPRS"_h, "BPRS"_h, "COLL"_h, "ENVL"_h, "SWCI"_h, "BLN2"_h,
+		"SKL2"_h, "ANM2"_h, "CYCL"_h, "KFR3"_h, "CL1L"_h, "TERR"_h, "LVL_"_h, "lvl_"_h,
+		"ucfb"_h, "mcfg"_h, "INFO"_h, "BODY"_h, "SCOP"_h, "XFRM"_h, "VRTX"_h, "SKY_"_h,
+		"RTYP"_h, "TNAM"_h, "VBUF"_h, "IBUF"_h, "DXT1"_h, "DXT3"_h, "MTRL"_h, "PROP"_h,
+		"BNAM"_h, "NODE"_h, "LEAF"_h, "GSHD"_h, "LOWD"_h, "BASE"_h, "TYPE"_h, "SPHR"_h,
+		"ARCS"_h, "path"_h, "port"_h, "comb"_h, "sanm"_h, "hud_"_h, "gmod"_h, "plnp"_h,
+		"SHDV"_h, "SHDI"_h, "LPTC"_h, "LUMI"_h, "PCHS"_h, "PTCH"_h, "FLAG"_h, "MASK"_h,
+		"ROTN"_h, "COMN"_h, "HEXP"_h, "HGT8"_h, "LTEX"_h, "SCAL"_h, "AXIS"_h, "SNAM"_h,
+		"BARR"_h, "DTEX"_h, "DTLX"_h, "PLNS"_h, "CUTR"_h, "FOLG"_h, "SIZE"_h, "CUTS"_h,
+		"POSI"_h, "CSHD"_h, "TREE"_h, "LOWR"_h, "DCAL"_h, "tex_"_h, "FMT_"_h, "FACE"_h,
+		"wpnc"_h, "entc"_h, "ordc"_h, "expc"_h, "fx__"_h, "wrld"_h, "sky_"_h, "bnd_"_h,
+		"lght"_h, "plan"_h, "PATH"_h, "tern"_h, "modl"_h, "segm"_h, "skel"_h, "coll"_h,
+		"prim"_h, "Locl"_h, "scr_"_h, "SHDR"_h, "LOD0"_h, "font"_h, "zaa_"_h, "zaf_"_h,
+	};
+
+	bool ChunkHeader::operator==(const ChunkHeader other) const
+	{
+		return m_Magic == other.m_Magic;
+	}
+
+	bool ChunkHeader::operator!=(const ChunkHeader other) const
+	{
+		return m_Magic != other.m_Magic;
+	}
+
+	bool ChunkHeader::operator<(const ChunkHeader other) const
+	{
+		return m_Magic < other.m_Magic;
+	}
+
+	bool ChunkHeader::operator>(const ChunkHeader other) const
+	{
+		return m_Magic < other.m_Magic;
+	}
+
+	string ChunkHeader::ToString() const
+	{
+		string result;
+		result += m_Name[0];
+		result += m_Name[1];
+		result += m_Name[2];
+		result += m_Name[3];
+		return result;
 	}
 
 	bool IsValidHeader(const ChunkHeader hedr)
@@ -33,174 +67,15 @@ namespace LibSWBF2::Chunks::HeaderNames
 				(c == 95);					// is an underscore _
 		};
 
-		char* raw = (char*)&hedr;
 		return
-			checkChar(raw[0]) &&
-			checkChar(raw[1]) &&
-			checkChar(raw[2]) &&
-			checkChar(raw[3]);
+			checkChar(hedr.m_Name[0]) &&
+			checkChar(hedr.m_Name[1]) &&
+			checkChar(hedr.m_Name[2]) &&
+			checkChar(hedr.m_Name[3]);
 	}
 
 	bool IsKnownHeader(const ChunkHeader hedr)
 	{
-		return
-			// MSH / LVL
-			hedr == HEDR ||
-			hedr == SHVO ||
-			hedr == MSH2 ||
-			hedr == SINF ||
-			hedr == NAME ||
-			hedr == FRAM ||
-			hedr == BBOX ||
-			hedr == CAMR ||
-			hedr == DATA ||
-			hedr == MATL ||
-			hedr == MATD ||
-			hedr == ATRB ||
-			hedr == TX0D ||
-			hedr == TX1D ||
-			hedr == TX2D ||
-			hedr == TX3D ||
-			hedr == MODL ||
-			hedr == MTYP ||
-			hedr == MNDX ||
-			hedr == PRNT ||
-			hedr == FLGS ||
-			hedr == TRAN ||
-			hedr == GEOM ||
-			hedr == SEGM ||
-			hedr == SHDW ||
-			hedr == MATI ||
-			hedr == POSL ||
-			hedr == CLRL ||
-			hedr == CLRB ||
-			hedr == WGHT ||
-			hedr == NRML ||
-			hedr == UV0L ||
-			hedr == NDXL ||
-			hedr == NDXT ||
-			hedr == STRP ||
-			hedr == CLTH ||
-			hedr == CPOS ||
-			hedr == CUV0 ||
-			hedr == FIDX ||
-			hedr == FWGT ||
-			hedr == CMSH ||
-			hedr == SPRS ||
-			hedr == CPRS ||
-			hedr == BPRS ||
-			hedr == COLL ||
-			hedr == ENVL ||
-			hedr == SWCI ||
-			hedr == BLN2 ||
-			hedr == SKL2 ||
-			hedr == ANM2 ||
-			hedr == CYCL ||
-			hedr == KFR3 ||
-			hedr == CL1L ||
-
-			// Terrain
-			hedr == TERR ||
-
-			// LVL
-			hedr == LVL_ ||
-			hedr == ucfb ||
-			hedr == mcfg ||
-			hedr == INFO ||
-			hedr == BODY ||
-			hedr == SCOP ||
-			hedr == XFRM ||
-			hedr == VRTX ||
-			hedr == SKY_ ||
-			hedr == RTYP ||
-			hedr == TNAM ||
-			hedr == VBUF ||
-			hedr == IBUF ||
-			hedr == DXT1 ||
-			hedr == DXT3 ||
-			hedr == MTRL ||
-			hedr == PROP ||
-			hedr == BNAM ||
-			hedr == NODE ||
-			hedr == LEAF ||
-			hedr == GSHD ||
-			hedr == LOWD ||
-			hedr == BASE ||
-			hedr == TYPE ||
-			hedr == SPHR ||
-			hedr == ARCS ||
-			hedr == path ||
-			hedr == port ||
-			hedr == comb ||
-			hedr == sanm ||
-			hedr == hud_ ||
-			hedr == gmod ||
-			hedr == plnp ||
-			hedr == SHDV ||
-			hedr == SHDI ||
-			hedr == LPTC ||
-			hedr == LUMI ||
-			hedr == PCHS ||
-			hedr == PTCH ||
-			hedr == FLAG ||
-			hedr == MASK ||
-			hedr == ROTN ||
-			hedr == COMN ||
-			hedr == HEXP ||
-			hedr == HGT8 ||
-			hedr == LTEX ||
-			hedr == SCAL ||
-			hedr == AXIS ||
-			hedr == SNAM ||
-			hedr == BARR ||
-			hedr == DTEX ||
-			hedr == DTLX ||
-			hedr == PLNS ||
-			hedr == CUTR ||
-			hedr == FOLG ||
-			hedr == SIZE ||
-			hedr == CUTS ||
-			hedr == POSI ||
-			hedr == CSHD ||
-			hedr == TREE ||
-			hedr == LOWR ||
-			hedr == DCAL ||
-
-			// LVL - texture
-			hedr == tex_ ||
-			hedr == FMT_ ||
-			hedr == FACE ||
-
-			// LVL - odf
-			hedr == wpnc ||
-			hedr == entc ||
-			hedr == ordc ||
-			hedr == expc ||
-
-			// LVL - effects (fx)
-			hedr == fx__ ||
-
-			// LVL - world
-			hedr == wrld ||
-			hedr == sky_ ||
-			hedr == bnd_ ||
-			hedr == lght ||
-			hedr == plan ||
-			hedr == PATH ||
-			hedr == tern ||
-
-			// LVL - model
-			hedr == modl ||
-			hedr == segm ||
-			hedr == skel ||
-			hedr == coll ||
-			hedr == prim ||
-			hedr == Locl ||
-			hedr == scr_ ||
-			hedr == SHDR ||
-			hedr == LOD0 ||
-			hedr == font ||
-			hedr == zaa_ ||
-			hedr == zaf_;
+		return KNOWN_HEADERS.find(hedr) != KNOWN_HEADERS.end();
 	}
 }

@@ -48,10 +48,10 @@ namespace LibSWBF2::Chunks::Mesh
 
 		EModelPurpose GetEstimatedPurpose();
 
-		STR m_Name;
+		STR<"NAME"_m> m_Name;
 		MTYP m_ModelType;
 		MNDX m_ModelIndex;
-		STR m_Parent;
+		STR<"PRNT"_m> m_Parent;
 		FLGS m_Flags;
 		TRAN m_Transition;
 		GEOM m_Geometry;

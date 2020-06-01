@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::Terrain
 	{
 		ChunkHeader TerrHeader = stream.ReadChunkHeader(false);
 
-		if (!TerrHeader == HeaderNames::TERR)
+		if (TerrHeader != "TERR"_h)
 		{
 			LOG("Wrong File Format!", ELogType::Warning);
 			return;

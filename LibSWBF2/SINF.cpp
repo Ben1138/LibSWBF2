@@ -28,15 +28,15 @@ namespace LibSWBF2::Chunks::Mesh
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 		
-			if (head == HeaderNames::NAME)
+			if (head == "NAME"_h)
 			{
 				m_Name.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::FRAM)
+			else if (head == "FRAM"_h)
 			{
 				m_FrameInformation.ReadFromStream(stream);
 			}
-			else if (head == HeaderNames::BBOX)
+			else if (head == "BBOX"_h)
 			{
 				m_BoundingBox.ReadFromStream(stream);
 			}

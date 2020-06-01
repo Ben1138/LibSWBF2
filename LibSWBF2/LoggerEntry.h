@@ -2,7 +2,7 @@
 
 namespace LibSWBF2::Logging
 {
-	enum ELogType : uint8_t
+	enum class ELogType : uint8_t
 	{
 		Info = 0,
 		Warning = 1,

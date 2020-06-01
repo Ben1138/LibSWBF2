@@ -94,8 +94,8 @@ namespace LibSWBF2::Chunks::LVL
             img = p_Image->GetImage(0, 0, 0);
         }
 
-        width = img->width;
-        height = img->height;
+        width = (uint16_t)img->width;
+        height = (uint16_t)img->height;
         data = img->pixels;
     }
 }

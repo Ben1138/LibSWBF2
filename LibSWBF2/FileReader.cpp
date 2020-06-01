@@ -41,7 +41,7 @@ namespace LibSWBF2
 
 	ChunkHeader FileReader::ReadChunkHeader(const bool& peek)
 	{
-		ChunkHeader value = -42;
+		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
 			auto pos = m_Reader.tellg();

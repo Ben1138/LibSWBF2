@@ -17,13 +17,13 @@ namespace LibSWBF2::Chunks::LVL
 	{
 		BaseChunk::ReadFromStream(stream);
 
-		ReadChildExplicit(stream, p_Name, HeaderNames::NAME);
-		ReadChildExplicit(stream, p_Info, HeaderNames::INFO);
+		READ_CHILD(stream, p_Name);
+		READ_CHILD(stream, p_Info);
 
 		while (PositionInChunk(stream.GetPosition()))
 		{
-			FMT_* fmt = new FMT_();
-			ReadChildExplicit(stream, fmt, HeaderNames::FMT_);
+			FMT_* fmt;
+			READ_CHILD(stream, fmt);
 			m_FMTs.Add(fmt);
 		}
 

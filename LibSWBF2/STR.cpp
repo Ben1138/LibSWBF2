@@ -3,27 +3,41 @@
 
 namespace LibSWBF2::Chunks
 {
-	void STR::RefreshSize()
+	template<uint32_t Header>
+	void STR<Header>::RefreshSize()
 	{
-		// size must be a multiple of 4
-		m_Size = (ChunkSize)m_Text.Length();
+		GenericChunk<Header>::m_Size = (ChunkSize)m_Text.Length();
 	}
 
-	void STR::WriteToStream(FileWriter& stream)
+	template<uint32_t Header>
+	void STR<Header>::WriteToStream(FileWriter& stream)
 	{
 		BaseChunk::WriteToStream(stream);
 		stream.WriteString(m_Text, true);
 	}
 
-	void STR::ReadFromStream(FileReader& stream)
+	template<uint32_t Header>
+	void STR<Header>::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
-		m_Text = stream.ReadString(m_Size);
+		m_Text = stream.ReadString(GenericChunk<Header>::m_Size);
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String STR::ToString()
+	template<uint32_t Header>
+	String STR<Header>::ToString()
 	{
 		return m_Text;
 	}
+}
+
+
+namespace LibSWBF2::Chunks
+{
+	template LIBSWBF2_EXP struct STR<"NAME"_m>;
+	template LIBSWBF2_EXP struct STR<"TX0D"_m>;
+	template LIBSWBF2_EXP struct STR<"TX1D"_m>;
+	template LIBSWBF2_EXP struct STR<"TX2D"_m>;
+	template LIBSWBF2_EXP struct STR<"TX3D"_m>;
+	template LIBSWBF2_EXP struct STR<"PRNT"_m>;
 }
