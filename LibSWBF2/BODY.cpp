@@ -19,8 +19,10 @@ namespace LibSWBF2::Chunks::LVL
     {
         BaseChunk::ReadFromStream(stream);
 
-        //                                             LVL_         FACE         FMT_
-        const FMT_* fmt = dynamic_cast<const FMT_*>(GetParent()->GetParent()->GetParent());
+        const LVL_* lvl = dynamic_cast<const LVL_*>(GetParent());
+
+        //                                                  FACE         FMT_
+        const FMT_* fmt = dynamic_cast<const FMT_*>(lvl->GetParent()->GetParent());
         if (fmt == nullptr)
         {
             LOG("Could not grab FMT parent!", ELogType::Error);
@@ -34,8 +36,21 @@ namespace LibSWBF2::Chunks::LVL
             p_Image = nullptr;
         }
 
+        size_t width = fmt->p_Info->m_Width;
+        size_t height = fmt->p_Info->m_Height;
+
+        // mip levels start at 0
+        // divide resolution by 2 for each increasing mip level
+        size_t div = std::pow(2, lvl->p_Info->m_MipLevel);
+
+        // don't go below 2x2 pixels, DirectX will crash otherwise
+        // in e.g. geo1.lvl there's a case with a 512x256 image with
+        // a mip level up to 9 (dafuq)
+        width = max(width / div, 2);
+        height = max(height / div, 2);
+
         p_Image = new DirectX::ScratchImage();
-        p_Image->Initialize2D(D3DToDXGI(fmt->p_Info->m_Format), fmt->p_Info->m_Width, fmt->p_Info->m_Height, 1, 1);
+        p_Image->Initialize2D(D3DToDXGI(fmt->p_Info->m_Format), width, height, 1, 1);
         const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
 
         if (!stream.ReadBytes(img->pixels, GetDataSize()))

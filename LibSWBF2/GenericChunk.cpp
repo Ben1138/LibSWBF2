@@ -60,30 +60,20 @@ namespace LibSWBF2::Chunks
 						STR<"NAME"_m>* name;
 						READ_CHILD(stream, name);
 						chunk = name;
-						//STR<"NAME"_m>* name = new STR<"NAME"_m>();
-						//name->ReadFromStream(stream);
-						//chunk = name;
 					}
 					else if (nextHead == "tex_"_h)
 					{
 						LVL::tex_* name;
 						READ_CHILD(stream, name);
 						chunk = name;
-						//LVL::tex_* texture = new LVL::tex_();
-						//texture->ReadFromStream(stream);
-						//chunk = texture;
 					}
 					else
 					{
 						GenericChunkNC* generic;
 						READ_CHILD(stream, generic);
 						chunk = generic;
-						//chunk = new GenericBaseChunk();
-						//chunk->ReadFromStream(stream);
 					}
 
-					//chunk->m_Parent = this;
-					//m_Children.Add(chunk);
 					LOG(string("Adding Child '") + chunk->GetHeader().ToString() + "' to '" + m_Header.ToString() + "'", ELogType::Info);
 				}
 				catch (InvalidSizeException& e)
@@ -96,25 +86,11 @@ namespace LibSWBF2::Chunks
 					}
 
 					LOG("Skipping invalid Chunk: '" + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
-					//ForwardToNextHeader(stream);
-					//stream.SetPosition(stream.GetPosition() - (sizeof(ChunkHeader)*2) - (sizeof(ChunkSize)*2));
-					//SkipChunk(stream, false);
 					break;
 				}
 			}
 			else
 			{
-				//stream.SkipBytes(m_Size);
-				//SkipChunk(stream);
-
-				//if ("IsVa"_hlidHeader(nextHead))
-				//{
-				//	LOG("Unknwon Chunk '" + "GetH"_headerString(nextHead) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
-				//}
-				//throw std::runtime_error("NOPE");
-				//stream.SetPosition(stream.GetPosition() - sizeof(ChunkHeader) - sizeof(ChunkSize));
-				//SkipChunk(stream, false);
-				//ForwardToNextHeader(stream);
 				break;
 			}
 		}
