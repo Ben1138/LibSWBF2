@@ -48,14 +48,9 @@ namespace LibSWBF2::Chunks
 
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
 		{
-			if (stream.GetPosition() == 19199604)
-			{
-				LOG("", ELogType::Info);
-			}
-
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
 			if (IsKnownHeader(nextHead))
-			//if ("IsVa"_hlidHeader(nextHead))
+			//if (IsValidHeader(nextHead))
 			{
 				GenericBaseChunk* chunk = nullptr;
 				try
