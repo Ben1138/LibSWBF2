@@ -3,6 +3,9 @@
 #include "Chunks\STR.h"
 #include "segm.INFO.h"
 #include "MTRL.h"
+#include "TNAM.h"
+#include "IBUF.h"
+#include "VBUF.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
@@ -11,6 +14,12 @@ namespace LibSWBF2::Chunks::LVL::modl
 	public:
 		segment::INFO* p_Info;
 		MTRL* p_Material;
+		STR<"RTYP"_m>* p_RenderType;	// string seems to represent an enum
+		IBUF* p_IndexBuffer;
+		STR<"BNAM"_m>* p_Parent;
+
+		List<VBUF*> m_VertexBuffers;
+		List<TNAM*> m_Textures;
 
 	public:
 		void RefreshSize() override;

@@ -175,11 +175,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
     <ClInclude Include="Chunks\LVL\modl\INFO.h" />
     <ClInclude Include="Chunks\LVL\modl\LVL.modl.h" />
     <ClInclude Include="Chunks\LVL\modl\MTRL.h" />
     <ClInclude Include="Chunks\LVL\modl\modl.segm.h" />
     <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
+    <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
+    <ClInclude Include="Chunks\LVL\modl\VBUF.h" />
     <ClInclude Include="Types\Animation.h" />
     <ClInclude Include="Chunks\MSH\ANM2.h" />
     <ClInclude Include="Chunks\MSH\ATRB.h" />
@@ -247,15 +250,19 @@
     <ClInclude Include="Chunks\MSH\UV0L.h" />
     <ClInclude Include="Types\Vector2.h" />
     <ClInclude Include="Types\Vector3.h" />
+    <ClInclude Include="Types\Vector3u8.h" />
     <ClInclude Include="Types\Vector4.h" />
     <ClInclude Include="Chunks\MSH\WGHT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
     <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
     <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp" />
     <ClCompile Include="Chunks\LVL\modl\MTRL.cpp" />
     <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp" />
     <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\VBUF.cpp" />
     <ClCompile Include="Types\Animation.cpp" />
     <ClCompile Include="Chunks\MSH\ANM2.cpp" />
     <ClCompile Include="Chunks\MSH\ATRB.cpp" />
@@ -321,6 +328,7 @@
     <ClCompile Include="Chunks\MSH\UV0L.cpp" />
     <ClCompile Include="Types\Vector2.cpp" />
     <ClCompile Include="Types\Vector3.cpp" />
+    <ClCompile Include="Types\Vector3u8.cpp" />
     <ClCompile Include="Types\Vector4.cpp" />
     <ClCompile Include="Chunks\MSH\WGHT.cpp" />
   </ItemGroup>

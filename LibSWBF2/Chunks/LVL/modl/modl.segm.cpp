@@ -28,6 +28,30 @@ namespace LibSWBF2::Chunks::LVL::modl
             {
                 READ_CHILD(stream, p_Material);
             }
+            else if (next == "RTYP"_h)
+            {
+                READ_CHILD(stream, p_RenderType);
+            }
+            else if (next == "IBUF"_h)
+            {
+                READ_CHILD(stream, p_IndexBuffer);
+            }
+            else if (next == "BNAM"_h)
+            {
+                READ_CHILD(stream, p_Parent);
+            }
+            else if (next == "VBUF"_h)
+            {
+                VBUF* vertexBuffer;
+                READ_CHILD(stream, vertexBuffer);
+                m_VertexBuffers.Add(vertexBuffer);
+            }
+            else if (next == "TNAM"_h)
+            {
+                TNAM* texture;
+                READ_CHILD(stream, texture);
+                m_Textures.Add(texture);
+            }
             else
             {
                 SkipChunk(stream, false);

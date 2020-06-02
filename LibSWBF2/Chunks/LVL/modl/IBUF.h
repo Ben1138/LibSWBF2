@@ -1,18 +1,15 @@
 #pragma once
 #include "Chunks\GenericChunk.h"
 #include "Chunks\STR.h"
-#include "Types\Enums.h"
-#include "Types\Vector3.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP INFO : public GenericChunk<"INFO"_m>
+	// Index Buffer
+	struct LIBSWBF2_EXP IBUF : public GenericChunk<"IBUF"_m>
 	{
 	public:
-		uint32_t m_Unknown[5];
-		Vector3 m_VertexBox[2];
-		Vector3 m_VisibilityBox[2];
-		uint32_t m_FaceCount;
+		uint32_t m_IndicesCount;
+		List<uint16_t> m_Indices;
 
 	public:
 		void RefreshSize() override;

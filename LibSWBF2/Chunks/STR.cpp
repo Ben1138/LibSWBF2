@@ -41,4 +41,6 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_EXP struct STR<"TX3D"_m>;
 	template LIBSWBF2_EXP struct STR<"PRNT"_m>;
 	template LIBSWBF2_EXP struct STR<"NODE"_m>;
+	template LIBSWBF2_EXP struct STR<"RTYP"_m>;
+	template LIBSWBF2_EXP struct STR<"BNAM"_m>;
 }

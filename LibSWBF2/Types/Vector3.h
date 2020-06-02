@@ -17,5 +17,21 @@ namespace LibSWBF2::Types
 		float_t m_Z = 0.0f;
 
 		String ToString() override;
+
 	};
+		
+	Vector3 operator+(const Vector3& left, const Vector3& right);
+	Vector3 operator-(const Vector3& left, const Vector3& right);
+	Vector3 operator*(const Vector3& left, const Vector3& right);
+	Vector3 operator/(const Vector3& left, const Vector3& right);
+
+	Vector3 operator+(const Vector3& left, const float right);
+	Vector3 operator-(const Vector3& left, const float right);
+	Vector3 operator*(const Vector3& left, const float right);
+	Vector3 operator/(const Vector3& left, const float right);
+
+	Vector3 operator+(const float left, const Vector3& right);
+	Vector3 operator-(const float left, const Vector3& right);
+	Vector3 operator*(const float left, const Vector3& right);
+	Vector3 operator/(const float left, const Vector3& right);
 }

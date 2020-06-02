@@ -62,7 +62,7 @@ namespace LibSWBF2
 	};
 
 	// copied from: https://github.com/SleepKiller/swbf-unmunge
-	enum EMaterialFlags : uint32_t
+	enum class EMaterialFlags : uint32_t
 	{
 		Normal = 1,
 		Hardedged = 2,
@@ -84,6 +84,30 @@ namespace LibSWBF2
 		AttachedLight = 134217728,
 	};
 
+	enum class EVBUFFlags : uint32_t
+	{
+		None = 0b0u,
+		Position = 0b10u,
+		BlendIndices = 0b100u,
+		BlendWeight = 0b1000u,
+		Normal = 0b100000u,
+		Tangents = 0b1000000u,
+		Color = 0b10000000u,
+		StaticLighting = 0b100000000u,
+		TexCoords = 0b1000000000u,
+
+		PositionCompressed = 0b1000000000000u,
+		BlendInfoCompressed = 0b10000000000000u,
+		NormalCompressed = 0b100000000000000u,
+		TexCoordCompressed = 0b1000000000000000u
+	};
+
 	String TopologyToString(ETopology topology);
 	String MaterialFlagsToString(EMaterialFlags flags);
+	String EVBUFFlagsToString(EVBUFFlags flags);
+
+	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
+	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
+	EVBUFFlags operator &(EVBUFFlags lhs, EVBUFFlags rhs);
+	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 }
