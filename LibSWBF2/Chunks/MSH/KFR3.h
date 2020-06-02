@@ -2,7 +2,7 @@
 #include "Chunks\BaseChunk.h"
 #include "Types\BoneFrames.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	using LibSWBF2::Types::BoneFrames;
 

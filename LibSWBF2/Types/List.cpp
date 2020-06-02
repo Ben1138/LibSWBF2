@@ -247,6 +247,8 @@ namespace LibSWBF2::Types
 #include "Chunks\MSH\MODL.h"
 #include "Chunks\LVL\tex_\FMT_.h"
 #include "Chunks\LVL\tex_\LVL_.h"
+#include "Chunks\LVL\modl\LVL.modl.h"
+#include "Chunks\LVL\modl\modl.segm.h"
 #include "Chunks\GenericChunk.h"
 #include "D3D9Types.h"
 
@@ -254,7 +256,6 @@ namespace LibSWBF2
 {
 	using namespace Types;
 	using namespace Chunks;
-	using namespace Chunks::Mesh;
 
 	template LIBSWBF2_EXP class List<uint8_t>;
 	template LIBSWBF2_EXP class List<uint16_t>;
@@ -267,11 +268,13 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<VertexWeights>;
 	template LIBSWBF2_EXP class List<TranslationFrame>;
 	template LIBSWBF2_EXP class List<RotationFrame>;
-	template LIBSWBF2_EXP class List<SEGM>;
-	template LIBSWBF2_EXP class List<MATD>;
-	template LIBSWBF2_EXP class List<MODL>;
+	template LIBSWBF2_EXP class List<MSH::SEGM>;
+	template LIBSWBF2_EXP class List<MSH::MATD>;
+	template LIBSWBF2_EXP class List<MSH::MODL>;
 	template LIBSWBF2_EXP class List<GenericBaseChunk*>;
 	template LIBSWBF2_EXP class List<D3DFORMAT>;
 	template LIBSWBF2_EXP class List<LVL::FMT_*>;
 	template LIBSWBF2_EXP class List<LVL::LVL_*>;
+	template LIBSWBF2_EXP class List<LVL::modl::modl*>;
+	template LIBSWBF2_EXP class List<LVL::modl::segm*>;
 }

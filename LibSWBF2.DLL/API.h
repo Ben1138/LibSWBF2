@@ -9,7 +9,7 @@ namespace LibSWBF2::API
 {
 	// be carefull in the future!
 	// there might be multiple chunks with the same Name
-	using namespace Chunks::Mesh;
+	using namespace Chunks::MSH;
 	using namespace Types;
 	using namespace Logging;
 
@@ -27,7 +27,7 @@ namespace LibSWBF2::API
 		LIBSWBF2_API bool MSH_ReadFromFile(MSH* msh, const char* path);
 		LIBSWBF2_API bool MSH_WriteToFile(MSH* msh, const char* path);
 		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
-		LIBSWBF2_API EModelPurpose MODL_GetEstimatedPurpose(MODL* modl);
+		LIBSWBF2_API EModelPurpose MODL_GetPurpose(MODL* modl);
 
 		LIBSWBF2_API CRCChecksum CalcLowerCRC(const char* str);
 	}

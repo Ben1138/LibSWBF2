@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UV0L.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	void UV0L::RefreshSize()
 	{

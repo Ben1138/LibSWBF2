@@ -140,6 +140,23 @@ namespace LibSWBF2
 		return value;
 	}
 
+	String FileReader::ReadString()
+	{
+		char str[1024]; // should be enough
+		uint8_t current = 1;
+		for (uint16_t i = 0; CheckGood(1) && current != 0; ++i)
+		{
+			if (i >= 1024)
+			{
+				LOG("Reading null terminated string exceeded buffer size!", ELogType::Warning);
+				break;
+			}
+			current = ReadByte();
+			str[i] = current;
+		}
+		return str;
+	}
+
 	void FileReader::Close()
 	{
 		if (!m_Reader.is_open())

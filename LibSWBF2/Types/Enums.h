@@ -1,0 +1,89 @@
+#pragma once
+#include "req.h"
+#include "LibString.h"
+
+namespace LibSWBF2
+{
+	// Bitmap flags
+	enum class EModelPurpose : uint16_t
+	{
+		// Unknown
+		Miscellaneous = 0,
+
+		// Meshes
+		Mesh = 63,
+		Mesh_Regular = 1,
+		Mesh_Lowrez = 2,
+		Mesh_Collision = 4,
+		Mesh_VehicleCollision = 8,
+		Mesh_ShadowVolume = 16,
+		Mesh_TerrainCut = 32,
+
+		// Just Points
+		Point = 448,
+		Point_EmptyTransform = 64,
+		Point_DummyRoot = 128,
+		Point_HardPoint = 256,
+
+		// Skeleton
+		Skeleton = 7680,
+		Skeleton_Root = 512,
+		Skeleton_BoneRoot = 1024,
+		Skeleton_BoneLimb = 2048,
+		Skeleton_BoneEnd = 4096,
+	};
+
+	enum class EModelType : uint32_t
+	{
+		Null = 0,
+		Skin = 1,
+		Envelope = 3,
+		Static = 4,
+		Shadow = 6
+	};
+
+	enum class ELODLevel : uint8_t
+	{
+		NONE = 0,
+		LOD1 = 1,
+		LOD2 = 2,
+		LOD3 = 3,
+		LOWD = 4
+	};
+
+	enum class ETopology : int32_t 
+	{
+		PointList = 1,
+		LineList = 2,
+		LineStrip = 3,
+		TriangleList = 4,
+		TriangleStrip = 5,
+		TriangleFan = 6
+	};
+
+	// copied from: https://github.com/SleepKiller/swbf-unmunge
+	enum EMaterialFlags : uint32_t
+	{
+		Normal = 1,
+		Hardedged = 2,
+		Transparent = 4,
+		Glossmap = 8,
+		Glow = 16,
+		BumpMap = 32,
+		Additive = 64,
+		Specular = 128,
+		EnvMap = 256,
+		VertexLighting = 512,
+		TiledNormalmap = 2048,
+		Doublesided = 65536,
+
+		Scrolling = 16777216,
+		Energy = 33554432,
+		Animated = 67108864,
+
+		AttachedLight = 134217728,
+	};
+
+	String TopologyToString(ETopology topology);
+	String MaterialFlagsToString(EMaterialFlags flags);
+}

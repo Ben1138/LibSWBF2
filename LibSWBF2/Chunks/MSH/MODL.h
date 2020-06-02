@@ -1,6 +1,7 @@
 #pragma once
 #include "Chunks\BaseChunk.h"
 #include "Chunks\STR.h"
+#include "Types\Enums.h"
 #include "MTYP.h"
 #include "MNDX.h"
 #include "FLGS.h"
@@ -8,45 +9,16 @@
 #include "GEOM.h"
 #include "SWCI.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH2;
-
-	// Bitmap flags
-	enum EModelPurpose : uint16_t
-	{
-		// Unknown
-		Miscellaneous = 0,
-
-		// Meshes
-		Mesh = 63,
-		Mesh_Regular = 1,
-		Mesh_Lowrez = 2,
-		Mesh_Collision = 4,
-		Mesh_VehicleCollision = 8,
-		Mesh_ShadowVolume = 16,
-		Mesh_TerrainCut = 32,
-
-		// Just Points
-		Point = 448,
-		Point_EmptyTransform = 64,
-		Point_DummyRoot = 128,
-		Point_HardPoint = 256,
-
-		// Skeleton
-		Skeleton = 7680,
-		Skeleton_Root = 512,
-		Skeleton_BoneRoot = 1024,
-		Skeleton_BoneLimb = 2048,
-		Skeleton_BoneEnd = 4096,
-	};
 
 	struct LIBSWBF2_EXP MODL : public BaseChunk
 	{
 		MODL() = default;
 		~MODL() = default;
 
-		EModelPurpose GetEstimatedPurpose();
+		EModelPurpose GetPurpose();
 
 		STR<"NAME"_m> m_Name;
 		MTYP m_ModelType;

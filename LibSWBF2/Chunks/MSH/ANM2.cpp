@@ -2,7 +2,7 @@
 #include "ANM2.h"
 #include "Chunks\HeaderNames.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	void ANM2::RefreshSize()
 	{

@@ -4,7 +4,7 @@
 #include "DATA.h"
 #include "ATRB.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct MATL;
 

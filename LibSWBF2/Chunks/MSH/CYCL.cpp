@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CYCL.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	void CYCL::RefreshSize()
 	{

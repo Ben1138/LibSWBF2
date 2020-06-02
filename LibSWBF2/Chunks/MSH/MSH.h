@@ -4,7 +4,7 @@
 #include "MSH2.h"
 #include "ANM2.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct LIBSWBF2_EXP MSH : public BaseChunk
 	{

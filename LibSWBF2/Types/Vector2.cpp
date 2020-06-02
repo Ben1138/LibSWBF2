@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Types\LibString.h"
 #include "Vector2.h"
 
 namespace LibSWBF2::Types
@@ -8,7 +9,7 @@ namespace LibSWBF2::Types
 	
 	}
 
-	Vector2::Vector2(const float_t& x, const float_t& y) : m_X(x), m_Y(y) 
+	Vector2::Vector2(const float_t x, const float_t y) : m_X(x), m_Y(y) 
 	{
 	
 	}
@@ -28,5 +29,10 @@ namespace LibSWBF2::Types
 	{
 		m_X = stream.ReadFloat();
 		m_Y = stream.ReadFloat();
+	}
+
+	String Vector2::ToString()
+	{
+		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + "]").c_str();
 	}
 }
