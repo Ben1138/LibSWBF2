@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FileWriter.h"
-#include "Logger.h"
-#include "LibString.h"
+#include "Logging\Logger.h"
+#include "Types\LibString.h"
 
 namespace LibSWBF2
 {
