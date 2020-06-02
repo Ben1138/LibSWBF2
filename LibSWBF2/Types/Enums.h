@@ -94,10 +94,10 @@ namespace LibSWBF2
 		Tangents = 0b1000000u,
 		Color = 0b10000000u,
 		StaticLighting = 0b100000000u,
-		TexCoords = 0b1000000000u,
+		TexCoord = 0b1000000000u,
 
 		PositionCompressed = 0b1000000000000u,
-		BlendInfoCompressed = 0b10000000000000u,
+		BlendWeightCompressed = 0b10000000000000u,
 		NormalCompressed = 0b100000000000000u,
 		TexCoordCompressed = 0b1000000000000000u
 	};

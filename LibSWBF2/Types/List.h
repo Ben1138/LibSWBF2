@@ -41,7 +41,7 @@ namespace LibSWBF2::Types
 		T& operator[](const unsigned long i);
 
 
-		// TODO: Remove methods
+		// TODO: Remove(item) methods
 
 		void Clear();
 		T* GetArrayPtr() const;

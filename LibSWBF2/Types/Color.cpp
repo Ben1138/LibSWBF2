@@ -23,19 +23,19 @@ namespace LibSWBF2::Types
 
 	void Color::WriteToStream(FileWriter& stream)
 	{
-		// in LVL -> MTRL, color order is BRGA
+		// in LVL -> MTRL, color order is BGRA
 		stream.WriteByte(m_Blue);
-		stream.WriteByte(m_Red);
 		stream.WriteByte(m_Green);
+		stream.WriteByte(m_Red);
 		stream.WriteByte(m_Alpha);
 	}
 
 	void Color::ReadFromStream(FileReader& stream)
 	{
-		// in LVL -> MTRL, color order is BRGA
+		// in LVL -> MTRL, color order is BGRA
 		m_Blue = stream.ReadByte();
-		m_Red = stream.ReadByte();
 		m_Green = stream.ReadByte();
+		m_Red = stream.ReadByte();
 		m_Alpha = stream.ReadByte();
 	}
 

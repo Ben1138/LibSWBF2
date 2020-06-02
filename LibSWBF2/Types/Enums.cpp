@@ -127,15 +127,15 @@ namespace LibSWBF2
 		{
 			result += "StaticLighting, ";
 		}
-		if ((flags & EVBUFFlags::TexCoords) != 0)
+		if ((flags & EVBUFFlags::TexCoord) != 0)
 		{
-			result += "TexCoords, ";
+			result += "TexCoord, ";
 		}
 		if ((flags & EVBUFFlags::PositionCompressed) != 0)
 		{
 			result += "PositionCompressed, ";
 		}
-		if ((flags & EVBUFFlags::BlendInfoCompressed) != 0)
+		if ((flags & EVBUFFlags::BlendWeightCompressed) != 0)
 		{
 			result += "BlendInfoCompressed, ";
 		}
