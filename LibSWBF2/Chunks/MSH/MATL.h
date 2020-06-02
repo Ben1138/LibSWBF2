@@ -2,7 +2,7 @@
 #include "Chunks\BaseChunk.h"
 #include "MATD.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH2;
 

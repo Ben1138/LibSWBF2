@@ -1,17 +1,9 @@
 #pragma once
 #include "Chunks\BaseChunk.h"
+#include "Types\Enums.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
-	enum class EModelType : uint32_t
-	{
-		Null = 0,
-		Skin = 1,
-		Envelope = 3,
-		Static = 4,
-		Shadow = 6
-	};
-
 	struct MODL;
 
 	struct LIBSWBF2_EXP MTYP : public BaseChunk

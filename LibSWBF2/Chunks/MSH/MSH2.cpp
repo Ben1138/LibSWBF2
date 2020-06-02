@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MSH2.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	void MSH2::RefreshSize()
 	{

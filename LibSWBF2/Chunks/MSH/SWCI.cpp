@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SWCI.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	void SWCI::RefreshSize()
 	{

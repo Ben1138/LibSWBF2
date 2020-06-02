@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Chunks\TERR">
       <UniqueIdentifier>{d4d2abb4-f87e-4dd6-b6b0-5f94e99c35c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Chunks\LVL\modl">
+      <UniqueIdentifier>{04c6d9ba-3c86-4cf4-a394-2b750b22a8f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -136,9 +139,6 @@
       <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Types\Vector4.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Types\Color.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Logging\LoggerEntry.h">
@@ -267,6 +267,30 @@
     <ClInclude Include="Chunks\MSH\ANM2.h">
       <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\segm.INFO.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Enums.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\INFO.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\LVL.modl.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\modl.segm.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\MTRL.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Colorf.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Color.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -330,9 +354,6 @@
       <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Types\Vector4.cpp">
-      <Filter>Source Files\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\Color.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\BaseChunk.cpp">
@@ -448,6 +469,30 @@
     </ClCompile>
     <ClCompile Include="DirectX\DXHelpers.cpp">
       <Filter>Source Files\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Enums.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\MTRL.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Colorf.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Color.cpp">
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

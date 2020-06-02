@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Types\LibString.h"
 #include "Vector4.h"
 
 namespace LibSWBF2::Types
@@ -8,7 +9,7 @@ namespace LibSWBF2::Types
 		
 	}
 
-	Vector4::Vector4(const float_t& x, const float_t& y, const float_t& z, const float_t& w) : Vector3(x, y, z), m_W(w)
+	Vector4::Vector4(const float_t x, const float_t y, const float_t z, const float_t w) : Vector3(x, y, z), m_W(w)
 	{
 		
 	}
@@ -32,5 +33,10 @@ namespace LibSWBF2::Types
 		m_Y = stream.ReadFloat();
 		m_Z = stream.ReadFloat();
 		m_W = stream.ReadFloat();
+	}
+
+	String Vector4::ToString()
+	{
+		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + ", " + std::to_string(m_Z) + ", " + std::to_string(m_W) + "]").c_str();
 	}
 }

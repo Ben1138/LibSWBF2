@@ -24,6 +24,7 @@ namespace LibSWBF2
 		uint16_t ReadUInt16();
 		float_t ReadFloat();
 		String ReadString(size_t length);
+		String ReadString(); // will read until the first null terminator
 		size_t GetPosition();
 		void SetPosition(size_t NewPosition);
 		size_t GetFileSize();

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "MODL.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
-	EModelPurpose MODL::GetEstimatedPurpose()
+	EModelPurpose MODL::GetPurpose()
 	{
 		// TODO: Implement own find/starts with methods
 		string stdStr = m_Name.m_Text.Buffer();

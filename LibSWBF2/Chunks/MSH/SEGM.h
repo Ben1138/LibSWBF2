@@ -7,7 +7,7 @@
 #include "UV0L.h"
 #include "STRP.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct GEOM;
 

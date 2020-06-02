@@ -2,6 +2,7 @@
 #include "GenericChunk.h"
 #include "Exceptions.h"
 #include "LVL\tex_\tex_.h"
+#include "LVL\modl\LVL.modl.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -66,6 +67,12 @@ namespace LibSWBF2::Chunks
 						LVL::tex_* name;
 						READ_CHILD(stream, name);
 						chunk = name;
+					}
+					else if (nextHead == "modl"_h)
+					{
+						LVL::modl::modl* model;
+						READ_CHILD(stream, model);
+						chunk = model;
 					}
 					else
 					{
@@ -133,11 +140,16 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_EXP struct GenericChunk<"FACE"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"FMT_"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"tex_"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"modl"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"segm"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"MTRL"_m>;
 
+	// string chunks (see STR.cpp)
 	template LIBSWBF2_EXP struct GenericChunk<"NAME"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX0D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX1D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX2D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX3D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"PRNT"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"NODE"_m>;
 }

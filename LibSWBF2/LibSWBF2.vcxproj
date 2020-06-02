@@ -175,6 +175,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chunks\LVL\modl\INFO.h" />
+    <ClInclude Include="Chunks\LVL\modl\LVL.modl.h" />
+    <ClInclude Include="Chunks\LVL\modl\MTRL.h" />
+    <ClInclude Include="Chunks\LVL\modl\modl.segm.h" />
+    <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
     <ClInclude Include="Types\Animation.h" />
     <ClInclude Include="Chunks\MSH\ANM2.h" />
     <ClInclude Include="Chunks\MSH\ATRB.h" />
@@ -185,6 +190,7 @@
     <ClInclude Include="Types\BoneWeight.h" />
     <ClInclude Include="Chunks\MSH\CAMR.h" />
     <ClInclude Include="Types\Color.h" />
+    <ClInclude Include="Types\Colorf.h" />
     <ClInclude Include="CRC.h" />
     <ClInclude Include="Chunks\MSH\CYCL.h" />
     <ClInclude Include="DirectX\D3D9Types.h" />
@@ -206,6 +212,7 @@
     <ClInclude Include="Chunks\LVL\tex_\tex_.INFO.h" />
     <ClInclude Include="Chunks\LVL\tex_\tex_.h" />
     <ClInclude Include="Chunks\MSH\KFR3.h" />
+    <ClInclude Include="Types\Enums.h" />
     <ClInclude Include="Types\LibString.h" />
     <ClInclude Include="LibSWBF2.h" />
     <ClInclude Include="Types\List.h" />
@@ -244,6 +251,11 @@
     <ClInclude Include="Chunks\MSH\WGHT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\MTRL.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
     <ClCompile Include="Types\Animation.cpp" />
     <ClCompile Include="Chunks\MSH\ANM2.cpp" />
     <ClCompile Include="Chunks\MSH\ATRB.cpp" />
@@ -253,6 +265,7 @@
     <ClCompile Include="Types\BoneFrames.cpp" />
     <ClCompile Include="Types\BoneWeight.cpp" />
     <ClCompile Include="Types\Color.cpp" />
+    <ClCompile Include="Types\Colorf.cpp" />
     <ClCompile Include="CRC.cpp" />
     <ClCompile Include="Chunks\MSH\CYCL.cpp" />
     <ClCompile Include="DirectX\DXHelpers.cpp" />
@@ -272,6 +285,7 @@
     <ClCompile Include="Chunks\LVL\tex_\tex_.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\tex_\tex_.cpp" />
     <ClCompile Include="Chunks\MSH\KFR3.cpp" />
+    <ClCompile Include="Types\Enums.cpp" />
     <ClCompile Include="Types\LibString.cpp" />
     <ClCompile Include="Types\List.cpp" />
     <ClCompile Include="Logging\Logger.cpp" />

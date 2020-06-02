@@ -4,7 +4,7 @@
 #include "MATL.h"
 #include "MODL.h"
 
-namespace LibSWBF2::Chunks::Mesh
+namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH;
 
