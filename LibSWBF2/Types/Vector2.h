@@ -20,4 +20,19 @@ namespace LibSWBF2::Types
 
 		virtual String ToString();
 	};
+
+	Vector2 operator+(const Vector2& left, const Vector2& right);
+	Vector2 operator-(const Vector2& left, const Vector2& right);
+	Vector2 operator*(const Vector2& left, const Vector2& right);
+	Vector2 operator/(const Vector2& left, const Vector2& right);
+	  
+	Vector2 operator+(const Vector2& left, const float right);
+	Vector2 operator-(const Vector2& left, const float right);
+	Vector2 operator*(const Vector2& left, const float right);
+	Vector2 operator/(const Vector2& left, const float right); 
+
+	Vector2 operator+(const float left, const Vector2& right);
+	Vector2 operator-(const float left, const Vector2& right);
+	Vector2 operator*(const float left, const Vector2& right);
+	Vector2 operator/(const float left, const Vector2& right);
 }
