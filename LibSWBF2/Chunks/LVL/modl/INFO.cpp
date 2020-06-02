@@ -18,11 +18,18 @@ namespace LibSWBF2::Chunks::LVL::modl
     {
         BaseChunk::ReadFromStream(stream);
 
+        m_Unknown[0] = stream.ReadUInt32();
+        m_Unknown[1] = stream.ReadUInt32();
+        m_Unknown[2] = stream.ReadUInt32();
+        m_Unknown[3] = stream.ReadUInt32();
+
         m_VertexBox[0].ReadFromStream(stream);
         m_VertexBox[1].ReadFromStream(stream);
 
         m_VisibilityBox[0].ReadFromStream(stream);
         m_VisibilityBox[1].ReadFromStream(stream);
+
+        m_Unknown[4] = stream.ReadUInt32();
 
         m_FaceCount = stream.ReadUInt32();
 

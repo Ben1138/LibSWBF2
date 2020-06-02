@@ -5,6 +5,7 @@
 #include "Logging\\Logger.h"
 #include "Types\Color.h"
 #include "Types\Vector4.h"
+#include "Types\Vector3u8.h"
 #include "Types\List.h"
 #include "Types\LibString.h"
 
@@ -15,6 +16,7 @@ namespace LibSWBF2::Chunks
 	using Types::Color;
 	using Types::Vector2;
 	using Types::Vector3;
+	using Types::Vector3u8;
 	using Types::Vector4;
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::String;

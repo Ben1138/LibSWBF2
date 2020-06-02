@@ -96,6 +96,16 @@ namespace LibSWBF2
 		return value;
 	}
 
+	int16_t FileReader::ReadInt16()
+	{
+		int16_t value = 0;
+		if (CheckGood(sizeof(int16_t)))
+		{
+			m_Reader.read((char*)&value, sizeof(value));
+		}
+		return value;
+	}
+
 	uint32_t FileReader::ReadUInt32()
 	{
 		uint32_t value = 0;

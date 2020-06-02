@@ -37,4 +37,112 @@ namespace LibSWBF2::Types
 	{
 		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + ", " + std::to_string(m_Z) + "]").c_str();
 	}
+
+	Vector3 operator+(const Vector3& left, const Vector3& right)
+	{
+		return Vector3(
+			left.m_X + right.m_X,
+			left.m_Y + right.m_Y,
+			left.m_Z + right.m_Z
+		);
+	}
+
+	Vector3 operator-(const Vector3& left, const Vector3& right)
+	{
+		return Vector3(
+			left.m_X - right.m_X,
+			left.m_Y - right.m_Y,
+			left.m_Z - right.m_Z
+		);
+	}
+
+	Vector3 operator*(const Vector3& left, const Vector3& right)
+	{
+		return Vector3(
+			left.m_X * right.m_X,
+			left.m_Y * right.m_Y,
+			left.m_Z * right.m_Z
+		);
+	}
+
+	Vector3 operator/(const Vector3& left, const Vector3& right)
+	{
+		return Vector3(
+			left.m_X / right.m_X,
+			left.m_Y / right.m_Y,
+			left.m_Z / right.m_Z
+		);
+	}
+
+	Vector3 operator+(const Vector3& left, const float right)
+	{
+		return Vector3(
+			left.m_X + right,
+			left.m_Y + right,
+			left.m_Z + right
+		);
+	}
+
+	Vector3 operator-(const Vector3& left, const float right)
+	{
+		return Vector3(
+			left.m_X - right,
+			left.m_Y - right,
+			left.m_Z - right
+		);
+	}
+
+	Vector3 operator*(const Vector3& left, const float right)
+	{
+		return Vector3(
+			left.m_X * right,
+			left.m_Y * right,
+			left.m_Z * right
+		);
+	}
+
+	Vector3 operator/(const Vector3& left, const float right)
+	{
+		return Vector3(
+			left.m_X / right,
+			left.m_Y / right,
+			left.m_Z / right
+		);
+	}
+
+	Vector3 operator+(const float left, const Vector3& right)
+	{
+		return Vector3(
+			left + right.m_X,
+			left + right.m_Y,
+			left + right.m_Z
+		);
+	}
+
+	Vector3 operator-(const float left, const Vector3& right)
+	{
+		return Vector3(
+			left - right.m_X,
+			left - right.m_Y,
+			left - right.m_Z
+		);
+	}
+
+	Vector3 operator*(const float left, const Vector3& right)
+	{
+		return Vector3(
+			left * right.m_X,
+			left * right.m_Y,
+			left * right.m_Z
+		);
+	}
+
+	Vector3 operator/(const float left, const Vector3& right)
+	{
+		return Vector3(
+			left / right.m_X,
+			left / right.m_Y,
+			left / right.m_Z
+		);
+	}
 }

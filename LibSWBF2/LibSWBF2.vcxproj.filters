@@ -291,6 +291,18 @@
     <ClInclude Include="Types\Color.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\TNAM.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\IBUF.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\VBUF.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Vector3u8.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -492,6 +504,18 @@
       <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Types\Color.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\TNAM.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\IBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\VBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Vector3u8.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>

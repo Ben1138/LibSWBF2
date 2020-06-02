@@ -239,6 +239,8 @@ namespace LibSWBF2::Types
 // ============================================================
 
 #include "Vector4.h"
+#include "Vector3u8.h"
+#include "Color.h"
 #include "Animation.h"
 #include "BoneFrames.h"
 #include "Polygon.h"
@@ -249,6 +251,8 @@ namespace LibSWBF2::Types
 #include "Chunks\LVL\tex_\LVL_.h"
 #include "Chunks\LVL\modl\LVL.modl.h"
 #include "Chunks\LVL\modl\modl.segm.h"
+#include "Chunks\LVL\modl\VBUF.h"
+#include "Chunks\LVL\modl\TNAM.h"
 #include "Chunks\GenericChunk.h"
 #include "D3D9Types.h"
 
@@ -262,6 +266,8 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<uint32_t>;
 	template LIBSWBF2_EXP class List<Vector2>;
 	template LIBSWBF2_EXP class List<Vector3>;
+	template LIBSWBF2_EXP class List<Vector3u8>;
+	template LIBSWBF2_EXP class List<Color>;
 	template LIBSWBF2_EXP class List<Animation>;
 	template LIBSWBF2_EXP class List<BoneFrames>;
 	template LIBSWBF2_EXP class List<Polygon>;
@@ -277,4 +283,6 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<LVL::LVL_*>;
 	template LIBSWBF2_EXP class List<LVL::modl::modl*>;
 	template LIBSWBF2_EXP class List<LVL::modl::segm*>;
+	template LIBSWBF2_EXP class List<LVL::modl::VBUF*>;
+	template LIBSWBF2_EXP class List<LVL::modl::TNAM*>;
 }

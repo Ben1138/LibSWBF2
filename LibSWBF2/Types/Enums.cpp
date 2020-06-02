@@ -95,4 +95,86 @@ namespace LibSWBF2
 		result += "]";
 		return result.c_str();
 	}
+
+	String EVBUFFlagsToString(EVBUFFlags flags)
+	{
+		string result = "[";
+		if ((flags & EVBUFFlags::Position) != 0)
+		{
+			result += "Position, ";
+		}
+		if ((flags & EVBUFFlags::BlendIndices) != 0)
+		{
+			result += "BlendIndices, ";
+		}
+		if ((flags & EVBUFFlags::BlendWeight) != 0)
+		{
+			result += "BlendWeight, ";
+		}
+		if ((flags & EVBUFFlags::Normal) != 0)
+		{
+			result += "Normal, ";
+		}
+		if ((flags & EVBUFFlags::Tangents) != 0)
+		{
+			result += "Tangents, ";
+		}
+		if ((flags & EVBUFFlags::Color) != 0)
+		{
+			result += "Color, ";
+		}
+		if ((flags & EVBUFFlags::StaticLighting) != 0)
+		{
+			result += "StaticLighting, ";
+		}
+		if ((flags & EVBUFFlags::TexCoords) != 0)
+		{
+			result += "TexCoords, ";
+		}
+		if ((flags & EVBUFFlags::PositionCompressed) != 0)
+		{
+			result += "PositionCompressed, ";
+		}
+		if ((flags & EVBUFFlags::BlendInfoCompressed) != 0)
+		{
+			result += "BlendInfoCompressed, ";
+		}
+		if ((flags & EVBUFFlags::NormalCompressed) != 0)
+		{
+			result += "NormalCompressed, ";
+		}
+		if ((flags & EVBUFFlags::TexCoordCompressed) != 0)
+		{
+			result += "TexCoordCompressed, ";
+		}
+		result.resize(result.size() - 2);
+		result += "]";
+		return result.c_str();
+	}
+	
+	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
+	{
+		return static_cast<EMaterialFlags> (
+			static_cast<std::underlying_type<EMaterialFlags>::type>(lhs) &
+			static_cast<std::underlying_type<EMaterialFlags>::type>(rhs)
+			);
+	}
+
+	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EMaterialFlags>::type>(lhs) != rhs;
+	}
+
+	EVBUFFlags operator &(EVBUFFlags lhs, EVBUFFlags rhs)
+	{
+		return static_cast<EVBUFFlags> (
+			static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) &
+			static_cast<std::underlying_type<EVBUFFlags>::type>(rhs)
+			);
+	}
+
+	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) != rhs;
+	}
 }
