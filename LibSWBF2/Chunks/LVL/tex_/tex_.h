@@ -5,7 +5,7 @@
 #include "tex_.INFO.h"
 #include "FMT_.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::texture
 {
 	struct LIBSWBF2_EXP tex_ : public GenericChunk<"tex_"_m>
 	{

@@ -183,6 +183,11 @@
     <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
     <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
     <ClInclude Include="Chunks\LVL\modl\VBUF.h" />
+    <ClInclude Include="Tools\Level.h" />
+    <ClInclude Include="Tools\Material.h" />
+    <ClInclude Include="Tools\Model.h" />
+    <ClInclude Include="Tools\Segment.h" />
+    <ClInclude Include="Tools\Texture.h" />
     <ClInclude Include="Types\Animation.h" />
     <ClInclude Include="Chunks\MSH\ANM2.h" />
     <ClInclude Include="Chunks\MSH\ATRB.h" />
@@ -263,6 +268,11 @@
     <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
     <ClCompile Include="Chunks\LVL\modl\VBUF.cpp" />
+    <ClCompile Include="Tools\Level.cpp" />
+    <ClCompile Include="Tools\Material.cpp" />
+    <ClCompile Include="Tools\Model.cpp" />
+    <ClCompile Include="Tools\Segment.cpp" />
+    <ClCompile Include="Tools\Texture.cpp" />
     <ClCompile Include="Types\Animation.cpp" />
     <ClCompile Include="Chunks\MSH\ANM2.cpp" />
     <ClCompile Include="Chunks\MSH\ATRB.cpp" />

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FACE.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::texture
 {
 	void FACE::RefreshSize()
 	{

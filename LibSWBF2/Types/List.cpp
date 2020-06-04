@@ -254,6 +254,7 @@ namespace LibSWBF2::Types
 #include "Chunks\LVL\modl\VBUF.h"
 #include "Chunks\LVL\modl\TNAM.h"
 #include "Chunks\GenericChunk.h"
+#include "Tools\Level.h"
 #include "D3D9Types.h"
 
 namespace LibSWBF2
@@ -279,10 +280,12 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<MSH::MODL>;
 	template LIBSWBF2_EXP class List<GenericBaseChunk*>;
 	template LIBSWBF2_EXP class List<D3DFORMAT>;
-	template LIBSWBF2_EXP class List<LVL::FMT_*>;
-	template LIBSWBF2_EXP class List<LVL::LVL_*>;
+	template LIBSWBF2_EXP class List<LVL::texture::FMT_*>;
+	template LIBSWBF2_EXP class List<LVL::LVL_texture::LVL_*>;
 	template LIBSWBF2_EXP class List<LVL::modl::modl*>;
 	template LIBSWBF2_EXP class List<LVL::modl::segm*>;
 	template LIBSWBF2_EXP class List<LVL::modl::VBUF*>;
 	template LIBSWBF2_EXP class List<LVL::modl::TNAM*>;
+	template LIBSWBF2_EXP class List<Tools::Model*>;
+	template LIBSWBF2_EXP class List<Tools::Texture*>;
 }

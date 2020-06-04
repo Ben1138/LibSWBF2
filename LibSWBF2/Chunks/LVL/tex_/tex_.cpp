@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "tex_.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::texture
 {
 	void tex_::RefreshSize()
 	{
