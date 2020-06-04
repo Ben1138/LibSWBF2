@@ -288,4 +288,5 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<LVL::modl::TNAM*>;
 	template LIBSWBF2_EXP class List<Tools::Model*>;
 	template LIBSWBF2_EXP class List<Tools::Texture*>;
+	template LIBSWBF2_EXP class List<Tools::Segment*>;
 }

@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks
 		bool ReadFromFile(const string& Path);
 
 		BaseChunk() = default;
-		~BaseChunk() = default;
+		virtual ~BaseChunk() = default;
 
 		// These MUST be overridden in subclasses!
 		virtual void RefreshSize();

@@ -10,7 +10,7 @@ namespace LibSWBF2::Types
 
 		Vector2();
 		Vector2(const float_t x, const float_t y);
-		~Vector2();
+		virtual ~Vector2();
 
 		virtual void WriteToStream(FileWriter& stream);
 		virtual void ReadFromStream(FileReader& stream);
