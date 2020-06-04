@@ -78,19 +78,19 @@ namespace LibSWBF2::Tools
 
 	void Segment::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const
 	{
-		count = p_VertexBuffer->m_Positions.Size();
+		count = (uint32_t)p_VertexBuffer->m_Positions.Size();
 		vertexBuffer = p_VertexBuffer->m_Positions.GetArrayPtr();
 	}
 
 	void Segment::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const
 	{
-		count = p_VertexBuffer->m_Normals.Size();
+		count = (uint32_t)p_VertexBuffer->m_Normals.Size();
 		normalBuffer = p_VertexBuffer->m_Normals.GetArrayPtr();
 	}
 
 	void Segment::GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const
 	{
-		count = p_VertexBuffer->m_TexCoords.Size();
+		count = (uint32_t)p_VertexBuffer->m_TexCoords.Size();
 		uvBuffer = p_VertexBuffer->m_TexCoords.GetArrayPtr();
 	}
 }
