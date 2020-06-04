@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FMT_.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::texture
 {
 	void FMT_::RefreshSize()
 	{

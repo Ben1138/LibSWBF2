@@ -64,7 +64,7 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "tex_"_h)
 					{
-						LVL::tex_* name;
+						LVL::texture::tex_* name;
 						READ_CHILD(stream, name);
 						chunk = name;
 					}

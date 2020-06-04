@@ -3,8 +3,10 @@
 #include "FMT_.h"
 #include "DirectX\DXHelpers.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
+    using LVL::texture::FMT_;
+
     void BODY::RefreshSize()
     {
         throw std::runtime_error("Not implemented!");
@@ -63,13 +65,13 @@ namespace LibSWBF2::Chunks::LVL
         BaseChunk::EnsureEnd(stream);
     }
 
-    void BODY::GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data)
+    bool BODY::GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data)
     {
         if (p_Image == nullptr)
         {
             LOG("Called GetImageData before reading!", ELogType::Warning);
             data = nullptr;
-            return;
+            return false;
         }
 
         const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
@@ -77,7 +79,7 @@ namespace LibSWBF2::Chunks::LVL
         {
             LOG("Called GetImageData before reading!", ELogType::Warning);
             data = nullptr;
-            return;
+            return false;
         }
 
         if (DirectX::IsCompressed(img->format))
@@ -87,7 +89,7 @@ namespace LibSWBF2::Chunks::LVL
             {
                 LOG("Could not decompress Image", ELogType::Warning);
                 delete result;
-                return;
+                return false;
             }
             delete p_Image;
             p_Image = result;
@@ -101,7 +103,7 @@ namespace LibSWBF2::Chunks::LVL
             {
                 LOG("Could not convert Image", ELogType::Warning);
                 delete result;
-                return;
+                return false;
             }
             
             delete p_Image;
@@ -112,5 +114,6 @@ namespace LibSWBF2::Chunks::LVL
         width = (uint16_t)img->width;
         height = (uint16_t)img->height;
         data = img->pixels;
+        return data != nullptr;
     }
 }

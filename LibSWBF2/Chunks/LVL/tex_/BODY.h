@@ -5,7 +5,7 @@
 // forward declare to avoid including the DirectX header
 namespace DirectX { class ScratchImage; }
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
 	struct LIBSWBF2_EXP BODY : public GenericChunk<"BODY"_m>
 	{
@@ -18,6 +18,6 @@ namespace LibSWBF2::Chunks::LVL
 		void ReadFromStream(FileReader& stream) override;
 
 		// always delivers format R8 G8 B8 A8
-		void GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data);
+		bool GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data);
 	};
 }

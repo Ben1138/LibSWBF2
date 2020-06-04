@@ -3,10 +3,8 @@
 #include "LVL_.INFO.h"
 #include "BODY.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
-	using INFO = LibSWBF2::Chunks::LVL::LVL_texture::INFO;
-
 	struct LIBSWBF2_EXP LVL_ : public GenericChunk<"LVL_"_m>
 	{
 	public:

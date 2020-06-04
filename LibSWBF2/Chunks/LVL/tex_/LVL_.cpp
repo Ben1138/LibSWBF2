@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LVL_.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
 	void LVL_::RefreshSize()
 	{

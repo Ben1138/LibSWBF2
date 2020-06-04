@@ -160,6 +160,11 @@ namespace LibSWBF2
 			);
 	}
 
+	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EMaterialFlags>::type>(lhs) == rhs;
+	}
+
 	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs)
 	{
 		return static_cast<std::underlying_type<EMaterialFlags>::type>(lhs) != rhs;
@@ -171,6 +176,11 @@ namespace LibSWBF2
 			static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) &
 			static_cast<std::underlying_type<EVBUFFlags>::type>(rhs)
 			);
+	}
+
+	bool operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) == rhs;
 	}
 
 	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)

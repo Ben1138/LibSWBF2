@@ -107,7 +107,9 @@ namespace LibSWBF2
 	String EVBUFFlagsToString(EVBUFFlags flags);
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
+	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
 	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
 	EVBUFFlags operator &(EVBUFFlags lhs, EVBUFFlags rhs);
+	bool operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 }
