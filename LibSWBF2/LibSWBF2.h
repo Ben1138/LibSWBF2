@@ -12,6 +12,7 @@
 #include "Chunks\TERR\TERR.h"
 #include "Chunks\LVL\LVL.h"
 #include "Chunks\LVL\tex_\tex_.h"
+#include "Tools\Level.h"
 
 // Include this file when LibSWBF2 externally
 // This header should not be included in its own project
