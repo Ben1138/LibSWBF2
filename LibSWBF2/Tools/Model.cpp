@@ -34,6 +34,13 @@ namespace LibSWBF2::Tools
 		}
 
 		Model* result = new Model(modelChunk);
+
+		List<segm*>& segments = modelChunk->m_Segments;
+		for (size_t i = 0; i < segments.Size(); ++i)
+		{
+			result->m_Segments.Add(Segment::FromChunk(mainContainer, segments[i]));
+		}
+
 		return result;
 	}
 
