@@ -44,7 +44,7 @@ namespace LibSWBF2
 
 	bool ChunkHeader::operator>(const ChunkHeader other) const
 	{
-		return m_Magic < other.m_Magic;
+		return m_Magic > other.m_Magic;
 	}
 
 	string ChunkHeader::ToString() const
