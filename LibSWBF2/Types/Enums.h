@@ -102,9 +102,9 @@ namespace LibSWBF2
 		TexCoordCompressed = 0b1000000000000000u
 	};
 
-	String TopologyToString(ETopology topology);
-	String MaterialFlagsToString(EMaterialFlags flags);
-	String EVBUFFlagsToString(EVBUFFlags flags);
+	String LIBSWBF2_EXP TopologyToString(ETopology topology);
+	String LIBSWBF2_EXP MaterialFlagsToString(EMaterialFlags flags);
+	String LIBSWBF2_EXP EVBUFFlagsToString(EVBUFFlags flags);
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
