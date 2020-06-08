@@ -62,6 +62,13 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, name);
 						chunk = name;
 					}
+					else if (nextHead == "PRNT"_h)
+					{
+						// TODO: is PRNT really always just a string?
+						STR<"PRNT"_m>* name;
+						READ_CHILD(stream, name);
+						chunk = name;
+					}
 					else if (nextHead == "tex_"_h)
 					{
 						LVL::texture::tex_* name;
