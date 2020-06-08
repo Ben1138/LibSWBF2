@@ -46,4 +46,13 @@ namespace LibSWBF2::Chunks::LVL::modl
 
         BaseChunk::EnsureEnd(stream);
     }
+
+    String modl::ToString()
+    {
+        return
+            "NAME: " + p_Name->m_Text + "\n\n" +
+            "INFO:\n" +
+            p_Info->ToString() + "\n\n" +
+            "Number of Segments: " + std::to_string(m_Segments.Size()).c_str();
+    }
 }
