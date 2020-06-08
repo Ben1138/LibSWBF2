@@ -39,5 +39,9 @@ namespace LibSWBF2::API
 		// Tools
 		LIBSWBF2_API Level* Level_FromFile(const char* path);
 		LIBSWBF2_API void Level_Destroy(Level* level);
+
+		String LIBSWBF2_API ENUM_TopologyToString(ETopology topology);
+		String LIBSWBF2_API ENUM_MaterialFlagsToString(EMaterialFlags flags);
+		String LIBSWBF2_API ENUM_EVBUFFlagsToString(EVBUFFlags flags);
 	}
 }
