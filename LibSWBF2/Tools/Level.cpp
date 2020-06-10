@@ -107,6 +107,11 @@ namespace LibSWBF2::Tools
 		return m_Textures;
 	}
 
+	const List<World>& Level::GetWorlds() const
+	{
+		return m_Worlds;
+	}
+
 	const Model* Level::GetModel(String modelName) const
 	{
 		if (modelName == "")
@@ -138,6 +143,23 @@ namespace LibSWBF2::Tools
 		}
 
 		LOG("Could not find Texture '" + string(textureName.Buffer()) + "'!", ELogType::Warning);
+		return nullptr;
+	}
+
+	const World* Level::GetWorld(String worldName) const
+	{
+		if (worldName == "")
+		{
+			return nullptr;
+		}
+
+		auto it = WorldNameToIndex.find(worldName.Buffer());
+		if (it != WorldNameToIndex.end())
+		{
+			return &m_Worlds[it->second];
+		}
+
+		LOG("Could not find World '" + string(worldName.Buffer()) + "'!", ELogType::Warning);
 		return nullptr;
 	}
 }
