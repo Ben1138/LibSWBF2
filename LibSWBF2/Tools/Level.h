@@ -37,8 +37,10 @@ namespace LibSWBF2::Tools
 
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
+		const List<World>& GetWorlds() const;
 
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
+		const World* GetWorld(String worldName) const;
 	};
 }
