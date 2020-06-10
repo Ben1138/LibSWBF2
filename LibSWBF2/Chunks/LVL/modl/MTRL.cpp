@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void MTRL::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_Flags = (EMaterialFlags)stream.ReadUInt32();
         m_DiffuseColor.ReadFromStream(stream);

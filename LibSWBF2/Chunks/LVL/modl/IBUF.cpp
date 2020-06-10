@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void IBUF::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_IndicesCount = stream.ReadUInt32();
         m_Indices.Resize(m_IndicesCount);

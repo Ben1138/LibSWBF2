@@ -28,6 +28,8 @@ namespace LibSWBF2::Chunks
 			chunk->ReadFromStream(stream);
 		}
 
+		void ReadGenerics(FileReader& stream);
+
 	private:
 		GenericBaseChunk* m_Parent = nullptr;
 		List<GenericBaseChunk*> m_Children;
@@ -36,6 +38,9 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	struct LIBSWBF2_EXP GenericChunk : public GenericBaseChunk
 	{
+	protected:
+		void Check(FileReader& stream);
+
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

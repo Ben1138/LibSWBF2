@@ -17,6 +17,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void INFO::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_Unknown[0] = stream.ReadUInt32();
         m_Unknown[1] = stream.ReadUInt32();

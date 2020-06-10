@@ -175,6 +175,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chunks\LVL\lvl_.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
     <ClInclude Include="Chunks\LVL\modl\INFO.h" />
     <ClInclude Include="Chunks\LVL\modl\LVL.modl.h" />
@@ -215,7 +216,7 @@
     <ClInclude Include="Chunks\GenericChunk.h" />
     <ClInclude Include="Chunks\MSH\GEOM.h" />
     <ClInclude Include="Chunks\HeaderNames.h" />
-    <ClInclude Include="Chunks\LVL\tex_\LVL_.h" />
+    <ClInclude Include="Chunks\LVL\tex_\tex_.LVL_.h" />
     <ClInclude Include="Chunks\LVL\tex_\LVL_.INFO.h" />
     <ClInclude Include="Chunks\LVL\tex_\tex_.INFO.h" />
     <ClInclude Include="Chunks\LVL\tex_\tex_.h" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Chunks\MSH\WGHT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chunks\LVL\lvl_.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
     <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
     <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp" />
@@ -297,7 +299,7 @@
     <ClCompile Include="Chunks\GenericChunk.cpp" />
     <ClCompile Include="Chunks\MSH\GEOM.cpp" />
     <ClCompile Include="Chunks\HeaderNames.cpp" />
-    <ClCompile Include="Chunks\LVL\tex_\LVL_.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\tex_.LVL_.cpp" />
     <ClCompile Include="Chunks\LVL\tex_\LVL_.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\tex_\tex_.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\tex_\tex_.cpp" />

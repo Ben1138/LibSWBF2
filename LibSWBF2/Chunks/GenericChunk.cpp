@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "LVL\tex_\tex_.h"
 #include "LVL\modl\LVL.modl.h"
+#include "LVL\lvl_.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -15,22 +16,8 @@ namespace LibSWBF2::Chunks
 	}
 
 	template<uint32_t Header>
-	void GenericChunk<Header>::RefreshSize()
+	void GenericChunk<Header>::Check(FileReader& stream)
 	{
-		throw std::runtime_error("Not implemented!");
-	}
-
-	template<uint32_t Header>
-	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
-	{
-		throw std::runtime_error("Not implemented!");
-	}
-
-	template<uint32_t Header>
-	void GenericChunk<Header>::ReadFromStream(FileReader& stream)
-	{
-		BaseChunk::ReadFromStream(stream);
-
 		// check for correct header
 		ChunkHeader expected;
 		expected.m_Magic = Header;
@@ -46,7 +33,22 @@ namespace LibSWBF2::Chunks
 		{
 			throw InvalidSizeException(m_Size);
 		}
+	}
 
+	template<uint32_t Header>
+	void GenericChunk<Header>::RefreshSize()
+	{
+		throw std::runtime_error("Not implemented!");
+	}
+
+	template<uint32_t Header>
+	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
+	{
+		throw std::runtime_error("Not implemented!");
+	}
+
+	void GenericBaseChunk::ReadGenerics(FileReader& stream)
+	{
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
 		{
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
@@ -81,6 +83,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, model);
 						chunk = model;
 					}
+					else if (nextHead == "lvl_"_h)
+					{
+						LVL::lvl_* subLVL;
+						READ_CHILD(stream, subLVL);
+						chunk = subLVL;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -108,7 +116,14 @@ namespace LibSWBF2::Chunks
 				break;
 			}
 		}
+	}
 
+	template<uint32_t Header>
+	void GenericChunk<Header>::ReadFromStream(FileReader& stream)
+	{
+		BaseChunk::ReadFromStream(stream);
+		Check(stream);
+		ReadGenerics(stream);
 		BaseChunk::EnsureEnd(stream);
 	}
 

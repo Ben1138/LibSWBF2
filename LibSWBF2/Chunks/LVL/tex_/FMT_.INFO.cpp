@@ -18,6 +18,7 @@ namespace LibSWBF2::Chunks::LVL::FMT
 	void INFO::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+		Check(stream);
 
 		m_Format = (D3DFORMAT)stream.ReadUInt32();
 		m_Width = stream.ReadUInt16();
