@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "LVL\tex_\tex_.h"
 #include "LVL\modl\LVL.modl.h"
+#include "LVL\wrld\wrld.h"
 #include "LVL\lvl_.h"
 
 namespace LibSWBF2::Chunks
@@ -89,6 +90,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, subLVL);
 						chunk = subLVL;
 					}
+					else if (nextHead == "wrld"_h)
+					{
+						LVL::wrld::wrld* world;
+						READ_CHILD(stream, world);
+						chunk = world;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -98,10 +105,8 @@ namespace LibSWBF2::Chunks
 
 					LOG(string("Adding Child '") + chunk->GetHeader().ToString() + "' to '" + m_Header.ToString() + "'", ELogType::Info);
 				}
-				catch (InvalidSizeException& e)
+				catch (InvalidSizeException&)
 				{
-					e; // avoid C4101 warning
-
 					if (chunk != nullptr)
 					{
 						delete chunk;
@@ -158,6 +163,7 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_EXP struct GenericChunk<"ucfb"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"LVL_"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"INFO"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"TYPE"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"BODY"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"FACE"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"FMT_"_m>;
@@ -168,6 +174,8 @@ namespace LibSWBF2::Chunks
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_EXP struct GenericChunk<"NAME"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"TNAM"_m>;
+	template LIBSWBF2_EXP struct GenericChunk<"SNAM"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX0D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX1D"_m>;
 	template LIBSWBF2_EXP struct GenericChunk<"TX2D"_m>;

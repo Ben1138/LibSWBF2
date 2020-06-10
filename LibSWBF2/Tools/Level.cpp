@@ -14,6 +14,7 @@ namespace LibSWBF2::Tools
 	// TODO: better solution than having a global hash map for all levels. cannot put in header aswell though...
 	std::unordered_map<std::string, size_t> TextureNameToIndex;
 	std::unordered_map<std::string, size_t> ModelNameToIndex;
+	std::unordered_map<std::string, size_t> WorldNameToIndex;
 
 	Level::Level(LVL* lvl)
 	{
@@ -60,6 +61,7 @@ namespace LibSWBF2::Tools
 				}
 			}
 
+			// IMPORTANT: crawl models BEFORE worlds, so model references via string can be resolved in worlds
 			modl* modelChunk = dynamic_cast<modl*>(children[i]);
 			if (modelChunk != nullptr)
 			{
@@ -67,6 +69,16 @@ namespace LibSWBF2::Tools
 				if (Model::FromChunk(result, modelChunk, model))
 				{
 					ModelNameToIndex.emplace(model.GetName().Buffer(), result->m_Models.Add(model));
+				}
+			}
+
+			wrld* worldChunk = dynamic_cast<wrld*>(children[i]);
+			if (worldChunk != nullptr)
+			{
+				World world;
+				if (World::FromChunk(result, worldChunk, world))
+				{
+					WorldNameToIndex.emplace(world.GetName().Buffer(), result->m_Worlds.Add(world));
 				}
 			}
 		}
