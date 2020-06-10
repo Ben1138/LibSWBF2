@@ -249,7 +249,7 @@ namespace LibSWBF2::Types
 #include "Chunks\MSH\MATD.h"
 #include "Chunks\MSH\MODL.h"
 #include "Chunks\LVL\tex_\FMT_.h"
-#include "Chunks\LVL\tex_\LVL_.h"
+#include "Chunks\LVL\tex_\tex_.LVL_.h"
 #include "Chunks\LVL\modl\LVL.modl.h"
 #include "Chunks\LVL\modl\modl.segm.h"
 #include "Chunks\LVL\modl\VBUF.h"

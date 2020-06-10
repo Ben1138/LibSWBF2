@@ -18,6 +18,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 	void INFO::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+		Check(stream);
 
 		m_FormatCount = stream.ReadUInt32();
 		for (uint32_t i = 0; i < m_FormatCount; ++i)

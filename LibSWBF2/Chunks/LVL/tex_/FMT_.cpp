@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 	void FMT_::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+		Check(stream);
 
 		READ_CHILD(stream, p_Info);
 		READ_CHILD(stream, p_Face);

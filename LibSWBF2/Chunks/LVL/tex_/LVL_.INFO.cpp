@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 	void INFO::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+		Check(stream);
 
 		m_MipLevel = stream.ReadUInt32();
 		m_BodySize = stream.ReadUInt32();

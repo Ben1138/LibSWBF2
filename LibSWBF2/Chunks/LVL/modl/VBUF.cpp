@@ -21,6 +21,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void VBUF::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_Count = stream.ReadUInt32();
         m_Stride = stream.ReadUInt32();

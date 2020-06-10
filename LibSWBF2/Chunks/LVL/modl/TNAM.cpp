@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void TNAM::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_Index = stream.ReadUInt32();
         m_Name = stream.ReadString();

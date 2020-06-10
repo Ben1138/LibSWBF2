@@ -21,6 +21,7 @@ namespace LibSWBF2::Chunks::LVL::modl::segment
     void INFO::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         m_Topology = (ETopology)stream.ReadInt32();
         m_VertexCount = stream.ReadUInt32();

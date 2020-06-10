@@ -252,9 +252,6 @@
     <ClInclude Include="Chunks\LVL\tex_\FACE.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\tex_\LVL_.h">
-      <Filter>Header Files\Chunks\LVL\tex_</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\tex_\LVL_.INFO.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
     </ClInclude>
@@ -323,6 +320,12 @@
     </ClInclude>
     <ClInclude Include="Tools\Material.h">
       <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\tex_.LVL_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lvl_.h">
+      <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +494,6 @@
     <ClCompile Include="Chunks\LVL\tex_\FACE.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\tex_\LVL_.cpp">
-      <Filter>Source Files\Chunks\LVL\tex_</Filter>
-    </ClCompile>
     <ClCompile Include="Chunks\LVL\tex_\LVL_.INFO.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
     </ClCompile>
@@ -553,6 +553,12 @@
     </ClCompile>
     <ClCompile Include="Tools\Material.cpp">
       <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\tex_.LVL_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lvl_.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

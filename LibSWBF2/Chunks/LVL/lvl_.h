@@ -1,15 +1,14 @@
 #pragma once
 #include "Chunks\GenericChunk.h"
-#include "tex_.LVL_.h"
+#include "Chunks\STR.h"
 
-namespace LibSWBF2::Chunks::LVL::texture
+namespace LibSWBF2::Chunks::LVL
 {
-	using LVL_texture::LVL_;
-
-	struct LIBSWBF2_EXP FACE : public GenericChunk<"FACE"_m>
+	struct LIBSWBF2_EXP lvl_ : public GenericChunk<"lvl_"_m>
 	{
 	public:
-		List<LVL_*> m_LVLs;
+		uint32_t m_NameHash;
+		uint32_t m_SizeLeft;
 
 	public:
 		void RefreshSize() override;

@@ -16,6 +16,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     void segm::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         while (PositionInChunk(stream.GetPosition()))
         {

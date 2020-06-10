@@ -20,6 +20,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
     void BODY::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
+        Check(stream);
 
         const LVL_* lvl = dynamic_cast<const LVL_*>(GetParent());
 
