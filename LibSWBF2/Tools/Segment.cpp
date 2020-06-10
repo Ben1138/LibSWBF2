@@ -1,36 +1,34 @@
 #include "stdafx.h"
 #include "Segment.h"
+#include "Material.h"
+#include "Level.h"
 #include "Types\List.h"
-#include "Logging\Logger.h";
+#include "Logging\Logger.h"
 
 namespace LibSWBF2::Tools
 {
 	using Logging::ELogType;
 	using Types::List;
 
-	Segment::Segment(segm* SegmentChunk)
-	{
-		p_Segment = SegmentChunk;
-	}
-
-	Segment* Segment::FromChunk(Level* mainContainer, segm* segmentChunk)
+	bool Segment::FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out)
 	{
 		if (segmentChunk == nullptr)
 		{
 			LOG("Given SegmentChunk was NULL!", ELogType::Error);
-			return nullptr;
+			return false;
 		}
 
 		List<VBUF*>& vBuffs = segmentChunk->m_VertexBuffers;
 		if (vBuffs.Size() == 0)
 		{
 			LOG("Segment Chunk does not contain any data!", ELogType::Warning);
-			return nullptr;
+			return false;
 		}
 
-		Segment* result = new Segment(segmentChunk);
+		out.p_Segment = segmentChunk;
 
-		result->p_VertexBuffer = nullptr;
+		// find the VBUF we want to use, preferably one without compression
+		out.p_VertexBuffer = nullptr;
 		for (size_t i = 0; i < vBuffs.Size(); ++i)
 		{
 			// TODO: better selection / sorting?
@@ -41,33 +39,32 @@ namespace LibSWBF2::Tools
 				(vBuffs[i]->m_Flags & EVBUFFlags::NormalCompressed) == 0 &&
 				(vBuffs[i]->m_Flags & EVBUFFlags::TexCoordCompressed) == 0)
 			{
-				result->p_VertexBuffer = vBuffs[i];
+				out.p_VertexBuffer = vBuffs[i];
 				break;
 			}
 		}
 
-		if (result->p_VertexBuffer == nullptr)
+		if (out.p_VertexBuffer == nullptr)
 		{
-			result->p_VertexBuffer = vBuffs[0];
+			out.p_VertexBuffer = vBuffs[0];
 		}
 
-		return result;
-	}
-
-	void Segment::Destroy(Segment* Segment)
-	{
-		if (Segment == nullptr)
+		if (!Material::FromChunk(mainContainer, segmentChunk->p_Material, out.m_Material))
 		{
-			LOG("Given Segment was NULL!", ELogType::Error);
-			return;
+			LOG("Could not read Material!", ELogType::Warning);
 		}
 
-		delete Segment;
+		return true;
 	}
 
 	ETopology Segment::GetTopology() const
 	{
 		return p_Segment->p_Info->m_Topology;
+	}
+
+	const Material& Segment::GetMaterial() const
+	{
+		return m_Material;
 	}
 
 	void Segment::GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer) const

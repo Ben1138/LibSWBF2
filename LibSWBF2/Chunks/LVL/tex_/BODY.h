@@ -1,5 +1,6 @@
 #pragma once
 #include "Chunks\GenericChunk.h"
+#include "Types\Enums.h"
 #include "FMT_.INFO.h"
 
 // forward declare to avoid including the DirectX header
@@ -17,7 +18,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		// always delivers format R8 G8 B8 A8
-		bool GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data);
+		bool GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, uint8_t*& data);
 	};
 }

@@ -12,19 +12,18 @@ namespace LibSWBF2::Tools
 
 	class LIBSWBF2_EXP Model
 	{
-	private:
-		Model(modl* modelChunk);
-		~Model();
+	public:
+		Model() = default;
+		~Model() = default;
 
 	private:
 		modl* p_Model;
-		List<Segment*> m_Segments;
+		List<Segment> m_Segments;
 
 	public:
-		static Model* FromChunk(Level* mainContainer, modl* modelChunk);
-		static void Destroy(Model* model);
+		static bool FromChunk(Level* mainContainer, modl* modelChunk, Model& out);
 
 		String GetName() const;
-		const List<Segment*>& GetSegments() const;
+		const List<Segment>& GetSegments() const;
 	};
 }

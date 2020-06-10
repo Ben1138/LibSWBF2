@@ -7,66 +7,46 @@ namespace LibSWBF2::Tools
 	using Logging::ELogType;
 	using Chunks::LVL::LVL_texture::LVL_;
 
-	Texture::Texture(tex_* textureChunk)
-	{
-		if (textureChunk == nullptr)
-		{
-			LOG("textureChunk was NULL!", ELogType::Error);
-		}
-
-		p_Texture = textureChunk;
-	}
-
-	Texture* Texture::FromChunk(tex_* textureChunk)
+	bool Texture::FromChunk(tex_* textureChunk, Texture& out)
 	{
 		if (textureChunk == nullptr)
 		{
 			LOG("Given textureChunk was NULL!", ELogType::Error);
-			return nullptr;
+			return false;
 		}
 
-		Texture* result = new Texture(textureChunk);
+		out.p_Texture = textureChunk;
 
-		List<FMT_*>& fmts = result->p_Texture->m_FMTs;
+		List<FMT_*>& fmts = out.p_Texture->m_FMTs;
 		if (fmts.Size() == 0)
 		{
 			LOG(string("Texture '")+textureChunk->p_Name->m_Text.Buffer()+"' does not contain any data!", ELogType::Warning);
-			return nullptr;
+			return false;
 		}
 
+		// Grab FMT chunk with the least amount of compression
 		// TODO: proper format sorting for choosing the right FMT chunk
-		result->p_FMT = nullptr;
+		out.p_FMT = nullptr;
 		for (size_t i = 0; i < fmts.Size(); ++i)
 		{
 			if (fmts[i]->p_Info->m_Format == D3DFMT_DXT3)
 			{
-				result->p_FMT = fmts[i];
+				out.p_FMT = fmts[i];
 				break;
 			}
 			if (fmts[i]->p_Info->m_Format == D3DFMT_DXT1)
 			{
-				result->p_FMT = fmts[i];
+				out.p_FMT = fmts[i];
 				break;
 			}
 		}
 
-		if (result->p_FMT == nullptr)
+		if (out.p_FMT == nullptr)
 		{
-			result->p_FMT = fmts[0];
+			out.p_FMT = fmts[0];
 		}
 
-		return result;
-	}
-
-	void Texture::Destroy(Texture* texture)
-	{
-		if (texture == nullptr)
-		{
-			LOG("Given Texture was NULL!", ELogType::Error);
-			return;
-		}
-
-		delete texture;
+		return true;
 	}
 
 	String Texture::GetName() const
@@ -79,14 +59,14 @@ namespace LibSWBF2::Tools
 		return p_FMT->p_Info->m_MipmapCount;
 	}
 
-	bool Texture::GetImageData(uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const
+	bool Texture::GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const
 	{
 		List<LVL_*>& mipChunks = p_FMT->p_Face->m_LVLs;
 		for (size_t i = 0; i < mipChunks.Size(); ++i)
 		{
 			if (mipChunks[i]->p_Info->m_MipLevel == mipLevel)
 			{
-				return mipChunks[i]->p_Body->GetImageData(width, height, data);
+				return mipChunks[i]->p_Body->GetImageData(format, width, height, data);
 			}
 		}
 		width = 0;

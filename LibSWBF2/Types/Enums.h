@@ -102,6 +102,12 @@ namespace LibSWBF2
 		TexCoordCompressed = 0b1000000000000000u
 	};
 
+	enum class ETextureFormat : uint8_t
+	{
+		R8_G8_B8_A8,
+		B8_G8_R8_A8
+	};
+
 	String LIBSWBF2_EXP TopologyToString(ETopology topology);
 	String LIBSWBF2_EXP MaterialFlagsToString(EMaterialFlags flags);
 	String LIBSWBF2_EXP EVBUFFlagsToString(EVBUFFlags flags);
