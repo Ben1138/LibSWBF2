@@ -35,6 +35,7 @@ namespace LibSWBF2::Chunks
 namespace LibSWBF2::Chunks
 {
 	template LIBSWBF2_EXP struct STR<"NAME"_m>;
+	template LIBSWBF2_EXP struct STR<"TYPE"_m>;
 	template LIBSWBF2_EXP struct STR<"TX0D"_m>;
 	template LIBSWBF2_EXP struct STR<"TX1D"_m>;
 	template LIBSWBF2_EXP struct STR<"TX2D"_m>;
@@ -43,4 +44,6 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_EXP struct STR<"NODE"_m>;
 	template LIBSWBF2_EXP struct STR<"RTYP"_m>;
 	template LIBSWBF2_EXP struct STR<"BNAM"_m>;
+	template LIBSWBF2_EXP struct STR<"TNAM"_m>;
+	template LIBSWBF2_EXP struct STR<"SNAM"_m>;
 }

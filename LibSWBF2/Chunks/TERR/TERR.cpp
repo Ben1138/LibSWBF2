@@ -300,9 +300,8 @@ namespace LibSWBF2::Chunks::Terrain
 				ReadFromStream(reader);
 				reader.Close();
 			}
-			catch (InvalidChunkException& e)
+			catch (InvalidChunkException&)
 			{
-				e; // avoid C4101 warning
 				LOG("Aborting read process...", ELogType::Error);
 				return false;
 			}

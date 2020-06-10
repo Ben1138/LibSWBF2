@@ -2,6 +2,7 @@
 #include "req.h"
 #include "Model.h"
 #include "Texture.h"
+#include "World.h"
 #include "Types\LibString.h"
 #include "Types\List.h"
 #include "Chunks\LVL\LVL.h"
@@ -28,6 +29,7 @@ namespace LibSWBF2::Tools
 
 		List<Model> m_Models;
 		List<Texture> m_Textures;
+		List<World> m_Worlds;
 
 	public:
 		static Level* FromFile(String path);

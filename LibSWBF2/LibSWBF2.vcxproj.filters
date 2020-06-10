@@ -73,6 +73,12 @@
     <Filter Include="Source Files\Tools">
       <UniqueIdentifier>{5f5a3a00-e1c0-40c1-a82e-a6fcf78878d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\wrld">
+      <UniqueIdentifier>{b9fb2001-a7b1-4917-b7c9-de1615daea07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\wrld">
+      <UniqueIdentifier>{13d4fd95-2f13-4db0-b9d7-d99c0b1fe918}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -327,6 +333,27 @@
     <ClInclude Include="Chunks\LVL\lvl_.h">
       <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Matrix3x3.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Instance.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\World.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -559,6 +586,27 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\lvl_.cpp">
       <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\wrld.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\inst.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Matrix3x3.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\World.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Instance.cpp">
+      <Filter>Source Files\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
