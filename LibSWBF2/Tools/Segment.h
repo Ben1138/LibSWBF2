@@ -1,5 +1,6 @@
 #pragma once
 #include "Chunks\LVL\modl\LVL.modl.h"
+#include "Material.h"
 
 namespace LibSWBF2::Tools
 {
@@ -11,19 +12,22 @@ namespace LibSWBF2::Tools
 
 	class LIBSWBF2_EXP Segment
 	{
-	private:
-		Segment(segm* segment);
+	public:
+		Segment() = default;
 		~Segment() = default;
 
 	private:
 		segm* p_Segment;
 		VBUF* p_VertexBuffer;
 
+		Material m_Material;
+
 	public:
-		static Segment* FromChunk(Level* mainContainer, segm* segmentChunk);
-		static void Destroy(Segment* segment);
+		static bool FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out);
 
 		ETopology GetTopology() const;
+
+		const Material& GetMaterial() const;
 
 		// count is number of indices, NOT number of bytes!
 		void GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer) const;

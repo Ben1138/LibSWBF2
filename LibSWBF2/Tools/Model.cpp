@@ -6,53 +6,31 @@ namespace LibSWBF2::Tools
 {
 	using Logging::ELogType;
 
-	Model::Model(modl* modelChunk)
-	{
-		p_Model = modelChunk;
-	}
-
-	Model::~Model()
-	{
-		for (size_t i = 0; i < m_Segments.Size(); ++i)
-		{
-			Segment::Destroy(m_Segments[i]);
-		}
-		m_Segments.Clear();
-	}
-
-	Model* Model::FromChunk(Level* mainContainer, modl* modelChunk)
+	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)
 	{
 		if (mainContainer == nullptr)
 		{
 			LOG("Given mainContainer was NULL!", ELogType::Error);
-			return nullptr;
+			return false;
 		}
 		if (modelChunk == nullptr)
 		{
 			LOG("Given modelChunk was NULL!", ELogType::Error);
-			return nullptr;
+			return false;
 		}
 
-		Model* result = new Model(modelChunk);
+		out.p_Model = modelChunk;
 
 		List<segm*>& segments = modelChunk->m_Segments;
 		for (size_t i = 0; i < segments.Size(); ++i)
 		{
-			result->m_Segments.Add(Segment::FromChunk(mainContainer, segments[i]));
+			Segment segment;
+			if (Segment::FromChunk(mainContainer, segments[i], segment))
+			{
+				out.m_Segments.Add(segment);
+			}
 		}
-
-		return result;
-	}
-
-	void Model::Destroy(Model* model)
-	{
-		if (model == nullptr)
-		{
-			LOG("Given model was NULL!", ELogType::Error);
-			return;
-		}
-
-		delete model;
+		return true;
 	}
 
 	String Model::GetName() const
@@ -60,7 +38,7 @@ namespace LibSWBF2::Tools
 		return p_Model->p_Name->m_Text;
 	}
 
-	const List<Segment*>& Model::GetSegments() const
+	const List<Segment>& Model::GetSegments() const
 	{
 		return m_Segments;
 	}

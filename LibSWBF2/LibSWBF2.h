@@ -7,6 +7,7 @@
 #include "Types\Vector3.h"
 #include "Types\Vector4.h"
 #include "Types\BoneWeight.h"
+#include "Types\Enums.h"
 #include "Chunks\MSH\MSH.h"
 #include "CRC.h"
 #include "Chunks\TERR\TERR.h"

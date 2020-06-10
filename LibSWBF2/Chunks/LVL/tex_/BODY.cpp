@@ -65,7 +65,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         BaseChunk::EnsureEnd(stream);
     }
 
-    bool BODY::GetImageData(uint16_t& width, uint16_t& height, uint8_t*& data)
+    bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, uint8_t*& data)
     {
         if (p_Image == nullptr)
         {
@@ -82,10 +82,11 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             return false;
         }
 
+        DXGI_FORMAT targetFormat = TextureFormatToDXGI(format);
         if (DirectX::IsCompressed(img->format))
         {
             DirectX::ScratchImage* result = new DirectX::ScratchImage();
-            if (FAILED(DirectX::Decompress(*img, DXGI_FORMAT_R8G8B8A8_UNORM, *result)))
+            if (FAILED(DirectX::Decompress(*img, targetFormat, *result)))
             {
                 LOG("Could not decompress Image", ELogType::Warning);
                 delete result;
@@ -96,10 +97,10 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             img = p_Image->GetImage(0, 0, 0);
         }
 
-        if (img->format != DXGI_FORMAT_R8G8B8A8_UNORM)
+        if (img->format != targetFormat)
         {
             DirectX::ScratchImage* result = new DirectX::ScratchImage();
-            if (FAILED(DirectX::Convert(*img, DXGI_FORMAT_R8G8B8A8_UNORM, DirectX::TEX_FILTER_DEFAULT, DirectX::TEX_THRESHOLD_DEFAULT, *result)))
+            if (FAILED(DirectX::Convert(*img, targetFormat, DirectX::TEX_FILTER_DEFAULT, DirectX::TEX_THRESHOLD_DEFAULT, *result)))
             {
                 LOG("Could not convert Image", ELogType::Warning);
                 delete result;

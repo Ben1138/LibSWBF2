@@ -26,14 +26,17 @@ namespace LibSWBF2::Tools
 	private:
 		LVL* p_lvl;
 
-		List<Model*> m_Models;
-		List<Texture*> m_Textures;
+		List<Model> m_Models;
+		List<Texture> m_Textures;
 
 	public:
 		static Level* FromFile(String path);
 		static void Destroy(Level* level);
 
-		const List<Model*>& GetModels() const;
-		const List<Texture*>& GetTextures() const;
+		const List<Model>& GetModels() const;
+		const List<Texture>& GetTextures() const;
+
+		const Model* GetModel(String modelName) const;
+		const Texture* GetTexture(String textureName) const;
 	};
 }

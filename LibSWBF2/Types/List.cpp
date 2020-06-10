@@ -104,7 +104,7 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
-	void List<T>::Add(const T& Element)
+	size_t List<T>::Add(const T& Element)
 	{
 		if (ArrayPtr == nullptr)
 		{
@@ -116,6 +116,7 @@ namespace LibSWBF2::Types
 		}
 
 		ArrayPtr[NumElements++] = Element;
+		return NumElements - 1;
 	}
 
 	template<class T>
@@ -286,7 +287,9 @@ namespace LibSWBF2
 	template LIBSWBF2_EXP class List<LVL::modl::segm*>;
 	template LIBSWBF2_EXP class List<LVL::modl::VBUF*>;
 	template LIBSWBF2_EXP class List<LVL::modl::TNAM*>;
-	template LIBSWBF2_EXP class List<Tools::Model*>;
-	template LIBSWBF2_EXP class List<Tools::Texture*>;
-	template LIBSWBF2_EXP class List<Tools::Segment*>;
+	template LIBSWBF2_EXP class List<Tools::Model>;
+	template LIBSWBF2_EXP class List<Tools::Segment>;
+	template LIBSWBF2_EXP class List<Tools::Material>;
+	template LIBSWBF2_EXP class List<Tools::Texture>;
+	template LIBSWBF2_EXP class List<const Tools::Texture*>;
 }

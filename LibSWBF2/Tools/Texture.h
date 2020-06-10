@@ -1,6 +1,7 @@
 #pragma once
 #include "req.h"
 #include "Chunks\LVL\tex_\tex_.h"
+#include "Types\Enums.h"
 
 namespace LibSWBF2::Tools
 {
@@ -9,10 +10,8 @@ namespace LibSWBF2::Tools
 
 	class LIBSWBF2_EXP Texture
 	{
-	private:
-		Texture(tex_* textureChunks);
-
-		// no need to destroy p_Texture, since it's owned by the Level's LVL
+	public:
+		Texture() = default;
 		~Texture() = default;
 
 	private:
@@ -20,13 +19,11 @@ namespace LibSWBF2::Tools
 		FMT_* p_FMT;
 
 	public:
-		static Texture* FromChunk(tex_* textureCHunk);
-		static void Destroy(Texture* texture);
+		static bool FromChunk(tex_* textureCHunk, Texture& out);
 
 		String GetName() const;
 		uint32_t GetNumMipMaps() const;
 
-		// always delivers format R8 G8 B8 A8
-		bool GetImageData(uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const;
+		bool GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const;
 	};
 }
