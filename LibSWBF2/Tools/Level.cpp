@@ -16,6 +16,14 @@ namespace LibSWBF2::Tools
 	std::unordered_map<std::string, size_t> ModelNameToIndex;
 	std::unordered_map<std::string, size_t> WorldNameToIndex;
 
+	std::string ToLower(String name)
+	{
+		std::string result = name.Buffer();
+		std::transform(result.begin(), result.end(), result.begin(),
+			[](unsigned char c) { return std::tolower(c); });
+		return result;
+	}
+
 	Level::Level(LVL* lvl)
 	{
 		p_lvl = lvl;
@@ -57,7 +65,7 @@ namespace LibSWBF2::Tools
 				Texture texture;
 				if (Texture::FromChunk(textureChunk, texture))
 				{
-					TextureNameToIndex.emplace(texture.GetName().Buffer(), result->m_Textures.Add(texture));
+					TextureNameToIndex.emplace(ToLower(texture.GetName()), result->m_Textures.Add(texture));
 				}
 			}
 
@@ -68,7 +76,7 @@ namespace LibSWBF2::Tools
 				Model model;
 				if (Model::FromChunk(result, modelChunk, model))
 				{
-					ModelNameToIndex.emplace(model.GetName().Buffer(), result->m_Models.Add(model));
+					ModelNameToIndex.emplace(ToLower(model.GetName()), result->m_Models.Add(model));
 				}
 			}
 
@@ -78,7 +86,7 @@ namespace LibSWBF2::Tools
 				World world;
 				if (World::FromChunk(result, worldChunk, world))
 				{
-					WorldNameToIndex.emplace(world.GetName().Buffer(), result->m_Worlds.Add(world));
+					WorldNameToIndex.emplace(ToLower(world.GetName()), result->m_Worlds.Add(world));
 				}
 			}
 		}
@@ -119,13 +127,13 @@ namespace LibSWBF2::Tools
 			return nullptr;
 		}
 
-		auto it = ModelNameToIndex.find(modelName.Buffer());
+		auto it = ModelNameToIndex.find(ToLower(modelName));
 		if (it != ModelNameToIndex.end())
 		{
 			return &m_Models[it->second];
 		}
 
-		LOG("Could not find Model '" + string(modelName.Buffer()) + "'!", ELogType::Warning);
+		LOG("Could not find Model '" + ToLower(modelName) + "'!", ELogType::Warning);
 		return nullptr;
 	}
 
@@ -136,13 +144,13 @@ namespace LibSWBF2::Tools
 			return nullptr;
 		}
 
-		auto it = TextureNameToIndex.find(textureName.Buffer());
+		auto it = TextureNameToIndex.find(ToLower(textureName));
 		if (it != TextureNameToIndex.end())
 		{
 			return &m_Textures[it->second];
 		}
 
-		LOG("Could not find Texture '" + string(textureName.Buffer()) + "'!", ELogType::Warning);
+		LOG("Could not find Texture '" + ToLower(textureName) + "'!", ELogType::Warning);
 		return nullptr;
 	}
 
@@ -153,13 +161,13 @@ namespace LibSWBF2::Tools
 			return nullptr;
 		}
 
-		auto it = WorldNameToIndex.find(worldName.Buffer());
+		auto it = WorldNameToIndex.find(ToLower(worldName));
 		if (it != WorldNameToIndex.end())
 		{
 			return &m_Worlds[it->second];
 		}
 
-		LOG("Could not find World '" + string(worldName.Buffer()) + "'!", ELogType::Warning);
+		LOG("Could not find World '" + ToLower(worldName) + "'!", ELogType::Warning);
 		return nullptr;
 	}
 }
