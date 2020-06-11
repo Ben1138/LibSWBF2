@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "VBUF.h"
 #include "LVL.modl.h"
+#include "InternalHelpers.h"
 #include <limits>
 
 #undef min
@@ -42,20 +43,20 @@ namespace LibSWBF2::Chunks::LVL::modl
             {
                 if ((m_Flags & EVBUFFlags::PositionCompressed) != 0)
                 {
-                    Vector3 low = model->p_Info->m_VertexBox[0];
-                    Vector3 mul = (model->p_Info->m_VertexBox[1] - model->p_Info->m_VertexBox[0]);
+                    glm::vec3 low = ToGLM(model->p_Info->m_VertexBox[0]);
+                    glm::vec3 mul = (ToGLM(model->p_Info->m_VertexBox[1]) - ToGLM(model->p_Info->m_VertexBox[0]));
 
                     int16_t data[4];
                     data[0] = stream.ReadInt16();
                     data[1] = stream.ReadInt16();
                     data[2] = stream.ReadInt16();
                     data[3] = stream.ReadInt16();
-                    Vector3 c(data[0], data[1], data[2]);
+                    glm::vec3 c(data[0], data[1], data[2]);
 
                     constexpr float i16min = std::numeric_limits<int16_t>::min();
                     constexpr float i16max = std::numeric_limits<int16_t>::max();
 
-                    m_Positions.Add(low + (c - i16min) * mul / (i16max - i16min));
+                    m_Positions.Add(ToLib(low + (c - i16min) * mul / (i16max - i16min)));
                 }
                 else
                 {
@@ -98,9 +99,9 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    Vector3 normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                     normal = (normal * 2.0f) - 1.0f;
-                    m_Normals.Add(normal);
+                    m_Normals.Add(ToLib(normal));
                 }
                 else
                 {
@@ -117,17 +118,17 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    Vector3 tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                     tangent = (tangent * 2.0f) - 1.0f;
-                    m_Tangents.Add(tangent);
+                    m_Tangents.Add(ToLib(tangent));
 
                     data[0] = stream.ReadByte();
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    Vector3 biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
                     biTangent = (biTangent * 2.0f) - 1.0f;
-                    m_BiTangents.Add(biTangent);
+                    m_BiTangents.Add(ToLib(biTangent));
                 }
                 else
                 {

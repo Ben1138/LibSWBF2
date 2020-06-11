@@ -354,6 +354,9 @@
     <ClInclude Include="Tools\World.h">
       <Filter>Header Files\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="InternalHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -607,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="Tools\Instance.cpp">
       <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalHelpers.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

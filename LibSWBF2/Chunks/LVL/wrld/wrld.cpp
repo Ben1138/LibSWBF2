@@ -43,7 +43,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				GenericChunkNC* generic;
 				READ_CHILD(stream, generic);
-				LOG("Found unexpected chunk in wrld: " + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+				//LOG("Found unexpected chunk in wrld: " + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 			}
 		}
 

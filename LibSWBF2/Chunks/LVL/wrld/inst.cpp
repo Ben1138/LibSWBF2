@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 		{
 			GenericChunkNC* generic;
 			READ_CHILD(stream, generic);
-			LOG("Found unexpected chunk in inst: " + string(generic->GetHeaderName().Buffer()) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			//LOG("Found unexpected chunk in inst: " + string(generic->GetHeaderName().Buffer()) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 		}
 
         BaseChunk::EnsureEnd(stream);

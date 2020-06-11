@@ -105,6 +105,10 @@
       <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,6 +129,10 @@
       <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -149,6 +157,10 @@
       <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -173,6 +185,10 @@
       <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Chunks\LVL\lvl_.h" />
@@ -188,6 +204,7 @@
     <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h" />
     <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
     <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
+    <ClInclude Include="InternalHelpers.h" />
     <ClInclude Include="Tools\Instance.h" />
     <ClInclude Include="Tools\Level.h" />
     <ClInclude Include="Tools\Material.h" />
@@ -281,6 +298,7 @@
     <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\wrld.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp" />
+    <ClCompile Include="InternalHelpers.cpp" />
     <ClCompile Include="Tools\Instance.cpp" />
     <ClCompile Include="Tools\Level.cpp" />
     <ClCompile Include="Tools\Material.cpp" />
@@ -364,11 +382,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
   </Target>
 </Project>
