@@ -1,4 +1,5 @@
 #pragma once
+#include "Chunks\HeaderNames.h"
 
 namespace LibSWBF2
 {

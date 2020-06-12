@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FileReader.h"
-#include "Logger.h"
-#include "LibString.h"
+#include "Logging\Logger.h"
+#include "Types\LibString.h"
 
 namespace LibSWBF2
 {
@@ -41,7 +41,7 @@ namespace LibSWBF2
 
 	ChunkHeader FileReader::ReadChunkHeader(const bool& peek)
 	{
-		ChunkHeader value = -42;
+		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
 			auto pos = m_Reader.tellg();
@@ -76,10 +76,30 @@ namespace LibSWBF2
 		return value;
 	}
 
+	bool FileReader::ReadBytes(uint8_t* data, size_t length)
+	{
+		if (CheckGood(length))
+		{
+			m_Reader.read((char*)data, length);
+			return true;
+		}
+		return false;
+	}
+
 	int32_t FileReader::ReadInt32()
 	{
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
+		{
+			m_Reader.read((char*)&value, sizeof(value));
+		}
+		return value;
+	}
+
+	int16_t FileReader::ReadInt16()
+	{
+		int16_t value = 0;
+		if (CheckGood(sizeof(int16_t)))
 		{
 			m_Reader.read((char*)&value, sizeof(value));
 		}
@@ -121,20 +141,38 @@ namespace LibSWBF2
 		String value;
 		if (CheckGood(length))
 		{
-			char* str = new char[length];
+			char* str = new char[length+1];
 			m_Reader.read(str, length);
+			str[length] = 0;
 			value = str;
 			delete[] str;
 		}
 		return value;
 	}
 
+	String FileReader::ReadString()
+	{
+		char str[1024]; // should be enough
+		uint8_t current = 1;
+		for (uint16_t i = 0; CheckGood(1) && current != 0; ++i)
+		{
+			if (i >= 1024)
+			{
+				LOG("Reading null terminated string exceeded buffer size!", ELogType::Warning);
+				break;
+			}
+			current = ReadByte();
+			str[i] = current;
+		}
+		return str;
+	}
+
 	void FileReader::Close()
 	{
 		if (!m_Reader.is_open())
 		{
-			LOG("Nothing has been opened yet!", ELogType::Warning);
-			throw 666;
+			//LOG("Nothing has been opened yet!", ELogType::Error);
+			throw std::runtime_error("Nothing has been opened yet!");
 		}
 
 		m_FileName = "";
@@ -166,8 +204,8 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			throw 666;
+			//LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
+			throw std::runtime_error("Error during read process! File '" + m_FileName + "' is not open!");
 		}
 
 		if (!m_Reader.good())
@@ -185,15 +223,15 @@ namespace LibSWBF2
 			{
 				reason += " Reading Error on I/O operation!";
 			}
-			LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			throw 666;
+			//LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
+			throw std::runtime_error("Error during read process in '" + m_FileName + "'! Reason: " + reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
-			LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
-			throw 666;
+			//LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
+			throw std::runtime_error("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize));
 		}
 
 		return true;

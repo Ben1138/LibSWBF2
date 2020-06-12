@@ -95,11 +95,20 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,11 +119,20 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,6 +145,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,6 +153,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,6 +173,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,119 +181,214 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>DirectXTex.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="ANM2.h" />
-    <ClInclude Include="ATRB.h" />
-    <ClInclude Include="BaseChunk.h" />
-    <ClInclude Include="BBOX.h" />
-    <ClInclude Include="BoneFrames.h" />
-    <ClInclude Include="BoneWeight.h" />
-    <ClInclude Include="CAMR.h" />
-    <ClInclude Include="Color.h" />
+    <ClInclude Include="Chunks\LVL\lvl_.h" />
+    <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
+    <ClInclude Include="Chunks\LVL\modl\INFO.h" />
+    <ClInclude Include="Chunks\LVL\modl\LVL.modl.h" />
+    <ClInclude Include="Chunks\LVL\modl\MTRL.h" />
+    <ClInclude Include="Chunks\LVL\modl\modl.segm.h" />
+    <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
+    <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
+    <ClInclude Include="Chunks\LVL\modl\VBUF.h" />
+    <ClInclude Include="Chunks\LVL\wrld\inst.h" />
+    <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h" />
+    <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
+    <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
+    <ClInclude Include="InternalHelpers.h" />
+    <ClInclude Include="Tools\Instance.h" />
+    <ClInclude Include="Tools\Level.h" />
+    <ClInclude Include="Tools\Material.h" />
+    <ClInclude Include="Tools\Model.h" />
+    <ClInclude Include="Tools\Segment.h" />
+    <ClInclude Include="Tools\Texture.h" />
+    <ClInclude Include="Tools\World.h" />
+    <ClInclude Include="Types\Animation.h" />
+    <ClInclude Include="Chunks\MSH\ANM2.h" />
+    <ClInclude Include="Chunks\MSH\ATRB.h" />
+    <ClInclude Include="Chunks\BaseChunk.h" />
+    <ClInclude Include="Chunks\MSH\BBOX.h" />
+    <ClInclude Include="Chunks\LVL\tex_\BODY.h" />
+    <ClInclude Include="Types\BoneFrames.h" />
+    <ClInclude Include="Types\BoneWeight.h" />
+    <ClInclude Include="Chunks\MSH\CAMR.h" />
+    <ClInclude Include="Types\Color.h" />
+    <ClInclude Include="Types\Colorf.h" />
     <ClInclude Include="CRC.h" />
-    <ClInclude Include="CYCL.h" />
-    <ClInclude Include="ENVL.h" />
+    <ClInclude Include="Chunks\MSH\CYCL.h" />
+    <ClInclude Include="DirectX\D3D9Types.h" />
+    <ClInclude Include="DirectX\DXHelpers.h" />
+    <ClInclude Include="Chunks\MSH\ENVL.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Chunks\LVL\tex_\FACE.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="FileWriter.h" />
-    <ClInclude Include="FLGS.h" />
-    <ClInclude Include="FRAM.h" />
-    <ClInclude Include="GEOM.h" />
-    <ClInclude Include="HeaderNames.h" />
-    <ClInclude Include="KFR3.h" />
-    <ClInclude Include="LibString.h" />
+    <ClInclude Include="Chunks\MSH\FLGS.h" />
+    <ClInclude Include="Chunks\LVL\tex_\FMT_.h" />
+    <ClInclude Include="Chunks\LVL\tex_\FMT_.INFO.h" />
+    <ClInclude Include="Chunks\MSH\FRAM.h" />
+    <ClInclude Include="Chunks\GenericChunk.h" />
+    <ClInclude Include="Chunks\MSH\GEOM.h" />
+    <ClInclude Include="Chunks\HeaderNames.h" />
+    <ClInclude Include="Chunks\LVL\tex_\tex_.LVL_.h" />
+    <ClInclude Include="Chunks\LVL\tex_\LVL_.INFO.h" />
+    <ClInclude Include="Chunks\LVL\tex_\tex_.INFO.h" />
+    <ClInclude Include="Chunks\LVL\tex_\tex_.h" />
+    <ClInclude Include="Chunks\MSH\KFR3.h" />
+    <ClInclude Include="Types\Enums.h" />
+    <ClInclude Include="Types\LibString.h" />
     <ClInclude Include="LibSWBF2.h" />
-    <ClInclude Include="List.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="LoggerEntry.h" />
-    <ClInclude Include="MATD.h" />
-    <ClInclude Include="MATD_DATA.h" />
-    <ClInclude Include="MATI.h" />
-    <ClInclude Include="MATL.h" />
-    <ClInclude Include="MNDX.h" />
-    <ClInclude Include="MODL.h" />
-    <ClInclude Include="MSH.h" />
-    <ClInclude Include="MSH2.h" />
-    <ClInclude Include="MTYP.h" />
-    <ClInclude Include="Polygon.h" />
+    <ClInclude Include="Types\List.h" />
+    <ClInclude Include="Logging\Logger.h" />
+    <ClInclude Include="Logging\LoggerEntry.h" />
+    <ClInclude Include="Chunks\LVL\LVL.h" />
+    <ClInclude Include="Chunks\MSH\MATD.h" />
+    <ClInclude Include="Chunks\MSH\DATA.h" />
+    <ClInclude Include="Chunks\MSH\MATI.h" />
+    <ClInclude Include="Chunks\MSH\MATL.h" />
+    <ClInclude Include="Chunks\MSH\MNDX.h" />
+    <ClInclude Include="Chunks\MSH\MODL.h" />
+    <ClInclude Include="Chunks\MSH\MSH.h" />
+    <ClInclude Include="Chunks\MSH\MSH2.h" />
+    <ClInclude Include="Chunks\MSH\MTYP.h" />
+    <ClInclude Include="Types\Matrix3x3.h" />
+    <ClInclude Include="Types\Polygon.h" />
     <ClInclude Include="req.h" />
-    <ClInclude Include="RotationFrame.h" />
-    <ClInclude Include="STR.h" />
-    <ClInclude Include="NRML.h" />
-    <ClInclude Include="POSL.h" />
-    <ClInclude Include="SEGM.h" />
-    <ClInclude Include="SHVO.h" />
-    <ClInclude Include="SINF.h" />
+    <ClInclude Include="Types\RotationFrame.h" />
+    <ClInclude Include="Chunks\STR.h" />
+    <ClInclude Include="Chunks\MSH\NRML.h" />
+    <ClInclude Include="Chunks\MSH\POSL.h" />
+    <ClInclude Include="Chunks\MSH\SEGM.h" />
+    <ClInclude Include="Chunks\MSH\SHVO.h" />
+    <ClInclude Include="Chunks\MSH\SINF.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="STRP.h" />
-    <ClInclude Include="SWCI.h" />
+    <ClInclude Include="Chunks\MSH\STRP.h" />
+    <ClInclude Include="Chunks\MSH\SWCI.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TERR.h" />
-    <ClInclude Include="TRAN.h" />
-    <ClInclude Include="TranslationFrame.h" />
-    <ClInclude Include="UV0L.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
-    <ClInclude Include="WGHT.h" />
+    <ClInclude Include="Chunks\TERR\TERR.h" />
+    <ClInclude Include="Chunks\MSH\TRAN.h" />
+    <ClInclude Include="Types\TranslationFrame.h" />
+    <ClInclude Include="Chunks\MSH\UV0L.h" />
+    <ClInclude Include="Types\Vector2.h" />
+    <ClInclude Include="Types\Vector3.h" />
+    <ClInclude Include="Types\Vector3u8.h" />
+    <ClInclude Include="Types\Vector4.h" />
+    <ClInclude Include="Chunks\MSH\WGHT.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="ANM2.cpp" />
-    <ClCompile Include="ATRB.cpp" />
-    <ClCompile Include="BaseChunk.cpp" />
-    <ClCompile Include="BBOX.cpp" />
-    <ClCompile Include="BoneFrames.cpp" />
-    <ClCompile Include="BoneWeight.cpp" />
-    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Chunks\LVL\lvl_.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\MTRL.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\VBUF.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\inst.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\wrld.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp" />
+    <ClCompile Include="InternalHelpers.cpp" />
+    <ClCompile Include="Tools\Instance.cpp" />
+    <ClCompile Include="Tools\Level.cpp" />
+    <ClCompile Include="Tools\Material.cpp" />
+    <ClCompile Include="Tools\Model.cpp" />
+    <ClCompile Include="Tools\Segment.cpp" />
+    <ClCompile Include="Tools\Texture.cpp" />
+    <ClCompile Include="Tools\World.cpp" />
+    <ClCompile Include="Types\Animation.cpp" />
+    <ClCompile Include="Chunks\MSH\ANM2.cpp" />
+    <ClCompile Include="Chunks\MSH\ATRB.cpp" />
+    <ClCompile Include="Chunks\BaseChunk.cpp" />
+    <ClCompile Include="Chunks\MSH\BBOX.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\BODY.cpp" />
+    <ClCompile Include="Types\BoneFrames.cpp" />
+    <ClCompile Include="Types\BoneWeight.cpp" />
+    <ClCompile Include="Types\Color.cpp" />
+    <ClCompile Include="Types\Colorf.cpp" />
     <ClCompile Include="CRC.cpp" />
-    <ClCompile Include="CYCL.cpp" />
-    <ClCompile Include="ENVL.cpp" />
+    <ClCompile Include="Chunks\MSH\CYCL.cpp" />
+    <ClCompile Include="DirectX\DXHelpers.cpp" />
+    <ClCompile Include="Chunks\MSH\ENVL.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\FACE.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="FileWriter.cpp" />
-    <ClCompile Include="FLGS.cpp" />
-    <ClCompile Include="FRAM.cpp" />
-    <ClCompile Include="GEOM.cpp" />
-    <ClCompile Include="KFR3.cpp" />
-    <ClCompile Include="LibString.cpp" />
-    <ClCompile Include="List.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="LoggerEntry.cpp" />
-    <ClCompile Include="MATD.cpp" />
-    <ClCompile Include="MATD_DATA.cpp" />
-    <ClCompile Include="MATI.cpp" />
-    <ClCompile Include="MATL.cpp" />
-    <ClCompile Include="MNDX.cpp" />
-    <ClCompile Include="MODL.cpp" />
-    <ClCompile Include="MSH.cpp" />
-    <ClCompile Include="MSH2.cpp" />
-    <ClCompile Include="MTYP.cpp" />
-    <ClCompile Include="RotationFrame.cpp" />
-    <ClCompile Include="SEGM.cpp" />
-    <ClCompile Include="STR.cpp" />
-    <ClCompile Include="NRML.cpp" />
-    <ClCompile Include="POSL.cpp" />
-    <ClCompile Include="SHVO.cpp" />
-    <ClCompile Include="SINF.cpp" />
+    <ClCompile Include="Chunks\MSH\FLGS.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\FMT_.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\FMT_.INFO.cpp" />
+    <ClCompile Include="Chunks\MSH\FRAM.cpp" />
+    <ClCompile Include="Chunks\GenericChunk.cpp" />
+    <ClCompile Include="Chunks\MSH\GEOM.cpp" />
+    <ClCompile Include="Chunks\HeaderNames.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\tex_.LVL_.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\LVL_.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\tex_.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\tex_\tex_.cpp" />
+    <ClCompile Include="Chunks\MSH\KFR3.cpp" />
+    <ClCompile Include="Types\Enums.cpp" />
+    <ClCompile Include="Types\LibString.cpp" />
+    <ClCompile Include="Types\List.cpp" />
+    <ClCompile Include="Logging\Logger.cpp" />
+    <ClCompile Include="Logging\LoggerEntry.cpp" />
+    <ClCompile Include="Chunks\LVL\LVL.cpp" />
+    <ClCompile Include="Chunks\MSH\MATD.cpp" />
+    <ClCompile Include="Chunks\MSH\DATA.cpp" />
+    <ClCompile Include="Chunks\MSH\MATI.cpp" />
+    <ClCompile Include="Chunks\MSH\MATL.cpp" />
+    <ClCompile Include="Chunks\MSH\MNDX.cpp" />
+    <ClCompile Include="Chunks\MSH\MODL.cpp" />
+    <ClCompile Include="Chunks\MSH\MSH.cpp" />
+    <ClCompile Include="Chunks\MSH\MSH2.cpp" />
+    <ClCompile Include="Chunks\MSH\MTYP.cpp" />
+    <ClCompile Include="Types\Matrix3x3.cpp" />
+    <ClCompile Include="Types\RotationFrame.cpp" />
+    <ClCompile Include="Chunks\MSH\SEGM.cpp" />
+    <ClCompile Include="Chunks\STR.cpp" />
+    <ClCompile Include="Chunks\MSH\NRML.cpp" />
+    <ClCompile Include="Chunks\MSH\POSL.cpp" />
+    <ClCompile Include="Chunks\MSH\SHVO.cpp" />
+    <ClCompile Include="Chunks\MSH\SINF.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="STRP.cpp" />
-    <ClCompile Include="SWCI.cpp" />
-    <ClCompile Include="TERR.cpp" />
-    <ClCompile Include="TRAN.cpp" />
-    <ClCompile Include="TranslationFrame.cpp" />
-    <ClCompile Include="UV0L.cpp" />
-    <ClCompile Include="Vector2.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="Vector4.cpp" />
-    <ClCompile Include="WGHT.cpp" />
+    <ClCompile Include="Chunks\MSH\STRP.cpp" />
+    <ClCompile Include="Chunks\MSH\SWCI.cpp" />
+    <ClCompile Include="Chunks\TERR\TERR.cpp" />
+    <ClCompile Include="Chunks\MSH\TRAN.cpp" />
+    <ClCompile Include="Types\TranslationFrame.cpp" />
+    <ClCompile Include="Chunks\MSH\UV0L.cpp" />
+    <ClCompile Include="Types\Vector2.cpp" />
+    <ClCompile Include="Types\Vector3.cpp" />
+    <ClCompile Include="Types\Vector3u8.cpp" />
+    <ClCompile Include="Types\Vector4.cpp" />
+    <ClCompile Include="Chunks\MSH\WGHT.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
+  </Target>
 </Project>

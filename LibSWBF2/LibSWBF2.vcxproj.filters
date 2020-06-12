@@ -16,17 +16,11 @@
     <Filter Include="Header Files\Chunks">
       <UniqueIdentifier>{23a39af6-8b81-40ef-9902-799c4d273db3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Chunks\Mesh">
-      <UniqueIdentifier>{bd795e08-5c42-4ced-a558-a013fba3c7f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Types">
       <UniqueIdentifier>{5a21b86c-2d1e-4fc0-8d2a-d4a708c45aaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Chunks">
       <UniqueIdentifier>{0a6b70fd-c5ef-4931-becc-55b35da084c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Chunks\Mesh">
-      <UniqueIdentifier>{325932d1-039d-419b-be46-2a35573efee2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Types">
       <UniqueIdentifier>{9aa900db-e123-47ae-9503-9e4d53e5fdef}</UniqueIdentifier>
@@ -37,11 +31,53 @@
     <Filter Include="Header Files\Logging">
       <UniqueIdentifier>{704efeb4-8560-402c-9355-043e9d9794b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Chunks\Terrain">
+    <Filter Include="Header Files\Chunks\LVL">
+      <UniqueIdentifier>{5630c7cb-b2a2-4aa4-a6e5-0317cf15830c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL">
+      <UniqueIdentifier>{50de561c-cac0-4867-bd9c-5e453216190b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\tex_">
+      <UniqueIdentifier>{badfa052-1cfb-4d73-9281-cac86adc8810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\tex_">
+      <UniqueIdentifier>{e01c1057-8e7f-4782-8afd-fc7b21b28d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DirectX">
+      <UniqueIdentifier>{bca4304c-57e5-4cc1-b123-9bb9852e1409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DirectX">
+      <UniqueIdentifier>{cf272b5a-1c33-45fc-a628-5008f924903f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\modl">
+      <UniqueIdentifier>{45c2b390-ea88-4dc5-9498-8209f379f4fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\MSH">
+      <UniqueIdentifier>{bd795e08-5c42-4ced-a558-a013fba3c7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\TERR">
       <UniqueIdentifier>{0b4f652d-b2bb-4179-82cc-477ca8c48a51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Chunks\Terrain">
+    <Filter Include="Source Files\Chunks\MSH">
+      <UniqueIdentifier>{325932d1-039d-419b-be46-2a35573efee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\TERR">
       <UniqueIdentifier>{d4d2abb4-f87e-4dd6-b6b0-5f94e99c35c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\modl">
+      <UniqueIdentifier>{04c6d9ba-3c86-4cf4-a394-2b750b22a8f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools">
+      <UniqueIdentifier>{80379c80-03ca-48dd-ab68-a48e69779284}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tools">
+      <UniqueIdentifier>{5f5a3a00-e1c0-40c1-a82e-a6fcf78878d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\wrld">
+      <UniqueIdentifier>{b9fb2001-a7b1-4917-b7c9-de1615daea07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\wrld">
+      <UniqueIdentifier>{13d4fd95-2f13-4db0-b9d7-d99c0b1fe918}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,104 +93,98 @@
     <ClInclude Include="FileReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaseChunk.h">
+    <ClInclude Include="Chunks\BaseChunk.h">
       <Filter>Header Files\Chunks</Filter>
     </ClInclude>
-    <ClInclude Include="ATRB.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\ATRB.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="BBOX.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\BBOX.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="CAMR.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\CAMR.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="FLGS.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\FLGS.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="FRAM.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\FRAM.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="GEOM.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\GEOM.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MATD.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MATD.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MATD_DATA.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MATL.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MATL.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MNDX.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MNDX.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MODL.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MODL.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MSH.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MSH.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MSH2.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MSH2.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MTYP.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MTYP.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\SHVO.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="SHVO.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\SINF.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="SINF.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\TRAN.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="TRAN.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="Types\Vector2.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="Types\Vector3.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Vector4.h">
+    <ClInclude Include="Types\Vector4.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="LoggerEntry.h">
+    <ClInclude Include="Logging\LoggerEntry.h">
       <Filter>Header Files\Logging</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
+    <ClInclude Include="Logging\Logger.h">
       <Filter>Header Files\Logging</Filter>
     </ClInclude>
-    <ClInclude Include="HeaderNames.h">
+    <ClInclude Include="Chunks\HeaderNames.h">
       <Filter>Header Files\Chunks</Filter>
     </ClInclude>
-    <ClInclude Include="SEGM.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\SEGM.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="MATI.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\MATI.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="POSL.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\POSL.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="WGHT.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\WGHT.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="BoneWeight.h">
+    <ClInclude Include="Types\BoneWeight.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="NRML.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\NRML.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="UV0L.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\UV0L.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="STRP.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\STRP.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
     <ClInclude Include="req.h">
       <Filter>Header Files</Filter>
@@ -162,50 +192,170 @@
     <ClInclude Include="LibSWBF2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon.h">
+    <ClInclude Include="Types\Polygon.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="ANM2.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\CYCL.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="CYCL.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\KFR3.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="KFR3.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
+    <ClInclude Include="Types\Animation.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="BoneFrames.h">
+    <ClInclude Include="Types\BoneFrames.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="TranslationFrame.h">
+    <ClInclude Include="Types\TranslationFrame.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="RotationFrame.h">
+    <ClInclude Include="Types\RotationFrame.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="CRC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ENVL.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\ENVL.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="SWCI.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
+    <ClInclude Include="Chunks\MSH\SWCI.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
-    <ClInclude Include="STR.h">
-      <Filter>Header Files\Chunks\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
+    <ClInclude Include="Types\List.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="LibString.h">
+    <ClInclude Include="Types\LibString.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="TERR.h">
-      <Filter>Header Files\Chunks\Terrain</Filter>
+    <ClInclude Include="Chunks\TERR\TERR.h">
+      <Filter>Header Files\Chunks\TERR</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\LVL.h">
+      <Filter>Header Files\Chunks\LVL</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\STR.h">
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\tex_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\tex_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\MSH\DATA.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\FMT_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\FMT_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\GenericChunk.h">
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\FACE.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\LVL_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\BODY.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\D3D9Types.h">
+      <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\DXHelpers.h">
+      <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\MSH\ANM2.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\segm.INFO.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Enums.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\INFO.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\LVL.modl.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\modl.segm.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\MTRL.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Colorf.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Color.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\TNAM.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\IBUF.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\VBUF.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Vector3u8.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Level.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Model.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Texture.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Segment.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Material.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tex_\tex_.LVL_.h">
+      <Filter>Header Files\Chunks\LVL\tex_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lvl_.h">
+      <Filter>Header Files\Chunks\LVL</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Matrix3x3.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Instance.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\World.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalHelpers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,140 +368,254 @@
     <ClCompile Include="FileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BBOX.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\BBOX.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="ATRB.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\ATRB.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="FLGS.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\FLGS.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="FRAM.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\FRAM.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="GEOM.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\GEOM.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MATD.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MATD.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MATD_DATA.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MATL.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MATL.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MNDX.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MNDX.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MODL.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MODL.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MSH.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MSH.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MSH2.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MSH2.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MTYP.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="MTYP.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\SHVO.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="SHVO.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\SINF.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="SINF.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\TRAN.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="TRAN.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
+    <ClCompile Include="Types\Vector2.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp">
+    <ClCompile Include="Types\Vector3.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Vector4.cpp">
+    <ClCompile Include="Types\Vector4.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Source Files\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseChunk.cpp">
+    <ClCompile Include="Chunks\BaseChunk.cpp">
       <Filter>Source Files\Chunks</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
+    <ClCompile Include="Logging\Logger.cpp">
       <Filter>Source Files\Logging</Filter>
     </ClCompile>
-    <ClCompile Include="LoggerEntry.cpp">
+    <ClCompile Include="Logging\LoggerEntry.cpp">
       <Filter>Source Files\Logging</Filter>
     </ClCompile>
-    <ClCompile Include="MATI.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\MATI.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="POSL.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\POSL.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="WGHT.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\WGHT.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="BoneWeight.cpp">
+    <ClCompile Include="Types\BoneWeight.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="NRML.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\NRML.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="UV0L.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\UV0L.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="STRP.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\STRP.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="SEGM.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\SEGM.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="CYCL.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\CYCL.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="KFR3.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\KFR3.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
+    <ClCompile Include="Types\Animation.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="ANM2.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\ANM2.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="TranslationFrame.cpp">
+    <ClCompile Include="Types\TranslationFrame.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="RotationFrame.cpp">
+    <ClCompile Include="Types\RotationFrame.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="BoneFrames.cpp">
+    <ClCompile Include="Types\BoneFrames.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="CRC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ENVL.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\ENVL.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="SWCI.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
+    <ClCompile Include="Chunks\MSH\SWCI.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
-    <ClCompile Include="STR.cpp">
-      <Filter>Source Files\Chunks\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="List.cpp">
+    <ClCompile Include="Types\List.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="LibString.cpp">
+    <ClCompile Include="Types\LibString.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="TERR.cpp">
-      <Filter>Source Files\Chunks\Terrain</Filter>
+    <ClCompile Include="Chunks\TERR\TERR.cpp">
+      <Filter>Source Files\Chunks\TERR</Filter>
     </ClCompile>
+    <ClCompile Include="Chunks\LVL\LVL.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\HeaderNames.cpp">
+      <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\STR.cpp">
+      <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\tex_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\tex_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\MSH\DATA.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\FMT_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\FMT_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\GenericChunk.cpp">
+      <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\FACE.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\LVL_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\BODY.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX\DXHelpers.cpp">
+      <Filter>Source Files\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Enums.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\MTRL.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Colorf.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Color.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\TNAM.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\IBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\VBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Vector3u8.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Level.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Model.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Texture.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Segment.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Material.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tex_\tex_.LVL_.cpp">
+      <Filter>Source Files\Chunks\LVL\tex_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lvl_.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\wrld.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\inst.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Matrix3x3.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\World.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Instance.cpp">
+      <Filter>Source Files\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
