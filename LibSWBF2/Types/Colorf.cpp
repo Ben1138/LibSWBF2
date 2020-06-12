@@ -23,17 +23,17 @@ namespace LibSWBF2::Types
 
 	void Colorf::WriteToStream(FileWriter& stream)
 	{
-		stream.WriteFloat(m_Red);
-		stream.WriteFloat(m_Green);
 		stream.WriteFloat(m_Blue);
+		stream.WriteFloat(m_Green);
+		stream.WriteFloat(m_Red);
 		stream.WriteFloat(m_Alpha);
 	}
 
 	void Colorf::ReadFromStream(FileReader& stream)
 	{
-		m_Red = stream.ReadFloat();
-		m_Green = stream.ReadFloat();
 		m_Blue = stream.ReadFloat();
+		m_Green = stream.ReadFloat();
+		m_Red = stream.ReadFloat();
 		m_Alpha = stream.ReadFloat();
 	}
 }
