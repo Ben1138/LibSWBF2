@@ -1,4 +1,5 @@
 #pragma once
+#include "Chunks\HeaderNames.h"
 
 namespace LibSWBF2
 {
@@ -17,11 +18,14 @@ namespace LibSWBF2
 		ChunkHeader ReadChunkHeader(const bool& peek);
 		ChunkSize ReadChunkSize();
 		uint8_t ReadByte();
+		bool ReadBytes(uint8_t* data, size_t length);
 		int32_t ReadInt32();
+		int16_t ReadInt16();
 		uint32_t ReadUInt32();
 		uint16_t ReadUInt16();
 		float_t ReadFloat();
 		String ReadString(size_t length);
+		String ReadString(); // will read until the first null terminator
 		size_t GetPosition();
 		void SetPosition(size_t NewPosition);
 		size_t GetFileSize();
