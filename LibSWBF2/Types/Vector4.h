@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Vector4 : public Vector3
+	struct LIBSWBF2_API Vector4 : public Vector3
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 4;
 

@@ -27,26 +27,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>LibSWBF2Core</TargetName>
+    <TargetName>LibSWBF2</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>LibSWBF2Core_x86</TargetName>
+    <TargetName>LibSWBF2</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>LibSWBF2Core.x86</TargetName>
+    <TargetName>LibSWBF2</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>LibSWBF2Core</TargetName>
+    <TargetName>LibSWBF2</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
@@ -116,7 +116,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
@@ -142,7 +142,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
@@ -170,7 +170,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
@@ -191,6 +191,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="API.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
     <ClInclude Include="Chunks\LVL\modl\INFO.h" />
@@ -205,13 +206,13 @@
     <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
     <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
     <ClInclude Include="InternalHelpers.h" />
-    <ClInclude Include="Tools\Instance.h" />
-    <ClInclude Include="Tools\Level.h" />
-    <ClInclude Include="Tools\Material.h" />
-    <ClInclude Include="Tools\Model.h" />
-    <ClInclude Include="Tools\Segment.h" />
-    <ClInclude Include="Tools\Texture.h" />
-    <ClInclude Include="Tools\World.h" />
+    <ClInclude Include="Wrappers\Instance.h" />
+    <ClInclude Include="Wrappers\Level.h" />
+    <ClInclude Include="Wrappers\Material.h" />
+    <ClInclude Include="Wrappers\Model.h" />
+    <ClInclude Include="Wrappers\Segment.h" />
+    <ClInclude Include="Wrappers\Texture.h" />
+    <ClInclude Include="Wrappers\World.h" />
     <ClInclude Include="Types\Animation.h" />
     <ClInclude Include="Chunks\MSH\ANM2.h" />
     <ClInclude Include="Chunks\MSH\ATRB.h" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Chunks\MSH\WGHT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="API.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
     <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
@@ -298,14 +300,15 @@
     <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\wrld.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp" />
+    <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
-    <ClCompile Include="Tools\Instance.cpp" />
-    <ClCompile Include="Tools\Level.cpp" />
-    <ClCompile Include="Tools\Material.cpp" />
-    <ClCompile Include="Tools\Model.cpp" />
-    <ClCompile Include="Tools\Segment.cpp" />
-    <ClCompile Include="Tools\Texture.cpp" />
-    <ClCompile Include="Tools\World.cpp" />
+    <ClCompile Include="Wrappers\Instance.cpp" />
+    <ClCompile Include="Wrappers\Level.cpp" />
+    <ClCompile Include="Wrappers\Material.cpp" />
+    <ClCompile Include="Wrappers\Model.cpp" />
+    <ClCompile Include="Wrappers\Segment.cpp" />
+    <ClCompile Include="Wrappers\Texture.cpp" />
+    <ClCompile Include="Wrappers\World.cpp" />
     <ClCompile Include="Types\Animation.cpp" />
     <ClCompile Include="Chunks\MSH\ANM2.cpp" />
     <ClCompile Include="Chunks\MSH\ATRB.cpp" />

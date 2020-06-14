@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH2;
 
-	struct LIBSWBF2_EXP SINF : public BaseChunk
+	struct LIBSWBF2_API SINF : public BaseChunk
 	{
 		SINF() = default;
 		~SINF() = default;

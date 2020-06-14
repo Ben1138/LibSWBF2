@@ -1,9 +1,9 @@
 // This file should include all requirements
 
-#if defined _LIB || defined LIBSWBF2DLL_EXPORTS
-#define LIBSWBF2_EXP __declspec(dllexport)
+#ifdef LIBSWBF2_EXPORTS
+#define LIBSWBF2_API __declspec(dllexport)
 #else
-#define LIBSWBF2_EXP __declspec(dllimport)
+#define LIBSWBF2_API __declspec(dllimport)
 #endif
 
 #pragma once

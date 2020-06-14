@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct LIBSWBF2_EXP MSH : public BaseChunk
+	struct LIBSWBF2_API MSH : public BaseChunk
 	{
 		static MSH* Create();
 		static void Destroy(MSH* msh);

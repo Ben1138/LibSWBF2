@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP TranslationFrame
+	struct LIBSWBF2_API TranslationFrame
 	{
 		static const ChunkSize SIZE = sizeof(uint32_t) + Vector3::SIZE;
 

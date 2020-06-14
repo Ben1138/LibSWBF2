@@ -34,16 +34,16 @@ namespace LibSWBF2::Chunks
 
 namespace LibSWBF2::Chunks
 {
-	template LIBSWBF2_EXP struct STR<"NAME"_m>;
-	template LIBSWBF2_EXP struct STR<"TYPE"_m>;
-	template LIBSWBF2_EXP struct STR<"TX0D"_m>;
-	template LIBSWBF2_EXP struct STR<"TX1D"_m>;
-	template LIBSWBF2_EXP struct STR<"TX2D"_m>;
-	template LIBSWBF2_EXP struct STR<"TX3D"_m>;
-	template LIBSWBF2_EXP struct STR<"PRNT"_m>;
-	template LIBSWBF2_EXP struct STR<"NODE"_m>;
-	template LIBSWBF2_EXP struct STR<"RTYP"_m>;
-	template LIBSWBF2_EXP struct STR<"BNAM"_m>;
-	template LIBSWBF2_EXP struct STR<"TNAM"_m>;
-	template LIBSWBF2_EXP struct STR<"SNAM"_m>;
+	template LIBSWBF2_API struct STR<"NAME"_m>;
+	template LIBSWBF2_API struct STR<"TYPE"_m>;
+	template LIBSWBF2_API struct STR<"TX0D"_m>;
+	template LIBSWBF2_API struct STR<"TX1D"_m>;
+	template LIBSWBF2_API struct STR<"TX2D"_m>;
+	template LIBSWBF2_API struct STR<"TX3D"_m>;
+	template LIBSWBF2_API struct STR<"PRNT"_m>;
+	template LIBSWBF2_API struct STR<"NODE"_m>;
+	template LIBSWBF2_API struct STR<"RTYP"_m>;
+	template LIBSWBF2_API struct STR<"BNAM"_m>;
+	template LIBSWBF2_API struct STR<"TNAM"_m>;
+	template LIBSWBF2_API struct STR<"SNAM"_m>;
 }

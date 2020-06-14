@@ -2,7 +2,7 @@
 #include "Chunks\LVL\modl\LVL.modl.h"
 #include "Material.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Types::Vector2;
 	using Types::Vector3;
@@ -10,7 +10,7 @@ namespace LibSWBF2::Tools
 	using Chunks::LVL::modl::VBUF;
 	class Level;
 
-	class LIBSWBF2_EXP Segment
+	class LIBSWBF2_API Segment
 	{
 	public:
 		Segment() = default;

@@ -6,7 +6,7 @@
 #include "Types\LibString.h"
 #include "Texture.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::modl::MTRL;
 	using Types::List;
@@ -15,7 +15,7 @@ namespace LibSWBF2::Tools
 
 	class Level;
 
-	class LIBSWBF2_EXP Material
+	class LIBSWBF2_API Material
 	{
 	public:
 		Material() = default;

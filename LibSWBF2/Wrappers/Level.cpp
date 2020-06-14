@@ -4,7 +4,7 @@
 #include "Chunks\LVL\tex_\tex_.h"
 #include "Chunks\LVL\modl\LVL.modl.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Logging::ELogType;
 	using Chunks::GenericBaseChunk;

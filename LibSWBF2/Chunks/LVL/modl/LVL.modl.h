@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP modl : public GenericChunk<"modl"_m>
+	struct LIBSWBF2_API modl : public GenericChunk<"modl"_m>
 	{
 	public:
 		STR<"NAME"_m>* p_Name;

@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct GEOM;
 
-	struct LIBSWBF2_EXP ENVL : public BaseChunk
+	struct LIBSWBF2_API ENVL : public BaseChunk
 	{
 		ENVL() = default;
 		~ENVL() = default;

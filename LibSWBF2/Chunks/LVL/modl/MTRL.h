@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP MTRL : public GenericChunk<"MTRL"_m>
+	struct LIBSWBF2_API MTRL : public GenericChunk<"MTRL"_m>
 	{
 	public:
 		EMaterialFlags m_Flags;

@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP BoneWeight
+	struct LIBSWBF2_API BoneWeight
 	{
 		static const ChunkSize SIZE = sizeof(float_t) + sizeof(uint32_t);
 
@@ -15,7 +15,7 @@ namespace LibSWBF2::Types
 		float_t m_WeightValue = 0.0f;		// 0.0-1.0
 	};
 
-	struct LIBSWBF2_EXP VertexWeights
+	struct LIBSWBF2_API VertexWeights
 	{
 		static const uint8_t NUM_OF_WEIGHTS = 4;
 		static const ChunkSize SIZE = sizeof(BoneWeight) * NUM_OF_WEIGHTS;

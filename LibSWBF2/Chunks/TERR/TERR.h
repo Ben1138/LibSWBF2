@@ -16,14 +16,14 @@ namespace LibSWBF2::Chunks::Terrain
 	using LibSWBF2::Types::String;
 
 	// TODO: Move to Types into a dedicated header file
-	struct LIBSWBF2_EXP TextureLayer
+	struct LIBSWBF2_API TextureLayer
 	{
 		String DiffuseName;
 		String DetailName;
 	};
 
 	// TODO: Move to Types into a dedicated header file
-	struct LIBSWBF2_EXP WaterLayer
+	struct LIBSWBF2_API WaterLayer
 	{
 		float_t WaterHeight;
 		Vector2 UVAnimationVelocity;
@@ -32,7 +32,7 @@ namespace LibSWBF2::Chunks::Terrain
 		String TextureName;
 	};
 
-	struct LIBSWBF2_EXP TERR
+	struct LIBSWBF2_API TERR
 	{
 		static TERR* Create();
 		static void Destroy(TERR* terrain);

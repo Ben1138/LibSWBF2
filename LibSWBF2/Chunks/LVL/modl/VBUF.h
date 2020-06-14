@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP VBUF : public GenericChunk<"VBUF"_m>
+	struct LIBSWBF2_API VBUF : public GenericChunk<"VBUF"_m>
 	{
 	public:
 		uint32_t m_Count;

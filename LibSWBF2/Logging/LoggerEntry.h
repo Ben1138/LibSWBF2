@@ -19,7 +19,7 @@ namespace LibSWBF2::Logging
 	struct LoggerEntry
 	{
 		LoggerEntry(const char* message, const ELogType& level, const uint64_t& line, const char* file);
-		LIBSWBF2_EXP string ToString() const;
+		LIBSWBF2_API string ToString() const;
 
 		const char* m_Message;
 		uint8_t m_Level;

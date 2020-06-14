@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 
 	struct SEGM;
 
-	struct LIBSWBF2_EXP STRP : public BaseChunk
+	struct LIBSWBF2_API STRP : public BaseChunk
 	{
 		STRP() = default;
 		~STRP() = default;

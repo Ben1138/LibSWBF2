@@ -108,9 +108,9 @@ namespace LibSWBF2
 		B8_G8_R8_A8
 	};
 
-	String LIBSWBF2_EXP TopologyToString(ETopology topology);
-	String LIBSWBF2_EXP MaterialFlagsToString(EMaterialFlags flags);
-	String LIBSWBF2_EXP EVBUFFlagsToString(EVBUFFlags flags);
+	String LIBSWBF2_API TopologyToString(ETopology topology);
+	String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
+	String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);

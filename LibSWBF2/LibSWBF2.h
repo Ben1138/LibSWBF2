@@ -13,7 +13,8 @@
 #include "Chunks\TERR\TERR.h"
 #include "Chunks\LVL\LVL.h"
 #include "Chunks\LVL\tex_\tex_.h"
-#include "Tools\Level.h"
+#include "Wrappers\Level.h"
+#include "API.h"
 
 // Include this file when LibSWBF2 externally
 // This header should not be included in its own project

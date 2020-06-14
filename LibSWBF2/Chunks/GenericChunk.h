@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Chunks
 {
-	struct LIBSWBF2_EXP GenericBaseChunk : public BaseChunk
+	struct LIBSWBF2_API GenericBaseChunk : public BaseChunk
 	{
 		GenericBaseChunk() = default;
 		~GenericBaseChunk();
@@ -36,7 +36,7 @@ namespace LibSWBF2::Chunks
 	};
 
 	template<uint32_t Header>
-	struct LIBSWBF2_EXP GenericChunk : public GenericBaseChunk
+	struct LIBSWBF2_API GenericChunk : public GenericBaseChunk
 	{
 	protected:
 		void Check(FileReader& stream);
@@ -48,7 +48,7 @@ namespace LibSWBF2::Chunks
 	};
 
 	// do not perform any checks on this one
-	struct LIBSWBF2_EXP GenericChunkNC : public GenericChunk<0> {};
+	struct LIBSWBF2_API GenericChunkNC : public GenericChunk<0> {};
 
 
 #define READ_CHILD(stream, member) ReadChildExplicit(this, stream, member);

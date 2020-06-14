@@ -1,9 +1,6 @@
 #pragma once
-#ifdef LIBSWBF2DLL_EXPORTS
-#define LIBSWBF2_API __declspec(dllexport)
-#else
-#define LIBSWBF2_API __declspec(dllimport)
-#endif
+#include "Chunks\MSH\\MSH.h"
+#include "Wrappers\Level.h"
 
 namespace LibSWBF2::API
 {
@@ -16,7 +13,7 @@ namespace LibSWBF2::API
 	using Logging::LogCallback;
 	using Logging::Logger;
 	using Logging::ELogType;
-	using Tools::Level;
+	using Wrappers::Level;
 
 	// Provide mangling free C-functions to be
 	// accessible from C# wrapper
@@ -34,9 +31,7 @@ namespace LibSWBF2::API
 		LIBSWBF2_API void STRP_CalcPolygons(STRP* strp);
 		LIBSWBF2_API EModelPurpose MODL_GetPurpose(MODL* modl);
 
-		LIBSWBF2_API CRCChecksum CalcLowerCRC(const char* str);
-
-		// Tools
+		// Wrappers
 		LIBSWBF2_API Level* Level_FromFile(const char* path);
 		LIBSWBF2_API void Level_Destroy(Level* level);
 

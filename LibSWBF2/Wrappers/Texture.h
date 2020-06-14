@@ -3,12 +3,12 @@
 #include "Chunks\LVL\tex_\tex_.h"
 #include "Types\Enums.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::texture::FMT_;
 
-	class LIBSWBF2_EXP Texture
+	class LIBSWBF2_API Texture
 	{
 	public:
 		Texture() = default;

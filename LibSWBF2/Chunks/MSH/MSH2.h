@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH;
 
-	struct LIBSWBF2_EXP MSH2 : public BaseChunk
+	struct LIBSWBF2_API MSH2 : public BaseChunk
 	{
 		SINF m_SceneInformation;
 		MATL m_MaterialList;

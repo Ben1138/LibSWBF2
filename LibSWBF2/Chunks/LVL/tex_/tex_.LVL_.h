@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
-	struct LIBSWBF2_EXP LVL_ : public GenericChunk<"LVL_"_m>
+	struct LIBSWBF2_API LVL_ : public GenericChunk<"LVL_"_m>
 	{
 	public:
 		INFO* p_Info = nullptr;

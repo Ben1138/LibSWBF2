@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::String;
 
-	struct LIBSWBF2_EXP BaseChunk
+	struct LIBSWBF2_API BaseChunk
 	{
 		bool WriteToFile(const string& Path);
 		bool ReadFromFile(const string& Path);

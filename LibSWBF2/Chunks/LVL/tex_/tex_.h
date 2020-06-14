@@ -7,7 +7,7 @@
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
-	struct LIBSWBF2_EXP tex_ : public GenericChunk<"tex_"_m>
+	struct LIBSWBF2_API tex_ : public GenericChunk<"tex_"_m>
 	{
 	public:
 		STR<"NAME"_m>* p_Name;

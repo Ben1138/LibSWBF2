@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP String
+	struct LIBSWBF2_API String
 	{
 		String();
 		String(const char* cStr);

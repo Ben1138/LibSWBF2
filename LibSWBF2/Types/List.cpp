@@ -256,7 +256,7 @@ namespace LibSWBF2::Types
 #include "Chunks\LVL\modl\TNAM.h"
 #include "Chunks\LVL\wrld\inst.h"
 #include "Chunks\GenericChunk.h"
-#include "Tools\Level.h"
+#include "Wrappers\Level.h"
 #include "D3D9Types.h"
 
 namespace LibSWBF2
@@ -264,36 +264,36 @@ namespace LibSWBF2
 	using namespace Types;
 	using namespace Chunks;
 
-	template LIBSWBF2_EXP class List<uint8_t>;
-	template LIBSWBF2_EXP class List<uint16_t>;
-	template LIBSWBF2_EXP class List<uint32_t>;
-	template LIBSWBF2_EXP class List<Vector2>;
-	template LIBSWBF2_EXP class List<Vector3>;
-	template LIBSWBF2_EXP class List<Vector3u8>;
-	template LIBSWBF2_EXP class List<Color>;
-	template LIBSWBF2_EXP class List<Animation>;
-	template LIBSWBF2_EXP class List<BoneFrames>;
-	template LIBSWBF2_EXP class List<Polygon>;
-	template LIBSWBF2_EXP class List<VertexWeights>;
-	template LIBSWBF2_EXP class List<TranslationFrame>;
-	template LIBSWBF2_EXP class List<RotationFrame>;
-	template LIBSWBF2_EXP class List<MSH::SEGM>;
-	template LIBSWBF2_EXP class List<MSH::MATD>;
-	template LIBSWBF2_EXP class List<MSH::MODL>;
-	template LIBSWBF2_EXP class List<GenericBaseChunk*>;
-	template LIBSWBF2_EXP class List<D3DFORMAT>;
-	template LIBSWBF2_EXP class List<LVL::texture::FMT_*>;
-	template LIBSWBF2_EXP class List<LVL::LVL_texture::LVL_*>;
-	template LIBSWBF2_EXP class List<LVL::modl::modl*>;
-	template LIBSWBF2_EXP class List<LVL::modl::segm*>;
-	template LIBSWBF2_EXP class List<LVL::modl::VBUF*>;
-	template LIBSWBF2_EXP class List<LVL::modl::TNAM*>;
-	template LIBSWBF2_EXP class List<LVL::wrld::inst*>;
-	template LIBSWBF2_EXP class List<Tools::Model>;
-	template LIBSWBF2_EXP class List<Tools::Segment>;
-	template LIBSWBF2_EXP class List<Tools::Material>;
-	template LIBSWBF2_EXP class List<Tools::Texture>;
-	template LIBSWBF2_EXP class List<Tools::World>;
-	template LIBSWBF2_EXP class List<Tools::Instance>;
-	template LIBSWBF2_EXP class List<const Tools::Texture*>;
+	template LIBSWBF2_API class List<uint8_t>;
+	template LIBSWBF2_API class List<uint16_t>;
+	template LIBSWBF2_API class List<uint32_t>;
+	template LIBSWBF2_API class List<Vector2>;
+	template LIBSWBF2_API class List<Vector3>;
+	template LIBSWBF2_API class List<Vector3u8>;
+	template LIBSWBF2_API class List<Color>;
+	template LIBSWBF2_API class List<Animation>;
+	template LIBSWBF2_API class List<BoneFrames>;
+	template LIBSWBF2_API class List<Polygon>;
+	template LIBSWBF2_API class List<VertexWeights>;
+	template LIBSWBF2_API class List<TranslationFrame>;
+	template LIBSWBF2_API class List<RotationFrame>;
+	template LIBSWBF2_API class List<MSH::SEGM>;
+	template LIBSWBF2_API class List<MSH::MATD>;
+	template LIBSWBF2_API class List<MSH::MODL>;
+	template LIBSWBF2_API class List<GenericBaseChunk*>;
+	template LIBSWBF2_API class List<D3DFORMAT>;
+	template LIBSWBF2_API class List<LVL::texture::FMT_*>;
+	template LIBSWBF2_API class List<LVL::LVL_texture::LVL_*>;
+	template LIBSWBF2_API class List<LVL::modl::modl*>;
+	template LIBSWBF2_API class List<LVL::modl::segm*>;
+	template LIBSWBF2_API class List<LVL::modl::VBUF*>;
+	template LIBSWBF2_API class List<LVL::modl::TNAM*>;
+	template LIBSWBF2_API class List<LVL::wrld::inst*>;
+	template LIBSWBF2_API class List<Wrappers::Model>;
+	template LIBSWBF2_API class List<Wrappers::Segment>;
+	template LIBSWBF2_API class List<Wrappers::Material>;
+	template LIBSWBF2_API class List<Wrappers::Texture>;
+	template LIBSWBF2_API class List<Wrappers::World>;
+	template LIBSWBF2_API class List<Wrappers::Instance>;
+	template LIBSWBF2_API class List<const Wrappers::Texture*>;
 }

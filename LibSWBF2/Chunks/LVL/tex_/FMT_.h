@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
-	struct LIBSWBF2_EXP FMT_ : public GenericChunk<"FMT_"_m>
+	struct LIBSWBF2_API FMT_ : public GenericChunk<"FMT_"_m>
 	{
 	public:
 		FMT::INFO* p_Info = nullptr;

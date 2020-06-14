@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Chunks::LVL::FMT
 {
-	struct LIBSWBF2_EXP INFO : public GenericChunk<"INFO"_m>
+	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
 		D3DFORMAT m_Format;
 		uint16_t m_Width;

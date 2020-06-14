@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MATL;
 
-	struct LIBSWBF2_EXP MATD : public BaseChunk
+	struct LIBSWBF2_API MATD : public BaseChunk
 	{
 		MATD() = default;
 		~MATD() = default;

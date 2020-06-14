@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH;
 
-	struct LIBSWBF2_EXP SHVO : public BaseChunk
+	struct LIBSWBF2_API SHVO : public BaseChunk
 	{
 		SHVO() = default;
 		~SHVO() = default;

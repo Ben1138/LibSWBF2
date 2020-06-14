@@ -17,8 +17,8 @@ namespace LibSWBF2::Logging
 		const string LOG_FILE = "LibSWBF2.log";
 		static unique_ptr<Logger>& GetInstance();
 
-		LIBSWBF2_EXP static void SetLogCallback(const LogCallback Callback);
-		LIBSWBF2_EXP static void SetLogfileLevel(const ELogType LogfileLevel);
+		LIBSWBF2_API static void SetLogCallback(const LogCallback Callback);
+		LIBSWBF2_API static void SetLogfileLevel(const ELogType LogfileLevel);
 		void Log(const std::string &message, const ELogType &level, const unsigned long line, const char* file);
 
 	private:

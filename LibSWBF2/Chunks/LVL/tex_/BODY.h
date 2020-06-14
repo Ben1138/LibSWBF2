@@ -8,7 +8,7 @@ namespace DirectX { class ScratchImage; }
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
-	struct LIBSWBF2_EXP BODY : public GenericChunk<"BODY"_m>
+	struct LIBSWBF2_API BODY : public GenericChunk<"BODY"_m>
 	{
 	private:
 		DirectX::ScratchImage* p_Image = nullptr;

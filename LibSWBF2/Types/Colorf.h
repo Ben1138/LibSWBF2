@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Colorf
+	struct LIBSWBF2_API Colorf
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 4;
 

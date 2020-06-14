@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MODL;
 
-	struct LIBSWBF2_EXP GEOM : public BaseChunk
+	struct LIBSWBF2_API GEOM : public BaseChunk
 	{
 		GEOM() = default;
 		~GEOM() = default;

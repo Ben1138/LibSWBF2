@@ -3,14 +3,14 @@
 #include "Segment.h"
 #include "Chunks\LVL\modl\LVL.modl.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::modl::segm;
 	class Level;
 
-	class LIBSWBF2_EXP Model
+	class LIBSWBF2_API Model
 	{
 	public:
 		Model() = default;

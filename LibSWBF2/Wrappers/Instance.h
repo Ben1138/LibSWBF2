@@ -3,7 +3,7 @@
 #include "Types\Vector4.h"
 #include "Chunks\LVL\wrld\inst.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using LibSWBF2::Chunks::LVL::wrld::inst;
 	using Types::Vector3;
@@ -11,7 +11,7 @@ namespace LibSWBF2::Tools
 
 	class Level;
 
-	class LIBSWBF2_EXP Instance
+	class LIBSWBF2_API Instance
 	{
 	public:
 		Instance() = default;

@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MSH2;
 
-	struct LIBSWBF2_EXP MODL : public BaseChunk
+	struct LIBSWBF2_API MODL : public BaseChunk
 	{
 		MODL() = default;
 		~MODL() = default;

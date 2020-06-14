@@ -5,7 +5,7 @@
 #include "Logging\Logger.h"
 
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Logging::ELogType;
 

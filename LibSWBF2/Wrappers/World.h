@@ -3,14 +3,14 @@
 #include "Instance.h"
 #include "Chunks\LVL\wrld\wrld.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Chunks::LVL::wrld::wrld;
 
 	class Level;
 
-	class LIBSWBF2_EXP World
+	class LIBSWBF2_API World
 	{
 	public:
 		World() = default;

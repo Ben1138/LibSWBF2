@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Color
+	struct LIBSWBF2_API Color
 	{
 		static const ChunkSize SIZE = sizeof(uint8_t) * 4;
 
