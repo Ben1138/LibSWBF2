@@ -106,8 +106,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>IF EXIST "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat" CALL "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -130,8 +129,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>IF EXIST "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat" CALL "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -158,8 +156,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>IF EXIST "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat" CALL "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -186,8 +183,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\packages\directxtex_desktop_win10.2020.5.11.1\native\lib\x64\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>IF EXIST "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat" CALL "$(SolutionDir)..\..\CopyLibSWBF2Binaries_$(Configuration).bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
