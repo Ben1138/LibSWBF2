@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks::MSH
 		Cube = 4
 	};
 
-	struct LIBSWBF2_EXP SWCI : public BaseChunk
+	struct LIBSWBF2_API SWCI : public BaseChunk
 	{
 		SWCI() = default;
 		~SWCI() = default;

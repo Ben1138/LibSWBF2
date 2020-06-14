@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Matrix3x3
+	struct LIBSWBF2_API Matrix3x3
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 3 * 3;
 

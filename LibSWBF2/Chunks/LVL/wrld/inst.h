@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
-	struct LIBSWBF2_EXP inst : public GenericChunk<"inst"_m>
+	struct LIBSWBF2_API inst : public GenericChunk<"inst"_m>
 	{
 	public:
 		instance::INFO* p_Info;

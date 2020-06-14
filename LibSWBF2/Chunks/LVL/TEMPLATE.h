@@ -1,16 +1,13 @@
 #pragma once
 #include "Chunks\GenericChunk.h"
 #include "Chunks\STR.h"
-#include "XFRM.h"
 
-namespace LibSWBF2::Chunks::LVL::wrld::instance
+namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
+	struct LIBSWBF2_EXP segm : public GenericChunk<"segm"_m>
 	{
 	public:
-		STR<"TYPE"_m>* p_Type;
-		STR<"NAME"_m>* p_Name;
-		XFRM* p_XFRM;				// contains rotation and position
+		STR<"NAME"_m>* m_Name;
 
 	public:
 		void RefreshSize() override;

@@ -7,7 +7,7 @@
 #include "Types\List.h"
 #include "Chunks\LVL\LVL.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Chunks::LVL::LVL;
@@ -18,7 +18,7 @@ namespace LibSWBF2::Tools
 	 * directly if you want. This is just to make access to desired data more
 	 * straight forward.
 	 */
-	class LIBSWBF2_EXP Level
+	class LIBSWBF2_API Level
 	{
 	private:
 		Level(LVL* lvl);

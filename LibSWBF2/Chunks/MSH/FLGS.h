@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MODL;
 
-	struct LIBSWBF2_EXP FLGS : public BaseChunk
+	struct LIBSWBF2_API FLGS : public BaseChunk
 	{
 		FLGS() = default;
 		~FLGS() = default;

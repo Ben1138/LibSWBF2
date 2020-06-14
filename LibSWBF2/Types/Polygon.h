@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Polygon
+	struct LIBSWBF2_API Polygon
 	{
 		Polygon() = default;
 		~Polygon() = default;

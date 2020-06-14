@@ -2,7 +2,7 @@
 #include "Level.h"
 #include "Chunks\LVL\\tex_\tex_.LVL_.h"
 
-namespace LibSWBF2::Tools
+namespace LibSWBF2::Wrappers
 {
 	using Logging::ELogType;
 	using Chunks::LVL::LVL_texture::LVL_;

@@ -5,7 +5,7 @@
 namespace LibSWBF2::Chunks::LVL::modl
 {
 	// Index Buffer
-	struct LIBSWBF2_EXP IBUF : public GenericChunk<"IBUF"_m>
+	struct LIBSWBF2_API IBUF : public GenericChunk<"IBUF"_m>
 	{
 	public:
 		uint32_t m_IndicesCount;

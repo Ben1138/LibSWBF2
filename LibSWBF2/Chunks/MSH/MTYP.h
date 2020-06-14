@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MODL;
 
-	struct LIBSWBF2_EXP MTYP : public BaseChunk
+	struct LIBSWBF2_API MTYP : public BaseChunk
 	{
 		MTYP() = default;
 		~MTYP() = default;

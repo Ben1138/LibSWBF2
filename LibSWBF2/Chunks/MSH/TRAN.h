@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MODL;
 
-	struct LIBSWBF2_EXP TRAN : public BaseChunk
+	struct LIBSWBF2_API TRAN : public BaseChunk
 	{
 		TRAN() = default;
 		~TRAN() = default;

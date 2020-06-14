@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct MATD;
 
-	struct LIBSWBF2_EXP DATA : public BaseChunk
+	struct LIBSWBF2_API DATA : public BaseChunk
 	{
 		DATA() = default;
 		~DATA() = default;

@@ -5,7 +5,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	struct SEGM;
 
-	struct LIBSWBF2_EXP NRML : public BaseChunk
+	struct LIBSWBF2_API NRML : public BaseChunk
 	{
 		NRML() = default;
 		~NRML() = default;

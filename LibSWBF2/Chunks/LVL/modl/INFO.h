@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP INFO : public GenericChunk<"INFO"_m>
+	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
 	public:
 		uint32_t m_Unknown[5];

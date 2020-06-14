@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::MSH
 
 	struct ANM2;
 
-	struct LIBSWBF2_EXP CYCL : public BaseChunk
+	struct LIBSWBF2_API CYCL : public BaseChunk
 	{
 		const int ANIMATION_NAME_STR_SIZE = 64;
 

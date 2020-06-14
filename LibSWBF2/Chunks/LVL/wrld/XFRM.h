@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 {
 	using Types::Matrix3x3;
 
-	struct LIBSWBF2_EXP XFRM : public GenericChunk<"XFRM"_m>
+	struct LIBSWBF2_API XFRM : public GenericChunk<"XFRM"_m>
 	{
 	public:
 		Matrix3x3 m_RotationMatrix;

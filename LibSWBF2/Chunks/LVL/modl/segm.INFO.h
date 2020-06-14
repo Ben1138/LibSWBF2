@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl::segment
 {
-	struct LIBSWBF2_EXP INFO : public GenericChunk<"INFO"_m>
+	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
 	public:
 		ETopology m_Topology;

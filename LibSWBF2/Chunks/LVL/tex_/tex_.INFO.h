@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
-	struct LIBSWBF2_EXP INFO : public GenericChunk<"INFO"_m>
+	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
 		uint32_t m_FormatCount;
 		List<D3DFORMAT> m_Formats;

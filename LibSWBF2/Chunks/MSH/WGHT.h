@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::MSH
 
 	struct SEGM;
 
-	struct LIBSWBF2_EXP WGHT : public BaseChunk
+	struct LIBSWBF2_API WGHT : public BaseChunk
 	{
 		WGHT() = default;
 		~WGHT() = default;

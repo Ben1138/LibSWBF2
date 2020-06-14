@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Chunks::MSH
 {
-	struct LIBSWBF2_EXP CAMR : public BaseChunk
+	struct LIBSWBF2_API CAMR : public BaseChunk
 	{				
 		uint32_t m_Length;
 

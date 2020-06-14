@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
-	struct LIBSWBF2_EXP wrld : public GenericChunk<"wrld"_m>
+	struct LIBSWBF2_API wrld : public GenericChunk<"wrld"_m>
 	{
 	public:
 		STR<"NAME"_m>* p_Name;

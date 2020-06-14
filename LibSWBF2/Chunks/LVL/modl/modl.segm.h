@@ -9,7 +9,7 @@
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
-	struct LIBSWBF2_EXP segm : public GenericChunk<"segm"_m>
+	struct LIBSWBF2_API segm : public GenericChunk<"segm"_m>
 	{
 	public:
 		segment::INFO* p_Info;

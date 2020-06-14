@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 {
 	using LVL_texture::LVL_;
 
-	struct LIBSWBF2_EXP FACE : public GenericChunk<"FACE"_m>
+	struct LIBSWBF2_API FACE : public GenericChunk<"FACE"_m>
 	{
 	public:
 		List<LVL_*> m_LVLs;

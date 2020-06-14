@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP RotationFrame
+	struct LIBSWBF2_API RotationFrame
 	{
 		static const ChunkSize SIZE = sizeof(uint32_t) + Vector4::SIZE;
 

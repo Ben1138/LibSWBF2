@@ -3,7 +3,7 @@
 namespace LibSWBF2::Types
 {
 	template<class T> 
-	class LIBSWBF2_EXP List
+	class LIBSWBF2_API List
 	{
 	private:
 		const static int LIST_DEFAULT_INIT_SIZE = 8;

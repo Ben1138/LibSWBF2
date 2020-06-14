@@ -5,7 +5,7 @@
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_EXP Animation
+	struct LIBSWBF2_API Animation
 	{
 		static const int ANIMATION_NAME_STR_SIZE = 64;
 		static const ChunkSize SIZE = ANIMATION_NAME_STR_SIZE + sizeof(float_t) + (sizeof(uint32_t) * 3);

@@ -55,7 +55,7 @@ namespace LibSWBF2::Chunks::MSH
 
 	struct MATD;
 
-	struct LIBSWBF2_EXP ATRB : public BaseChunk
+	struct LIBSWBF2_API ATRB : public BaseChunk
 	{
 		ATRB() = default;
 		~ATRB() = default;

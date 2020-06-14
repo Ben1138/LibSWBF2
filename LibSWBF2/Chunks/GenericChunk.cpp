@@ -159,29 +159,29 @@ namespace LibSWBF2::Chunks
 
 namespace LibSWBF2::Chunks
 {
-	template LIBSWBF2_EXP struct GenericChunk<0>;
-	template LIBSWBF2_EXP struct GenericChunk<"ucfb"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"LVL_"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"INFO"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TYPE"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"BODY"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"FACE"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"FMT_"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"tex_"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"modl"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"segm"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"MTRL"_m>;
+	template LIBSWBF2_API struct GenericChunk<0>;
+	template LIBSWBF2_API struct GenericChunk<"ucfb"_m>;
+	template LIBSWBF2_API struct GenericChunk<"LVL_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"INFO"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TYPE"_m>;
+	template LIBSWBF2_API struct GenericChunk<"BODY"_m>;
+	template LIBSWBF2_API struct GenericChunk<"FACE"_m>;
+	template LIBSWBF2_API struct GenericChunk<"FMT_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"tex_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"modl"_m>;
+	template LIBSWBF2_API struct GenericChunk<"segm"_m>;
+	template LIBSWBF2_API struct GenericChunk<"MTRL"_m>;
 
 	// string chunks (see STR.cpp)
-	template LIBSWBF2_EXP struct GenericChunk<"NAME"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TNAM"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"SNAM"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TX0D"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TX1D"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TX2D"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"TX3D"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"PRNT"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"NODE"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"RTYP"_m>;
-	template LIBSWBF2_EXP struct GenericChunk<"BNAM"_m>;
+	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TNAM"_m>;
+	template LIBSWBF2_API struct GenericChunk<"SNAM"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TX0D"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TX1D"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TX2D"_m>;
+	template LIBSWBF2_API struct GenericChunk<"TX3D"_m>;
+	template LIBSWBF2_API struct GenericChunk<"PRNT"_m>;
+	template LIBSWBF2_API struct GenericChunk<"NODE"_m>;
+	template LIBSWBF2_API struct GenericChunk<"RTYP"_m>;
+	template LIBSWBF2_API struct GenericChunk<"BNAM"_m>;
 }

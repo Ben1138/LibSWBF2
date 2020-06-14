@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Chunks::LVL
 {
-	struct LIBSWBF2_EXP lvl_ : public GenericChunk<"lvl_"_m>
+	struct LIBSWBF2_API lvl_ : public GenericChunk<"lvl_"_m>
 	{
 	public:
 		uint32_t m_NameHash;
