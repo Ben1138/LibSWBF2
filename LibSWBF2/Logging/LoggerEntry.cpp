@@ -11,7 +11,7 @@ namespace LibSWBF2::Logging
 		this->m_File = file;
 	}
 
-	string LoggerEntry::ToString() const
+	String LoggerEntry::ToString() const
 	{
 		if (m_Level == (uint8_t)ELogType::Info)
 		{

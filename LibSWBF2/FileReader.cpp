@@ -6,7 +6,6 @@
 namespace LibSWBF2
 {
 	using LibSWBF2::Logging::Logger;
-	using LibSWBF2::Logging::ELogType;
 
 	FileReader::FileReader()
 	{
@@ -18,9 +17,9 @@ namespace LibSWBF2
 
 	}
 
-	bool FileReader::Open(const string& File)
+	bool FileReader::Open(const String& File)
 	{
-		m_Reader.open(File, std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
+		m_Reader.open(File.Buffer(), std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
 		bool success = m_Reader.good() && m_Reader.is_open();
 
 		if (!success)

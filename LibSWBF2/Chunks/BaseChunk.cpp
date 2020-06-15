@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "BaseChunk.h"
 #include "Exceptions.h"
+#include "FileWriter.h"
+#include "FileReader.h"
+#include <string>
 
 namespace LibSWBF2::Chunks
 {
@@ -22,23 +25,23 @@ namespace LibSWBF2::Chunks
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
 
-		LOG("Header: " + m_Header.ToString(), ELogType::Info);
+		LOG("Header: " + std::string(m_Header.ToString().Buffer()), ELogType::Info);
 		LOG("Size: " + std::to_string(m_Size), ELogType::Info);
 
 		if (!IsValidHeader(m_Header) || m_Size < 0)
 		{
-			LOG("Invalid Chunk: " + m_Header.ToString() + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
+			LOG("Invalid Chunk: " + std::string(m_Header.ToString().Buffer()) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
 			throw InvalidHeaderException(m_Header);
 		}
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
-			LOG("Chunk is too big and will end up out of file! Chunk: " + m_Header.ToString() + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
+			LOG("Chunk is too big and will end up out of file! Chunk: " + std::string(m_Header.ToString().Buffer()) + " Size: " + std::to_string(m_Size) + " At Position: " + std::to_string(stream.GetPosition()) + " with File Size of: " + std::to_string(stream.GetFileSize()), ELogType::Error);
 			throw InvalidSizeException(m_Size);
 		}
 	}
 
-	bool BaseChunk::WriteToFile(const string& Path)
+	bool BaseChunk::WriteToFile(const String& Path)
 	{
 		FileWriter writer;
 		if (writer.Open(Path))
@@ -57,11 +60,11 @@ namespace LibSWBF2::Chunks
 			LOG("Successfully finished writing process!", ELogType::Info);
 			return true;
 		}
-		LOG("Could not write to File " + Path + "!", ELogType::Warning);
+		LOG("Could not write to File " + std::string(Path.Buffer()) + "!", ELogType::Warning);
 		return false;
 	}
 
-	bool BaseChunk::ReadFromFile(const string& Path)
+	bool BaseChunk::ReadFromFile(const String& Path)
 	{
 		FileReader reader;
 		if (reader.Open(Path))
@@ -81,7 +84,7 @@ namespace LibSWBF2::Chunks
 			LOG("Successfully finished reading process!", ELogType::Info);
 			return true;
 		}
-		LOG("Could not open File "+Path+"! Non existent?", ELogType::Warning);
+		LOG("Could not open File "+std::string(Path.Buffer())+"! Non existent?", ELogType::Warning);
 		return false;
 	}
 
@@ -134,7 +137,7 @@ namespace LibSWBF2::Chunks
 
 		if (printWarn)
 		{
-			LOG("["+m_Header.ToString()+"] Unexpected Chunk found: " + head.ToString() + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(alignedSize) + " Bytes...", ELogType::Warning);
+			LOG("["+std::string(m_Header.ToString().Buffer())+"] Unexpected Chunk found: " + head.ToString().Buffer() + " at position " + std::to_string(stream.GetPosition()) + ". Skipping " + std::to_string(alignedSize) + " Bytes...", ELogType::Warning);
 		}
 
 		return stream.SkipBytes(alignedSize);
@@ -164,7 +167,7 @@ namespace LibSWBF2::Chunks
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !IsKnownHeader(stream.ReadChunkHeader(true)))
 		{
 			stream.SetPosition(stream.GetPosition() + 1);
-			LOG("[" + m_Header.ToString() + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			LOG("[" + std::string(m_Header.ToString().Buffer()) + "] Could not find next valid header, skipping to position: " + std::to_string(stream.GetPosition()), ELogType::Warning);
 		}
 	}
 }

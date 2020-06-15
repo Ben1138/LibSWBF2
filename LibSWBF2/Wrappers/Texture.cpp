@@ -4,7 +4,6 @@
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
 	using Chunks::LVL::LVL_texture::LVL_;
 
 	bool Texture::FromChunk(tex_* textureChunk, Texture& out)

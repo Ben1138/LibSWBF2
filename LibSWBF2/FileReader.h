@@ -1,12 +1,12 @@
 #pragma once
 #include "Chunks\HeaderNames.h"
+#include <fstream>
 
 namespace LibSWBF2
 {
 	using std::ifstream;
-
 	namespace Types{ struct String; }
-	using LibSWBF2::Types::String;
+	using Types::String;
 
 	class FileReader
 	{
@@ -14,7 +14,7 @@ namespace LibSWBF2
 		FileReader();
 		~FileReader();
 
-		bool Open(const string& File);
+		bool Open(const String& File);
 		ChunkHeader ReadChunkHeader(const bool& peek);
 		ChunkSize ReadChunkSize();
 		uint8_t ReadByte();
@@ -35,7 +35,7 @@ namespace LibSWBF2
 		bool CheckGood(size_t ReadSize);
 
 		size_t m_FileSize = 0;
-		string m_FileName;
+		Types::String m_FileName;
 		ifstream m_Reader;
 	};
 }

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TERR.h"
 #include "Exceptions.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 #include <algorithm>
 #include <vector>
 

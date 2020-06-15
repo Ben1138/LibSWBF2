@@ -2,6 +2,7 @@
 #include "FileWriter.h"
 #include "Logging\Logger.h"
 #include "Types\LibString.h"
+#include <string>
 
 namespace LibSWBF2
 {
@@ -17,14 +18,14 @@ namespace LibSWBF2
 	{
 	}
 
-	bool FileWriter::Open(const string& File)
+	bool FileWriter::Open(const String& File)
 	{
 		return Open(File, false);
 	}
 
-	bool FileWriter::Open(const string& File, const bool& LogFile)
+	bool FileWriter::Open(const String& File, const bool& LogFile)
 	{
-		m_Writer.open(File, std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
+		m_Writer.open(File.Buffer(), std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
 		bool success = m_Writer.good() && m_Writer.is_open();
 
 		if (!success)
@@ -142,11 +143,11 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteLine(const string& line)
+	void FileWriter::WriteLine(const String& line)
 	{
 		if (CheckGood())
 		{
-			string tmp = line + "\n";
+			std::string tmp = line.Buffer() + std::string("\n");
 			m_Writer.write(tmp.c_str(), tmp.size());
 			m_Writer.flush();
 		}
@@ -169,12 +170,12 @@ namespace LibSWBF2
 		if (!m_Writer.is_open())
 		{
 			//LOG("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			throw std::runtime_error("Error during write process! File '" + m_FileName + "' is not open!");
+			throw std::runtime_error("Error during write process! File '" + std::string(m_FileName.Buffer()) + "' is not open!");
 		}
 
 		if (!m_Writer.good())
 		{
-			string reason = "";
+			std::string reason = "";
 			if (m_Writer.eof())
 			{
 				reason += " End of File reached!";
@@ -188,7 +189,7 @@ namespace LibSWBF2
 				reason += " Writing Error on I/O operation!";
 			}
 			//LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			throw std::runtime_error("Error during write process in '" + m_FileName + "'! Reason: " + reason);
+			throw std::runtime_error("Error during write process in '" + std::string(m_FileName.Buffer()) + "'! Reason: " + reason);
 		}
 
 		return true;

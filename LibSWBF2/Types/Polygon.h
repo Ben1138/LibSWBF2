@@ -1,7 +1,5 @@
 #pragma once
 #include <vector>
-#include "FileWriter.h"
-#include "FileReader.h"
 #include "List.h"
 
 namespace LibSWBF2::Types

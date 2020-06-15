@@ -1,5 +1,4 @@
 #pragma once
-#include "req.h"
 #include "Chunks\LVL\tex_\tex_.h"
 #include "Types\Enums.h"
 
@@ -7,6 +6,7 @@ namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::texture::FMT_;
+	using LibSWBF2::Types::String;
 
 	class LIBSWBF2_API Texture
 	{
