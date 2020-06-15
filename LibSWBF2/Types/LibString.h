@@ -1,6 +1,4 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {
@@ -20,9 +18,9 @@ namespace LibSWBF2::Types
 		bool operator!=(const String& other);
 
 		String operator+=(const String& a);
-		friend String operator+(const String&, const String&);
-		friend String operator+(const String&, const char*);
-		friend String operator+(const char*, const String&);
+		friend String operator+(const String& a, const String& b);
+		friend String operator+(const String& a, const char* b);
+		friend String operator+(const char* a, const String& b);
 
 	private:
 		const static size_t WARN_LENGTH = 0xffff;

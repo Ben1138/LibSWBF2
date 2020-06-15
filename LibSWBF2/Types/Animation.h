@@ -1,10 +1,11 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
 #include "Types\LibString.h"
 
 namespace LibSWBF2::Types
 {
+	class FileReader;
+	class FileWriter;
+
 	struct LIBSWBF2_API Animation
 	{
 		static const int ANIMATION_NAME_STR_SIZE = 64;

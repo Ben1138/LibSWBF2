@@ -1,6 +1,8 @@
 #include "stdafx.h"
-#include "Types\LibString.h"
 #include "Vector2.h"
+#include "Types\LibString.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {
@@ -34,101 +36,5 @@ namespace LibSWBF2::Types
 	String Vector2::ToString()
 	{
 		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + "]").c_str();
-	}
-
-	Vector2 operator+(const Vector2& left, const Vector2& right)
-	{
-		return Vector2(
-			left.m_X + right.m_X,
-			left.m_Y + right.m_Y
-		);
-	}
-
-	Vector2 operator-(const Vector2& left, const Vector2& right)
-	{
-		return Vector2(
-			left.m_X - right.m_X,
-			left.m_Y - right.m_Y
-		);
-	}
-
-	Vector2 operator*(const Vector2& left, const Vector2& right)
-	{
-		return Vector2(
-			left.m_X * right.m_X,
-			left.m_Y * right.m_Y
-		);
-	}
-
-	Vector2 operator/(const Vector2& left, const Vector2& right)
-	{
-		return Vector2(
-			left.m_X / right.m_X,
-			left.m_Y / right.m_Y
-		);
-	}
-
-	Vector2 operator+(const Vector2& left, const float right)
-	{
-		return Vector2(
-			left.m_X + right,
-			left.m_Y + right
-		);
-	}
-
-	Vector2 operator-(const Vector2& left, const float right)
-	{
-		return Vector2(
-			left.m_X - right,
-			left.m_Y - right
-		);
-	}
-
-	Vector2 operator*(const Vector2& left, const float right)
-	{
-		return Vector2(
-			left.m_X * right,
-			left.m_Y * right
-		);
-	}
-
-	Vector2 operator/(const Vector2& left, const float right)
-	{
-		return Vector2(
-			left.m_X / right,
-			left.m_Y / right
-		);
-	}
-
-	Vector2 operator+(const float left, const Vector2& right)
-	{
-		return Vector2(
-			left + right.m_X,
-			left + right.m_Y
-		);
-	}
-
-	Vector2 operator-(const float left, const Vector2& right)
-	{
-		return Vector2(
-			left - right.m_X,
-			left - right.m_Y
-		);
-	}
-
-	Vector2 operator*(const float left, const Vector2& right)
-	{
-		return Vector2(
-			left * right.m_X,
-			left * right.m_Y
-		);
-	}
-
-	Vector2 operator/(const float left, const Vector2& right)
-	{
-		return Vector2(
-			left / right.m_X,
-			left / right.m_Y
-		);
 	}
 }

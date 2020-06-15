@@ -3,8 +3,6 @@
 
 namespace LibSWBF2
 {
-	using Logging::ELogType;
-
 	class CRC
 	{
 	private:

@@ -1,9 +1,10 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {
+	class FileWriter;
+	class FileReader;
+
 	struct LIBSWBF2_API Colorf
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 4;

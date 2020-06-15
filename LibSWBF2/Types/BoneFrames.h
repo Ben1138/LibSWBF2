@@ -1,12 +1,13 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
 #include "TranslationFrame.h"
 #include "RotationFrame.h"
 #include "List.h"
 
 namespace LibSWBF2::Types
 {
+	class FileReader;
+	class FileWriter;
+
 	struct LIBSWBF2_API BoneFrames
 	{
 		uint32_t GetDataSize();

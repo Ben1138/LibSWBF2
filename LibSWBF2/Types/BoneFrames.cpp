@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "BoneFrames.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {

@@ -3,7 +3,7 @@
 
 namespace LibSWBF2::Logging
 {
-	unique_ptr<Logger> Logger::m_Instance = nullptr;
+	std::unique_ptr<Logger> Logger::m_Instance = nullptr;
 
 	Logger::Logger()
 	{
@@ -15,7 +15,7 @@ namespace LibSWBF2::Logging
 		m_Writer.Close();
 	}
 
-	unique_ptr<Logger>& Logger::GetInstance()
+	std::unique_ptr<Logger>& Logger::GetInstance()
 	{
 		if (m_Instance == nullptr)
 		{
@@ -35,7 +35,7 @@ namespace LibSWBF2::Logging
 		GetInstance()->m_LogfileLevel = LogfileLevel;
 	}
 	
-	void Logger::Log(const string &message, const ELogType &level, const unsigned long line, const char* file)
+	void Logger::Log(const std::string &message, const ELogType level, const unsigned long line, const char* file)
 	{
 		if (message.length() > 0 && level >= m_LogfileLevel)
 		{

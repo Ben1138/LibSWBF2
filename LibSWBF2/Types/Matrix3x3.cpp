@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Types\LibString.h"
 #include "Matrix3x3.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {

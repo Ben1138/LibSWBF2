@@ -1,9 +1,11 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
+#include "req.h"
 
 namespace LibSWBF2::Types
 {
+	class FileWriter;
+	class FileReader;
+
 	struct LIBSWBF2_API Vector2
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 2;
@@ -20,19 +22,4 @@ namespace LibSWBF2::Types
 
 		virtual String ToString();
 	};
-
-	Vector2 operator+(const Vector2& left, const Vector2& right);
-	Vector2 operator-(const Vector2& left, const Vector2& right);
-	Vector2 operator*(const Vector2& left, const Vector2& right);
-	Vector2 operator/(const Vector2& left, const Vector2& right);
-	  
-	Vector2 operator+(const Vector2& left, const float right);
-	Vector2 operator-(const Vector2& left, const float right);
-	Vector2 operator*(const Vector2& left, const float right);
-	Vector2 operator/(const Vector2& left, const float right); 
-
-	Vector2 operator+(const float left, const Vector2& right);
-	Vector2 operator-(const float left, const Vector2& right);
-	Vector2 operator*(const float left, const Vector2& right);
-	Vector2 operator/(const float left, const Vector2& right);
 }
