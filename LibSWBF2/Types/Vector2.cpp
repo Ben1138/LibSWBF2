@@ -3,6 +3,7 @@
 #include "Types\LibString.h"
 #include "FileWriter.h"
 #include "FileReader.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Types
 {
@@ -33,8 +34,8 @@ namespace LibSWBF2::Types
 		m_Y = stream.ReadFloat();
 	}
 
-	String Vector2::ToString()
+	Types::String Vector2::ToString()
 	{
-		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + "]").c_str();
+		return fmt::format("[{}, {}]", m_X, m_Y).c_str();
 	}
 }

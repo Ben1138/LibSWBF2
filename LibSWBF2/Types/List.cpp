@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "List.h"
+#include "Exceptions.h"
 #include "Logging\Logger.h"
 
 namespace LibSWBF2::Types
@@ -145,7 +146,7 @@ namespace LibSWBF2::Types
 		if (i >= NumElements)
 		{
 			//LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
-			throw std::exception("Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!");
+			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}
@@ -180,7 +181,7 @@ namespace LibSWBF2::Types
 		if (i >= NumElements)
 		{
 			LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
-			throw std::exception("Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!");
+			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}

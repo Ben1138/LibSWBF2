@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 	void TERR::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void TERR::ReadFromStream(FileReader& stream)

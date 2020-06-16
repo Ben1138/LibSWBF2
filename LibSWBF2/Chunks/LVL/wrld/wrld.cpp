@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::LVL::wrld
 {
     void wrld::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void wrld::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void wrld::ReadFromStream(FileReader& stream)

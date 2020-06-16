@@ -20,7 +20,7 @@ namespace LibSWBF2::Wrappers
 		List<FMT_*>& fmts = out.p_Texture->m_FMTs;
 		if (fmts.Size() == 0)
 		{
-			LOG_WARN("Texture '{}' does not contain any data!", textureChunk);
+			LOG_WARN("Texture '{}' does not contain any data!", textureChunk->GetHeader());
 			return false;
 		}
 

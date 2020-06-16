@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FileReader.h"
 #include "Logging\Logger.h"
-#include "Types\LibString.h"
+#include "Exceptions.h"
 
 namespace LibSWBF2
 {
@@ -17,7 +17,7 @@ namespace LibSWBF2
 
 	}
 
-	bool FileReader::Open(const String& File)
+	bool FileReader::Open(const Types::String& File)
 	{
 		m_Reader.open(File.Buffer(), std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
 		bool success = m_Reader.good() && m_Reader.is_open();
@@ -25,7 +25,6 @@ namespace LibSWBF2
 		if (!success)
 		{
 			LOG_WARN("File '{}' could not be found / opened!", File);
-			m_FileName = "";
 			m_Reader.close();
 			return false;
 		}
@@ -135,9 +134,9 @@ namespace LibSWBF2
 		return value;
 	}
 
-	String FileReader::ReadString(size_t length)
+	Types::String FileReader::ReadString(size_t length)
 	{
-		String value;
+		Types::String value;
 		if (CheckGood(length))
 		{
 			char* str = new char[length+1];
@@ -149,7 +148,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	String FileReader::ReadString()
+	Types::String FileReader::ReadString()
 	{
 		char str[1024]; // should be enough
 		uint8_t current = 1;
@@ -171,7 +170,7 @@ namespace LibSWBF2
 		if (!m_Reader.is_open())
 		{
 			//LOG_ERROR("Nothing has been opened yet!");
-			throw std::runtime_error("Nothing has been opened yet!");
+			throw LibException("Nothing has been opened yet!");
 		}
 
 		m_FileName = "";
@@ -204,7 +203,7 @@ namespace LibSWBF2
 		if (!m_Reader.is_open())
 		{
 			//LOG_ERROR("Error during read process! File '{}' is not open!", m_FileName);
-			throw std::runtime_error("Error during read process! File '" + m_FileName + "' is not open!");
+			THROW_LIBEX("Error during read process! File '{}' is not open!", m_FileName);
 		}
 
 		if (!m_Reader.good())
@@ -223,14 +222,14 @@ namespace LibSWBF2
 				reason += " Reading Error on I/O operation!";
 			}
 			//LOG_ERROR("Error during read process in '{}'! Reason: {}", m_FileName, reason);
-			throw std::runtime_error("Error during read process in '" + m_FileName + "'! Reason: " + reason);
+			THROW_LIBEX("Error during read process in '{}'! Reason: {}", m_FileName, reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
 			//LOG_ERROR("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
-			throw std::runtime_error("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize));
+			THROW_LIBEX("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
 		}
 
 		return true;

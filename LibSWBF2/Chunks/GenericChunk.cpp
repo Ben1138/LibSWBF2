@@ -42,13 +42,13 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	void GenericChunk<Header>::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	template<uint32_t Header>
 	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void GenericBaseChunk::ReadGenerics(FileReader& stream)

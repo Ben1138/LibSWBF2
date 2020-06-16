@@ -7,8 +7,6 @@
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
-
 	bool Material::FromChunk(Level* mainContainer, MTRL* materialChunk, Material& out)
 	{
 		if (mainContainer == nullptr)

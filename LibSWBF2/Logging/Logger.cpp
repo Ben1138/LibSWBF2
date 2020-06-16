@@ -39,7 +39,7 @@ namespace LibSWBF2::Logging
 	{
 		if (message.length() > 0 && level >= m_LogfileLevel)
 		{
-			auto entry = LoggerEntry(message.c_str(), level, line, file);
+			LoggerEntry entry(message.c_str(), level, line, file);
 			m_Writer.WriteLine(entry.ToString());
 
 			if (m_OnLogCallback != nullptr)

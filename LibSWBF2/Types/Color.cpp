@@ -4,6 +4,7 @@
 #include "FileWriter.h"
 #include "FileReader.h"
 #include <algorithm>
+#include <fmt/format.h>
 
 namespace LibSWBF2::Types
 {
@@ -44,11 +45,6 @@ namespace LibSWBF2::Types
 
 	String Color::ToString()
 	{
-		return
-			("[R: " + std::to_string(m_Red) +
-			", G: " + std::to_string(m_Green) +
-			", B: " + std::to_string(m_Blue) +
-			", A: " + std::to_string(m_Alpha) +
-			"]").c_str();
+		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
 	}
 }

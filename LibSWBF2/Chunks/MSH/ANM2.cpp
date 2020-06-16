@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ANM2.h"
 #include "Chunks\HeaderNames.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

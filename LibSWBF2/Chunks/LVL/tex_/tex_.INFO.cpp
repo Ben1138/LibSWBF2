@@ -1,18 +1,22 @@
 #include "stdafx.h"
 #include "tex_.INFO.h"
 #include "Logging\Logger.h"
+#include "InternalHelpers.h"
 #include "DirectX\DXHelpers.h"
+#include "Exceptions.h"
+#include "FileReader.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
 	void INFO::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::ReadFromStream(FileReader& stream)
@@ -31,10 +35,10 @@ namespace LibSWBF2::Chunks::LVL::texture
 
 	String INFO::ToString()
 	{
-		string result = "Number of formats: " + std::to_string(m_FormatCount) + "\n";
+		std::string result = fmt::format("Number of formats: {}\n", m_FormatCount);
 		for (size_t i = 0; i < m_Formats.Size(); ++i)
 		{
-			result += "\tFormat: " + D3DToString(m_Formats[i]) + "\n";
+			result += fmt::format("\tFormat: {}\n", D3DToString(m_Formats[i]));
 		}
 		return result.c_str();
 	}

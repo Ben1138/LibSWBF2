@@ -3,10 +3,10 @@
 #include "Logging\Logger.h"
 #include "Chunks\LVL\tex_\tex_.h"
 #include "Chunks\LVL\modl\LVL.modl.h"
+#include <unordered_map>
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;

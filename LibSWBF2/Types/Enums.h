@@ -12,13 +12,6 @@ namespace LibSWBF2
 		Error = 2
 	};
 
-	const Types::String SLogType[] =
-	{
-		"Info",
-		"Warning",
-		"Error"
-	};
-
 	// Bitmap flags
 	enum class EModelPurpose : uint16_t
 	{
@@ -123,6 +116,7 @@ namespace LibSWBF2
 		B8_G8_R8_A8
 	};
 
+	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);

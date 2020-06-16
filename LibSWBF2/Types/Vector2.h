@@ -9,6 +9,8 @@ namespace LibSWBF2
 
 namespace LibSWBF2::Types
 {
+	struct String;
+
 	struct LIBSWBF2_API Vector2
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 2;
@@ -23,6 +25,6 @@ namespace LibSWBF2::Types
 		float_t m_X = 0.0f;
 		float_t m_Y = 0.0f;
 
-		virtual String ToString();
+		virtual Types::String ToString();
 	};
 }
