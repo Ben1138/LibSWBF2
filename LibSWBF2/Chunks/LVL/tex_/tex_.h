@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
+#include "Chunks/GenericChunk.h"
 #include "D3D9Types.h"
-#include "Chunks\STR.h"
+#include "Chunks/STR.h"
 #include "tex_.INFO.h"
 #include "FMT_.h"
 

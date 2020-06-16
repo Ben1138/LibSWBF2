@@ -2,7 +2,7 @@
 #include "Material.h"
 #include "Segment.h"
 #include "Level.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2::Wrappers

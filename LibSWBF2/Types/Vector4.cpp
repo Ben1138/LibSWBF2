@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Types\LibString.h"
+#include "Types/LibString.h"
 #include "Vector4.h"
 #include "FileReader.h"
 #include "FileWriter.h"

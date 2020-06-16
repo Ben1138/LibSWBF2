@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "FileReader.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 #include "Exceptions.h"
 
 namespace LibSWBF2

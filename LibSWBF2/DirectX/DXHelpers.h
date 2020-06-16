@@ -2,7 +2,7 @@
 
 #pragma once
 #include "D3D9Types.h"
-#include "Types\Enums.h"
+#include "Types/Enums.h"
 #include <DirectXTex.h>
 
 namespace LibSWBF2

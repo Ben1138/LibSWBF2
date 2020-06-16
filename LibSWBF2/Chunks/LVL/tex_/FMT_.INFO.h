@@ -1,5 +1,5 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
+#include "Chunks/GenericChunk.h"
 #include "D3D9Types.h"
 
 namespace LibSWBF2::Chunks::LVL::FMT

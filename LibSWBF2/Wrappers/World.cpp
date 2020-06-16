@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "World.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {

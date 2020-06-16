@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\LVL\tex_\tex_.h"
-#include "Types\Enums.h"
+#include "Chunks/LVL/tex_/tex_.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Wrappers
 {

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Instance.h"
 #include "Types/LibString.h"
-#include "Logging\Logger.h"
 #include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers

@@ -2,8 +2,9 @@
 #pragma once
 #include "Chunks/HeaderNames.h"
 #include "Chunks/BaseChunk.h"
-#include "Types\Vector4.h"
-#include "Types\Matrix3x3.h"
+#include "Types/Vector4.h"
+#include "Types/Matrix3x3.h"
+#include "Logging/Logger.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/mat3x3.hpp>
@@ -68,3 +69,9 @@ struct fmt::formatter<LibSWBF2::Chunks::BaseChunk> {
 		return format_to(ctx.out(), "{}", chunk.GetHeader());
 	}
 };
+
+#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+//#define LOG(message, level) LibSWBF2::Logging::Logger::GetInstance()->Log(message, level, __LINE__, __FILENAME__);
+#define LOG_INFO(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Info, __LINE__, __FILENAME__);
+#define LOG_WARN(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Warning, __LINE__, __FILENAME__);
+#define LOG_ERROR(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Error, __LINE__, __FILENAME__);

@@ -1,7 +1,7 @@
 #pragma once
 #include "req.h"
 #include "Instance.h"
-#include "Chunks\LVL\wrld\wrld.h"
+#include "Chunks/LVL/wrld/wrld.h"
 
 namespace LibSWBF2::Wrappers
 {

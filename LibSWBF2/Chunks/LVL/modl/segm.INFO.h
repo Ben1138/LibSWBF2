@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
-#include "Chunks\STR.h"
-#include "Types\Enums.h"
+#include "Chunks/GenericChunk.h"
+#include "Chunks/STR.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Chunks::LVL::modl::segment
 {

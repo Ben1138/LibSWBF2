@@ -1,7 +1,7 @@
 #pragma once
 #include "req.h"
 #include "Segment.h"
-#include "Chunks\LVL\modl\LVL.modl.h"
+#include "Chunks/LVL/modl/LVL.modl.h"
 
 namespace LibSWBF2::Wrappers
 {

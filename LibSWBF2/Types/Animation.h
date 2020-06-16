@@ -1,5 +1,5 @@
 #pragma once
-#include "Types\LibString.h"
+#include "Types/LibString.h"
 
 namespace LibSWBF2
 {

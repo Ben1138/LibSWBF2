@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
-#include "Types\Animation.h"
+#include "Chunks/BaseChunk.h"
+#include "Types/Animation.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

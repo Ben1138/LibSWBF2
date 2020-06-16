@@ -2,7 +2,7 @@
 #include "BODY.h"
 #include "FMT_.h"
 #include "Logging/Logger.h"
-#include "DirectX\DXHelpers.h"
+#include "DirectX/DXHelpers.h"
 #include "Exceptions.h"
 #include "FileReader.h"
 #include <algorithm>
