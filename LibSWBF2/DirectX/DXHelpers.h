@@ -1,7 +1,7 @@
 // THIS IS NOT MEANT TO BE INCLUDED IN OTHER EXPOSDED HEADERS
 
 #pragma once
-#include "D3D9Types.h"
+#include "DirectX/D3D9FORMAT.h"
 #include "Types/Enums.h"
 #include <DirectXTex.h>
 

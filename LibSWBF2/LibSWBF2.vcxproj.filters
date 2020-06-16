@@ -264,9 +264,6 @@
     <ClInclude Include="Chunks\LVL\tex_\BODY.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
     </ClInclude>
-    <ClInclude Include="DirectX\D3D9Types.h">
-      <Filter>Header Files\DirectX</Filter>
-    </ClInclude>
     <ClInclude Include="DirectX\DXHelpers.h">
       <Filter>Header Files\DirectX</Filter>
     </ClInclude>
@@ -359,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="API.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\D3D9FORMAT.h">
+      <Filter>Header Files\DirectX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
