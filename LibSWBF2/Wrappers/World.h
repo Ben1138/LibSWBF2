@@ -23,7 +23,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Level* mainContainer, wrld* worldChunk, World& out);
 
-		String GetName() const;
+		Types::String GetName() const;
 		const List<Instance>& GetInstances() const;
 	};
 }

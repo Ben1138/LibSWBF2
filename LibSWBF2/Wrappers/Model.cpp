@@ -10,12 +10,12 @@ namespace LibSWBF2::Wrappers
 	{
 		if (mainContainer == nullptr)
 		{
-			LOG("Given mainContainer was NULL!", ELogType::Error);
+			LOG_ERROR("Given mainContainer was NULL!");
 			return false;
 		}
 		if (modelChunk == nullptr)
 		{
-			LOG("Given modelChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given modelChunk was NULL!");
 			return false;
 		}
 

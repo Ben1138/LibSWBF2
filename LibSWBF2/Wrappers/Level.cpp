@@ -36,7 +36,7 @@ namespace LibSWBF2::Wrappers
 
 		if (p_lvl == nullptr)
 		{
-			LOG("p_lvl of Level was NULL!", ELogType::Error);
+			LOG_ERROR("p_lvl of Level was NULL!");
 		}
 		else
 		{
@@ -98,7 +98,7 @@ namespace LibSWBF2::Wrappers
 	{
 		if (level == nullptr)
 		{
-			LOG("Given level was NULL!", ELogType::Error);
+			LOG_ERROR("Given level was NULL!");
 			return;
 		}
 
@@ -133,7 +133,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Models[it->second];
 		}
 
-		LOG("Could not find Model '" + ToLower(modelName) + "'!", ELogType::Warning);
+		LOG_WARN("Could not find Model '{}'!", modelName);
 		return nullptr;
 	}
 
@@ -150,7 +150,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Textures[it->second];
 		}
 
-		LOG("Could not find Texture '" + ToLower(textureName) + "'!", ELogType::Warning);
+		LOG_WARN("Could not find Texture '{}'!", textureName);
 		return nullptr;
 	}
 
@@ -167,7 +167,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Worlds[it->second];
 		}
 
-		LOG("Could not find World '" + ToLower(worldName) + "'!", ELogType::Warning);
+		LOG_WARN("Could not find World '{}'!", worldName);
 		return nullptr;
 	}
 }

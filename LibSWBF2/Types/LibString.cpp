@@ -4,8 +4,6 @@
 
 namespace LibSWBF2::Types
 {
-	using LibSWBF2::Logging::ELogType;
-
 	String::String()
 	{
 		buffer = new char[1] { 0 };
@@ -22,11 +20,11 @@ namespace LibSWBF2::Types
 
 		if (length > WARN_LENGTH)
 		{
-			LOG("String length " + std::to_string(length) + " exceeds " + std::to_string(WARN_LENGTH) + " which is rather unusual. Max supported String length is " + std::to_string(MAX_LENGTH), ELogType::Warning);
+			LOG_WARN("String length {} exceeds {} which is rather unusual. Max supported String length is {}", length, WARN_LENGTH, MAX_LENGTH);
 		}
 		else if (length > MAX_LENGTH)
 		{
-			LOG("String length " + std::to_string(length) + " exceeds max supported length of " + std::to_string(MAX_LENGTH) + "! String will end up empty!", ELogType::Warning);
+			LOG_WARN("String length {} exceeds max supported length of {}! String will end up empty!", length, MAX_LENGTH);
 			buffer = nullptr;
 			length = 0;
 			return;
@@ -45,7 +43,7 @@ namespace LibSWBF2::Types
 	{
 		if (other.buffer == nullptr)
 		{
-			LOG("Given String is invalid (buffer is NULL)! This should never happen!", ELogType::Warning);
+			LOG_WARN("Given String is invalid (buffer is NULL)! This should never happen!");
 			buffer = new char[1]{ 0 };
 		}
 		else
@@ -59,7 +57,7 @@ namespace LibSWBF2::Types
 	{
 		if (other.buffer == nullptr)
 		{
-			LOG("Given String is invalid (buffer is NULL)! This should never happen!", ELogType::Warning);
+			LOG_WARN("Given String is invalid (buffer is NULL)! This should never happen!");
 		}
 
 		other.buffer = nullptr;
@@ -88,7 +86,7 @@ namespace LibSWBF2::Types
 		{
 			if (other.buffer == nullptr)
 			{
-				LOG("Given String is invalid (buffer is NULL)! String won't be copied!", ELogType::Warning);
+				LOG_WARN("Given String is invalid (buffer is NULL)! String won't be copied!");
 			}
 			else
 			{

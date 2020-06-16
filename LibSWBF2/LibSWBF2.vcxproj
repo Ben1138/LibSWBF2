@@ -382,6 +382,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" />
     <Import Project="..\packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" />
+    <Import Project="..\packages\fmt.6.1.2\build\fmt.targets" Condition="Exists('..\packages\fmt.6.1.2\build\fmt.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -389,5 +390,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2020.5.11.1\build\native\directxtex_desktop_win10.targets'))" />
     <Error Condition="!Exists('..\packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.9.800\build\native\glm.targets'))" />
+    <Error Condition="!Exists('..\packages\fmt.6.1.2\build\fmt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fmt.6.1.2\build\fmt.targets'))" />
   </Target>
 </Project>

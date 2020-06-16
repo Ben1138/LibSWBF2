@@ -23,8 +23,8 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Level* mainContainer, inst* instanceChunk, Instance& out);
 
-		String GetType() const;
-		String GetName() const;
+		Types::String GetType() const;
+		Types::String GetName() const;
 		Vector3 GetPosition() const;
 		Vector4 GetRotation() const;
 	};

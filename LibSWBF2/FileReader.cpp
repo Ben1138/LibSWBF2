@@ -24,7 +24,7 @@ namespace LibSWBF2
 
 		if (!success)
 		{
-			LOG("File '" + File + "' could not be found / opened!", ELogType::Warning);
+			LOG_WARN("File '{}' could not be found / opened!", File);
 			m_FileName = "";
 			m_Reader.close();
 			return false;
@@ -34,7 +34,7 @@ namespace LibSWBF2
 		m_FileSize = (size_t)m_Reader.tellg();
 		m_Reader.seekg(0);
 
-		LOG("File '"+ m_FileName +"' ("+ std::to_string(m_FileSize) +" bytes) successfully opened.", ELogType::Info);
+		LOG_INFO("File '{}' ({} bytes) successfully opened.", m_FileName, m_FileSize);
 		return true;
 	}
 
@@ -157,7 +157,7 @@ namespace LibSWBF2
 		{
 			if (i >= 1024)
 			{
-				LOG("Reading null terminated string exceeded buffer size!", ELogType::Warning);
+				LOG_WARN("Reading null terminated string exceeded buffer size!");
 				break;
 			}
 			current = ReadByte();
@@ -170,7 +170,7 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			//LOG("Nothing has been opened yet!", ELogType::Error);
+			//LOG_ERROR("Nothing has been opened yet!");
 			throw std::runtime_error("Nothing has been opened yet!");
 		}
 
@@ -187,7 +187,7 @@ namespace LibSWBF2
 	{
 		if (NewPosition < 0 || NewPosition > m_FileSize)
 		{
-			LOG("Cannot set read position to " + std::to_string(NewPosition) + " because it is out of range! Range: 0 - " + std::to_string(m_FileSize), ELogType::Error);
+			LOG_ERROR("Cannot set read position to {} because it is out of range! Range: 0 - {}", NewPosition, m_FileSize);
 			return;
 		}
 
@@ -203,13 +203,13 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			//LOG("Error during read process! File '" + m_FileName + "' is not open!", ELogType::Error);
+			//LOG_ERROR("Error during read process! File '{}' is not open!", m_FileName);
 			throw std::runtime_error("Error during read process! File '" + m_FileName + "' is not open!");
 		}
 
 		if (!m_Reader.good())
 		{
-			string reason = "";
+			std::string reason = "";
 			if (m_Reader.eof())
 			{
 				reason += " End of File reached!";
@@ -222,14 +222,14 @@ namespace LibSWBF2
 			{
 				reason += " Reading Error on I/O operation!";
 			}
-			//LOG("Error during read process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
+			//LOG_ERROR("Error during read process in '{}'! Reason: {}", m_FileName, reason);
 			throw std::runtime_error("Error during read process in '" + m_FileName + "'! Reason: " + reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
-			//LOG("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize), ELogType::Error);
+			//LOG_ERROR("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
 			throw std::runtime_error("Reading " + std::to_string(ReadSize) + " bytes will end up out of file!  Current position: " + std::to_string(current) + "  FileSize: " + std::to_string(m_FileSize));
 		}
 

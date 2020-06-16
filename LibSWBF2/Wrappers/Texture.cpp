@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Level.h"
+#include "Logging/Logger.h"
 #include "Chunks\LVL\\tex_\tex_.LVL_.h"
 
 namespace LibSWBF2::Wrappers
@@ -10,7 +11,7 @@ namespace LibSWBF2::Wrappers
 	{
 		if (textureChunk == nullptr)
 		{
-			LOG("Given textureChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given textureChunk was NULL!");
 			return false;
 		}
 
@@ -19,7 +20,7 @@ namespace LibSWBF2::Wrappers
 		List<FMT_*>& fmts = out.p_Texture->m_FMTs;
 		if (fmts.Size() == 0)
 		{
-			LOG(string("Texture '")+textureChunk->p_Name->m_Text.Buffer()+"' does not contain any data!", ELogType::Warning);
+			LOG_WARN("Texture '{}' does not contain any data!", textureChunk);
 			return false;
 		}
 

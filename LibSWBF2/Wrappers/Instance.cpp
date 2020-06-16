@@ -1,22 +1,21 @@
 #include "stdafx.h"
 #include "Instance.h"
+#include "Types/LibString.h"
 #include "Logging\Logger.h"
 #include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
-
 	bool Instance::FromChunk(Level* mainContainer, inst* instanceChunk, Instance& out)
 	{
 		if (mainContainer == nullptr)
 		{
-			LOG("Given mainContainer was NULL!", ELogType::Error);
+			LOG_ERROR("Given mainContainer was NULL!");
 			return false;
 		}
 		if (instanceChunk == nullptr)
 		{
-			LOG("Given instanceChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given instanceChunk was NULL!");
 			return false;
 		}
 
@@ -24,12 +23,12 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String Instance::GetType() const
+	Types::String Instance::GetType() const
 	{
 		return p_Instance->p_Info->p_Type->m_Text;
 	}
 
-	String Instance::GetName() const
+	Types::String Instance::GetName() const
 	{
 		return p_Instance->p_Info->p_Name->m_Text;
 	}

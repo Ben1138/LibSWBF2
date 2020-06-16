@@ -1,4 +1,6 @@
+// External requirements to compile the include headers in third party applications
 #pragma once
+
 #include <stdint.h>		// for uint32_t, etc. declarations
 #include <math.h>		// for float_t declaration
 
