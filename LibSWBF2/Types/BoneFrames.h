@@ -3,11 +3,14 @@
 #include "RotationFrame.h"
 #include "List.h"
 
-namespace LibSWBF2::Types
+namespace LibSWBF2
 {
 	class FileReader;
 	class FileWriter;
+}
 
+namespace LibSWBF2::Types
+{
 	struct LIBSWBF2_API BoneFrames
 	{
 		uint32_t GetDataSize();

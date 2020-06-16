@@ -1,23 +1,35 @@
 #pragma once
 #include "Chunks/HeaderNames.h"
 #include "Types/LibString.h"
+#include "InternalHelpers.h"
 #include <stdexcept>
 #include <exception>
 #include <string>
 
+
 namespace LibSWBF2
 {
-	class InvalidChunkException : public std::runtime_error
+	class LibException : public std::runtime_error
 	{
 	public:
-		InvalidChunkException(std::string msg) : std::runtime_error(msg) {}
+		LibException(const char* msg) : std::runtime_error(msg) {}
+		LibException(const std::string& msg) : std::runtime_error(msg) {}
+		LibException(const Types::String& msg) : std::runtime_error(msg.Buffer()) {}
+	};
+
+	class InvalidChunkException : public LibException
+	{
+	public:
+		InvalidChunkException(const char* msg) : LibException(msg) {}
+		InvalidChunkException(const std::string& msg) : LibException(msg) {}
+		InvalidChunkException(const Types::String& msg) : LibException(msg) {}
 	};
 
 	class InvalidHeaderException : public InvalidChunkException
 	{
 	public:
 		InvalidHeaderException(ChunkHeader header) 
-			: InvalidChunkException("Illegal chunk header: "+ std::string(header.ToString().Buffer()))
+			: InvalidChunkException(fmt::format("Illegal chunk header: {}", header))
 		{
 			m_Header = header;
 		}
@@ -29,7 +41,7 @@ namespace LibSWBF2
 	{
 	public:
 		InvalidSizeException(ChunkSize size)
-			: InvalidChunkException("Illegal chunk size: " + std::to_string(size))
+			: InvalidChunkException(fmt::format("Illegal chunk size: {}", size))
 		{
 			m_Size = size;
 		}

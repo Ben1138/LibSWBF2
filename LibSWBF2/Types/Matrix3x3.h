@@ -1,10 +1,13 @@
 #pragma once
 
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
+
 namespace LibSWBF2::Types
 {
-	class FileWriter;
-	class FileReader;
-
 	struct LIBSWBF2_API Matrix3x3
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 3 * 3;

@@ -8,6 +8,6 @@
 namespace LibSWBF2
 {
 	DXGI_FORMAT D3DToDXGI(D3DFORMAT d3dFormat);
-	string D3DToString(D3DFORMAT d3dFormat);
+	Types::String D3DToString(D3DFORMAT d3dFormat);
 	DXGI_FORMAT TextureFormatToDXGI(ETextureFormat format);
 }

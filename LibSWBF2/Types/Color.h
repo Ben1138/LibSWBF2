@@ -1,11 +1,14 @@
 #pragma once
 #include "LibString.h"
 
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
+
 namespace LibSWBF2::Types
 {
-	class FileWriter;
-	class FileReader;
-
 	struct LIBSWBF2_API Color
 	{
 		static const ChunkSize SIZE = sizeof(uint8_t) * 4;

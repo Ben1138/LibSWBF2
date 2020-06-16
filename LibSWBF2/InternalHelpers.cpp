@@ -3,6 +3,11 @@
 
 namespace LibSWBF2
 {
+	Vector2 ToLib(const glm::vec2 vector)
+	{
+		return Vector2(vector.x, vector.y);
+	}
+
 	glm::vec3 ToGLM(const Vector3& vector)
 	{
 		return glm::vec3(vector.m_X, vector.m_Y, vector.m_Z);

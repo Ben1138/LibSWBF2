@@ -2,6 +2,8 @@
 #include "VBUF.h"
 #include "LVL.modl.h"
 #include "InternalHelpers.h"
+#include "FileReader.h"
+#include "Logging/Logger.h"
 #include <limits>
 
 #undef min
@@ -154,9 +156,9 @@ namespace LibSWBF2::Chunks::LVL::modl
                     uint16_t data[2];
                     data[0] = stream.ReadByte();
                     data[1] = stream.ReadByte();
-                    Vector2 uv((float_t)data[0], (float_t)data[1]);
+                    glm::vec2 uv((float_t)data[0], (float_t)data[1]);
                     uv = uv / 2048.0f;
-                    m_TexCoords.Add(uv);
+                    m_TexCoords.Add(ToLib(uv));
                 }
                 else
                 {
@@ -170,9 +172,9 @@ namespace LibSWBF2::Chunks::LVL::modl
 
     String VBUF::ToString()
     {
-        string result = "Count = " + std::to_string(m_Count) + "\n";
+        std::string result = "Count = " + std::to_string(m_Count) + "\n";
         result += "Stride = " + std::to_string(m_Stride) + "\n";
-        result += "Flags = " + string(EVBUFFlagsToString(m_Flags).Buffer()) + "\n";
+        result += "Flags = " + std::string(EVBUFFlagsToString(m_Flags).Buffer()) + "\n";
         result += "Normals[" + std::to_string(m_Normals.Size()) + "]\n";
         result += "Tangents[" + std::to_string(m_Tangents.Size()) + "]\n";
         result += "BiTangents[" + std::to_string(m_BiTangents.Size()) + "]\n";
@@ -185,7 +187,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         result += "Positions["+std::to_string(m_Positions.Size())+"] = [";
         for (uint32_t i = 0; i < m_Positions.Size(); ++i)
         {
-            result += m_Positions[i].ToString().Buffer() + string(", ");
+            result += m_Positions[i].ToString().Buffer() + std::string(", ");
             if ((i + 1) % 3 == 0)
             {
                 result += "\n";
