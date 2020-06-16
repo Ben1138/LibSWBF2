@@ -1,5 +1,5 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
+#include "Chunks/BaseChunk.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

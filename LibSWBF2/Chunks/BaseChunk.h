@@ -1,30 +1,31 @@
 #pragma once
 #include "HeaderNames.h"
-#include "FileWriter.h"
-#include "FileReader.h"
-#include "Logging\\Logger.h"
-#include "Types\Color.h"
-#include "Types\Vector4.h"
-#include "Types\Vector3u8.h"
-#include "Types\List.h"
-#include "Types\LibString.h"
+#include "Types/Color.h"
+#include "Types/Vector4.h"
+#include "Types/Vector3u8.h"
+#include "Types/List.h"
+#include "Types/LibString.h"
+
+namespace LibSWBF2 
+{ 
+	class FileReader;
+	class FileWriter; 
+}
 
 namespace LibSWBF2::Chunks
 {
-	using Logging::Logger;
-	using Logging::ELogType;
 	using Types::Color;
 	using Types::Vector2;
 	using Types::Vector3;
 	using Types::Vector3u8;
 	using Types::Vector4;
-	using LibSWBF2::Types::List;
-	using LibSWBF2::Types::String;
+	using Types::List;
+	using Types::String;
 
 	struct LIBSWBF2_API BaseChunk
 	{
-		bool WriteToFile(const string& Path);
-		bool ReadFromFile(const string& Path);
+		bool WriteToFile(const String& Path);
+		bool ReadFromFile(const String& Path);
 
 		BaseChunk() = default;
 		virtual ~BaseChunk() = default;
@@ -39,7 +40,7 @@ namespace LibSWBF2::Chunks
 		bool PositionInChunk(const size_t& CurrentPosition);
 		bool SkipChunk(FileReader& stream, const bool& printWarn = true);
 		void EnsureEnd(FileReader& stream);
-		void EnsureTrallingBytes(FileWriter& stream); // TODO
+		//void EnsureTrallingBytes(FileWriter& stream); // TODO
 		void ForwardToNextHeader(FileReader& stream);
 
 		ChunkHeader GetHeader() const;

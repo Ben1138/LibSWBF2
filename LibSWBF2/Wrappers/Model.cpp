@@ -1,21 +1,19 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
-
 	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)
 	{
 		if (mainContainer == nullptr)
 		{
-			LOG("Given mainContainer was NULL!", ELogType::Error);
+			LOG_ERROR("Given mainContainer was NULL!");
 			return false;
 		}
 		if (modelChunk == nullptr)
 		{
-			LOG("Given modelChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given modelChunk was NULL!");
 			return false;
 		}
 

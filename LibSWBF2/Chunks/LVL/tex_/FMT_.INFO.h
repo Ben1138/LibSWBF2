@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
-#include "D3D9Types.h"
+#include "Chunks/GenericChunk.h"
+#include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2::Chunks::LVL::FMT
 {

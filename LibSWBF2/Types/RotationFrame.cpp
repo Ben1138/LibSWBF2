@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "RotationFrame.h"
+#include "FileWriter.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Types
 {

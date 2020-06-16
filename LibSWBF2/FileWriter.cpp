@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "FileWriter.h"
-#include "Logging\Logger.h"
-#include "Types\LibString.h"
+#include "InternalHelpers.h"
+#include "Exceptions.h"
+#include <string>
 
 namespace LibSWBF2
 {
 	using LibSWBF2::Logging::Logger;
-	using LibSWBF2::Logging::ELogType;
 
 	FileWriter::FileWriter()
 	{
@@ -17,21 +17,21 @@ namespace LibSWBF2
 	{
 	}
 
-	bool FileWriter::Open(const string& File)
+	bool FileWriter::Open(const Types::String& File)
 	{
 		return Open(File, false);
 	}
 
-	bool FileWriter::Open(const string& File, const bool& LogFile)
+	bool FileWriter::Open(const Types::String& File, const bool& LogFile)
 	{
-		m_Writer.open(File, std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
+		m_Writer.open(File.Buffer(), std::ofstream::out | (LogFile ? std::ofstream::app : std::ofstream::binary | std::ofstream::trunc));
 		bool success = m_Writer.good() && m_Writer.is_open();
 
 		if (!success)
 		{
 			if (!LogFile)
 			{
-				LOG("File '" + File + "' could not be found / created!", ELogType::Error);
+				LOG_ERROR("File '{}' could not be found / created!", File);
 			}
 			m_FileName = "";
 			m_Writer.close();
@@ -42,7 +42,7 @@ namespace LibSWBF2
 
 		if (!LogFile)
 		{
-			LOG("File '" + m_FileName + "' successfully created/opened.", ELogType::Info);
+			LOG_INFO("File '{}' successfully created/opened.", m_FileName);
 		}
 		return true;
 	}
@@ -103,7 +103,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteString(const String& value)
+	void FileWriter::WriteString(const Types::String& value)
 	{
 		// string in chunk needs to be a zero terminated c-string
 		// size must be a multiple of 4
@@ -125,13 +125,13 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteString(const String& value, uint16_t fixedSize)
+	void FileWriter::WriteString(const Types::String& value, uint16_t fixedSize)
 	{
 		if (CheckGood())
 		{
 			if (value.Length() > fixedSize)
 			{
-				LOG("Actual string size ("+std::to_string(value.Length())+") is greater than fixed size ("+std::to_string(fixedSize)+") !", ELogType::Error);
+				LOG_ERROR("Actual string size ({}) is greater than fixed size ({}) !", value.Length(), fixedSize);
 				return;
 			}
 
@@ -142,11 +142,11 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteLine(const string& line)
+	void FileWriter::WriteLine(const Types::String& line)
 	{
 		if (CheckGood())
 		{
-			string tmp = line + "\n";
+			std::string tmp = line.Buffer() + std::string("\n");
 			m_Writer.write(tmp.c_str(), tmp.size());
 			m_Writer.flush();
 		}
@@ -156,7 +156,7 @@ namespace LibSWBF2
 	{
 		if (!m_Writer.is_open())
 		{
-			LOG("Nothing has been opened yet!", ELogType::Error);
+			LOG_ERROR("Nothing has been opened yet!");
 			return;
 		}
 
@@ -168,13 +168,13 @@ namespace LibSWBF2
 	{
 		if (!m_Writer.is_open())
 		{
-			//LOG("Error during write process! File '" + m_FileName + "' is not open!", ELogType::Error);
-			throw std::runtime_error("Error during write process! File '" + m_FileName + "' is not open!");
+			//LOG_ERROR("Error during write process! File '{}' is not open!", m_FileName);
+			THROW_LIBEX("Error during write process! File '{}' is not open!", m_FileName);
 		}
 
 		if (!m_Writer.good())
 		{
-			string reason = "";
+			std::string reason = "";
 			if (m_Writer.eof())
 			{
 				reason += " End of File reached!";
@@ -187,8 +187,8 @@ namespace LibSWBF2
 			{
 				reason += " Writing Error on I/O operation!";
 			}
-			//LOG("Error during write process in '" + m_FileName + "'! Reason: " + reason, ELogType::Error);
-			throw std::runtime_error("Error during write process in '" + m_FileName + "'! Reason: " + reason);
+			//LOG_ERROR("Error during write process in '{}'! Reason: {}", m_FileName, reason);
+			THROW_LIBEX("Error during write process in '{}'! Reason: {}", m_FileName, reason);
 		}
 
 		return true;

@@ -1,16 +1,17 @@
 #pragma once
-#include "Chunks\HeaderNames.h"
-#include "FileWriter.h"
-#include "FileReader.h"
-#include "Logging\Logger.h"
-#include "Types\List.h"
-#include "Types\LibString.h"
-#include "Types\Vector2.h"
+#include "Chunks/HeaderNames.h"
+#include "Types/List.h"
+#include "Types/LibString.h"
+#include "Types/Vector2.h"
+
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
 
 namespace LibSWBF2::Chunks::Terrain
 {
-	using Logging::Logger;
-	using Logging::ELogType;
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::Vector2;
 	using LibSWBF2::Types::String;
@@ -44,8 +45,8 @@ namespace LibSWBF2::Chunks::Terrain
 	public:
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
-		bool WriteToFile(const string& Path);
-		bool ReadFromFile(const string& Path);
+		bool WriteToFile(const String& Path);
+		bool ReadFromFile(const String& Path);
 
 #pragma region Header
 		uint32_t FileVersion;

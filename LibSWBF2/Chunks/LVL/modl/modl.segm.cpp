@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "modl.segm.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
     void segm::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void segm::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void segm::ReadFromStream(FileReader& stream)

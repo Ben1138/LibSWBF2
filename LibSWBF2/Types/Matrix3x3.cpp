@@ -1,6 +1,9 @@
 #include "stdafx.h"
-#include "Types\LibString.h"
+#include "Types/LibString.h"
 #include "Matrix3x3.h"
+#include "FileWriter.h"
+#include "FileReader.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Types
 {
@@ -36,10 +39,13 @@ namespace LibSWBF2::Types
 
 	String Matrix3x3::ToString()
 	{
-		return (
-			"[[" + std::to_string(matrix[0][0]) + ", " + std::to_string(matrix[0][1]) + ", " + std::to_string(matrix[0][2]) + "]" +
-			" [" + std::to_string(matrix[1][0]) + ", " + std::to_string(matrix[1][1]) + ", " + std::to_string(matrix[1][2]) + "]" +
-			" [" + std::to_string(matrix[2][0]) + ", " + std::to_string(matrix[2][1]) + ", " + std::to_string(matrix[2][2]) + "]]"
-			).c_str();
+		return fmt::format(
+			"[[{}, {}, {}]"
+			" [{}, {}, {}]"
+			" [{}, {}, {}]]",
+			matrix[0][0], matrix[0][1], matrix[0][2],
+			matrix[1][0], matrix[1][1], matrix[1][2],
+			matrix[2][0], matrix[2][1], matrix[2][2]
+		).c_str();
 	}
 }

@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Color.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
+#include "FileWriter.h"
+#include "FileReader.h"
+#include <algorithm>
+#include <fmt/format.h>
 
 namespace LibSWBF2::Types
 {
@@ -8,10 +12,10 @@ namespace LibSWBF2::Types
 	Color::Color(const uint8_t Red, const uint8_t Green, const uint8_t Blue) : Color(Red, Green, Blue, 1) { }
 
 	Color::Color(const uint8_t Red, const uint8_t Green, const uint8_t Blue, const uint8_t Alpha) :
-		m_Red(clamp(m_Red, (uint8_t)0, (uint8_t)255)),
-		m_Green(clamp(m_Green, (uint8_t)0, (uint8_t)255)),
-		m_Blue(clamp(m_Blue, (uint8_t)0, (uint8_t)255)),
-		m_Alpha(clamp(m_Alpha, (uint8_t)0, (uint8_t)255))
+		m_Red(std::clamp(m_Red, (uint8_t)0, (uint8_t)255)),
+		m_Green(std::clamp(m_Green, (uint8_t)0, (uint8_t)255)),
+		m_Blue(std::clamp(m_Blue, (uint8_t)0, (uint8_t)255)),
+		m_Alpha(std::clamp(m_Alpha, (uint8_t)0, (uint8_t)255))
 	{
 		
 	}
@@ -41,11 +45,6 @@ namespace LibSWBF2::Types
 
 	String Color::ToString()
 	{
-		return
-			("[R: " + std::to_string(m_Red) +
-			", G: " + std::to_string(m_Green) +
-			", B: " + std::to_string(m_Blue) +
-			", A: " + std::to_string(m_Alpha) +
-			"]").c_str();
+		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
 	}
 }

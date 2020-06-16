@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "inst.INFO.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld::instance
 {
     void INFO::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void INFO::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void INFO::ReadFromStream(FileReader& stream)

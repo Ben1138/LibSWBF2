@@ -1,12 +1,12 @@
 #pragma once
-#include "Chunks\HeaderNames.h"
+//#include "Chunks/HeaderNames.h"
+//#include "LibSWBF2.h"
+#include "Types/LibString.h"
+#include <fstream>
 
 namespace LibSWBF2
 {
-	using std::ofstream;
-
-	namespace Types { struct String; }
-	using LibSWBF2::Types::String;
+	union ChunkHeader;
 
 	class FileWriter
 	{
@@ -14,8 +14,8 @@ namespace LibSWBF2
 		FileWriter();
 		~FileWriter();
 
-		bool Open(const string& File);
-		bool Open(const string& File, const bool& LogFile);
+		bool Open(const Types::String& File);
+		bool Open(const Types::String& File, const bool& LogFile);
 		void WriteChunkHeader(const ChunkHeader& value);
 		void WriteChunkSize(const ChunkSize& value);
 		void WriteByte(const uint8_t& value);
@@ -23,15 +23,15 @@ namespace LibSWBF2
 		void WriteUInt32(const uint32_t& value);
 		void WriteUInt16(const uint16_t& value);
 		void WriteFloat(const float_t& value);
-		void WriteString(const String& value);
-		void WriteString(const String& value, uint16_t fixedSize);
-		void WriteLine(const string& line);
+		void WriteString(const Types::String& value);
+		void WriteString(const Types::String& value, uint16_t fixedSize);
+		void WriteLine(const Types::String& line);
 		size_t GetPosition();
 		void Close();
 	private:
 		bool CheckGood();
 
-		string m_FileName;
-		ofstream m_Writer;
+		Types::String m_FileName;
+		std::ofstream m_Writer;
 	};
 }

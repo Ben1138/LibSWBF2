@@ -1,10 +1,7 @@
 #pragma once
-#include "Logging\Logger.h"
 
 namespace LibSWBF2
 {
-	using Logging::ELogType;
-
 	class CRC
 	{
 	private:

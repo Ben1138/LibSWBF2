@@ -1,9 +1,9 @@
 #pragma once
 #include "req.h"
-#include "Chunks\LVL\modl\MTRL.h"
-#include "Types\List.h"
-#include "Types\Color.h"
-#include "Types\LibString.h"
+#include "Chunks/LVL/modl/MTRL.h"
+#include "Types/List.h"
+#include "Types/Color.h"
+#include "Types/LibString.h"
 #include "Texture.h"
 
 namespace LibSWBF2::Wrappers

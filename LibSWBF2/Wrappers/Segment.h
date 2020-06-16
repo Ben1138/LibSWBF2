@@ -1,5 +1,5 @@
 #pragma once
-#include "Chunks\LVL\modl\LVL.modl.h"
+#include "Chunks/LVL/modl/LVL.modl.h"
 #include "Material.h"
 
 namespace LibSWBF2::Wrappers

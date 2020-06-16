@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
-#include "Types\Enums.h"
+#include "Chunks/GenericChunk.h"
+#include "Types/Enums.h"
 #include "FMT_.INFO.h"
 
 // forward declare to avoid including the DirectX header

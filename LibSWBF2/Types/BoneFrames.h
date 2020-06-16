@@ -1,9 +1,13 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
 #include "TranslationFrame.h"
 #include "RotationFrame.h"
 #include "List.h"
+
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
 
 namespace LibSWBF2::Types
 {

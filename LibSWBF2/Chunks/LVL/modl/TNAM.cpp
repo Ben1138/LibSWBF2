@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "TNAM.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
     void TNAM::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void TNAM::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void TNAM::ReadFromStream(FileReader& stream)

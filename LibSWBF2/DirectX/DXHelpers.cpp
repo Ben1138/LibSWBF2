@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "DXHelpers.h"
+#include "InternalHelpers.h"
+#include "Exceptions.h"
 
 namespace LibSWBF2
 {
@@ -79,11 +81,11 @@ namespace LibSWBF2
             case D3DFMT_L16:
                 return DXGI_FORMAT_R16_UNORM;
             default:
-                throw std::runtime_error("Unknown D3D Format: " + std::to_string(d3dFormat));
+                throw LibException(fmt::format("Unknown D3D Format: {}", d3dFormat));
         }
     }
 
-    string D3DToString(D3DFORMAT d3dFormat)
+    Types::String D3DToString(D3DFORMAT d3dFormat)
     {
         switch (d3dFormat)
         {
@@ -162,7 +164,7 @@ namespace LibSWBF2
             case D3DFMT_L16:
                 return "D3DFMT_L16";
             default:
-                return "Unknown Format: " + std::to_string(d3dFormat);
+                return fmt::format("Unknown Format: {}", d3dFormat).c_str();
         }
     }
 
@@ -175,7 +177,7 @@ namespace LibSWBF2
             case ETextureFormat::B8_G8_R8_A8:
                 return DXGI_FORMAT_B8G8R8A8_UNORM;
             default:
-                throw std::runtime_error("Unknown ETextureFormat Format: " + std::to_string((uint8_t)format));
+                throw LibException(fmt::format("Unknown ETextureFormat Format: {}", format));
         }
     }
 }

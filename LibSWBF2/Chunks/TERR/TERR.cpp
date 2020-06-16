@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TERR.h"
 #include "Exceptions.h"
+#include "Logging/Logger.h"
+#include "FileReader.h"
 #include <algorithm>
 #include <vector>
 
@@ -18,7 +20,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 	void TERR::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void TERR::ReadFromStream(FileReader& stream)
@@ -27,7 +29,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 		if (TerrHeader != "TERR"_h)
 		{
-			LOG("Wrong File Format!", ELogType::Warning);
+			LOG_WARN("Wrong File Format!");
 			return;
 		}
 
@@ -283,14 +285,14 @@ namespace LibSWBF2::Chunks::Terrain
 		// .....
 	}
 
-	bool TERR::WriteToFile(const string& Path)
+	bool TERR::WriteToFile(const String& Path)
 	{
 		// TODO: implement
-		LOG("Writing TERR files not implemented yet!", ELogType::Warning);
+		LOG_WARN("Writing TERR files not implemented yet!");
 		return false;
 	}
 
-	bool TERR::ReadFromFile(const string& Path)
+	bool TERR::ReadFromFile(const String& Path)
 	{
 		FileReader reader;
 		if (reader.Open(Path))
@@ -302,13 +304,13 @@ namespace LibSWBF2::Chunks::Terrain
 			}
 			catch (InvalidChunkException&)
 			{
-				LOG("Aborting read process...", ELogType::Error);
+				LOG_ERROR("Aborting read process...");
 				return false;
 			}
-			LOG("Successfully finished reading process!", ELogType::Info);
+			LOG_INFO("Successfully finished reading process!");
 			return true;
 		}
-		LOG("Could not open File " + Path + "! Non existent?", ELogType::Warning);
+		LOG_WARN("Could not open File {}! Non existent?", Path);
 		return false;
 	}
 }

@@ -1,9 +1,17 @@
 #pragma once
+#include <type_traits>
 #include "req.h"
 #include "LibString.h"
 
 namespace LibSWBF2
 {
+	enum class ELogType : uint8_t
+	{
+		Info = 0,
+		Warning = 1,
+		Error = 2
+	};
+
 	// Bitmap flags
 	enum class EModelPurpose : uint16_t
 	{
@@ -108,9 +116,10 @@ namespace LibSWBF2
 		B8_G8_R8_A8
 	};
 
-	String LIBSWBF2_API TopologyToString(ETopology topology);
-	String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
-	String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
+	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
+	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
+	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
+	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);

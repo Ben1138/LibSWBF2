@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ENVL.h"
+#include "FileReader.h"
+#include "FileWriter.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
