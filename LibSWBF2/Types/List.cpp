@@ -254,7 +254,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/inst.h"
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
-#include "D3D9Types.h"
+#include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2
 {

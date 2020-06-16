@@ -222,7 +222,7 @@
     <ClInclude Include="Types\Colorf.h" />
     <ClInclude Include="CRC.h" />
     <ClInclude Include="Chunks\MSH\CYCL.h" />
-    <ClInclude Include="DirectX\D3D9Types.h" />
+    <ClInclude Include="DirectX\D3D9FORMAT.h" />
     <ClInclude Include="DirectX\DXHelpers.h" />
     <ClInclude Include="Chunks\MSH\ENVL.h" />
     <ClInclude Include="Exceptions.h" />
