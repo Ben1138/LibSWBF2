@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Types\LibString.h"
 #include "Vector4.h"
+#include "FileReader.h"
+#include "FileWriter.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Types
 {
@@ -37,6 +40,6 @@ namespace LibSWBF2::Types
 
 	String Vector4::ToString()
 	{
-		return ("[" + std::to_string(m_X) + ", " + std::to_string(m_Y) + ", " + std::to_string(m_Z) + ", " + std::to_string(m_W) + "]").c_str();
+		return fmt::format("[{}, {}, {}, {}]", m_X, m_Y, m_Z, m_W).c_str();
 	}
 }

@@ -3,6 +3,10 @@
 #include "FMT_.h"
 #include "Logging/Logger.h"
 #include "DirectX\DXHelpers.h"
+#include "Exceptions.h"
+#include "FileReader.h"
+#include <algorithm>
+
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
@@ -10,12 +14,12 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
     void BODY::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void BODY::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void BODY::ReadFromStream(FileReader& stream)
@@ -42,7 +46,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
         size_t width = fmt->p_Info->m_Width;
         size_t height = fmt->p_Info->m_Height;
-
         // mip levels start at 0
         // divide resolution by 2 for each increasing mip level
         size_t div = (size_t)std::pow(2, lvl->p_Info->m_MipLevel);
@@ -50,8 +53,8 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         // don't go below 2x2 pixels, DirectX will crash otherwise
         // in e.g. geo1.lvl there's a case with a 512x256 image with
         // a mip level up to 9 (dafuq)
-        width = max(width / div, 2);
-        height = max(height / div, 2);
+        width = std::max(width / div, (size_t)2);
+        height = std::max(height / div, (size_t)2);
 
         p_Image = new DirectX::ScratchImage();
         p_Image->Initialize2D(D3DToDXGI(fmt->p_Info->m_Format), width, height, 1, 1);

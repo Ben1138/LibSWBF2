@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "STR.h"
+#include "FileReader.h"
+#include "FileWriter.h"
 
 namespace LibSWBF2::Chunks
 {

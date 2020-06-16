@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "tex_.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
 	void INFO::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::ReadFromStream(FileReader& stream)
@@ -26,8 +28,9 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
 	String INFO::ToString()
 	{
-		string result = "Mip Level:\t" + std::to_string(m_MipLevel) + "\n";
-		result += "Body Size:\t" + std::to_string(m_BodySize) + "\n";
-		return result.c_str();
+		return fmt::format(
+			"Mip Level:\t{}\n"
+			"Body Size:\t{}\n",
+			m_MipLevel, m_BodySize).c_str();
 	}
 }

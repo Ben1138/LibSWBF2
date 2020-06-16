@@ -2,6 +2,7 @@
 #include "Chunks/HeaderNames.h"
 #include "Types/LibString.h"
 #include "InternalHelpers.h"
+#include <fmt/format.h>
 #include <stdexcept>
 #include <exception>
 #include <string>
@@ -49,3 +50,5 @@ namespace LibSWBF2
 		ChunkSize m_Size;
 	};
 }
+
+#define THROW_LIBEX(...) throw LibException(fmt::format(__VA_ARGS__));

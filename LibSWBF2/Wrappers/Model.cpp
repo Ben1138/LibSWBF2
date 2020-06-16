@@ -4,8 +4,6 @@
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
-
 	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)
 	{
 		if (mainContainer == nullptr)

@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "XFRM.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
     void XFRM::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void XFRM::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void XFRM::ReadFromStream(FileReader& stream)

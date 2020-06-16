@@ -1,18 +1,22 @@
 #include "stdafx.h"
 #include "FMT_.INFO.h"
 #include "Logging\Logger.h"
+#include "InternalHelpers.h"
 #include "DirectX\DXHelpers.h"
+#include "Exceptions.h"
+#include "FileReader.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Chunks::LVL::FMT
 {
 	void INFO::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void INFO::ReadFromStream(FileReader& stream)
@@ -32,12 +36,13 @@ namespace LibSWBF2::Chunks::LVL::FMT
 
 	String INFO::ToString()
 	{
-		string result = "Format:\t" + D3DToString(m_Format) + "\n";
-		result += "Width:\t" + std::to_string(m_Width) + "\n";
-		result += "Height:\t" + std::to_string(m_Height) + "\n";
-		result += "Depth:\t" + std::to_string(m_Depth) + "\n";
-		result += "Mip Map Count:\t" + std::to_string(m_MipmapCount) + "\n";
-		result += "Type:\t" + std::to_string(m_Type) + "\n";
-		return result.c_str();
+		return fmt::format(
+			"Format:\t{}\n"
+			"Width:\t{}\n"
+			"Height:\t{}\n"
+			"Depth:\t{}\n"
+			"Mip Map Count:\t{}\n"
+			"Type:\t{}\n",
+			D3DToString(m_Format), m_Width, m_Height, m_Depth, m_MipmapCount, m_Type).c_str();
 	}
 }
