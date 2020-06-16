@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "wrld.h"
 #include "Exceptions.h"
+#include "Logging/Logger.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
@@ -43,7 +45,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				GenericChunkNC* generic;
 				READ_CHILD(stream, generic);
-				//LOG("Found unexpected chunk in wrld: " + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+				//LOG_WARN("Found unexpected chunk in wrld: '{}' at pos: {}", nextHead, stream.GetPosition());
 			}
 		}
 

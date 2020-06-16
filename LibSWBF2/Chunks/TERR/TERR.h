@@ -4,12 +4,14 @@
 #include "Types\LibString.h"
 #include "Types\Vector2.h"
 
-namespace LibSWBF2::Chunks::Terrain
+namespace LibSWBF2
 {
 	class FileReader;
 	class FileWriter;
+}
 
-	using Logging::ELogType;
+namespace LibSWBF2::Chunks::Terrain
+{
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::Vector2;
 	using LibSWBF2::Types::String;

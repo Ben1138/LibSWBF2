@@ -4,14 +4,12 @@
 
 namespace LibSWBF2::Types
 {
-	using LibSWBF2::Logging::ELogType;
-
 	template<class T>
 	void List<T>::Init(size_t ReservedSize)
 	{
 		if (ArrayPtr != nullptr)
 		{
-			LOG("List is already initialized!", ELogType::Warning);
+			LOG_WARN("List is already initialized!");
 			return;
 		}
 
@@ -88,7 +86,7 @@ namespace LibSWBF2::Types
 
 		if (NewMaxSize <= NumElements)
 		{
-			LOG("New size is too small! Nothing to Resize!", ELogType::Warning);
+			LOG_WARN("New size is too small! Nothing to Resize!");
 			return;
 		}
 
@@ -146,9 +144,8 @@ namespace LibSWBF2::Types
 	{
 		if (i >= NumElements)
 		{
-			string msg = "Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!";
-			LOG(msg, ELogType::Error);
-			throw std::exception(msg.c_str());
+			//LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
+			throw std::exception("Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!");
 		}
 		return ArrayPtr[i];
 	}
@@ -182,9 +179,8 @@ namespace LibSWBF2::Types
 	{
 		if (i >= NumElements)
 		{
-			string msg = "Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!";
-			LOG(msg, ELogType::Error);
-			throw std::exception(msg.c_str());
+			LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
+			throw std::exception("Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!");
 		}
 		return ArrayPtr[i];
 	}

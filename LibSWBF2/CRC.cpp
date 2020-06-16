@@ -113,7 +113,7 @@ namespace LibSWBF2
 	{
 		if (str == nullptr)
 		{
-			LOG("Given string pointer was NULL!", ELogType::Error);
+			LOG_ERROR("Given string pointer was NULL!");
 			return 0;
 		}
 

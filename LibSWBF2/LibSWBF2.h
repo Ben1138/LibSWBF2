@@ -1,7 +1,5 @@
 #pragma once
 #include "req.h"
-#include "Logging\Logger.h"
-#include "Logging\LoggerEntry.h"
 #include "Types\Color.h"
 #include "Types\Vector2.h"
 #include "Types\Vector3.h"
@@ -12,7 +10,6 @@
 #include "CRC.h"
 #include "Chunks\TERR\TERR.h"
 #include "Chunks\LVL\LVL.h"
-#include "Chunks\LVL\tex_\tex_.h"
 #include "Wrappers\Level.h"
 #include "API.h"
 

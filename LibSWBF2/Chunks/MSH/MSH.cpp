@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "MSH.h"
+#include "Logging/Logger.h"
+#include "FileReader.h"
+#include "FileWriter.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
@@ -36,7 +39,7 @@ namespace LibSWBF2::Chunks::MSH
 
 		if (m_Header != "HEDR"_h)
 		{
-			LOG("This is not a valid MSH file!", ELogType::Error);
+			LOG_ERROR("This is not a valid MSH file!");
 		}
 
 		while (PositionInChunk(stream.GetPosition()))
@@ -69,7 +72,7 @@ namespace LibSWBF2::Chunks::MSH
 			else if (head == "CL1L"_h)
 			{
 				// EoF reached;
-				LOG("Reached end of file!", ELogType::Info);
+				LOG_INFO("Reached end of file!");
 				return;
 			}
 			else

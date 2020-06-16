@@ -6,11 +6,14 @@
 #include "Types\List.h"
 #include "Types\LibString.h"
 
+namespace LibSWBF2 
+{ 
+	class FileReader;
+	class FileWriter; 
+}
+
 namespace LibSWBF2::Chunks
 {
-	namespace LibSWBF2 { class FileReader; }
-	namespace LibSWBF2 { class FileWriter; }
-
 	using Types::Color;
 	using Types::Vector2;
 	using Types::Vector3;

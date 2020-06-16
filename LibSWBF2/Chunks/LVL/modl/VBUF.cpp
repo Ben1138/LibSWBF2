@@ -32,7 +32,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         if (model == nullptr)
         {
             // should never happen
-            LOG("Parent modl is NULL!", ELogType::Error);
+            LOG_ERROR("Parent modl is NULL!");
             BaseChunk::EnsureEnd(stream);
             return;
         }
