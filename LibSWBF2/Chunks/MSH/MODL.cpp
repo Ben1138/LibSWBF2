@@ -1,24 +1,26 @@
 #include "stdafx.h"
 #include "MODL.h"
+#include "FileReader.h"
+#include "FileWriter.h"
 
 namespace LibSWBF2::Chunks::MSH
 {
 	EModelPurpose MODL::GetPurpose()
 	{
 		// TODO: Implement own find/starts with methods
-		string stdStr = m_Name.m_Text.Buffer();
+		std::string stdStr = m_Name.m_Text.Buffer();
 
-		if (stdStr.find("lowrez") != string::npos)
+		if (stdStr.find("lowrez") != std::string::npos)
 		{
 			return EModelPurpose::Mesh_Lowrez;
 		}
 
 		// check vehicle collision BEFORE regular collision
-		if (stdStr.find("v-collision") != string::npos || stdStr.find("p_vehicle") != string::npos)
+		if (stdStr.find("v-collision") != std::string::npos || stdStr.find("p_vehicle") != std::string::npos)
 		{
 			return EModelPurpose::Mesh_VehicleCollision;
 		}
-		else if (stdStr.find("collision") != string::npos)
+		else if (stdStr.find("collision") != std::string::npos)
 		{
 			return EModelPurpose::Mesh_Collision;
 		}
@@ -28,7 +30,7 @@ namespace LibSWBF2::Chunks::MSH
 			return EModelPurpose::Mesh_ShadowVolume;
 		}
 
-		if (stdStr.find("terraincutter") != string::npos)
+		if (stdStr.find("terraincutter") != std::string::npos)
 		{
 			return EModelPurpose::Mesh_TerrainCut;
 		}

@@ -2,26 +2,25 @@
 #include "Segment.h"
 #include "Material.h"
 #include "Level.h"
-#include "Types\List.h"
-#include "Logging\Logger.h"
+#include "Types/List.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
 	using Types::List;
 
 	bool Segment::FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out)
 	{
 		if (segmentChunk == nullptr)
 		{
-			LOG("Given SegmentChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given SegmentChunk was NULL!");
 			return false;
 		}
 
 		List<VBUF*>& vBuffs = segmentChunk->m_VertexBuffers;
 		if (vBuffs.Size() == 0)
 		{
-			LOG("Segment Chunk does not contain any data!", ELogType::Warning);
+			LOG_WARN("Segment Chunk does not contain any data!");
 			return false;
 		}
 
@@ -51,7 +50,7 @@ namespace LibSWBF2::Wrappers
 
 		if (!Material::FromChunk(mainContainer, segmentChunk->p_Material, out.m_Material))
 		{
-			LOG("Could not read Material!", ELogType::Warning);
+			LOG_WARN("Could not read Material!");
 		}
 
 		return true;

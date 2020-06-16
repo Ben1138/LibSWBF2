@@ -1,9 +1,25 @@
 #include "stdafx.h"
 #include "Enums.h"
+#include <string>
+#include <fmt/format.h>
 
 namespace LibSWBF2
 {
-	String TopologyToString(ETopology topology)
+	Types::String LogTypeToString(ELogType type)
+	{
+		switch (type)
+		{
+			case ELogType::Info:
+				return "Info";
+			case ELogType::Warning:
+				return "Warning";
+			case ELogType::Error:
+				return "Error";
+		}
+		return fmt::format("Unknown Log Type: {}", type).c_str();
+	}
+
+	Types::String TopologyToString(ETopology topology)
 	{
 		switch (topology)
 		{
@@ -20,12 +36,12 @@ namespace LibSWBF2
 			case ETopology::TriangleFan:
 				return "Triangle Strip";
 		}
-		return String("Unknown Topology: ") + std::to_string((int)topology).c_str();
+		return fmt::format("Unknown Topology: {}", topology).c_str();
 	}
 
-	String MaterialFlagsToString(EMaterialFlags flags)
+	Types::String MaterialFlagsToString(EMaterialFlags flags)
 	{
-		string result = "[";
+		std::string result = "[";
 		if ((flags & EMaterialFlags::Normal) != 0)
 		{
 			result += "Normal, ";
@@ -96,9 +112,9 @@ namespace LibSWBF2
 		return result.c_str();
 	}
 
-	String EVBUFFlagsToString(EVBUFFlags flags)
+	Types::String EVBUFFlagsToString(EVBUFFlags flags)
 	{
-		string result = "[";
+		std::string result = "[";
 		if ((flags & EVBUFFlags::Position) != 0)
 		{
 			result += "Position, ";

@@ -1,17 +1,16 @@
 #include "stdafx.h"
 #include "List.h"
-#include "Logging\Logger.h"
+#include "Exceptions.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Types
 {
-	using LibSWBF2::Logging::ELogType;
-
 	template<class T>
 	void List<T>::Init(size_t ReservedSize)
 	{
 		if (ArrayPtr != nullptr)
 		{
-			LOG("List is already initialized!", ELogType::Warning);
+			LOG_WARN("List is already initialized!");
 			return;
 		}
 
@@ -88,7 +87,7 @@ namespace LibSWBF2::Types
 
 		if (NewMaxSize <= NumElements)
 		{
-			LOG("New size is too small! Nothing to Resize!", ELogType::Warning);
+			LOG_WARN("New size is too small! Nothing to Resize!");
 			return;
 		}
 
@@ -146,9 +145,8 @@ namespace LibSWBF2::Types
 	{
 		if (i >= NumElements)
 		{
-			string msg = "Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!";
-			LOG(msg, ELogType::Error);
-			throw std::exception(msg.c_str());
+			//LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
+			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}
@@ -182,9 +180,8 @@ namespace LibSWBF2::Types
 	{
 		if (i >= NumElements)
 		{
-			string msg = "Index " + std::to_string(i) + " is out of bounds " + std::to_string(NumElements) + "!";
-			LOG(msg, ELogType::Error);
-			throw std::exception(msg.c_str());
+			LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
+			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}
@@ -245,19 +242,19 @@ namespace LibSWBF2::Types
 #include "Animation.h"
 #include "BoneFrames.h"
 #include "Polygon.h"
-#include "Chunks\MSH\SEGM.h"
-#include "Chunks\MSH\MATD.h"
-#include "Chunks\MSH\MODL.h"
-#include "Chunks\LVL\tex_\FMT_.h"
-#include "Chunks\LVL\tex_\tex_.LVL_.h"
-#include "Chunks\LVL\modl\LVL.modl.h"
-#include "Chunks\LVL\modl\modl.segm.h"
-#include "Chunks\LVL\modl\VBUF.h"
-#include "Chunks\LVL\modl\TNAM.h"
-#include "Chunks\LVL\wrld\inst.h"
-#include "Chunks\GenericChunk.h"
-#include "Wrappers\Level.h"
-#include "D3D9Types.h"
+#include "Chunks/MSH/SEGM.h"
+#include "Chunks/MSH/MATD.h"
+#include "Chunks/MSH/MODL.h"
+#include "Chunks/LVL/tex_/FMT_.h"
+#include "Chunks/LVL/tex_/tex_.LVL_.h"
+#include "Chunks/LVL/modl/LVL.modl.h"
+#include "Chunks/LVL/modl/modl.segm.h"
+#include "Chunks/LVL/modl/VBUF.h"
+#include "Chunks/LVL/modl/TNAM.h"
+#include "Chunks/LVL/wrld/inst.h"
+#include "Chunks/GenericChunk.h"
+#include "Wrappers/Level.h"
+#include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2
 {

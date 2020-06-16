@@ -1,17 +1,19 @@
 #include "stdafx.h"
 #include "wrld.h"
 #include "Exceptions.h"
+#include "Logging/Logger.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
     void wrld::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void wrld::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void wrld::ReadFromStream(FileReader& stream)
@@ -43,7 +45,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				GenericChunkNC* generic;
 				READ_CHILD(stream, generic);
-				//LOG("Found unexpected chunk in wrld: " + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+				//LOG_WARN("Found unexpected chunk in wrld: '{}' at pos: {}", nextHead, stream.GetPosition());
 			}
 		}
 

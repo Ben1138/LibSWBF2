@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
-#include "Chunks\STR.h"
+#include "Chunks/GenericChunk.h"
+#include "Chunks/STR.h"
 #include "segm.INFO.h"
 #include "MTRL.h"
 #include "TNAM.h"

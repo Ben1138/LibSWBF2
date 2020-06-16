@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "MTRL.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
     void MTRL::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void MTRL::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void MTRL::ReadFromStream(FileReader& stream)

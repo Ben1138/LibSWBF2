@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "HeaderNames.h"
+#include "Types/LibString.h"
+#include <set>
 #include <array>
+#include <string>
 
 namespace LibSWBF2
 {
@@ -47,14 +50,14 @@ namespace LibSWBF2
 		return m_Magic > other.m_Magic;
 	}
 
-	string ChunkHeader::ToString() const
+	Types::String ChunkHeader::ToString() const
 	{
-		string result;
+		std::string result;
 		result += m_Name[0];
 		result += m_Name[1];
 		result += m_Name[2];
 		result += m_Name[3];
-		return result;
+		return result.c_str();
 	}
 
 	bool IsValidHeader(const ChunkHeader hedr)

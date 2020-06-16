@@ -1,15 +1,15 @@
 #pragma once
-#include "stdafx.h"
-#include <set>
 
 namespace LibSWBF2
 {
+	namespace Types { struct String; }
+
 	union ChunkHeader
 	{
 		uint32_t m_Magic = 0;
 		uint8_t m_Name[4];
 
-		string ToString() const;
+		Types::String ToString() const;
 		bool operator==(const ChunkHeader other) const;
 		bool operator!=(const ChunkHeader other) const;
 
@@ -18,12 +18,12 @@ namespace LibSWBF2
 		bool operator>(const ChunkHeader other) const;
 	};
 
-	constexpr ChunkHeader operator""_h(const char* chars, const std::size_t length)
+	constexpr ChunkHeader operator""_h(const char* chars, const size_t length)
 	{
 		return *(ChunkHeader*)chars;
 	}
 
-	constexpr uint32_t operator""_m(const char* chars, const std::size_t length)
+	constexpr uint32_t operator""_m(const char* chars, const size_t length)
 	{
 		uint32_t result = 0;
 		result |= chars[0] << 0;

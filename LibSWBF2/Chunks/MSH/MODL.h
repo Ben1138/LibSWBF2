@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
-#include "Chunks\STR.h"
-#include "Types\Enums.h"
+#include "Chunks/BaseChunk.h"
+#include "Chunks/STR.h"
+#include "Types/Enums.h"
 #include "MTYP.h"
 #include "MNDX.h"
 #include "FLGS.h"

@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
-#include "Types\Polygon.h"
+#include "Chunks/BaseChunk.h"
+#include "Types/Polygon.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

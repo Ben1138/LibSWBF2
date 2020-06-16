@@ -7,3 +7,4 @@ Join us on [Discord](https://discord.com/invite/nNUapcU)<br />
 ## Build dependencies (NuGet)
 - directxtex_desktop_win10
 - glm
+- fmt

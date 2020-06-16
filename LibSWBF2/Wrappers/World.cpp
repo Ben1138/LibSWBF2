@@ -1,21 +1,19 @@
 #include "stdafx.h"
 #include "World.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {
-	using Logging::ELogType;
-
 	bool World::FromChunk(Level* mainContainer, wrld* worldChunk, World& out)
 	{
 		if (mainContainer == nullptr)
 		{
-			LOG("Given mainContainer was NULL!", ELogType::Error);
+			LOG_ERROR("Given mainContainer was NULL!");
 			return false;
 		}
 		if (worldChunk == nullptr)
 		{
-			LOG("Given worldChunk was NULL!", ELogType::Error);
+			LOG_ERROR("Given worldChunk was NULL!");
 			return false;
 		}
 
@@ -33,7 +31,7 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String World::GetName() const
+	Types::String World::GetName() const
 	{
 		return p_World->p_Name->m_Text;
 	}

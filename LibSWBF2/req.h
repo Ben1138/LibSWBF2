@@ -1,4 +1,8 @@
-// This file should include all requirements
+// External requirements to compile the include headers in third party applications
+#pragma once
+
+#include <stdint.h>		// for uint32_t, etc. declarations
+#include <math.h>		// for float_t declaration
 
 #ifdef LIBSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
@@ -6,25 +10,8 @@
 #define LIBSWBF2_API __declspec(dllimport)
 #endif
 
-#pragma once
-#include <string>
-#include <queue>
-#include <fstream>
-#include <type_traits>
-#include <cmath>
-#include <algorithm>
-#include <functional>
-
 namespace LibSWBF2
 {
-	// we don't want to lift up everything from std!
-	// so just lift up what we need
-	using std::clamp;
-	using std::string;
-	using std::queue;
-	using std::unique_ptr;
-	using std::function;
-
 	// only reason for a ChunkSize definition here is so we
 	// can easily change the type to uin64_t if ever necessary
 	typedef uint32_t ChunkSize;

@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "lvl_.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL
 {
     void lvl_::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void lvl_::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void lvl_::ReadFromStream(FileReader& stream)

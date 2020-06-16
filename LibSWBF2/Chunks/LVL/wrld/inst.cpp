@@ -1,16 +1,19 @@
 #include "stdafx.h"
 #include "inst.h"
+#include "Logging/Logger.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
     void inst::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void inst::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void inst::ReadFromStream(FileReader& stream)
@@ -25,7 +28,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 		{
 			GenericChunkNC* generic;
 			READ_CHILD(stream, generic);
-			//LOG("Found unexpected chunk in inst: " + string(generic->GetHeaderName().Buffer()) + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Warning);
+			//LOG_WARN("Found unexpected chunk in inst: '{}' at pos: {}", generic, stream.GetPosition());
 		}
 
         BaseChunk::EnsureEnd(stream);

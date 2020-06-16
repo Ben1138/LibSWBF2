@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "tex_.LVL_.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
 	void LVL_::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void LVL_::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void LVL_::ReadFromStream(FileReader& stream)

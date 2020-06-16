@@ -1,7 +1,11 @@
 #pragma once
-#include "FileWriter.h"
-#include "FileReader.h"
-#include "Types\LibString.h"
+#include "Types/LibString.h"
+
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
 
 namespace LibSWBF2::Types
 {

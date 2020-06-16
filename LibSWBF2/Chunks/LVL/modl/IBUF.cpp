@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "IBUF.h"
+#include "Exceptions.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
     void IBUF::RefreshSize()
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void IBUF::WriteToStream(FileWriter& stream)
     {
-        throw std::runtime_error("Not implemented!");
+        throw LibException("Not implemented!");
     }
 
     void IBUF::ReadFromStream(FileReader& stream)
@@ -30,10 +32,10 @@ namespace LibSWBF2::Chunks::LVL::modl
 
     String IBUF::ToString()
     {
-        string result = string("Number of Inidces = ") + std::to_string(m_IndicesCount).c_str() + "\nIndices = [";
+        std::string result = fmt::format("Number of Inidces = {}\nIndices = [", m_IndicesCount);
         for (uint32_t i = 0; i < m_IndicesCount; ++i)
         {
-            result += std::to_string(m_Indices[i]).c_str() + string(", ");
+            result += fmt::format("{}, ", m_Indices[i]);
         }
 
         result.resize(result.size() - 2);

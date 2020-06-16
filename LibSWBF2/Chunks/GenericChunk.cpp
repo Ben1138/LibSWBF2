@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "GenericChunk.h"
 #include "Exceptions.h"
-#include "LVL\tex_\tex_.h"
-#include "LVL\modl\LVL.modl.h"
-#include "LVL\wrld\wrld.h"
-#include "LVL\lvl_.h"
+#include "FileReader.h"
+#include "FileWriter.h"
+#include "Logging/Logger.h"
+#include "LVL/tex_/tex_.h"
+#include "LVL/modl/LVL.modl.h"
+#include "LVL/wrld/wrld.h"
+#include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -24,7 +27,7 @@ namespace LibSWBF2::Chunks
 		expected.m_Magic = Header;
 		if (Header != 0 && m_Header != expected)
 		{
-			LOG("Expected '" + expected.ToString() + "' but got '" + m_Header.ToString() + "'", ELogType::Error);
+			LOG_ERROR("Expected '{}' but got '{}'", expected, m_Header);
 			throw InvalidHeaderException(m_Header);
 		}
 
@@ -39,13 +42,13 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	void GenericChunk<Header>::RefreshSize()
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	template<uint32_t Header>
 	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
 	{
-		throw std::runtime_error("Not implemented!");
+		throw LibException("Not implemented!");
 	}
 
 	void GenericBaseChunk::ReadGenerics(FileReader& stream)
@@ -103,7 +106,7 @@ namespace LibSWBF2::Chunks
 						chunk = generic;
 					}
 
-					LOG(string("Adding Child '") + chunk->GetHeader().ToString() + "' to '" + m_Header.ToString() + "'", ELogType::Info);
+					LOG_INFO("Adding Child '{}' to '{}'", chunk->GetHeader(), m_Header);
 				}
 				catch (InvalidSizeException&)
 				{
@@ -112,7 +115,7 @@ namespace LibSWBF2::Chunks
 						delete chunk;
 					}
 
-					LOG("Skipping invalid Chunk: '" + nextHead.ToString() + "' at pos: " + std::to_string(stream.GetPosition()), ELogType::Error);
+					LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition());
 					break;
 				}
 			}
@@ -134,7 +137,7 @@ namespace LibSWBF2::Chunks
 
 	String GenericBaseChunk::GetHeaderName() const
 	{
-		return m_Header.ToString().c_str();
+		return m_Header.ToString();
 	}
 
 	GenericBaseChunk* GenericBaseChunk::GetParent() const

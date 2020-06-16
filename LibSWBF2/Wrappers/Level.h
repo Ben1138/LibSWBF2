@@ -3,9 +3,9 @@
 #include "Model.h"
 #include "Texture.h"
 #include "World.h"
-#include "Types\LibString.h"
-#include "Types\List.h"
-#include "Chunks\LVL\LVL.h"
+#include "Types/LibString.h"
+#include "Types/List.h"
+#include "Chunks/LVL/LVL.h"
 
 namespace LibSWBF2::Wrappers
 {
