@@ -1,10 +1,13 @@
 #pragma once
 
-namespace LibSWBF2::Types
+namespace LibSWBF2
 {
 	class FileReader;
 	class FileWriter;
+}
 
+namespace LibSWBF2::Types
+{
 	struct LIBSWBF2_API BoneWeight
 	{
 		static const ChunkSize SIZE = sizeof(float_t) + sizeof(uint32_t);

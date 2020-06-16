@@ -106,7 +106,7 @@ namespace LibSWBF2::Chunks
 						chunk = generic;
 					}
 
-					LOG_INFO("Adding Child '{}' to '{}'", chunk, m_Header);
+					LOG_INFO("Adding Child '{}' to '{}'", chunk->GetHeader(), m_Header);
 				}
 				catch (InvalidSizeException&)
 				{
