@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "tex_.INFO.h"
-#include "Logging\Logger.h"
 #include "InternalHelpers.h"
-#include "DirectX\DXHelpers.h"
+#include "DirectX/DXHelpers.h"
 #include "Exceptions.h"
 #include "FileReader.h"
 #include <fmt/format.h>

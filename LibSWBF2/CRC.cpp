@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CRC.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2
 {

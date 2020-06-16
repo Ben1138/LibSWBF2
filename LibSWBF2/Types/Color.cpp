@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Color.h"
-#include "Logging\Logger.h"
+#include "InternalHelpers.h"
 #include "FileWriter.h"
 #include "FileReader.h"
 #include <algorithm>

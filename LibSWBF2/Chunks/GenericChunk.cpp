@@ -4,10 +4,10 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 #include "Logging/Logger.h"
-#include "LVL\tex_\tex_.h"
-#include "LVL\modl\LVL.modl.h"
-#include "LVL\wrld\wrld.h"
-#include "LVL\lvl_.h"
+#include "LVL/tex_/tex_.h"
+#include "LVL/modl/LVL.modl.h"
+#include "LVL/wrld/wrld.h"
+#include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "req.h"
-#include "Types\Vector4.h"
-#include "Chunks\LVL\wrld\inst.h"
+#include "Types/Vector4.h"
+#include "Chunks/LVL/wrld/inst.h"
 
 namespace LibSWBF2::Wrappers
 {

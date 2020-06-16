@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "Logging\Logger.h"
-#include "Chunks\LVL\tex_\tex_.h"
-#include "Chunks\LVL\modl\LVL.modl.h"
+#include "InternalHelpers.h"
+#include "Chunks/LVL/tex_/tex_.h"
+#include "Chunks/LVL/modl/LVL.modl.h"
 #include <unordered_map>
 
 namespace LibSWBF2::Wrappers

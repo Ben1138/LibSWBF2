@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks\HeaderNames.h"
-#include "Types\List.h"
-#include "Types\LibString.h"
-#include "Types\Vector2.h"
+#include "Chunks/HeaderNames.h"
+#include "Types/List.h"
+#include "Types/LibString.h"
+#include "Types/Vector2.h"
 
 namespace LibSWBF2
 {

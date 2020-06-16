@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MSH.h"
-#include "Logging/Logger.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include "FileWriter.h"
 

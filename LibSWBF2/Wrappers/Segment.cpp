@@ -2,8 +2,8 @@
 #include "Segment.h"
 #include "Material.h"
 #include "Level.h"
-#include "Types\List.h"
-#include "Logging\Logger.h"
+#include "Types/List.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Wrappers
 {

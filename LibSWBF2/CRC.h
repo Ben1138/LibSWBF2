@@ -1,5 +1,4 @@
 #pragma once
-#include "Logging\Logger.h"
 
 namespace LibSWBF2
 {

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Vector2.h"
-#include "Types\LibString.h"
+#include "Types/LibString.h"
 #include "FileWriter.h"
 #include "FileReader.h"
 #include <fmt/format.h>

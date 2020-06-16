@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
-#include "Types\Enums.h"
+#include "Chunks/BaseChunk.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

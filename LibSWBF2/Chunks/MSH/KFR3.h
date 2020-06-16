@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks\BaseChunk.h"
-#include "Types\BoneFrames.h"
+#include "Chunks/BaseChunk.h"
+#include "Types/BoneFrames.h"
 
 namespace LibSWBF2::Chunks::MSH
 {

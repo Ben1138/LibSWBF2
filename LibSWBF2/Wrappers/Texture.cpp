@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "Logging/Logger.h"
-#include "Chunks\LVL\\tex_\tex_.LVL_.h"
+#include "InternalHelpers.h"
+#include "Chunks/LVL/tex_/tex_.LVL_.h"
 
 namespace LibSWBF2::Wrappers
 {

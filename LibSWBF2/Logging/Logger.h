@@ -1,6 +1,5 @@
 #pragma once
 #include "LoggerEntry.h"
-#include "InternalHelpers.h"
 #include "FileWriter.h"
 #include "Types/LibString.h"
 #include "Chunks/HeaderNames.h"
@@ -34,9 +33,3 @@ namespace LibSWBF2::Logging
 		ELogType m_LogfileLevel = ELogType::Warning;
 	};
 }
-
-#define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-//#define LOG(message, level) LibSWBF2::Logging::Logger::GetInstance()->Log(message, level, __LINE__, __FILENAME__);
-#define LOG_INFO(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Info, __LINE__, __FILENAME__);
-#define LOG_WARN(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Warning, __LINE__, __FILENAME__);
-#define LOG_ERROR(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), ELogType::Error, __LINE__, __FILENAME__);
