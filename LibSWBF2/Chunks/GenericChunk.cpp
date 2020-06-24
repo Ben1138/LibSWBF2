@@ -7,6 +7,7 @@
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
+#include "LVL/tern/tern.h"
 #include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
@@ -99,6 +100,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, world);
 						chunk = world;
 					}
+					else if (nextHead == "tern"_h)
+					{
+						LVL::tern* terrain;
+						READ_CHILD(stream, terrain);
+						chunk = terrain;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -157,7 +164,7 @@ namespace LibSWBF2::Chunks
 }
 
 // ============================================================
-// ============== Explicit CHunk instantiations ===============
+// ============== Explicit Chunk instantiations ===============
 // ============================================================
 
 namespace LibSWBF2::Chunks
@@ -174,6 +181,10 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"modl"_m>;
 	template LIBSWBF2_API struct GenericChunk<"segm"_m>;
 	template LIBSWBF2_API struct GenericChunk<"MTRL"_m>;
+	template LIBSWBF2_API struct GenericChunk<"tern"_m>;
+	template LIBSWBF2_API struct GenericChunk<"PCHS"_m>;
+	template LIBSWBF2_API struct GenericChunk<"PTCH"_m>;
+	template LIBSWBF2_API struct GenericChunk<"VBUF"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;

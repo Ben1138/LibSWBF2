@@ -1,13 +1,13 @@
 #pragma once
-#include "Chunks\GenericChunk.h"
-#include "Chunks\STR.h"
+#include "Chunks/GenericChunk.h"
+#include "PTCH.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::terrain
 {
-	struct LIBSWBF2_EXP segm : public GenericChunk<"segm"_m>
+	struct LIBSWBF2_API PCHS : public GenericChunk<"PCHS"_m>
 	{
 	public:
-		STR<"NAME"_m>* m_Name;
+		List<PTCH*> m_Patches;
 
 	public:
 		void RefreshSize() override;

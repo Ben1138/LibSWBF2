@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "VBUF.h"
+#include "modl.VBUF.h"
 #include "LVL.modl.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"

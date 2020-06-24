@@ -79,6 +79,12 @@
     <Filter Include="Source Files\Wrappers">
       <UniqueIdentifier>{5f5a3a00-e1c0-40c1-a82e-a6fcf78878d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\tern">
+      <UniqueIdentifier>{0c0b3e59-b5c9-45e0-884c-ff0710534e3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\tern">
+      <UniqueIdentifier>{25d1d0c5-3caa-4776-89fc-bc85260e281e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -303,9 +309,6 @@
     <ClInclude Include="Chunks\LVL\modl\IBUF.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\modl\VBUF.h">
-      <Filter>Header Files\Chunks\LVL\modl</Filter>
-    </ClInclude>
     <ClInclude Include="Types\Vector3u8.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
@@ -359,6 +362,27 @@
     </ClInclude>
     <ClInclude Include="DirectX\D3D9FORMAT.h">
       <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\tern.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\tern.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\PCHS.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\PTCH.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TerrainBufferEntry.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\modl.VBUF.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\PTCH.VBUF.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -566,9 +590,6 @@
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\modl\VBUF.cpp">
-      <Filter>Source Files\Chunks\LVL\modl</Filter>
-    </ClCompile>
     <ClCompile Include="Types\Vector3u8.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
@@ -622,6 +643,27 @@
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\tern.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\tern.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\PCHS.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\PTCH.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TerrainBufferEntry.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\modl.VBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\PTCH.VBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
