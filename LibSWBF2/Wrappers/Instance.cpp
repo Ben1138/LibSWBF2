@@ -41,10 +41,6 @@ namespace LibSWBF2::Wrappers
 	{
 		glm::mat3 matrix = ToGLM(p_Instance->p_Info->p_XFRM->m_RotationMatrix);
 		glm::quat quat = glm::quat(matrix);
-
-		// return the quaternion as defined in wld or lyr files
-		quat = glm::quat(quat.x, quat.y, quat.z, quat.w);
-
 		return ToLib(quat);
 	}
 }
