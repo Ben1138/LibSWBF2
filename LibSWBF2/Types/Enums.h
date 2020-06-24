@@ -116,10 +116,18 @@ namespace LibSWBF2
 		B8_G8_R8_A8
 	};
 
+	enum class ETerrainBufferType : uint32_t
+	{
+		Geometry = 290,
+		Texture = 20770,
+		TextureExtra = 130
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
+	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);

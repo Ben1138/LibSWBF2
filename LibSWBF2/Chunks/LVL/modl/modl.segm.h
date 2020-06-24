@@ -5,7 +5,7 @@
 #include "MTRL.h"
 #include "TNAM.h"
 #include "IBUF.h"
-#include "VBUF.h"
+#include "modl.VBUF.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
 {

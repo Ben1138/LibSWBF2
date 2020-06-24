@@ -249,9 +249,10 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/modl/modl.segm.h"
-#include "Chunks/LVL/modl/VBUF.h"
+#include "Chunks/LVL/modl/modl.VBUF.h"
 #include "Chunks/LVL/modl/TNAM.h"
 #include "Chunks/LVL/wrld/inst.h"
+#include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "DirectX/D3D9FORMAT.h"
@@ -274,6 +275,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<VertexWeights>;
 	template LIBSWBF2_API class List<TranslationFrame>;
 	template LIBSWBF2_API class List<RotationFrame>;
+	template LIBSWBF2_API class List<TerrainBufferEntry>;
 	template LIBSWBF2_API class List<MSH::SEGM>;
 	template LIBSWBF2_API class List<MSH::MATD>;
 	template LIBSWBF2_API class List<MSH::MODL>;
@@ -286,6 +288,8 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<LVL::modl::VBUF*>;
 	template LIBSWBF2_API class List<LVL::modl::TNAM*>;
 	template LIBSWBF2_API class List<LVL::wrld::inst*>;
+	template LIBSWBF2_API class List<LVL::terrain::PTCH*>;
+	template LIBSWBF2_API class List<LVL::terrain::VBUF*>;
 	template LIBSWBF2_API class List<Wrappers::Model>;
 	template LIBSWBF2_API class List<Wrappers::Segment>;
 	template LIBSWBF2_API class List<Wrappers::Material>;

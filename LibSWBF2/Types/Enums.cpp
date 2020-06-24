@@ -167,6 +167,21 @@ namespace LibSWBF2
 		result += "]";
 		return result.c_str();
 	}
+
+	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type)
+	{
+		switch (type)
+		{
+			case ETerrainBufferType::Geometry:
+				return "Geometry";
+			case ETerrainBufferType::Texture:
+				return "Texture";
+			case ETerrainBufferType::TextureExtra:
+				return "TextureExtra";
+			default:
+				return fmt::format("Unknown ETerrainBufferType: %i", (int)type).c_str();
+		}
+	}
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
