@@ -4,7 +4,7 @@
 #include "tern.INFO.h"
 #include "PCHS.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::terrain
 {
 	struct LIBSWBF2_API tern : public GenericChunk<"tern"_m>
 	{

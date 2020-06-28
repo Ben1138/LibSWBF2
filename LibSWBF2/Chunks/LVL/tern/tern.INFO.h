@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 		float_t m_HeightFloor;		// lowest Y value in all vertex buffers
 		float_t m_HeightCeiling;	// heighest Y value in all vertex buffers
 		uint16_t m_GridSize;
-		uint16_t m_HeightPatches;
+		uint16_t m_PatchSize;		// number of vertices per patch edge
 		uint16_t m_TexturePatches;
 		uint16_t m_TextureCount;
 		uint16_t m_MaxTextureLayers;
