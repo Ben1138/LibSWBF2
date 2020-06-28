@@ -23,7 +23,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 		READ_CHILD(stream, p_Name);
 		READ_CHILD(stream, p_Info);
 
-		while (PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			FMT_* fmt;
 			READ_CHILD(stream, fmt);

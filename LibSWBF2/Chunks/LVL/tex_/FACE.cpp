@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
-		while (PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			LVL_* lvl = new LVL_();
 			READ_CHILD(stream, lvl);

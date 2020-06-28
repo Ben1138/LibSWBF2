@@ -42,7 +42,7 @@ namespace LibSWBF2::Chunks::MSH
 			LOG_ERROR("This is not a valid MSH file!");
 		}
 
-		while (PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 

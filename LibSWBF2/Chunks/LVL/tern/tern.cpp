@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks::LVL
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        while (PositionInChunk(stream.GetPosition()))
+        while (ThereIsAnother(stream))
         {
             ChunkHeader next = stream.ReadChunkHeader(true);
             if (next == "NAME"_h)
@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL
             }
             else
             {
-                SkipChunk(stream, false);
+                READ_CHILD_GENERIC(stream);
             }
         }
 
@@ -47,6 +47,6 @@ namespace LibSWBF2::Chunks::LVL
 
     String tern::ToString()
     {
-        return fmt::format("Name: %s", p_Name->m_Text).c_str();
+        return fmt::format("Name: {}", p_Name->m_Text).c_str();
     }
 }

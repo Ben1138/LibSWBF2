@@ -13,5 +13,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
+
+		String ToString() override;
 	};
 }

@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
 	public:
 		float_t m_GridUnitSize;
 		float_t m_HeightScale;
-		float_t m_HeightFloor;
-		float_t m_HeightCeiling;
+		float_t m_HeightFloor;		// lowest Y value in all vertex buffers
+		float_t m_HeightCeiling;	// heighest Y value in all vertex buffers
 		uint16_t m_GridSize;
 		uint16_t m_HeightPatches;
 		uint16_t m_TexturePatches;

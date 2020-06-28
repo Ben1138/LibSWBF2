@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
         READ_CHILD(stream, p_Name);
 
 		// since in wrld, some chunks are optional, we have to crawl dynamically
-		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
 			if (nextHead == "TNAM"_h)
@@ -43,9 +43,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			}
 			else
 			{
-				GenericChunkNC* generic;
-				READ_CHILD(stream, generic);
-				//LOG_WARN("Found unexpected chunk in wrld: '{}' at pos: {}", nextHead, stream.GetPosition());
+				READ_CHILD_GENERIC(stream);
 			}
 		}
 

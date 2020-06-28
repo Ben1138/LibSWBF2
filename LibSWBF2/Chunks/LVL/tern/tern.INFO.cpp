@@ -37,16 +37,16 @@ namespace LibSWBF2::Chunks::LVL::terrain
     String INFO::ToString()
     {
         return fmt::format(
-            "Grid Unit Size: %f\n"
-            "Height Scale: %f\n"
-            "Height Floor: %f\n"
-            "Height Ceiling: %f\n"
-            "Grid Size: %d\n"
-            "Height Patches: %d\n"
-            "Texture Patches: %d\n"
-            "Texture Count: %d\n"
-            "Max Texture Layers: %d\n"
-            "Unknown: %d\n",
+            "Grid Unit Size: {}\n"
+            "Height Scale: {}\n"
+            "Height Floor: {}\n"
+            "Height Ceiling: {}\n"
+            "Grid Size: {}\n"
+            "Height Patches: {}\n"
+            "Texture Patches: {}\n"
+            "Texture Count: {}\n"
+            "Max Texture Layers: {}\n"
+            "Unknown: {}\n",
             m_GridUnitSize,
             m_HeightScale,
             m_HeightFloor,

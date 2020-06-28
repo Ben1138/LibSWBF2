@@ -25,9 +25,9 @@ namespace LibSWBF2::Types
 	String TerrainBufferEntry::ToString()
 	{
 		return fmt::format(
-			"Position: %s\n"
-			"Normal: %s\n"
-			"Color: %s",
+			"Position: {}\n"
+			"Normal: {}\n"
+			"Color: {}",
 			m_Position.ToString(),
 			m_Normal.ToString(),
 			m_Color.ToString()

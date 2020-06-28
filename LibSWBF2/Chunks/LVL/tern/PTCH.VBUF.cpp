@@ -24,31 +24,27 @@ namespace LibSWBF2::Chunks::LVL::terrain
         m_ElementSize = stream.ReadUInt32();
         m_BufferType = (ETerrainBufferType)stream.ReadUInt32();
 
-        bool bAbort = false;
-        if (m_ElementCount != 81)
+        if (m_BufferType == ETerrainBufferType::Geometry)
         {
-            LOG_WARN("Invalid VBUF terrain chunk found with ElementCount: %i", m_ElementCount);
-            bAbort = true;
-        }
-        if (m_ElementSize != 28 && m_ElementSize != 16)
-        {
-            LOG_WARN("Invalid VBUF terrain chunk found with ElementSize: %i", m_ElementSize);
-            bAbort = true;
-        }
-
-        if (!bAbort)
-        {
-            if (m_BufferType == ETerrainBufferType::Geometry)
-            {
+            //if (m_ElementCount != 81)
+            //{
+            //    LOG_WARN("Invalid geometry VBUF terrain chunk found with ElementCount: {}", m_ElementCount);
+            //}
+            //else if (m_ElementSize != 28 && m_ElementSize != 16)
+            //{
+            //    LOG_WARN("Invalid geometry VBUF terrain chunk found with ElementSize: {}", m_ElementSize);
+            //}
+            //else
+            //{
                 for (uint32_t i = 0; i < m_ElementCount; ++i)
                 {
                     m_TerrainBuffer.Emplace().ReadFromStream(stream);
                 }
-            }
-            else
-            {
-                LOG_WARN("Skip yet unsupported Terrain Buffer Type: %s", TerrainBufferTypeToString(m_BufferType));
-            }
+            //}
+        }
+        else
+        {
+            LOG_INFO("Skip yet unsupported Terrain Buffer Type: {}", TerrainBufferTypeToString(m_BufferType));
         }
 
         BaseChunk::EnsureEnd(stream);
@@ -57,11 +53,11 @@ namespace LibSWBF2::Chunks::LVL::terrain
     String VBUF::ToString()
     {
         std::string result = fmt::format(
-            "Element Count: %d\n"
-            "Element Size: %d\n"
-            "Buffer Type: %s\n"
+            "Element Count: {}\n"
+            "Element Size: {}\n"
+            "Buffer Type: {}\n"
             "\n"
-            "Buffer: \n",
+            "Buffer: \n\n",
             m_ElementCount,
             m_ElementSize,
             TerrainBufferTypeToString(m_BufferType)
@@ -69,7 +65,6 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         for (uint32_t i = 0; i < m_TerrainBuffer.Size(); ++i)
         {
-            result += "\t";
             result += m_TerrainBuffer[i].ToString().Buffer();
             result += "\n\n";
         }

@@ -179,7 +179,7 @@ namespace LibSWBF2
 			case ETerrainBufferType::TextureExtra:
 				return "TextureExtra";
 			default:
-				return fmt::format("Unknown ETerrainBufferType: %i", (int)type).c_str();
+				return fmt::format("Unknown ETerrainBufferType: {}", (int)type).c_str();
 		}
 	}
 	
