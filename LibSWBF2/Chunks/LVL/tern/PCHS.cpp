@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        while (PositionInChunk(stream.GetPosition()))
+        while (ThereIsAnother(stream))
         {
             ChunkHeader next = stream.ReadChunkHeader(true);
             if (next == "PTCH"_h)
@@ -31,10 +31,15 @@ namespace LibSWBF2::Chunks::LVL::terrain
             }
             else
             {
-                SkipChunk(stream, false);
+                READ_CHILD_GENERIC(stream);
             }
         }
 
         BaseChunk::EnsureEnd(stream);
+    }
+
+    String PCHS::ToString()
+    {
+        return fmt::format("Num Patches: {}", m_Patches.Size()).c_str();
     }
 }

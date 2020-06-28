@@ -54,7 +54,7 @@ namespace LibSWBF2::Chunks
 
 	void GenericBaseChunk::ReadGenerics(FileReader& stream)
 	{
-		while (stream.GetFileSize() - stream.GetPosition() >= 4 && PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
 			if (IsKnownHeader(nextHead))

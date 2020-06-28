@@ -38,6 +38,7 @@ namespace LibSWBF2::Chunks
 		size_t GetPosition() const;
 		size_t GetDataPosition() const;
 		bool PositionInChunk(const size_t& CurrentPosition);
+		bool ThereIsAnother(FileReader& stream);
 		bool SkipChunk(FileReader& stream, const bool& printWarn = true);
 		void EnsureEnd(FileReader& stream);
 		//void EnsureTrallingBytes(FileWriter& stream); // TODO

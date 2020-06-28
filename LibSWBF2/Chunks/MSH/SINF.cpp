@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::MSH
 	{
 		BaseChunk::ReadFromStream(stream);
 
-		while (PositionInChunk(stream.GetPosition()))
+		while (ThereIsAnother(stream))
 		{
 			ChunkHeader head = stream.ReadChunkHeader(true);
 		
