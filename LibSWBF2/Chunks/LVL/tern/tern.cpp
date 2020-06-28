@@ -2,6 +2,7 @@
 #include "tern.h"
 #include "Exceptions.h"
 #include "FileReader.h"
+#include <fmt/format.h>
 
 namespace LibSWBF2::Chunks::LVL
 {
@@ -42,5 +43,10 @@ namespace LibSWBF2::Chunks::LVL
         }
 
         BaseChunk::EnsureEnd(stream);
+    }
+
+    String tern::ToString()
+    {
+        return fmt::format("Name: %s", p_Name->m_Text).c_str();
     }
 }
