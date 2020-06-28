@@ -4,7 +4,7 @@
 #include "FileReader.h"
 #include <fmt/format.h>
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::LVL::terrain
 {
     void tern::RefreshSize()
     {

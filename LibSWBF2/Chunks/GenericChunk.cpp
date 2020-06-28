@@ -102,7 +102,7 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "tern"_h)
 					{
-						LVL::tern* terrain;
+						LVL::terrain::tern* terrain;
 						READ_CHILD(stream, terrain);
 						chunk = terrain;
 					}

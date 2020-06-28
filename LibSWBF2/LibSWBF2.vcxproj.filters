@@ -384,6 +384,9 @@
     <ClInclude Include="Chunks\LVL\tern\PTCH.VBUF.h">
       <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
+    <ClInclude Include="Wrappers\Terrain.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -664,6 +667,9 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tern\PTCH.VBUF.cpp">
       <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\Terrain.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
