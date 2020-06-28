@@ -53,4 +53,27 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         BaseChunk::EnsureEnd(stream);
     }
+
+    String VBUF::ToString()
+    {
+        std::string result = fmt::format(
+            "Element Count: %d\n"
+            "Element Size: %d\n"
+            "Buffer Type: %s\n"
+            "\n"
+            "Buffer: \n",
+            m_ElementCount,
+            m_ElementSize,
+            TerrainBufferTypeToString(m_BufferType)
+        );
+
+        for (uint32_t i = 0; i < m_TerrainBuffer.Size(); ++i)
+        {
+            result += "\t";
+            result += m_TerrainBuffer[i].ToString().Buffer();
+            result += "\n\n";
+        }
+
+        return result.c_str();
+    }
 }
