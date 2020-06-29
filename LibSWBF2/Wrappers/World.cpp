@@ -40,4 +40,14 @@ namespace LibSWBF2::Wrappers
 	{
 		return m_Instances;
 	}
+
+	Types::String World::GetTerrainName() const
+	{
+		return p_World->p_TerrainName != nullptr ? p_World->p_TerrainName->m_Text : "";
+	}
+	
+	Types::String World::GetSkyName() const
+	{
+		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
+	}
 }

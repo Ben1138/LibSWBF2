@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         m_HeightFloor = stream.ReadFloat();
         m_HeightCeiling = stream.ReadFloat();
         m_GridSize = stream.ReadUInt16();
-        m_PatchSize = stream.ReadUInt16();
+        m_PatchEdgeSize = stream.ReadUInt16();
         m_TexturePatches = stream.ReadUInt16();
         m_TextureCount = stream.ReadUInt16();
         m_MaxTextureLayers = stream.ReadUInt16();
@@ -42,7 +42,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             "Height Floor: {}\n"
             "Height Ceiling: {}\n"
             "Grid Size: {}\n"
-            "Patch Size: {}\n"
+            "Patch Edge Size: {}\n"
             "Texture Patches: {}\n"
             "Texture Count: {}\n"
             "Max Texture Layers: {}\n"
@@ -52,7 +52,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             m_HeightFloor,
             m_HeightCeiling,
             m_GridSize,
-            m_PatchSize,
+            m_PatchEdgeSize,
             m_TexturePatches,
             m_TextureCount,
             m_MaxTextureLayers,

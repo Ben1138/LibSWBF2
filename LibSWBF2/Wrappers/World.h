@@ -25,5 +25,7 @@ namespace LibSWBF2::Wrappers
 
 		Types::String GetName() const;
 		const List<Instance>& GetInstances() const;
+		Types::String GetTerrainName() const;
+		Types::String GetSkyName() const;
 	};
 }
