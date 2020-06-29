@@ -295,6 +295,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<Wrappers::Material>;
 	template LIBSWBF2_API class List<Wrappers::Texture>;
 	template LIBSWBF2_API class List<Wrappers::World>;
+	template LIBSWBF2_API class List<Wrappers::Terrain>;
 	template LIBSWBF2_API class List<Wrappers::Instance>;
 	template LIBSWBF2_API class List<const Wrappers::Texture*>;
 }

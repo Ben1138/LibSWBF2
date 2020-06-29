@@ -10,11 +10,13 @@ namespace LibSWBF2::Wrappers
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
+	using Chunks::LVL::terrain::tern;
 
 	// TODO: better solution than having a global hash map for all levels. cannot put in header aswell though...
 	std::unordered_map<std::string, size_t> TextureNameToIndex;
 	std::unordered_map<std::string, size_t> ModelNameToIndex;
 	std::unordered_map<std::string, size_t> WorldNameToIndex;
+	std::unordered_map<std::string, size_t> TerrainNameToIndex;
 
 	std::string ToLower(String name)
 	{
@@ -89,6 +91,16 @@ namespace LibSWBF2::Wrappers
 					WorldNameToIndex.emplace(ToLower(world.GetName()), result->m_Worlds.Add(world));
 				}
 			}
+
+			tern* terrainChunk = dynamic_cast<tern*>(children[i]);
+			if (terrainChunk != nullptr)
+			{
+				Terrain terrain;
+				if (Terrain::FromChunk(result, terrainChunk, terrain))
+				{
+					TerrainNameToIndex.emplace(ToLower(terrain.GetName()), result->m_Terrains.Add(terrain));
+				}
+			}
 		}
 
 		return result;
@@ -118,6 +130,11 @@ namespace LibSWBF2::Wrappers
 	const List<World>& Level::GetWorlds() const
 	{
 		return m_Worlds;
+	}
+
+	const List<Terrain>& Level::GetTerrains() const
+	{
+		return m_Terrains;
 	}
 
 	const Model* Level::GetModel(String modelName) const
@@ -168,6 +185,23 @@ namespace LibSWBF2::Wrappers
 		}
 
 		LOG_WARN("Could not find World '{}'!", worldName);
+		return nullptr;
+	}
+
+	const Terrain* Level::GetTerrain(String terrainName) const
+	{
+		if (terrainName == "")
+		{
+			return nullptr;
+		}
+
+		auto it = TerrainNameToIndex.find(ToLower(terrainName));
+		if (it != TerrainNameToIndex.end())
+		{
+			return &m_Terrains[it->second];
+		}
+
+		LOG_WARN("Could not find Terrain '{}'!", terrainName);
 		return nullptr;
 	}
 }

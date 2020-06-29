@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "Texture.h"
 #include "World.h"
+#include "Terrain.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -13,7 +14,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::LVL;
 
 	/*
-	 * This and the other Tool classes just serve as another abstraction Layer
+	 * This and the other wrapper classes just serve as another abstraction Layer
 	 * to wrap around the chunk data. You can of course just use the chunk data
 	 * directly if you want. This is just to make access to desired data more
 	 * straight forward.
@@ -30,6 +31,7 @@ namespace LibSWBF2::Wrappers
 		List<Model> m_Models;
 		List<Texture> m_Textures;
 		List<World> m_Worlds;
+		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 
 	public:
 		static Level* FromFile(String path);
@@ -38,9 +40,11 @@ namespace LibSWBF2::Wrappers
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
+		const List<Terrain>& GetTerrains() const;
 
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
+		const Terrain* GetTerrain(String terrainName) const;
 	};
 }

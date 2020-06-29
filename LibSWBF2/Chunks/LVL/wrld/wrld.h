@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::LVL::wrld
 	{
 	public:
 		STR<"NAME"_m>* p_Name;
-		STR<"TNAM"_m>* p_TerrainName;
-		STR<"SNAM"_m>* p_SkyName;
+		STR<"TNAM"_m>* p_TerrainName;	// optional chunk, can be nullptr
+		STR<"SNAM"_m>* p_SkyName;		// optional chunk, can be nullptr
 
 		// a.k.a. objects placed into the world
 		List<inst*> m_Instances;
