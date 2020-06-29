@@ -73,18 +73,34 @@ namespace LibSWBF2::Wrappers
 		{
 			indices.Clear();
 
+			bool bClockwise = true;
 			if (requestedTopology == ETopology::TriangleList)
 			{
-				uint16_t dataEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
-				for (uint16_t x = 0; x < dataEdgeSize; ++x)
+				uint16_t dataEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize + 1;
+				// actually z in world space (y is height), but whatever...
+				for (uint16_t y = 0; y < dataEdgeSize; ++y)
 				{
-					// actually z in world space (y is height), but whatever...
-					for (uint16_t y = 0; y < dataEdgeSize; ++y)
+					for (uint16_t x = 0; x < dataEdgeSize; ++x)
 					{
-						// clockwise
-						indices.Add(x + (y * dataEdgeSize));
-						indices.Add(x + ((y + 1) * dataEdgeSize));
-						indices.Add((x + 1) + (y * dataEdgeSize));
+						// skip the overlapping vertices
+						if (x >= dataEdgeSize - 2 && y >= dataEdgeSize - 2)
+						{
+							continue;
+						}
+						if (bClockwise)
+						{
+							// clockwise
+							indices.Add(x + (y * dataEdgeSize));
+							indices.Add(x + ((y + 1) * dataEdgeSize));
+							indices.Add((x + 1) + (y * dataEdgeSize));
+						}
+						else
+						{
+							indices.Add((x + 1) + (y * dataEdgeSize));
+							indices.Add(x + (y * dataEdgeSize));
+							indices.Add(x + ((y + 1) * dataEdgeSize));
+						}
+						bClockwise = !bClockwise;
 					}
 				}
 			}
