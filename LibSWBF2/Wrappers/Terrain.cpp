@@ -29,7 +29,7 @@ namespace LibSWBF2::Wrappers
 
 		Vector3 patchOffset = { 0.0f, 0.0f, 0.0f };
 		uint16_t numPatchesPerRow = out.p_Terrain->p_Info->m_GridSize / out.p_Terrain->p_Info->m_PatchEdgeSize;
-		uint16_t columnIndex = 0;
+		uint16_t patchColumnIndex = 0;
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
 		for (size_t i = 0; i < patches.Size(); ++i)
@@ -55,13 +55,13 @@ namespace LibSWBF2::Wrappers
 					}
 
 					// calc patch offset
-					if (columnIndex >= numPatchesPerRow)
+					if (patchColumnIndex >= numPatchesPerRow)
 					{
-						columnIndex = 0;
+						patchColumnIndex = 0;
 						patchOffset.m_Z += out.p_Terrain->p_Info->m_GridUnitSize;
 					}
-					patchOffset.m_X = columnIndex * out.p_Terrain->p_Info->m_GridUnitSize;
-					columnIndex++;
+					patchOffset.m_X = patchColumnIndex * out.p_Terrain->p_Info->m_GridUnitSize;
+					patchColumnIndex++;
 
 					//LOG_WARN("Patch offset: {}", patchOffset.ToString());
 
@@ -91,29 +91,41 @@ namespace LibSWBF2::Wrappers
 
 			if (requestedTopology == ETopology::TriangleList)
 			{
-				uint16_t dataEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize + 1;
-				// actually z in world space (y is height), but whatever...
-				for (uint16_t y = 0; y < dataEdgeSize - 2; ++y)
+				uint16_t gridSize = p_Terrain->p_Info->m_GridSize;
+				uint16_t patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
+				uint16_t dataEdgeSize = patchEdgeSize + 1;
+
+				uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
+				uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
+
+				for (uint16_t i = 0; i < 5/*numPatches*/; ++i)
 				{
-					for (uint16_t x = 0; x < dataEdgeSize - 2; ++x)
+					// actually z in world space (y is height), but whatever...
+					for (uint16_t y = 0; y < dataEdgeSize - 2; ++y)
 					{
-						uint16_t a, b, c, d;
+						for (uint16_t x = 0; x < dataEdgeSize - 2; ++x)
+						{
+							uint32_t globalX = x + (i * verticesPerPatch);
+							uint32_t globalY = y + (i * verticesPerPatch);
 
-						// get 4 points for quad
-						a = x + (y * dataEdgeSize);
-						b = x + ((y + 1) * dataEdgeSize);
-						c = (x + 1) + (y * dataEdgeSize);
-						d = (x + 1) + ((y + 1) * dataEdgeSize);
+							uint16_t a, b, c, d;
 
-						// draw triangle 1 clockwise
-						indices.Add(a);
-						indices.Add(b);
-						indices.Add(c);
+							// get 4 points for quad
+							a = globalX + (globalY * dataEdgeSize);
+							b = globalX + ((globalY + 1) * dataEdgeSize);
+							c = (globalX + 1) + (globalY * dataEdgeSize);
+							d = (globalX + 1) + ((globalY + 1) * dataEdgeSize);
 
-						// draw triangle 2 clockwise
-						indices.Add(c);
-						indices.Add(b);
-						indices.Add(d);
+							// draw triangle 1 clockwise
+							indices.Add(a);
+							indices.Add(b);
+							indices.Add(c);
+
+							// draw triangle 2 clockwise
+							indices.Add(c);
+							indices.Add(b);
+							indices.Add(d);
+						}
 					}
 				}
 			}
