@@ -21,11 +21,15 @@ namespace LibSWBF2::Wrappers
 		}
 		if (terrainChunk->p_Patches == nullptr || terrainChunk->p_Patches->m_Patches.Size() == 0)
 		{
-			// there is simply no terrain data present
+			// there's simply no terrain data present
 			return false;
 		}
 
 		out.p_Terrain = terrainChunk;
+
+		Vector3 patchOffset = { 0.0f, 0.0f, 0.0f };
+		uint16_t numPatchesPerRow = out.p_Terrain->p_Info->m_GridSize / out.p_Terrain->p_Info->m_PatchEdgeSize;
+		uint16_t columnIndex = 0;
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
 		for (size_t i = 0; i < patches.Size(); ++i)
@@ -41,7 +45,7 @@ namespace LibSWBF2::Wrappers
 						continue;
 					}
 
-					// apparently patch data overlaps with neighbouring patches by one (9x9=81 instead of 8x8=64)
+					// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
 					uint16_t dataEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize + 1;
 					uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
 					if (buffers[j]->m_ElementCount != numVertsPerPatch)
@@ -50,10 +54,22 @@ namespace LibSWBF2::Wrappers
 						continue;
 					}
 
+					// calc patch offset
+					if (columnIndex >= numPatchesPerRow)
+					{
+						columnIndex = 0;
+						patchOffset.m_Z += out.p_Terrain->p_Info->m_GridUnitSize;
+					}
+					patchOffset.m_X = columnIndex * out.p_Terrain->p_Info->m_GridUnitSize;
+					columnIndex++;
+
+					//LOG_WARN("Patch offset: {}", patchOffset.ToString());
+
 					List<Types::TerrainBufferEntry>& terrainBuffer = buffers[j]->m_TerrainBuffer;
 					for (size_t k = 0; k < terrainBuffer.Size(); ++k)
 					{
-						out.m_Positions.Add(terrainBuffer[k].m_Position);
+						glm::vec3 pos = ToGLM(terrainBuffer[k].m_Position) + ToGLM(patchOffset);
+						out.m_Positions.Add(ToLib(pos));
 						out.m_Normals.Add(terrainBuffer[k].m_Normal);
 						out.m_Colors.Add(terrainBuffer[k].m_Color);
 					}
@@ -73,34 +89,31 @@ namespace LibSWBF2::Wrappers
 		{
 			indices.Clear();
 
-			bool bClockwise = true;
 			if (requestedTopology == ETopology::TriangleList)
 			{
 				uint16_t dataEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize + 1;
 				// actually z in world space (y is height), but whatever...
-				for (uint16_t y = 0; y < dataEdgeSize; ++y)
+				for (uint16_t y = 0; y < dataEdgeSize - 2; ++y)
 				{
-					for (uint16_t x = 0; x < dataEdgeSize; ++x)
+					for (uint16_t x = 0; x < dataEdgeSize - 2; ++x)
 					{
-						// skip the overlapping vertices
-						if (x >= dataEdgeSize - 2 && y >= dataEdgeSize - 2)
-						{
-							continue;
-						}
-						if (bClockwise)
-						{
-							// clockwise
-							indices.Add(x + (y * dataEdgeSize));
-							indices.Add(x + ((y + 1) * dataEdgeSize));
-							indices.Add((x + 1) + (y * dataEdgeSize));
-						}
-						else
-						{
-							indices.Add((x + 1) + (y * dataEdgeSize));
-							indices.Add(x + (y * dataEdgeSize));
-							indices.Add(x + ((y + 1) * dataEdgeSize));
-						}
-						bClockwise = !bClockwise;
+						uint16_t a, b, c, d;
+
+						// get 4 points for quad
+						a = x + (y * dataEdgeSize);
+						b = x + ((y + 1) * dataEdgeSize);
+						c = (x + 1) + (y * dataEdgeSize);
+						d = (x + 1) + ((y + 1) * dataEdgeSize);
+
+						// draw triangle 1 clockwise
+						indices.Add(a);
+						indices.Add(b);
+						indices.Add(c);
+
+						// draw triangle 2 clockwise
+						indices.Add(c);
+						indices.Add(b);
+						indices.Add(d);
 					}
 				}
 			}
