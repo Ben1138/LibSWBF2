@@ -80,11 +80,6 @@ namespace LibSWBF2::Wrappers
 					}
 					patchOffset.x = (patchColumnIndex * patchDistance) - distToCenter;
 					patchColumnIndex++;
-
-					if (i < 2)
-					{
-						LOG_WARN("Patch offset: {}", ToLib(patchOffset).ToString());
-					}
 					
 					for (uint32_t k = 0; k < numVertsPerPatch; ++k)
 					{
@@ -92,11 +87,6 @@ namespace LibSWBF2::Wrappers
 						out.m_Positions.Add(ToLib(pos));
 						out.m_Normals.Add(terrainBuffer[k].m_Normal);
 						out.m_Colors.Add(terrainBuffer[k].m_Color);
-
-						if (i < 2)
-						{
-							LOG_WARN("  Orig Pos: {}    Offset Pos: {}", terrainBuffer[k].m_Position.ToString(), ToLib(pos).ToString());
-						}
 					}
 				}
 			}
