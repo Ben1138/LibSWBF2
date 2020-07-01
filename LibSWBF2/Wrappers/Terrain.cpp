@@ -26,17 +26,17 @@ namespace LibSWBF2::Wrappers
 		}
 
 		out.p_Terrain = terrainChunk;
-		float_t terrainScale = out.p_Terrain->p_Info->m_Scale;
 
 		float_t& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
 		uint16_t& patchEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize;
-		float_t patchDistance = gridUnitSize * patchEdgeSize;// *terrainScale;
+		float_t patchDistance = gridUnitSize * patchEdgeSize;
 
 		uint16_t numPatchesPerRow = out.p_Terrain->p_Info->m_GridSize / out.p_Terrain->p_Info->m_PatchEdgeSize;
 		uint16_t patchColumnIndex = 0;
 
 		// start offset in negative size/2, so terrain origin lies in the center
-		glm::vec3 patchOffset = { -(numPatchesPerRow / 2) * patchDistance, 0.0f, -(numPatchesPerRow / 2) * patchDistance };
+		float_t distToCenter = (out.p_Terrain->p_Info->m_GridSize * gridUnitSize) / 2.0f;
+		glm::vec3 patchOffset = { -distToCenter, 0.0f, -distToCenter };
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
 		for (size_t i = 0; i < patches.Size(); ++i)
@@ -78,7 +78,7 @@ namespace LibSWBF2::Wrappers
 						patchColumnIndex = 0;
 						patchOffset.z += patchDistance;
 					}
-					patchOffset.x = patchColumnIndex * patchDistance;
+					patchOffset.x = (patchColumnIndex * patchDistance) - distToCenter;
 					patchColumnIndex++;
 
 					if (i < 2)
@@ -88,7 +88,7 @@ namespace LibSWBF2::Wrappers
 					
 					for (uint32_t k = 0; k < numVertsPerPatch; ++k)
 					{
-						glm::vec3 pos = (ToGLM(terrainBuffer[k].m_Position) + patchOffset);// *terrainScale;
+						glm::vec3 pos = (ToGLM(terrainBuffer[k].m_Position) + patchOffset);;
 						out.m_Positions.Add(ToLib(pos));
 						out.m_Normals.Add(terrainBuffer[k].m_Normal);
 						out.m_Colors.Add(terrainBuffer[k].m_Color);

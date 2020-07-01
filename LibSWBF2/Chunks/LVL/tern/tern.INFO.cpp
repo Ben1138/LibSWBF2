@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         Check(stream);
 
         m_GridUnitSize = stream.ReadFloat();
-        m_Scale = stream.ReadFloat();
+        m_HeightScale = stream.ReadFloat();
         m_HeightFloor = stream.ReadFloat();
         m_HeightCeiling = stream.ReadFloat();
         m_GridSize = stream.ReadUInt16();
@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
     {
         return fmt::format(
             "Grid Unit Size: {}\n"
-            "Scale: {}\n"
+            "Height Scale: {}\n"
             "Height Floor: {}\n"
             "Height Ceiling: {}\n"
             "Grid Size: {}\n"
@@ -48,7 +48,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             "Max Texture Layers: {}\n"
             "Unknown: {}\n",
             m_GridUnitSize,
-            m_Scale,
+            m_HeightScale,
             m_HeightFloor,
             m_HeightCeiling,
             m_GridSize,
