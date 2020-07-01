@@ -26,10 +26,17 @@ namespace LibSWBF2::Wrappers
 		}
 
 		out.p_Terrain = terrainChunk;
+		float_t terrainScale = out.p_Terrain->p_Info->m_Scale;
 
-		Vector3 patchOffset = { 0.0f, 0.0f, 0.0f };
+		float_t& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
+		uint16_t& patchEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize;
+		float_t patchDistance = gridUnitSize * patchEdgeSize;// *terrainScale;
+
 		uint16_t numPatchesPerRow = out.p_Terrain->p_Info->m_GridSize / out.p_Terrain->p_Info->m_PatchEdgeSize;
 		uint16_t patchColumnIndex = 0;
+
+		// start offset in negative size/2, so terrain origin lies in the center
+		glm::vec3 patchOffset = { -(numPatchesPerRow / 2) * patchDistance, 0.0f, -(numPatchesPerRow / 2) * patchDistance };
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
 		for (size_t i = 0; i < patches.Size(); ++i)
@@ -41,16 +48,27 @@ namespace LibSWBF2::Wrappers
 				{
 					if (buffers[j]->m_ElementSize != 28)
 					{
-						LOG_WARN("Expected terrain VBUF buffer entry size of 28, but got {}!", buffers[j]->m_ElementSize);
+						LOG_WARN("Expected terrain VBUF buffer entry size of 28, but got {}! Patch index: {}, VBUF index: {}", buffers[j]->m_ElementSize, i, j);
+						continue;
+					}
+
+					List<Types::TerrainBufferEntry>& terrainBuffer = buffers[j]->m_TerrainBuffer;
+					if (buffers[j]->m_ElementCount != terrainBuffer.Size())
+					{
+						LOG_ERROR("Specified element count '{}' does not match up with actual buffer size '{}'! Patch index: {}, VBUF index: {}", buffers[j]->m_ElementCount, terrainBuffer.Size(), i, j);
 						continue;
 					}
 
 					// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
-					uint16_t dataEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize + 1;
+					uint16_t dataEdgeSize = patchEdgeSize + 1;
 					uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
-					if (buffers[j]->m_ElementCount != numVertsPerPatch)
+					if (buffers[j]->m_ElementCount > numVertsPerPatch)
 					{
-						LOG_WARN("Expected {} vertices per geometry patch, but got: {}!", numVertsPerPatch, buffers[j]->m_ElementCount);
+						LOG_WARN("Expected {} vertices per geometry patch, but got: {}! Ignoring remaining...  Patch index: {}, VBUF index: {}", numVertsPerPatch, buffers[j]->m_ElementCount, i, j);
+					}
+					if (buffers[j]->m_ElementCount < numVertsPerPatch)
+					{
+						LOG_WARN("Not enough vertices! Expected {} vertices per geometry patch, but got: {}! Skipping VBUF...  Patch index: {}, VBUF index: {}", numVertsPerPatch, buffers[j]->m_ElementCount, i, j);
 						continue;
 					}
 
@@ -58,20 +76,27 @@ namespace LibSWBF2::Wrappers
 					if (patchColumnIndex >= numPatchesPerRow)
 					{
 						patchColumnIndex = 0;
-						patchOffset.m_Z += out.p_Terrain->p_Info->m_GridUnitSize;
+						patchOffset.z += patchDistance;
 					}
-					patchOffset.m_X = patchColumnIndex * out.p_Terrain->p_Info->m_GridUnitSize;
+					patchOffset.x = patchColumnIndex * patchDistance;
 					patchColumnIndex++;
 
-					//LOG_WARN("Patch offset: {}", patchOffset.ToString());
-
-					List<Types::TerrainBufferEntry>& terrainBuffer = buffers[j]->m_TerrainBuffer;
-					for (size_t k = 0; k < terrainBuffer.Size(); ++k)
+					if (i < 2)
 					{
-						glm::vec3 pos = ToGLM(terrainBuffer[k].m_Position) + ToGLM(patchOffset);
+						LOG_WARN("Patch offset: {}", ToLib(patchOffset).ToString());
+					}
+					
+					for (uint32_t k = 0; k < numVertsPerPatch; ++k)
+					{
+						glm::vec3 pos = (ToGLM(terrainBuffer[k].m_Position) + patchOffset);// *terrainScale;
 						out.m_Positions.Add(ToLib(pos));
 						out.m_Normals.Add(terrainBuffer[k].m_Normal);
 						out.m_Colors.Add(terrainBuffer[k].m_Color);
+
+						if (i < 2)
+						{
+							LOG_WARN("  Orig Pos: {}    Offset Pos: {}", terrainBuffer[k].m_Position.ToString(), ToLib(pos).ToString());
+						}
 					}
 				}
 			}
@@ -93,17 +118,26 @@ namespace LibSWBF2::Wrappers
 			{
 				uint16_t gridSize = p_Terrain->p_Info->m_GridSize;
 				uint16_t patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
+
+				// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
 				uint16_t dataEdgeSize = patchEdgeSize + 1;
 
 				uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
 				uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
 
-				for (uint16_t i = 0; i < 5/*numPatches*/; ++i)
+				size_t numStoredPatches = p_Terrain->p_Patches->m_Patches.Size();
+				if (numStoredPatches != numPatches)
+				{
+					LOG_ERROR("Expected {} patches according to info data, but found {}!", numPatches, numStoredPatches);
+					return false;
+				}
+
+				for (uint16_t i = 0; i < numPatches; ++i)
 				{
 					// actually z in world space (y is height), but whatever...
-					for (uint16_t y = 0; y < dataEdgeSize - 2; ++y)
+					for (uint16_t y = 0; y < patchEdgeSize; ++y)
 					{
-						for (uint16_t x = 0; x < dataEdgeSize - 2; ++x)
+						for (uint16_t x = 0; x < patchEdgeSize; ++x)
 						{
 							uint32_t globalX = x + (i * verticesPerPatch);
 							uint32_t globalY = y + (i * verticesPerPatch);
@@ -111,17 +145,17 @@ namespace LibSWBF2::Wrappers
 							uint16_t a, b, c, d;
 
 							// get 4 points for quad
-							a = globalX + (globalY * dataEdgeSize);
-							b = globalX + ((globalY + 1) * dataEdgeSize);
-							c = (globalX + 1) + (globalY * dataEdgeSize);
-							d = (globalX + 1) + ((globalY + 1) * dataEdgeSize);
+							a = globalX + (y * dataEdgeSize);
+							b = globalX + ((y + 1) * dataEdgeSize);
+							c = (globalX + 1) + (y * dataEdgeSize);
+							d = (globalX + 1) + ((y + 1) * dataEdgeSize);
 
-							// draw triangle 1 clockwise
+							// triangle 1 clockwise
 							indices.Add(a);
 							indices.Add(b);
 							indices.Add(c);
 
-							// draw triangle 2 clockwise
+							// triangle 2 clockwise
 							indices.Add(c);
 							indices.Add(b);
 							indices.Add(d);
