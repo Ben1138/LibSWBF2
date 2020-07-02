@@ -256,6 +256,7 @@ namespace LibSWBF2::Types
 #include "Animation.h"
 #include "BoneFrames.h"
 #include "Polygon.h"
+#include "LibString.h"
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
@@ -283,6 +284,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<Vector3>;
 	template LIBSWBF2_API class List<Vector3u8>;
 	template LIBSWBF2_API class List<Color>;
+	template LIBSWBF2_API class List<String>;
 	template LIBSWBF2_API class List<Animation>;
 	template LIBSWBF2_API class List<BoneFrames>;
 	template LIBSWBF2_API class List<Polygon>;

@@ -3,6 +3,8 @@
 #include "Chunks/STR.h"
 #include "tern.INFO.h"
 #include "PCHS.h"
+#include "LTEX.h"
+#include "DTEX.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
@@ -10,8 +12,11 @@ namespace LibSWBF2::Chunks::LVL::terrain
 	{
 	public:
 		STR<"NAME"_m>* p_Name;
-		terrain::INFO* p_Info;
-		terrain::PCHS* p_Patches;
+		STR<"DTLX"_m>* p_DetailTexture;
+		INFO* p_Info;
+		LTEX* p_LayerTextures;
+		DTEX* p_LayerDetailTextures;
+		PCHS* p_Patches;
 
 	public:
 		void RefreshSize() override;

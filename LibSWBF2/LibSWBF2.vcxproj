@@ -197,6 +197,8 @@
     <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
     <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
     <ClInclude Include="Chunks\LVL\modl\modl.VBUF.h" />
+    <ClInclude Include="Chunks\LVL\tern\DTEX.h" />
+    <ClInclude Include="Chunks\LVL\tern\LTEX.h" />
     <ClInclude Include="Chunks\LVL\tern\PCHS.h" />
     <ClInclude Include="Chunks\LVL\tern\PTCH.h" />
     <ClInclude Include="Chunks\LVL\tern\PTCH.IBUF.h" />
@@ -300,6 +302,8 @@
     <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
     <ClCompile Include="Chunks\LVL\modl\modl.VBUF.cpp" />
+    <ClCompile Include="Chunks\LVL\tern\DTEX.cpp" />
+    <ClCompile Include="Chunks\LVL\tern\LTEX.cpp" />
     <ClCompile Include="Chunks\LVL\tern\PCHS.cpp" />
     <ClCompile Include="Chunks\LVL\tern\PTCH.cpp" />
     <ClCompile Include="Chunks\LVL\tern\PTCH.IBUF.cpp" />

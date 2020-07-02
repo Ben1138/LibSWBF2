@@ -48,4 +48,5 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct STR<"BNAM"_m>;
 	template LIBSWBF2_API struct STR<"TNAM"_m>;
 	template LIBSWBF2_API struct STR<"SNAM"_m>;
+	template LIBSWBF2_API struct STR<"DTLX"_m>;
 }

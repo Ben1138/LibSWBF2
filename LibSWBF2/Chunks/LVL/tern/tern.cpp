@@ -28,9 +28,21 @@ namespace LibSWBF2::Chunks::LVL::terrain
             {
                 READ_CHILD(stream, p_Name);
             }
+            else if (next == "DTLX"_h)
+            {
+                READ_CHILD(stream, p_DetailTexture);
+            }
             else if (next == "INFO"_h)
             {
                 READ_CHILD(stream, p_Info);
+            }
+            else if (next == "LTEX"_h)
+            {
+                READ_CHILD(stream, p_LayerTextures);
+            }
+            else if (next == "DTEX"_h)
+            {
+                READ_CHILD(stream, p_LayerDetailTextures);
             }
             else if (next == "PCHS"_h)
             {
