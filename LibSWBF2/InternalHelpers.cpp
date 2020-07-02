@@ -37,9 +37,9 @@ namespace LibSWBF2
 		return Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 	}
 
-	List<uint16_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint16_t offset)
+	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset)
 	{
-		List<uint16_t> result;
+		List<uint32_t> result;
 
 		uint8_t triCount = 0;
 		size_t numIndices = indexBuffer.Size();

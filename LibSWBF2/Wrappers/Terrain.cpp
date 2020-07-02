@@ -28,19 +28,25 @@ namespace LibSWBF2::Wrappers
 
 		out.p_Terrain = terrainChunk;
 
+		uint16_t& gridSize = out.p_Terrain->p_Info->m_GridSize;
 		float_t& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
 		uint16_t& patchEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize;
+		uint16_t dataEdgeSize = patchEdgeSize + 1;
 		float_t patchDistance = gridUnitSize * patchEdgeSize;
 
-		uint16_t numPatchesPerRow = out.p_Terrain->p_Info->m_GridSize / out.p_Terrain->p_Info->m_PatchEdgeSize;
+		uint16_t numPatchesPerRow = gridSize / patchEdgeSize;
 		uint16_t patchColumnIndex = 0;
 
+		float_t terrainEdgeUnitSize = gridSize * gridUnitSize;
+		float_t distToCenter = terrainEdgeUnitSize / 2.0f;
+		
+		// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
+		uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
+
 		// start offset in negative size/2, so terrain origin lies in the center
-		float_t distToCenter = (out.p_Terrain->p_Info->m_GridSize * gridUnitSize) / 2.0f;
-		glm::vec3 patchOffset = { -distToCenter, 0.0f, -distToCenter };
+		glm::vec3 patchOffset = { 0.0f, 0.0f, -distToCenter };
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
-
 		for (size_t i = 0; i < patches.Size(); ++i)
 		{
 			VBUF* vertexBuffer = patches[i]->m_GeometryBuffer;
@@ -63,17 +69,17 @@ namespace LibSWBF2::Wrappers
 				continue;
 			}
 
-			// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
-			uint16_t dataEdgeSize = patchEdgeSize + 1;
-			uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
-			if (vertexBuffer->m_ElementCount > numVertsPerPatch)
+			if (patches[i]->m_GeometryIndexBuffer == nullptr)
 			{
-				LOG_WARN("Expected {} vertices per geometry patch, but got: {}! Ignoring remaining...  Patch index: {}", numVertsPerPatch, vertexBuffer->m_ElementCount, i);
-			}
-			if (vertexBuffer->m_ElementCount < numVertsPerPatch)
-			{
-				LOG_WARN("Not enough vertices! Expected {} vertices per geometry patch, but got: {}! Skipping VBUF...  Patch index: {}", numVertsPerPatch, vertexBuffer->m_ElementCount, i);
-				continue;
+				if (vertexBuffer->m_ElementCount > numVertsPerPatch)
+				{
+					LOG_WARN("Expected {} vertices per geometry patch, but got: {}! Ignoring remaining...  Patch index: {}", numVertsPerPatch, vertexBuffer->m_ElementCount, i);
+				}
+				if (vertexBuffer->m_ElementCount < numVertsPerPatch)
+				{
+					LOG_WARN("Not enough vertices! Expected {} vertices per geometry patch, but got: {}! Skipping VBUF...  Patch index: {}", numVertsPerPatch, vertexBuffer->m_ElementCount, i);
+					continue;
+				}
 			}
 
 			// calc patch offset
@@ -84,32 +90,36 @@ namespace LibSWBF2::Wrappers
 			}
 			patchOffset.x = (patchColumnIndex * patchDistance) - distToCenter;
 			patchColumnIndex++;
-				
-			uint32_t index = 0;
-			for (uint32_t x = 0; x < dataEdgeSize; ++x)
+
+			// If a custom index buffer is specified, use the entire provided vertex buffer.
+			// If not, just just the expected amount. Apparently there're some VBUFs with more
+			// vertices than expected, but no custom index buffer.
+			// In those cases, we just ignore all remaining vertices.
+			size_t numVertices = patches[i]->m_GeometryIndexBuffer != nullptr ? terrainBuffer.Size() : numVertsPerPatch;
+			for (size_t j = 0; j < numVertices; ++j)
 			{
-				for (uint32_t y = 0; y < dataEdgeSize; ++y)
-				{
-					glm::vec3 pos = (ToGLM(terrainBuffer[index].m_Position) + patchOffset);
-					out.m_Positions.Add(ToLib(pos));
-					out.m_Normals.Add(terrainBuffer[index].m_Normal);
-					out.m_Colors.Add(terrainBuffer[index].m_Color);
+				glm::vec3 pos = (ToGLM(terrainBuffer[j].m_Position) + patchOffset);
+				out.m_Positions.Add(ToLib(pos));
+				out.m_Normals.Add(terrainBuffer[j].m_Normal);
+				out.m_Colors.Add(terrainBuffer[j].m_Color);
 
-					float_t u = ((float_t)x / (float_t)(dataEdgeSize-1)) * 2.0f;
-					float_t v = ((float_t)y / (float_t)(dataEdgeSize-1)) * 2.0f;
-					out.m_TexCoords.Add({ u, v });
-
-					++index;
-				}
+				// global UV calculation
+				//float_t u = ((pos.x + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
+				//float_t v = ((pos.z + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
+				
+				// per patch UV calculation
+				float_t u = (terrainBuffer[j].m_Position.m_X / (dataEdgeSize * gridUnitSize)) * 2.0f;
+				float_t v = (terrainBuffer[j].m_Position.m_Z / (dataEdgeSize * gridUnitSize)) * 2.0f;
+				out.m_TexCoords.Add({ u, v });
 			}
 		}
 
 		return true;
 	}
 
-	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
+	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
-		static List<uint16_t> indices;
+		static List<uint32_t> indices;
 		static ETopology lastRequestedTopology;
 
 		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
@@ -118,8 +128,8 @@ namespace LibSWBF2::Wrappers
 
 			if (requestedTopology == ETopology::TriangleList)
 			{
-				uint16_t gridSize = p_Terrain->p_Info->m_GridSize;
-				uint16_t patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
+				uint16_t& gridSize = p_Terrain->p_Info->m_GridSize;
+				uint16_t& patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
 
 				// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
 				uint16_t dataEdgeSize = patchEdgeSize + 1;
@@ -134,15 +144,19 @@ namespace LibSWBF2::Wrappers
 					return false;
 				}
 
+				uint32_t vertexOffset = 0;
 				for (uint16_t i = 0; i < numPatches; ++i)
 				{
 					// geometry index buffer is optional, most patches don't have them.
 					// this is most likely only for patches with baked in terrain cuts.
-					// if no custom index buffer is specified, build the index buffer ourselfs
+					// if no custom index buffer is specified, we build the index buffer ourselfs
 					IBUF* indexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryIndexBuffer;
+					VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
 					if (indexBuffer != nullptr)
 					{
-						indices.Append(TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, i * verticesPerPatch));
+						List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
+						indices.Append(triangleList);
+						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
 					}
 					else
 					{
@@ -151,10 +165,10 @@ namespace LibSWBF2::Wrappers
 						{
 							for (uint16_t x = 0; x < patchEdgeSize; ++x)
 							{
-								uint32_t globalX = x + (i * verticesPerPatch);
-								uint32_t globalY = y + (i * verticesPerPatch);
+								uint32_t globalX = x + vertexOffset;
+								uint32_t globalY = y + vertexOffset;
 
-								uint16_t a, b, c, d;
+								uint32_t a, b, c, d;
 
 								// get 4 points for quad
 								a = globalX + (y * dataEdgeSize);
@@ -173,8 +187,9 @@ namespace LibSWBF2::Wrappers
 								indices.Add(d);
 							}
 						}
-					}
 
+						vertexOffset += verticesPerPatch;
+					}
 				}
 			}
 			else
