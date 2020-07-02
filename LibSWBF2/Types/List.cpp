@@ -119,6 +119,20 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
+	size_t List<T>::Append(const List<T>& Items)
+	{
+		if (ArrayPtr == nullptr)
+		{
+			Init(LIST_DEFAULT_INIT_SIZE);
+		}
+		for (size_t i = 0; i < Items.Size(); ++i)
+		{
+			Add(Items[i]);
+		}
+		return NumElements - 1;
+	}
+
+	template<class T>
 	T& List<T>::Emplace()
 	{
 		if (ArrayPtr == nullptr)

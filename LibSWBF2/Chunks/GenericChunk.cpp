@@ -185,6 +185,7 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"PCHS"_m>;
 	template LIBSWBF2_API struct GenericChunk<"PTCH"_m>;
 	template LIBSWBF2_API struct GenericChunk<"VBUF"_m>;
+	template LIBSWBF2_API struct GenericChunk<"IBUF"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;

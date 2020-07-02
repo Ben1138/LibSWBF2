@@ -4,6 +4,7 @@
 #include "Chunks/BaseChunk.h"
 #include "Types/Vector4.h"
 #include "Types/Matrix3x3.h"
+#include "Types/List.h"
 #include "Logging/Logger.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -18,12 +19,17 @@ namespace LibSWBF2
 	using Types::Vector3;
 	using Types::Vector4;
 	using Types::Matrix3x3;
+	using Types::List;
 
 	Vector2 ToLib(const glm::vec2 vector);
 	glm::vec3 ToGLM(const Vector3& vector);
 	Vector3 ToLib(const glm::vec3 vector);
 	glm::mat3 ToGLM(const Matrix3x3& matrix);
 	Vector4 ToLib(const glm::quat& quaternion);
+
+	// Convert an index buffer from Triangle Strip format to Triangle List format
+	// optional: offset is added to each individual index.
+	List<uint16_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint16_t offset=0);
 }
 
 // adding custom fmt formatters

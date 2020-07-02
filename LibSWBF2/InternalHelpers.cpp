@@ -36,4 +36,37 @@ namespace LibSWBF2
 	{
 		return Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 	}
+
+	List<uint16_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint16_t offset)
+	{
+		List<uint16_t> result;
+
+		uint8_t triCount = 0;
+		size_t numIndices = indexBuffer.Size();
+		for (size_t i = 0; i < numIndices; ++i)
+		{
+			if (triCount == 3)
+			{
+				i -= 2;
+				triCount = 0;
+			}
+
+			result.Add(indexBuffer[i] + offset);
+			triCount++;
+		}
+
+		//after conversion to Triangle List, indices are listed CW CCW CW CCW, so let's flip them
+		bool flip = false;
+		size_t numTriangles = result.Size();
+		for (size_t i = 0; i < numTriangles; i += 3)
+		{
+			if (flip)
+			{
+				std::swap(result[i], result[i + 2]);
+			}
+			flip = !flip;
+		}
+
+		return result;
+	}
 }
