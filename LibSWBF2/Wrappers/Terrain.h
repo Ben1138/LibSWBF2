@@ -48,5 +48,8 @@ namespace LibSWBF2::Wrappers
 
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
+
+		// Texture name for each terrain layer. Usually 16 layers
+		const List<String>& GetLayerTextures() const;
 	};
 }

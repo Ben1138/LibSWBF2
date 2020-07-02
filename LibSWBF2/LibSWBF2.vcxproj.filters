@@ -390,6 +390,12 @@
     <ClInclude Include="Chunks\LVL\tern\PTCH.IBUF.h">
       <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\LTEX.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\DTEX.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -675,6 +681,12 @@
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tern\PTCH.IBUF.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\LTEX.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\DTEX.cpp">
       <Filter>Source Files\Chunks\LVL\tern</Filter>
     </ClCompile>
   </ItemGroup>

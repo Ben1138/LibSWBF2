@@ -234,4 +234,9 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_Terrain->p_Name->m_Text;
 	}
+
+	const List<String>& Terrain::GetLayerTextures() const
+	{
+		return p_Terrain->p_LayerTextures->m_LayerTextures;
+	}
 }
