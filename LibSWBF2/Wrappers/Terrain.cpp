@@ -30,11 +30,11 @@ namespace LibSWBF2::Wrappers
 
 		uint16_t& gridSize = out.p_Terrain->p_Info->m_GridSize;
 		float_t& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
-		uint16_t& patchEdgeSize = out.p_Terrain->p_Info->m_PatchEdgeSize;
-		uint16_t dataEdgeSize = patchEdgeSize + 1;
-		float_t patchDistance = gridUnitSize * patchEdgeSize;
+		uint16_t& numVertsPerPatchEdge = out.p_Terrain->p_Info->m_PatchEdgeSize;
+		uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
+		float_t patchDistance = gridUnitSize * numVertsPerPatchEdge;
 
-		uint16_t numPatchesPerRow = gridSize / patchEdgeSize;
+		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
 		uint16_t patchColumnIndex = 0;
 
 		float_t terrainEdgeUnitSize = gridSize * gridUnitSize;
@@ -44,7 +44,8 @@ namespace LibSWBF2::Wrappers
 		uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
 
 		// start offset in negative size/2, so terrain origin lies in the center
-		glm::vec3 patchOffset = { 0.0f, 0.0f, -distToCenter };
+		// For some reason, terrain seems to be offset by gridUnitSize in Z direction...
+		glm::vec3 patchOffset = { 0.0f, 0.0f, -distToCenter + gridUnitSize };
 
 		List<PTCH*>& patches = out.p_Terrain->p_Patches->m_Patches;
 		for (size_t i = 0; i < patches.Size(); ++i)
