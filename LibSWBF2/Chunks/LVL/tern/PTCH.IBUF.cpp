@@ -40,8 +40,9 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         for (uint32_t i = 0; i < m_IndexBuffer.Size(); ++i)
         {
-            result += m_IndexBuffer[i] + ", ";
+            result += std::to_string(m_IndexBuffer[i]) + ", ";
         }
+        result.resize(result.size() - 2);
         result += "]";
 
         return result.c_str();
