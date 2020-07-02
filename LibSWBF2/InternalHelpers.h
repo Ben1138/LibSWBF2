@@ -29,7 +29,7 @@ namespace LibSWBF2
 
 	// Convert an index buffer from Triangle Strip format to Triangle List format
 	// optional: offset is added to each individual index.
-	List<uint16_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint16_t offset=0);
+	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset=0);
 }
 
 // adding custom fmt formatters

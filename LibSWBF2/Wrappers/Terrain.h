@@ -35,7 +35,7 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 
 		// count is number of indices, NOT number of bytes!
-		bool GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const;
+		bool GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const;
 
 		// count is number of vectors, NOT number of bytes!
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
