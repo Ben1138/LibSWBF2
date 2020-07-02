@@ -137,13 +137,18 @@ namespace LibSWBF2::Types
 		return String(a) + b;
 	}
 
-	bool String::operator==(const String& other)
+	bool String::operator==(const String& other) const
 	{
 		return buffer != nullptr && other.buffer != nullptr && length == other.length && memcmp(buffer, other.buffer, length) == 0;
 	}
 
-	bool String::operator!=(const String& other)
+	bool String::operator!=(const String& other) const
 	{
 		return buffer == nullptr || other.buffer == nullptr || length != other.length || memcmp(buffer, other.buffer, length) != 0;
+	}
+
+	bool String::IsEmpty() const
+	{
+		return buffer == nullptr || buffer[0] == 0;
 	}
 }

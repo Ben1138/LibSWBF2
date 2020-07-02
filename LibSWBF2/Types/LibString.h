@@ -14,13 +14,15 @@ namespace LibSWBF2::Types
 		size_t Length() const; // without NULL terminator
 
 		String& operator=(const String& other);
-		bool operator==(const String& other);
-		bool operator!=(const String& other);
+		bool operator==(const String& other) const;
+		bool operator!=(const String& other) const;
 
 		String operator+=(const String& a);
 		friend String operator+(const String& a, const String& b);
 		friend String operator+(const String& a, const char* b);
 		friend String operator+(const char* a, const String& b);
+
+		bool IsEmpty() const;
 
 	private:
 		const static size_t WARN_LENGTH = 0xffff;
