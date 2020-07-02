@@ -8,6 +8,7 @@ namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Types::String;
+	using Types::Vector2;
 	using Types::Vector3;
 	using Types::Color;
 	using Chunks::LVL::terrain::tern;
@@ -25,6 +26,7 @@ namespace LibSWBF2::Wrappers
 		// the whole terrain, stiched together from all the patches
 		List<Vector3> m_Positions;
 		List<Vector3> m_Normals;
+		List<Vector2> m_TexCoords;
 		List<Color> m_Colors;
 
 	public:
@@ -43,5 +45,8 @@ namespace LibSWBF2::Wrappers
 
 		// count is number of colors, NOT number of bytes!
 		void GetColorBuffer(uint32_t& count, Color*& colorBuffer) const;
+
+		// count is number of vectors, NOT number of bytes!
+		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
 	};
 }

@@ -1,19 +1,15 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "PTCH.VBUF.h"
-#include "PTCH.IBUF.h"
+#include "Types/Enums.h"
+#include "Types/TerrainBufferEntry.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
-	struct LIBSWBF2_API PTCH : public GenericChunk<"PTCH"_m>
+	struct LIBSWBF2_API IBUF : public GenericChunk<"IBUF"_m>
 	{
 	public:
-		VBUF* m_TextureBuffer;
-		VBUF* m_GeometryBuffer;
-		VBUF* m_TextureExtraBuffer;
-
-		IBUF* m_GeometryIndexBuffer;
-		IBUF* m_TextureExtraIndexBuffer;
+		uint32_t m_ElementCount;
+		List<uint16_t> m_IndexBuffer;
 
 	public:
 		void RefreshSize() override;

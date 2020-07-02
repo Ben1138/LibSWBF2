@@ -24,7 +24,8 @@ namespace LibSWBF2::Types
 
 		size_t Size() const;
 		void Resize(size_t NewMaxSize);
-		size_t Add(const T& Element);		// returns index of added element
+		size_t Add(const T& Element);			// returns index of added element
+		size_t Append(const List<T>& Items);	// returns index of last added element
 		T& Emplace();
 
 		List<T>& operator=(const List<T>& other);
