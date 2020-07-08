@@ -49,4 +49,18 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
         BaseChunk::EnsureEnd(stream);
     }
+
+	String wrld::ToString()
+	{
+		return fmt::format(
+			"World Name: {}\n\n"
+			"Terrain Name: {}\n"
+			"Sky Name: {}\n"
+			"Number of object instances: {}\n",
+			p_Name->m_Text,
+			p_TerrainName->m_Text,
+			p_SkyName->m_Text,
+			m_Instances.Size()
+		).c_str();
+	}
 }

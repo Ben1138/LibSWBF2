@@ -32,4 +32,16 @@ namespace LibSWBF2::Chunks::LVL::texture
 
 		BaseChunk::EnsureEnd(stream);
 	}
+
+	String tex_::ToString()
+	{
+		return fmt::format(
+			"Name: {}\n\n"
+			"Info: {}\n"
+			"Number of FMTs: {}",
+			p_Name->m_Text,
+			p_Info->ToString(),
+			m_FMTs.Size()
+		).c_str();
+	}
 }
