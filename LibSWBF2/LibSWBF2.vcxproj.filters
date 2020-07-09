@@ -85,6 +85,12 @@
     <Filter Include="Source Files\Chunks\LVL\tern">
       <UniqueIdentifier>{25d1d0c5-3caa-4776-89fc-bc85260e281e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\scr_">
+      <UniqueIdentifier>{313209aa-b029-4e71-ae75-9eb94c210562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\scr_">
+      <UniqueIdentifier>{dfc711d0-3e9c-4a5b-bab0-5604e0a66fa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -396,6 +402,15 @@
     <ClInclude Include="Chunks\LVL\tern\DTEX.h">
       <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\scr_\scr_.h">
+      <Filter>Header Files\Chunks\LVL\scr_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\scr_\scr_.INFO.h">
+      <Filter>Header Files\Chunks\LVL\scr_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\RawData.h">
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -688,6 +703,15 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tern\DTEX.cpp">
       <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\scr_\scr_.cpp">
+      <Filter>Source Files\Chunks\LVL\scr_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\scr_\scr_.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\scr_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\RawData.cpp">
+      <Filter>Source Files\Chunks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

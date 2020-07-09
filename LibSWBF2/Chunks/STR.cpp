@@ -22,7 +22,10 @@ namespace LibSWBF2::Chunks
 	void STR<Header>::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
+		GenericChunk<Header>::Check(stream);
+
 		m_Text = stream.ReadString(GenericChunk<Header>::m_Size);
+		
 		BaseChunk::EnsureEnd(stream);
 	}
 

@@ -8,6 +8,7 @@
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
 #include "LVL/tern/tern.h"
+#include "LVL/scr_/scr_.h"
 #include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
@@ -106,6 +107,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, terrain);
 						chunk = terrain;
 					}
+					else if (nextHead == "scr_"_h)
+					{
+						LVL::script::scr_* script;
+						READ_CHILD(stream, script);
+						chunk = script;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -117,10 +124,8 @@ namespace LibSWBF2::Chunks
 				}
 				catch (InvalidSizeException&)
 				{
-					if (chunk != nullptr)
-					{
-						delete chunk;
-					}
+					delete chunk;
+					chunk = nullptr;
 
 					LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition());
 					break;
@@ -187,6 +192,7 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"VBUF"_m>;
 	template LIBSWBF2_API struct GenericChunk<"IBUF"_m>;
 	template LIBSWBF2_API struct GenericChunk<"LTEX"_m>;
+	template LIBSWBF2_API struct GenericChunk<"scr_"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;
