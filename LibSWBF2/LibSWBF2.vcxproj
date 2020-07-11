@@ -218,6 +218,7 @@
     <ClInclude Include="Wrappers\Level.h" />
     <ClInclude Include="Wrappers\Material.h" />
     <ClInclude Include="Wrappers\Model.h" />
+    <ClInclude Include="Wrappers\Script.h" />
     <ClInclude Include="Wrappers\Segment.h" />
     <ClInclude Include="Wrappers\Terrain.h" />
     <ClInclude Include="Wrappers\Texture.h" />
@@ -327,6 +328,7 @@
     <ClCompile Include="Wrappers\Level.cpp" />
     <ClCompile Include="Wrappers\Material.cpp" />
     <ClCompile Include="Wrappers\Model.cpp" />
+    <ClCompile Include="Wrappers\Script.cpp" />
     <ClCompile Include="Wrappers\Segment.cpp" />
     <ClCompile Include="Wrappers\Terrain.cpp" />
     <ClCompile Include="Wrappers\Texture.cpp" />

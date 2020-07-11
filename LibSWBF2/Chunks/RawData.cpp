@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks
 	}
 
 	template<uint32_t Header>
-	bool RawData<Header>::GetData(uint8_t*& data, size_t& size)
+	bool RawData<Header>::GetData(const uint8_t*& data, size_t& size) const
 	{
 		if (p_Data == nullptr || BaseChunk::GetDataSize() == 0)
 		{
@@ -23,6 +23,7 @@ namespace LibSWBF2::Chunks
 
 		data = p_Data;
 		size = BaseChunk::GetDataSize();
+		return true;
 	}
 
 	template<uint32_t Header>

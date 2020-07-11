@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Level.h"
+#include "Texture.h"
 #include "InternalHelpers.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 
@@ -59,7 +59,7 @@ namespace LibSWBF2::Wrappers
 		return p_FMT->p_Info->m_MipmapCount;
 	}
 
-	bool Texture::GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const
+	bool Texture::GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, const uint8_t*& data) const
 	{
 		List<LVL_*>& mipChunks = p_FMT->p_Face->m_LVLs;
 		for (size_t i = 0; i < mipChunks.Size(); ++i)

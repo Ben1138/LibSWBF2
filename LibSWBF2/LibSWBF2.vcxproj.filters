@@ -411,6 +411,9 @@
     <ClInclude Include="Chunks\RawData.h">
       <Filter>Header Files\Chunks</Filter>
     </ClInclude>
+    <ClInclude Include="Wrappers\Script.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -712,6 +715,9 @@
     </ClCompile>
     <ClCompile Include="Chunks\RawData.cpp">
       <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\Script.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

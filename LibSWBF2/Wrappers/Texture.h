@@ -24,6 +24,6 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 		uint32_t GetNumMipMaps() const;
 
-		bool GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, uint8_t*& data) const;
+		bool GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, const uint8_t*& data) const;
 	};
 }
