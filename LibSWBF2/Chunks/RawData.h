@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks
 
 	public:
 		// returns false if there is no data
-		bool GetData(uint8_t*& data, size_t& size);
+		bool GetData(const uint8_t*& data, size_t& size) const;
 
 	public:
 		void RefreshSize() override;

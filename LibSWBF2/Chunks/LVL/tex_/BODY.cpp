@@ -70,7 +70,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         BaseChunk::EnsureEnd(stream);
     }
 
-    bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, uint8_t*& data)
+    bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data)
     {
         if (p_Image == nullptr)
         {

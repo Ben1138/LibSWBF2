@@ -3,6 +3,7 @@
 #include "InternalHelpers.h"
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
+#include "Chunks/LVL/scr_/scr_.h"
 #include <unordered_map>
 
 namespace LibSWBF2::Wrappers
@@ -17,6 +18,7 @@ namespace LibSWBF2::Wrappers
 	std::unordered_map<std::string, size_t> ModelNameToIndex;
 	std::unordered_map<std::string, size_t> WorldNameToIndex;
 	std::unordered_map<std::string, size_t> TerrainNameToIndex;
+	std::unordered_map<std::string, size_t> ScriptNameToIndex;
 
 	std::string ToLower(String name)
 	{
@@ -101,6 +103,16 @@ namespace LibSWBF2::Wrappers
 					TerrainNameToIndex.emplace(ToLower(terrain.GetName()), result->m_Terrains.Add(terrain));
 				}
 			}
+
+			scr_* scriptChunk = dynamic_cast<scr_*>(children[i]);
+			if (scriptChunk != nullptr)
+			{
+				Script script;
+				if (Script::FromChunk(scriptChunk, script))
+				{
+					ScriptNameToIndex.emplace(ToLower(script.GetName()), result->m_Scripts.Add(script));
+				}
+			}
 		}
 
 		return result;
@@ -135,6 +147,11 @@ namespace LibSWBF2::Wrappers
 	const List<Terrain>& Level::GetTerrains() const
 	{
 		return m_Terrains;
+	}
+
+	const List<Script>& Level::GetScripts() const
+	{
+		return m_Scripts;
 	}
 
 	const Model* Level::GetModel(String modelName) const
@@ -202,6 +219,23 @@ namespace LibSWBF2::Wrappers
 		}
 
 		LOG_WARN("Could not find Terrain '{}'!", terrainName);
+		return nullptr;
+	}
+
+	const Script* Level::GetScript(String scriptName) const
+	{
+		if (scriptName == "")
+		{
+			return nullptr;
+		}
+
+		auto it = ScriptNameToIndex.find(ToLower(scriptName));
+		if (it != ScriptNameToIndex.end())
+		{
+			return &m_Scripts[it->second];
+		}
+
+		LOG_WARN("Could not find Script '{}'!", scriptName);
 		return nullptr;
 	}
 }

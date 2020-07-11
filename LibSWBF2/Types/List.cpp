@@ -268,6 +268,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/modl/TNAM.h"
 #include "Chunks/LVL/wrld/inst.h"
 #include "Chunks/LVL/tern/PTCH.h"
+#include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "DirectX/D3D9FORMAT.h"
@@ -313,5 +314,6 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<Wrappers::World>;
 	template LIBSWBF2_API class List<Wrappers::Terrain>;
 	template LIBSWBF2_API class List<Wrappers::Instance>;
+	template LIBSWBF2_API class List<Wrappers::Script>;
 	template LIBSWBF2_API class List<const Wrappers::Texture*>;
 }
