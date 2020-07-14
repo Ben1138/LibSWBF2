@@ -48,6 +48,67 @@ namespace LibSWBF2::Wrappers
 		}
 	}
 
+	void Level::FindInChildrenRecursive(GenericBaseChunk* root)
+	{
+		// IMPORTANT: crawl textures BEFORE models, so texture references via string can be resolved in models
+		tex_* textureChunk = dynamic_cast<tex_*>(root);
+		if (textureChunk != nullptr)
+		{
+			Texture texture;
+			if (Texture::FromChunk(textureChunk, texture))
+			{
+				TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+			}
+		}
+
+		// IMPORTANT: crawl models BEFORE worlds, so model references via string can be resolved in worlds
+		modl* modelChunk = dynamic_cast<modl*>(root);
+		if (modelChunk != nullptr)
+		{
+			Model model;
+			if (Model::FromChunk(this, modelChunk, model))
+			{
+				ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(model));
+			}
+		}
+
+		wrld* worldChunk = dynamic_cast<wrld*>(root);
+		if (worldChunk != nullptr)
+		{
+			World world;
+			if (World::FromChunk(this, worldChunk, world))
+			{
+				WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(world));
+			}
+		}
+
+		tern* terrainChunk = dynamic_cast<tern*>(root);
+		if (terrainChunk != nullptr)
+		{
+			Terrain terrain;
+			if (Terrain::FromChunk(this, terrainChunk, terrain))
+			{
+				TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(terrain));
+			}
+		}
+
+		scr_* scriptChunk = dynamic_cast<scr_*>(root);
+		if (scriptChunk != nullptr)
+		{
+			Script script;
+			if (Script::FromChunk(scriptChunk, script))
+			{
+				ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(script));
+			}
+		}
+
+		const List<GenericBaseChunk*>& children = root->GetChildren();
+		for (size_t i = 0; i < children.Size(); ++i)
+		{
+			FindInChildrenRecursive(children[i]);
+		}
+	}
+
 	Level* Level::FromFile(String path)
 	{
 		LVL* lvl = LVL::Create();
@@ -58,62 +119,7 @@ namespace LibSWBF2::Wrappers
 		}
 		
 		Level* result = new Level(lvl);
-
-		const List<GenericBaseChunk*>& children = lvl->GetChildren();
-		for (size_t i = 0; i < children.Size(); ++i)
-		{
-			// IMPORTANT: crawl textures BEFORE models, so texture references via string can be resolved in models
-			tex_* textureChunk = dynamic_cast<tex_*>(children[i]);
-			if (textureChunk != nullptr)
-			{
-				Texture texture;
-				if (Texture::FromChunk(textureChunk, texture))
-				{
-					TextureNameToIndex.emplace(ToLower(texture.GetName()), result->m_Textures.Add(texture));
-				}
-			}
-
-			// IMPORTANT: crawl models BEFORE worlds, so model references via string can be resolved in worlds
-			modl* modelChunk = dynamic_cast<modl*>(children[i]);
-			if (modelChunk != nullptr)
-			{
-				Model model;
-				if (Model::FromChunk(result, modelChunk, model))
-				{
-					ModelNameToIndex.emplace(ToLower(model.GetName()), result->m_Models.Add(model));
-				}
-			}
-
-			wrld* worldChunk = dynamic_cast<wrld*>(children[i]);
-			if (worldChunk != nullptr)
-			{
-				World world;
-				if (World::FromChunk(result, worldChunk, world))
-				{
-					WorldNameToIndex.emplace(ToLower(world.GetName()), result->m_Worlds.Add(world));
-				}
-			}
-
-			tern* terrainChunk = dynamic_cast<tern*>(children[i]);
-			if (terrainChunk != nullptr)
-			{
-				Terrain terrain;
-				if (Terrain::FromChunk(result, terrainChunk, terrain))
-				{
-					TerrainNameToIndex.emplace(ToLower(terrain.GetName()), result->m_Terrains.Add(terrain));
-				}
-			}
-
-			scr_* scriptChunk = dynamic_cast<scr_*>(children[i]);
-			if (scriptChunk != nullptr)
-			{
-				Script script;
-				if (Script::FromChunk(scriptChunk, script))
-				{
-					ScriptNameToIndex.emplace(ToLower(script.GetName()), result->m_Scripts.Add(script));
-				}
-			}
-		}
+		result->FindInChildrenRecursive(lvl);
 
 		return result;
 	}
