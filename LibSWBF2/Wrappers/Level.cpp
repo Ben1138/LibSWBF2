@@ -167,7 +167,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Models[it->second];
 		}
 
-		LOG_WARN("Could not find Model '{}'!", modelName);
+		//LOG_WARN("Could not find Model '{}'!", modelName);
 		return nullptr;
 	}
 
@@ -184,7 +184,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Textures[it->second];
 		}
 
-		LOG_WARN("Could not find Texture '{}'!", textureName);
+		//LOG_WARN("Could not find Texture '{}'!", textureName);
 		return nullptr;
 	}
 
@@ -201,7 +201,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Worlds[it->second];
 		}
 
-		LOG_WARN("Could not find World '{}'!", worldName);
+		//LOG_WARN("Could not find World '{}'!", worldName);
 		return nullptr;
 	}
 
@@ -218,7 +218,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Terrains[it->second];
 		}
 
-		LOG_WARN("Could not find Terrain '{}'!", terrainName);
+		//LOG_WARN("Could not find Terrain '{}'!", terrainName);
 		return nullptr;
 	}
 
@@ -235,7 +235,7 @@ namespace LibSWBF2::Wrappers
 			return &m_Scripts[it->second];
 		}
 
-		LOG_WARN("Could not find Script '{}'!", scriptName);
+		//LOG_WARN("Could not find Script '{}'!", scriptName);
 		return nullptr;
 	}
 }
