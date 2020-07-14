@@ -8,17 +8,20 @@
 
 namespace LibSWBF2::Wrappers
 {
+	class MapsWrapper
+	{
+	public:
+		std::unordered_map<std::string, size_t> TextureNameToIndex;
+		std::unordered_map<std::string, size_t> ModelNameToIndex;
+		std::unordered_map<std::string, size_t> WorldNameToIndex;
+		std::unordered_map<std::string, size_t> TerrainNameToIndex;
+		std::unordered_map<std::string, size_t> ScriptNameToIndex;
+	};
+
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-
-	// TODO: better solution than having a global hash map for all levels. cannot put in header aswell though...
-	std::unordered_map<std::string, size_t> TextureNameToIndex;
-	std::unordered_map<std::string, size_t> ModelNameToIndex;
-	std::unordered_map<std::string, size_t> WorldNameToIndex;
-	std::unordered_map<std::string, size_t> TerrainNameToIndex;
-	std::unordered_map<std::string, size_t> ScriptNameToIndex;
 
 	std::string ToLower(String name)
 	{
@@ -31,6 +34,7 @@ namespace LibSWBF2::Wrappers
 	Level::Level(LVL* lvl)
 	{
 		p_lvl = lvl;
+		m_NameToIndexMaps = new MapsWrapper();
 	}
 
 	Level::~Level()
@@ -46,6 +50,7 @@ namespace LibSWBF2::Wrappers
 		{
 			LVL::Destroy(p_lvl);
 		}
+		delete m_NameToIndexMaps;
 	}
 
 	void Level::FindInChildrenRecursive(GenericBaseChunk* root)
@@ -57,7 +62,7 @@ namespace LibSWBF2::Wrappers
 			Texture texture;
 			if (Texture::FromChunk(textureChunk, texture))
 			{
-				TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
 			}
 		}
 
@@ -68,7 +73,7 @@ namespace LibSWBF2::Wrappers
 			Model model;
 			if (Model::FromChunk(this, modelChunk, model))
 			{
-				ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(model));
+				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(model));
 			}
 		}
 
@@ -78,7 +83,7 @@ namespace LibSWBF2::Wrappers
 			World world;
 			if (World::FromChunk(this, worldChunk, world))
 			{
-				WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(world));
+				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(world));
 			}
 		}
 
@@ -88,7 +93,7 @@ namespace LibSWBF2::Wrappers
 			Terrain terrain;
 			if (Terrain::FromChunk(this, terrainChunk, terrain))
 			{
-				TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(terrain));
+				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(terrain));
 			}
 		}
 
@@ -98,7 +103,7 @@ namespace LibSWBF2::Wrappers
 			Script script;
 			if (Script::FromChunk(scriptChunk, script))
 			{
-				ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(script));
+				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(script));
 			}
 		}
 
@@ -167,8 +172,8 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = ModelNameToIndex.find(ToLower(modelName));
-		if (it != ModelNameToIndex.end())
+		auto it = m_NameToIndexMaps->ModelNameToIndex.find(ToLower(modelName));
+		if (it != m_NameToIndexMaps->ModelNameToIndex.end())
 		{
 			return &m_Models[it->second];
 		}
@@ -184,8 +189,8 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = TextureNameToIndex.find(ToLower(textureName));
-		if (it != TextureNameToIndex.end())
+		auto it = m_NameToIndexMaps->TextureNameToIndex.find(ToLower(textureName));
+		if (it != m_NameToIndexMaps->TextureNameToIndex.end())
 		{
 			return &m_Textures[it->second];
 		}
@@ -201,8 +206,8 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = WorldNameToIndex.find(ToLower(worldName));
-		if (it != WorldNameToIndex.end())
+		auto it = m_NameToIndexMaps->WorldNameToIndex.find(ToLower(worldName));
+		if (it != m_NameToIndexMaps->WorldNameToIndex.end())
 		{
 			return &m_Worlds[it->second];
 		}
@@ -218,8 +223,8 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = TerrainNameToIndex.find(ToLower(terrainName));
-		if (it != TerrainNameToIndex.end())
+		auto it = m_NameToIndexMaps->TerrainNameToIndex.find(ToLower(terrainName));
+		if (it != m_NameToIndexMaps->TerrainNameToIndex.end())
 		{
 			return &m_Terrains[it->second];
 		}
@@ -235,8 +240,8 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = ScriptNameToIndex.find(ToLower(scriptName));
-		if (it != ScriptNameToIndex.end())
+		auto it = m_NameToIndexMaps->ScriptNameToIndex.find(ToLower(scriptName));
+		if (it != m_NameToIndexMaps->ScriptNameToIndex.end())
 		{
 			return &m_Scripts[it->second];
 		}

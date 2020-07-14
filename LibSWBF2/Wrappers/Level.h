@@ -9,6 +9,7 @@
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
 
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -35,6 +36,9 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
+
+		// fast pimpl to avoid inclusion of std::unordered_map
+		class MapsWrapper* m_NameToIndexMaps;
 
 	public:
 		static Level* FromFile(String path);
