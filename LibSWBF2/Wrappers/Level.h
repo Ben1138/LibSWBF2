@@ -12,6 +12,7 @@
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
+	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::LVL;
 
 	/*
@@ -50,5 +51,8 @@ namespace LibSWBF2::Wrappers
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
+
+	private:
+		void FindInChildrenRecursive(GenericBaseChunk* root);
 	};
 }
