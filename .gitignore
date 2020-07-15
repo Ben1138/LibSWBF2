@@ -300,3 +300,11 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#CMake ignores
+**/build
+build
+build/*
+**/build/*
+
+notes.txt
