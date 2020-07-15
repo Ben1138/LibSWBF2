@@ -1,6 +1,3 @@
-#ifdef _WIN32
-
-
 #include "stdafx.h"
 #include "DXHelpers.h"
 #include "InternalHelpers.h"
@@ -184,6 +181,3 @@ namespace LibSWBF2
         }
     }
 }
-
-
-#endif
