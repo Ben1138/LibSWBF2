@@ -138,6 +138,7 @@ namespace LibSWBF2::Types
 		return false;
 	}
 
+	template<>
 	bool List<uint32_t>::Contains(const uint32_t& Element)
 	{
 		// linear search is slow AF, but I'm too lazy
@@ -172,6 +173,7 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
+	
 	template<class T>
 	const T& List<T>::operator[](const size_t i) const
 	{
@@ -181,6 +183,7 @@ namespace LibSWBF2::Types
 		}
 		return ArrayPtr[i];
 	}
+
 
 	template<class T>
 	const T& List<T>::operator[](const int i) const
@@ -200,11 +203,13 @@ namespace LibSWBF2::Types
 		return this->operator[]((size_t)i);
 	}
 
+	/*
 	template<class T>
 	const T& List<T>::operator[](const unsigned long i) const
 	{
 		return this->operator[]((size_t)i);
 	}
+	*/
 
 	template<class T>
 	T& List<T>::operator[](const size_t i)
@@ -234,11 +239,13 @@ namespace LibSWBF2::Types
 		return this->operator[]((size_t)i);
 	}
 
+	/*
 	template<class T>
 	T& List<T>::operator[](const unsigned long i)
 	{
 		return this->operator[]((size_t)i);
 	}
+	*/
 
 	template<class T>
 	void List<T>::Clear()

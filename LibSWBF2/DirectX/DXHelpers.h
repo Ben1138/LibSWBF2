@@ -3,11 +3,13 @@
 #pragma once
 #include "DirectX/D3D9FORMAT.h"
 #include "Types/Enums.h"
-#include <DirectXTex.h>
+//#include <DirectXTex.h>
 
 namespace LibSWBF2
 {
+	/*
 	DXGI_FORMAT D3DToDXGI(D3DFORMAT d3dFormat);
 	Types::String D3DToString(D3DFORMAT d3dFormat);
 	DXGI_FORMAT TextureFormatToDXGI(ETextureFormat format);
+	*/
 }

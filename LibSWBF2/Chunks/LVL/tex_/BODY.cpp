@@ -2,7 +2,7 @@
 #include "BODY.h"
 #include "FMT_.h"
 #include "Logging/Logger.h"
-#include "DirectX/DXHelpers.h"
+//#include "DirectX/DXHelpers.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include <algorithm>
@@ -24,6 +24,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
     void BODY::ReadFromStream(FileReader& stream)
     {
+        /*
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
@@ -68,10 +69,12 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         }
 
         BaseChunk::EnsureEnd(stream);
+        */
     }
 
     bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data)
     {
+        /*
         if (p_Image == nullptr)
         {
             LOG_WARN("Called GetImageData before reading!");
@@ -121,5 +124,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         height = (uint16_t)img->height;
         data = img->pixels;
         return data != nullptr;
+        */
+        return true;
     }
 }
