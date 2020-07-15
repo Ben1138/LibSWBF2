@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FMT_.INFO.h"
 #include "InternalHelpers.h"
-#include "DirectX/DXHelpers.h"
+//#include "DirectX/DXHelpers.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include <fmt/format.h>
@@ -42,6 +42,6 @@ namespace LibSWBF2::Chunks::LVL::FMT
 			"Depth:\t{}\n"
 			"Mip Map Count:\t{}\n"
 			"Type:\t{}\n",
-			D3DToString(m_Format), m_Width, m_Height, m_Depth, m_MipmapCount, m_Type).c_str();
+			/*D3DToString(m_Format)*/ String("") , m_Width, m_Height, m_Depth, m_MipmapCount, m_Type).c_str();
 	}
 }

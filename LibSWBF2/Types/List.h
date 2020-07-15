@@ -42,12 +42,12 @@ namespace LibSWBF2::Types
 		const T& operator[](const int i) const;
 		const T& operator[](const long i) const;
 		const T& operator[](const unsigned int i) const;
-		const T& operator[](const unsigned long i) const;
+		//const T& operator[](const unsigned long i) const;
 		T& operator[](const size_t i);
 		T& operator[](const int i);
 		T& operator[](const long i);
 		T& operator[](const unsigned int i);
-		T& operator[](const unsigned long i);
+		//T& operator[](const unsigned long i);
 
 
 		// TODO: Remove(item) methods
@@ -56,5 +56,6 @@ namespace LibSWBF2::Types
 		T* GetArrayPtr() const;
 	};
 
+	template <> //GCC complains without that 
 	bool List<uint32_t>::Contains(const uint32_t& Element);
 }

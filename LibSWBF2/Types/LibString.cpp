@@ -2,6 +2,9 @@
 #include "LibString.h"
 #include "InternalHelpers.h"
 
+#define strnlen_s(x,y) strlen(x)
+#define memcpy_s(x,y,z,w) memcpy(x,z,w)
+
 namespace LibSWBF2::Types
 {
 	String::String()

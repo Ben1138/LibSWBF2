@@ -3,12 +3,17 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 
+#include <string_view>
+#include <string>
+
+#define _Starts_with starts_with
+
 namespace LibSWBF2::Chunks::MSH
 {
 	EModelPurpose MODL::GetPurpose()
 	{
 		// TODO: Implement own find/starts with methods
-		std::string stdStr = m_Name.m_Text.Buffer();
+		std::basic_string stdStr = m_Name.m_Text.Buffer();
 
 		if (stdStr.find("lowrez") != std::string::npos)
 		{
