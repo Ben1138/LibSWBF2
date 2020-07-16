@@ -58,8 +58,8 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			"Sky Name: {}\n"
 			"Number of object instances: {}\n",
 			p_Name->m_Text,
-			p_TerrainName->m_Text,
-			p_SkyName->m_Text,
+			p_TerrainName ? p_TerrainName->m_Text : "",
+			p_SkyName ? p_SkyName->m_Text : "",
 			m_Instances.Size()
 		).c_str();
 	}
