@@ -2,18 +2,17 @@ cmake_minimum_required(VERSION 3.1)
 
 project(swbf2)
 
-option(BUILD_SHARED_LIB "Build shared lib" OFF)
-option(BUILD_STATIC_LIB "Build static lib" OFF)
+option(BUILD_SHARED_LIB "Build static lib" OFF)
 option(DEBUG "Debug build" OFF)
 
 
 
 #SETTINGS
 
-if (BUILD_STATIC_LIB)
-	add_library(libswbf2 STATIC)
-else ()
+if (BUILD_SHARED_LIB)
 	add_library(libswbf2 SHARED)
+else ()
+	add_library(libswbf2 STATIC)
 endif ()
 
 
@@ -26,7 +25,7 @@ set_property(TARGET libswbf2 PROPERTY CXX_STANDARD_REQUIRED ON)
 if (DEBUG)
 	set(CMAKE_BUILD_TYPE Debug)
 else()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
 
@@ -40,12 +39,8 @@ if(APPLE)
 	target_include_directories(libswbf2 PUBLIC /usr/local/include)
 endif()
 
+#Lazy (but works), will add subdirectories when project structure is understood...
 file(GLOB_RECURSE SOURCE_FILES *.cpp)
-
-message(STATUS "Sources found: ${SOURCE_FILES}")
-
-
-#add_subdirectories(Logging)
 
 target_sources(libswbf2 PUBLIC ${SOURCE_FILES})
 
@@ -59,7 +54,7 @@ if (APPLE)
 	target_link_options(libswbf2 PUBLIC -undefined dynamic_lookup)
 else()
 	target_link_libraries(libswbf2 PUBLIC -ldl)
-	target_link_libraries(libswbf2 PUBLIC "-Wl,--no-as-needed")
+	#target_link_libraries(libswbf2 PUBLIC "-Wl,--no-as-needed")
 endif()
 
 if (APPLE)

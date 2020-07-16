@@ -246,4 +246,12 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"RTYP"_m>;
 	template LIBSWBF2_API struct GenericChunk<"BNAM"_m>;
 	template LIBSWBF2_API struct GenericChunk<"DTLX"_m>;
+
+	//ld tempfix, not sure what chunks these refer to...
+	template LIBSWBF2_API struct GenericChunk<1297237592u>;
+	template LIBSWBF2_API struct GenericChunk<1480938564u>;
+	template LIBSWBF2_API struct GenericChunk<1953721961u>;
+
+
+
 }
