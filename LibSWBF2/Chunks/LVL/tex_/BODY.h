@@ -11,8 +11,12 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 	struct LIBSWBF2_API BODY : public GenericChunk<"BODY"_m>
 	{
 	private:
-		DirectX::ScratchImage* p_Image = nullptr;
 
+#ifdef _WIN32
+		DirectX::ScratchImage* p_Image = nullptr;
+#else
+		
+#endif
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
