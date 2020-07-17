@@ -27,7 +27,9 @@ namespace LibSWBF2
 		"wpnc"_h, "entc"_h, "ordc"_h, "expc"_h, "fx__"_h, "wrld"_h, "sky_"_h, "bnd_"_h,
 		"lght"_h, "plan"_h, "PATH"_h, "tern"_h, "modl"_h, "segm"_h, "skel"_h, "coll"_h,
 		"prim"_h, "Locl"_h, "scr_"_h, "SHDR"_h, "LOD0"_h, "font"_h, "zaa_"_h, "zaf_"_h,
-		"prp_"_h, "bnd_"_h, "regn"_h, "BARR"_h, "GRGR"_h, "shdw"_h, "Hint"_h, "inst"_h
+		"prp_"_h, "bnd_"_h, "regn"_h, "BARR"_h, "GRGR"_h, "shdw"_h, "Hint"_h, "inst"_h,
+		"BIN_"_h, "FFAZ"_h, "SREV"_h, "EZIS"_h, "SLTM"_h, "LTAM"_h, "STSJ"_h, "SNKS"_h,
+		"NIKS"_h, "LEKS"_h, "TNOJ"_h, "SYXP"_h, "SDHS"_h, "SMNA"_h
 	};
 
 	bool ChunkHeader::operator==(const ChunkHeader other) const
