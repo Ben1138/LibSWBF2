@@ -284,6 +284,9 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
+
+#ifndef EXCLUDE_LVL
+
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
@@ -293,6 +296,9 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/inst.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
+
+#endif //EXCLUDE_LVL
+
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
@@ -325,6 +331,8 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<MSH::MODL>;
 	template LIBSWBF2_API class List<GenericBaseChunk*>;
 	template LIBSWBF2_API class List<D3DFORMAT>;
+
+#ifndef EXCLUDE_LVL
 	template LIBSWBF2_API class List<LVL::texture::FMT_*>;
 	template LIBSWBF2_API class List<LVL::LVL_texture::LVL_*>;
 	template LIBSWBF2_API class List<LVL::modl::modl*>;
@@ -334,6 +342,8 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<LVL::wrld::inst*>;
 	template LIBSWBF2_API class List<LVL::terrain::PTCH*>;
 	template LIBSWBF2_API class List<LVL::terrain::VBUF*>;
+#endif //EXCLUDE_LVL
+
 	template LIBSWBF2_API class List<Wrappers::Model>;
 	template LIBSWBF2_API class List<Wrappers::Segment>;
 	template LIBSWBF2_API class List<Wrappers::VertexWeight>;
