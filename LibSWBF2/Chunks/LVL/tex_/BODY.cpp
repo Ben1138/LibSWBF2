@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
     void BODY::ReadFromStream(FileReader& stream)
     {
-        
+#ifdef _WIN32        
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
@@ -57,7 +57,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         width = std::max(width / div, (size_t)2);
         height = std::max(height / div, (size_t)2);
 
-#ifdef _WIN32
+
 
         p_Image = new DirectX::ScratchImage();
         p_Image->Initialize2D(D3DToDXGI(fmt->p_Info->m_Format), width, height, 1, 1);
@@ -69,7 +69,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             BaseChunk::EnsureEnd(stream);
             return;
         }
-
 #endif
 
         BaseChunk::EnsureEnd(stream);
