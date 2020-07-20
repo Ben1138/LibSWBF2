@@ -1,9 +1,15 @@
 #include "stdafx.h"
 #include "GenericChunk.h"
+#include "BaseChunk.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "FileWriter.h"
 #include "Logging/Logger.h"
+
+#include "STR.h"
+
+#ifndef EXCLUDE_LVL
+
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
@@ -15,6 +21,8 @@
 #include "LVL/sound/_pad.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
+
+#endif //EXCLUDE_LVL
 
 namespace LibSWBF2::Chunks
 {
@@ -70,13 +78,7 @@ namespace LibSWBF2::Chunks
 				{
 					// Special case: lvl_ might not be loaded!
 					// See lvl_.cpp for more information
-					if (nextHead == "lvl_"_h)
-					{
-						LVL::lvl_* subLVL;
-						READ_CHILD(stream, subLVL);
-						chunk = subLVL;
-					}
-					else if (nextHead == "NAME"_h)
+					if (nextHead == "NAME"_h)
 					{
 						STR<"NAME"_m>* name;
 						READ_CHILD(stream, name);
@@ -88,6 +90,13 @@ namespace LibSWBF2::Chunks
 						STR<"PRNT"_m>* name;
 						READ_CHILD(stream, name);
 						chunk = name;
+					}
+#ifndef EXCLUDE_LVL
+					else if (nextHead == "lvl_"_h)
+					{
+						LVL::lvl_* subLVL;
+						READ_CHILD(stream, subLVL);
+						chunk = subLVL;
 					}
 					else if (nextHead == "tex_"_h)
 					{
@@ -143,6 +152,7 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
+#endif //EXCLUDE_LVL
 					else
 					{
 						GenericChunkNC* generic;
@@ -205,6 +215,10 @@ namespace LibSWBF2::Chunks
 
 namespace LibSWBF2::Chunks
 {
+
+
+#ifndef EXCLUDE_LVL
+
 	template LIBSWBF2_API struct GenericChunk<0>;
 	template LIBSWBF2_API struct GenericChunk<"ucfb"_m>;
 	template LIBSWBF2_API struct GenericChunk<"LVL_"_m>;
@@ -232,6 +246,7 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"BMAP"_m>;
 	template LIBSWBF2_API struct GenericChunk<"emo_"_m>;
 	template LIBSWBF2_API struct GenericChunk<"_pad"_m>;
+#endif //EXCLUDE_LVL
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;
@@ -246,12 +261,14 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"RTYP"_m>;
 	template LIBSWBF2_API struct GenericChunk<"BNAM"_m>;
 	template LIBSWBF2_API struct GenericChunk<"DTLX"_m>;
+	template LIBSWBF2_API struct GenericChunk<1162893652>;
 
+#ifndef _WIN32
 	//ld tempfix, not sure what chunks these refer to...
 	template LIBSWBF2_API struct GenericChunk<1297237592u>;
 	template LIBSWBF2_API struct GenericChunk<1480938564u>;
 	template LIBSWBF2_API struct GenericChunk<1953721961u>;
+#endif //_WIN32
 
-
-
+//#endif //EXCLUDE_LVL
 }

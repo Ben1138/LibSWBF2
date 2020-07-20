@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::MSH
 	EModelPurpose MODL::GetPurpose()
 	{
 		// TODO: Implement own find/starts with methods
-		std::basic_string stdStr = m_Name.m_Text.Buffer();
+		std::basic_string<char> stdStr = m_Name.m_Text.Buffer();
 
 		if (stdStr.find("lowrez") != std::string::npos)
 		{
