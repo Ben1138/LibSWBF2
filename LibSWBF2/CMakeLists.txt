@@ -23,6 +23,7 @@ endif()
 #SOURCES
 
 include_directories(.)
+include_directories(DirectX)
 
 if(APPLE)
 	include_directories(/usr/local/include)
@@ -33,7 +34,7 @@ file(GLOB CORE_FILES *.cpp)
 file(GLOB LOGGING_FILES Logging/*.cpp)
 file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
-file(GLOB DIRECTX_FILES DirectX/*.cpp)
+file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp)
 
 
 target_sources(swbf2 PUBLIC ${CORE_FILES} 
