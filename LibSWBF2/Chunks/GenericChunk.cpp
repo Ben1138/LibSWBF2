@@ -9,6 +9,7 @@
 #include "LVL/wrld/wrld.h"
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
+#include "LVL/zaa_/zaa_.h"
 #include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
@@ -113,6 +114,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, script);
 						chunk = script;
 					}
+					else if (nextHead == "zaa_"_h)
+					{
+						LVL::animation::zaa_* zaabin;
+						READ_CHILD(stream, zaabin);
+						chunk = zaabin;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -193,6 +200,9 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"IBUF"_m>;
 	template LIBSWBF2_API struct GenericChunk<"LTEX"_m>;
 	template LIBSWBF2_API struct GenericChunk<"scr_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"zaa_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"BIN_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"SMNA_"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;

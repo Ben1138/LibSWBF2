@@ -91,6 +91,12 @@
     <Filter Include="Source Files\Chunks\LVL\scr_">
       <UniqueIdentifier>{dfc711d0-3e9c-4a5b-bab0-5604e0a66fa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\zaa_">
+      <UniqueIdentifier>{35f673ab-7c86-495c-9b48-a74a565e79ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\zaa_">
+      <UniqueIdentifier>{c7b87a6a-bb1f-4e8c-b8a3-d8d22b34a057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -414,6 +420,15 @@
     <ClInclude Include="Wrappers\Script.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\zaa_.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\SMNA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\BIN_.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -718,6 +733,15 @@
     </ClCompile>
     <ClCompile Include="Wrappers\Script.cpp">
       <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\SMNA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
