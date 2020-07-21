@@ -1,3 +1,5 @@
+#ifndef D3D9FORMAT_H
+#define D3D9FORMAT_H
 /*==========================================================================;
  *
  *  Partially copied header from D3D9Types.h and altered for the snippet
@@ -7,8 +9,7 @@
 
 #include "req.h"
 
-#ifndef _d3d9TYPES_H_
-#define _d3d9TYPES_H_
+
 
  /* Formats
   * Most of these names have the following convention:
@@ -190,6 +191,10 @@ DXGI_FORMAT_R8G8_B8G8_UNORM = __LINE__,
 DXGI_FORMAT_BC1_UNORM = __LINE__,
 DXGI_FORMAT_BC2_UNORM = __LINE__,
 DXGI_FORMAT_BC3_UNORM = __LINE__,
+DXGI_FORMAT_BC4_UNORM = __LINE__,
+DXGI_FORMAT_BC5_UNORM = __LINE__,
+DXGI_FORMAT_BC6_UNORM = __LINE__,
+DXGI_FORMAT_BC7_UNORM = __LINE__,
 DXGI_FORMAT_D16_UNORM = __LINE__,
 DXGI_FORMAT_D24_UNORM_S8_UINT = __LINE__,
 DXGI_FORMAT_D32_FLOAT = __LINE__,
@@ -205,11 +210,58 @@ DXGI_FORMAT_R8_UNORM = __LINE__,
 DXGI_FORMAT_R8G8_UNORM = __LINE__,
 DXGI_FORMAT_R16_UNORM = __LINE__,
 
+DXGI_FORMAT_BC1_TYPELESS = __LINE__,
+DXGI_FORMAT_BC1_UNORM_SRGB = __LINE__,
+DXGI_FORMAT_BC2_TYPELESS = __LINE__,
+DXGI_FORMAT_BC2_UNORM_SRGB = __LINE__,
+DXGI_FORMAT_BC3_TYPELESS = __LINE__,
+DXGI_FORMAT_BC3_UNORM_SRGB = __LINE__,
+DXGI_FORMAT_BC4_TYPELESS = __LINE__,
+DXGI_FORMAT_BC4_SNORM = __LINE__,
+DXGI_FORMAT_BC5_TYPELESS = __LINE__,
+DXGI_FORMAT_BC5_SNORM = __LINE__,
+DXGI_FORMAT_BC6H_TYPELESS = __LINE__,
+DXGI_FORMAT_BC6H_UF16 = __LINE__,
+DXGI_FORMAT_BC6H_SF16 = __LINE__,
+DXGI_FORMAT_BC7_TYPELESS = __LINE__,
+DXGI_FORMAT_BC7_UNORM_SRGB = __LINE__,
+
 DX_FORMAT_FORCE_DWORD = 0x7fffffff
 
 } DXGI_FORMAT;
 
+
+inline bool IsCompressed(DXGI_FORMAT fmt) {
+  switch (fmt) {   
+      case DXGI_FORMAT_BC1_TYPELESS:
+      case DXGI_FORMAT_BC1_UNORM:
+      case DXGI_FORMAT_BC1_UNORM_SRGB:
+      case DXGI_FORMAT_BC2_TYPELESS:
+      case DXGI_FORMAT_BC2_UNORM:
+      case DXGI_FORMAT_BC2_UNORM_SRGB:
+      case DXGI_FORMAT_BC3_TYPELESS:
+      case DXGI_FORMAT_BC3_UNORM:
+      case DXGI_FORMAT_BC3_UNORM_SRGB:
+      case DXGI_FORMAT_BC4_TYPELESS:
+      case DXGI_FORMAT_BC4_UNORM:
+      case DXGI_FORMAT_BC4_SNORM:
+      case DXGI_FORMAT_BC5_TYPELESS:
+      case DXGI_FORMAT_BC5_UNORM:
+      case DXGI_FORMAT_BC5_SNORM:
+      case DXGI_FORMAT_BC6H_TYPELESS:
+      case DXGI_FORMAT_BC6H_UF16:
+      case DXGI_FORMAT_BC6H_SF16:
+      case DXGI_FORMAT_BC7_TYPELESS:
+      case DXGI_FORMAT_BC7_UNORM:
+      case DXGI_FORMAT_BC7_UNORM_SRGB:
+          return true;
+      default:
+          return false;
+  }
+}
+
 #endif /*_WIN32*/
 
 
-#endif /* _d3d9TYPES(P)_H_ */
+
+#endif //D3D9FORMAT_H

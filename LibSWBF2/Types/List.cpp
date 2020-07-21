@@ -173,46 +173,41 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
-	
-	template<class T>
-	const T& List<T>::operator[](const size_t i) const
-	{
-		if (i < 0 || i >= NumElements)
-		{
-			THROW("Index {} is out of bounds {}!", i, NumElements);
-		}
-		return ArrayPtr[i];
-	}
-
-
-	template<class T>
-	const T& List<T>::operator[](const int i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-
-	template<class T>
-	const T& List<T>::operator[](const long i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-
-	template<class T>
-	const T& List<T>::operator[](const unsigned int i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-
-	/*
+#ifdef __clang__
 	template<class T>
 	const T& List<T>::operator[](const unsigned long i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
-	*/
+#else
+	
+	template<class T>
+	const T& List<T>::operator[](const int8_t i) const
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
 
 	template<class T>
-	T& List<T>::operator[](const size_t i)
+	const T& List<T>::operator[](const uint8_t i) const
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	const T& List<T>::operator[](const int16_t i) const
 	{
 		if (i < 0 || i >= NumElements)
 		{
@@ -222,30 +217,155 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
-	T& List<T>::operator[](const int i)
+	const T& List<T>::operator[](const uint16_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
 	template<class T>
-	T& List<T>::operator[](const long i)
+	const T& List<T>::operator[](const int32_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
 	template<class T>
-	T& List<T>::operator[](const unsigned int i)
+	const T& List<T>::operator[](const uint32_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
-	/*
+	template<class T>
+	const T& List<T>::operator[](const int64_t i) const
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+
+	template<class T>
+	const T& List<T>::operator[](const uint64_t i) const
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+#endif
+
+
+#ifdef __clang__
 	template<class T>
 	T& List<T>::operator[](const unsigned long i)
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
-	*/
+#else
+
+
+	template<class T>
+	T& List<T>::operator[](const int8_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	
+	template<class T>
+	T& List<T>::operator[](const uint8_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+	
+
+	template<class T>
+	T& List<T>::operator[](const int16_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint16_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const int32_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint32_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	
+	template<class T>
+	T& List<T>::operator[](const int64_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint64_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+#endif
+	
 
 	template<class T>
 	void List<T>::Clear()
@@ -285,8 +405,6 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
 
-#ifndef EXCLUDE_LVL
-
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
@@ -297,8 +415,6 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
 
-#endif //EXCLUDE_LVL
-
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
@@ -307,53 +423,53 @@ namespace LibSWBF2::Types
 namespace LibSWBF2
 {
 	using namespace Chunks;
-	using namespace Types;
+	using namespace Types; //Clangfix
 
-	template LIBSWBF2_API class Types::List<uint8_t>;
-	template LIBSWBF2_API class Types::List<uint16_t>;
-	template LIBSWBF2_API class Types::List<uint32_t>;
-	template LIBSWBF2_API class Types::List<Vector2>;
-	template LIBSWBF2_API class Types::List<Vector3>;
-	template LIBSWBF2_API class Types::List<Vector3u8>;
-	template LIBSWBF2_API class Types::List<Matrix3x3>;
-	template LIBSWBF2_API class Types::List<Color>;
-	template LIBSWBF2_API class Types::List<String>;
-	template LIBSWBF2_API class Types::List<Animation>;
-	template LIBSWBF2_API class Types::List<BoneFrames>;
-	template LIBSWBF2_API class Types::List<Polygon>;
-	template LIBSWBF2_API class Types::List<VertexWeights>;
-	template LIBSWBF2_API class Types::List<TranslationFrame>;
-	template LIBSWBF2_API class Types::List<RotationFrame>;
-	template LIBSWBF2_API class Types::List<TerrainBufferEntry>;
-	template LIBSWBF2_API class Types::List<SoundClip>;
-	template LIBSWBF2_API class Types::List<MSH::SEGM>;
-	template LIBSWBF2_API class Types::List<MSH::MATD>;
-	template LIBSWBF2_API class Types::List<MSH::MODL>;
-	template LIBSWBF2_API class Types::List<GenericBaseChunk*>;
-	template LIBSWBF2_API class Types::List<D3DFORMAT>;
+	template class LIBSWBF2_API Types::List<uint8_t>;
+	template class LIBSWBF2_API Types::List<uint16_t>;
+	template class LIBSWBF2_API Types::List<uint32_t>;
+	template class LIBSWBF2_API Types::List<Vector2>;
+	template class LIBSWBF2_API Types::List<Vector3>;
+	template class LIBSWBF2_API Types::List<Vector3u8>;
+	template class LIBSWBF2_API Types::List<Matrix3x3>;
+	template class LIBSWBF2_API Types::List<Color>;
+	template class LIBSWBF2_API Types::List<String>;
+	template class LIBSWBF2_API Types::List<Animation>;
+	template class LIBSWBF2_API Types::List<BoneFrames>;
+	template class LIBSWBF2_API Types::List<Polygon>;
+	template class LIBSWBF2_API Types::List<VertexWeights>;
+	template class LIBSWBF2_API Types::List<TranslationFrame>;
+	template class LIBSWBF2_API Types::List<RotationFrame>;
+	template class LIBSWBF2_API Types::List<TerrainBufferEntry>;
+	template class LIBSWBF2_API Types::List<SoundClip>;
+	template class LIBSWBF2_API Types::List<MSH::SEGM>;
+	template class LIBSWBF2_API Types::List<MSH::MATD>;
+	template class LIBSWBF2_API Types::List<MSH::MODL>;
+	template class LIBSWBF2_API Types::List<GenericBaseChunk*>;
+	template class LIBSWBF2_API Types::List<D3DFORMAT>;
 
-#ifndef EXCLUDE_LVL
-	template LIBSWBF2_API class Types::List<LVL::texture::FMT_*>;
-	template LIBSWBF2_API class Types::List<LVL::LVL_texture::LVL_*>;
-	template LIBSWBF2_API class Types::List<LVL::modl::modl*>;
-	template LIBSWBF2_API class Types::List<LVL::modl::segm*>;
-	template LIBSWBF2_API class Types::List<LVL::modl::VBUF*>;
-	template LIBSWBF2_API class Types::List<LVL::modl::TNAM*>;
-	template LIBSWBF2_API class Types::List<LVL::wrld::inst*>;
-	template LIBSWBF2_API class Types::List<LVL::terrain::PTCH*>;
-	template LIBSWBF2_API class Types::List<LVL::terrain::VBUF*>;
-#endif //EXCLUDE_LVL
 
-	template LIBSWBF2_API class Types::List<Wrappers::Model>;
-	template LIBSWBF2_API class Types::List<Wrappers::Segment>;
-	template LIBSWBF2_API class Types::List<Wrappers::VertexWeight>;
-	template LIBSWBF2_API class Types::List<Wrappers::Bone>;
-	template LIBSWBF2_API class Types::List<Wrappers::Material>;
-	template LIBSWBF2_API class Types::List<Wrappers::Texture>;
-	template LIBSWBF2_API class Types::List<Wrappers::World>;
-	template LIBSWBF2_API class Types::List<Wrappers::Terrain>;
-	template LIBSWBF2_API class Types::List<Wrappers::Instance>;
-	template LIBSWBF2_API class Types::List<Wrappers::Script>;
-	template LIBSWBF2_API class Types::List<Wrappers::Sound>;
-	template LIBSWBF2_API class Types::List<const Wrappers::Texture*>;
+	template class LIBSWBF2_API Types::List<LVL::texture::FMT_*>;
+	template class LIBSWBF2_API Types::List<LVL::LVL_texture::LVL_*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::modl*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::segm*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::VBUF*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::TNAM*>;
+	template class LIBSWBF2_API Types::List<LVL::wrld::inst*>;
+	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
+	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
+
+
+	template class LIBSWBF2_API Types::List<Wrappers::Model>;
+	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
+	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
+	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
+	template class LIBSWBF2_API Types::List<Wrappers::Material>;
+	template class LIBSWBF2_API Types::List<Wrappers::Texture>;
+	template class LIBSWBF2_API Types::List<Wrappers::World>;
+	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
+	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
+	template class LIBSWBF2_API Types::List<Wrappers::Script>;
+	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 }
