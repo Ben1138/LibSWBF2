@@ -211,6 +211,9 @@
     <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h" />
     <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
     <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
+    <ClInclude Include="Chunks\LVL\zaa_\BIN_.h" />
+    <ClInclude Include="Chunks\LVL\zaa_\SMNA.h" />
+    <ClInclude Include="Chunks\LVL\zaa_\zaa_.h" />
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="InternalHelpers.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
@@ -320,6 +323,9 @@
     <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\wrld.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp" />
+    <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp" />
+    <ClCompile Include="Chunks\LVL\zaa_\SMNA.cpp" />
+    <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp" />
     <ClCompile Include="Chunks\RawData.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
