@@ -2,7 +2,7 @@
 #include "FMT_.INFO.h"
 #include "InternalHelpers.h"
 #include "DirectX/DXHelpers.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include <fmt/format.h>
 
@@ -10,12 +10,12 @@ namespace LibSWBF2::Chunks::LVL::FMT
 {
 	void INFO::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void INFO::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void INFO::ReadFromStream(FileReader& stream)

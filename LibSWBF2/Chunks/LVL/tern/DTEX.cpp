@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "DTEX.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include "tern.h"
 
@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::LVL::terrain
 {
     void DTEX::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void DTEX::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void DTEX::ReadFromStream(FileReader& stream)

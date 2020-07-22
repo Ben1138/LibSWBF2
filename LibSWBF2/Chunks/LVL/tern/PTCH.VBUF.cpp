@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "PTCH.VBUF.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
     void VBUF::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void VBUF::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void VBUF::ReadFromStream(FileReader& stream)

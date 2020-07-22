@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "tern.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include <fmt/format.h>
 
@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::LVL::terrain
 {
     void tern::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void tern::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void tern::ReadFromStream(FileReader& stream)

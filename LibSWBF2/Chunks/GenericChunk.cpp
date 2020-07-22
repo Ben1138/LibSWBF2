@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GenericChunk.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include "FileWriter.h"
 #include "Logging/Logger.h"
@@ -30,28 +30,27 @@ namespace LibSWBF2::Chunks
 		expected.m_Magic = Header;
 		if (Header != 0 && m_Header != expected)
 		{
-			LOG_ERROR("Expected '{}' but got '{}'", expected, m_Header);
-			throw InvalidHeaderException(m_Header);
+			THROW("Expected '{}' but got '{}'", expected, m_Header);
 		}
 
 		// check if current "chunk" exceeds parents data size
 		GenericBaseChunk* parent = GetParent();
 		if (parent != nullptr && (stream.GetPosition() + m_Size) > (parent->GetDataPosition() + parent->GetDataSize()))
 		{
-			throw InvalidSizeException(m_Size);
+			THROW("Current chunk size {} exceeds parent data size!", m_Size);
 		}
 	}
 
 	template<uint32_t Header>
 	void GenericChunk<Header>::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	template<uint32_t Header>
 	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void GenericBaseChunk::ReadGenerics(FileReader& stream)
@@ -129,11 +128,12 @@ namespace LibSWBF2::Chunks
 
 					LOG_INFO("Adding Child '{}' to '{}'", chunk->GetHeader(), m_Header);
 				}
-				catch (InvalidSizeException&)
+				catch (LibException& e)
 				{
 					delete chunk;
 					chunk = nullptr;
 
+					LOG_ERROR(e.what());
 					LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition());
 					break;
 				}

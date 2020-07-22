@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "PTCH.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
     void PTCH::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void PTCH::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void PTCH::ReadFromStream(FileReader& stream)

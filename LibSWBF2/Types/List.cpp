@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "List.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "InternalHelpers.h"
 
 namespace LibSWBF2::Types
@@ -157,10 +157,9 @@ namespace LibSWBF2::Types
 	template<class T>
 	const T& List<T>::operator[](const size_t i) const
 	{
-		if (i >= NumElements)
+		if (i < 0 || i >= NumElements)
 		{
-			//LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
-			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
+			THROW("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}
@@ -192,10 +191,9 @@ namespace LibSWBF2::Types
 	template<class T>
 	T& List<T>::operator[](const size_t i)
 	{
-		if (i >= NumElements)
+		if (i < 0 || i >= NumElements)
 		{
-			LOG_ERROR("Index {} is out of bounds {}!", i, NumElements);
-			THROW_LIBEX("Index {} is out of bounds {}!", i, NumElements);
+			THROW("Index {} is out of bounds {}!", i, NumElements);
 		}
 		return ArrayPtr[i];
 	}

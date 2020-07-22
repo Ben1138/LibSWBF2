@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "scr_.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::script
 {
 	void scr_::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void scr_::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void scr_::ReadFromStream(FileReader& stream)

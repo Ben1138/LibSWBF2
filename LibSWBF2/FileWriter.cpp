@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FileWriter.h"
 #include "InternalHelpers.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include <string>
 
 namespace LibSWBF2
@@ -169,7 +169,7 @@ namespace LibSWBF2
 		if (!m_Writer.is_open())
 		{
 			//LOG_ERROR("Error during write process! File '{}' is not open!", m_FileName);
-			THROW_LIBEX("Error during write process! File '{}' is not open!", m_FileName);
+			THROW("Error during write process! File '{}' is not open!", m_FileName);
 		}
 
 		if (!m_Writer.good())
@@ -188,7 +188,7 @@ namespace LibSWBF2
 				reason += " Writing Error on I/O operation!";
 			}
 			//LOG_ERROR("Error during write process in '{}'! Reason: {}", m_FileName, reason);
-			THROW_LIBEX("Error during write process in '{}'! Reason: {}", m_FileName, reason);
+			THROW("Error during write process in '{}'! Reason: {}", m_FileName, reason);
 		}
 
 		return true;

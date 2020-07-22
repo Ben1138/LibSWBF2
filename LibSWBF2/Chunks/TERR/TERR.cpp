@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TERR.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "Logging/Logger.h"
 #include "FileReader.h"
 #include <algorithm>
@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 	void TERR::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void TERR::ReadFromStream(FileReader& stream)
@@ -302,7 +302,7 @@ namespace LibSWBF2::Chunks::Terrain
 				ReadFromStream(reader);
 				reader.Close();
 			}
-			catch (InvalidChunkException&)
+			catch (LibException&)
 			{
 				LOG_ERROR("Aborting read process...");
 				return false;

@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "PCHS.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
     void PCHS::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void PCHS::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void PCHS::ReadFromStream(FileReader& stream)

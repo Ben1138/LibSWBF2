@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 
 namespace LibSWBF2
 {
@@ -169,8 +169,7 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			//LOG_ERROR("Nothing has been opened yet!");
-			throw LibException("Nothing has been opened yet!");
+			THROW("Nothing has been opened yet!");
 		}
 
 		m_FileName = "";
@@ -203,7 +202,7 @@ namespace LibSWBF2
 		if (!m_Reader.is_open())
 		{
 			//LOG_ERROR("Error during read process! File '{}' is not open!", m_FileName);
-			THROW_LIBEX("Error during read process! File '{}' is not open!", m_FileName);
+			THROW("Error during read process! File '{}' is not open!", m_FileName);
 		}
 
 		if (!m_Reader.good())
@@ -222,14 +221,14 @@ namespace LibSWBF2
 				reason += " Reading Error on I/O operation!";
 			}
 			//LOG_ERROR("Error during read process in '{}'! Reason: {}", m_FileName, reason);
-			THROW_LIBEX("Error during read process in '{}'! Reason: {}", m_FileName, reason);
+			THROW("Error during read process in '{}'! Reason: {}", m_FileName, reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
 			//LOG_ERROR("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
-			THROW_LIBEX("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
+			THROW("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
 		}
 
 		return true;

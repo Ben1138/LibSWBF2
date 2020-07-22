@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "LTEX.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include "tern.h"
 
@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::LVL::terrain
 {
     void LTEX::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void LTEX::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void LTEX::ReadFromStream(FileReader& stream)
