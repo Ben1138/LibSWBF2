@@ -447,6 +447,12 @@
     <ClInclude Include="Chunks\STRMULT.h">
       <Filter>Header Files\Chunks</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\SKIN.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\modl\BMAP.h">
+      <Filter>Header Files\Chunks\LVL\modl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -772,6 +778,12 @@
     </ClCompile>
     <ClCompile Include="Chunks\STRMULT.cpp">
       <Filter>Source Files\Chunks</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\SKIN.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\modl\BMAP.cpp">
+      <Filter>Source Files\Chunks\LVL\modl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

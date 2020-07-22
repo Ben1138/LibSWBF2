@@ -5,6 +5,8 @@
 #include "MTRL.h"
 #include "TNAM.h"
 #include "IBUF.h"
+#include "SKIN.h"
+#include "BMAP.h"
 #include "modl.VBUF.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
@@ -17,6 +19,8 @@ namespace LibSWBF2::Chunks::LVL::modl
 		STR<"RTYP"_m>* p_RenderType;	// string seems to represent an enum
 		IBUF* p_IndexBuffer;
 		STR<"BNAM"_m>* p_Parent;
+		SKIN* p_Skin;
+		BMAP* p_BoneMap;				// this mapper seems unnecessary to me...
 
 		List<VBUF*> m_VertexBuffers;
 		List<TNAM*> m_Textures;

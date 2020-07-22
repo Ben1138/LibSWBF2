@@ -43,6 +43,14 @@ namespace LibSWBF2::Chunks::LVL::modl
             {
                 READ_CHILD(stream, p_Parent);
             }
+            else if (next == "SKIN"_h)
+            {
+                READ_CHILD(stream, p_Skin);
+            }
+            else if (next == "BMAP"_h)
+            {
+                READ_CHILD(stream, p_BoneMap);
+            }
             else if (next == "VBUF"_h)
             {
                 VBUF* vertexBuffer;

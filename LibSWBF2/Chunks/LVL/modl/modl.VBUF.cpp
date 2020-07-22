@@ -177,6 +177,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         std::string result = "Count = " + std::to_string(m_Count) + "\n";
         result += "Stride = " + std::to_string(m_Stride) + "\n";
         result += "Flags = " + std::string(EVBUFFlagsToString(m_Flags).Buffer()) + "\n";
+        result += "Positions[" + std::to_string(m_Positions.Size()) + "]\n";
         result += "Normals[" + std::to_string(m_Normals.Size()) + "]\n";
         result += "Tangents[" + std::to_string(m_Tangents.Size()) + "]\n";
         result += "BiTangents[" + std::to_string(m_BiTangents.Size()) + "]\n";
@@ -186,17 +187,17 @@ namespace LibSWBF2::Chunks::LVL::modl
         result += "Weights[" + std::to_string(m_Weights.Size()) + "]\n";
         result += "\n";
 
-        result += "Positions["+std::to_string(m_Positions.Size())+"] = [";
-        for (uint32_t i = 0; i < m_Positions.Size(); ++i)
-        {
-            result += m_Positions[i].ToString().Buffer() + std::string(", ");
-            if ((i + 1) % 3 == 0)
-            {
-                result += "\n";
-            }
-        }
-        result.resize(result.size() - 2);
-        result += "]";
+        //result += "Bones["+std::to_string(m_Bones.Size())+"] = [";
+        //for (uint32_t i = 0; i < m_Bones.Size(); ++i)
+        //{
+        //    result += m_Bones[i].ToString().Buffer() + std::string(", ");
+        //    if ((i + 1) % 3 == 0)
+        //    {
+        //        result += "\n";
+        //    }
+        //}
+        //result.resize(result.size() - 2);
+        //result += "]";
 
         return result.c_str();
     }
