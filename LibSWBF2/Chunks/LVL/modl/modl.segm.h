@@ -19,8 +19,8 @@ namespace LibSWBF2::Chunks::LVL::modl
 		STR<"RTYP"_m>* p_RenderType;	// string seems to represent an enum
 		IBUF* p_IndexBuffer;
 		STR<"BNAM"_m>* p_Parent;
-		SKIN* p_Skin;
-		BMAP* p_BoneMap;				// this mapper seems unnecessary to me...
+		SKIN* p_Skin;					// OPTIONAL
+		BMAP* p_BoneMap;				// OPTIONAL. This mapper seems unnecessary to me...
 
 		List<VBUF*> m_VertexBuffers;
 		List<TNAM*> m_Textures;

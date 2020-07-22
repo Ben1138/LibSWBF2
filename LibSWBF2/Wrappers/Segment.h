@@ -10,6 +10,13 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::modl::VBUF;
 	class Level;
 
+
+	struct VertexWeight
+	{
+		float_t m_WeightValue;
+		String m_BoneName;
+	};
+
 	class LIBSWBF2_API Segment
 	{
 	public:
@@ -21,11 +28,13 @@ namespace LibSWBF2::Wrappers
 		VBUF* p_VertexBuffer;
 
 		Material m_Material;
+		List<VertexWeight> m_VertexWeights;
 
 	public:
 		static bool FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out);
 
 		ETopology GetTopology() const;
+		bool ContainsWeights() const;
 
 		const Material& GetMaterial() const;
 
@@ -40,5 +49,9 @@ namespace LibSWBF2::Wrappers
 
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
+
+		// count corresponmds to number of vertices, NOT number of bytes!
+		// returns false if there are no vertex weights present
+		bool GetVertexWeights(uint32_t& count, VertexWeight*& weightBuffer) const;
 	};
 }

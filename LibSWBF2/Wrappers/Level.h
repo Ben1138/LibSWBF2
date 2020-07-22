@@ -41,6 +41,9 @@ namespace LibSWBF2::Wrappers
 		class MapsWrapper* m_NameToIndexMaps;
 
 	public:
+		friend class Model;
+		friend class Segment;
+
 		static Level* FromFile(String path);
 		static void Destroy(Level* level);
 
@@ -58,5 +61,6 @@ namespace LibSWBF2::Wrappers
 
 	private:
 		void FindInChildrenRecursive(GenericBaseChunk* root);
+		skel* FindSkeleton(String skeletonName) const;
 	};
 }
