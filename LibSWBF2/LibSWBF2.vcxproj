@@ -189,12 +189,14 @@
   <ItemGroup>
     <ClInclude Include="API.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
+    <ClInclude Include="Chunks\LVL\modl\BMAP.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
     <ClInclude Include="Chunks\LVL\modl\INFO.h" />
     <ClInclude Include="Chunks\LVL\modl\LVL.modl.h" />
     <ClInclude Include="Chunks\LVL\modl\MTRL.h" />
     <ClInclude Include="Chunks\LVL\modl\modl.segm.h" />
     <ClInclude Include="Chunks\LVL\modl\segm.INFO.h" />
+    <ClInclude Include="Chunks\LVL\modl\SKIN.h" />
     <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
     <ClInclude Include="Chunks\LVL\modl\modl.VBUF.h" />
     <ClInclude Include="Chunks\LVL\scr_\scr_.h" />
@@ -305,12 +307,14 @@
   <ItemGroup>
     <ClCompile Include="API.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\BMAP.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
     <ClCompile Include="Chunks\LVL\modl\INFO.cpp" />
     <ClCompile Include="Chunks\LVL\modl\LVL.modl.cpp" />
     <ClCompile Include="Chunks\LVL\modl\MTRL.cpp" />
     <ClCompile Include="Chunks\LVL\modl\modl.segm.cpp" />
     <ClCompile Include="Chunks\LVL\modl\segm.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\modl\SKIN.cpp" />
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
     <ClCompile Include="Chunks\LVL\modl\modl.VBUF.cpp" />
     <ClCompile Include="Chunks\LVL\scr_\scr_.cpp" />

@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::LVL::modl
 	{
 	public:
 		uint32_t m_Count;
-		uint32_t m_Stride;
+		uint32_t m_Stride;	// bytes per vertex
 		EVBUFFlags m_Flags;
 		
 		List<Vector3> m_Positions;
@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::LVL::modl
 		List<Color> m_Colors;
 		List<Vector2> m_TexCoords;
 		List<Vector3u8> m_Bones;
-		List<Vector3> m_Weights;
+		List<Vector3> m_Weights;	// this is questionable... not found in all of sides/rep.lvl
 
 	public:
 		void RefreshSize() override;
