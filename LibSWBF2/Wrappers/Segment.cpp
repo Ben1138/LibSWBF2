@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Segment.h"
-#include "Material.h"
 #include "Level.h"
 #include "Types/List.h"
 #include "InternalHelpers.h"

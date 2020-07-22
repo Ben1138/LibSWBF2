@@ -1,9 +1,11 @@
 #pragma once
 #include "Chunks/LVL/modl/LVL.modl.h"
+#include "Types/LibString.h"
 #include "Material.h"
 
 namespace LibSWBF2::Wrappers
 {
+	using Types::String;
 	using Types::Vector2;
 	using Types::Vector3;
 	using Chunks::LVL::modl::segm;
@@ -11,7 +13,7 @@ namespace LibSWBF2::Wrappers
 	class Level;
 
 
-	struct VertexWeight
+	struct LIBSWBF2_API VertexWeight
 	{
 		float_t m_WeightValue;
 		String m_BoneName;
