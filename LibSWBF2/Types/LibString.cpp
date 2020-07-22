@@ -13,19 +13,17 @@ namespace LibSWBF2::Types
 	{
 		if (cStr == nullptr)
 		{
+			buffer = new char[1]{ 0 };
+			length = 0;
 			return;
 		}
 
 		length = strnlen_s(cStr, MAX_LENGTH);
 
-		if (length > WARN_LENGTH)
-		{
-			LOG_WARN("String length {} exceeds {} which is rather unusual. Max supported String length is {}", length, WARN_LENGTH, MAX_LENGTH);
-		}
-		else if (length > MAX_LENGTH)
+		if (length > MAX_LENGTH)
 		{
 			LOG_WARN("String length {} exceeds max supported length of {}! String will end up empty!", length, MAX_LENGTH);
-			buffer = nullptr;
+			buffer = new char[1]{ 0 };
 			length = 0;
 			return;
 		}
@@ -45,6 +43,7 @@ namespace LibSWBF2::Types
 		{
 			LOG_WARN("Given String is invalid (buffer is NULL)! This should never happen!");
 			buffer = new char[1]{ 0 };
+			length = 0;
 		}
 		else
 		{
@@ -60,7 +59,7 @@ namespace LibSWBF2::Types
 			LOG_WARN("Given String is invalid (buffer is NULL)! This should never happen!");
 		}
 
-		other.buffer = nullptr;
+		other.buffer = new char[1]{ 0 };
 		other.length = 0;
 	}
 

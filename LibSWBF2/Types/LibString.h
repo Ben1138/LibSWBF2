@@ -25,7 +25,6 @@ namespace LibSWBF2::Types
 		bool IsEmpty() const;
 
 	private:
-		const static size_t WARN_LENGTH = 0xffff;
 		const static size_t MAX_LENGTH = 0xffffffff;
 
 		char* buffer = nullptr;		//should always contain a valid pointer to a zero terminated c string (even if length == 0). nullptr indicates an invalid String!
