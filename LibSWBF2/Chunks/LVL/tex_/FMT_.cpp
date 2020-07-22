@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "FMT_.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::texture
 {
 	void FMT_::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void FMT_::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void FMT_::ReadFromStream(FileReader& stream)

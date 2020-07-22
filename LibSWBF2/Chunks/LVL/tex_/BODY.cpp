@@ -3,7 +3,7 @@
 #include "FMT_.h"
 #include "Logging/Logger.h"
 #include "DirectX/DXHelpers.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include <algorithm>
 
@@ -14,12 +14,12 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
     void BODY::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void BODY::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void BODY::ReadFromStream(FileReader& stream)

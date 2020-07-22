@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "zaa_.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
 	void SMNA::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void SMNA::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	void SMNA::ReadFromStream(FileReader& stream)

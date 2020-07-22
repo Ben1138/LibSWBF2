@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RawData.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks
@@ -29,13 +29,13 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	void RawData<Header>::RefreshSize()
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	template<uint32_t Header>
 	void RawData<Header>::WriteToStream(FileWriter& stream)
 	{
-		throw LibException("Not implemented!");
+		THROW("Not implemented!");
 	}
 
 	template<uint32_t Header>

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BaseChunk.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileWriter.h"
 #include "FileReader.h"
 #include "Logging/Logger.h"
@@ -31,14 +31,12 @@ namespace LibSWBF2::Chunks
 
 		if (!IsValidHeader(m_Header) || m_Size < 0)
 		{
-			LOG_ERROR("Invalid Chunk: {} Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
-			throw InvalidHeaderException(m_Header);
+			THROW("Invalid Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
 		}
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
-			LOG_ERROR("Chunk is too big and will end up out of file! Chunk: {} Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
-			throw InvalidSizeException(m_Size);
+			THROW("Chunk is too big and will end up out of file! Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition() - 8, stream.GetFileSize());
 		}
 	}
 
@@ -52,7 +50,7 @@ namespace LibSWBF2::Chunks
 				WriteToStream(writer);
 				writer.Close();
 			}
-			catch (InvalidChunkException& e)
+			catch (LibException& e)
 			{
 				LOG_ERROR(e.what());
 				LOG_ERROR("Aborting write process...");

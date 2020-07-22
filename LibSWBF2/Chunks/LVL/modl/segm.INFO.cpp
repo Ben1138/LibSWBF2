@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "segm.INFO.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 
@@ -13,12 +13,12 @@ namespace LibSWBF2::Chunks::LVL::modl::segment
 
     void INFO::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void INFO::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void INFO::ReadFromStream(FileReader& stream)

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "wrld.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "Logging/Logger.h"
 #include "FileReader.h"
 
@@ -8,12 +8,12 @@ namespace LibSWBF2::Chunks::LVL::wrld
 {
     void wrld::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void wrld::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void wrld::ReadFromStream(FileReader& stream)

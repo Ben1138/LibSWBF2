@@ -4,7 +4,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Logging/Logger.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 #include <limits>
 
@@ -15,12 +15,12 @@ namespace LibSWBF2::Chunks::LVL::modl
 {
     void VBUF::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void VBUF::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void VBUF::ReadFromStream(FileReader& stream)

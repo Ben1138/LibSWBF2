@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "PTCH.IBUF.h"
-#include "Exceptions.h"
+#include "InternalHelpers.h"
 #include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
     void IBUF::RefreshSize()
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void IBUF::WriteToStream(FileWriter& stream)
     {
-        throw LibException("Not implemented!");
+        THROW("Not implemented!");
     }
 
     void IBUF::ReadFromStream(FileReader& stream)
