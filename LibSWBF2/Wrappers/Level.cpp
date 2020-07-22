@@ -16,6 +16,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> WorldNameToIndex;
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
+		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
 	using Chunks::GenericBaseChunk;
@@ -64,6 +65,13 @@ namespace LibSWBF2::Wrappers
 			{
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
 			}
+		}
+
+		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
+		skel* skelChunk = dynamic_cast<skel*>(root);
+		if (skelChunk != nullptr)
+		{
+			m_NameToIndexMaps->SkeletonNameToSkel.emplace(ToLower(skelChunk->p_Info->m_ModelName), skelChunk);
 		}
 
 		// IMPORTANT: crawl models BEFORE worlds, so model references via string can be resolved in worlds
@@ -167,7 +175,7 @@ namespace LibSWBF2::Wrappers
 
 	const Model* Level::GetModel(String modelName) const
 	{
-		if (modelName == "")
+		if (modelName.IsEmpty())
 		{
 			return nullptr;
 		}
@@ -184,7 +192,7 @@ namespace LibSWBF2::Wrappers
 
 	const Texture* Level::GetTexture(String textureName) const
 	{
-		if (textureName == "")
+		if (textureName.IsEmpty())
 		{
 			return nullptr;
 		}
@@ -201,7 +209,7 @@ namespace LibSWBF2::Wrappers
 
 	const World* Level::GetWorld(String worldName) const
 	{
-		if (worldName == "")
+		if (worldName.IsEmpty())
 		{
 			return nullptr;
 		}
@@ -218,7 +226,7 @@ namespace LibSWBF2::Wrappers
 
 	const Terrain* Level::GetTerrain(String terrainName) const
 	{
-		if (terrainName == "")
+		if (terrainName.IsEmpty())
 		{
 			return nullptr;
 		}
@@ -235,7 +243,7 @@ namespace LibSWBF2::Wrappers
 
 	const Script* Level::GetScript(String scriptName) const
 	{
-		if (scriptName == "")
+		if (scriptName.IsEmpty())
 		{
 			return nullptr;
 		}
@@ -247,6 +255,23 @@ namespace LibSWBF2::Wrappers
 		}
 
 		//LOG_WARN("Could not find Script '{}'!", scriptName);
+		return nullptr;
+	}
+
+	skel* Level::FindSkeleton(String skeletonName) const
+	{
+		if (skeletonName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->SkeletonNameToSkel.find(ToLower(skeletonName));
+		if (it != m_NameToIndexMaps->SkeletonNameToSkel.end())
+		{
+			return it->second;
+		}
+
+		//LOG_WARN("Could not find Skeleton '{}'!", scriptName);
 		return nullptr;
 	}
 }

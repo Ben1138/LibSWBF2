@@ -8,6 +8,8 @@
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
+	using LibSWBF2::Chunks::LVL::modl::SKIN;
+	using LibSWBF2::Chunks::LVL::modl::BMAP;
 
 	bool Segment::FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out)
 	{
@@ -53,6 +55,46 @@ namespace LibSWBF2::Wrappers
 			LOG_WARN("Could not read Material!");
 		}
 
+		// Create weight buffer
+		modl* parent = dynamic_cast<modl*>(out.p_Segment->GetParent());
+		skel* skeleton = mainContainer->FindSkeleton(parent->p_Name->m_Text);
+		if (skeleton != nullptr)
+		{
+			SKIN* skin = out.p_Segment->p_Skin;
+			BMAP* boneMap = out.p_Segment->p_BoneMap;
+
+			if (skin != nullptr && boneMap != nullptr && skin->m_Type == 1)
+			{
+				for (size_t i = 0; i < skin->m_VertexCount; ++i)
+				{
+					uint8_t localIndex = skin->m_BoneIndices[i];
+					if (localIndex >= boneMap->m_IndexCount)
+					{
+						LOG_ERROR("Local index {} points out of bounds into Bone Map of size {}!", localIndex, boneMap->m_IndexCount);
+					}
+					else
+					{
+						uint8_t boneIndex = boneMap->m_IndexMap[localIndex];
+						if (boneIndex >= skeleton->p_BoneNames->m_Texts.Size())
+						{
+							LOG_ERROR("Bone index {} is out of bounds {}!", boneIndex, skeleton->p_BoneNames->m_Texts.Size());
+						}
+						else
+						{
+							String boneName = skeleton->p_BoneNames->m_Texts[boneIndex].Buffer();
+							out.m_VertexWeights.Add({ 1.0f, boneName });
+
+							LOG_ERROR("Vertex {} is bound to '{}'", i, boneName);
+						}
+					}
+				}
+			}
+			else if (skin != nullptr && boneMap == nullptr && skin->m_Type == 1)
+			{
+				LOG_ERROR("Bone map is missing!");
+			}
+		}
+
 		return true;
 	}
 
@@ -88,5 +130,23 @@ namespace LibSWBF2::Wrappers
 	{
 		count = (uint32_t)p_VertexBuffer->m_TexCoords.Size();
 		uvBuffer = p_VertexBuffer->m_TexCoords.GetArrayPtr();
+	}
+
+	bool Segment::ContainsWeights() const
+	{
+		return p_Segment->p_Skin != nullptr;
+	}
+
+	bool Segment::GetVertexWeights(uint32_t& count, VertexWeight*& weightBuffer) const
+	{
+		count = 0;
+		weightBuffer = nullptr;
+
+		if (!ContainsWeights())
+			return false;
+
+		count = (uint32_t)m_VertexWeights.Size();
+		weightBuffer = m_VertexWeights.GetArrayPtr();
+		return count > 0;
 	}
 }

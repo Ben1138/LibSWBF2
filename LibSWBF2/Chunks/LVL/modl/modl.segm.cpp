@@ -69,6 +69,12 @@ namespace LibSWBF2::Chunks::LVL::modl
             }
         }
 
+        if (p_Skin != nullptr && p_BoneMap == nullptr)
+        {
+            // does this ever exist?
+            LOG_WARN("Found model segment (segm) with SKIN, but without BMAP! Chunk pos: {}", GetPosition());
+        }
+
         BaseChunk::EnsureEnd(stream);
     }
 }

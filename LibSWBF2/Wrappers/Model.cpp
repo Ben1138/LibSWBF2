@@ -18,6 +18,7 @@ namespace LibSWBF2::Wrappers
 		}
 
 		out.p_Model = modelChunk;
+		out.p_Skeleton = mainContainer->FindSkeleton(out.p_Model->p_Name->m_Text);
 
 		List<segm*>& segments = modelChunk->m_Segments;
 		for (size_t i = 0; i < segments.Size(); ++i)
@@ -39,5 +40,20 @@ namespace LibSWBF2::Wrappers
 	const List<Segment>& Model::GetSegments() const
 	{
 		return m_Segments;
+	}
+
+	bool Model::IsSkeletalMesh() const
+	{
+		if (p_Skeleton == nullptr)
+			return false;
+
+		for (size_t i = 0; i < m_Segments.Size(); ++i)
+		{
+			if (m_Segments[i].ContainsWeights())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
