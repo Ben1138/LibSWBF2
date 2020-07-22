@@ -282,6 +282,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<Vector2>;
 	template LIBSWBF2_API class List<Vector3>;
 	template LIBSWBF2_API class List<Vector3u8>;
+	template LIBSWBF2_API class List<Matrix3x3>;
 	template LIBSWBF2_API class List<Color>;
 	template LIBSWBF2_API class List<String>;
 	template LIBSWBF2_API class List<Animation>;

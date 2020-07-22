@@ -100,16 +100,7 @@ namespace LibSWBF2::Types
 
 	String String::operator+=(const String& a)
 	{
-		String result;
-		delete[] result.buffer;
-		result.length = length + a.length;
-		result.buffer = new char[result.length + 1];
-
-		memcpy(result.buffer, buffer, length);
-		memcpy(result.buffer + length, a.buffer, a.length);
-		result.buffer[result.length] = 0;
-
-		return result;
+		return *this + a;
 	}
 
 	String operator+(const String& a, const String& b)

@@ -10,6 +10,7 @@
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
 #include "LVL/zaa_/zaa_.h"
+#include "LVL/skel/skel.h"
 #include "LVL/lvl_.h"
 
 namespace LibSWBF2::Chunks
@@ -88,6 +89,12 @@ namespace LibSWBF2::Chunks
 						LVL::modl::modl* model;
 						READ_CHILD(stream, model);
 						chunk = model;
+					}
+					else if (nextHead == "skel"_h)
+					{
+						LVL::skel::skel* skeleton;
+						READ_CHILD(stream, skeleton);
+						chunk = skeleton;
 					}
 					else if (nextHead == "lvl_"_h)
 					{
@@ -203,6 +210,7 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"zaa_"_m>;
 	template LIBSWBF2_API struct GenericChunk<"BIN_"_m>;
 	template LIBSWBF2_API struct GenericChunk<"SMNA_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"skel"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;

@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
     String XFRM::ToString()
     {
         return
-            "Matrix 3x3: " + m_RotationMatrix.ToString() + "\n\n" +
+            "Rotation:\n" + m_RotationMatrix.ToString() + "\n\n" +
             "Position: " + m_Position.ToString();
     }
 }

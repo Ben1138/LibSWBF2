@@ -97,6 +97,12 @@
     <Filter Include="Source Files\Chunks\LVL\zaa_">
       <UniqueIdentifier>{c7b87a6a-bb1f-4e8c-b8a3-d8d22b34a057}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\skel">
+      <UniqueIdentifier>{0dbcd801-51fd-490e-9745-55e3e6695798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\skel">
+      <UniqueIdentifier>{49901f5a-a39e-4495-9725-22ab6f768abe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -429,6 +435,18 @@
     <ClInclude Include="Chunks\LVL\zaa_\BIN_.h">
       <Filter>Header Files\Chunks\LVL\zaa_</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\skel\skel.h">
+      <Filter>Header Files\Chunks\LVL\skel</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\skel\skel.INFO.h">
+      <Filter>Header Files\Chunks\LVL\skel</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\skel\skel.XFRM.h">
+      <Filter>Header Files\Chunks\LVL\skel</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\STRMULT.h">
+      <Filter>Header Files\Chunks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -742,6 +760,18 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp">
       <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\skel\skel.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\skel</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\skel\skel.cpp">
+      <Filter>Source Files\Chunks\LVL\skel</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\skel\skel.XFRM.cpp">
+      <Filter>Source Files\Chunks\LVL\skel</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\STRMULT.cpp">
+      <Filter>Source Files\Chunks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
