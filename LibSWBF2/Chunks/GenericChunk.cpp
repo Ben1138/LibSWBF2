@@ -134,7 +134,7 @@ namespace LibSWBF2::Chunks
 					chunk = nullptr;
 
 					LOG_ERROR(e.what());
-					LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition());
+					//LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition() - 8);
 					break;
 				}
 			}

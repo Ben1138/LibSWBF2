@@ -125,7 +125,7 @@ namespace LibSWBF2::Chunks
 
 	bool BaseChunk::ThereIsAnother(FileReader& stream)
 	{
-		return stream.GetFileSize() - stream.GetPosition() >= 8 && PositionInChunk(stream.GetPosition());
+		return stream.GetFileSize() - stream.GetPosition() >= 8 && PositionInChunk(stream.GetPosition() + 8);
 	}
 
 	bool BaseChunk::SkipChunk(FileReader& stream, const bool& printWarn)
