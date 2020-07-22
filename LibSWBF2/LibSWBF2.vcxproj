@@ -199,6 +199,9 @@
     <ClInclude Include="Chunks\LVL\modl\modl.VBUF.h" />
     <ClInclude Include="Chunks\LVL\scr_\scr_.h" />
     <ClInclude Include="Chunks\LVL\scr_\scr_.INFO.h" />
+    <ClInclude Include="Chunks\LVL\skel\skel.h" />
+    <ClInclude Include="Chunks\LVL\skel\skel.INFO.h" />
+    <ClInclude Include="Chunks\LVL\skel\skel.XFRM.h" />
     <ClInclude Include="Chunks\LVL\tern\DTEX.h" />
     <ClInclude Include="Chunks\LVL\tern\LTEX.h" />
     <ClInclude Include="Chunks\LVL\tern\PCHS.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Chunks\LVL\zaa_\SMNA.h" />
     <ClInclude Include="Chunks\LVL\zaa_\zaa_.h" />
     <ClInclude Include="Chunks\RawData.h" />
+    <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
     <ClInclude Include="Wrappers\Instance.h" />
@@ -311,6 +315,9 @@
     <ClCompile Include="Chunks\LVL\modl\modl.VBUF.cpp" />
     <ClCompile Include="Chunks\LVL\scr_\scr_.cpp" />
     <ClCompile Include="Chunks\LVL\scr_\scr_.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\skel\skel.cpp" />
+    <ClCompile Include="Chunks\LVL\skel\skel.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\skel\skel.XFRM.cpp" />
     <ClCompile Include="Chunks\LVL\tern\DTEX.cpp" />
     <ClCompile Include="Chunks\LVL\tern\LTEX.cpp" />
     <ClCompile Include="Chunks\LVL\tern\PCHS.cpp" />
@@ -327,6 +334,7 @@
     <ClCompile Include="Chunks\LVL\zaa_\SMNA.cpp" />
     <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp" />
     <ClCompile Include="Chunks\RawData.cpp" />
+    <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
