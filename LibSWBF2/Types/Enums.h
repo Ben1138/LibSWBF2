@@ -129,13 +129,20 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
+	Types::String LIBSWBF2_API ModelPurposeToString(EModelPurpose flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
 
-	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs);
-	bool operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
-	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
-	EVBUFFlags operator &(EVBUFFlags lhs, EVBUFFlags rhs);
-	bool operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
-	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
+	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
+	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
+	bool LIBSWBF2_API operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
+
+	EModelPurpose LIBSWBF2_API operator &(EModelPurpose lhs, EModelPurpose rhs);
+	EModelPurpose LIBSWBF2_API operator |(EModelPurpose lhs, EModelPurpose rhs);
+	bool LIBSWBF2_API operator ==(EModelPurpose lhs, std::underlying_type<EModelPurpose>::type rhs);
+	bool LIBSWBF2_API operator !=(EModelPurpose lhs, std::underlying_type<EModelPurpose>::type rhs);
+
+	EVBUFFlags LIBSWBF2_API operator &(EVBUFFlags lhs, EVBUFFlags rhs);
+	bool LIBSWBF2_API operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
+	bool LIBSWBF2_API operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 }
