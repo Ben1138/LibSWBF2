@@ -7,7 +7,7 @@
 #include "Types/BoneWeight.h"
 #include "Types/Enums.h"
 #include "Chunks/MSH/MSH.h"
-#include "CRC.h"
+#include "Hashing.h"
 #include "Chunks/TERR/TERR.h"
 #include "Chunks/LVL/LVL.h"
 #include "Wrappers/Level.h"

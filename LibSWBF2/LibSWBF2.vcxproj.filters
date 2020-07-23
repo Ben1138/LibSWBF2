@@ -237,9 +237,6 @@
     <ClInclude Include="Types\RotationFrame.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="CRC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\MSH\ENVL.h">
       <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
@@ -453,6 +450,9 @@
     <ClInclude Include="Chunks\LVL\modl\BMAP.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
+    <ClInclude Include="Hashing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -571,9 +571,6 @@
     </ClCompile>
     <ClCompile Include="Types\BoneFrames.cpp">
       <Filter>Source Files\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="CRC.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\MSH\ENVL.cpp">
       <Filter>Source Files\Chunks\MSH</Filter>
@@ -784,6 +781,9 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\modl\BMAP.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
+    </ClCompile>
+    <ClCompile Include="Hashing.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

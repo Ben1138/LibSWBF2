@@ -12,6 +12,7 @@
 #include "LVL/zaa_/zaa_.h"
 #include "LVL/skel/skel.h"
 #include "LVL/lvl_.h"
+#include "LVL/LVL.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -65,7 +66,15 @@ namespace LibSWBF2::Chunks
 				GenericBaseChunk* chunk = nullptr;
 				try
 				{
-					if (nextHead == "NAME"_h)
+					// Special case: lvl_ might not be loaded!
+					// See lvl_.cpp for more information
+					if (nextHead == "lvl_"_h)
+					{
+						LVL::lvl_* subLVL;
+						READ_CHILD(stream, subLVL);
+						chunk = subLVL;
+					}
+					else if (nextHead == "NAME"_h)
 					{
 						STR<"NAME"_m>* name;
 						READ_CHILD(stream, name);
@@ -95,12 +104,6 @@ namespace LibSWBF2::Chunks
 						LVL::skel::skel* skeleton;
 						READ_CHILD(stream, skeleton);
 						chunk = skeleton;
-					}
-					else if (nextHead == "lvl_"_h)
-					{
-						LVL::lvl_* subLVL;
-						READ_CHILD(stream, subLVL);
-						chunk = subLVL;
 					}
 					else if (nextHead == "wrld"_h)
 					{

@@ -17,4 +17,5 @@ namespace LibSWBF2
 	typedef uint32_t ChunkSize;
 
 	typedef uint32_t CRCChecksum;
+	typedef uint32_t FNVHash;
 }

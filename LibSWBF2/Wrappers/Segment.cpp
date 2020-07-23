@@ -82,8 +82,6 @@ namespace LibSWBF2::Wrappers
 						{
 							String boneName = skeleton->p_BoneNames->m_Texts[boneIndex].Buffer();
 							out.m_VertexWeights.Add({ 1.0f, boneName });
-
-							LOG_ERROR("Vertex {} is bound to '{}'", i, boneName);
 						}
 					}
 				}

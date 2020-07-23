@@ -91,7 +91,25 @@ namespace LibSWBF2::Chunks::LVL::modl
 
             if ((m_Flags & EVBUFFlags::BlendIndices) != 0)
             {
-                m_Bones.Emplace().ReadFromStream(stream);
+                uint8_t data[4];
+                data[0] = stream.ReadByte();
+                data[1] = stream.ReadByte();
+                data[2] = stream.ReadByte();
+                data[3] = stream.ReadByte();
+                if ((m_Flags & EVBUFFlags::PositionCompressed) != 0 && model->p_Name->m_Text == "rep_inf_ep3trooper")
+                {
+                    //m_Bones.Emplace().ReadFromStream(stream);
+                    //LOG_WARN("Weight?: {}", stream.ReadFloat());
+
+                    uint16_t data2[2];
+                    data2[0] = *(uint16_t*)&data[0];
+                    data2[1] = *(uint16_t*)&data[2];
+                    uint32_t data3 = *(uint32_t*)&data[0];
+                    LOG_WARN("[{}] = {}-{}-{}-{} / {} - {} / {}", i, data[0], data[1], data[2], data[3], data2[0], data2[1], data3);
+
+                    //std::string hash = lookup_fnv_hash(data3);
+                    //LOG_WARN("Hash: {}", hash);
+                }
             }
 
             if ((m_Flags & EVBUFFlags::Normal) != 0)
