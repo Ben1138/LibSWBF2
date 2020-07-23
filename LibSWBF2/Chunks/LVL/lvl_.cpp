@@ -52,12 +52,11 @@ namespace LibSWBF2::Chunks::LVL
             // also load when no specific sub LVLs have been specified at all
             if (root->m_SubLVLsToLoad.Size() == 0 || root->m_SubLVLsToLoad.Contains(m_NameHash))
             {
-                LOG_WARN("Load sub LVL '{}'", name);
                 ReadGenerics(stream);
             }
             else
             {
-                LOG_WARN("Skipping unspecified sub LVL '{}'", name);
+                LOG_INFO("Skipping unspecified sub LVL '{}'", name);
                 SkipChunk(stream, false);
             }
         }
