@@ -26,6 +26,7 @@ namespace LibSWBF2::Chunks
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
 
+		LOG_INFO("Position: {}", m_ChunkPosition);
 		LOG_INFO("Header: {}", m_Header);
 		LOG_INFO("Size: {}", m_Size);
 

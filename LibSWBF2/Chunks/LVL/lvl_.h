@@ -15,6 +15,8 @@ namespace LibSWBF2::Chunks::LVL
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
+		String ToString() override;
+
 		bool TryLookupName(String& result);
 	};
 }

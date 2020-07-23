@@ -67,6 +67,16 @@ namespace LibSWBF2::Chunks::LVL
         BaseChunk::EnsureEnd(stream);
     }
 
+    String lvl_::ToString()
+    {
+        String name;
+        if (TryLookupName(name))
+        {
+            return fmt::format("Unhashed Name: {}", name).c_str();
+        }
+        return fmt::format("No table entry found for Hashed Name: {}", m_NameHash).c_str();
+    }
+
     bool lvl_::TryLookupName(String& result)
     {
         return FNV::Lookup(m_NameHash, result);
