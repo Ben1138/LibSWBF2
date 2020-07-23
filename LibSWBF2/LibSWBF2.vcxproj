@@ -243,7 +243,7 @@
     <ClInclude Include="Chunks\MSH\CAMR.h" />
     <ClInclude Include="Types\Color.h" />
     <ClInclude Include="Types\Colorf.h" />
-    <ClInclude Include="CRC.h" />
+    <ClInclude Include="Hashing.h" />
     <ClInclude Include="Chunks\MSH\CYCL.h" />
     <ClInclude Include="DirectX\D3D9FORMAT.h" />
     <ClInclude Include="DirectX\DXHelpers.h" />
@@ -361,7 +361,7 @@
     <ClCompile Include="Types\BoneWeight.cpp" />
     <ClCompile Include="Types\Color.cpp" />
     <ClCompile Include="Types\Colorf.cpp" />
-    <ClCompile Include="CRC.cpp" />
+    <ClCompile Include="Hashing.cpp" />
     <ClCompile Include="Chunks\MSH\CYCL.cpp" />
     <ClCompile Include="DirectX\DXHelpers.cpp" />
     <ClCompile Include="Chunks\MSH\ENVL.cpp" />

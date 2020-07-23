@@ -45,6 +45,7 @@ namespace LibSWBF2::Wrappers
 		friend class Segment;
 
 		static Level* FromFile(String path);
+		static Level* FromFile(String path, const List<String>& subLVLsToLoad);
 		static void Destroy(Level* level);
 
 		const List<Model>& GetModels() const;

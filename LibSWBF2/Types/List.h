@@ -20,12 +20,20 @@ namespace LibSWBF2::Types
 		List(size_t ReservedSize);
 		List(const List<T>& other);
 		List(List<T>&& other);
-		~List();
+		virtual ~List();
 
 		size_t Size() const;
 		void Resize(size_t NewMaxSize);
-		size_t Add(const T& Element);			// returns index of added element
-		size_t Append(const List<T>& Items);	// returns index of last added element
+
+		// returns index of added element
+		size_t Add(const T& Element);
+
+		// returns index of last added element
+		size_t Append(const List<T>& Items);
+
+		// needs type-wise implementations! return index of found element, -1 otherwise
+		virtual size_t Find(const T& Element);
+
 		T& Emplace();
 
 		List<T>& operator=(const List<T>& other);
@@ -47,4 +55,6 @@ namespace LibSWBF2::Types
 		void Clear();
 		T* GetArrayPtr() const;
 	};
+
+	size_t List<uint32_t>::Find(const uint32_t& Element);
 }
