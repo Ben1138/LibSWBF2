@@ -31,8 +31,8 @@ namespace LibSWBF2::Types
 		// returns index of last added element
 		size_t Append(const List<T>& Items);
 
-		// needs type-wise implementations! return index of found element, -1 otherwise
-		virtual size_t Find(const T& Element);
+		// needs type-wise implementations!
+		virtual bool Contains(const T& Element);
 
 		T& Emplace();
 
@@ -56,5 +56,5 @@ namespace LibSWBF2::Types
 		T* GetArrayPtr() const;
 	};
 
-	size_t List<uint32_t>::Find(const uint32_t& Element);
+	bool List<uint32_t>::Contains(const uint32_t& Element);
 }
