@@ -96,8 +96,11 @@ namespace LibSWBF2
 	{
 		None = 0b0u,
 		Position = 0b10u,
-		BlendIndices = 0b100u,
-		BlendWeight = 0b1000u,	// this is questionable... not found in all of sides/rep.lvl
+		Unknown1 = 0b100u,		// definetly not bone indices
+		
+		// this is questionable... not found in all of sides/rep.lvl. Another UV maybe (2 float)?
+		BlendWeight = 0b1000u,
+
 		Normal = 0b100000u,
 		Tangents = 0b1000000u,
 		Color = 0b10000000u,

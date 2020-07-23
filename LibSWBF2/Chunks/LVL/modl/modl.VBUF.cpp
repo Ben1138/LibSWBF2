@@ -78,34 +78,34 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    m_Weights.Add({ (float_t)data[2], (float_t)data[1], 1.0f - data[2] - data[1] });
+                    //m_Weights.Add({ (float_t)data[2], (float_t)data[1], 1.0f - data[2] - data[1] });
                 }
                 else
                 {
                     float_t x, y;
                     x = stream.ReadFloat();
                     y = stream.ReadFloat();
-                    m_Weights.Add({ x, y, 1.0f - x - y});
+                   ///m_Weights.Add({ x, y, 1.0f - x - y});
                 }
             }
 
-            if ((m_Flags & EVBUFFlags::BlendIndices) != 0)
+            if ((m_Flags & EVBUFFlags::Unknown1) != 0)
             {
                 uint8_t data[4];
                 data[0] = stream.ReadByte();
                 data[1] = stream.ReadByte();
                 data[2] = stream.ReadByte();
                 data[3] = stream.ReadByte();
-                if ((m_Flags & EVBUFFlags::PositionCompressed) != 0 && model->p_Name->m_Text == "rep_inf_ep3trooper")
+                if ((m_Flags & EVBUFFlags::PositionCompressed) != 0)
                 {
                     //m_Bones.Emplace().ReadFromStream(stream);
                     //LOG_WARN("Weight?: {}", stream.ReadFloat());
 
-                    uint16_t data2[2];
-                    data2[0] = *(uint16_t*)&data[0];
-                    data2[1] = *(uint16_t*)&data[2];
-                    uint32_t data3 = *(uint32_t*)&data[0];
-                    LOG_WARN("[{}] = {}-{}-{}-{} / {} - {} / {}", i, data[0], data[1], data[2], data[3], data2[0], data2[1], data3);
+                    //uint16_t data2[2];
+                    //data2[0] = *(uint16_t*)&data[0];
+                    //data2[1] = *(uint16_t*)&data[2];
+                    //uint32_t data3 = *(uint32_t*)&data[0];
+                    //LOG_WARN("[{}] = {}-{}-{}-{} / {} - {} / {}", i, data[0], data[1], data[2], data[3], data2[0], data2[1], data3);
 
                     //std::string hash = lookup_fnv_hash(data3);
                     //LOG_WARN("Hash: {}", hash);
@@ -201,14 +201,12 @@ namespace LibSWBF2::Chunks::LVL::modl
         result += "BiTangents[" + std::to_string(m_BiTangents.Size()) + "]\n";
         result += "Colors[" + std::to_string(m_Colors.Size()) + "]\n";
         result += "Tex Coords[" + std::to_string(m_TexCoords.Size()) + "]\n";
-        result += "Bones[" + std::to_string(m_Bones.Size()) + "]\n";
-        result += "Weights[" + std::to_string(m_Weights.Size()) + "]\n";
         result += "\n";
 
-        //result += "Bones["+std::to_string(m_Bones.Size())+"] = [";
-        //for (uint32_t i = 0; i < m_Bones.Size(); ++i)
+        //result += "Positions["+std::to_string(m_Positions.Size())+"] = [";
+        //for (uint32_t i = 0; i < m_Positions.Size(); ++i)
         //{
-        //    result += m_Bones[i].ToString().Buffer() + std::string(", ");
+        //    result += m_Positions[i].ToString().Buffer() + std::string(", ");
         //    if ((i + 1) % 3 == 0)
         //    {
         //        result += "\n";

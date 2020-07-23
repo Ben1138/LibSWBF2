@@ -119,9 +119,9 @@ namespace LibSWBF2
 		{
 			result += "Position, ";
 		}
-		if ((flags & EVBUFFlags::BlendIndices) != 0)
+		if ((flags & EVBUFFlags::Unknown1) != 0)
 		{
-			result += "BlendIndices, ";
+			result += "Unknown 1, ";
 		}
 		if ((flags & EVBUFFlags::BlendWeight) != 0)
 		{
