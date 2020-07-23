@@ -112,6 +112,51 @@ namespace LibSWBF2
 		return result.c_str();
 	}
 
+	Types::String ModelPurposeToString(EModelPurpose purpose)
+	{
+		switch (purpose)
+		{
+			case EModelPurpose::Miscellaneous:
+				return "Miscellaneous";
+
+			case EModelPurpose::Mesh:
+				return "Mesh";
+			case EModelPurpose::Mesh_Regular:
+				return "Mesh_Regular";
+			case EModelPurpose::Mesh_Lowrez:
+				return "Mesh_Lowrez";
+			case EModelPurpose::Mesh_Collision:
+				return "Mesh_Collision";
+			case EModelPurpose::Mesh_VehicleCollision:
+				return "Mesh_VehicleCollision";
+			case EModelPurpose::Mesh_ShadowVolume:
+				return "Mesh_ShadowVolume";
+			case EModelPurpose::Mesh_TerrainCut:
+				return "Mesh_TerrainCut";
+
+			case EModelPurpose::Point:
+				return "Point";
+			case EModelPurpose::Point_EmptyTransform:
+				return "Point_EmptyTransform";
+			case EModelPurpose::Point_DummyRoot:
+				return "Point_DummyRoot";
+			case EModelPurpose::Point_HardPoint:
+				return "Point_HardPoint";
+
+			case EModelPurpose::Skeleton:
+				return "Skeleton";
+			case EModelPurpose::Skeleton_Root:
+				return "Skeleton_Root";
+			case EModelPurpose::Skeleton_BoneRoot:
+				return "Skeleton_BoneRoot";
+			case EModelPurpose::Skeleton_BoneLimb:
+				return "Skeleton_BoneLimb";
+			case EModelPurpose::Skeleton_BoneEnd:
+				return "Skeleton_BoneEnd";
+		}
+		return fmt::format("Unknown Model Purpose: {}", purpose).c_str();
+	}
+
 	Types::String EVBUFFlagsToString(EVBUFFlags flags)
 	{
 		std::string result = "[";
@@ -199,6 +244,32 @@ namespace LibSWBF2
 	bool operator !=(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs)
 	{
 		return static_cast<std::underlying_type<EMaterialFlags>::type>(lhs) != rhs;
+	}
+
+	EModelPurpose operator &(EModelPurpose lhs, EModelPurpose rhs)
+	{
+		return static_cast<EModelPurpose> (
+			static_cast<std::underlying_type<EModelPurpose>::type>(lhs) &
+			static_cast<std::underlying_type<EModelPurpose>::type>(rhs)
+			);
+	}
+
+	EModelPurpose operator |(EModelPurpose lhs, EModelPurpose rhs)
+	{
+		return static_cast<EModelPurpose> (
+			static_cast<std::underlying_type<EModelPurpose>::type>(lhs) |
+			static_cast<std::underlying_type<EModelPurpose>::type>(rhs)
+			);
+	}
+
+	bool operator ==(EModelPurpose lhs, std::underlying_type<EModelPurpose>::type rhs)
+	{
+		return static_cast<std::underlying_type<EModelPurpose>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(EModelPurpose lhs, std::underlying_type<EModelPurpose>::type rhs)
+	{
+		return static_cast<std::underlying_type<EModelPurpose>::type>(lhs) != rhs;
 	}
 
 	EVBUFFlags operator &(EVBUFFlags lhs, EVBUFFlags rhs)
