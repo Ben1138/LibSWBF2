@@ -133,21 +133,21 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
-	size_t List<T>::Find(const T& Element)
+	bool List<T>::Contains(const T& Element)
 	{
-		return -1;
+		return false;
 	}
 
-	size_t List<uint32_t>::Find(const uint32_t& Element)
+	bool List<uint32_t>::Contains(const uint32_t& Element)
 	{
 		// linear search is slow AF, but I'm too lazy
 		// right now to implement a proper lookup
 		for (size_t i = 0; i < NumElements; ++i)
 		{
 			if (ArrayPtr[i] == Element)
-				return i;
+				return true;
 		}
-		return -1;
+		return false;
 	}
 
 	template<class T>

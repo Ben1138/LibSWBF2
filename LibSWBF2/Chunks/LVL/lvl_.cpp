@@ -43,24 +43,22 @@ namespace LibSWBF2::Chunks::LVL
         }
         else
         {
-            // also load when no specific sub LVLs have been specified at all
-            if (root->m_SubLVLsToLoad.Size() == 0 || root->m_SubLVLsToLoad.Find(m_NameHash) >= 0)
+            String name;
+            if (!TryLookupName(name))
             {
+                name = fmt::format("Hash: {}", m_NameHash).c_str();
+            }
+
+            // also load when no specific sub LVLs have been specified at all
+            if (root->m_SubLVLsToLoad.Size() == 0 || root->m_SubLVLsToLoad.Contains(m_NameHash))
+            {
+                LOG_WARN("Load sub LVL '{}'", name);
                 ReadGenerics(stream);
             }
             else
             {
+                LOG_WARN("Skipping unspecified sub LVL '{}'", name);
                 SkipChunk(stream, false);
-
-                String name;
-                if (FNV::Lookup(m_NameHash, name))
-                {
-                    LOG_INFO("Skipping unspecified sub LVL '{}'", name);
-                }
-                else
-                {
-                    LOG_INFO("Skipping unspecified sub LVL, Hash: {}", m_NameHash);
-                }
             }
         }
 
