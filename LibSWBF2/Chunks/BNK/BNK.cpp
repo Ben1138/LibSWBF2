@@ -3,7 +3,7 @@
 #include "FileReader.h"
 #include "InternalHelpers.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::BNK
 {
 	BNK* BNK::Create()
 	{

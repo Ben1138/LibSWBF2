@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Chunks\LVL\sound">
       <UniqueIdentifier>{33826935-56b8-4c8a-ae44-24ef88a8d2b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\BNK">
+      <UniqueIdentifier>{749033d8-4522-48a3-8929-3e77542566f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\BNK">
+      <UniqueIdentifier>{09180e1b-1520-459d-b5de-592c4695d658}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -468,8 +474,11 @@
     <ClInclude Include="Types\SoundClip.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\BNK.h">
-      <Filter>Header Files\Chunks\LVL</Filter>
+    <ClInclude Include="Wrappers\SoundBank.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\BNK\BNK.h">
+      <Filter>Header Files\Chunks\BNK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -812,8 +821,11 @@
     <ClCompile Include="Types\SoundClip.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\BNK.cpp">
-      <Filter>Source Files\Chunks\LVL</Filter>
+    <ClCompile Include="Wrappers\SoundBank.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\BNK\BNK.cpp">
+      <Filter>Source Files\Chunks\BNK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
