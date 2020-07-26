@@ -12,7 +12,7 @@ namespace LibSWBF2
 		~FileReader();
 
 		bool Open(const Types::String& File);
-		ChunkHeader ReadChunkHeader(const bool& peek);
+		ChunkHeader ReadChunkHeader(bool peek);
 		ChunkSize ReadChunkSize();
 		uint8_t ReadByte();
 		bool ReadBytes(uint8_t* data, size_t length);

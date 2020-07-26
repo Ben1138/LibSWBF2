@@ -37,7 +37,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-	ChunkHeader FileReader::ReadChunkHeader(const bool& peek)
+	ChunkHeader FileReader::ReadChunkHeader(bool peek)
 	{
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
