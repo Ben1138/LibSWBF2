@@ -273,6 +273,7 @@ namespace LibSWBF2::Types
 #include "BoneFrames.h"
 #include "Polygon.h"
 #include "LibString.h"
+#include "SoundBank.h"
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
@@ -310,6 +311,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<TranslationFrame>;
 	template LIBSWBF2_API class List<RotationFrame>;
 	template LIBSWBF2_API class List<TerrainBufferEntry>;
+	template LIBSWBF2_API class List<SoundClip>;
 	template LIBSWBF2_API class List<MSH::SEGM>;
 	template LIBSWBF2_API class List<MSH::MATD>;
 	template LIBSWBF2_API class List<MSH::MODL>;

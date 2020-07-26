@@ -122,22 +122,7 @@ namespace LibSWBF2::Wrappers
 		}
 	}
 
-	Level* Level::FromFile(String path)
-	{
-		LVL* lvl = LVL::Create();
-		if (!lvl->ReadFromFile(path))
-		{
-			LVL::Destroy(lvl);
-			return nullptr;
-		}
-
-		Level* result = new Level(lvl);
-		result->FindInChildrenRecursive(lvl);
-
-		return result;
-	}
-
-	Level* Level::FromFile(String path, const List<String>& subLVLsToLoad)
+	Level* Level::FromFile(String path, const List<String>* subLVLsToLoad)
 	{
 		LVL* lvl = LVL::Create();
 		if (!lvl->ReadFromFile(path, subLVLsToLoad))
