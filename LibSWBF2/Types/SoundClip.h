@@ -16,10 +16,11 @@ namespace LibSWBF2::Types
 		// Header
 		FNVHash m_NameHash;
 		uint32_t m_SampleRate;
-		uint32_t m_SmaplesCount;
+		uint32_t m_SampleCount;
 		uint32_t m_DataLength;
 
 		uint8_t* GetSampleData() const;
+		uint8_t GetBytesPerSample() const;
 
 		// returns size of read header
 		uint8_t ReadHeaderFromStream(FileReader& stream);

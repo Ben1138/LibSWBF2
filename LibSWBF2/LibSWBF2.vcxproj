@@ -188,7 +188,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API.h" />
-    <ClInclude Include="Chunks\LVL\BNK.h" />
+    <ClInclude Include="Chunks\BNK\BNK.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
     <ClInclude Include="Chunks\LVL\modl\BMAP.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
@@ -233,6 +233,7 @@
     <ClInclude Include="Wrappers\Model.h" />
     <ClInclude Include="Wrappers\Script.h" />
     <ClInclude Include="Wrappers\Segment.h" />
+    <ClInclude Include="Wrappers\SoundBank.h" />
     <ClInclude Include="Wrappers\Terrain.h" />
     <ClInclude Include="Wrappers\Texture.h" />
     <ClInclude Include="Wrappers\World.h" />
@@ -310,7 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API.cpp" />
-    <ClCompile Include="Chunks\LVL\BNK.cpp" />
+    <ClCompile Include="Chunks\BNK\BNK.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
     <ClCompile Include="Chunks\LVL\modl\BMAP.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
@@ -356,6 +357,7 @@
     <ClCompile Include="Wrappers\Model.cpp" />
     <ClCompile Include="Wrappers\Script.cpp" />
     <ClCompile Include="Wrappers\Segment.cpp" />
+    <ClCompile Include="Wrappers\SoundBank.cpp" />
     <ClCompile Include="Wrappers\Terrain.cpp" />
     <ClCompile Include="Wrappers\Texture.cpp" />
     <ClCompile Include="Wrappers\World.cpp" />

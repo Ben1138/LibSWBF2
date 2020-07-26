@@ -10,8 +10,9 @@
 #include "Hashing.h"
 #include "Chunks/TERR/TERR.h"
 #include "Chunks/LVL/LVL.h"
-#include "Chunks/LVL/BNK.h"
+#include "Chunks/BNK/BNK.h"
 #include "Wrappers/Level.h"
+#include "Wrappers/SoundBank.h"
 #include "API.h"
 
 // Include this file when LibSWBF2 externally

@@ -2,10 +2,12 @@
 #include "Chunks/GenericChunk.h"
 #include "Types/SoundClip.h"
 
-namespace LibSWBF2::Chunks::LVL
+namespace LibSWBF2::Chunks::BNK
 {
 	using Types::SoundClip;
 
+	// Munged sound bank files.
+	// These do not contain any sub chunks!
 	struct LIBSWBF2_API BNK : public GenericChunk<"ucfb"_m>
 	{
 		static BNK* Create();
