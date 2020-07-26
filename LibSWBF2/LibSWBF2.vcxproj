@@ -188,6 +188,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API.h" />
+    <ClInclude Include="Chunks\LVL\BNK.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
     <ClInclude Include="Chunks\LVL\modl\BMAP.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
@@ -204,6 +205,8 @@
     <ClInclude Include="Chunks\LVL\skel\skel.h" />
     <ClInclude Include="Chunks\LVL\skel\skel.INFO.h" />
     <ClInclude Include="Chunks\LVL\skel\skel.XFRM.h" />
+    <ClInclude Include="Chunks\LVL\sound\emo_.h" />
+    <ClInclude Include="Chunks\LVL\sound\_pad.h" />
     <ClInclude Include="Chunks\LVL\tern\DTEX.h" />
     <ClInclude Include="Chunks\LVL\tern\LTEX.h" />
     <ClInclude Include="Chunks\LVL\tern\PCHS.h" />
@@ -222,6 +225,8 @@
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
+    <ClInclude Include="Types\SoundBank.h" />
+    <ClInclude Include="Types\SoundClip.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
     <ClInclude Include="Wrappers\Instance.h" />
     <ClInclude Include="Wrappers\Level.h" />
@@ -306,6 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API.cpp" />
+    <ClCompile Include="Chunks\LVL\BNK.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
     <ClCompile Include="Chunks\LVL\modl\BMAP.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
@@ -322,6 +328,8 @@
     <ClCompile Include="Chunks\LVL\skel\skel.cpp" />
     <ClCompile Include="Chunks\LVL\skel\skel.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\skel\skel.XFRM.cpp" />
+    <ClCompile Include="Chunks\LVL\sound\emo_.cpp" />
+    <ClCompile Include="Chunks\LVL\sound\_pad.cpp" />
     <ClCompile Include="Chunks\LVL\tern\DTEX.cpp" />
     <ClCompile Include="Chunks\LVL\tern\LTEX.cpp" />
     <ClCompile Include="Chunks\LVL\tern\PCHS.cpp" />
@@ -341,6 +349,8 @@
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
+    <ClCompile Include="Types\SoundBank.cpp" />
+    <ClCompile Include="Types\SoundClip.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />
     <ClCompile Include="Wrappers\Level.cpp" />

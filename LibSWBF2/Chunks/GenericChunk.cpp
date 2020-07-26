@@ -11,6 +11,8 @@
 #include "LVL/scr_/scr_.h"
 #include "LVL/zaa_/zaa_.h"
 #include "LVL/skel/skel.h"
+#include "LVL/sound/emo_.h"
+#include "LVL/sound/_pad.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 
@@ -129,6 +131,18 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, zaabin);
 						chunk = zaabin;
 					}
+					else if (nextHead == "emo_"_h)
+					{
+						LVL::sound::emo_* unknown;
+						READ_CHILD(stream, unknown);
+						chunk = unknown;
+					}
+					else if (nextHead == "_pad"_h)
+					{
+						LVL::sound::_pad* unknown;
+						READ_CHILD(stream, unknown);
+						chunk = unknown;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -216,6 +230,8 @@ namespace LibSWBF2::Chunks
 	template LIBSWBF2_API struct GenericChunk<"skel"_m>;
 	template LIBSWBF2_API struct GenericChunk<"SKIN"_m>;
 	template LIBSWBF2_API struct GenericChunk<"BMAP"_m>;
+	template LIBSWBF2_API struct GenericChunk<"emo_"_m>;
+	template LIBSWBF2_API struct GenericChunk<"_pad"_m>;
 
 	// string chunks (see STR.cpp)
 	template LIBSWBF2_API struct GenericChunk<"NAME"_m>;

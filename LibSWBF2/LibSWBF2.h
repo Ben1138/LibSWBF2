@@ -10,6 +10,7 @@
 #include "Hashing.h"
 #include "Chunks/TERR/TERR.h"
 #include "Chunks/LVL/LVL.h"
+#include "Chunks/LVL/BNK.h"
 #include "Wrappers/Level.h"
 #include "API.h"
 
