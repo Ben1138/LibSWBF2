@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Types/LibString.h"
-#include "SoundBank.h"
+#include "SoundClip.h"
 #include "FileWriter.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
@@ -26,7 +26,7 @@ namespace LibSWBF2::Types
 		return m_Data;
 	}
 
-	void SoundClip::ReadHeaderFromStream(FileReader& stream)
+	uint8_t SoundClip::ReadHeaderFromStream(FileReader& stream)
 	{
 		// Sound clip header are either 48 or 56 bytes in size
 
@@ -50,10 +50,12 @@ namespace LibSWBF2::Types
 			LOG_WARN("Weird sample rate {} encountered in sound clip header at pos: {}", m_SampleRate, headerPos);
 		}
 
+		uint8_t headerSize = 48;
 		stream.SkipBytes(8);
 		uint32_t unknown1 = stream.ReadUInt32();
 		if (unknown1 != 0x2E789FB4)
 		{
+			headerSize = 56;
 			stream.SkipBytes(4);
 			unknown1 = stream.ReadUInt32();
 			if (unknown1 != 0x2E789FB4)
@@ -62,6 +64,7 @@ namespace LibSWBF2::Types
 			}
 		}
 		stream.SkipBytes(6);
+		return headerSize;
 	}
 
 	void SoundClip::ReadDataFromStream(FileReader& stream)

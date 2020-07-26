@@ -1,16 +1,16 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Types/SoundBank.h"
+#include "Types/SoundClip.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	using Types::SoundBank;
 	using Types::SoundClip;
 
 	struct LIBSWBF2_API emo_ : public GenericChunk<"emo_"_m>
 	{
 	public:
-		SoundBank m_SoundBank;
+		uint32_t m_NumClips;
+		List<SoundClip> m_Clips;
 
 	public:
 		void RefreshSize() override;

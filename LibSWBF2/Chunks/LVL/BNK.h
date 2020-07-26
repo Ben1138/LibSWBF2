@@ -1,10 +1,9 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Types/SoundBank.h"
+#include "Types/SoundClip.h"
 
 namespace LibSWBF2::Chunks::LVL
 {
-	using Types::SoundBank;
 	using Types::SoundClip;
 
 	struct LIBSWBF2_API BNK : public GenericChunk<"ucfb"_m>
@@ -12,7 +11,13 @@ namespace LibSWBF2::Chunks::LVL
 		static BNK* Create();
 		static void Destroy(BNK* soundBank);
 
-		SoundBank m_SoundBank;
+		FNVHash m_NameHash;
+		uint32_t m_NumClips;
+
+		// size of all samples from all clips
+		uint32_t m_DataSize;
+
+		List<SoundClip> m_Clips;
 
 		void ReadFromStream(FileReader& stream) override;
 		String ToString() override;

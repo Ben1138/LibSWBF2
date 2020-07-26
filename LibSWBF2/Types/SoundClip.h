@@ -20,7 +20,10 @@ namespace LibSWBF2::Types
 		uint32_t m_DataLength;
 
 		uint8_t* GetSampleData() const;
-		void ReadHeaderFromStream(FileReader& stream);
+
+		// returns size of read header
+		uint8_t ReadHeaderFromStream(FileReader& stream);
+
 		void ReadDataFromStream(FileReader& stream);
 
 		String ToString();

@@ -465,9 +465,6 @@
     <ClInclude Include="Chunks\LVL\sound\emo_.h">
       <Filter>Header Files\Chunks\LVL\sound</Filter>
     </ClInclude>
-    <ClInclude Include="Types\SoundBank.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Types\SoundClip.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
@@ -811,9 +808,6 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\sound\emo_.cpp">
       <Filter>Source Files\Chunks\LVL\sound</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\SoundBank.cpp">
-      <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Types\SoundClip.cpp">
       <Filter>Source Files\Types</Filter>

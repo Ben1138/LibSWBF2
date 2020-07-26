@@ -273,7 +273,7 @@ namespace LibSWBF2::Types
 #include "BoneFrames.h"
 #include "Polygon.h"
 #include "LibString.h"
-#include "SoundBank.h"
+#include "SoundClip.h"
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"

@@ -225,7 +225,6 @@
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
-    <ClInclude Include="Types\SoundBank.h" />
     <ClInclude Include="Types\SoundClip.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
     <ClInclude Include="Wrappers\Instance.h" />
@@ -349,7 +348,6 @@
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
-    <ClCompile Include="Types\SoundBank.cpp" />
     <ClCompile Include="Types\SoundClip.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />
