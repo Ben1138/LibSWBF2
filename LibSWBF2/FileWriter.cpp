@@ -71,6 +71,14 @@ namespace LibSWBF2
 		}
 	}
 
+	void FileWriter::WriteBytes(const uint8_t* data, size_t size)
+	{
+		if (CheckGood())
+		{
+			m_Writer.write((const char*)data, size);
+		}
+	}
+
 	void FileWriter::WriteInt32(const int32_t& value)
 	{
 		if (CheckGood())
@@ -135,10 +143,7 @@ namespace LibSWBF2
 				return;
 			}
 
-			char* str = new char[fixedSize];
-			strcpy_s(str, value.Length(), value.Buffer());
-			m_Writer.write(str, fixedSize);
-			delete[] str;
+			m_Writer.write(value.Buffer(), fixedSize);
 		}
 	}
 

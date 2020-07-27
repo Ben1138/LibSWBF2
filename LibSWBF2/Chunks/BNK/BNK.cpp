@@ -2,6 +2,7 @@
 #include "BNK.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
+#include "Hashing.h"
 
 namespace LibSWBF2::Chunks::BNK
 {
@@ -44,20 +45,36 @@ namespace LibSWBF2::Chunks::BNK
 		}
 
 		// sample data stream starts at a multiple of 2048, depending on
-		// how much space the clip headers take
-		size_t sampleDataOffset = (size_t)std::ceil(headersSize / 2048.0f);
+		// how much space the clip headers take. The rest is filled with zeros
+		size_t sampleDataOffset = ((size_t)std::ceil(headersSize / 2048.0f)) * 2048;
 		stream.SetPosition(sampleDataOffset);
+
+		try
+		{
+			for (uint32_t i = 0; i < m_Clips.Size(); ++i)
+			{
+				m_Clips[i].ReadDataFromStream(stream);
+			}
+		}
+		catch (LibException& e)
+		{
+			LOG_ERROR(e.what());
+		}
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
 	String BNK::ToString()
 	{
+		String bankName;
+		if (!FNV::Lookup(m_NameHash, bankName))
+			bankName = std::to_string(m_NameHash).c_str();
+
 		std::string result = fmt::format(
-			"Name Hash: {}\n"
+			"Name: {}\n"
 			"Data Size: {}\n"
 			"Clip Count: {}\n",
-			m_NameHash,
+			bankName,
 			m_DataSize,
 			m_Clips.Size()
 		);
