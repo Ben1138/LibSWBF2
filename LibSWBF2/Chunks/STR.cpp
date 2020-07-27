@@ -2,6 +2,7 @@
 #include "STR.h"
 #include "FileReader.h"
 #include "FileWriter.h"
+#include "Hashing.h"
 
 namespace LibSWBF2::Chunks
 {
@@ -25,6 +26,24 @@ namespace LibSWBF2::Chunks
 		GenericChunk<Header>::Check(stream);
 
 		m_Text = stream.ReadString(GenericChunk<Header>::m_Size);
+		const char* buffer = m_Text.Buffer();
+
+		// if all these conditions apply, we're probably
+		// not dealing with a string, but with a hash
+		if (m_Text.Length() == 4 &&
+				(!IsValidStringChar(buffer[0]) ||
+				 !IsValidStringChar(buffer[1]) ||
+				 !IsValidStringChar(buffer[2]) ||
+				 !IsValidStringChar(buffer[3]))
+			)
+		{
+			String output;
+			FNVHash hash = *((FNVHash*)buffer);
+			if (LibSWBF2::FNV::Lookup(hash, output))
+			{
+				m_Text = output;
+			}
+		}
 		
 		BaseChunk::EnsureEnd(stream);
 	}
@@ -34,6 +53,15 @@ namespace LibSWBF2::Chunks
 	{
 		return m_Text;
 	}
+
+	template<uint32_t Header>
+	inline bool STR<Header>::IsValidStringChar(char c)
+	{
+		// see ascii table for reference
+		return c >= 32 && c <= 126;
+	}
+
+
 }
 
 
