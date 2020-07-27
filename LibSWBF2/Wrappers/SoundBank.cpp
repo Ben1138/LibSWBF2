@@ -50,19 +50,22 @@ namespace LibSWBF2::Wrappers
 
 	uint32_t SoundBank::GetNumSoundClips() const
 	{
-		return (uint32_t)p_soundBank->m_Clips.Size();
+		return (uint32_t)p_soundBank->m_SoundBank.m_Clips.Size();
 	}
 
-	bool SoundBank::GetSoundClip(uint32_t index, FNVHash& nameHash, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
+	bool SoundBank::GetSoundClip(uint32_t index, String& name, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{
-		if (index >= p_soundBank->m_Clips.Size())
+		if (index >= p_soundBank->m_SoundBank.m_Clips.Size())
 		{
-			LOG_ERROR("Sound clip index {} is out of range ({})", index, p_soundBank->m_Clips.Size());
+			LOG_ERROR("Sound clip index {} is out of range ({})", index, p_soundBank->m_SoundBank.m_Clips.Size());
 			return false;
 		}
 
-		SoundClip& clip = p_soundBank->m_Clips[index];
-		nameHash = clip.m_NameHash;
+		SoundClip& clip = p_soundBank->m_SoundBank.m_Clips[index];
+		if (!clip.TryLookupName(name))
+		{
+			name = std::to_string(clip.m_NameHash).c_str();
+		}
 		sampleRate = clip.m_SampleRate;
 		sampleCount = clip.m_SampleCount;
 		blockAlign = clip.GetBytesPerSample();

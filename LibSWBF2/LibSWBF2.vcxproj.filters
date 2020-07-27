@@ -480,6 +480,9 @@
     <ClInclude Include="Chunks\BNK\BNK.h">
       <Filter>Header Files\Chunks\BNK</Filter>
     </ClInclude>
+    <ClInclude Include="Types\SoundBankHeader.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -826,6 +829,9 @@
     </ClCompile>
     <ClCompile Include="Chunks\BNK\BNK.cpp">
       <Filter>Source Files\Chunks\BNK</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\SoundBankHeader.cpp">
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

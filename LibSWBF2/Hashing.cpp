@@ -47,6 +47,8 @@ namespace LibSWBF2
 	{
 		if (p_LookupTable == nullptr)
 		{
+			// This should not happen, since ReadLookupTable() is called
+			// on DLL entry. But I'll put it here anyway, just in case...
 			ReadLookupTable();
 		}
 

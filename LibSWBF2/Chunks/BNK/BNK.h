@@ -1,10 +1,10 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Types/SoundClip.h"
+#include "Types/SoundBankHeader.h"
 
 namespace LibSWBF2::Chunks::BNK
 {
-	using Types::SoundClip;
+	using Types::SoundBankHeader;
 
 	// Munged sound bank files.
 	// These do not contain any sub chunks!
@@ -13,15 +13,11 @@ namespace LibSWBF2::Chunks::BNK
 		static BNK* Create();
 		static void Destroy(BNK* soundBank);
 
-		FNVHash m_NameHash;
-		uint32_t m_NumClips;
-
-		// size of all samples from all clips
-		uint32_t m_DataSize;
-
-		List<SoundClip> m_Clips;
+		SoundBankHeader m_SoundBank;
 
 		void ReadFromStream(FileReader& stream) override;
+
+		bool TryLookupName(String& result);
 		String ToString() override;
 
 	protected:

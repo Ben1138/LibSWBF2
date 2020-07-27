@@ -43,6 +43,8 @@ namespace LibSWBF2::Chunks::LVL
         }
         else
         {
+            m_IsSoundLVL = root->m_IsSoundLVL;
+
             String name;
             if (!TryLookupName(name))
             {
@@ -52,7 +54,7 @@ namespace LibSWBF2::Chunks::LVL
             // also load when no specific sub LVLs have been specified at all
             if (root->m_SubLVLsToLoad.Size() == 0 || root->m_SubLVLsToLoad.Contains(m_NameHash))
             {
-                ReadGenerics(stream);
+                ReadContents(stream);
             }
             else
             {
@@ -64,14 +66,37 @@ namespace LibSWBF2::Chunks::LVL
         BaseChunk::EnsureEnd(stream);
     }
 
+    void lvl_::ReadContents(FileReader& stream)
+    {
+        // for sound LVLs, there's a regular Sound Bank Header section before
+        // other chunks (snd_) are following
+        if (m_IsSoundLVL)
+        {
+            m_SoundBankHeader.ReadFromStream(stream);
+        }
+
+        ReadGenerics(stream);
+    }
+
     String lvl_::ToString()
     {
         String name;
-        if (TryLookupName(name))
+        if (!FNV::Lookup(m_NameHash, name))
+            name = std::to_string(m_NameHash).c_str();
+
+        std::string result = fmt::format(
+            "Name: {}\n"
+            "Is Sound LVL: {}\n",
+            name,
+            m_IsSoundLVL ? "Yes" : "No"
+        );
+
+        if (m_IsSoundLVL)
         {
-            return fmt::format("Unhashed Name: {}", name).c_str();
+            result += "\n" + std::string(m_SoundBankHeader.ToString().Buffer());
         }
-        return fmt::format("No table entry found for Hashed Name: {}", m_NameHash).c_str();
+
+        return result.c_str();
     }
 
     bool lvl_::TryLookupName(String& result)

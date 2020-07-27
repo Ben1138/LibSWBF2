@@ -13,6 +13,9 @@ namespace LibSWBF2::Types
 		SoundClip();
 		~SoundClip();
 
+		size_t m_HeaderPosition;
+		size_t m_DataPosition;
+
 		// Header
 		FNVHash m_NameHash;
 		uint32_t m_SampleRate;
@@ -24,9 +27,9 @@ namespace LibSWBF2::Types
 
 		// returns size of read header
 		uint8_t ReadHeaderFromStream(FileReader& stream);
-
 		void ReadDataFromStream(FileReader& stream);
 
+		bool TryLookupName(String& result);
 		String ToString();
 
 	private:
