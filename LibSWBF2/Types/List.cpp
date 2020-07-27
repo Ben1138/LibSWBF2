@@ -329,6 +329,7 @@ namespace LibSWBF2
 	template LIBSWBF2_API class List<Wrappers::Model>;
 	template LIBSWBF2_API class List<Wrappers::Segment>;
 	template LIBSWBF2_API class List<Wrappers::VertexWeight>;
+	template LIBSWBF2_API class List<Wrappers::Bone>;
 	template LIBSWBF2_API class List<Wrappers::Material>;
 	template LIBSWBF2_API class List<Wrappers::Texture>;
 	template LIBSWBF2_API class List<Wrappers::World>;

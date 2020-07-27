@@ -69,4 +69,10 @@ namespace LibSWBF2
 
 		return result;
 	}
+	Vector4 MatrixToQuaternion(const Matrix3x3& matrix)
+	{
+		glm::mat3 mat = ToGLM(matrix);
+		glm::quat quat = glm::quat(mat);
+		return ToLib(quat);
+	}
 }

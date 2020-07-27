@@ -56,4 +56,44 @@ namespace LibSWBF2::Wrappers
 		}
 		return false;
 	}
+
+	bool Model::GetSkeleton(List<Bone>& bones) const
+	{
+		if (p_Skeleton == nullptr)
+			return false;
+
+		uint32_t count = p_Skeleton->p_Info->m_BoneCount;
+		List<String>& names = p_Skeleton->p_BoneNames->m_Texts;
+		List<String>& parents = p_Skeleton->p_BoneParents->m_Texts;
+		List<Matrix3x3>& rotations = p_Skeleton->p_BoneTransforms->m_BoneRotations;
+		List<Vector3>& positions = p_Skeleton->p_BoneTransforms->m_BonePositions;
+
+		// there's always one less parent, because root (DummyRoot) doesn't have one =P
+		size_t equalParents = parents.Size() + 1;
+		if (count != names.Size() || count != equalParents || count != rotations.Size() || count != positions.Size())
+		{
+			LOG_ERROR(
+				"Broken Skeleton! Sizes don't match up!\n"
+				"\tCount: {}\n"
+				"\tNames: {}\n"
+				"\tParents (-1): {}\n"
+				"\tRotations: {}\n"
+				"\tPositions: {}",
+				count,
+				names.Size(),
+				parents.Size(),
+				rotations.Size(),
+				positions.Size()
+			);
+			return false;
+		}
+
+		bones.Clear();
+		for (size_t i = 0; i < p_Skeleton->p_Info->m_BoneCount; ++i)
+		{
+			// first entry (root) doesn't have a parent
+			bones.Add({ names[i], i > 0 ? parents[i - 1] : "", positions[i], MatrixToQuaternion(rotations[i]) });
+		}
+		return true;
+	}
 }
