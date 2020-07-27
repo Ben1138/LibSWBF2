@@ -17,13 +17,16 @@ namespace LibSWBF2
 	class FNV
 	{
 	private:
-		const static std::unordered_map<std::uint32_t, std::string_view> m_LookupTable;
+		static std::unordered_map<FNVHash, std::string>* p_LookupTable;
 
 	public:
 		static FNVHash Hash(const Types::String& str);
 		static bool Lookup(FNVHash hash, Types::String& result);
 
 		static constexpr FNVHash HashConstexpr(const std::string_view str);
+
+		static void ReadLookupTable();
+		static void ReleaseLookupTable();
 	};
 
 	constexpr FNVHash operator""_fnv(const char* str, const std::size_t length);

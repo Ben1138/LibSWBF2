@@ -19,6 +19,7 @@ namespace LibSWBF2
 		void WriteChunkHeader(const ChunkHeader& value);
 		void WriteChunkSize(const ChunkSize& value);
 		void WriteByte(const uint8_t& value);
+		void WriteBytes(const uint8_t* data, size_t size);
 		void WriteInt32(const int32_t& value);
 		void WriteUInt32(const uint32_t& value);
 		void WriteUInt16(const uint16_t& value);

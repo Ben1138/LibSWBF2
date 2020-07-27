@@ -4,6 +4,7 @@
 #include "FileWriter.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
+#include "Hashing.h"
 
 namespace LibSWBF2::Types
 {
@@ -21,7 +22,7 @@ namespace LibSWBF2::Types
 		delete[] m_Data;
 	}
 
-	uint8_t* SoundClip::GetSampleData() const
+	const uint8_t* SoundClip::GetSampleData() const
 	{
 		return m_Data;
 	}
@@ -54,6 +55,7 @@ namespace LibSWBF2::Types
 		// in emo_, it seems like data length and sample count are switched...
 		if (m_SampleCount > m_DataLength)
 		{
+			LOG_WARN("swapped data length and sample count in sound clip!");
 			std::swap(m_DataLength, m_SampleCount);
 		}
 
@@ -107,12 +109,16 @@ namespace LibSWBF2::Types
 
 	String SoundClip::ToString()
 	{
+		String clipName;
+		if (!FNV::Lookup(m_NameHash, clipName))
+			clipName = std::to_string(m_NameHash).c_str();
+
 		return fmt::format(
-			"Name Hash: {}\n"
+			"Name: {}\n"
 			"Sample Rate: {}\n"
 			"Sample Count: {}\n"
 			"Data Length: {}\n",
-			m_NameHash,
+			clipName,
 			m_SampleRate,
 			m_SampleCount,
 			m_DataLength

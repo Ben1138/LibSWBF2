@@ -53,7 +53,7 @@ namespace LibSWBF2::Wrappers
 		return (uint32_t)p_soundBank->m_Clips.Size();
 	}
 
-	bool SoundBank::GetSoundClip(uint32_t index, FNVHash& nameHash, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, uint8_t*& data) const
+	bool SoundBank::GetSoundClip(uint32_t index, FNVHash& nameHash, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{
 		if (index >= p_soundBank->m_Clips.Size())
 		{
