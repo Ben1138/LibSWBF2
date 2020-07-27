@@ -18,5 +18,8 @@ namespace LibSWBF2::Chunks
 		void ReadFromStream(FileReader& stream) override;
 
 		String ToString() override;
+
+	private:
+		inline bool IsValidStringChar(char c);
 	};
 }
