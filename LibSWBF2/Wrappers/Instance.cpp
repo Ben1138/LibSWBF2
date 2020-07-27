@@ -39,8 +39,6 @@ namespace LibSWBF2::Wrappers
 
 	Vector4 Instance::GetRotation() const
 	{
-		glm::mat3 matrix = ToGLM(p_Instance->p_Info->p_XFRM->m_RotationMatrix);
-		glm::quat quat = glm::quat(matrix);
-		return ToLib(quat);
+		return MatrixToQuaternion(p_Instance->p_Info->p_XFRM->m_RotationMatrix);
 	}
 }
