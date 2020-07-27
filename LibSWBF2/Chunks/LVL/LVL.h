@@ -10,8 +10,7 @@ namespace LibSWBF2::Chunks::LVL
 		bool m_IsSoundLVL = false;
 
 		// only in Sound LVLs
-		FNVHash m_PathParameter;
-		FNVHash m_SoundNameHash;
+		uint32_t m_NameHash;
 		uint32_t m_SizeLeft;
 
 	public:

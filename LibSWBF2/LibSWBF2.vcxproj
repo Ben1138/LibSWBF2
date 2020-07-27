@@ -227,6 +227,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
+    <ClInclude Include="Types\SoundBankHeader.h" />
     <ClInclude Include="Types\SoundClip.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
     <ClInclude Include="Wrappers\Instance.h" />
@@ -351,6 +352,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
+    <ClCompile Include="Types\SoundBankHeader.cpp" />
     <ClCompile Include="Types\SoundClip.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />

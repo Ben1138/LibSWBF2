@@ -31,6 +31,6 @@ namespace LibSWBF2::Wrappers
 		static void Destroy(SoundBank* soundBank);
 
 		uint32_t GetNumSoundClips() const;
-		bool GetSoundClip(uint32_t index, FNVHash& nameHash, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
+		bool GetSoundClip(uint32_t index, String& name, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};
 }
