@@ -39,6 +39,6 @@ namespace LibSWBF2::Wrappers
 		sampleCount = p_SoundClip->m_SampleCount;
 		blockAlign = p_SoundClip->GetBytesPerSample();
 		data = p_SoundClip->GetSampleData();
-		return true;
+		return data != nullptr;
 	}
 }
