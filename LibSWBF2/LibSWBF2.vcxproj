@@ -236,6 +236,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Wrappers\Model.h" />
     <ClInclude Include="Wrappers\Script.h" />
     <ClInclude Include="Wrappers\Segment.h" />
+    <ClInclude Include="Wrappers\Sound.h" />
     <ClInclude Include="Wrappers\SoundBank.h" />
     <ClInclude Include="Wrappers\Terrain.h" />
     <ClInclude Include="Wrappers\Texture.h" />
@@ -361,6 +362,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Wrappers\Model.cpp" />
     <ClCompile Include="Wrappers\Script.cpp" />
     <ClCompile Include="Wrappers\Segment.cpp" />
+    <ClCompile Include="Wrappers\Sound.cpp" />
     <ClCompile Include="Wrappers\SoundBank.cpp" />
     <ClCompile Include="Wrappers\Terrain.cpp" />
     <ClCompile Include="Wrappers\Texture.cpp" />

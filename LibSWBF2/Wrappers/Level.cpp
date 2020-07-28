@@ -24,14 +24,6 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
 
-	std::string ToLower(String name)
-	{
-		std::string result = name.Buffer();
-		std::transform(result.begin(), result.end(), result.begin(),
-			[](unsigned char c) { return std::tolower(c); });
-		return result;
-	}
-
 	Level::Level(LVL* lvl)
 	{
 		p_lvl = lvl;

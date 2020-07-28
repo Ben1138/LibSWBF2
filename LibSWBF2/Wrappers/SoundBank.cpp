@@ -2,14 +2,25 @@
 #include "SoundBank.h"
 #include "InternalHelpers.h"
 #include "Types/SoundClip.h"
+#include "Hashing.h"
+#include <unordered_map>
 
 namespace LibSWBF2::Wrappers
 {
 	using Types::SoundClip;
 
+	class SoundMapsWrapper
+	{
+	public:
+		std::unordered_map<std::string, size_t> SoundNameToIndex;
+		std::unordered_map<FNVHash, size_t> SoundHashToIndex;
+	};
+
+
 	SoundBank::SoundBank(BNK* soundBank)
 	{
 		p_soundBank = soundBank;
+		m_NameToIndexMaps = new SoundMapsWrapper();
 	}
 
 	SoundBank::~SoundBank()
@@ -22,6 +33,7 @@ namespace LibSWBF2::Wrappers
 		{
 			BNK::Destroy(p_soundBank);
 		}
+		delete m_NameToIndexMaps;
 	}
 
 	SoundBank* SoundBank::FromFile(String path)
@@ -34,6 +46,27 @@ namespace LibSWBF2::Wrappers
 		}
 		
 		SoundBank* result = new SoundBank(soundBank);
+
+		List<SoundClip>& clips = soundBank->m_SoundBank.m_Clips;
+		for (size_t i = 0; i < clips.Size(); ++i)
+		{
+			Sound sound;
+			if (Sound::FromSoundClip(&clips[i], sound))
+			{
+				size_t index = result->m_Sounds.Add(sound);
+
+				String name;
+				if (clips[i].TryLookupName(name))
+				{
+					result->m_NameToIndexMaps->SoundNameToIndex.emplace(ToLower(name), index);
+				}
+				else
+				{
+					result->m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
+				}
+			}
+		}
+
 		return result;
 	}
 
@@ -48,28 +81,37 @@ namespace LibSWBF2::Wrappers
 		delete SoundBank;
 	}
 
-	uint32_t SoundBank::GetNumSoundClips() const
+	const List<Sound>& SoundBank::GetSounds() const
 	{
-		return (uint32_t)p_soundBank->m_SoundBank.m_Clips.Size();
+		return m_Sounds;
 	}
 
-	bool SoundBank::GetSoundClip(uint32_t index, String& name, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
+	const Sound* SoundBank::GetSound(String soundName) const
 	{
-		if (index >= p_soundBank->m_SoundBank.m_Clips.Size())
+		if (soundName.IsEmpty())
 		{
-			LOG_ERROR("Sound clip index {} is out of range ({})", index, p_soundBank->m_SoundBank.m_Clips.Size());
-			return false;
+			return nullptr;
 		}
 
-		SoundClip& clip = p_soundBank->m_SoundBank.m_Clips[index];
-		if (!clip.TryLookupName(name))
+		auto it = m_NameToIndexMaps->SoundNameToIndex.find(ToLower(soundName));
+		if (it != m_NameToIndexMaps->SoundNameToIndex.end())
 		{
-			name = std::to_string(clip.m_NameHash).c_str();
+			return &m_Sounds[it->second];
 		}
-		sampleRate = clip.m_SampleRate;
-		sampleCount = clip.m_SampleCount;
-		blockAlign = clip.GetBytesPerSample();
-		data = clip.GetSampleData();
-		return true;
+
+		//LOG_WARN("Could not find Sound '{}'!", soundName);
+		return nullptr;
+	}
+
+	const Sound* SoundBank::GetSound(FNVHash soundHash) const
+	{
+		auto it = m_NameToIndexMaps->SoundHashToIndex.find(soundHash);
+		if (it != m_NameToIndexMaps->SoundHashToIndex.end())
+		{
+			return &m_Sounds[it->second];
+		}
+
+		//LOG_WARN("Could not find Sound '{}'!", soundHash);
+		return nullptr;
 	}
 }
