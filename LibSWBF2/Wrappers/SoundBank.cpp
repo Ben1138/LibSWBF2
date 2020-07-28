@@ -12,7 +12,6 @@ namespace LibSWBF2::Wrappers
 	class SoundMapsWrapper
 	{
 	public:
-		std::unordered_map<std::string, size_t> SoundNameToIndex;
 		std::unordered_map<FNVHash, size_t> SoundHashToIndex;
 	};
 
@@ -54,16 +53,7 @@ namespace LibSWBF2::Wrappers
 			if (Sound::FromSoundClip(&clips[i], sound))
 			{
 				size_t index = result->m_Sounds.Add(sound);
-
-				String name;
-				if (clips[i].TryLookupName(name))
-				{
-					result->m_NameToIndexMaps->SoundNameToIndex.emplace(ToLower(name), index);
-				}
-				else
-				{
-					result->m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
-				}
+				result->m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
 			}
 		}
 
@@ -93,14 +83,7 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		auto it = m_NameToIndexMaps->SoundNameToIndex.find(ToLower(soundName));
-		if (it != m_NameToIndexMaps->SoundNameToIndex.end())
-		{
-			return &m_Sounds[it->second];
-		}
-
-		//LOG_WARN("Could not find Sound '{}'!", soundName);
-		return nullptr;
+		return GetSound(FNV::Hash(soundName));
 	}
 
 	const Sound* SoundBank::GetSound(FNVHash soundHash) const
