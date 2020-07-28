@@ -10,11 +10,15 @@ namespace LibSWBF2::Types
 {
 	SoundClip::SoundClip()
 	{
-		this->m_Data = nullptr;
+		this->m_HeaderPosition = 0;
+		this->m_DataPosition = 0;
+
 		this->m_NameHash = 0;
 		this->m_SampleRate = 0;
 		this->m_SampleCount = 0;
 		this->m_DataLength = 0;
+
+		this->m_Data = nullptr;
 	}
 
 	SoundClip::~SoundClip()

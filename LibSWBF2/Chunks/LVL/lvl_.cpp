@@ -74,8 +74,18 @@ namespace LibSWBF2::Chunks::LVL
         {
             m_SoundBankHeader.ReadFromStream(stream);
         }
+        else
+        {
+            // this else can be removed once we enable sound lvl_
+            // ReadGeneric down below
+            ReadGenerics(stream);
+        }
 
-        ReadGenerics(stream);
+        // there are snd_ child chunks, but further down the
+        // hierarchy there will be emo_ chunks who don't follow the spec
+        // of header (emo_) followed by chunk size (uint32)...
+        // ignore children fow now to not pollute the log with warnings
+        //ReadGenerics(stream);
     }
 
     String lvl_::ToString()
