@@ -483,6 +483,9 @@
     <ClInclude Include="Types\SoundBankHeader.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Wrappers\Sound.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -832,6 +835,9 @@
     </ClCompile>
     <ClCompile Include="Types\SoundBankHeader.cpp">
       <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\Sound.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

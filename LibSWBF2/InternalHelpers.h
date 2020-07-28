@@ -21,6 +21,7 @@ namespace LibSWBF2
 	using Types::Vector4;
 	using Types::Matrix3x3;
 	using Types::List;
+	using Types::String;
 
 	Vector2 ToLib(const glm::vec2 vector);
 	glm::vec3 ToGLM(const Vector3& vector);
@@ -33,6 +34,8 @@ namespace LibSWBF2
 	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset=0);
 
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix);
+
+	std::string ToLower(String name);
 }
 
 // adding custom fmt formatters

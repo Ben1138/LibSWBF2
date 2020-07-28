@@ -75,4 +75,12 @@ namespace LibSWBF2
 		glm::quat quat = glm::quat(mat);
 		return ToLib(quat);
 	}
+
+	std::string ToLower(String name)
+	{
+		std::string result = name.Buffer();
+		std::transform(result.begin(), result.end(), result.begin(),
+			[](unsigned char c) { return std::tolower(c); });
+		return result;
+	}
 }
