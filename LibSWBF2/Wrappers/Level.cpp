@@ -140,6 +140,11 @@ namespace LibSWBF2::Wrappers
 		delete level;
 	}
 
+	bool Level::IsWorldLevel() const
+	{
+		return m_Worlds.Size() > 0;
+	}
+
 	const List<Model>& Level::GetModels() const
 	{
 		return m_Models;

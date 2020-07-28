@@ -49,6 +49,8 @@ namespace LibSWBF2::Wrappers
 		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);
 		static void Destroy(Level* level);
 
+		bool IsWorldLevel() const;
+
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
