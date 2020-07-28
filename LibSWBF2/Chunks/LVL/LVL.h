@@ -22,7 +22,7 @@ namespace LibSWBF2::Chunks::LVL
 		void ReadFromStream(FileReader& stream) override;
 
 		// All sub LVLs not specified in here won't be loaded!
-		bool ReadFromFile(const String& Path, const List<String>* subLVLsToLoad = nullptr);
+		bool ReadFromFile(String Path, const List<String>* subLVLsToLoad = nullptr);
 
 		String ToString() override;
 

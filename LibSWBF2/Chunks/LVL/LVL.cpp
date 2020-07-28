@@ -48,7 +48,7 @@ namespace LibSWBF2::Chunks::LVL
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	bool LVL::ReadFromFile(const String& Path, const List<String>* subLVLsToLoad)
+	bool LVL::ReadFromFile(String Path, const List<String>* subLVLsToLoad)
 	{
 		m_SubLVLsToLoad.Clear();
 
@@ -72,9 +72,14 @@ namespace LibSWBF2::Chunks::LVL
 		std::string nextParam;
 		for (bool first = true; std::getline(stream, nextParam, ';'); first = false)
 		{
-			// first parameter is always the path itself, so let's ignroe that one
-			if (!first)
+			if (first)
 			{
+				// first parameter is the actual path
+				Path = nextParam.c_str();
+			}
+			else
+			{
+				// arguments
 				params.push_back(nextParam);
 			}
 		}
