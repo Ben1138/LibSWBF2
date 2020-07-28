@@ -9,11 +9,11 @@ namespace LibSWBF2::Types
 {
 	void SoundBankHeader::ReadFromStream(FileReader& stream)
 	{
+		size_t bankPos = stream.GetPosition() - 8;
+
 		// Bank header size is exactly 74 bytes, most of it yet unknown
 		// right after the bank header come the individual clip headers,
 		// which are 48 or 56 bytes each.
-
-		size_t bankPos = stream.GetPosition() - 8;
 
 		stream.SkipBytes(28);
 		m_NameHash = stream.ReadUInt32();
@@ -36,8 +36,8 @@ namespace LibSWBF2::Types
 
 		// sample data stream starts at a multiple of 2048, depending on
 		// how much space the clip headers take. The rest is filled with zeros
-		size_t sampleDataOffset = ((size_t)std::ceil(headersSize / 2048.0f)) * 2048;
-		stream.SetPosition(bankPos + sampleDataOffset);
+		size_t sampleDataOffset = ((size_t)std::ceil((bankPos + headersSize) / 2048.0f)) * 2048;
+		stream.SetPosition(sampleDataOffset);
 	}
 
 	bool SoundBankHeader::TryLookupName(String& result)
