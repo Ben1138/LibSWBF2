@@ -38,16 +38,22 @@ namespace LibSWBF2::Types
 
 		List<T>& operator=(const List<T>& other);
 
-		const T& operator[](const size_t i) const;
-		const T& operator[](const int i) const;
-		const T& operator[](const long i) const;
-		const T& operator[](const unsigned int i) const;
-		const T& operator[](const unsigned long i) const;
-		T& operator[](const size_t i);
-		T& operator[](const int i);
-		T& operator[](const long i);
-		T& operator[](const unsigned int i);
-		T& operator[](const unsigned long i);
+		const T& operator[](const int8_t i) const;
+		const T& operator[](const uint8_t i) const;
+		const T& operator[](const int16_t i) const;
+		const T& operator[](const uint16_t i) const;
+		const T& operator[](const int32_t i) const;
+		const T& operator[](const uint32_t i) const;
+		const T& operator[](const int64_t i) const;
+		const T& operator[](const uint64_t i) const;
+		T& operator[](const int8_t i);
+		T& operator[](const uint8_t i);
+		T& operator[](const int16_t i);
+		T& operator[](const uint16_t i);
+		T& operator[](const int32_t i);
+		T& operator[](const uint32_t i);
+		T& operator[](const int64_t i);
+		T& operator[](const uint64_t i);
 
 
 		// TODO: Remove(item) methods
