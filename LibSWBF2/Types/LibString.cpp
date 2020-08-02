@@ -18,7 +18,7 @@ namespace LibSWBF2::Types
 			return;
 		}
 
-		length = strnlen_s(cStr, MAX_LENGTH);
+		length = STRNLEN(cStr, MAX_LENGTH);
 
 		if (length > MAX_LENGTH)
 		{
@@ -32,7 +32,7 @@ namespace LibSWBF2::Types
 		{
 			delete[] buffer;
 			buffer = new char[length + 1];
-			memcpy_s(buffer, length, cStr, length);
+			MEMCPY(buffer, length, cStr, length);
 			buffer[length] = 0;
 		}
 	}
@@ -48,7 +48,7 @@ namespace LibSWBF2::Types
 		else
 		{
 			buffer = new char[length + 1];
-			memcpy_s(buffer, length + 1, other.buffer, length + 1);
+			MEMCPY(buffer, length + 1, other.buffer, length + 1);
 		}
 	}
 
@@ -92,7 +92,7 @@ namespace LibSWBF2::Types
 				length = other.length;
 				delete[] buffer;
 				buffer = new char[length + 1];
-				memcpy_s(buffer, length + 1, other.buffer, length + 1);
+				MEMCPY(buffer, length + 1, other.buffer, length + 1);
 			}
 		}
 		return *this;
