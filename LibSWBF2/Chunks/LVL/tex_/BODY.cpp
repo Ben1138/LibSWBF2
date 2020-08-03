@@ -145,8 +145,8 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         data = img->pixels;
 
 #else 
-        width = (uint16_t) p_Image->width;
-        height = (uint16_t) p_Image->height;
+        width = p_Image->width;
+        height = p_Image->height;
         data = p_Image -> DumpRGBA();
 
 #endif //_WIN32

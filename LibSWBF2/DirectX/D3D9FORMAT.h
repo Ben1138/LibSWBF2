@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef D3D9FORMAT_H
+#define D3D9FORMAT_H
 /*==========================================================================;
  *
  *  Partially copied header from D3D9Types.h and altered for the snippet
@@ -9,8 +9,7 @@
 
 #include "req.h"
 
-#ifndef _d3d9TYPES_H_
-#define _d3d9TYPES_H_
+
 
  /* Formats
   * Most of these names have the following convention:
@@ -232,7 +231,7 @@ DX_FORMAT_FORCE_DWORD = 0x7fffffff
 } DXGI_FORMAT;
 
 
-bool IsCompressed(DXGI_FORMAT fmt) {
+inline bool IsCompressed(DXGI_FORMAT fmt) {
   switch (fmt) {   
       case DXGI_FORMAT_BC1_TYPELESS:
       case DXGI_FORMAT_BC1_UNORM:
@@ -262,4 +261,7 @@ bool IsCompressed(DXGI_FORMAT fmt) {
 }
 
 #endif /*_WIN32*/
-#endif /* _d3d9TYPES(P)_H_ */
+
+
+
+#endif //D3D9FORMAT_H

@@ -24,9 +24,7 @@ namespace LibSWBF2::Types
 
 		bool IsEmpty() const;
 
-		//TODO: FIX LINK ERROR WITH STATIC VAR
-		//const static size_t MAX_LENGTH = 0xffffffff;
-		size_t MAX_LENGTH = 0xffffffff;
+		const static size_t MAX_LENGTH = 0xffffffff;
 
 	private:
 

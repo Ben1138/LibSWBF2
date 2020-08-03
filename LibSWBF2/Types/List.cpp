@@ -175,7 +175,7 @@ namespace LibSWBF2::Types
 
 	
 	template<class T>
-	const T& List<T>::operator[](const size_t i) const
+	const T& List<T>::operator[](const int8_t i) const
 	{
 		if (i < 0 || i >= NumElements)
 		{
@@ -186,33 +186,17 @@ namespace LibSWBF2::Types
 
 
 	template<class T>
-	const T& List<T>::operator[](const int i) const
+	const T& List<T>::operator[](const uint8_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
 	template<class T>
-	const T& List<T>::operator[](const long i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-
-	template<class T>
-	const T& List<T>::operator[](const unsigned int i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-
-	/*
-	template<class T>
-	const T& List<T>::operator[](const unsigned long i) const
-	{
-		return this->operator[]((size_t)i);
-	}
-	*/
-
-	template<class T>
-	T& List<T>::operator[](const size_t i)
+	const T& List<T>::operator[](const int16_t i) const
 	{
 		if (i < 0 || i >= NumElements)
 		{
@@ -222,30 +206,138 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
-	T& List<T>::operator[](const int i)
+	const T& List<T>::operator[](const uint16_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
 	template<class T>
-	T& List<T>::operator[](const long i)
+	const T& List<T>::operator[](const int32_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
 	template<class T>
-	T& List<T>::operator[](const unsigned int i)
+	const T& List<T>::operator[](const uint32_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
 
-	/*
 	template<class T>
-	T& List<T>::operator[](const unsigned long i)
+	const T& List<T>::operator[](const int64_t i) const
 	{
-		return this->operator[]((size_t)i);
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
 	}
-	*/
+
+	template<class T>
+	const T& List<T>::operator[](const uint64_t i) const
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const int8_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	
+	template<class T>
+	T& List<T>::operator[](const uint8_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+	
+
+	template<class T>
+	T& List<T>::operator[](const int16_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint16_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const int32_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint32_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	
+	template<class T>
+	T& List<T>::operator[](const int64_t i)
+	{
+		if (i < 0 || i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+
+	template<class T>
+	T& List<T>::operator[](const uint64_t i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+	
 
 	template<class T>
 	void List<T>::Clear()
