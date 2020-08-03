@@ -235,7 +235,7 @@ namespace LibSWBF2::Types
 	template<class T>
 	const T& List<T>::operator[](const int64_t i) const
 	{
-		if (i < 0 || i >= NumElements)
+		if (i < 0 || (size_t)i >= NumElements)
 		{
 			THROW("Index {} is out of bounds {}!", i, NumElements);
 		}
@@ -315,7 +315,7 @@ namespace LibSWBF2::Types
 	template<class T>
 	T& List<T>::operator[](const int64_t i)
 	{
-		if (i < 0 || i >= NumElements)
+		if (i < 0 || (size_t)i >= NumElements)
 		{
 			THROW("Index {} is out of bounds {}!", i, NumElements);
 		}
