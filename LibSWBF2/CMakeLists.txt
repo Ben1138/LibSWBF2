@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.1)
 project(libswbf2)
 
 
-
 #SETTINGS
 
 add_library(swbf2)
@@ -16,7 +15,6 @@ set_property(TARGET swbf2 PROPERTY CXX_STANDARD_REQUIRED ON)
 if (NOT ${CMAKE_BUILD_TYPE} EQUAL "DEBUG")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
-
 
 
 
@@ -50,6 +48,7 @@ add_subdirectory(Chunks)
 
 #Redundant things I like to include in case someone has a 
 #slightly underconfigured system
+
 if (APPLE)
 	target_link_options(swbf2 PUBLIC -undefined dynamic_lookup)
 	target_link_directories(swbf2 PUBLIC /usr/local/lib/)

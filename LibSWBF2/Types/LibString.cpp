@@ -5,6 +5,7 @@
 
 namespace LibSWBF2::Types
 {
+
 	String::String()
 	{
 		buffer = new char[1] { 0 };

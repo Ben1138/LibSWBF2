@@ -80,7 +80,7 @@ uint8_t* CrossPlatImage::DumpRGBA(){
       break;
     default:
       //LOG_ERROR("Cant convert this format to RGBA")
-      delete sink;
+      delete[] sink;
       sink = nullptr;   
       break; 
   }

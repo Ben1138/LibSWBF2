@@ -24,7 +24,7 @@ namespace LibSWBF2::Types
 
 		bool IsEmpty() const;
 
-		const static size_t MAX_LENGTH = 0xffffffff;
+		inline const static size_t MAX_LENGTH = 0xffffffff;
 
 	private:
 
