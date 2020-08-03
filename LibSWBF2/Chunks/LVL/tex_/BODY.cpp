@@ -84,7 +84,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
                                                     dataSize);
 #endif
 
-        delete bytes;
+        delete[] bytes;
 
         BaseChunk::EnsureEnd(stream);       
     }
