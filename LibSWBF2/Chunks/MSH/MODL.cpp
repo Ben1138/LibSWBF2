@@ -6,8 +6,6 @@
 #include <string_view>
 #include <string>
 
-#define _Starts_with starts_with
-
 namespace LibSWBF2::Chunks::MSH
 {
 	EModelPurpose MODL::GetPurpose()
