@@ -2,8 +2,6 @@
 #include "LibString.h"
 #include "InternalHelpers.h"
 
-#define strnlen_s(x,y) strlen(x)
-#define memcpy_s(x,y,z,w) memcpy(x,z,w)
 
 namespace LibSWBF2::Types
 {
@@ -21,9 +19,9 @@ namespace LibSWBF2::Types
 			return;
 		}
 
-		length = strnlen_s(cStr, MAX_LENGTH);
+		length = STRNLEN(cStr, String::MAX_LENGTH);
 
-		if (length > MAX_LENGTH)
+		if (length > String::MAX_LENGTH)
 		{
 			LOG_WARN("String length {} exceeds max supported length of {}! String will end up empty!", length, MAX_LENGTH);
 			buffer = new char[1]{ 0 };
@@ -35,7 +33,7 @@ namespace LibSWBF2::Types
 		{
 			delete[] buffer;
 			buffer = new char[length + 1];
-			memcpy_s(buffer, length, cStr, length);
+			MEMCPY(buffer, length, cStr, length);
 			buffer[length] = 0;
 		}
 	}
@@ -51,7 +49,7 @@ namespace LibSWBF2::Types
 		else
 		{
 			buffer = new char[length + 1];
-			memcpy_s(buffer, length + 1, other.buffer, length + 1);
+			MEMCPY(buffer, length + 1, other.buffer, length + 1);
 		}
 	}
 
@@ -95,7 +93,7 @@ namespace LibSWBF2::Types
 				length = other.length;
 				delete[] buffer;
 				buffer = new char[length + 1];
-				memcpy_s(buffer, length + 1, other.buffer, length + 1);
+				MEMCPY(buffer, length + 1, other.buffer, length + 1);
 			}
 		}
 		return *this;
