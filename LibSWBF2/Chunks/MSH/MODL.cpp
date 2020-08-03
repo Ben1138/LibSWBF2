@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::MSH
 			return EModelPurpose::Mesh_Collision;
 		}
 
-		if (stdStr._Starts_with("sv_"))
+		if (stdStr.find("sv_") == 0)
 		{
 			return EModelPurpose::Mesh_ShadowVolume;
 		}
@@ -35,7 +35,7 @@ namespace LibSWBF2::Chunks::MSH
 			return EModelPurpose::Mesh_TerrainCut;
 		}
 
-		if (stdStr._Starts_with("p_") || stdStr._Starts_with("c_"))
+		if (stdStr.find("p_") == 0 || stdStr.find("c_") == 0)
 		{
 			return EModelPurpose::Miscellaneous;
 		}
@@ -47,7 +47,7 @@ namespace LibSWBF2::Chunks::MSH
 		{
 			return EModelPurpose::Skeleton_Root;
 		}
-		else if (stdStr._Starts_with("hp_"))
+		else if (stdStr.find("hp_") == 0)
 		{
 			return EModelPurpose::Point_HardPoint;
 		}
@@ -58,15 +58,15 @@ namespace LibSWBF2::Chunks::MSH
 			{
 				return EModelPurpose::Point_DummyRoot;
 			}
-			else if (stdStr._Starts_with("root_"))
+			else if (stdStr.find("root_") == 0)
 			{
 				return EModelPurpose::Skeleton_BoneRoot;
 			}
-			else if (stdStr._Starts_with("bone_"))
+			else if (stdStr.find("bone_") == 0)
 			{
 				return EModelPurpose::Skeleton_BoneLimb;
 			}
-			else if (stdStr._Starts_with("eff_"))
+			else if (stdStr.find("eff_") == 0)
 			{
 				return EModelPurpose::Skeleton_BoneEnd;
 			}
