@@ -16,6 +16,8 @@ if (NOT ${CMAKE_BUILD_TYPE} EQUAL "DEBUG")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
+target_compile_options(swbf2 PUBLIC -Wno-attributes)
+
 
 
 #SOURCES
@@ -33,7 +35,6 @@ file(GLOB LOGGING_FILES Logging/*.cpp)
 file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
 file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp)
-
 
 target_sources(swbf2 PUBLIC ${CORE_FILES} 
 							${DIRECTX_FILES}

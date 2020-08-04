@@ -12,6 +12,9 @@
 #define RMASK_5BIT 0xf800
 #define MASK 0xff
 
+namespace DXTexCrossPlat {
+
+
 
 void r5g6b5ToRGBA(int w, int h, unsigned char *src, uint32_t *sink) {
 
@@ -61,7 +64,7 @@ void bcToRGBA(int w, int h, unsigned char *src, uint32_t *sink, int mode) {
         
         if (mode == 1)
             detexDecompressBlockBC1(src + i, 1, 1, reinterpret_cast<uint8_t *>(blockSink));
-        else 
+        else  
             detexDecompressBlockBC2(src + i, 1, 1, reinterpret_cast<uint8_t *>(blockSink));
 
         //Good to be explicit w/this kind of thing
@@ -114,4 +117,8 @@ void lumToRGBA(int w, int h, uint8_t *src, uint32_t *sink, const D3DFORMAT forma
 
         sink[i / stepSize] = pixel;
     }
+}
+
+
+
 }
