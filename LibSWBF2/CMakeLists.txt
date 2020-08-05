@@ -8,7 +8,7 @@ contributors are few, so the use is justified.  Just remember to 'touch' the two
 build files if you add new source to trigger a reconfiguration.
 
 Set an environment var "LIBSWBF2DIR" to the directory containing this file.
-Be sure to run your builds in a subdir of this one called "build," to make
+Be sure to run your builds in a subdir of this one called "build" to make
 linking to the other libSWBF2 projects (lvlExplorer, msh2fbx, SWBF2-unity-import)
 painless.  
 
@@ -76,4 +76,6 @@ else()
 	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
-target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL fmt glm_static)
+target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL
+								   chunkBNK chunkTERR
+								   fmt glm_static)
