@@ -253,10 +253,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
 
 #ifndef _WIN32
-	//ld tempfix, not sure what chunks these refer to, but
-	//linker errors abound without them...
-	template struct LIBSWBF2_API GenericChunk<1297237592u>;
-	template struct LIBSWBF2_API GenericChunk<1480938564u>;
-	template struct LIBSWBF2_API GenericChunk<1953721961u>;
+	//Undef ref linker errors fix
+	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+
 #endif //_WIN32
 }

@@ -173,6 +173,7 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
+//TEMPFIX: see header
 #ifdef __clang__
 	template<class T>
 	const T& List<T>::operator[](const unsigned long i) const
