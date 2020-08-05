@@ -17,6 +17,9 @@ namespace LibSWBF2::Chunks::LVL::light
 
 	void lght::ReadFromStream(FileReader& stream)
 	{
+		THROW("Not implemented!");
+
+		/*
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
@@ -31,13 +34,14 @@ namespace LibSWBF2::Chunks::LVL::light
 		}
 
 		BaseChunk::EnsureEnd(stream);
+		*/
 	}
 
 	String lght::ToString()
 	{
 		return fmt::format(
 			"Number of lights: {}",
-			m_Lights.Size()
+			localLightHeaders.Size()
 		).c_str();
 	}
 }
