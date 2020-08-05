@@ -1,6 +1,25 @@
 cmake_minimum_required(VERSION 3.1)
 
+#[[
+
+This and the Chunks/CMakeLists.txt file are the only two used currently.
+Globbing source files is bad practice in general, but the project is small and 
+contributors are few, so the use is justified.  Just remember to 'touch' the two
+build files if you add new source to trigger a reconfiguration.
+
+Set an environment var "LIBSWBF2DIR" to the directory containing this file.
+Be sure to run your builds in a subdir of this one called "build," to make
+linking to the other libSWBF2 projects (lvlExplorer, msh2fbx, swbf2-unity-import)
+painless.  
+
+]]
+
+
+
+
+
 project(libswbf2)
+
 
 
 #SETTINGS
