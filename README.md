@@ -27,10 +27,25 @@ How to grab the image data of a single texture (no nullptr/success checks applie
        // param 2: Mip map index. Use 0 to always get the highest available resolution.
        texture->GetImageData(ETextureFormat::B8_G8_R8_A8, 0, width, height, data);
        
-       // ... do now what you want with the image data. copy, export, whatever.
+       // ... now, do what you want with the image data. copy, export, whatever.
        
        Level::Destroy(lvl);
 Note that the `data` pointer will get invalid once the Level instance is destroyed.
+
+Everything else is handled in a similar manner. An overview of available calls:
+       GetModels()
+       GetTextures()
+       GetWorlds()
+       GetTerrains()
+       GetScripts()
+       GetSounds()
+
+       GetModel(String modelName)
+       GetTexture(String textureName)
+       GetWorld(String worldName)
+       GetTerrain(String terrainName)
+       GetScript(String scriptName)
+       GetSound(String soundName)
 
 ## Supported file formats
 - MSH
