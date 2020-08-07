@@ -46,7 +46,7 @@ namespace LibSWBF2::Wrappers
 		delete m_NameToIndexMaps;
 	}
 
-	void Level::FindInChildrenRecursive(GenericBaseChunk* root)
+	void Level::ExploreChildrenRecursive(GenericBaseChunk* root)
 	{
 		// IMPORTANT: crawl textures BEFORE models, so texture references via string can be resolved in models
 		tex_* textureChunk = dynamic_cast<tex_*>(root);
@@ -110,7 +110,7 @@ namespace LibSWBF2::Wrappers
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
 		{
-			FindInChildrenRecursive(children[i]);
+			ExploreChildrenRecursive(children[i]);
 		}
 	}
 
@@ -124,7 +124,7 @@ namespace LibSWBF2::Wrappers
 		}
 		
 		Level* result = new Level(lvl);
-		result->FindInChildrenRecursive(lvl);
+		result->ExploreChildrenRecursive(lvl);
 
 		return result;
 	}
