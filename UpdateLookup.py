@@ -31,11 +31,6 @@ for path in Path(ModToolsPath).rglob("*.odf"):
     for i, line in enumerate(open(path)):
         for match in propertyReg.finditer(line):
             found = match.group(1)
-            if not found.startswith("//") and "//" in found:
-                print("NOOO: " + found)
-                print(match)
-                print(match.groups())
-                print("In File: %s at line: %d", path, i)
             AddToList(match.group(1))
             count2 += 1
 print("Found %d ODF files" % count)
