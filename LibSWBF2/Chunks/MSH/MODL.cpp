@@ -3,13 +3,15 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 
+#include <string>
+
 namespace LibSWBF2::Chunks::MSH
 {
 	EModelPurpose MODL::GetPurpose()
 	{
 		// TODO: Implement own find/starts with methods
 		std::string stdStr = m_Name.m_Text.Buffer();
-
+		
 		if (stdStr.find("lowrez") != std::string::npos)
 		{
 			return EModelPurpose::Mesh_Lowrez;

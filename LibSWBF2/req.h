@@ -4,11 +4,19 @@
 #include <stdint.h>		// for uint32_t, etc. declarations
 #include <math.h>		// for float_t declaration
 
+#ifdef _WIN32
+
 #ifdef LIBSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
 #else
 #define LIBSWBF2_API __declspec(dllimport)
-#endif
+#endif //LIBSWBF2_EXPORTS
+
+#else
+
+#define LIBSWBF2_API __attribute__((visibility("default")))
+
+#endif //_WIN32
 
 namespace LibSWBF2
 {

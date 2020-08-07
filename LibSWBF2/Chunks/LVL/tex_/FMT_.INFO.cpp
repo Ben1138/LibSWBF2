@@ -23,7 +23,7 @@ namespace LibSWBF2::Chunks::LVL::FMT
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
-		m_Format = (D3DFORMAT)stream.ReadUInt32();
+		m_Format = (D3DFORMAT) stream.ReadUInt32();
 		m_Width = stream.ReadUInt16();
 		m_Height = stream.ReadUInt16();
 		m_Depth = stream.ReadUInt16();

@@ -1,6 +1,7 @@
 #pragma once
 #include "Types/LibString.h"
 #include <unordered_map>
+#include <string_view>
 
 namespace LibSWBF2
 {

@@ -2,8 +2,10 @@
 #include "LibString.h"
 #include "InternalHelpers.h"
 
+
 namespace LibSWBF2::Types
 {
+
 	String::String()
 	{
 		buffer = new char[1] { 0 };
@@ -18,9 +20,9 @@ namespace LibSWBF2::Types
 			return;
 		}
 
-		length = STRNLEN(cStr, MAX_LENGTH);
+		length = STRNLEN(cStr, String::MAX_LENGTH);
 
-		if (length > MAX_LENGTH)
+		if (length > String::MAX_LENGTH)
 		{
 			LOG_WARN("String length {} exceeds max supported length of {}! String will end up empty!", length, MAX_LENGTH);
 			buffer = new char[1]{ 0 };
