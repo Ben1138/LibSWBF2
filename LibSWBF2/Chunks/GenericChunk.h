@@ -1,6 +1,10 @@
 #pragma once
+
+
+
 #include "BaseChunk.h"
 #include "HeaderNames.h"
+
 
 namespace LibSWBF2::Chunks
 {
@@ -38,7 +42,7 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	struct LIBSWBF2_API GenericChunk : public GenericBaseChunk
 	{
-	protected:
+    protected:
 		void Check(FileReader& stream);
 
 	public:
@@ -54,3 +58,4 @@ namespace LibSWBF2::Chunks
 #define READ_CHILD(stream, member) ReadChildExplicit(this, stream, member);
 #define READ_CHILD_GENERIC(stream) { GenericChunkNC* genericChild; READ_CHILD(stream, genericChild); }
 }
+

@@ -94,6 +94,6 @@ struct fmt::formatter<LibSWBF2::Chunks::BaseChunk> {
 #define STRNLEN(...) strnlen_s(__VA_ARGS__)
 #define MEMCPY(...) memcpy_s(__VA_ARGS__)
 #else
-#define STRLEN(...) strnlen(__VA_ARGS__)
-#define MEMCPY(...) memcpy(__VA_ARGS__)
+#define STRNLEN(...) strnlen(__VA_ARGS__)
+#define MEMCPY(x,y,z,w) memcpy(x,z,w)
 #endif

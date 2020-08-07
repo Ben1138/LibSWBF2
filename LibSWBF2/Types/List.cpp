@@ -138,6 +138,7 @@ namespace LibSWBF2::Types
 		return false;
 	}
 
+	template<>
 	bool List<uint32_t>::Contains(const uint32_t& Element)
 	{
 		// linear search is slow AF, but I'm too lazy
@@ -172,6 +173,19 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
+//TEMPFIX: see header
+#ifdef __clang__
+	template<class T>
+	const T& List<T>::operator[](const unsigned long i) const
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+#else
+	
 	template<class T>
 	const T& List<T>::operator[](const int8_t i) const
 	{
@@ -181,6 +195,7 @@ namespace LibSWBF2::Types
 		}
 		return ArrayPtr[i];
 	}
+
 
 	template<class T>
 	const T& List<T>::operator[](const uint8_t i) const
@@ -242,6 +257,7 @@ namespace LibSWBF2::Types
 		return ArrayPtr[i];
 	}
 
+
 	template<class T>
 	const T& List<T>::operator[](const uint64_t i) const
 	{
@@ -251,6 +267,21 @@ namespace LibSWBF2::Types
 		}
 		return ArrayPtr[i];
 	}
+#endif
+
+
+#ifdef __clang__
+	template<class T>
+	T& List<T>::operator[](const unsigned long i)
+	{
+		if (i >= NumElements)
+		{
+			THROW("Index {} is out of bounds {}!", i, NumElements);
+		}
+		return ArrayPtr[i];
+	}
+#else
+
 
 	template<class T>
 	T& List<T>::operator[](const int8_t i)
@@ -262,6 +293,7 @@ namespace LibSWBF2::Types
 		return ArrayPtr[i];
 	}
 
+	
 	template<class T>
 	T& List<T>::operator[](const uint8_t i)
 	{
@@ -271,6 +303,7 @@ namespace LibSWBF2::Types
 		}
 		return ArrayPtr[i];
 	}
+	
 
 	template<class T>
 	T& List<T>::operator[](const int16_t i)
@@ -312,6 +345,7 @@ namespace LibSWBF2::Types
 		return ArrayPtr[i];
 	}
 
+	
 	template<class T>
 	T& List<T>::operator[](const int64_t i)
 	{
@@ -331,6 +365,8 @@ namespace LibSWBF2::Types
 		}
 		return ArrayPtr[i];
 	}
+#endif
+	
 
 	template<class T>
 	void List<T>::Clear()
@@ -369,6 +405,7 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
+
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
@@ -378,6 +415,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/inst.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
+
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
@@ -385,50 +423,54 @@ namespace LibSWBF2::Types
 
 namespace LibSWBF2
 {
-	using namespace Types;
 	using namespace Chunks;
+	using namespace Types; //Clangfix
 
-	template LIBSWBF2_API class List<uint8_t>;
-	template LIBSWBF2_API class List<uint16_t>;
-	template LIBSWBF2_API class List<uint32_t>;
-	template LIBSWBF2_API class List<Vector2>;
-	template LIBSWBF2_API class List<Vector3>;
-	template LIBSWBF2_API class List<Vector3u8>;
-	template LIBSWBF2_API class List<Matrix3x3>;
-	template LIBSWBF2_API class List<Color>;
-	template LIBSWBF2_API class List<String>;
-	template LIBSWBF2_API class List<Animation>;
-	template LIBSWBF2_API class List<BoneFrames>;
-	template LIBSWBF2_API class List<Polygon>;
-	template LIBSWBF2_API class List<VertexWeights>;
-	template LIBSWBF2_API class List<TranslationFrame>;
-	template LIBSWBF2_API class List<RotationFrame>;
-	template LIBSWBF2_API class List<TerrainBufferEntry>;
-	template LIBSWBF2_API class List<SoundClip>;
-	template LIBSWBF2_API class List<MSH::SEGM>;
-	template LIBSWBF2_API class List<MSH::MATD>;
-	template LIBSWBF2_API class List<MSH::MODL>;
-	template LIBSWBF2_API class List<GenericBaseChunk*>;
-	template LIBSWBF2_API class List<D3DFORMAT>;
-	template LIBSWBF2_API class List<LVL::texture::FMT_*>;
-	template LIBSWBF2_API class List<LVL::LVL_texture::LVL_*>;
-	template LIBSWBF2_API class List<LVL::modl::modl*>;
-	template LIBSWBF2_API class List<LVL::modl::segm*>;
-	template LIBSWBF2_API class List<LVL::modl::VBUF*>;
-	template LIBSWBF2_API class List<LVL::modl::TNAM*>;
-	template LIBSWBF2_API class List<LVL::wrld::inst*>;
-	template LIBSWBF2_API class List<LVL::terrain::PTCH*>;
-	template LIBSWBF2_API class List<LVL::terrain::VBUF*>;
-	template LIBSWBF2_API class List<Wrappers::Model>;
-	template LIBSWBF2_API class List<Wrappers::Segment>;
-	template LIBSWBF2_API class List<Wrappers::VertexWeight>;
-	template LIBSWBF2_API class List<Wrappers::Bone>;
-	template LIBSWBF2_API class List<Wrappers::Material>;
-	template LIBSWBF2_API class List<Wrappers::Texture>;
-	template LIBSWBF2_API class List<Wrappers::World>;
-	template LIBSWBF2_API class List<Wrappers::Terrain>;
-	template LIBSWBF2_API class List<Wrappers::Instance>;
-	template LIBSWBF2_API class List<Wrappers::Script>;
-	template LIBSWBF2_API class List<Wrappers::Sound>;
-	template LIBSWBF2_API class List<const Wrappers::Texture*>;
+	template class LIBSWBF2_API Types::List<uint8_t>;
+	template class LIBSWBF2_API Types::List<uint16_t>;
+	template class LIBSWBF2_API Types::List<uint32_t>;
+	template class LIBSWBF2_API Types::List<Vector2>;
+	template class LIBSWBF2_API Types::List<Vector3>;
+	template class LIBSWBF2_API Types::List<Vector3u8>;
+	template class LIBSWBF2_API Types::List<Matrix3x3>;
+	template class LIBSWBF2_API Types::List<Color>;
+	template class LIBSWBF2_API Types::List<String>;
+	template class LIBSWBF2_API Types::List<Animation>;
+	template class LIBSWBF2_API Types::List<BoneFrames>;
+	template class LIBSWBF2_API Types::List<Polygon>;
+	template class LIBSWBF2_API Types::List<VertexWeights>;
+	template class LIBSWBF2_API Types::List<TranslationFrame>;
+	template class LIBSWBF2_API Types::List<RotationFrame>;
+	template class LIBSWBF2_API Types::List<TerrainBufferEntry>;
+	template class LIBSWBF2_API Types::List<SoundClip>;
+	template class LIBSWBF2_API Types::List<MSH::SEGM>;
+	template class LIBSWBF2_API Types::List<MSH::MATD>;
+	template class LIBSWBF2_API Types::List<MSH::MODL>;
+	template class LIBSWBF2_API Types::List<GenericBaseChunk*>;
+	template class LIBSWBF2_API Types::List<D3DFORMAT>;
+
+
+	template class LIBSWBF2_API Types::List<LVL::texture::FMT_*>;
+	template class LIBSWBF2_API Types::List<LVL::LVL_texture::LVL_*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::modl*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::segm*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::VBUF*>;
+	template class LIBSWBF2_API Types::List<LVL::modl::TNAM*>;
+	template class LIBSWBF2_API Types::List<LVL::wrld::inst*>;
+	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
+	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
+
+
+	template class LIBSWBF2_API Types::List<Wrappers::Model>;
+	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
+	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
+	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
+	template class LIBSWBF2_API Types::List<Wrappers::Material>;
+	template class LIBSWBF2_API Types::List<Wrappers::Texture>;
+	template class LIBSWBF2_API Types::List<Wrappers::World>;
+	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
+	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
+	template class LIBSWBF2_API Types::List<Wrappers::Script>;
+	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 }
