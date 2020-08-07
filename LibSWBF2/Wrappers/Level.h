@@ -64,7 +64,7 @@ namespace LibSWBF2::Wrappers
 		const Script* GetScript(String scriptName) const;
 
 	private:
-		void FindInChildrenRecursive(GenericBaseChunk* root);
+		void ExploreChildrenRecursive(GenericBaseChunk* root);
 		skel* FindSkeleton(String skeletonName) const;
 	};
 }

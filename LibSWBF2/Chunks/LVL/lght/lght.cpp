@@ -41,7 +41,7 @@ namespace LibSWBF2::Chunks::LVL::light
 	{
 		return fmt::format(
 			"Number of lights: {}",
-			localLightHeaders.Size()
+			p_localLightHeaders.Size()
 		).c_str();
 	}
 }

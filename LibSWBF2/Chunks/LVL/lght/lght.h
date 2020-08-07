@@ -2,8 +2,7 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
 
-class DATA;
-class SCOP;
+
 
 /*
 'lght' chunk spec
@@ -33,6 +32,10 @@ Example with a single omnidirectional light
 
 namespace LibSWBF2::Chunks::LVL::light
 {
+
+	struct DATA;
+	struct SCOP;
+
 	struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
 	{
 	public:
@@ -45,11 +48,11 @@ namespace LibSWBF2::Chunks::LVL::light
 		the various traits of each light.
 		*/
 
-		List<DATA*> localLightHeaders;
-		List<SCOP*> localLightBlocks;
+		List<DATA *> p_localLightHeaders;
+		List<SCOP *> p_localLightBlocks;
 
-		List<DATA*> globalLightHeaders; //**will be changed**
-		List<SCOP*> globalLightBlocks;  //**will be changed**
+		List<DATA *> p_globalLightHeaders; //**will be changed**
+		List<SCOP *> p_globalLightBlocks;  //**will be changed**
 
 	public:
 		void RefreshSize() override;
