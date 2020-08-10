@@ -31,7 +31,11 @@ namespace LibSWBF2::Chunks::LVL::light
 	void lght::ReadFromStream(FileReader& stream)
 	{
         
-        COUT("READING lght CHUNK");
+        COUT("READING lght CHUNK at: ");
+        COUT(stream.GetPosition());
+        
+        BaseChunk::ReadFromStream(stream);
+        Check(stream);
         
         /*
          There are 2 lght chunks in every lvl I've tested,
@@ -42,16 +46,8 @@ namespace LibSWBF2::Chunks::LVL::light
         
         if (!lght::skip)
         {
-            BaseChunk::ReadFromStream(stream);
-            Check(stream);
-            
-            /*
-             First, read dummy NAME chunk, which contains a single int for
-             unknown purpose
-             */
-            
             READ_CHILD(stream, p_Marker);
-            
+
             //PositionInChunk might not be best for this
             while (BaseChunk::PositionInChunk(stream.GetPosition()))
             {
@@ -59,6 +55,9 @@ namespace LibSWBF2::Chunks::LVL::light
                 SCOP *tempScope;
                 
                 READ_CHILD(stream, tempHeader);
+                COUT("header name: ");
+                COUT((tempHeader -> GetHeader()).ToString().Buffer());
+
                 READ_CHILD(stream, tempScope);
     
                 LOG_WARN("FOUND A LIGHT");

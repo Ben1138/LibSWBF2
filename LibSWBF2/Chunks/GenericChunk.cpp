@@ -154,10 +154,9 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "lght"_h)
 					{
-						COUT("HIT LGHT");	
-						//LVL::light::lght* unknown;
-						//READ_CHILD(stream, unknown);
-						//chunk = unknown;
+						LVL::light::lght* unknown;
+						READ_CHILD(stream, unknown);
+						chunk = unknown;
 					}
 					else
 					{
@@ -262,6 +261,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"RTYP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
+
+	template struct LIBSWBF2_API GenericChunk<1600943724>;
+	template struct LIBSWBF2_API GenericChunk<1684828791>;
+	template struct LIBSWBF2_API GenericChunk<1701667150>;
 
 #ifndef _WIN32
 	//Undef ref linker errors fix
