@@ -25,6 +25,9 @@ file(GLOB_RECURSE ALL_HEADERS *.h)
 set(PROJECT_FILES "${ALL_SOURCES}")
 list(APPEND PROJECT_FILES "${ALL_HEADERS}")
 
+if(APPLE)
+	include_directories(/usr/local/include)
+endif()
 
 add_subdirectory(LibSWBF2)
 add_subdirectory(LibSWBF2.TEST)

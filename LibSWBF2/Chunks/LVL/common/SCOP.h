@@ -11,7 +11,11 @@ namespace LibSWBF2::Chunks::LVL::common
 {
 
 struct SCOP : public GenericChunk<"SCOP"_m>{
-    void ReadFromStream(FileReader& stream) override;
+		//void RefreshSize() override;
+		//void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
+
+		//String ToString() override;
 };
 
 }

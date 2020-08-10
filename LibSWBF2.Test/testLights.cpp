@@ -12,6 +12,7 @@ using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
 using namespace LibSWBF2::Chunks::LVL;
+using namespace LibSWBF2::Wrappers;
 
 using LibSWBF2::Logging::Logger;
 using LibSWBF2::Logging::LoggerEntry;
@@ -29,7 +30,7 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
-	Level *testLVL = FromFile("/Users/will/Desktop/MLC.lvl");
+	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 
 	return 0;
 }
