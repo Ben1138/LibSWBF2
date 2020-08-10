@@ -1,6 +1,7 @@
 #pragma once
 #include "req.h"
 #include "Types/Vector4.h"
+#include "Types/List.h"
 #include "Chunks/LVL/wrld/inst.h"
 
 namespace LibSWBF2::Wrappers
@@ -8,12 +9,17 @@ namespace LibSWBF2::Wrappers
 	using LibSWBF2::Chunks::LVL::wrld::inst;
 	using Types::Vector3;
 	using Types::Vector4;
+	using Types::List;
 
 	class Level;
+	class World;
 
 	class LIBSWBF2_API Instance
 	{
-	public:
+	private:
+		friend World;
+		friend List<Instance>;
+
 		Instance() = default;
 		~Instance() = default;
 

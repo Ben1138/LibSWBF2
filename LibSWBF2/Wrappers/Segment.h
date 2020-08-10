@@ -1,6 +1,7 @@
 #pragma once
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Types/LibString.h"
+#include "Types/List.h"
 #include "Material.h"
 
 namespace LibSWBF2::Wrappers
@@ -10,8 +11,9 @@ namespace LibSWBF2::Wrappers
 	using Types::Vector3;
 	using Chunks::LVL::modl::segm;
 	using Chunks::LVL::modl::VBUF;
-	class Level;
 
+	class Level;
+	class Model;
 
 	struct LIBSWBF2_API VertexWeight
 	{
@@ -21,7 +23,10 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API Segment
 	{
-	public:
+	private:
+		friend Model;
+		friend List<Segment>;
+
 		Segment() = default;
 		~Segment() = default;
 

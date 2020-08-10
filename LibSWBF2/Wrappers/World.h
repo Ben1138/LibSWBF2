@@ -12,7 +12,10 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API World
 	{
-	public:
+	private:
+		friend Level;
+		friend List<World>;
+
 		World() = default;
 		~World() = default;
 
