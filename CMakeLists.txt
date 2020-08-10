@@ -30,7 +30,7 @@ if(APPLE)
 endif()
 
 add_subdirectory(LibSWBF2)
-add_subdirectory(LibSWBF2.TEST)
+add_subdirectory(LibSWBF2.Test)
 
 
 #Need this in order for XCode to index header files,

@@ -56,7 +56,7 @@ namespace LibSWBF2::Chunks::LVL::light
 		the various traits of each light.
 		*/
         
-        STR<"Name"_m> *p_Marker;
+        STR<"NAME"_m> *p_Marker;
 
 		List<DATA *> p_localLightHeaders;
 		List<SCOP *> p_localLightBlocks;

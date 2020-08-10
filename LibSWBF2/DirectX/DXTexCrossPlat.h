@@ -19,7 +19,7 @@ public:
 
 	uint8_t* DumpRGBA();
 	uint8_t* DumpRaw();
-	~CrossPlatImage();
+	//~CrossPlatImage();
 
 	uint16_t width,height,unitSize;
 

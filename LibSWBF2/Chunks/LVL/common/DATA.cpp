@@ -8,6 +8,7 @@
 
 namespace LibSWBF2::Chunks::LVL::common
 {
+    /*
     void DATA::RefreshSize()
     {
         //THROW("Not implemented!");
@@ -28,4 +29,5 @@ namespace LibSWBF2::Chunks::LVL::common
 	{
 	    return String("DATA");
 	}
+    */
 }

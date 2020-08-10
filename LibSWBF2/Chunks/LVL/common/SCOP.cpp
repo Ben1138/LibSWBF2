@@ -32,7 +32,8 @@ void SCOP::ReadFromStream(FileReader& stream)
 {
     BaseChunk::ReadFromStream(stream);
     Check(stream);
-    
+    BaseChunk::EnsureEnd(stream);
+    return;
     /*
      After reading the header, just read the children,
      as a SCOP is just length int32 + DATA children.

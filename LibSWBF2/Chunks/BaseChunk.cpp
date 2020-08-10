@@ -162,7 +162,7 @@ namespace LibSWBF2::Chunks
 		else
 		{
 			// if we've got trailing bytes, skip them too
-			//ForwardToNextHeader(stream);
+			ForwardToNextHeader(stream);
 		}
 	}
 
