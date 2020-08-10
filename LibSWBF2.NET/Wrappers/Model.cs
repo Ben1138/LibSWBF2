@@ -8,34 +8,37 @@ using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Model
+    public class Model : NativeWrapper
     {
-        private IntPtr NativeModel;
-
-        internal Model(IntPtr modelPtr)
-        {
-            NativeModel = modelPtr;
-        }
-
-        ~Model()
+        internal Model(IntPtr modelPtr) : base(modelPtr)
         {
 
         }
 
         public string Name
         {
-            get { return APIWrapper.Model_GetName(NativeModel); }
+            get 
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                return APIWrapper.Model_GetName(NativeInstance); 
+            }
         }
 
         public bool IsSkeletalMesh
         {
-            get { return APIWrapper.Model_IsSkeletalMesh(NativeModel); }
+            get 
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
+            }
         }
 
         // TODO: swap IntPtr with actualy wrapper class
         public IntPtr[] GetSegments()
         {
-            APIWrapper.Model_GetSegments(NativeModel, out IntPtr segmentArr, out uint segmentCount);
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+
+            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
             IntPtr[] segments = new IntPtr[segmentCount];
             Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
             return segments;
@@ -44,7 +47,9 @@ namespace LibSWBF2.Wrappers
         // TODO: swap IntPtr with actualy wrapper class
         public IntPtr[] GetSkeleton()
         {
-            APIWrapper.Model_GetSkeleton(NativeModel, out IntPtr boneArr, out uint boneCount);
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+
+            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
             IntPtr[] bones = new IntPtr[boneCount];
             Marshal.Copy(boneArr, bones, 0, (int)boneCount);
             return bones;
