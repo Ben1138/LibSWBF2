@@ -13,7 +13,7 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
-		class Bone;
+		struct Bone;
 		//class Texture;
 		//class World;
 		//class Terrain;
@@ -40,7 +40,7 @@ namespace LibSWBF2
 		LIBSWBF2_API Level* Level_FromFile(const char* path);
 		LIBSWBF2_API void Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
-		LIBSWBF2_API void Level_GetModels(const Level* level, Model*& modelArr, uint32_t& modelCount);
+		LIBSWBF2_API void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetTextures(const Level* level, Texture*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetWorlds(const Level* level, World*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetTerrains(const Level* level, Terrain*& modelArr, uint32_t& modelCount);

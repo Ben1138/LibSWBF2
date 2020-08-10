@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
 {
@@ -31,6 +32,7 @@ namespace LibSWBF2.Wrappers
             get { return APIWrapper.Model_IsSkeletalMesh(NativeModel); }
         }
 
+        // TODO: swap IntPtr with actualy wrapper class
         public IntPtr[] GetSegments()
         {
             APIWrapper.Model_GetSegments(NativeModel, out IntPtr segmentArr, out uint segmentCount);
@@ -39,6 +41,7 @@ namespace LibSWBF2.Wrappers
             return segments;
         }
 
+        // TODO: swap IntPtr with actualy wrapper class
         public IntPtr[] GetSkeleton()
         {
             APIWrapper.Model_GetSkeleton(NativeModel, out IntPtr boneArr, out uint boneCount);
