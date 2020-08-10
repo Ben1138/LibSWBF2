@@ -43,9 +43,6 @@ void SCOP::ReadFromStream(FileReader& stream)
     } while (true);
     
     BaseChunk::EnsureEnd(stream);
-
-    
 }
     
 }
-    

@@ -1,12 +1,14 @@
 #include "Light.h"
 
 
+using namespace LibSWBF2::Chunks::LVL::common;
+
 BaseLight::BaseLight(DATA& description, SCOP& body){
 
 	name = //description getString
 	type = body.GetDataSize();
 
-	float body.getChild(0).
+	//float body.getChild(0).
 
 }
 

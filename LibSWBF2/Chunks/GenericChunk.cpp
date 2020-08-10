@@ -257,6 +257,9 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+    template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+    template struct LIBSWBF2_API RawData<"DATA"_m>;
+    template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 
 #endif //_WIN32
 }
