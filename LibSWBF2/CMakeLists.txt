@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
+cmake_policy(SET CMP0079 NEW)
+
 
 #[[
 
@@ -40,8 +42,8 @@ target_compile_options(SWBF2 PUBLIC -Wno-attributes)
 
 #SOURCES
 
-include_directories(.)
-include_directories(DirectX)
+target_include_directories(SWBF2 PUBLIC .)
+target_include_directories(SWBF2 PUBLIC DirectX)
 
 add_subdirectory(Chunks)
 
@@ -64,7 +66,7 @@ target_sources(SWBF2 PUBLIC ${CORE_FILES}
 
 
 #For XCodeProj generation
-
+#[[
 file(GLOB_RECURSE ALL_SOURCES *.cpp)
 file(GLOB_RECURSE ALL_HEADERS *.h)
 set(PROJECT_FILES "${ALL_SOURCES}")
@@ -72,8 +74,9 @@ list(APPEND PROJECT_FILES "${ALL_HEADERS}")
 
 #Need this in order for XCode to index header files,
 #doesn't change compilation at all...
+]]
 target_sources(SWBF2 PUBLIC ${ALL_HEADERS})
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
+#source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
 
 
 

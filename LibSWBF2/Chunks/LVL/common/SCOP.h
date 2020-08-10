@@ -1,6 +1,8 @@
 /*
 Will contain class for the very generic DATA Chunk
 */
+#include "stdafx.h"
+
 
 #include "Chunks/GenericChunk.h"
 #include "DATA.h"

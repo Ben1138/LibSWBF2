@@ -70,6 +70,6 @@ namespace LibSWBF2::Chunks::LVL::light
 
 		String ToString() override;
         
-        inline static bool stop = false;
+        inline static bool skip = false;
 	};
 }

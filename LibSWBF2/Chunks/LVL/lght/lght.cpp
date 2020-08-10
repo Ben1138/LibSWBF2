@@ -5,6 +5,9 @@
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 
 namespace LibSWBF2::Chunks::LVL::light
 {
@@ -26,6 +29,9 @@ namespace LibSWBF2::Chunks::LVL::light
 
 	void lght::ReadFromStream(FileReader& stream)
 	{
+        
+        COUT("READING lght CHUNK");
+        
         /*
          There are 2 lght chunks in every lvl I've tested,
          I haven't looked into the second one yet since it
@@ -33,7 +39,7 @@ namespace LibSWBF2::Chunks::LVL::light
          for now...
          */
         
-        if (!lght::stop)
+        if (!lght::skip)
         {
             BaseChunk::ReadFromStream(stream);
             Check(stream);
@@ -63,8 +69,13 @@ namespace LibSWBF2::Chunks::LVL::light
                 ForwardToNextHeader(stream);
             }
             
-            lght::stop = true;
+            lght::skip = true;
         }
+        else
+        {
+            COUT("SKIPPING lght CHUNK");
+        }
+        
 		BaseChunk::EnsureEnd(stream);
 	}
 
