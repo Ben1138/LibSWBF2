@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+namespace LibSWBF2::Wrappers
+{
 
 typedef enum {
 	
@@ -52,6 +54,8 @@ public:
 
 
 
+/*
+
 struct SpotLight : BaseLight {
 
 public:
@@ -67,3 +71,7 @@ public:
 	DirectionalLight(DATA& description, SCOP& body);
 	int length;
 };
+ 
+ */
+
+}

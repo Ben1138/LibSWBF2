@@ -1,15 +1,26 @@
 #include "Light.h"
 
+#include <string>
+#include <iostream>
+
+#define COUT(x) std::cout << x << std::endl
+
+namespace LibSWBF2::Wrappers
+{
 
 using namespace LibSWBF2::Chunks::LVL::common;
 
 BaseLight::BaseLight(DATA& description, SCOP& body){
-
-	name = //description getString
-	type = body.GetDataSize();
-
-	//float body.getChild(0).
-
+    
+    const uint8_t *nameStr;
+    size_t size;
+    description.GetData(nameStr, size);
+    
+    name = std::string(reinterpret_cast<const char *>(nameStr), size);
+    
+    const auto children = body.GetChildren();
+    
+    COUT(name);
 }
 
 
@@ -22,7 +33,7 @@ OmnidirectionalLight::OmnidirectionalLight(DATA& description, SCOP& body) :
 
 
 
-
+/*
 SpotLight::SpotLight(DATA& description, SCOP& body) :
 					BaseLight(description, body) {
 
@@ -38,3 +49,6 @@ DirectionalLight::DirectionalLight(DATA& description, SCOP& body) :
 	//int length;
 }
 
+*/
+
+}
