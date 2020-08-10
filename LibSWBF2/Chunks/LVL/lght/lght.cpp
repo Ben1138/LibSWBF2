@@ -29,11 +29,7 @@ namespace LibSWBF2::Chunks::LVL::light
      */
 
 	void lght::ReadFromStream(FileReader& stream)
-	{
-        
-        COUT("READING lght CHUNK at: ");
-        COUT(stream.GetPosition());
-        
+	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
         
@@ -55,26 +51,31 @@ namespace LibSWBF2::Chunks::LVL::light
                 SCOP *tempScope;
                 
                 READ_CHILD(stream, tempHeader);
-                COUT("header name: ");
-                COUT((tempHeader -> GetHeader()).ToString().Buffer());
-
                 READ_CHILD(stream, tempScope);
-    
-                LOG_WARN("FOUND A LIGHT");
-                
+     
                 p_localLightHeaders.Add(tempHeader);
                 p_localLightBlocks.Add(tempScope);
                 
-                //This in combo with PositionInChunk might be bad way...
+                //This in combo with PositionInChunk might be a bad way...
                 ForwardToNextHeader(stream);
             }
-            
+
+            /*
+            COUT(fmt::format("Number of lights: {}", 
+                            p_localLightHeaders.Size()));
+            COUT(fmt::format("First light block has {} fields", 
+                            p_localLightBlocks[0] -> p_dataFields.Size()));
+            */
+
             lght::skip = true;
         }
         else
         {
+            //Skip second one, don't understand it yet...
             COUT("SKIPPING lght CHUNK");
         }
+
+        //COUT("END lght CHUNK");
         
 		BaseChunk::EnsureEnd(stream);
 	}
