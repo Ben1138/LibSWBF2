@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 namespace LibSWBF2
 {
 	namespace Types { struct String; }

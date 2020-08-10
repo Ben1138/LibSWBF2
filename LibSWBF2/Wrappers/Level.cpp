@@ -4,6 +4,7 @@
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
+
 #include <unordered_map>
 
 namespace LibSWBF2::Wrappers

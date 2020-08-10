@@ -11,6 +11,22 @@
 
 namespace LibSWBF2::Chunks::LVL::common
 {
+    
+void SCOP::RefreshSize()
+{
+    //THROW("Not implemented!");
+    return;
+}
+
+void SCOP::WriteToStream(FileWriter& stream)
+{
+    THROW("Not implemented!");
+}
+
+String SCOP::ToString()
+{
+    return String("SCOP");
+}
 
 void SCOP::ReadFromStream(FileReader& stream)
 {
@@ -43,9 +59,6 @@ void SCOP::ReadFromStream(FileReader& stream)
     } while (true);
     
     BaseChunk::EnsureEnd(stream);
-
-    
 }
     
 }
-    

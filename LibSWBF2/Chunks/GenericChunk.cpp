@@ -20,6 +20,10 @@
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 
+#include "LVL/lght/lght.h"
+
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2::Chunks
 {
@@ -148,6 +152,13 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
+					else if (nextHead == "lght"_h)
+					{
+						COUT("HIT LGHT");	
+						//LVL::light::lght* unknown;
+						//READ_CHILD(stream, unknown);
+						//chunk = unknown;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -257,6 +268,9 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+    template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+    template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
+    template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 
 #endif //_WIN32
 }
