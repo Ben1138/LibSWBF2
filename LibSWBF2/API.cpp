@@ -78,24 +78,32 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
-	void Level_GetModels(const Level* level, Model*& modelArr, uint32_t& modelCount)
+	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
 	{
 		CheckPtr(level, );
-		const List<Model> models = level->GetModels();
+		const List<Model>& models = level->GetModels();
 
 		// since level->GetModels() just returns a reference to the actual list
 		// member of level, which will persist even after this call ended, we can safely
-		// provide the underlying buffer for reading to the inquirer. 
+		// provide the model addresses of the underlying buffer to the inquirer. 
 		// The inquirer of course is not allowed to alter the data!
-		modelArr = models.GetArrayPtr();
-		modelCount = (uint32_t)models.Size();
+		static List<const Model*> modelPtrs;
+		modelPtrs.Clear();
+
+		for (size_t i = 0; i < models.Size(); ++i)
+		{
+			modelPtrs.Add(&models[i]);
+		}
+
+		modelArr = modelPtrs.GetArrayPtr();
+		modelCount = (uint32_t)modelPtrs.Size();
 	}
 
 	const char* Model_GetName(const Model* model)
 	{
 		CheckPtr(model, nullptr);
 
-		// model->GetName() returtns a ref to the persistent member,
+		// model->GetName() returns a ref to the persistent member,
 		// char buffers of String's are always null terminated, so we
 		// can just return the buffer pointer.
 		const String& name = model->GetName();
