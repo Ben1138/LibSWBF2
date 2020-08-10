@@ -43,6 +43,8 @@ target_compile_options(SWBF2 PUBLIC -Wno-attributes)
 include_directories(.)
 include_directories(DirectX)
 
+add_subdirectory(Chunks)
+
 if(APPLE)
 	include_directories(/usr/local/include)
 endif()
@@ -59,7 +61,21 @@ target_sources(SWBF2 PUBLIC ${CORE_FILES}
 							${WRAPPERS_FILES} 
 							${LOGGING_FILES}
 							${TYPES_FILES})
-add_subdirectory(Chunks)
+
+
+#For XCodeProj generation
+
+file(GLOB_RECURSE ALL_SOURCES *.cpp)
+file(GLOB_RECURSE ALL_HEADERS *.h)
+set(PROJECT_FILES "${ALL_SOURCES}")
+list(APPEND PROJECT_FILES "${ALL_HEADERS}")
+
+#Need this in order for XCode to index header files,
+#doesn't change compilation at all...
+target_sources(SWBF2 PUBLIC ${ALL_HEADERS})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
+
+
 
 
 
@@ -77,5 +93,9 @@ else()
 endif()
 
 target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL
-								   chunkBNK chunkTERR
-								   fmt glm_static)
+								   chunkBNK chunkTERR)
+
+find_library(FMTLIB fmt)
+find_library(GLMLIB glm_static)
+
+target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB})
