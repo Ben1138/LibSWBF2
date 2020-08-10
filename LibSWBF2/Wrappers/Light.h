@@ -4,7 +4,7 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "InternalHelpers.h"
 
-
+/*
 #include <stdint.h>
 
 namespace LibSWBF2::Wrappers
@@ -52,7 +52,7 @@ public:
 	int radius;
 };
 
-
+*/
 
 /*
 
@@ -74,4 +74,4 @@ public:
  
  */
 
-}
+//}

@@ -13,7 +13,8 @@ namespace LibSWBF2::Chunks::LVL::light
 {
 	void lght::RefreshSize()
 	{
-		THROW("Not implemented!");
+		//THROW("Not implemented!");
+        return;
 	}
 
 	void lght::WriteToStream(FileWriter& stream)

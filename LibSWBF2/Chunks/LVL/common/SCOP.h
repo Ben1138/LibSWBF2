@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 Will contain class for the very generic DATA Chunk
 */
@@ -10,12 +12,12 @@ Will contain class for the very generic DATA Chunk
 namespace LibSWBF2::Chunks::LVL::common
 {
 
-struct SCOP : public GenericChunk<"SCOP"_m>{
-		//void RefreshSize() override;
-		//void WriteToStream(FileWriter& stream) override;
+struct LIBSWBF2_API SCOP : public GenericChunk<"SCOP"_m>{
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		//String ToString() override;
+		String ToString() override;
 };
 
 }

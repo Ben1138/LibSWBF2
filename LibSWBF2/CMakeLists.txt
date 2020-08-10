@@ -61,20 +61,9 @@ target_sources(SWBF2 PRIVATE ${CORE_FILES}
 							${LOGGING_FILES}
 							${TYPES_FILES})
 
-#For XCodeProj generation
-#[[
-file(GLOB_RECURSE ALL_SOURCES *.cpp)
-file(GLOB_RECURSE ALL_HEADERS *.h)
-set(PROJECT_FILES "${ALL_SOURCES}")
-list(APPEND PROJECT_FILES "${ALL_HEADERS}")
-
-#Need this in order for XCode to index header files,
-#doesn't change compilation at all...
-]]
+#Needed for correct XCodeProj generation, ALL_HEADERS
+#defined in root lists
 target_sources(SWBF2 PUBLIC ${ALL_HEADERS})
-#source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
-
-
 
 
 
@@ -90,9 +79,6 @@ else()
 	target_link_libraries(SWBF2 PUBLIC -ldl)
 	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
-
-
-#target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL chunkBNK chunkTERR)
 
 target_sources(SWBF2 PRIVATE ${CHUNKS_SOURCES})
 
