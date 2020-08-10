@@ -29,6 +29,7 @@ add_library(SWBF2)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
+#Setting a GLOBAL property seems to never work...
 set_property(TARGET SWBF2 PROPERTY CXX_STANDARD 20)
 set_property(TARGET SWBF2 PROPERTY CXX_STANDARD_REQUIRED ON)
 
@@ -47,10 +48,6 @@ target_include_directories(SWBF2 PUBLIC DirectX)
 
 add_subdirectory(Chunks)
 
-if(APPLE)
-	include_directories(/usr/local/include)
-endif()
-
 #Lazy, should fix
 file(GLOB CORE_FILES *.cpp)
 file(GLOB LOGGING_FILES Logging/*.cpp)
@@ -58,12 +55,11 @@ file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
 file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp)
 
-target_sources(SWBF2 PUBLIC ${CORE_FILES} 
+target_sources(SWBF2 PRIVATE ${CORE_FILES} 
 							${DIRECTX_FILES}
 							${WRAPPERS_FILES} 
 							${LOGGING_FILES}
 							${TYPES_FILES})
-
 
 #For XCodeProj generation
 #[[
@@ -95,8 +91,10 @@ else()
 	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
-target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL
-								   chunkBNK chunkTERR)
+
+#target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL chunkBNK chunkTERR)
+
+target_sources(SWBF2 PRIVATE ${CHUNKS_SOURCES})
 
 find_library(FMTLIB fmt)
 find_library(GLMLIB glm_static)

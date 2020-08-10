@@ -12,6 +12,21 @@
 namespace LibSWBF2::Chunks::LVL::common
 {
 
+    /*
+    template<uint32_t Header>
+    void GenericChunk<Header>::RefreshSize()
+    {
+        THROW("Not implemented!");
+    }
+
+    template<uint32_t Header>
+    void GenericChunk<Header>::WriteToStream(FileWriter& stream)
+    {
+        THROW("Not implemented!");
+    }
+    */
+
+
 void SCOP::ReadFromStream(FileReader& stream)
 {
     BaseChunk::ReadFromStream(stream);
