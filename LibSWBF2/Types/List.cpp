@@ -3,6 +3,12 @@
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
 
+#include "Chunks/LVL/common/SCOP.h"
+#include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/lght/lght.h"
+#include "Wrappers/Light.h"
+
+
 namespace LibSWBF2::Types
 {
 	template<class T>
@@ -449,7 +455,6 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<GenericBaseChunk*>;
 	template class LIBSWBF2_API Types::List<D3DFORMAT>;
 
-
 	template class LIBSWBF2_API Types::List<LVL::texture::FMT_*>;
 	template class LIBSWBF2_API Types::List<LVL::LVL_texture::LVL_*>;
 	template class LIBSWBF2_API Types::List<LVL::modl::modl*>;
@@ -460,7 +465,12 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
+	template class LIBSWBF2_API Types::List<LVL::light::lght*>;
+    template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
+    template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
 
+	//template class LIBSWBF2_API Types::List<Wrappers::BaseLight>;
+	//template class LIBSWBF2_API Types::List<Wrappers::OmnidirectionalLight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
