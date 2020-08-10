@@ -2,8 +2,6 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
 
-
-
 /*
 'lght' chunk spec
 
