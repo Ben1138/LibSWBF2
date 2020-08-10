@@ -24,7 +24,10 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API Model
 	{
-	public:
+	private:
+		friend Level;
+		friend List<Model>;
+
 		Model() = default;
 		~Model() = default;
 

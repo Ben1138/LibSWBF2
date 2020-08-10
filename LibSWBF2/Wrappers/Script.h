@@ -1,15 +1,22 @@
 #pragma once
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Types/Enums.h"
+#include "Types/List.h"
 
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::script::scr_;
 	using LibSWBF2::Types::String;
+	using LibSWBF2::Types::List;
+
+	class Level;
 
 	class LIBSWBF2_API Script
 	{
-	public:
+	private:
+		friend Level;
+		friend List<Script>;
+
 		Script() = default;
 		~Script() = default;
 
