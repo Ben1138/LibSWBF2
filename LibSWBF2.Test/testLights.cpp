@@ -30,7 +30,7 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
-	Level *testLVL = Level::FromFile("/home/will/Desktop/omnibasicslvl/TST_omni_rad1.lvl");
+	Level *testLVL = Level::FromFile("/home/will/Desktop/omnibasicslvl/TST_omni_12lights.lvl");
 
 	return 0;
 }
