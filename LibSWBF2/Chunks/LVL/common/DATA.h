@@ -8,5 +8,14 @@
 
 namespace LibSWBF2::Chunks::LVL::common
 {
-struct DATA : public RawData<"DATA"_m> {};
+
+struct LIBSWBF2_API DATA : public RawData<"DATA"_m> {
+
+	void RefreshSize() override;
+	void WriteToStream(FileWriter& stream) override;
+	void ReadFromStream(FileReader& stream) override;
+
+	String ToString() override;
+};
+
 }

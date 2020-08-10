@@ -1,5 +1,5 @@
 #include "Light.h"
-
+/*
 #include <string>
 #include <iostream>
 
@@ -31,7 +31,7 @@ OmnidirectionalLight::OmnidirectionalLight(DATA& description, SCOP& body) :
 //int radius;
 }
 
-
+*/
 
 /*
 SpotLight::SpotLight(DATA& description, SCOP& body) :
@@ -51,4 +51,4 @@ DirectionalLight::DirectionalLight(DATA& description, SCOP& body) :
 
 */
 
-}
+//}

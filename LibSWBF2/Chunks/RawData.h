@@ -1,3 +1,4 @@
+#pragma once
 #include "Chunks/GenericChunk.h"
 
 namespace LibSWBF2::Chunks
