@@ -18,6 +18,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
+		std::unordered_map<std::string, size_t> LightNameToIndex;
 	};
 
 	using Chunks::GenericBaseChunk;

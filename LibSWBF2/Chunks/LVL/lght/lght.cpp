@@ -71,8 +71,8 @@ namespace LibSWBF2::Chunks::LVL::light
         }
         else
         {
-            //Skip second one, don't understand it yet...
-            COUT("SKIPPING lght CHUNK");
+            //Skip second one
+            //COUT("SKIPPING lght CHUNK");
         }
 
         //COUT("END lght CHUNK");
