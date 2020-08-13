@@ -126,12 +126,23 @@ namespace LibSWBF2
 		TextureExtra = 130
 	};
 
+	enum class ELightType : uint32_t
+	{
+	    Omni = 0xA8,
+		Omni_Cast_Spec = 0x0,
+		Dir = 0xE0,
+		Dir_Cast_Spec = 0x0,
+		Spot = 0xF4,
+		Spot_Cast_Spec = 0x0
+	}; 
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
 	Types::String LIBSWBF2_API ModelPurposeToString(EModelPurpose flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
+	Types::String LIBSWBF2_API ELightTypeToString(ELightType type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);

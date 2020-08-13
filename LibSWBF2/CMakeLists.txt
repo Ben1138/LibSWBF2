@@ -23,6 +23,7 @@ project(libSWBF2)
 
 
 
+
 #SETTINGS
 
 add_library(SWBF2)
@@ -43,6 +44,10 @@ target_compile_options(SWBF2 PUBLIC -Wno-attributes)
 
 #SOURCES
 
+if(APPLE)
+	include_directories(/usr/local/include)
+endif()
+
 target_include_directories(SWBF2 PUBLIC .)
 target_include_directories(SWBF2 PUBLIC DirectX)
 
@@ -60,6 +65,14 @@ target_sources(SWBF2 PRIVATE ${CORE_FILES}
 							${WRAPPERS_FILES} 
 							${LOGGING_FILES}
 							${TYPES_FILES})
+
+#For XCodeProj generation
+
+file(GLOB_RECURSE ALL_SOURCES *.cpp)
+file(GLOB_RECURSE ALL_HEADERS *.h)
+set(PROJECT_FILES "${ALL_SOURCES}")
+list(APPEND PROJECT_FILES "${ALL_HEADERS}")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
 
 #Needed for correct XCodeProj generation, ALL_HEADERS
 #defined in root lists

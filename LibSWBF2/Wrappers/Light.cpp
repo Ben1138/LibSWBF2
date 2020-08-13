@@ -1,54 +1,50 @@
 #include "Light.h"
-/*
+
 #include <string>
 #include <iostream>
-
 #define COUT(x) std::cout << x << std::endl
+
 
 namespace LibSWBF2::Wrappers
 {
 
-using namespace LibSWBF2::Chunks::LVL::common;
 
-BaseLight::BaseLight(DATA& description, SCOP& body){
+Light::Light(DATA* description, SCOP* body){
     
-    const uint8_t *nameStr;
+    const uint8_t *rawData;
     size_t size;
-    description.GetData(nameStr, size);
+    description -> GetData(rawData, size);
     
-    name = std::string(reinterpret_cast<const char *>(nameStr), size);
+    //Actual name always starts 17 bytes after header
+    char *name = new char[size - 16]();
+    memcpy(name, rawData + 17, size - 17);
     
-    const auto children = body.GetChildren();
+    m_Name = name;
+    
+    //const auto children = body.GetChildren();
     
     COUT(name);
 }
 
 
 
-OmnidirectionalLight::OmnidirectionalLight(DATA& description, SCOP& body) :
-					BaseLight(description, body) {
-
-//int radius;
-}
-
-*/
-
-/*
-SpotLight::SpotLight(DATA& description, SCOP& body) :
-					BaseLight(description, body) {
-
-
-//int innerAngle, outerAngle;
+OmnidirectionalLight::OmnidirectionalLight(DATA* description, SCOP* body) :
+					Light(description, body) {
+    int radius = 0;
 }
 
 
-
-DirectionalLight::DirectionalLight(DATA& description, SCOP& body) :
-					BaseLight(description, body) {
-
-	//int length;
+SpotLight::SpotLight(DATA* description, SCOP* body) :
+					Light(description, body) {
+    int innerAngle = 0;
+    int outerAngle = 0;
 }
 
-*/
 
-//}
+DirectionalLight::DirectionalLight(DATA* description, SCOP* body) :
+					Light(description, body) {
+	int length = 0;
+}
+
+
+}

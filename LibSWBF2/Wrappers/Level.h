@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Terrain.h"
 #include "Script.h"
+#include "Light.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -36,6 +37,7 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
+		List<Light> m_Lights;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
