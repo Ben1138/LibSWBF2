@@ -469,8 +469,7 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
 
-	//template class LIBSWBF2_API Types::List<Wrappers::BaseLight>;
-	//template class LIBSWBF2_API Types::List<Wrappers::OmnidirectionalLight>;
+	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;

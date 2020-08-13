@@ -4,8 +4,15 @@
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
+#include "Chunks/LVL/lght/lght.h"
+#include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/common/SCOP.h"
 
 #include <unordered_map>
+
+
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2::Wrappers
 {
@@ -17,14 +24,16 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> WorldNameToIndex;
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
-		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 		std::unordered_map<std::string, size_t> LightNameToIndex;
+		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
+	using Chunks::LVL::light::lght;
+    using namespace Chunks::LVL::common;
 
 	Level::Level(LVL* lvl)
 	{
@@ -58,6 +67,46 @@ namespace LibSWBF2::Wrappers
 			if (Texture::FromChunk(textureChunk, texture))
 			{
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+			}
+		}
+		
+		lght* lightListChunk = dynamic_cast<lght*>(root);
+		if (lightListChunk != nullptr)
+		{
+            auto children = lightListChunk -> GetChildren();
+            
+            for (int i = 1; i < children.Size(); i+=2)
+			{
+                //The SCOP's size field determines the light type it represents,
+                //see Light.h for enum definitions
+				int sizeField = children[i + 1] -> GetDataSize();
+
+                Light *newLight = nullptr;
+                
+                DATA *lightName = dynamic_cast<DATA*>(children[i]);
+                SCOP *lightBody = dynamic_cast<SCOP*>(children[i+1]);
+
+				switch (sizeField)
+				{
+					case OMNI:
+                        newLight = new OmnidirectionalLight(lightName,
+                                                            lightBody);
+						break;
+					case SPOT:
+                        newLight = new SpotLight(lightName,
+                                                 lightBody);
+						break;
+					case DIR:
+                        newLight = new DirectionalLight(lightName,
+                                                        lightBody);
+						break;
+					default:
+						//More cases will be added for cast_specular, global lighting, etc
+						break;
+				}
+                
+                if (newLight != nullptr)
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight -> m_Name), m_Lights.Add(*newLight));
 			}
 		}
 

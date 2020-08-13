@@ -1,5 +1,3 @@
-// LibSWBF2.Test.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 #include "LibSWBF2.h"
 #include "FileWriter.h"
 #include "Chunks/LVL/LVL.h"
@@ -30,7 +28,11 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
-	Level *testLVL = Level::FromFile("/home/will/Desktop/omnibasicslvl/TST_omni_12lights.lvl");
+#ifdef __APPLE__
+	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+#else
+	Level *testLVL = Level::FromFile("/home/will/Desktop/spotlightlvl/TST_spot_green.lvl");
+#endif
 
 	return 0;
 }
