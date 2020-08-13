@@ -56,6 +56,8 @@ namespace LibSWBF2::Chunks::LVL::light
 		the various traits of each light.
 		*/
         
+        //There is this NAME chunk before the list starts,
+        //not sure exactly what it refers to....
         STR<"NAME"_m> *p_Marker;
 
 		List<DATA *> p_localLightHeaders;

@@ -4,8 +4,9 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "InternalHelpers.h"
 
-/*
 #include <stdint.h>
+#include <string>
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -24,54 +25,53 @@ typedef enum {
 } LIGHTTYPE;
 
 
-using namespace LibSWBF2::Chunks::LVL::common;
+using LibSWBF2::Chunks::LVL::common;
 
-struct BaseLight {
+struct Light {
 
 public:
 
-	glm::vec4 position;
-	glm::quat rotation;
+	glm::vec4 m_Position;
+	glm::quat m_Rotation;
 
-	glm::vec4 color;
+	glm::vec4 m_Color;
 
-	std::string name;
-	LIGHTTYPE type;
+	std::string m_Name;
+	LIGHTTYPE m_Type;
 
-	bool cast_specular;
+	bool m_CastSpecular;
 
-	BaseLight(DATA& description, SCOP& body);
+	Light(DATA description, SCOP body);
+	virtual std::string GetInfo()=0;
 };
 
 
 
-struct OmnidirectionalLight : BaseLight {
+struct OmnidirectionalLight : Light {
 
 public:
-	OmnidirectionalLight(DATA& description, SCOP& body);
-	int radius;
+	OmnidirectionalLight(DATA description, SCOP body);
+	virtual std::string GetInfo();
+	int m_Radius;
 };
 
-*/
 
-/*
-
-struct SpotLight : BaseLight {
+struct SpotLight : Light {
 
 public:
-	SpotLight(DATA& description, SCOP& body);
+	SpotLight(DATA description, SCOP body);
+	virtual std::string GetInfo();
 	int innerAngle, outerAngle;
 };
 
 
-
-struct DirectionalLight : BaseLight {
+struct DirectionalLight : Light {
 
 public:
-	DirectionalLight(DATA& description, SCOP& body);
+	DirectionalLight(DATA description, SCOP body);
+	virtual std::string GetInfo();
 	int length;
 };
  
- */
 
-//}
+}

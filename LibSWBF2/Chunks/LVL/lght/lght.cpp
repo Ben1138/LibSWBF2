@@ -34,10 +34,10 @@ namespace LibSWBF2::Chunks::LVL::light
         Check(stream);
         
         /*
-         There are 2 lght chunks in every lvl I've tested,
-         I haven't looked into the second one yet since it
-         doesn't have many readable strings, so skipping it
-         for now...
+         It seems in every ucfb, the first lght chunk contains
+         all local lights, and the other per-world lght's merely index
+         into the first one.  So for now, before we do per-world stuff,
+         we merely parse this first chunk.
          */
         
         if (!lght::skip)
@@ -72,10 +72,8 @@ namespace LibSWBF2::Chunks::LVL::light
         else
         {
             //Skip second one, don't understand it yet...
-            COUT("SKIPPING lght CHUNK");
+            LOG_WARN("SKIPPING lght CHUNK");
         }
-
-        //COUT("END lght CHUNK");
         
 		BaseChunk::EnsureEnd(stream);
 	}
