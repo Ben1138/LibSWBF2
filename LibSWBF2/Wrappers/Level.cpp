@@ -71,32 +71,33 @@ namespace LibSWBF2::Wrappers
 		}
 		
 		lght* lightListChunk = dynamic_cast<lght*>(root);
-		if (lightListChunk != nullptr)
+		if (lightListChunk != nullptr && !lightListChunk -> m_Empty)
 		{
             auto children = lightListChunk -> GetChildren();
             
-            for (int i = 1; i < children.Size(); i+=2)
+            //Skip the first dummy chunk, and stop before the last two (unknown contents)
+            for (int i = 1; i < children.Size() - 2; i+=2)
 			{
-                //The SCOP's size field determines the light type it represents,
-                //see Light.h for enum definitions
-				int sizeField = children[i + 1] -> GetDataSize();
+                //The SCOP's size field determines the light type it represents
+				ELightType sizeField = (ELightType) children[i + 1] -> GetDataSize();
 
                 Light *newLight = nullptr;
+                String lightString;
                 
                 DATA *lightName = dynamic_cast<DATA*>(children[i]);
                 SCOP *lightBody = dynamic_cast<SCOP*>(children[i+1]);
 
 				switch (sizeField)
 				{
-					case OMNI:
+					case ELightType::Omni:
                         newLight = new OmnidirectionalLight(lightName,
                                                             lightBody);
 						break;
-					case SPOT:
+					case ELightType::Spot:
                         newLight = new SpotLight(lightName,
                                                  lightBody);
 						break;
-					case DIR:
+					case ELightType::Dir:
                         newLight = new DirectionalLight(lightName,
                                                         lightBody);
 						break;
@@ -106,7 +107,11 @@ namespace LibSWBF2::Wrappers
 				}
                 
                 if (newLight != nullptr)
+                {
+                	lightString = newLight -> ToString();
+                	LOG_WARN(lightString.Buffer());
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight -> m_Name), m_Lights.Add(*newLight));
+				}
 			}
 		}
 

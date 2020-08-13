@@ -232,14 +232,14 @@ namespace LibSWBF2
 	{
 		switch(type)
 		{
-			case ELightType:Omni:
-				return "Omnidirectional"
-			case ELightType:Spot:
-				return "Spot"
-			case ELightType:Dir:
-				return "Directional"
+			case ELightType::Omni:
+				return "Omnidirectional";
+			case ELightType::Spot:
+				return "Spot";
+			case ELightType::Dir:
+				return "Directional";
 			default:
-				return "Unknown type or cast specular type (coming soon)"
+				return "Unknown type or cast specular type (coming soon)";
 		}
 	}
 
