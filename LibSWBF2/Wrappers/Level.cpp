@@ -75,25 +75,31 @@ namespace LibSWBF2::Wrappers
 			{
                 //The SCOP's size field determines the light type it represents
 				int sizeField = children[i + 1] -> GetDataSize();
-                Light *newLight;
+                Light *newLight = nullptr;
+                
+                DATA *lightName = reinterpret_cast<DATA*>(children[i]);
+                SCOP *lightBody = reinterpret_cast<SCOP*>(children[i+1]);
 
 				switch (sizeField)
 				{
 					case 0xA8:
-                        newLight = new OmnidirectionalLight(*children[i],
-                                                            *children[i+1]);
+                        newLight = new OmnidirectionalLight(*lightName,
+                                                            *lightBody);
 						break;
 					case 0xF4:
-                        newLight = new SpotLight(*children[i],
-                                                            *children[i+1]);
+                        newLight = new SpotLight(*lightName,
+                                                 *lightBody);
 						break;
 					case 0xE0:
-                        newLight = new DirectionalLight(*children[i],
-                                                            *children[i+1]);
+                        newLight = new DirectionalLight(*lightName,
+                                                        *lightBody);
 						break;
 					default:
 						break;
 				}
+                
+                if (newLight != nullptr)
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight -> m_Name), m_Lights.Add(*newLight));
 			}
 		}
 

@@ -25,7 +25,7 @@ typedef enum {
 } LIGHTTYPE;
 
 
-using LibSWBF2::Chunks::LVL::common;
+using namespace LibSWBF2::Chunks::LVL::common;
 
 struct Light {
 
@@ -36,13 +36,14 @@ public:
 
 	glm::vec4 m_Color;
 
-	std::string m_Name;
+	String m_Name;
 	LIGHTTYPE m_Type;
 
 	bool m_CastSpecular;
 
 	Light(DATA description, SCOP body);
-	virtual std::string GetInfo()=0;
+	Light() = default;
+//	virtual std::string GetInfo()=0;
 };
 
 
@@ -51,7 +52,7 @@ struct OmnidirectionalLight : Light {
 
 public:
 	OmnidirectionalLight(DATA description, SCOP body);
-	virtual std::string GetInfo();
+//	virtual std::string GetInfo();
 	int m_Radius;
 };
 
@@ -60,7 +61,7 @@ struct SpotLight : Light {
 
 public:
 	SpotLight(DATA description, SCOP body);
-	virtual std::string GetInfo();
+//	virtual std::string GetInfo();
 	int innerAngle, outerAngle;
 };
 
@@ -69,7 +70,7 @@ struct DirectionalLight : Light {
 
 public:
 	DirectionalLight(DATA description, SCOP body);
-	virtual std::string GetInfo();
+//	virtual std::string GetInfo();
 	int length;
 };
  
