@@ -8,38 +8,40 @@
 namespace LibSWBF2::Wrappers
 {
 
-using namespace LibSWBF2::Chunks::LVL::common;
 
-
-Light::Light(DATA& description, SCOP& body){
+Light::Light(DATA description, SCOP body){
     
-    const uint8_t *nameStr;
+    const uint8_t *rawData;
     size_t size;
-    description.GetData(nameStr, size);
+    description.GetData(rawData, size);
     
-    m_Name = std::string(reinterpret_cast<const char *>(nameStr), size);
+    char *name = new char[size - 5];
+    memcpy(name, rawData + 5, size - 5);
+    name[size - 6] = 0;
     
-    const auto children = body.GetChildren();
+    m_Name = name;
     
-    COUT(m_Name);
+    //const auto children = body.GetChildren();
+    
+    COUT(name);
 }
 
 
 
-OmnidirectionalLight::OmnidirectionalLight(DATA& description, SCOP& body) :
+OmnidirectionalLight::OmnidirectionalLight(DATA description, SCOP body) :
 					Light(description, body) {
     int radius = 0;
 }
 
 
-SpotLight::SpotLight(DATA& description, SCOP& body) :
+SpotLight::SpotLight(DATA description, SCOP body) :
 					Light(description, body) {
     int innerAngle = 0;
     int outerAngle = 0;
 }
 
 
-DirectionalLight::DirectionalLight(DATA& description, SCOP& body) :
+DirectionalLight::DirectionalLight(DATA description, SCOP body) :
 					Light(description, body) {
 	int length = 0;
 }

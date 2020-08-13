@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 
 namespace LibSWBF2::Types
 {
