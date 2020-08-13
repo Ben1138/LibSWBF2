@@ -71,6 +71,7 @@ namespace LibSWBF2::Chunks::LVL::light
         }
         else
         {
+        	m_Empty = true;
             LOG_WARN("SKIPPING lght CHUNK");
         }
         

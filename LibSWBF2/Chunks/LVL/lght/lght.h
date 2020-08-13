@@ -73,5 +73,7 @@ namespace LibSWBF2::Chunks::LVL::light
 		String ToString() override;
         
         inline static bool skip = false;
+
+        bool m_Empty = false;
 	};
 }

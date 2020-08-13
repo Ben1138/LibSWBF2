@@ -1,4 +1,6 @@
 #pragma once
+#include "LibString.h"
+
 
 namespace LibSWBF2
 {
@@ -19,6 +21,8 @@ namespace LibSWBF2::Types
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
+
+  		String ToString();
 
 		float_t m_Red = 0.0f;
 		float_t m_Green = 0.0f;

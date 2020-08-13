@@ -39,4 +39,10 @@ namespace LibSWBF2::Types
 		m_Red = stream.ReadFloat();
 		m_Alpha = stream.ReadFloat();
 	}
+
+	String Colorf::ToString()
+	{
+		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
+	}
+
 }
