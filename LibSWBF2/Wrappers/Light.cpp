@@ -2,6 +2,8 @@
 
 #include <string>
 #include <iostream>
+#include <math.h>  
+
 #define COUT(x) std::cout << x << std::endl
 
 
@@ -14,7 +16,6 @@ void read3Floats(const uint8_t *rawPtr,
     y = *(floatPtr + 1); 
     z = *(floatPtr + 2);   
 }
-
 
 void read4Floats(const uint8_t *rawPtr,
                             float_t& x,
@@ -34,22 +35,36 @@ void read4Floats(const uint8_t *rawPtr,
 namespace LibSWBF2::Wrappers
 {
 
+ELightType Light::TypeFromSCOP(SCOP *body)
+{
+	if (body -> GetChildren().Size() >= 3){
+		const uint8_t *rawData;
+	    size_t size;
+
+	    DATA *typeChunk = dynamic_cast<DATA *>(body -> GetChildren()[2]); 
+	    typeChunk -> GetData(rawData, size);
+
+	    if (size < 9){
+	    	return ELightType::Unknown;
+	    } else {
+	   		return (ELightType) (.1f + *((const float_t *) (rawData + 5)));  
+	   	}
+	}
+
+	return ELightType::Unknown;
+}
 
 
 Light::Light(DATA* description, SCOP* body)
 {
-
-    LOG_WARN("CONSTRUCTING NEW LIGHT");
-
     m_CastSpecular = false;
     
-    /*
-    NAME (FIX MESSY)
-    */
-
     const uint8_t *rawData;
     const float_t *floatData;
     size_t size;
+
+
+    //NAME (FIX MESSY)
     description -> GetData(rawData, size);
     
     //Actual name always starts 17 bytes after header
@@ -66,6 +81,7 @@ Light::Light(DATA* description, SCOP* body)
     const auto children = body -> GetChildren();
     float x,y,z,w;
 
+
     //ROTATION
     DATA *rotationChunk = dynamic_cast<DATA *>(children[0]); 
     rotationChunk -> GetData(rawData, size);
@@ -73,6 +89,7 @@ Light::Light(DATA* description, SCOP* body)
     read4Floats(rawData+5,x,y,z,w);
     m_Rotation = Vector4(x,y,z,w);
    
+
     //POSITION
     DATA *positionChunk = dynamic_cast<DATA *>(children[1]); 
     positionChunk -> GetData(rawData, size);
@@ -80,23 +97,23 @@ Light::Light(DATA* description, SCOP* body)
     read3Floats(rawData+5,x,y,z);  
     m_Position = Vector3(x,y,z);
 
+
     //COLOR
     DATA *colorChunk = dynamic_cast<DATA *>(children[3]); 
     colorChunk -> GetData(rawData, size);
 
-    read3Floats(rawData+5,x,y,z);  
-    m_Color = Colorf(x,y,z);
+    read3Floats(rawData+5,x,y,z); 
+    m_Color = Vector3(x,y,z);
 }
 
 String Light::ToString()
 {
-
     String posStr = m_Position.ToString();
     String rotStr = m_Rotation.ToString();
     String colStr = m_Color.ToString();
 
     return fmt::format(
-            "Name: {}, Position: {}, Rotation: {}, Color: {}",
+            "Name: {}, Position: {}, Rotation: {}, Color: {}\n",
             m_Name.Buffer(), posStr.Buffer(), rotStr.Buffer(), 
             colStr.Buffer()).c_str();
 }
@@ -106,6 +123,13 @@ OmnidirectionalLight::OmnidirectionalLight(DATA* description, SCOP* body) :
 					Light(description, body) 
 {
     int radius = 0;
+    m_Type = ELightType::Omni;
+}
+
+String OmnidirectionalLight::ToString()
+{
+	String basicData = ELightTypeToString(m_Type) + " light " + Light::ToString();
+	return basicData;
 }
 
 SpotLight::SpotLight(DATA* description, SCOP* body) :
@@ -113,12 +137,15 @@ SpotLight::SpotLight(DATA* description, SCOP* body) :
 {
     int innerAngle = 0;
     int outerAngle = 0;
+    m_Type = ELightType::Spot;
+
 }
 
 DirectionalLight::DirectionalLight(DATA* description, SCOP* body) :
 					Light(description, body)
 {
 	int length = 0;
+	m_Type = ELightType::Dir;
 }
 
 
