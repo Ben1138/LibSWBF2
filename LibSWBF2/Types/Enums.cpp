@@ -239,7 +239,7 @@ namespace LibSWBF2
 			case ELightType::Dir:
 				return "Directional";
 			default:
-				return "Unknown light type";
+				return "Unknown";
 		}
 	}
 
