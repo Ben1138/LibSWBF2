@@ -53,12 +53,14 @@ namespace LibSWBF2::Wrappers
 
 		bool IsWorldLevel() const;
 
+		const List<Light>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
 		const List<Terrain>& GetTerrains() const;
 		const List<Script>& GetScripts() const;
 
+		const Light* GetLight(String lightName) const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
