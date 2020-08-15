@@ -1,11 +1,6 @@
 #include "Light.h"
 
-#include <string>
-#include <iostream>
 #include <math.h>  
-
-#define COUT(x) std::cout << x << std::endl
-
 
 void read3Floats(const uint8_t *rawPtr, 
 				float_t& x, float_t& y,
@@ -25,8 +20,6 @@ void read4Floats(const uint8_t *rawPtr,
     z = *(floatPtr + 2);
     w = *(floatPtr + 3);   
 }
-
-
 
 
 namespace LibSWBF2::Wrappers
@@ -113,7 +106,6 @@ Light::Light(DATA* tag, SCOP* body)
     const auto children = body -> GetChildren();
     float x,y,z,w;
 
-
     //ROTATION
     DATA *rotationChunk = dynamic_cast<DATA *>(children[0]); 
     rotationChunk -> GetData(rawData, size);
@@ -121,14 +113,12 @@ Light::Light(DATA* tag, SCOP* body)
     read4Floats(rawData+5,x,y,z,w);
     m_Rotation = Vector4(x,y,z,w);
    
-
     //POSITION
     DATA *positionChunk = dynamic_cast<DATA *>(children[1]); 
     positionChunk -> GetData(rawData, size);
 
     read3Floats(rawData+5,x,y,z);  
     m_Position = Vector3(x,y,z);
-
 
     //COLOR
     DATA *colorChunk = dynamic_cast<DATA *>(children[3]); 

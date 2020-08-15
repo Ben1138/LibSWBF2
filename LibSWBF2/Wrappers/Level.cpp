@@ -179,6 +179,11 @@ namespace LibSWBF2::Wrappers
 		return m_Worlds.Size() > 0;
 	}
 
+	const List<Light>& Level::GetLights() const
+	{
+		return m_Lights;
+	}	
+
 	const List<Model>& Level::GetModels() const
 	{
 		return m_Models;
@@ -202,6 +207,23 @@ namespace LibSWBF2::Wrappers
 	const List<Script>& Level::GetScripts() const
 	{
 		return m_Scripts;
+	}
+
+	const Light* Level::GetLight(String lightName) const
+	{
+		if (lightName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->LightNameToIndex.find(ToLower(lightName));
+		if (it != m_NameToIndexMaps->LightNameToIndex.end())
+		{
+			return &m_Lights[it->second];
+		}
+
+		//LOG_WARN("Could not find Light '{}'!", lightName);
+		return nullptr;
 	}
 
 	const Model* Level::GetModel(String modelName) const
