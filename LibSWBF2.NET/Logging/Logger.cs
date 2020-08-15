@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Logging
 {
-    /// <summary>
-    /// Call Logger.Initialize before use!
-    /// </summary>
     public static class Logger
     {
         public static Action<LoggerEntry> OnLog;

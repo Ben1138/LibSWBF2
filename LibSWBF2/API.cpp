@@ -7,7 +7,7 @@
 
 namespace LibSWBF2
 {
-#define CheckPtr(msh, ret) if (msh == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
+#define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 	// Logging //
 	void LOG_SetCallbackMethod(const LogCallback Callback)
@@ -28,20 +28,20 @@ namespace LibSWBF2
 		return Chunks::MSH::MSH::Create();
 	}
 
-	bool MSH_Delete(Chunks::MSH::MSH* msh)
+	uint8_t MSH_Delete(Chunks::MSH::MSH* msh)
 	{
 		CheckPtr(msh, false)
 		LibSWBF2::Chunks::MSH::MSH::Destroy(msh);
 		return true;
 	}
 
-	bool MSH_ReadFromFile(Chunks::MSH::MSH* msh, const char* path)
+	uint8_t MSH_ReadFromFile(Chunks::MSH::MSH* msh, const char* path)
 	{
 		CheckPtr(msh, false)
 		return msh->ReadFromFile(path);
 	}
 
-	bool MSH_WriteToFile(Chunks::MSH::MSH* msh, const char* path)
+	uint8_t MSH_WriteToFile(Chunks::MSH::MSH* msh, const char* path)
 	{
 		CheckPtr(msh, false)
 		return msh->WriteToFile(path);
@@ -59,15 +59,93 @@ namespace LibSWBF2
 		return modl->GetPurpose();
 	}
 
-	// Tools
-	Wrappers::Level* Level_FromFile(const char* path)
+	// Wrappers
+	Level* Level_FromFile(const char* path)
 	{
-		return Wrappers::Level::FromFile(path);
+		CheckPtr(path, nullptr);
+		return Level::FromFile(path);
 	}
 
-	void Level_Destroy(Wrappers::Level* level)
+	void Level_Destroy(Level* level)
 	{
-		Wrappers::Level::Destroy(level);
+		CheckPtr(level,);
+		Level::Destroy(level);
+	}
+
+	uint8_t Level_IsWorldLevel(const Level* level)
+	{
+		CheckPtr(level, false);
+		return level->IsWorldLevel();
+	}
+
+	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
+	{
+		CheckPtr(level, );
+		const List<Model>& models = level->GetModels();
+
+		// since level->GetModels() just returns a reference to the actual list
+		// member of level, which will persist even after this call ended, we can safely
+		// provide the model addresses of the underlying buffer to the inquirer. 
+		// The inquirer of course is not allowed to alter the data!
+		static List<const Model*> modelPtrs;
+		modelPtrs.Clear();
+
+		for (size_t i = 0; i < models.Size(); ++i)
+		{
+			modelPtrs.Add(&models[i]);
+		}
+
+		modelArr = modelPtrs.GetArrayPtr();
+		modelCount = (uint32_t)modelPtrs.Size();
+	}
+
+	const char* Model_GetName(const Model* model)
+	{
+		CheckPtr(model, nullptr);
+
+		// model->GetName() returns a ref to the persistent member,
+		// char buffers of String's are always null terminated, so we
+		// can just return the buffer pointer.
+		const String& name = model->GetName();
+		return name.Buffer();
+	}
+
+	const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount)
+	{
+		CheckPtr(model,);
+		const List<Segment>& segments = model->GetSegments();
+		segmentArr = segments.GetArrayPtr();
+		segmentCount = (uint32_t)segments.Size();
+	}
+
+	uint8_t Model_IsSkeletalMesh(const Model* model)
+	{
+		CheckPtr(model, false);
+		return model->IsSkeletalMesh();
+	}
+
+	uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount)
+	{
+		CheckPtr(model, false);
+
+		// keep this static, so the buffer is valid after the call ends.
+		// this of course results in holding a permanent copy of the last queried
+		// bone list in memory, and will overwrite the buffer in the next query...
+		// TODO: maybe make the bone list a member of Model?
+		static List<Bone> bones;
+		if (!model->GetSkeleton(bones))
+		{
+			return false;
+		}
+		boneArr = bones.GetArrayPtr();
+		boneCount = (uint32_t)bones.Size();
+		return true;
+	}
+
+	const Model* Level_GetModel(const Level* level, const char* modelName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetModel(modelName);
 	}
 
 	const char* ENUM_TopologyToString(ETopology topology)

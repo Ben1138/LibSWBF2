@@ -12,11 +12,15 @@ namespace LibSWBF2::Wrappers
 	using Types::Vector3;
 	using Types::Color;
 	using Chunks::LVL::terrain::tern;
+	
 	class Level;
 
 	class LIBSWBF2_API Terrain
 	{
-	public:
+	private:
+		friend Level;
+		friend List<Terrain>;
+
 		Terrain() = default;
 		~Terrain() = default;
 

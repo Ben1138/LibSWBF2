@@ -1,16 +1,23 @@
 #pragma once
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Types/Enums.h"
+#include "Types/List.h"
 
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::texture::FMT_;
 	using LibSWBF2::Types::String;
+	using LibSWBF2::Types::List;
+
+	class Level;
 
 	class LIBSWBF2_API Texture
 	{
-	public:
+	private:
+		friend Level;
+		friend List<Texture>;
+
 		Texture() = default;
 		~Texture() = default;
 

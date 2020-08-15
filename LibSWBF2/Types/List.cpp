@@ -482,4 +482,5 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 }

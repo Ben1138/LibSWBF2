@@ -14,10 +14,15 @@ namespace LibSWBF2::Wrappers
 	using Types::String;
 
 	class Level;
+	class Segment;
 
 	class LIBSWBF2_API Material
 	{
-	public:
+	private:
+		friend Level;
+		friend Segment;
+		friend List<Material>;
+
 		Material() = default;
 		~Material() = default;
 

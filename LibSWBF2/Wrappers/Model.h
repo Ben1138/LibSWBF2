@@ -24,7 +24,10 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API Model
 	{
-	public:
+	private:
+		friend Level;
+		friend List<Model>;
+
 		Model() = default;
 		~Model() = default;
 
@@ -36,7 +39,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Level* mainContainer, modl* modelChunk, Model& out);
 
-		String GetName() const;
+		const String& GetName() const;
 		const List<Segment>& GetSegments() const;
 		bool IsSkeletalMesh() const;
 		bool GetSkeleton(List<Bone>& bones) const;
