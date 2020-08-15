@@ -269,9 +269,9 @@ namespace LibSWBF2::Chunks
 
 #ifndef _WIN32
 	//Undef ref linker errors fix
-	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
-	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
-	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+	//template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
+	//template struct LIBSWBF2_API GenericChunk<"inst"_m>;
+	//template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
     template struct LIBSWBF2_API GenericChunk<"lght"_m>;
     template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
     template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
