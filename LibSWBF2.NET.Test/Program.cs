@@ -13,27 +13,35 @@ namespace LibSWBF2.NET.Test
     {
         static void Main(string[] args)
         {
-            Logger.SetLogLevel(ELogType.Warning);
-            Logger.OnLog += (LoggerEntry logEntry) => 
-            {
-                Console.WriteLine(logEntry.ToString());
-            };
+            Model lastModel = null;
 
-            Console.WriteLine("Loading... This might take a while...");
-            
-            Level level = Level.FromFile(@"F:\SteamLibrary\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
-            //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-            
-            Console.WriteLine("Is World Level: " + level.IsWorldLevel);
-            Console.WriteLine("Models:");
-
-            Model[] models = level.GetModels();
-            foreach (Model model in models)
             {
-                Console.WriteLine("\t" + model.Name);
+                Logger.SetLogLevel(ELogType.Warning);
+                Logger.OnLog += (LoggerEntry logEntry) => 
+                {
+                    Console.WriteLine(logEntry.ToString());
+                };
+
+                Console.WriteLine("Loading... This might take a while...");
+                Level level = Level.FromFile(@"F:\SteamLibrary\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
+
+                Console.WriteLine("Is World Level: " + level.IsWorldLevel);
+                Console.WriteLine("Models:");
+
+                Model[] models = level.GetModels();
+                foreach (Model model in models)
+                {
+                    Console.WriteLine("\t" + model.Name);
+                    lastModel = model;
+                }
+
+                //level.Delete();
+                Console.WriteLine("Done!");
             }
 
-            Console.WriteLine("Done!");
+            // Since we explicitly deleted the Level, all model references should be
+            // invalid at this point
+            Console.WriteLine("Last Model is still valid: " + lastModel.IsValid());
             Console.ReadKey();
         }
     }

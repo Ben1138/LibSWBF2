@@ -11,8 +11,11 @@ def AddToList(item):
     # strip first
     item = item.strip()
     # ignore template project stuff and comments
-    if not item.startswith('@') and not item.startswith("--") and not item.startswith("//") and not item.startswith(r"\\") and not item.startswith("#"):
-        namelist.add(item)
+    if item and not item.startswith('@') and not item.startswith("--") and not item.startswith("//") and not item.startswith(r"\\") and not item.startswith("#"):
+        # Neither the hash function, nor windows, nor the game
+        # cares about case sensitivity. So lowercase just everything
+        # to avoid case sensitive duplicates
+        namelist.add(item.lower())
 
 # read current list, so we can actually add stuff manually to the
 # lookup file that doesn't get deleted once this script is run
@@ -31,23 +34,25 @@ for path in Path(ModToolsPath).rglob("*.odf"):
     for i, line in enumerate(open(path)):
         for match in propertyReg.finditer(line):
             found = match.group(1)
-            if not found.startswith("//") and "//" in found:
-                print("NOOO: " + found)
-                print(match)
-                print(match.groups())
-                print("In File: %s at line: %d", path, i)
             AddToList(match.group(1))
             count2 += 1
 print("Found %d ODF files" % count)
 print("Found %d Property Names in ODF files" % count2)
 
-# Grab all req files
+# Grab all req files and extract strings
 count = 0
+count2 = 0
+stringReg = re.compile(r"\"(.*)\"")
 for path in Path(ModToolsPath).rglob("*.req"):
     name = os.path.basename(path).replace(".req", "")
     AddToList(name)
     count += 1
+    for i, line in enumerate(open(path)):
+        for match in stringReg.finditer(line):
+            AddToList(match.group(1))
+            count2 += 1
 print("Found %d REQ files" % count)
+print("Found %d strings in REQ files" % count2)
 
 # Grab all MSH files in assets\Animations without extension
 count = 0
