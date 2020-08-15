@@ -107,7 +107,7 @@ namespace LibSWBF2::Chunks
 	{
 		return GetAlignedSize() + sizeof(ChunkHeader) + sizeof(ChunkSize);
 	}
-	
+
 	size_t BaseChunk::GetPosition() const
 	{
 		return m_ChunkPosition;
@@ -176,3 +176,4 @@ namespace LibSWBF2::Chunks
 		}
 	}
 }
+

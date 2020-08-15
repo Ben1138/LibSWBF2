@@ -66,25 +66,25 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
 			}
 		}
-		
+
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr && !lightListChunk -> m_Empty)
 		{
             auto children = lightListChunk -> GetChildren();
-            
+
             //Skip the first dummy chunk, and stop before the last two (unknown/probably global)
             for (int i = 1; i < children.Size() - 2; i+=2)
 			{
                 Light newLight;
                 String lightString;
-                
+
                 DATA *tag = dynamic_cast<DATA*>(children[i]);
                 SCOP *body = dynamic_cast<SCOP*>(children[i+1]);
 
                 //Method handles null check
                 if (Light::FromChunks(tag, body, newLight))
                 {
-                	//LOG_WARN(newLight.ToString().Buffer());
+                	LOG_WARN(newLight.ToString().Buffer());
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.m_Name), m_Lights.Add(newLight));
                 }
 			}
@@ -153,7 +153,7 @@ namespace LibSWBF2::Wrappers
 			LVL::Destroy(lvl);
 			return nullptr;
 		}
-		
+
 		Level* result = new Level(lvl);
 		result->ExploreChildrenRecursive(lvl);
 
@@ -179,7 +179,7 @@ namespace LibSWBF2::Wrappers
 	const List<Light>& Level::GetLights() const
 	{
 		return m_Lights;
-	}	
+	}
 
 	const List<Model>& Level::GetModels() const
 	{
