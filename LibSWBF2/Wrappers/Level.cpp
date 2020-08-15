@@ -87,6 +87,7 @@ namespace LibSWBF2::Wrappers
                 //Method handles null check
                 if (Light::FromChunks(tag, body, newLight))
                 {
+                	//LOG_WARN(newLight.ToString().Buffer());
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.m_Name), m_Lights.Add(newLight));
                 }
 			}

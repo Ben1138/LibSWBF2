@@ -44,36 +44,16 @@ using namespace LibSWBF2::Chunks::LVL::common;
 namespace LibSWBF2::Chunks::LVL::light
 {
 
-	struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
-	{
-	public:
+struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
+{
+public:
+	void RefreshSize() override;
+	void WriteToStream(FileWriter& stream) override;
+	void ReadFromStream(FileReader& stream) override;
+    bool m_Empty = false;
 
-		/*
-		Childchunks for each light.  Each light
-		has a single header and block chunk.  
-		Each DATA contains light's the name and ?.
-		Each SCOP contains DATA children which describe
-		the various traits of each light.
-		*/
-        
-        //There is this NAME chunk before the list starts,
-        //not sure exactly what it refers to....
-        STR<"NAME"_m> *p_Marker;
+private:
+    inline static bool skip = false;
+};
 
-		List<DATA *> p_localLightHeaders;
-		List<SCOP *> p_localLightBlocks;
-
-		List<DATA *> p_globalLightHeaders; //**will be changed**
-		List<SCOP *> p_globalLightBlocks;  //**will be changed**
-
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
-
-		String ToString() override;
-        
-        inline static bool skip = false;
-
-        bool m_Empty = false;
-	};
 }
