@@ -73,6 +73,7 @@
     <Compile Include="Types\Vector3.cs" />
     <Compile Include="Types\Vector4.cs" />
     <Compile Include="Wrappers\Level.cs" />
+    <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
