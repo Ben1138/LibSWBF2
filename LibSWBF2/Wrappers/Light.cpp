@@ -7,21 +7,18 @@
 #define COUT(x) std::cout << x << std::endl
 
 
-void read3Floats(const uint8_t *rawPtr,
-                            float_t& x,
-                            float_t& y,
-                            float_t& z){
+void read3Floats(const uint8_t *rawPtr, 
+				float_t& x, float_t& y,
+				float_t& z){
     const float_t *floatPtr = reinterpret_cast<const float_t *>(rawPtr);
     x = *(floatPtr); 
     y = *(floatPtr + 1); 
     z = *(floatPtr + 2);   
 }
 
-void read4Floats(const uint8_t *rawPtr,
-                            float_t& x,
-                            float_t& y,
-                            float_t& z,
-                            float_t& w){
+void read4Floats(const uint8_t *rawPtr, 
+				float_t& x, float_t& y,
+                float_t& z, float_t& w){
     const float_t *floatPtr = reinterpret_cast<const float_t *>(rawPtr);
     x = *(floatPtr); 
     y = *(floatPtr + 1); 
@@ -34,6 +31,41 @@ void read4Floats(const uint8_t *rawPtr,
 
 namespace LibSWBF2::Wrappers
 {
+
+bool Light::FromChunks(DATA *tag, SCOP* body, Light& out)
+{
+	if (tag == nullptr)
+	{
+		LOG_ERROR("Given light DATA  was NULL!");
+		return false;
+	}
+	if (body == nullptr)
+	{
+		LOG_ERROR("Given light SCOP was NULL!");
+		return false;
+	}
+
+	ELightType lightType = Light::TypeFromSCOP(body);
+
+	switch (lightType)
+	{
+		case ELightType::Omni:
+            out = OmnidirectionalLight(tag, body);
+			break;
+		case ELightType::Spot:
+            out = SpotLight(tag, body);
+			break;
+		case ELightType::Dir:
+            out = DirectionalLight(tag, body);
+			break;
+		default:
+			return false;
+			break;
+	}
+
+	return true;
+}
+
 
 ELightType Light::TypeFromSCOP(SCOP *body)
 {
@@ -55,7 +87,7 @@ ELightType Light::TypeFromSCOP(SCOP *body)
 }
 
 
-Light::Light(DATA* description, SCOP* body)
+Light::Light(DATA* tag, SCOP* body)
 {
     m_CastSpecular = false;
     
@@ -65,7 +97,7 @@ Light::Light(DATA* description, SCOP* body)
 
 
     //NAME (FIX MESSY)
-    description -> GetData(rawData, size);
+    tag -> GetData(rawData, size);
     
     //Actual name always starts 17 bytes after header
     char *name = new char[size - 16]();
@@ -113,7 +145,8 @@ String Light::ToString()
     String colStr = m_Color.ToString();
 
     return fmt::format(
-            "Name: {}, Position: {}, Rotation: {}, Color: {}\n",
+            "Type: {}, Name: {}, Position: {}, Rotation: {}, Color: {}\n",
+            ELightTypeToString(m_Type).Buffer(),
             m_Name.Buffer(), posStr.Buffer(), rotStr.Buffer(), 
             colStr.Buffer()).c_str();
 }

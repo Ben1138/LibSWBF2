@@ -8,7 +8,6 @@
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
 
-
 #include <stdint.h>
 #include <string>
 
@@ -26,19 +25,19 @@ public:
 	Vector3 m_Position;
 	Vector4 m_Rotation;
 
-	Vector3 m_Color; //defined as Vector3 since Colorf::ToString
-					 //seems buggy, TODO: FIX COLORF
-
+	Vector3 m_Color; //defined as Vector3 since Colorf
+					 //is buggy, TODO: FIX COLORF
 	String m_Name;
 	ELightType m_Type;
 
 	bool m_CastSpecular;
 
-	Light(DATA* description, SCOP* body);
+	Light(DATA* tag, SCOP* body);
 	Light() = default;
 
 	virtual String ToString();
 	static ELightType TypeFromSCOP(SCOP* body);
+	static bool FromChunks(DATA *tag, SCOP* body, Light& out);
 };
 
 

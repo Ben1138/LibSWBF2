@@ -75,41 +75,20 @@ namespace LibSWBF2::Wrappers
 		{
             auto children = lightListChunk -> GetChildren();
             
-            //Skip the first dummy chunk, and stop before the last two (unknown contents)
+            //Skip the first dummy chunk, and stop before the last two (unknown/probably global)
             for (int i = 1; i < children.Size() - 2; i+=2)
 			{
-                Light *newLight = nullptr;
+                Light newLight;
                 String lightString;
                 
-                DATA *lightName = dynamic_cast<DATA*>(children[i]);
-                SCOP *lightBody = dynamic_cast<SCOP*>(children[i+1]);
+                DATA *tag = dynamic_cast<DATA*>(children[i]);
+                SCOP *body = dynamic_cast<SCOP*>(children[i+1]);
 
-                ELightType lightType = Light::TypeFromSCOP(lightBody);
-
-				switch (lightType)
-				{
-					case ELightType::Omni:
-                        newLight = new OmnidirectionalLight(lightName,
-                                                            lightBody);
-						break;
-					case ELightType::Spot:
-                        newLight = new SpotLight(lightName,
-                                                 lightBody);
-						break;
-					case ELightType::Dir:
-                        newLight = new DirectionalLight(lightName,
-                                                        lightBody);
-						break;
-					default:
-						break;
-				}
-                
-                if (newLight != nullptr)
+                //Method handles null check
+                if (Light::FromChunks(tag, body, newLight))
                 {
-                	lightString = newLight -> ToString();
-                	LOG_WARN(lightString.Buffer());
-                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight -> m_Name), m_Lights.Add(*newLight));
-				}
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.m_Name), m_Lights.Add(newLight));
+                }
 			}
 		}
 
