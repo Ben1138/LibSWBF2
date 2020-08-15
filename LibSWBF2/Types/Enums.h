@@ -59,7 +59,7 @@ namespace LibSWBF2
 		LOWD = 4
 	};
 
-	enum class ETopology : int32_t 
+	enum class ETopology : int32_t
 	{
 		PointList = 1,
 		LineList = 2,
@@ -97,7 +97,7 @@ namespace LibSWBF2
 		None = 0b0u,
 		Position = 0b10u,
 		Unknown1 = 0b100u,		// definetly not bone indices
-		
+
 		// this is questionable... not found in all of sides/rep.lvl. Another UV maybe (2 float)?
 		BlendWeight = 0b1000u,
 
@@ -129,10 +129,10 @@ namespace LibSWBF2
 	enum class ELightType : uint32_t
 	{
 	    Omni = 2,
-		Dir = 3,
-		Spot = 1,
+		Dir = 1,
+		Spot = 3,
 		Unknown = 0,
-	}; 
+	};
 
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);

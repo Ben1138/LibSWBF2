@@ -31,7 +31,7 @@ int main()
 #ifdef __APPLE__
 	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 #else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/spotlightlvl/TST_spot_green.lvl");
+	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
 #endif
 
 	return 0;
