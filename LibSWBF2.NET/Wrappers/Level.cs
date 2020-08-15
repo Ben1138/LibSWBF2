@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibSWBF2.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,19 +8,49 @@ using System.Threading.Tasks;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Level
+    public class Level : NativeWrapper
     {
-        private IntPtr NativeLevel;
+        private HashSet<WeakReference<NativeWrapper>> Children;
 
         // Make constructor private, so instantiation is only possible via FromFile
-        private Level()
+        private Level() : base(IntPtr.Zero)
         {
-
+            Children = new HashSet<WeakReference<NativeWrapper>>();
         }
 
         ~Level()
         {
-            APIWrapper.Level_Destroy(NativeLevel);
+            Delete();
+        }
+
+        /// <summary>
+        /// Don't use this method unless you know exactly what you're doing!
+        /// This will delete the underlying native Level instance and invalidate this
+        /// Level wrapper instance, as well as all its children of whom references might
+        /// still float around somewhere.
+        /// </summary>
+        public void Delete()
+        {
+            if (!IsValid())
+            {
+                Logger.Log("Cannot delete invalid Level!", ELogType.Warning);
+                return;
+            }
+
+            APIWrapper.Level_Destroy(NativeInstance);
+            NativeInstance = IntPtr.Zero;
+
+            foreach (WeakReference<NativeWrapper> childRef in Children)
+            {
+                if (childRef.TryGetTarget(out NativeWrapper child))
+                {
+                    child.Invalidate();
+                }
+                else
+                {
+                    Children.Remove(childRef);
+                }
+            }
         }
 
         public static Level FromFile(string path)
@@ -31,18 +62,18 @@ namespace LibSWBF2.Wrappers
             }
 
             Level level = new Level();
-            level.NativeLevel = native;
+            level.NativeInstance = native;
             return level;
         }
 
         public bool IsWorldLevel
         {
-            get { return APIWrapper.Level_IsWorldLevel(NativeLevel); }
+            get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
 
         public Model[] GetModels()
         {
-            APIWrapper.Level_GetModels(NativeLevel, out IntPtr modelArr, out uint modelCount);
+            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
             IntPtr[] modelPtrs= new IntPtr[modelCount];
             Marshal.Copy(modelArr, modelPtrs, 0, (int)modelCount);
 
@@ -50,6 +81,7 @@ namespace LibSWBF2.Wrappers
             for (int i = 0; i < modelCount; i++)
             {
                 models[i] = new Model(modelPtrs[i]);
+                Children.Add(new WeakReference<NativeWrapper>(models[i]));
             }
 
             return models;
@@ -57,13 +89,15 @@ namespace LibSWBF2.Wrappers
 
         public Model GetModel(string modelName)
         {
-            IntPtr modelPtr = APIWrapper.Level_GetModel(NativeLevel, modelName);
+            IntPtr modelPtr = APIWrapper.Level_GetModel(NativeInstance, modelName);
             if (modelPtr == null)
             {
                 return null;
             }
 
-            return new Model(modelPtr);
+            Model model = new Model(modelPtr);
+            Children.Add(new WeakReference<NativeWrapper>(model));
+            return model;
         }
     }
 }
