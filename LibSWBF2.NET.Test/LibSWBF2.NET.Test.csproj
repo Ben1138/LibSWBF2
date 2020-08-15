@@ -78,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--Due some strange mono bug, xbuild only differentiates between Windows and Unix, so we detect Mac by checking for libc.dylib-->
   <PropertyGroup Condition="'$(OS)' == 'Unix' and  $([System.IO.File]::Exists('/usr/lib/libc.dylib'))">
     <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.dylib" "$(TargetDir)libSWBF2.dylib"</PostBuildEvent>
   </PropertyGroup>
