@@ -11,9 +11,6 @@
 #include <unordered_map>
 
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace LibSWBF2::Wrappers
 {
 	class MapsWrapper

@@ -8,9 +8,6 @@
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
 
-#include <stdint.h>
-#include <string>
-
 
 namespace LibSWBF2::Wrappers
 {
