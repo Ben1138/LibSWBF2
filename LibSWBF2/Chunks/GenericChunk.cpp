@@ -22,8 +22,6 @@
 
 #include "LVL/lght/lght.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2::Chunks
 {

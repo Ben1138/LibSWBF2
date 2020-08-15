@@ -5,9 +5,6 @@
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 
 namespace LibSWBF2::Chunks::LVL::light
 {

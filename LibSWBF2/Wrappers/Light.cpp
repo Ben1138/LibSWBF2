@@ -1,6 +1,6 @@
 #include "Light.h"
 
-#include <math.h>  
+#include <stdint.h>
 
 void read3Floats(const uint8_t *rawPtr, 
 				float_t& x, float_t& y,
