@@ -78,16 +78,15 @@ namespace LibSWBF2::Wrappers
             //Skip the first dummy chunk, and stop before the last two (unknown contents)
             for (int i = 1; i < children.Size() - 2; i+=2)
 			{
-                //The SCOP's size field determines the light type it represents
-				ELightType sizeField = (ELightType) children[i + 1] -> GetDataSize();
-
                 Light *newLight = nullptr;
                 String lightString;
                 
                 DATA *lightName = dynamic_cast<DATA*>(children[i]);
                 SCOP *lightBody = dynamic_cast<SCOP*>(children[i+1]);
 
-				switch (sizeField)
+                ELightType lightType = Light::TypeFromSCOP(lightBody);
+
+				switch (lightType)
 				{
 					case ELightType::Omni:
                         newLight = new OmnidirectionalLight(lightName,
@@ -102,7 +101,6 @@ namespace LibSWBF2::Wrappers
                                                         lightBody);
 						break;
 					default:
-						//More cases will be added for cast_specular, global lighting, etc
 						break;
 				}
                 

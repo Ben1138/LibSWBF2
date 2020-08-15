@@ -128,12 +128,10 @@ namespace LibSWBF2
 
 	enum class ELightType : uint32_t
 	{
-	    Omni = 0xA8,
-		Omni_Cast_Spec = 0x0,
-		Dir = 0xE0,
-		Dir_Cast_Spec = 0x0,
-		Spot = 0xF4,
-		Spot_Cast_Spec = 0x0
+	    Omni = 2,
+		Dir = 3,
+		Spot = 1,
+		Unknown = 0,
 	}; 
 
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);

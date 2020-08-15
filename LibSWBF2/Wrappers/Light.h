@@ -26,7 +26,8 @@ public:
 	Vector3 m_Position;
 	Vector4 m_Rotation;
 
-	Colorf m_Color;
+	Vector3 m_Color; //defined as Vector3 since Colorf::ToString
+					 //seems buggy, TODO: FIX COLORF
 
 	String m_Name;
 	ELightType m_Type;
@@ -37,6 +38,7 @@ public:
 	Light() = default;
 
 	virtual String ToString();
+	static ELightType TypeFromSCOP(SCOP* body);
 };
 
 
@@ -46,6 +48,7 @@ struct OmnidirectionalLight : Light {
 public:
 	OmnidirectionalLight(DATA* description, SCOP* body);
 	int m_Radius;
+	String ToString();
 };
 
 
