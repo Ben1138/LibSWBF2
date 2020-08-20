@@ -126,12 +126,20 @@ namespace LibSWBF2
 		TextureExtra = 130
 	};
 
+	enum class ELVLType
+	{
+		Generic,
+		Sound,
+		Core
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
 	Types::String LIBSWBF2_API ModelPurposeToString(EModelPurpose flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
+	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
