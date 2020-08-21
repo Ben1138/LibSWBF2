@@ -213,6 +213,12 @@ namespace LibSWBF2::Wrappers
 		vertexBuffer = m_Positions.GetArrayPtr();
 	}
 
+	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& vertexBuffer) const
+	{
+		count = (uint32_t)m_Positions.Size();
+		vertexBuffer = m_Positions.GetArrayPtr();
+	}
+
 	void Terrain::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const
 	{
 		count = (uint32_t)m_Normals.Size();
