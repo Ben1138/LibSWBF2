@@ -148,6 +148,9 @@ namespace LibSWBF2::Wrappers
 					return false;
 				}
 
+				COUT("numPatches = " << numPatches);
+				COUT("dataEdgeSize = " << dataEdgeSize);
+
 				uint32_t vertexOffset = 0;
 				for (uint16_t i = 0; i < numPatches; ++i)
 				{
@@ -218,13 +221,9 @@ namespace LibSWBF2::Wrappers
 
 	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& buffer) const
 	{
-		COUT("STARTING GET VERTEX BUFFER RAW");
-
         Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
         uint32_t numVerts = m_Positions.Size();
         float_t *rawVerts = new float_t[numVerts * 3];
-
-        COUT("ABOUT TO LOOP OVER " << numVerts << " VERTS.");
         
         for (int i = 0; i < numVerts; i++)
         {
@@ -233,8 +232,6 @@ namespace LibSWBF2::Wrappers
             rawVerts[i * 3 + 1] = curVert.m_Y;
             rawVerts[i * 3 + 2] = curVert.m_Z;
         }
-
-        COUT("DONE LOOP");
         
         count = numVerts;
         buffer = rawVerts;
