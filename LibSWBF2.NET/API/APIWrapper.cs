@@ -15,7 +15,6 @@ namespace LibSWBF2
 
 
         // Logging //
-
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void LOG_SetCallbackMethod(LogCallback Callback);
 
@@ -24,7 +23,6 @@ namespace LibSWBF2
 
 
         // Level //
-
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_FromFile([MarshalAs(UnmanagedType.LPStr)] string path);
 
