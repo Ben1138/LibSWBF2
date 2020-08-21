@@ -8,12 +8,13 @@ using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Model : NativeWrapper
+    public class Terrain : NativeWrapper
     {
-        internal Model(IntPtr modelPtr) : base(modelPtr)
+        internal Terrain(IntPtr terrainPtr) : base(terrainPtr)
         {
 
         }
+
 
         public string Name
         {
@@ -33,26 +34,8 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSegments()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
-            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
-            IntPtr[] segments = new IntPtr[segmentCount];
-            Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
-            return segments;
-        }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSkeleton()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
-            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
-            IntPtr[] bones = new IntPtr[boneCount];
-            Marshal.Copy(boneArr, bones, 0, (int)boneCount);
-            return bones;
-        }
     }
 }

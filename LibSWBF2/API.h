@@ -69,7 +69,7 @@ namespace LibSWBF2
 
 		//Terrain
 		LIBSWBF2_API const Terrain* Terrain_GetHeights(const Terrain *, const uint8_t *heights);
-		LIBSWBF2_API const Terrain* Terrain_GetTerrainTexName(const Terrain *, const char *)
-		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level)
+		LIBSWBF2_API const Terrain* Terrain_GetTerrainTexName(const Terrain *, const char *);
+		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level);
 	}
 }
