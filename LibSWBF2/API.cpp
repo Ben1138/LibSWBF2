@@ -3,7 +3,6 @@
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
-#include "Wrappers/Level.h"
 
 namespace LibSWBF2
 {
@@ -148,19 +147,31 @@ namespace LibSWBF2
 		return level->GetModel(modelName);
 	}
 
-	//const Terrain* Terrain_GetHeights(const Terrain *, const uint8_t *heights);
+	const char* Terrain_GetTexNames(const Terrain *tern)
+	{
+		CheckPtr(tern, nullptr);
+        const List<String>& texNames = tern -> GetLayerTextures();
+        String temp = String();
+        temp = temp + texNames[0];
+        temp = temp + texNames[1];
+        String *result = new String(temp);
+        return result -> Buffer();
+	}
 
-	//const Terrain* Terrain_GetTerrainTexName(const Terrain *);
-	//{
-	//	CheckPtr(level, nullptr);
+    const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
+    {
+        ter -> GetVertexBufferRaw(numVerts, result);
+    }
 
-	//}
-
+    const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, uint32_t *& result)
+    {
+        ter -> GetIndexBuffer(ETopology::TriangleList, numInds, result);
+    }
 
 	const Terrain* Level_GetTerrain(const Level* level)
 	{
 		CheckPtr(level, nullptr);
-		return &(level -> GetTerrains()[0])
+        return &(level -> GetTerrains()[0]);
 	}
 
 	const char* ENUM_TopologyToString(ETopology topology)

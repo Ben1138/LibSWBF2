@@ -213,10 +213,22 @@ namespace LibSWBF2::Wrappers
 		vertexBuffer = m_Positions.GetArrayPtr();
 	}
 
-	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& vertexBuffer) const
+	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& buffer) const
 	{
-		count = (uint32_t)m_Positions.Size();
-		vertexBuffer = m_Positions.GetArrayPtr();
+        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
+        uint32_t numVerts = m_Positions.Size();
+        float_t *rawVerts = new float_t[count * 3];
+        
+        for (int i = 0; i < numVerts; i++)
+        {
+            Vector3& curVert = vertexBuffer[i];
+            rawVerts[i * 3]     = curVert.m_X;
+            rawVerts[i * 3 + 1] = curVert.m_Y;
+            rawVerts[i * 3 + 2] = curVert.m_Z;
+        }
+        
+        count = numVerts;
+        buffer = rawVerts;
 	}
 
 	void Terrain::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const
