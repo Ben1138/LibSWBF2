@@ -18,12 +18,6 @@ painless.
 
 
 
-
-project(libSWBF2)
-
-
-
-
 #SETTINGS
 
 add_library(SWBF2)
@@ -68,15 +62,15 @@ target_sources(SWBF2 PRIVATE ${CORE_FILES}
 
 #For XCodeProj generation
 
-file(GLOB_RECURSE ALL_SOURCES *.cpp)
-file(GLOB_RECURSE ALL_HEADERS *.h)
-set(PROJECT_FILES "${ALL_SOURCES}")
-list(APPEND PROJECT_FILES "${ALL_HEADERS}")
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
+file(GLOB_RECURSE SWBF2_SOURCES *.cpp)
+file(GLOB_RECURSE SWBF2_HEADERS *.h)
+set(SWBF2_FILES "${SWBF2_SOURCES}")
+list(APPEND SWBF2_FILES "${SWBF2_HEADERS}")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SWBF2_FILES})
 
 #Needed for correct XCodeProj generation, ALL_HEADERS
 #defined in root lists
-target_sources(SWBF2 PUBLIC ${ALL_HEADERS})
+target_sources(SWBF2 PUBLIC ${SWBF2_HEADERS})
 
 
 
