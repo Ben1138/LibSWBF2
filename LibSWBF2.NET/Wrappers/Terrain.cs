@@ -15,27 +15,13 @@ namespace LibSWBF2.Wrappers
 
         }
 
-
-        public string Name
+        public string Names
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Terrain_GetTerrainTexName(NativeInstance); 
+                return APIWrapper.Terrain_GetTexNames(NativeInstance); 
             }
         }
-
-        public bool IsSkeletalMesh
-        {
-            get 
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
-            }
-        }
-
-
-
-
     }
 }
