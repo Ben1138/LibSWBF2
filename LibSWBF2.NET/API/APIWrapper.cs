@@ -42,6 +42,22 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
 
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetTerrain(IntPtr level);
+
+
+        //Terrain
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
+        public static extern string Terrain_GetTexNames(IntPtr terrain);
+        
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetVerts(IntPtr terrain, out uint numVertices, out float vertices);
+        
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetIndicies(IntPtr terrain, out uint numIndicies, out IntPtr indices);
+
+
         // Model //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]

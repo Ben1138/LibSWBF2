@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace LibSWBF2.Wrappers
 {
     public class Level : NativeWrapper
@@ -20,7 +21,7 @@ namespace LibSWBF2.Wrappers
 
         ~Level()
         {
-            Delete();
+            //Delete();
         }
 
         /// <summary>
@@ -99,5 +100,18 @@ namespace LibSWBF2.Wrappers
             Children.Add(new WeakReference<NativeWrapper>(model));
             return model;
         }
+
+        public Terrain GetTerrain()
+        {   
+            IntPtr native = APIWrapper.Level_GetTerrain(NativeInstance);
+            if (native == null)
+            {
+                return null;
+            }
+
+            Terrain ter = new Terrain(native);
+            return ter;
+        }
+
     }
 }
