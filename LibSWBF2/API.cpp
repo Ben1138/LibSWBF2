@@ -155,8 +155,13 @@ namespace LibSWBF2
 		CheckPtr(tern, nullptr);
         const List<String>& texNames = tern -> GetLayerTextures();
         String temp = String();
-        temp = temp + texNames[0];
-        temp = temp + texNames[1];
+
+        for (int i = 0; i < texNames.Size(); i++)
+        {	
+        	temp = temp + " ";
+        	temp = temp + texNames[i];
+        }
+        
         String *result = new String(temp);
         return result -> Buffer();
 	}
@@ -164,13 +169,21 @@ namespace LibSWBF2
     const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
     {
         ter -> GetVertexBufferRaw(numVerts, result);
-        COUT("GOT VERTS");
-
     }
 
-    const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, uint32_t *& result)
+    const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result)
     {
-        ter -> GetIndexBuffer(ETopology::TriangleList, numInds, result);
+    	uint32_t *indicies;
+        ter -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+
+        int *convertedIndicies = new int[numInds];
+
+        for (int i = 0; i < numInds; i++)
+        {
+        	convertedIndicies[i] = (int) indicies[i];
+        }
+
+        result = convertedIndicies;
     }
 
 	const Terrain* Level_GetTerrain(const Level* level)

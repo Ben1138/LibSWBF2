@@ -23,24 +23,18 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-
-                Console.WriteLine("Is World Level: " + level.IsWorldLevel);
-                Console.WriteLine("Terrain texture names: ");
-
+                Level level = Level.FromFile(@"/Users/will/Desktop/omni.lvl");
                 Terrain terrain = level.GetTerrain();
-                Console.WriteLine(terrain.Names);
 
-                Console.WriteLine("Raw verts: ");
+                Console.WriteLine("Terrain texture names: " + terrain.Names);
+                Console.WriteLine("Indicies: ");
 
-                float[] rawVerts = terrain.Vertices;
+                int[] rawVerts = terrain.Indicies;
 
                 for (int i = 0; i < rawVerts.Length; i+=3){
-                    Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
+                    //Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
                 }
 
-
-                //level.Delete();
                 Console.WriteLine("Done!");
             }
 

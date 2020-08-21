@@ -40,5 +40,22 @@ namespace LibSWBF2.Wrappers
                 return rawVerts;
             }
         }
+
+        public int[] Indicies
+        {
+            get
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                
+                APIWrapper.Terrain_GetIndicies(NativeInstance, out uint numInds, out IntPtr indiciesNative);
+
+                Console.WriteLine("Got " + numInds + " indicies");
+
+                int[] rawInds = new int[(int) numInds];
+
+                Marshal.Copy(indiciesNative, rawInds, 0, (int) numInds);
+                return rawInds;
+            }
+        }
     }
 }

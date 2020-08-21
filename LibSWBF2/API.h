@@ -70,7 +70,7 @@ namespace LibSWBF2
 
 
 		//Terrain
-        LIBSWBF2_API const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, uint32_t *& result);
+        LIBSWBF2_API const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result);
         LIBSWBF2_API const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result);
 		LIBSWBF2_API const char* Terrain_GetTexNames(const Terrain *);
 		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level);
