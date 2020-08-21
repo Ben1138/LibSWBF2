@@ -148,13 +148,13 @@ namespace LibSWBF2
 		return level->GetModel(modelName);
 	}
 
-	const Terrain* Terrain_GetHeights(const Terrain *, const uint8_t *heights);
+	//const Terrain* Terrain_GetHeights(const Terrain *, const uint8_t *heights);
 
-	const Terrain* Terrain_GetTerrainTexName(const Terrain *);
-	{
-		CheckPtr(level, nullptr);
+	//const Terrain* Terrain_GetTerrainTexName(const Terrain *);
+	//{
+	//	CheckPtr(level, nullptr);
 
-	}
+	//}
 
 
 	const Terrain* Level_GetTerrain(const Level* level)
