@@ -23,5 +23,22 @@ namespace LibSWBF2.Wrappers
                 return APIWrapper.Terrain_GetTexNames(NativeInstance); 
             }
         }
+
+        public float[] Vertices
+        {
+            get
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                
+                APIWrapper.Terrain_GetVerts(NativeInstance, out uint numVerts, out IntPtr vertsNative);
+
+                Console.WriteLine("Got " + numVerts + " vertices");
+
+                float[] rawVerts = new float[((int)numVerts) * 3];
+
+                Marshal.Copy(vertsNative, rawVerts, 0, (int) numVerts * 3);
+                return rawVerts;
+            }
+        }
     }
 }
