@@ -31,6 +31,15 @@ namespace LibSWBF2.NET.Test
                 Terrain terrain = level.GetTerrain();
                 Console.WriteLine(terrain.Names);
 
+                Console.WriteLine("Raw verts: ");
+
+                float[] rawVerts = terrain.Vertices;
+
+                for (int i = 0; i < rawVerts.Length; i+=3){
+                    Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
+                }
+
+
                 //level.Delete();
                 Console.WriteLine("Done!");
             }

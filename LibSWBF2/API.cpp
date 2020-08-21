@@ -4,6 +4,9 @@
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
@@ -161,6 +164,8 @@ namespace LibSWBF2
     const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
     {
         ter -> GetVertexBufferRaw(numVerts, result);
+        COUT("GOT VERTS");
+
     }
 
     const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, uint32_t *& result)
