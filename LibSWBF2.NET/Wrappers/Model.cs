@@ -15,12 +15,29 @@ namespace LibSWBF2.Wrappers
 
         }
 
-        public string Names
+        public List<string> Names
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Terrain_GetTexNames(NativeInstance); 
+                APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr strings);
+
+                List<string> textureNames = new List<string>();
+
+                if (numTextures > 0)
+                {
+                    IntPtr[] stringPointers = new IntPtr[numTextures];
+                    Marshal.Copy(strings, stringPointers, 0, (int) numTextures);
+
+                    for (uint i = 0; i < numTextures; i++)
+                    {
+                        string texName = Marshal.PtrToStringAnsi(stringPointers[i]);
+                        textureNames.Add(texName);
+                    }
+
+                }  
+
+                return textureNames;
             }
         }
 
