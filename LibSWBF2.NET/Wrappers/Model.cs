@@ -29,13 +29,9 @@ namespace LibSWBF2.Wrappers
             get
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                
                 APIWrapper.Terrain_GetVerts(NativeInstance, out uint numVerts, out IntPtr vertsNative);
 
-                Console.WriteLine("Got " + numVerts + " vertices");
-
                 float[] rawVerts = new float[((int)numVerts) * 3];
-
                 Marshal.Copy(vertsNative, rawVerts, 0, (int) numVerts * 3);
                 return rawVerts;
             }
@@ -46,13 +42,9 @@ namespace LibSWBF2.Wrappers
             get
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                
                 APIWrapper.Terrain_GetIndicies(NativeInstance, out uint numInds, out IntPtr indiciesNative);
 
-                Console.WriteLine("Got " + numInds + " indicies");
-
                 int[] rawInds = new int[(int) numInds];
-
                 Marshal.Copy(indiciesNative, rawInds, 0, (int) numInds);
                 return rawInds;
             }
