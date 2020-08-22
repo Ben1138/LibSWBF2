@@ -35,7 +35,9 @@ namespace LibSWBF2::Chunks
 			THROW("Invalid Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
 		}
 
-		if (stream.GetPosition() + m_Size > stream.GetFileSize())
+		//Before I added 8 to the file size, an exception was thrown at the initial
+		//ucfb chunk on geo1.lvl.  Not sure why this never happened for other maps...
+		if (stream.GetPosition() + m_Size > 8 + stream.GetFileSize())
 		{
 			THROW("Chunk is too big and will end up out of file! Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition() - 8, stream.GetFileSize());
 		}
@@ -162,7 +164,7 @@ namespace LibSWBF2::Chunks
 		else
 		{
 			// if we've got trailing bytes, skip them too
-			ForwardToNextHeader(stream);
+			//ForwardToNextHeader(stream);
 		}
 	}
 
