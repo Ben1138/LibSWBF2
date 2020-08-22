@@ -9,7 +9,7 @@ using LibSWBF2.Wrappers;
 
 namespace LibSWBF2.NET.Test
 {
-    class Program
+    class Test
     {
         static void Main(string[] args)
         {
