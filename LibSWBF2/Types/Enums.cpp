@@ -227,6 +227,22 @@ namespace LibSWBF2
 				return fmt::format("Unknown ETerrainBufferType: {}", (int)type).c_str();
 		}
 	}
+
+	Types::String LIBSWBF2_API ELightTypeToString(ELightType type)
+	{
+		switch(type)
+		{
+			case ELightType::Omni:
+				return "Omnidirectional";
+			case ELightType::Spot:
+				return "Spot";
+			case ELightType::Dir:
+				return "Directional";
+			default:
+				return "Unknown";
+		}
+	}
+
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{

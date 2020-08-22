@@ -4,7 +4,12 @@
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
+#include "Chunks/LVL/lght/lght.h"
+#include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/common/SCOP.h"
+
 #include <unordered_map>
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -16,6 +21,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> WorldNameToIndex;
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
+		std::unordered_map<std::string, size_t> LightNameToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
@@ -23,6 +29,8 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
+	using Chunks::LVL::light::lght;
+    using namespace Chunks::LVL::common;
 
 	Level::Level(LVL* lvl)
 	{
@@ -56,6 +64,29 @@ namespace LibSWBF2::Wrappers
 			if (Texture::FromChunk(textureChunk, texture))
 			{
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+			}
+		}
+
+		lght* lightListChunk = dynamic_cast<lght*>(root);
+		if (lightListChunk != nullptr && !lightListChunk -> m_Empty)
+		{
+            auto children = lightListChunk -> GetChildren();
+
+            //Skip the first dummy chunk, and stop before the last two (unknown/probably global)
+            for (int i = 1; i < children.Size() - 2; i+=2)
+			{
+                Light newLight;
+                String lightString;
+
+                DATA *tag = dynamic_cast<DATA*>(children[i]);
+                SCOP *body = dynamic_cast<SCOP*>(children[i+1]);
+
+                //Method handles null check
+                if (Light::FromChunks(tag, body, newLight))
+                {
+                	//LOG_WARN(newLight.ToString().Buffer());
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.m_Name), m_Lights.Add(newLight));
+                }
 			}
 		}
 
@@ -122,7 +153,7 @@ namespace LibSWBF2::Wrappers
 			LVL::Destroy(lvl);
 			return nullptr;
 		}
-		
+
 		Level* result = new Level(lvl);
 		result->ExploreChildrenRecursive(lvl);
 
@@ -143,6 +174,11 @@ namespace LibSWBF2::Wrappers
 	bool Level::IsWorldLevel() const
 	{
 		return m_Worlds.Size() > 0;
+	}
+
+	const List<Light>& Level::GetLights() const
+	{
+		return m_Lights;
 	}
 
 	const List<Model>& Level::GetModels() const
@@ -168,6 +204,23 @@ namespace LibSWBF2::Wrappers
 	const List<Script>& Level::GetScripts() const
 	{
 		return m_Scripts;
+	}
+
+	const Light* Level::GetLight(String lightName) const
+	{
+		if (lightName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->LightNameToIndex.find(ToLower(lightName));
+		if (it != m_NameToIndexMaps->LightNameToIndex.end())
+		{
+			return &m_Lights[it->second];
+		}
+
+		//LOG_WARN("Could not find Light '{}'!", lightName);
+		return nullptr;
 	}
 
 	const Model* Level::GetModel(String modelName) const

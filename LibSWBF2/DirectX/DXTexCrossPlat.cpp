@@ -16,7 +16,7 @@ CrossPlatImage::CrossPlatImage(uint16_t w, uint16_t h,
     //LOG_ERROR("Texture format unsupported outside of Windows")
   }
 */
-  if (w % 4 != 0 || h % 4 != 0 || w * h != 0) {
+  if (w % 4 != 0 || h % 4 != 0 || w * h == 0) {
     valid = false;
     //LOG_ERROR("Texture dims must both be multiples of 4 and nonzero")
   }

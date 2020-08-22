@@ -3,7 +3,10 @@
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
-#include "Wrappers/Level.h"
+
+#include <string.h>
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2
 {
@@ -146,6 +149,71 @@ namespace LibSWBF2
 	{
 		CheckPtr(level, nullptr);
 		return level->GetModel(modelName);
+	}
+
+	//scraped together test
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTexes, char**& nameStrings)
+	{
+		//CheckPtr(tern, nullptr);
+        const List<String>& texNames = tern -> GetLayerTextures();
+
+        int numTextures = texNames.Size();
+
+        if (numTextures > 0)
+        {
+        	nameStrings = new char *[numTextures];
+
+        	for (int i = 0; i < numTextures; i++)
+	        {	
+	        	const String& temp = texNames[i];
+	        	nameStrings[i] = new char[temp.Length() + 1]();
+	        	strcpy(nameStrings[i], temp.Buffer());
+	        }
+        }
+
+        numTexes = (uint32_t) numTextures;
+	}
+
+    const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
+    {
+        ter -> GetVertexBufferRaw(numVerts, result);
+    }
+
+    const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result)
+    {
+    	uint32_t *indicies;
+        ter -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+
+        int *convertedIndicies = new int[numInds];
+
+        for (int i = 0; i < numInds; i++)
+        {
+        	convertedIndicies[i] = (int) indicies[i];
+        }
+
+        result = convertedIndicies;
+    }
+
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
+    {
+    	const Texture *tex = level -> GetTexture(texName);
+    	if (tex == nullptr)
+    	{
+    		return false;
+    	}
+
+    	uint16_t w,h;
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
+    	height = h;
+    	width = w; 
+    	//Will add another null check
+    	return true;
+    }
+
+	const Terrain* Level_GetTerrain(const Level* level)
+	{
+		CheckPtr(level, nullptr);
+        return level -> GetTerrains().GetArrayPtr();
 	}
 
 	const char* ENUM_TopologyToString(ETopology topology)
