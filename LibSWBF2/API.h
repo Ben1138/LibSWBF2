@@ -1,6 +1,8 @@
 #pragma once
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
+#include "Wrappers/Level.h"
+
 
 namespace LibSWBF2
 {
@@ -47,6 +49,7 @@ namespace LibSWBF2
 		//LIBSWBF2_API void GetScripts(const Level* level, Script*& modelArr, uint32_t& modelCount);
 					 
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
+		LIBSWBF2_API const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& w, int&h);
 		//LIBSWBF2_API const Texture* GetTexture(String textureName) const;
 		//LIBSWBF2_API const World* GetWorld(String worldName) const;
 		//LIBSWBF2_API const Terrain* GetTerrain(String terrainName) const;
@@ -65,5 +68,12 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
 		LIBSWBF2_API const char* ENUM_MaterialFlagsToString(EMaterialFlags flags);
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
+
+
+		//Terrain
+        LIBSWBF2_API const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result);
+        LIBSWBF2_API const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result);
+		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *, uint32_t& numTexes, char**& result);
+		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level);
 	}
 }
