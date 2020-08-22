@@ -4,6 +4,7 @@
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
 
+#include <string.h>
 #include <iostream>
 #define COUT(x) std::cout << x << std::endl
 
@@ -150,20 +151,27 @@ namespace LibSWBF2
 		return level->GetModel(modelName);
 	}
 
-	const char* Terrain_GetTexNames(const Terrain *tern)
+	//scraped together test
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTexes, char**& nameStrings)
 	{
-		CheckPtr(tern, nullptr);
+		//CheckPtr(tern, nullptr);
         const List<String>& texNames = tern -> GetLayerTextures();
-        String temp = String();
 
-        for (int i = 0; i < texNames.Size(); i++)
-        {	
-        	temp = temp + " ";
-        	temp = temp + texNames[i];
+        int numTextures = texNames.Size();
+
+        if (numTextures > 0)
+        {
+        	nameStrings = new char *[numTextures];
+
+        	for (int i = 0; i < numTextures; i++)
+	        {	
+	        	const String& temp = texNames[i];
+	        	nameStrings[i] = new char[temp.Length() + 1]();
+	        	strcpy(nameStrings[i], temp.Buffer());
+	        }
         }
-        
-        String *result = new String(temp);
-        return result -> Buffer();
+
+        numTexes = (uint32_t) numTextures;
 	}
 
     const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
@@ -186,10 +194,26 @@ namespace LibSWBF2
         result = convertedIndicies;
     }
 
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
+    {
+    	const Texture *tex = level -> GetTexture(texName);
+    	if (tex == nullptr)
+    	{
+    		return false;
+    	}
+
+    	uint16_t w,h;
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
+    	height = h;
+    	width = w; 
+    	//Will add another null check
+    	return true;
+    }
+
 	const Terrain* Level_GetTerrain(const Level* level)
 	{
 		CheckPtr(level, nullptr);
-        return &(level -> GetTerrains()[0]);
+        return level -> GetTerrains().GetArrayPtr();
 	}
 
 	const char* ENUM_TopologyToString(ETopology topology)
