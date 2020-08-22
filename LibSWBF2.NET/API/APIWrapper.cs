@@ -56,9 +56,9 @@ namespace LibSWBF2
 
 
         //Basic texture handling
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        const bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
-                                        out IntPtr imgData, out int width, out int height)
+        //[DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        //const bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
+        //                                out IntPtr imgData, out int width, out int height);
 
 
         // Model //

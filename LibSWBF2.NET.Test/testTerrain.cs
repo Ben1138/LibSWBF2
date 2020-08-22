@@ -13,8 +13,6 @@ namespace LibSWBF2.NET.Test
     {
         static void Main(string[] args)
         {
-            Model lastModel = null;
-
             {
                 Logger.SetLogLevel(ELogType.Warning);
                 Logger.OnLog += (LoggerEntry logEntry) => 
@@ -23,10 +21,19 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/omni.lvl");
+                //Level level = Level.FromFile(@"/home/will/Desktop/tst1.lvl");
+                Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+
                 Terrain terrain = level.GetTerrain();
 
-                Console.WriteLine("Terrain texture names: " + terrain.Names);
+                string printStr = "";
+
+                foreach (var str in terrain.Names)
+                {
+                    printStr += (" " + str);
+                }
+
+                Console.WriteLine("Terrain texture names: " + printStr);
                 Console.WriteLine("Indicies: ");
 
                 int[] rawVerts = terrain.Indicies;
