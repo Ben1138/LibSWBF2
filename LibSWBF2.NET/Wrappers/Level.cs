@@ -113,5 +113,16 @@ namespace LibSWBF2.Wrappers
             return ter;
         }
 
+        public bool GetTexture(string name, out byte[] texBytes, out int width, out int height)
+        {
+            texBytes = null;
+            bool result = APIWrapper.Level_GetTextureData(NativeInstance, name, out IntPtr bytesRaw, out width, out height);
+            if (result)
+            {
+                texBytes = new byte[width * height * 4];
+                Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
+            }
+            return result;
+        }
     }
 }
