@@ -49,6 +49,10 @@ namespace LibSWBF2
         public static extern void Terrain_GetTexNames(IntPtr terrain, out uint numTextures, out IntPtr names);
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetHeights(IntPtr terrain, out uint width, out uint height, out IntPtr heightData);
+        
+
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetVerts(IntPtr terrain, out uint numVertices, out IntPtr vertices);
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]

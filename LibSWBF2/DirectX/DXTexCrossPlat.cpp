@@ -24,11 +24,6 @@ CrossPlatImage::CrossPlatImage(uint16_t w, uint16_t h,
     format = f;
     dataLength = dataSize;
 
-    if (f == D3DFMT_DXT1)
-    {
-      COUT("Datasize: " << dataSize << " (w,h): (" << width << "," << height << ")");
-    }
-
     uint8_t* bytes = new uint8_t[dataSize]();
 
     if (dataPtr != nullptr)

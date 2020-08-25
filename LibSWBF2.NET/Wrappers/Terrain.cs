@@ -54,6 +54,31 @@ namespace LibSWBF2.Wrappers
             }
         }
 
+        public float[] Heights
+        {
+            get
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                APIWrapper.Terrain_GetHeights(NativeInstance, out uint width, out uint height, out IntPtr heightsNative);
+
+                float[] heights = new float[(int) 256 * 81];
+                Marshal.Copy(heightsNative, heights, 0, (int) heights.Length);
+                return heights;
+            }
+        }
+        
+        /*
+        public float[] GetHeights(out uint width, out uint height, out IntPtr heightsNative)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetHeights(NativeInstance, out uint width, out uint height, out IntPtr heightsNative);
+
+            float[] heights = new float[(int) 256 * 81];
+            Marshal.Copy(heightsNative, heights, 0, (int) heights.Length);
+            return heights;
+        }
+        */
+
         public int[] Indicies
         {
             get
