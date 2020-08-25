@@ -60,10 +60,11 @@ void bcToRGBA(int w, int h, unsigned char *src, uint32_t *sink, int mode) {
     bool (*decomp_func) (const uint8_t * DETEX_RESTRICT bitstring, uint32_t mode_mask,
                         uint32_t flags, uint8_t * DETEX_RESTRICT pixel_buffer);
 
-    int blockSize = 16, div = 1;
+    int blockSize = 16, srcSize = w * h;
     if (mode == 1){   
-        blockSize = 8;
-        div = 2;
+        blockSize = 8; //BC1 uses 8 byte blocks, 
+                       //must half size of srcdata comsumed
+        srcSize /= 2;
         decomp_func = &detexDecompressBlockBC1;
     } else if (mode == 2){
         decomp_func = &detexDecompressBlockBC2;
@@ -72,7 +73,7 @@ void bcToRGBA(int w, int h, unsigned char *src, uint32_t *sink, int mode) {
     }
 
     //Iterate through each block
-    for (int i = 0; i < w * h / div; i += blockSize) {
+    for (int i = 0; i < srcSize; i += blockSize) {
         
         //Decompresses a 4x4 block (16 bytes, but pixels are not byte-aligned)
         //2nd & 3rd params aren't even used in detex...
