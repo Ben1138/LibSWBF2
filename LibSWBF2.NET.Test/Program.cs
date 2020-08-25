@@ -43,6 +43,8 @@ namespace LibSWBF2.NET.Test
                     }
                     Console.WriteLine(printStr);
                 }
+
+                float[] arr = terrain.Heights;
             }
 
             Console.ReadKey();
