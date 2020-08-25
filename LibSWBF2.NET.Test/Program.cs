@@ -34,13 +34,16 @@ namespace LibSWBF2.NET.Test
                 }
 
                 Console.WriteLine("Terrain texture names: " + printStr);
-                Console.WriteLine("Indicies: ");
+                
+                /*Console.WriteLine("Indicies: ");
 
                 int[] rawVerts = terrain.Indicies;
 
                 for (int i = 0; i < rawVerts.Length; i+=3){
-                    //Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
-                }
+                    if (i % 200 == 0){
+                        Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
+                    }
+                }*/
 
                 Console.WriteLine("Done!");
             }
