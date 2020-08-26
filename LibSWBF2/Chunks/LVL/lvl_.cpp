@@ -39,11 +39,11 @@ namespace LibSWBF2::Chunks::LVL
         LVL* root = dynamic_cast<LVL*>(last);
         if (root == nullptr)
         {
-            LOG_ERROR("Could not find outermost LVL root parent?!");
+            LOG_WARN("Could not find outermost LVL root parent?!");
         }
         else
         {
-            m_IsSoundLVL = root->m_IsSoundLVL;
+            m_LVLType = root->m_LVLType;
 
             String name;
             if (!TryLookupName(name))
@@ -70,7 +70,7 @@ namespace LibSWBF2::Chunks::LVL
     {
         // for sound LVLs, there's a regular Sound Bank Header section before
         // other chunks (snd_) are following
-        if (m_IsSoundLVL)
+        if (m_LVLType == ELVLType::Sound)
         {
             m_SoundBankHeader.ReadFromStream(stream);
         }
@@ -96,12 +96,12 @@ namespace LibSWBF2::Chunks::LVL
 
         std::string result = fmt::format(
             "Name: {}\n"
-            "Is Sound LVL: {}\n",
+            "LVL Type: {}\n",
             name,
-            m_IsSoundLVL ? "Yes" : "No"
+            LVLTypeToString(m_LVLType)
         );
 
-        if (m_IsSoundLVL)
+        if (m_LVLType == ELVLType::Sound)
         {
             result += "\n" + std::string(m_SoundBankHeader.ToString().Buffer());
         }
