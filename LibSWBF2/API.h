@@ -65,11 +65,5 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
 		LIBSWBF2_API const char* ENUM_MaterialFlagsToString(EMaterialFlags flags);
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
-
-
-		//Terrain
-		LIBSWBF2_API const Terrain* Terrain_GetHeights(const Terrain *, const uint8_t *heights);
-		LIBSWBF2_API const Terrain* Terrain_GetTerrainTexName(const Terrain *, const char *)
-		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level)
 	}
 }
