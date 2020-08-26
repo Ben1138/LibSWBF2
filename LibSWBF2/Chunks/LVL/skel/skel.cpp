@@ -52,7 +52,7 @@ namespace LibSWBF2::Chunks::LVL::skel
             p_Info->m_BoneCount != p_BoneTransforms->m_BoneRotations.Size() || 
             p_Info->m_BoneCount != p_BoneTransforms->m_BonePositions.Size())
         {
-            LOG_ERROR("Skeleton buffer sizes don't match up! Info Bone Count: {}, Bone Names: {}, Bone Parents (-1): {}, Bone Rotations: {}, Bone Positions: {} - Chunk Position: {}",
+            LOG_WARN("Skeleton buffer sizes don't match up! Info Bone Count: {}, Bone Names: {}, Bone Parents (-1): {}, Bone Rotations: {}, Bone Positions: {} - Chunk Position: {}",
                 p_Info->m_BoneCount,
                 p_BoneNames->m_Texts.Size(),
                 p_BoneParents->m_Texts.Size(),

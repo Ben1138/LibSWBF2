@@ -39,7 +39,7 @@ namespace LibSWBF2::Chunks::LVL
         LVL* root = dynamic_cast<LVL*>(last);
         if (root == nullptr)
         {
-            LOG_ERROR("Could not find outermost LVL root parent?!");
+            LOG_WARN("Could not find outermost LVL root parent?!");
         }
         else
         {
