@@ -38,14 +38,12 @@ void SCOP::ReadFromStream(FileReader& stream)
     BaseChunk::ReadFromStream(stream);
     Check(stream);
 
-    while (BaseChunk::PositionInChunk(stream.GetPosition()))
+    while (ThereIsAnother(stream))
     {
         DATA *tempField;        
         READ_CHILD(stream, tempField);
 
         p_dataFields.Add(tempField);
-
-        ForwardToNextHeader(stream);
     }
 
     BaseChunk::EnsureEnd(stream);

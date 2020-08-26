@@ -39,20 +39,16 @@ namespace LibSWBF2::Chunks::LVL::light
         if (!lght::skip)
         {
             STR<"NAME"_m> *p_Marker;
-            READ_CHILD(stream, p_Marker);
+            READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks...
             delete p_Marker;
 
-            //PositionInChunk might not be best for this
-            while (BaseChunk::PositionInChunk(stream.GetPosition()))
+            while (ThereIsAnother(stream))
             {
                 DATA *tempHeader;
                 SCOP *tempScope;
                 
                 READ_CHILD(stream, tempHeader);
                 READ_CHILD(stream, tempScope);
-
-                //This in combo with PositionInChunk might be a bad way...
-                ForwardToNextHeader(stream);
             }
 
             lght::skip = true;

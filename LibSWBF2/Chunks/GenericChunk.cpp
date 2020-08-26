@@ -263,19 +263,11 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
 
-	template struct LIBSWBF2_API GenericChunk<1600943724>;
-	template struct LIBSWBF2_API GenericChunk<1684828791>;
-	template struct LIBSWBF2_API GenericChunk<1701667150>;
-
-#ifndef _WIN32
-	//Undef ref linker errors fix
-	//template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
-	//template struct LIBSWBF2_API GenericChunk<"inst"_m>;
-	//template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
     template struct LIBSWBF2_API GenericChunk<"lght"_m>;
     template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
     template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
-
-#endif //_WIN32
 }
 
