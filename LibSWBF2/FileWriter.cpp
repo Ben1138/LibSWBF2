@@ -139,8 +139,7 @@ namespace LibSWBF2
 		{
 			if (value.Length() > fixedSize)
 			{
-				LOG_ERROR("Actual string size ({}) is greater than fixed size ({}) !", value.Length(), fixedSize);
-				return;
+				LOG_WARN("Actual string size ({}) is greater than fixed size ({}) !", value.Length(), fixedSize);
 			}
 
 			m_Writer.write(value.Buffer(), fixedSize);
@@ -161,7 +160,7 @@ namespace LibSWBF2
 	{
 		if (!m_Writer.is_open())
 		{
-			LOG_ERROR("Nothing has been opened yet!");
+			LOG_WARN("Nothing has been opened yet!");
 			return;
 		}
 
@@ -173,7 +172,6 @@ namespace LibSWBF2
 	{
 		if (!m_Writer.is_open())
 		{
-			//LOG_ERROR("Error during write process! File '{}' is not open!", m_FileName);
 			THROW("Error during write process! File '{}' is not open!", m_FileName);
 		}
 
@@ -192,7 +190,6 @@ namespace LibSWBF2
 			{
 				reason += " Writing Error on I/O operation!";
 			}
-			//LOG_ERROR("Error during write process in '{}'! Reason: {}", m_FileName, reason);
 			THROW("Error during write process in '{}'! Reason: {}", m_FileName, reason);
 		}
 

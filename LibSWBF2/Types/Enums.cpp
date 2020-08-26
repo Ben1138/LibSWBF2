@@ -213,7 +213,7 @@ namespace LibSWBF2
 		return result.c_str();
 	}
 
-	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type)
+	Types::String TerrainBufferTypeToString(ETerrainBufferType type)
 	{
 		switch (type)
 		{
@@ -225,6 +225,21 @@ namespace LibSWBF2
 				return "TextureExtra";
 			default:
 				return fmt::format("Unknown ETerrainBufferType: {}", (int)type).c_str();
+		}
+	}
+
+	Types::String LVLTypeToString(ELVLType type)
+	{
+		switch (type)
+		{
+			case ELVLType::Generic:
+				return "Generic";
+			case ELVLType::Sound:
+				return "Sound";
+			case ELVLType::Core:
+				return "Core";
+			default:
+				return fmt::format("Unknown ELVLType: {}", (int)type).c_str();
 		}
 	}
 	

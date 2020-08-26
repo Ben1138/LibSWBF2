@@ -61,7 +61,7 @@ namespace LibSWBF2::Wrappers
 
 		if (index >= segment->m_Textures.Size())
 		{
-			LOG_ERROR("Texture index '{}' is out of bounds ({})!", index, segment->m_Textures.Size());
+			LOG_WARN("Texture index '{}' is out of bounds ({})!", index, segment->m_Textures.Size());
 			return nullptr;
 		}
 

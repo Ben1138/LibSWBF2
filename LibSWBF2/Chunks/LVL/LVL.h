@@ -1,5 +1,6 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Chunks::LVL
 {
@@ -7,7 +8,7 @@ namespace LibSWBF2::Chunks::LVL
 	{
 	private:
 		List<FNVHash> m_SubLVLsToLoad;
-		bool m_IsSoundLVL = false;
+		ELVLType m_LVLType;
 
 		// only in Sound LVLs
 		uint32_t m_NameHash;

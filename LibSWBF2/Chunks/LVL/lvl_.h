@@ -2,6 +2,7 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
 #include "Types/SoundBankHeader.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Chunks::LVL
 {
@@ -12,7 +13,7 @@ namespace LibSWBF2::Chunks::LVL
 	public:
 		uint32_t m_NameHash = 0;
 		uint32_t m_SizeLeft = 0;
-		bool m_IsSoundLVL = false;
+		ELVLType m_LVLType;
 
 		// optional, sound LVLs only
 		SoundBankHeader m_SoundBankHeader;

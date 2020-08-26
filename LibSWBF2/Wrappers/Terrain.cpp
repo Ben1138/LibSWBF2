@@ -66,7 +66,7 @@ namespace LibSWBF2::Wrappers
 			List<Types::TerrainBufferEntry>& terrainBuffer = vertexBuffer->m_TerrainBuffer;
 			if (vertexBuffer->m_ElementCount != terrainBuffer.Size())
 			{
-				LOG_ERROR("Specified element count '{}' does not match up with actual buffer size '{}'! Patch index: {}", vertexBuffer->m_ElementCount, terrainBuffer.Size(), i);
+				LOG_WARN("Specified element count '{}' does not match up with actual buffer size '{}'! Patch index: {}", vertexBuffer->m_ElementCount, terrainBuffer.Size(), i);
 				continue;
 			}
 
