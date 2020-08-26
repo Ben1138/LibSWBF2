@@ -460,7 +460,6 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
-
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
