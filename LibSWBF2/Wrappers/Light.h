@@ -28,7 +28,7 @@ public:
 
 	virtual String ToString();
 	static ELightType TypeFromSCOP(SCOP_LGHT* body);
-	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out);
+	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light*& out);
 
 
 private:
@@ -39,23 +39,23 @@ private:
 
 
 
-struct OmnidirectionalLight : Light {
-
+struct OmnidirectionalLight : public Light {
+public:
 	OmnidirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
 	String ToString();
 	//int GetRadius();
 };
 
 
-struct SpotLight : Light {
+struct SpotLight : public Light {
+public:
 	SpotLight(DATA_TAG* tag, SCOP_LGHT* body);
 	String ToString();
 	//void GetAngles(int& innerAngle, int& outerAngle);
 };
 
 
-struct DirectionalLight : Light {
-
+struct DirectionalLight : public Light {
 public:
 	DirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
 	String ToString();

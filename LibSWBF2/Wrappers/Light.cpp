@@ -7,7 +7,7 @@ namespace LibSWBF2::Wrappers
 {
 
 
-bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
+bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light*& out)
 {
     if (body == nullptr || tag == nullptr)
     {
@@ -24,15 +24,16 @@ bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
 	switch (Light::TypeFromSCOP(body))
 	{
 		case ELightType::Omni:
-            out = OmnidirectionalLight(tag, body);
+            out = new OmnidirectionalLight(tag, body);
 			break;
 		case ELightType::Spot:
-            out = SpotLight(tag, body);
+            out = new SpotLight(tag, body);
 			break;
 		case ELightType::Dir:
-            out = DirectionalLight(tag, body);
+            out = new DirectionalLight(tag, body);
 			break;
 		default:
+            LOG_ERROR("UNKNOWN LIGHT TYPE");
 			return false;
 			break;
 	}
@@ -79,26 +80,23 @@ String Light::GetName()
 
 String Light::ToString()
 {
-    String posStr = GetPosition().ToString();
-    String rotStr = GetRotation().ToString();
-    String colStr = GetColor().ToString();
-
     return fmt::format(
             "Name: {}, Position: {}, Rotation: {}, Color: {}, ",
-            GetName().Buffer(), posStr.Buffer(), rotStr.Buffer(), 
-            colStr.Buffer()).c_str();
+            GetName().Buffer(), GetPosition().ToString().Buffer(), 
+            GetRotation().ToString().Buffer(), 
+            GetColor().ToString().Buffer()
+        ).c_str();
 }
 
 //ToString methods will be filled in with subclass specific fields when added...
 
-
-OmnidirectionalLight::OmnidirectionalLight(DATA_TAG* description, SCOP_LGHT* body) :
-					Light(description, body) {}
-
 String OmnidirectionalLight::ToString()
 {
-	return Light::ToString() + "Type: Omnidirectional";
+    return Light::ToString() + "Type: Omnidirectional";
 }
+
+OmnidirectionalLight::OmnidirectionalLight(DATA_TAG* tag, SCOP_LGHT* body) :
+                    Light(tag, body) {}
 
 
 
@@ -117,7 +115,7 @@ String DirectionalLight::ToString()
     return Light::ToString() + "Type: Directional";
 }
 
-DirectionalLight::DirectionalLight(DATA_TAG* description, SCOP_LGHT* body) :
-					Light(description, body){}
+DirectionalLight::DirectionalLight(DATA_TAG* tag, SCOP_LGHT* body) :
+					Light(tag, body){}
 
 }
