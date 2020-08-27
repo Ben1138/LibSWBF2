@@ -194,6 +194,12 @@ namespace LibSWBF2
         result = convertedIndicies;
     }
 
+    const void Terrain_GetHeights(const Terrain *ter, uint32_t& width, uint32_t height, float_t*& heightData)
+    {
+    	ter -> GetHeights(width, height, heightData);
+    }
+
+
     const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
     {
     	const Texture *tex = level -> GetTexture(texName);
