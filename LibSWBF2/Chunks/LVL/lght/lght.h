@@ -57,7 +57,6 @@ public:
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
-    bool m_Empty = false;
 
     List<DATA_TAG *> p_LightTags;
     List<SCOP_LGHT *> p_LightBodies;

@@ -67,7 +67,7 @@ namespace LibSWBF2::Wrappers
 		}
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
-		if (lightListChunk != nullptr && !lightListChunk -> m_Empty)
+		if (lightListChunk != nullptr && lightListChunk -> m_NumLights > 0)
 		{
             for (int i = 1; i < lightListChunk -> m_NumLights; i++)
 			{

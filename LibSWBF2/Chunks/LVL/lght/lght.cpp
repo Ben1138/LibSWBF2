@@ -33,20 +33,29 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         if (!lght::skip)
         {
+            LOG_WARN("START LGHT");
             STR<"NAME"_m> *p_Marker;
-            READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks...
+            READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks
+
+            LOG_WARN("READ MARKER");
 
             while (ThereIsAnother(stream))
             {
-                DATA_TAG *tempHeader;
-                SCOP_LGHT *tempScope;
+                DATA_TAG *tempTag;
+                SCOP_LGHT *tempBody;
                 
-                READ_CHILD(stream, tempHeader);
+                LOG_WARN("STARTING HEADER");
 
-                if (tempHeader -> m_LocalLight){
-                    READ_CHILD(stream, tempScope);
-                    p_LightTags.Add(tempHeader);
-                    p_LightBodies.Add(tempScope);
+                READ_CHILD(stream, tempTag);
+
+                LOG_WARN("READ HEADER");
+
+                if (tempTag -> m_LocalLight){ //Check local flag before proceding
+                    READ_CHILD(stream, tempBody);
+
+                    LOG_WARN("READ BODY");
+                    p_LightTags.Add(tempTag);
+                    p_LightBodies.Add(tempBody);
                     m_NumLights++;
                 }
                 else 
@@ -57,11 +66,7 @@ namespace LibSWBF2::Chunks::LVL::lght
 
             lght::skip = true;
         }
-        else
-        {
-        	m_Empty = true;
-        }
-        
+
 		BaseChunk::EnsureEnd(stream);
 	}
 }
