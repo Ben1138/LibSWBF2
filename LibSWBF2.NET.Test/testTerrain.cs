@@ -21,31 +21,30 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                //Level level = Level.FromFile(@"/home/will/Desktop/tst1.lvl");
-                Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
+                //Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
 
                 Terrain terrain = level.GetTerrain();
 
-                string printStr = "";
-
                 foreach (var str in terrain.Names)
                 {
-                    printStr += (" " + str);
+                    if (str == ""){
+                        continue;
+                    }
+
+                    string printStr = "Texture name: " + str;
+                    if (level.GetTexture(str, out byte[] data, out int width, out int height))
+                    {
+                        printStr += (" width: " + width + " height: " + height + " bytes length: " + data.Length);
+                    }
+                    else 
+                    {
+                        printStr += " lookup failed.";
+                    }
+                    Console.WriteLine(printStr);
                 }
 
-                Console.WriteLine("Terrain texture names: " + printStr);
-                
-                /*Console.WriteLine("Indicies: ");
-
-                int[] rawVerts = terrain.Indicies;
-
-                for (int i = 0; i < rawVerts.Length; i+=3){
-                    if (i % 200 == 0){
-                        Console.WriteLine(i + ": (" + rawVerts[i] + ", " + rawVerts[i+1] + ", " + rawVerts[i+2] + ")");
-                    }
-                }*/
-
-                Console.WriteLine("Done!");
+                float[] arr = terrain.Heights;
             }
 
             Console.ReadKey();

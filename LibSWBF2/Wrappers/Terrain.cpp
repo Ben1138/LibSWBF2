@@ -11,6 +11,8 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::terrain::VBUF;
 	using Chunks::LVL::terrain::IBUF;
 
+
+
 	bool Terrain::FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out)
 	{
 		if (mainContainer == nullptr)
@@ -148,9 +150,6 @@ namespace LibSWBF2::Wrappers
 					return false;
 				}
 
-				COUT("numPatches = " << numPatches);
-				COUT("dataEdgeSize = " << dataEdgeSize);
-
 				uint32_t vertexOffset = 0;
 				for (uint16_t i = 0; i < numPatches; ++i)
 				{
@@ -259,6 +258,61 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_Terrain->p_Name->m_Text;
 	}
+
+
+	void Terrain::GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const {
+
+        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
+        uint32_t numVerts = m_Positions.Size();
+
+		//These may already exist in member vars...
+        float_t minX=1000000.0f,maxX=-100000.0f;
+        float_t minY=1000000.0f,maxY=-100000.0f;
+        float_t minZ=1000000.0f,maxZ=-100000.0f;
+
+        //Hardcode for testing
+		heightData = new float_t[256 * 81]();
+
+        for (int i = 0; i < numVerts; i++)
+        {
+            Vector3& curVert = vertexBuffer[i];
+
+        	minX = curVert.m_X < minX ? curVert.m_X : minX;
+        	maxX = curVert.m_X > maxX ? curVert.m_X : maxX;
+
+        	minY = curVert.m_Y < minY ? curVert.m_Y : minY;
+        	maxY = curVert.m_Y > maxY ? curVert.m_Y : maxY;
+
+        	minZ = curVert.m_Z < minZ ? curVert.m_Z : minZ;
+        	maxZ = curVert.m_Z > maxZ ? curVert.m_Z : maxZ;
+        }
+
+        //COUT("ABOUT TO READ HEIGHTS");
+
+        for (int i = 0; i < numVerts; i++)
+        {
+        	Vector3& curVert = vertexBuffer[i];
+        	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
+        	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
+        	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
+
+        	int uIndex = (int) (xFrac * 9.0f * 16.0f + .00001f);
+        	int vIndex = (int) (zFrac * 9.0f * 16.0f + .00001f);
+
+			if (i % 100 == 0){
+        		COUT(fmt::format("(u,v,height) = ({},{},{})", uIndex, vIndex, yFrac));
+        	}
+
+        	heightData[uIndex + vIndex * 9 * 16] = yFrac;
+        }
+
+       	//COUT("READ HEIGHTS");
+
+        width = 9 * 16;
+        height = 9 * 16;
+	}
+
+
 
 	const List<String>& Terrain::GetLayerTextures() const
 	{
