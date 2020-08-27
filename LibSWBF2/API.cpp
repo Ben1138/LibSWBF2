@@ -88,7 +88,7 @@ namespace LibSWBF2
 
 		// since level->GetModels() just returns a reference to the actual list
 		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer. 
+		// provide the model addresses of the underlying buffer to the inquirer.
 		// The inquirer of course is not allowed to alter the data!
 		static List<const Model*> modelPtrs;
 		modelPtrs.Clear();
@@ -164,7 +164,7 @@ namespace LibSWBF2
         	nameStrings = new char *[numTextures];
 
         	for (int i = 0; i < numTextures; i++)
-	        {	
+	        {
 	        	const String& temp = texNames[i];
 	        	nameStrings[i] = new char[temp.Length() + 1]();
 	        	strcpy(nameStrings[i], temp.Buffer());
@@ -211,7 +211,7 @@ namespace LibSWBF2
     	uint16_t w,h;
     	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
     	height = h;
-    	width = w; 
+    	width = w;
     	//Will add another null check
     	return true;
     }

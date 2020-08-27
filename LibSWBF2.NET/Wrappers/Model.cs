@@ -15,6 +15,9 @@ namespace LibSWBF2.Wrappers
 
         }
 
+        public int width;
+        public int height;
+
         public List<string> Names
         {
             get 
@@ -59,10 +62,15 @@ namespace LibSWBF2.Wrappers
             get
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetHeights(NativeInstance, out uint width, out uint height, out IntPtr heightsNative);
+                APIWrapper.Terrain_GetHeights(NativeInstance, out uint _width, out uint _height, out IntPtr heightsNative);
+                width = (int) _width;
+                height = (int) _width;
 
-                float[] heights = new float[(int) 256 * 81];
-                Marshal.Copy(heightsNative, heights, 0, (int) heights.Length);
+                Console.WriteLine("Heights width = " + _width);
+                Console.WriteLine("Heights height = " + _height);
+
+                float[] heights = new float[(int) width * width];
+                Marshal.Copy(heightsNative, heights, 0, (int) width * width);
                 return heights;
             }
         }
