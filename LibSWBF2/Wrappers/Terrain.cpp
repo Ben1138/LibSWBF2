@@ -44,7 +44,7 @@ namespace LibSWBF2::Wrappers
 
 		float_t terrainEdgeUnitSize = gridSize * gridUnitSize;
 		float_t distToCenter = terrainEdgeUnitSize / 2.0f;
-		
+
 		// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
 		uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
 
@@ -112,7 +112,7 @@ namespace LibSWBF2::Wrappers
 				// global UV calculation
 				//float_t u = ((pos.x + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
 				//float_t v = ((pos.z + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
-				
+
 				// per patch UV calculation
 				float_t u = (terrainBuffer[j].m_Position.m_X / (dataEdgeSize * gridUnitSize)) * 2.0f;
 				float_t v = (terrainBuffer[j].m_Position.m_Z / (dataEdgeSize * gridUnitSize)) * 2.0f;
@@ -223,7 +223,7 @@ namespace LibSWBF2::Wrappers
         Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
         uint32_t numVerts = m_Positions.Size();
         float_t *rawVerts = new float_t[numVerts * 3];
-        
+
         for (int i = 0; i < numVerts; i++)
         {
             Vector3& curVert = vertexBuffer[i];
@@ -231,7 +231,7 @@ namespace LibSWBF2::Wrappers
             rawVerts[i * 3 + 1] = curVert.m_Y;
             rawVerts[i * 3 + 2] = curVert.m_Z;
         }
-        
+
         count = numVerts;
         buffer = rawVerts;
 	}
@@ -262,31 +262,23 @@ namespace LibSWBF2::Wrappers
 
 	void Terrain::GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const {
 
-		float_t maxY = p_Terrain -> p_Info -> m_HeightCeiling;
-       	float_t minY = p_Terrain -> p_Info -> m_HeightFloor;
+        auto info = p_Terrain -> p_Info;
+
+        float_t gridSize = (float_t) info -> m_GridSize;
+		float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
+
+		float_t maxY = (float_t) info -> m_HeightCeiling;
+       	float_t minY = (float_t) info -> m_HeightFloor;
+
+       	float_t halfLength = ((float_t) gridSize * gridUnitSize) / 2.0f;
+       	float_t maxZ = halfLength, minZ = -halfLength;
+       	float_t maxX = halfLength, minX = -halfLength;
 
         Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
         uint32_t numVerts = m_Positions.Size();
 
-		//These may already exist in member vars...
-        float_t minX=1000000.0f,maxX=-100000.0f;
-        float_t minZ=1000000.0f,maxZ=-100000.0f;
-
-        //Hardcode for testing
-		heightData = new float_t[256 * 81]();
-
-        for (int i = 0; i < numVerts; i++)
-        {
-            Vector3& curVert = vertexBuffer[i];
-
-        	minX = curVert.m_X < minX ? curVert.m_X : minX;
-        	maxX = curVert.m_X > maxX ? curVert.m_X : maxX;
-
-        	minZ = curVert.m_Z < minZ ? curVert.m_Z : minZ;
-        	maxZ = curVert.m_Z > maxZ ? curVert.m_Z : maxZ;
-        }
-
-        //COUT("ABOUT TO READ HEIGHTS");
+        int heightsLength = (int) gridSize * gridSize;
+		heightData = new float_t[heightsLength]();
 
         for (int i = 0; i < numVerts; i++)
         {
@@ -295,18 +287,18 @@ namespace LibSWBF2::Wrappers
         	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
         	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
 
-        	if (((int)curVert.m_X) % 128 == 0){
-        		COUT(curVert.m_X);
-        	}
+        	int uIndex = (int) (xFrac * gridSize + .00001f);
+        	int vIndex = (int) (zFrac * gridSize + .00001f);
+            int dataIndex = uIndex + vIndex * (int) gridSize;
 
-        	int uIndex = (int) (xFrac * 9.0f * 16.0f + .00001f);
-        	int vIndex = (int) (zFrac * 9.0f * 16.0f + .00001f);
-
-        	heightData[uIndex + vIndex * 9 * 16] = yFrac;
+            if (uIndex < (int) gridSize && vIndex < (int) gridSize)
+            {
+                heightData[dataIndex] = yFrac;
+            }
         }
 
-        auto info = p_Terrain -> p_Info;
 
+        /*
        	COUT("Num verts: " << m_Positions.Size());
        	COUT(fmt::format("Gridsize: {}, Gridunitsize: {}, Patchedgesize: {}",
        					info -> m_GridSize,
@@ -317,9 +309,10 @@ namespace LibSWBF2::Wrappers
        	COUT("Min X found: " << minX);
        	COUT("Max Z found: " << maxZ);
        	COUT("Min Z found: " << minZ);
+        */
 
-        width = 9 * 16;
-        height = 9 * 16;
+        width = (uint32_t) gridSize;
+        height = (uint32_t) gridSize;
 	}
 
 
