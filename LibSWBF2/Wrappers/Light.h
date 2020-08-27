@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Chunks/LVL/common/SCOP.h"
-#include "Chunks/LVL/common/DATA.h"
+
+#include "Chunks/LVL/lght/lght.h"
 #include "InternalHelpers.h"
 
 #include "Types/Colorf.h"
@@ -12,50 +12,55 @@
 namespace LibSWBF2::Wrappers
 {
 
-using namespace LibSWBF2::Chunks::LVL::common;
+using namespace LibSWBF2::Chunks::LVL::lght;
 using namespace LibSWBF2::Types;
 
 struct Light {
 
 public:
 
-	Vector3 GetPosition();
 	Vector4 GetRotation();
+	Vector3 GetPosition();
+	String GetName();
+	Vector3 GetColor();
 
-	bool m_CastSpecular;
-
-	Light(DATA* tag, SCOP* body);
-	Light() = default;
+	Light(DATA_TAG* tag, SCOP_LGHT* body);
+	Light() = delete;
 
 	virtual String ToString();
-	static ELightType TypeFromSCOP(SCOP* body);
-	static bool FromChunks(DATA *tag, SCOP* body, Light& out);
+	static ELightType TypeFromSCOP(SCOP_LGHT* body);
+	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out);
+
+
+private:
+
+	DATA_TAG* p_TagChunk;
+	SCOP_LGHT* p_DataFields;
 };
 
 
 
 struct OmnidirectionalLight : Light {
 
-public:
-	OmnidirectionalLight(DATA* description, SCOP* body);
-	int m_Radius;
+	OmnidirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
 	String ToString();
+	//int GetRadius();
 };
 
 
 struct SpotLight : Light {
-
-public:
-	SpotLight(DATA* description, SCOP* body);
-	int m_InnerAngle, m_OuterAngle;
+	SpotLight(DATA_TAG* tag, SCOP_LGHT* body);
+	String ToString();
+	//void GetAngles(int& innerAngle, int& outerAngle);
 };
 
 
 struct DirectionalLight : Light {
 
 public:
-	DirectionalLight(DATA* description, SCOP* body);
-	int m_Length;
+	DirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
+	String ToString();
+	//int GetLength();
 };
  
 

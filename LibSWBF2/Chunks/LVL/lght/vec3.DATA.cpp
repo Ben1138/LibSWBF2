@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "lght.h"
+#include "vec3.DATA.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
@@ -8,7 +8,6 @@
 
 namespace LibSWBF2::Chunks::LVL::lght
 {
-
 	void DATA_VEC3::RefreshSize()
 	{
 		THROW("Not implemented!");
@@ -29,5 +28,4 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         BaseChunk::EnsureEnd(stream);
 	}
-
 }

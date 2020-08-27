@@ -4,7 +4,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-#include "SCOP.h"
+#include "lght.SCOP.h"
 
 #include <algorithm>
 #include <cstring>
@@ -52,10 +52,10 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
         READ_CHILD(stream, type);
         READ_CHILD(stream, color);
 
-        p_dataFields.Add(rotation);
-        p_dataFields.Add(position);
-        p_dataFields.Add(type);
-        p_dataFields.Add(color);
+        p_DataFields.Add(rotation);
+        p_DataFields.Add(position);
+        p_DataFields.Add(type);
+        p_DataFields.Add(color);
 
         while (ThereIsAnother(stream))
         {
