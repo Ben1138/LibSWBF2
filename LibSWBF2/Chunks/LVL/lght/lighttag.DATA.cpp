@@ -25,9 +25,9 @@ namespace LibSWBF2::Chunks::LVL::lght
         Check(stream);
 
         uint32_t localFlag = stream.ReadUInt32();
-        m_LocalLight = localFlag == 0x338f54f7 ? false else true;
+        m_LocalLight = localFlag == 0x338f54f7 ? false : true;
 
-        if (m_Local)
+        if (m_LocalLight)
         {
         	stream.SkipBytes(9); //Not sure what those 9 bytes mean as of yet
         	m_Name = stream.ReadString((size_t) stream.ReadUInt32());

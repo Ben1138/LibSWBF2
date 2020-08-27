@@ -6,6 +6,7 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "Types/Enums.h"
 
+using LibSWBF2::Chunks::LVL::common::DATA;
 
 namespace LibSWBF2::Chunks::LVL::lght
 {

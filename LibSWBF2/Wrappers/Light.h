@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Chunks/LVL/lght/lght.h"
 #include "InternalHelpers.h"
 
@@ -25,7 +24,7 @@ public:
 	Vector3 GetColor();
 
 	Light(DATA_TAG* tag, SCOP_LGHT* body);
-	Light() = delete;
+	Light() = default;
 
 	virtual String ToString();
 	static ELightType TypeFromSCOP(SCOP_LGHT* body);
@@ -35,7 +34,7 @@ public:
 private:
 
 	DATA_TAG* p_TagChunk;
-	SCOP_LGHT* p_DataFields;
+	SCOP_LGHT* p_FieldsChunk;
 };
 
 

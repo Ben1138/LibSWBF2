@@ -1,15 +1,11 @@
 #pragma once
 
-/*
-Will contain class for the very generic DATA Chunk
-*/
 #include "stdafx.h"
-
-
 #include "Chunks/GenericChunk.h"
 #include "Chunks/LVL/common/DATA.h"
 #include "Types/List.h"
 
+using LibSWBF2::Chunks::LVL::common::DATA;
 
 namespace LibSWBF2::Chunks::LVL::lght
 {

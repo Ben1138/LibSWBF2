@@ -73,7 +73,9 @@ namespace LibSWBF2::Wrappers
 			{
                 Light newLight;
 
-                if (Light::FromChunks(p_LightTags[i], p_LightBodies[i], newLight))
+                if (Light::FromChunks(lightListChunk -> p_LightTags[i], 
+                					  lightListChunk ->	p_LightBodies[i], 
+                					  newLight))
                 {
                 	LOG_WARN(newLight.ToString().Buffer());
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
