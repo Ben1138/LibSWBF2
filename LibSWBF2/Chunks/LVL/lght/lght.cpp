@@ -43,7 +43,7 @@ namespace LibSWBF2::Chunks::LVL::lght
                 
                 READ_CHILD(stream, tempHeader);
 
-                if (DATA_TAG -> m_Local){
+                if (tempHeader -> m_LocalLight){
                     READ_CHILD(stream, tempScope);
                     p_LightTags.Add(tempHeader);
                     p_LightBodies.Add(tempScope);

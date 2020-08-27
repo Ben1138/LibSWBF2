@@ -152,7 +152,7 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "lght"_h)
 					{
-						LVL::light::lght* unknown;
+						LVL::lght::lght* unknown;
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
