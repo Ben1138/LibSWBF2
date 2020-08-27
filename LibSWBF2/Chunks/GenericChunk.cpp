@@ -46,7 +46,7 @@ namespace LibSWBF2::Chunks
 		GenericBaseChunk* parent = GetParent();
 		if (parent != nullptr && (stream.GetPosition() + m_Size) > (parent->GetDataPosition() + parent->GetDataSize()))
 		{
-			THROW("Current chunk size {} exceeds parent data size!", m_Size);
+			THROW("Current chunk size {:#x} exceeds parent data size!", m_Size);
 		}
 	}
 
@@ -163,7 +163,7 @@ namespace LibSWBF2::Chunks
 					chunk = nullptr;
 
 					LOG_WARN(e.what());
-					//LOG_WARN("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition() - 8);
+					//LOG_WARN("Skipping invalid Chunk: '{}' at pos: {:#x}", nextHead, stream.GetPosition() - 8);
 					break;
 				}
 			}

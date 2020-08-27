@@ -49,7 +49,7 @@ namespace LibSWBF2::Chunks
 		
 		if (!stream.ReadBytes(p_Data, dataSize))
 		{
-			LOG_WARN("Could not read binary data of size {} at position {}", dataSize, stream.GetPosition());
+			LOG_WARN("Could not read binary data of size {:#x} at position {:#x}", dataSize, stream.GetPosition());
 			delete[] p_Data;
 			p_Data = nullptr;
 		}
