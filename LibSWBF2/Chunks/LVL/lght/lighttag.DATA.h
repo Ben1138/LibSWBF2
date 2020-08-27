@@ -9,9 +9,11 @@
 namespace LibSWBF2::Chunks::LVL::lght
 {
 
-struct LIBSWBF2_API DATA_VEC3 : public DATA {};
+struct LIBSWBF2_API DATA_TAG : public DATA {};
 
-	Vector3 m_Vec;
+	bool m_LocalLight;
+	String m_Name;
+
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;

@@ -52,6 +52,9 @@ public:
 	void ReadFromStream(FileReader& stream) override;
     bool m_Empty = false;
 
+    List<DATA_TAG *> p_LightTags;
+    List<SCOP_LGHT *> p_LightBodies;
+
 private:
     inline static bool skip = false;
 };

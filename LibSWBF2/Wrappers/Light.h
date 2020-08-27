@@ -19,13 +19,8 @@ struct Light {
 
 public:
 
-	Vector3 m_Position;
-	Vector4 m_Rotation;
-
-	Vector3 m_Color; //defined as Vector3 since Colorf
-					 //is buggy, TODO: FIX COLORF
-	String m_Name;
-	ELightType m_Type;
+	Vector3 GetPosition();
+	Vector4 GetRotation();
 
 	bool m_CastSpecular;
 
