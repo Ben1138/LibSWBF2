@@ -4,6 +4,13 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "Chunks/LVL/common/SCOP.h"
 
+#include "Chunks/LVL/lght/lght.SCOP.h"
+#include "Chunks/LVL/lght/lighttag.DATA.h"
+#include "Chunks/LVL/lght/lighttype.DATA.h"
+#include "Chunks/LVL/lght/vec4.DATA.h"
+#include "Chunks/LVL/lght/vec3.DATA.h"
+
+
 /*
 'lght' chunk spec
 
@@ -41,7 +48,7 @@ Example with a single omnidirectional light
 
 using namespace LibSWBF2::Chunks::LVL::common;
 
-namespace LibSWBF2::Chunks::LVL::light
+namespace LibSWBF2::Chunks::LVL::lght
 {
 
 struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
@@ -54,6 +61,7 @@ public:
 
     List<DATA_TAG *> p_LightTags;
     List<SCOP_LGHT *> p_LightBodies;
+    int m_NumLights = 0;
 
 private:
     inline static bool skip = false;

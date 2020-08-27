@@ -6,7 +6,7 @@
 #include "Logging/Logger.h"
 
 
-namespace LibSWBF2::Chunks::LVL::light
+namespace LibSWBF2::Chunks::LVL::lght
 {
 	void lght::RefreshSize()
 	{
@@ -47,6 +47,7 @@ namespace LibSWBF2::Chunks::LVL::light
                     READ_CHILD(stream, tempScope);
                     p_LightTags.Add(tempHeader);
                     p_LightBodies.Add(tempScope);
+                    m_NumLights++;
                 }
                 else 
                 {

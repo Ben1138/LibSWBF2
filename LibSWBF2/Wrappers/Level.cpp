@@ -5,8 +5,6 @@
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/lght/lght.h"
-#include "Chunks/LVL/common/DATA.h"
-#include "Chunks/LVL/common/SCOP.h"
 
 #include <unordered_map>
 
@@ -29,8 +27,9 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	using Chunks::LVL::light::lght;
+	using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
+    using namespace Chunks::LVL::lght;
 
 	Level::Level(LVL* lvl)
 	{
@@ -70,22 +69,14 @@ namespace LibSWBF2::Wrappers
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr && !lightListChunk -> m_Empty)
 		{
-            auto children = lightListChunk -> GetChildren();
-
-            //Skip the first dummy chunk, and stop before the last two (unknown/probably global)
-            for (int i = 1; i < children.Size() - 2; i+=2)
+            for (int i = 1; i < lightListChunk -> m_NumLights; i++)
 			{
                 Light newLight;
-                String lightString;
 
-                DATA *tag = dynamic_cast<DATA*>(children[i]);
-                SCOP *body = dynamic_cast<SCOP*>(children[i+1]);
-
-                //Method handles null check
-                if (Light::FromChunks(tag, body, newLight))
+                if (Light::FromChunks(p_LightTags[i], p_LightBodies[i], newLight))
                 {
                 	LOG_WARN(newLight.ToString().Buffer());
-                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.m_Name), m_Lights.Add(newLight));
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
                 }
 			}
 		}

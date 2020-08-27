@@ -465,7 +465,10 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
-	template class LIBSWBF2_API Types::List<LVL::light::lght*>;
+	template class LIBSWBF2_API Types::List<LVL::lght::lght*>;
+	template class LIBSWBF2_API Types::List<LVL::lght::SCOP_LGHT*>;
+	template class LIBSWBF2_API Types::List<LVL::lght::DATA_TAG*>;
+
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
 
