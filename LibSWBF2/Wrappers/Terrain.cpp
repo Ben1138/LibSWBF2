@@ -262,12 +262,14 @@ namespace LibSWBF2::Wrappers
 
 	void Terrain::GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const {
 
+		float_t maxY = p_Terrain -> p_Info -> m_HeightCeiling;
+       	float_t minY = p_Terrain -> p_Info -> m_HeightFloor;
+
         Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
         uint32_t numVerts = m_Positions.Size();
 
 		//These may already exist in member vars...
         float_t minX=1000000.0f,maxX=-100000.0f;
-        float_t minY=1000000.0f,maxY=-100000.0f;
         float_t minZ=1000000.0f,maxZ=-100000.0f;
 
         //Hardcode for testing
@@ -279,9 +281,6 @@ namespace LibSWBF2::Wrappers
 
         	minX = curVert.m_X < minX ? curVert.m_X : minX;
         	maxX = curVert.m_X > maxX ? curVert.m_X : maxX;
-
-        	minY = curVert.m_Y < minY ? curVert.m_Y : minY;
-        	maxY = curVert.m_Y > maxY ? curVert.m_Y : maxY;
 
         	minZ = curVert.m_Z < minZ ? curVert.m_Z : minZ;
         	maxZ = curVert.m_Z > maxZ ? curVert.m_Z : maxZ;
@@ -296,17 +295,28 @@ namespace LibSWBF2::Wrappers
         	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
         	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
 
+        	if (((int)curVert.m_X) % 128 == 0){
+        		COUT(curVert.m_X);
+        	}
+
         	int uIndex = (int) (xFrac * 9.0f * 16.0f + .00001f);
         	int vIndex = (int) (zFrac * 9.0f * 16.0f + .00001f);
-
-			if (i % 100 == 0){
-        		COUT(fmt::format("(u,v,height) = ({},{},{})", uIndex, vIndex, yFrac));
-        	}
 
         	heightData[uIndex + vIndex * 9 * 16] = yFrac;
         }
 
-       	//COUT("READ HEIGHTS");
+        auto info = p_Terrain -> p_Info;
+
+       	COUT("Num verts: " << m_Positions.Size());
+       	COUT(fmt::format("Gridsize: {}, Gridunitsize: {}, Patchedgesize: {}",
+       					info -> m_GridSize,
+       					info -> m_GridUnitSize,
+       					info -> m_PatchEdgeSize));
+
+       	COUT("Max X found: " << maxX);
+       	COUT("Min X found: " << minX);
+       	COUT("Max Z found: " << maxZ);
+       	COUT("Min Z found: " << minZ);
 
         width = 9 * 16;
         height = 9 * 16;
