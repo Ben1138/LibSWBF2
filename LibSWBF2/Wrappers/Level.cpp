@@ -71,14 +71,14 @@ namespace LibSWBF2::Wrappers
 		{
             for (int i = 1; i < lightListChunk -> m_NumLights; i++)
 			{
-                Light newLight;
+                Light *newLight;
 
                 if (Light::FromChunks(lightListChunk -> p_LightTags[i], 
                 					  lightListChunk ->	p_LightBodies[i], 
                 					  newLight))
                 {
-                	LOG_WARN(newLight.ToString().Buffer());
-                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
+                	LOG_WARN((newLight -> ToString()).Buffer());
+                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight -> GetName()), m_Lights.Add(newLight));
                 }
 			}
 		}
@@ -169,7 +169,7 @@ namespace LibSWBF2::Wrappers
 		return m_Worlds.Size() > 0;
 	}
 
-	const List<Light>& Level::GetLights() const
+	const List<Light *>& Level::GetLights() const
 	{
 		return m_Lights;
 	}
@@ -209,7 +209,7 @@ namespace LibSWBF2::Wrappers
 		auto it = m_NameToIndexMaps->LightNameToIndex.find(ToLower(lightName));
 		if (it != m_NameToIndexMaps->LightNameToIndex.end())
 		{
-			return &m_Lights[it->second];
+			return m_Lights[it->second];
 		}
 
 		//LOG_WARN("Could not find Light '{}'!", lightName);

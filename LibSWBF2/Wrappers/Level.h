@@ -37,7 +37,7 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
-		List<Light> m_Lights;
+		List<Light *> m_Lights;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -53,7 +53,7 @@ namespace LibSWBF2::Wrappers
 
 		bool IsWorldLevel() const;
 
-		const List<Light>& GetLights() const;
+		const List<Light *>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
