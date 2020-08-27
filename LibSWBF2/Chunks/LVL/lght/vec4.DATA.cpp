@@ -9,17 +9,17 @@
 namespace LibSWBF2::Chunks::LVL::lght
 {
 
-	void DATA_VEC3::RefreshSize()
+	void DATA_VEC4::RefreshSize()
 	{
 		THROW("Not implemented!");
 	}
 
-	void DATA_VEC3::WriteToStream(FileWriter& stream)
+	void DATA_VEC4::WriteToStream(FileWriter& stream)
 	{
 		THROW("Not implemented!");
 	}
 
-	void DATA_VEC3::ReadFromStream(FileReader& stream)
+	void DATA_VEC4::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
         Check(stream);
@@ -29,5 +29,4 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         BaseChunk::EnsureEnd(stream);
 	}
-
 }

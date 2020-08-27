@@ -82,7 +82,7 @@ ELightType Light::TypeFromSCOP(SCOP *body)
 }
 
 
-Light::Light(DATA* tag, SCOP* body)
+Light::Light(DATA* tag, SCOP_LGHT* body)
 {
     m_CastSpecular = false;
     

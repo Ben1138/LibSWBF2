@@ -18,11 +18,6 @@ namespace LibSWBF2::Chunks::LVL::light
 		THROW("Not implemented!");
 	}
 
-    /*
-     There isn't much abstraction here, just basic exposure
-     of the chunk structure.  All light semantics are parsed from
-     the SCOP/DATA chunks in the Light wrapper classes.
-     */
 
 	void lght::ReadFromStream(FileReader& stream)
 	{       
@@ -40,15 +35,23 @@ namespace LibSWBF2::Chunks::LVL::light
         {
             STR<"NAME"_m> *p_Marker;
             READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks...
-            delete p_Marker;
 
             while (ThereIsAnother(stream))
             {
-                DATA *tempHeader;
-                SCOP *tempScope;
+                DATA_TAG *tempHeader;
+                SCOP_LGHT *tempScope;
                 
                 READ_CHILD(stream, tempHeader);
-                READ_CHILD(stream, tempScope);
+
+                if (DATA_TAG -> m_Local){
+                    READ_CHILD(stream, tempScope);
+                    p_LightTags.Add(tempHeader);
+                    p_LightBodies.Add(tempScope);
+                }
+                else 
+                {
+                    break;
+                }
             }
 
             lght::skip = true;
