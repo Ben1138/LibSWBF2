@@ -18,17 +18,18 @@ struct Light {
 
 public:
 
+	String GetName();
+
 	Vector4 GetRotation();
 	Vector3 GetPosition();
-	String GetName();
+	ELightType GetType();
 	Vector3 GetColor();
 
 	Light(DATA_TAG* tag, SCOP_LGHT* body);
 	Light() = default;
 
-	virtual String ToString();
-	static ELightType TypeFromSCOP(SCOP_LGHT* body);
-	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light*& out);
+	String ToString();
+	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out);
 
 
 private:
@@ -36,31 +37,5 @@ private:
 	DATA_TAG* p_TagChunk;
 	SCOP_LGHT* p_FieldsChunk;
 };
-
-
-
-struct OmnidirectionalLight : public Light {
-public:
-	OmnidirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
-	String ToString();
-	//int GetRadius();
-};
-
-
-struct SpotLight : public Light {
-public:
-	SpotLight(DATA_TAG* tag, SCOP_LGHT* body);
-	String ToString();
-	//void GetAngles(int& innerAngle, int& outerAngle);
-};
-
-
-struct DirectionalLight : public Light {
-public:
-	DirectionalLight(DATA_TAG* tag, SCOP_LGHT* body);
-	String ToString();
-	//int GetLength();
-};
- 
 
 }

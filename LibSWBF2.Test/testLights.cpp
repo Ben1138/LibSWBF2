@@ -29,7 +29,7 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/omni.lvl");
+	Level *testLVL = Level::FromFile("/Users/will/Desktop/spotlightlvl/TST_spot_green.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
 #endif

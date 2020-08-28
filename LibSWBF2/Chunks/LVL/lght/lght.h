@@ -60,10 +60,8 @@ public:
 
     List<DATA_TAG *> p_LightTags;
     List<SCOP_LGHT *> p_LightBodies;
-    STR<"NAME"_m> *p_Marker;
+    STR<"NAME"_m> *p_Marker; //unknown purpose
     
-    int m_NumLights = 0;
-
 private:
     inline static bool skip = false;
 };
