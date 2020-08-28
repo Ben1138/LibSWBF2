@@ -147,57 +147,52 @@ namespace LibSWBF2
 
 	LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{
-		Vector3 *verts;
-		float *rawBuffer;
+		COUT("STARTING VERT BUFF READ");
 
+		Vector3 *verts;
 		segment -> GetVertexBuffer(numVerts, verts);
+
+		COUT("Got vbuf with " << numVerts << "verts");
+
+		vertBuffer = new float[numVerts * 3];
 
 		for (int i = 0; i < (int) numVerts; i++)
 		{
 			Vector3& curVec = verts[i];
-			rawBuffer[i * 3] = curVec.m_X;
-			rawBuffer[i * 3 + 1] = curVec.m_Y;
-			rawBuffer[i * 3 + 2] = curVec.m_Z;
+			vertBuffer[i * 3] = curVec.m_X;
+			vertBuffer[i * 3 + 1] = curVec.m_Y;
+			vertBuffer[i * 3 + 2] = curVec.m_Z;
 		}
-
-		vertBuffer = rawBuffer;
 	}
 	
 
 	LIBSWBF2_API const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
 	{
 		Vector2 *UVs;
-		float *rawBuffer;
-
 		segment -> GetUVBuffer(numUVs, UVs);
+
+		UVBuffer = new float[numUVs * 2];
 
 		for (int i = 0; i < (int) numUVs; i++)
 		{
 			Vector2& curVec = UVs[i];
-			rawBuffer[i * 2] = curVec.m_X;
-			rawBuffer[i * 2 + 1] = curVec.m_Y;
+			UVBuffer[i * 2] = curVec.m_X;
+			UVBuffer[i * 2 + 1] = curVec.m_Y;
 		}
-
-		UVBuffer = rawBuffer;
 	}
 	
 
-	LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint*& indexBuffer)
+	LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
 	{
-		Vector3 *indicies;
-		float *rawBuffer;
-
+		uint16_t *indicies;
 		segment -> GetIndexBuffer(numInds, indicies);
+
+		indexBuffer = new int[numInds];
 
 		for (int i = 0; i < (int) numInds; i++)
 		{
-			Vector3& curVec = indicies[i];
-			rawBuffer[i * 3] = curVec.m_X;
-			rawBuffer[i * 3 + 1] = curVec.m_Y;
-			rawBuffer[i * 3 + 2] = curVec.m_Z;
+			indexBuffer[i] = (int) indicies[i];
 		}
-
-		indexBuffer = rawBuffer;
 	}
 	
 

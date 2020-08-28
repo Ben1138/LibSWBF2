@@ -64,8 +64,8 @@ namespace LibSWBF2
 		// Wrappers - Segment
 		LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
 		LIBSWBF2_API const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, uint*& indexBuffer);
-		LIBSWBF2_API const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, uint*& normalsBuffer);
+		LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
+		LIBSWBF2_API const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
 		LIBSWBF2_API const char* Segment_GetMaterialTexName(const Segment* segment);
 
 		// Enums
