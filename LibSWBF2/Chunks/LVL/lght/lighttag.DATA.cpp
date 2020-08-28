@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::lght
         if (m_LocalLight)
         {
         	stream.SkipBytes(9); //Not sure what those 9 bytes mean as of yet
-        	m_Name = stream.ReadString((size_t) stream.ReadUInt32());
+        	m_Name = stream.ReadString(stream.ReadUInt32());
         }
 
         BaseChunk::EnsureEnd(stream);
@@ -37,13 +37,6 @@ namespace LibSWBF2::Chunks::LVL::lght
 
 	String DATA_TAG::ToString()
 	{
-		if (!m_LocalLight)
-		{
-			return "Global lighting section";
-		}
-		else 
-		{
-			return m_Name.Buffer();
-		}
+		return m_LocalLight ? m_Name : "Global lighting section";
 	}
 }

@@ -13,11 +13,11 @@ namespace LibSWBF2::Chunks::LVL::lght
 struct LIBSWBF2_API DATA_LIGHTTYPE : public DATA {
 
 	float_t m_LightType;
+	
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
-
+	
 	String ToString() override;
-
 };
 }

@@ -31,6 +31,6 @@ namespace LibSWBF2::Chunks::LVL::lght
 
 	String DATA_LIGHTTYPE::ToString()
 	{
-		return ELightTypeToString((ELightType) m_LightType).Buffer();
+		return ELightTypeToString((ELightType) m_LightType);
 	}
 }
