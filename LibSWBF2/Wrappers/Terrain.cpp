@@ -270,7 +270,7 @@ namespace LibSWBF2::Wrappers
 		float_t maxY = (float_t) info -> m_HeightCeiling;
        	float_t minY = (float_t) info -> m_HeightFloor;
 
-       	float_t halfLength = ((float_t) gridSize * gridUnitSize) / 2.0f;
+       	float_t halfLength = gridSize * gridUnitSize / 2.0f;
        	float_t maxZ = halfLength, minZ = -halfLength;
        	float_t maxX = halfLength, minX = -halfLength;
 
@@ -296,20 +296,6 @@ namespace LibSWBF2::Wrappers
                 heightData[dataIndex] = yFrac;
             }
         }
-
-
-        /*
-       	COUT("Num verts: " << m_Positions.Size());
-       	COUT(fmt::format("Gridsize: {}, Gridunitsize: {}, Patchedgesize: {}",
-       					info -> m_GridSize,
-       					info -> m_GridUnitSize,
-       					info -> m_PatchEdgeSize));
-
-       	COUT("Max X found: " << maxX);
-       	COUT("Min X found: " << minX);
-       	COUT("Max Z found: " << maxZ);
-       	COUT("Min Z found: " << minZ);
-        */
 
         width = (uint32_t) gridSize;
         height = (uint32_t) gridSize;
