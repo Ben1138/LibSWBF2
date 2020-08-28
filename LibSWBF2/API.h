@@ -62,7 +62,11 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount);
 
 		// Wrappers - Segment
-		// ....
+		LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
+		LIBSWBF2_API const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
+		LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, uint*& indexBuffer);
+		LIBSWBF2_API const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, uint*& normalsBuffer);
+		LIBSWBF2_API const char* Segment_GetMaterialTexName(const Segment* segment);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
@@ -70,8 +74,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_VBUFFlagsToString(EVBUFFlags flags);
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
 
-
-		//Terrain
+		// Wrappers - Terrain
         LIBSWBF2_API const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result);
         LIBSWBF2_API const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result);
 		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, char**& result);
