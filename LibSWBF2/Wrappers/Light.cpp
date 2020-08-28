@@ -7,7 +7,7 @@ namespace LibSWBF2::Wrappers
 {
 
 
-bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light*& out)
+bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
 {
     if (body == nullptr || tag == nullptr)
     {
@@ -21,36 +21,8 @@ bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light*& out)
 		return false;
 	}
 
-	switch (Light::TypeFromSCOP(body))
-	{
-		case ELightType::Omni:
-            out = new OmnidirectionalLight(tag, body);
-			break;
-		case ELightType::Spot:
-            out = new SpotLight(tag, body);
-			break;
-		case ELightType::Dir:
-            out = new DirectionalLight(tag, body);
-			break;
-		default:
-            LOG_ERROR("UNKNOWN LIGHT TYPE");
-			return false;
-			break;
-	}
-
+	out = Light(tag, body);
 	return true;
-}
-
-
-ELightType Light::TypeFromSCOP(SCOP_LGHT *body)
-{
-	if (body -> GetChildren().Size() >= 3)
-    {
-	    DATA_LIGHTTYPE *typeChunk = dynamic_cast<DATA_LIGHTTYPE *>(body -> GetChildren()[2]); 
-	   	return (ELightType) (.1f + typeChunk -> m_LightType);  
-	}
-
-	return ELightType::Unknown;
 }
 
 
@@ -59,17 +31,17 @@ Light::Light(DATA_TAG* tag, SCOP_LGHT* body) : p_TagChunk(tag), p_FieldsChunk(bo
 
 Vector4 Light::GetRotation()
 {
-    return dynamic_cast<DATA_VEC4 *>(p_FieldsChunk -> p_DataFields[0]) -> m_Vec;
+    return p_FieldsChunk -> p_RotationChunk -> m_Vec;
 }
 
 Vector3 Light::GetPosition()
 {
-    return dynamic_cast<DATA_VEC3 *>(p_FieldsChunk -> p_DataFields[1]) -> m_Vec;
+    return p_FieldsChunk -> p_PositionChunk -> m_Vec;
 }
 
 Vector3 Light::GetColor()
 {
-    return dynamic_cast<DATA_VEC3 *>(p_FieldsChunk -> p_DataFields[3]) -> m_Vec;
+    return p_FieldsChunk -> p_ColorChunk -> m_Vec;
 }
 
 String Light::GetName()
@@ -77,45 +49,27 @@ String Light::GetName()
     return p_TagChunk -> m_Name;
 }
 
+ELightType Light::GetType()
+{	
+	auto* typeChunk = p_FieldsChunk -> p_TypeChunk;
+
+	if (typeChunk != nullptr)
+    {
+	   	return (ELightType) (.1f + typeChunk -> m_LightType);  
+	}
+
+	return ELightType::Unknown;
+}
 
 String Light::ToString()
 {
     return fmt::format(
-            "Name: {}, Position: {}, Rotation: {}, Color: {}, ",
+            "Name: {}, Position: {}, Rotation: {}, Color: {}, Type: {}",
             GetName().Buffer(), GetPosition().ToString().Buffer(), 
-            GetRotation().ToString().Buffer(), 
-            GetColor().ToString().Buffer()
+            GetRotation().ToString().Buffer(), GetColor().ToString().Buffer(),
+            ELightTypeToString(GetType()).Buffer()
         ).c_str();
 }
 
-//ToString methods will be filled in with subclass specific fields when added...
-
-String OmnidirectionalLight::ToString()
-{
-    return Light::ToString() + "Type: Omnidirectional";
-}
-
-OmnidirectionalLight::OmnidirectionalLight(DATA_TAG* tag, SCOP_LGHT* body) :
-                    Light(tag, body) {}
-
-
-
-String SpotLight::ToString()
-{
-    return Light::ToString() + "Type: Spot";
-}
-
-SpotLight::SpotLight(DATA_TAG* tag, SCOP_LGHT* body) :
-                    Light(tag, body) {}
-
-
-
-String DirectionalLight::ToString()
-{
-    return Light::ToString() + "Type: Directional";
-}
-
-DirectionalLight::DirectionalLight(DATA_TAG* tag, SCOP_LGHT* body) :
-					Light(tag, body){}
 
 }

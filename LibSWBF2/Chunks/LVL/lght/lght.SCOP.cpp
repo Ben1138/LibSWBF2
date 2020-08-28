@@ -39,26 +39,17 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
     BaseChunk::ReadFromStream(stream);
     Check(stream);
 
-    DATA_VEC4 *rotation;
-    DATA_VEC3 *position;
-    DATA_LIGHTTYPE *type;
-    DATA_VEC3 *color;
-
     while (ThereIsAnother(stream))
     {
-        READ_CHILD(stream, rotation);
-        READ_CHILD(stream, position);
-        READ_CHILD(stream, type);
-        READ_CHILD(stream, color);
-
-        p_DataFields.Add(rotation);
-        p_DataFields.Add(position);
-        p_DataFields.Add(type);
-        p_DataFields.Add(color);
+        READ_CHILD(stream, p_RotationChunk);
+        READ_CHILD(stream, p_PositionChunk);
+        READ_CHILD(stream, p_TypeChunk);
+        READ_CHILD(stream, p_ColorChunk);
 
         while (ThereIsAnother(stream))
         {
-            READ_CHILD_GENERIC(stream);
+            READ_CHILD_GENERIC(stream); //temp till I figure out best way to handle
+                                        //fields specific to light types
         }
     }
     BaseChunk::EnsureEnd(stream);

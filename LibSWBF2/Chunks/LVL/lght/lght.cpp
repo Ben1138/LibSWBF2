@@ -43,15 +43,14 @@ namespace LibSWBF2::Chunks::LVL::lght
                 READ_CHILD(stream, tempTag);
 
                 if (tempTag -> m_LocalLight) //Check local flag before proceding
-                { 
+                {
                     READ_CHILD(stream, tempBody);
                     p_LightTags.Add(tempTag);
                     p_LightBodies.Add(tempBody);
-                    m_NumLights++;
                 }
                 else 
                 {
-                    break;
+                    READ_CHILD_GENERIC(stream);
                 }
             }
 

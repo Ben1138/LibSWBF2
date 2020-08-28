@@ -24,8 +24,7 @@ namespace LibSWBF2::Chunks::LVL::lght
 		BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        uint32_t localFlag = stream.ReadUInt32();
-        m_LocalLight = localFlag == 3801947695;
+        m_LocalLight = stream.ReadUInt32() == 3801947695;
 
         if (m_LocalLight)
         {
