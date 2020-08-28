@@ -27,6 +27,6 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 
 		// count is number of wide chars, NOT number of bytes!
-		bool GetLocalizedWideString(const String& path, uint16_t*& chars, uint32_t& count);
+		bool GetLocalizedWideString(const String& path, uint16_t*& chars, uint32_t& count) const;
 	};
 }

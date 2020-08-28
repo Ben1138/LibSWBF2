@@ -32,7 +32,7 @@ namespace LibSWBF2::Wrappers
 
 		out.p_Locl = loclChunk;
 
-		for (size_t i = 0; loclChunk->p_Body->m_LocalizeEntries.Size(); ++i)
+		for (size_t i = 0; i < loclChunk->p_Body->m_LocalizeEntries.Size(); ++i)
 		{
 			out.m_LocalizationMaps->m_HashToIndexMap.emplace(
 				loclChunk->p_Body->m_LocalizeEntries[i].m_LocalizePathHash, 
@@ -48,7 +48,7 @@ namespace LibSWBF2::Wrappers
 		return p_Locl->p_Name->m_Text;
 	}
 
-	bool Localization::GetLocalizedWideString(const String& path, uint16_t*& chars, uint32_t& count)
+	bool Localization::GetLocalizedWideString(const String& path, uint16_t*& chars, uint32_t& count) const
 	{
 		if (path.IsEmpty())
 		{
