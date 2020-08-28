@@ -9,6 +9,6 @@
 namespace LibSWBF2::Chunks::LVL::common
 {
 
-struct LIBSWBF2_API DATA : public RawData<"DATA"_m> {};
+struct LIBSWBF2_API DATA : public GenericChunk<"DATA"_m> {};
 
 }

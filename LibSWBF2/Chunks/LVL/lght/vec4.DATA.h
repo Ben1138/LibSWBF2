@@ -17,5 +17,7 @@ struct LIBSWBF2_API DATA_VEC4 : public DATA {
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
+
+	String ToString() override;
 };
 }

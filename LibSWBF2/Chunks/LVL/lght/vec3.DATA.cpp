@@ -28,4 +28,9 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         BaseChunk::EnsureEnd(stream);
 	}
+
+	String DATA_VEC3::ToString()
+	{
+		return m_Vec.ToString();
+	}
 }

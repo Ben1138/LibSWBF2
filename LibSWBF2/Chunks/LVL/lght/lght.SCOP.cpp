@@ -21,18 +21,12 @@ namespace LibSWBF2::Chunks::LVL::lght
     
 void SCOP_LGHT::RefreshSize()
 {
-    //THROW("Not implemented!");
-    return;
+    THROW("Not implemented!");
 }
 
 void SCOP_LGHT::WriteToStream(FileWriter& stream)
 {
     THROW("Not implemented!");
-}
-
-String SCOP_LGHT::ToString()
-{
-    return String("SCOP");
 }
 
 void SCOP_LGHT::ReadFromStream(FileReader& stream)
@@ -50,8 +44,6 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
     DATA_LIGHTTYPE *type;
     DATA_VEC3 *color;
 
-    DATA *throwaway;
-
     while (ThereIsAnother(stream))
     {
         READ_CHILD(stream, rotation);
@@ -66,7 +58,7 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
 
         while (ThereIsAnother(stream))
         {
-            READ_CHILD(stream,throwaway);
+            READ_CHILD_GENERIC(stream);
         }
     }
     BaseChunk::EnsureEnd(stream);

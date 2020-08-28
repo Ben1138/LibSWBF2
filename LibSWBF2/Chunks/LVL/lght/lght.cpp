@@ -33,7 +33,6 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         if (!lght::skip)
         {
-            STR<"NAME"_m> *p_Marker;
             READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks
 
             while (ThereIsAnother(stream))
