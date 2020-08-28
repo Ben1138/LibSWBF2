@@ -15,12 +15,6 @@ bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
         return false;
     }
 
-	if (!tag -> m_LocalLight)
-	{
-        LOG_WARN("Global light configurations not yet supported");
-		return false;
-	}
-
 	out = Light(tag, body);
 	return true;
 }
