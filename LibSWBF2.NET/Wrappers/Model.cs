@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
+using LibSWBF2.Segment;
 
 namespace LibSWBF2.Wrappers
 {
@@ -33,15 +34,21 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSegments()
+        public Segment[] GetSegments()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
             IntPtr[] segments = new IntPtr[segmentCount];
             Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
-            return segments;
+
+            Segment[] segmentsArray = new Segment[segmentCount];
+            for (int i = 0; i < segmentCount; i++)
+            {
+                segmentsArray[i] = new Segment(segments[i]);
+            }
+
+            return segmentsArray;
         }
 
         // TODO: swap IntPtr with actualy wrapper class
