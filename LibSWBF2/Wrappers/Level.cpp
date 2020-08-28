@@ -46,6 +46,11 @@ namespace LibSWBF2::Wrappers
 		m_Textures.Clear();
 		m_Lights.Clear();
 
+		for (int i = 0; i < m_Lights.Size(); i++)
+		{
+			delete m_Lights[i];
+		}
+
 		if (p_lvl == nullptr)
 		{
 			LOG_ERROR("p_lvl of Level was NULL!");
