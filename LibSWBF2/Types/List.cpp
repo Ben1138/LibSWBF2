@@ -402,6 +402,7 @@ namespace LibSWBF2::Types
 #include "Polygon.h"
 #include "LibString.h"
 #include "SoundClip.h"
+#include "LocalizeEntry.h"
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
@@ -443,6 +444,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<RotationFrame>;
 	template class LIBSWBF2_API Types::List<TerrainBufferEntry>;
 	template class LIBSWBF2_API Types::List<SoundClip>;
+	template class LIBSWBF2_API Types::List<LocalizeEntry>;
 	template class LIBSWBF2_API Types::List<MSH::SEGM>;
 	template class LIBSWBF2_API Types::List<MSH::MATD>;
 	template class LIBSWBF2_API Types::List<MSH::MODL>;
@@ -471,6 +473,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
+	template class LIBSWBF2_API Types::List<Wrappers::Localization>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 }

@@ -55,7 +55,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteChunkSize(const ChunkSize& value)
+	void FileWriter::WriteChunkSize(ChunkSize value)
 	{
 		if (CheckGood())
 		{
@@ -63,7 +63,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteByte(const uint8_t& value)
+	void FileWriter::WriteByte(uint8_t value)
 	{
 		if (CheckGood())
 		{
@@ -71,7 +71,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteBytes(const uint8_t* data, size_t size)
+	void FileWriter::WriteBytes(uint8_t* data, size_t size)
 	{
 		if (CheckGood())
 		{
@@ -79,7 +79,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteInt32(const int32_t& value)
+	void FileWriter::WriteInt32(int32_t value)
 	{
 		if (CheckGood())
 		{
@@ -87,7 +87,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteUInt32(const uint32_t& value)
+	void FileWriter::WriteUInt32(uint32_t value)
 	{
 		if (CheckGood())
 		{
@@ -95,7 +95,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteUInt16(const uint16_t& value)
+	void FileWriter::WriteUInt16(uint16_t value)
 	{
 		if (CheckGood())
 		{
@@ -103,7 +103,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteFloat(const float_t& value)
+	void FileWriter::WriteFloat(float_t value)
 	{
 		if (CheckGood())
 		{

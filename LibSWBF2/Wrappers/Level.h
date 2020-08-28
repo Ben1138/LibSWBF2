@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Terrain.h"
 #include "Script.h"
+#include "Localization.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -36,6 +37,7 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
+		List<Localization> m_Localizations;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -56,12 +58,14 @@ namespace LibSWBF2::Wrappers
 		const List<World>& GetWorlds() const;
 		const List<Terrain>& GetTerrains() const;
 		const List<Script>& GetScripts() const;
+		const List<Localization>& GetLocalizations() const;
 
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
+		const Localization* GetLocalization(String loclName) const;
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

@@ -4,6 +4,7 @@
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
+#include "Chunks/LVL/Locl/Locl.h"
 #include <unordered_map>
 
 namespace LibSWBF2::Wrappers
@@ -16,6 +17,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> WorldNameToIndex;
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
+		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
@@ -107,6 +109,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		Locl* loclChunk = dynamic_cast<Locl*>(root);
+		if (loclChunk != nullptr)
+		{
+			Localization localization;
+			if (Localization::FromChunk(loclChunk, localization))
+			{
+				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(localization.GetName()), m_Localizations.Add(localization));
+			}
+		}
+
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
 		{
@@ -170,6 +182,11 @@ namespace LibSWBF2::Wrappers
 		return m_Scripts;
 	}
 
+	const List<Localization>& Level::GetLocalizations() const
+	{
+		return m_Localizations;
+	}
+
 	const Model* Level::GetModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
@@ -183,7 +200,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Models[it->second];
 		}
 
-		//LOG_WARN("Could not find Model '{}'!", modelName);
 		return nullptr;
 	}
 
@@ -200,7 +216,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Textures[it->second];
 		}
 
-		//LOG_WARN("Could not find Texture '{}'!", textureName);
 		return nullptr;
 	}
 
@@ -217,7 +232,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Worlds[it->second];
 		}
 
-		//LOG_WARN("Could not find World '{}'!", worldName);
 		return nullptr;
 	}
 
@@ -234,7 +248,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Terrains[it->second];
 		}
 
-		//LOG_WARN("Could not find Terrain '{}'!", terrainName);
 		return nullptr;
 	}
 
@@ -251,7 +264,22 @@ namespace LibSWBF2::Wrappers
 			return &m_Scripts[it->second];
 		}
 
-		//LOG_WARN("Could not find Script '{}'!", scriptName);
+		return nullptr;
+	}
+
+	const Localization* Level::GetLocalization(String loclName) const
+	{
+		if (loclName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->LocalizationNameToIndex.find(ToLower(loclName));
+		if (it != m_NameToIndexMaps->LocalizationNameToIndex.end())
+		{
+			return &m_Localizations[it->second];
+		}
+
 		return nullptr;
 	}
 
@@ -268,7 +296,6 @@ namespace LibSWBF2::Wrappers
 			return it->second;
 		}
 
-		//LOG_WARN("Could not find Skeleton '{}'!", scriptName);
 		return nullptr;
 	}
 }
