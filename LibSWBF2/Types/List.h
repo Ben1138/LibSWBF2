@@ -73,6 +73,8 @@ namespace LibSWBF2::Types
 
 		void Clear();
 		T* GetArrayPtr() const;
+
+		void COUTME() const;
 	};
 
 	template <> //GCC complaint 

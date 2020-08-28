@@ -35,13 +35,14 @@ namespace LibSWBF2.Wrappers
             return normals;
         }
 
-        public uint[] GetIndexBuffer()
+        public int[] GetIndexBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.Segment_GetIndexBuffer(NativeInstance, out uint numInds, out IntPtr indsArr);
-            uint[] indicies = new uint[(int)numInds];
-            Marshal.Copy(indsArr, indicies, 0, (int)numInds);
+            int indsLength = (int) numInds;
+            int[] indicies = new int[indsLength];
+            Marshal.Copy(indsArr, indicies, 0, indsLength);
             return indicies;
         }
 
@@ -53,6 +54,12 @@ namespace LibSWBF2.Wrappers
             float[] UVs = new float[(int)numUVs*2];
             Marshal.Copy(UVsArr, UVs, 0, (int)numUVs*2);
             return UVs;
+        }
+
+        public string GetMaterialTexName()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            return APIWrapper.Segment_GetMaterialTexName(NativeInstance);
         }
     }
 }

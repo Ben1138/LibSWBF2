@@ -4,6 +4,9 @@
 #include "Types/List.h"
 #include "InternalHelpers.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -113,8 +116,18 @@ namespace LibSWBF2::Wrappers
 
 	void Segment::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const
 	{
-		count = (uint32_t)p_VertexBuffer->m_Positions.Size();
+
+		p_VertexBuffer -> m_Positions.COUTME();
+		p_VertexBuffer -> m_Positions.GetArrayPtr();
+
+		COUT("GONNA READDDDD: ");
+		COUT((void *) &(p_VertexBuffer->m_Positions[0]));
+
+		uint32_t countl = (uint32_t)p_VertexBuffer->m_Positions.Size();
+		COUT("VBUF COUNT" << countl);
+		count = countl;
 		vertexBuffer = p_VertexBuffer->m_Positions.GetArrayPtr();
+		COUT("GOT VBUF IN SEGMENT CLASS");
 	}
 
 	void Segment::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const

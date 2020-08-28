@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
-using LibSWBF2.Segment;
 
 namespace LibSWBF2.Wrappers
 {
