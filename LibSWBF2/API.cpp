@@ -145,6 +145,74 @@ namespace LibSWBF2
 		return true;
 	}
 
+	LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
+	{
+		Vector3 *verts;
+		float *rawBuffer;
+
+		segment -> GetVertexBuffer(numVerts, verts);
+
+		for (int i = 0; i < (int) numVerts; i++)
+		{
+			Vector3& curVec = verts[i];
+			rawBuffer[i * 3] = curVec.m_X;
+			rawBuffer[i * 3 + 1] = curVec.m_Y;
+			rawBuffer[i * 3 + 2] = curVec.m_Z;
+		}
+
+		vertBuffer = rawBuffer;
+	}
+	
+
+	LIBSWBF2_API const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
+	{
+		Vector2 *UVs;
+		float *rawBuffer;
+
+		segment -> GetUVBuffer(numUVs, UVs);
+
+		for (int i = 0; i < (int) numUVs; i++)
+		{
+			Vector2& curVec = UVs[i];
+			rawBuffer[i * 2] = curVec.m_X;
+			rawBuffer[i * 2 + 1] = curVec.m_Y;
+		}
+
+		UVBuffer = rawBuffer;
+	}
+	
+
+	LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint*& indexBuffer)
+	{
+		Vector3 *indicies;
+		float *rawBuffer;
+
+		segment -> GetIndexBuffer(numInds, indicies);
+
+		for (int i = 0; i < (int) numInds; i++)
+		{
+			Vector3& curVec = indicies[i];
+			rawBuffer[i * 3] = curVec.m_X;
+			rawBuffer[i * 3 + 1] = curVec.m_Y;
+			rawBuffer[i * 3 + 2] = curVec.m_Z;
+		}
+
+		indexBuffer = rawBuffer;
+	}
+	
+
+	LIBSWBF2_API const char* Segment_GetMaterialTexName(const Segment* segment)
+	{
+		const Material& segmentMat = segment -> GetMaterial();
+		const Texture* segmentTex = segmentMat.GetTexture(0);//?
+		String *segmentTexName = new String(segmentTex -> GetName());
+		return segmentTexName -> Buffer();
+	}
+
+
+
+
+
 	const Model* Level_GetModel(const Level* level, const char* modelName)
 	{
 		CheckPtr(level, nullptr);

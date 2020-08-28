@@ -5,99 +5,61 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
+using LibSWBF2.Segment;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Terrain : NativeWrapper
+    public class Model : NativeWrapper
     {
-        internal Terrain(IntPtr terrainPtr) : base(terrainPtr)
+        internal Model(IntPtr modelPtr) : base(modelPtr)
         {
 
         }
 
-        public int width;
-        public int height;
-
-        public List<string> Names
+        public string Name
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr strings);
-
-                List<string> textureNames = new List<string>();
-
-                if (numTextures > 0)
-                {
-                    IntPtr[] stringPointers = new IntPtr[numTextures];
-                    Marshal.Copy(strings, stringPointers, 0, (int) numTextures);
-
-                    for (uint i = 0; i < numTextures; i++)
-                    {
-                        string texName = Marshal.PtrToStringAnsi(stringPointers[i]);
-                        textureNames.Add(texName);
-                    }
-
-                }  
-
-                return textureNames;
+                return APIWrapper.Model_GetName(NativeInstance); 
             }
         }
 
-        public float[] Vertices
+        public bool IsSkeletalMesh
         {
-            get
+            get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetVerts(NativeInstance, out uint numVerts, out IntPtr vertsNative);
-
-                float[] rawVerts = new float[((int)numVerts) * 3];
-                Marshal.Copy(vertsNative, rawVerts, 0, (int) numVerts * 3);
-                return rawVerts;
+                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
             }
         }
 
-        public float[] Heights
-        {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetHeights(NativeInstance, out uint _width, out uint _height, out IntPtr heightsNative);
-                width = (int) _width;
-                height = (int) _width;
-
-                Console.WriteLine("Heights width = " + _width);
-                Console.WriteLine("Heights height = " + _height);
-
-                float[] heights = new float[(int) width * width];
-                Marshal.Copy(heightsNative, heights, 0, (int) width * width);
-                return heights;
-            }
-        }
-        
-        /*
-        public float[] GetHeights(out uint width, out uint height, out IntPtr heightsNative)
+        public Segment[] GetSegments()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Terrain_GetHeights(NativeInstance, out uint width, out uint height, out IntPtr heightsNative);
 
-            float[] heights = new float[(int) 256 * 81];
-            Marshal.Copy(heightsNative, heights, 0, (int) heights.Length);
-            return heights;
-        }
-        */
+            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
+            IntPtr[] segments = new IntPtr[segmentCount];
+            Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
 
-        public int[] Indicies
-        {
-            get
+            Segment[] segmentsArray = new Segment[segmentCount];
+            for (int i = 0; i < segmentCount; i++)
             {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetIndicies(NativeInstance, out uint numInds, out IntPtr indiciesNative);
-
-                int[] rawInds = new int[(int) numInds];
-                Marshal.Copy(indiciesNative, rawInds, 0, (int) numInds);
-                return rawInds;
+                segmentsArray[i] = new Segment(segments[i]);
             }
+
+            return segmentsArray;
+        }
+
+        // TODO: swap IntPtr with actualy wrapper class
+        public IntPtr[] GetSkeleton()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+
+            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
+            IntPtr[] bones = new IntPtr[boneCount];
+            Marshal.Copy(boneArr, bones, 0, (int)boneCount);
+            return bones;
         }
     }
 }
