@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::LVL::lght
         Check(stream);
 
         uint32_t localFlag = stream.ReadUInt32();
-        m_LocalLight = localFlag == 3801947695 ? true : false;
+        m_LocalLight = localFlag == 3801947695;
 
         if (m_LocalLight)
         {
@@ -34,5 +34,17 @@ namespace LibSWBF2::Chunks::LVL::lght
         }
 
         BaseChunk::EnsureEnd(stream);
+	}
+
+	String DATA_TAG::ToString()
+	{
+		if (!m_LocalLight)
+		{
+			return "Global lighting section";
+		}
+		else 
+		{
+			return m_Name.Buffer();
+		}
 	}
 }

@@ -16,8 +16,6 @@ struct LIBSWBF2_API SCOP_LGHT : public GenericChunk<"SCOP"_m>{
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
 
-	String ToString() override;
-
 	List<DATA *> p_DataFields; 
 };
 

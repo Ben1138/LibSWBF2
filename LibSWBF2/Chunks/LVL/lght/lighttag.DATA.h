@@ -20,5 +20,7 @@ struct LIBSWBF2_API DATA_TAG : public DATA {
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
+
+	String ToString() override;
 };
 }

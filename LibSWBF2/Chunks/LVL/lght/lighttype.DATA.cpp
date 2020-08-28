@@ -28,4 +28,9 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         BaseChunk::EnsureEnd(stream);
 	}
+
+	String DATA_LIGHTTYPE::ToString()
+	{
+		return ELightTypeToString((ELightType) m_LightType).Buffer();
+	}
 }
