@@ -17,6 +17,7 @@
 #include "LVL/skel/skel.h"
 #include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
+#include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 
@@ -148,6 +149,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
+					else if (nextHead == "Locl"_h)
+					{
+						LVL::Localization::Locl* localizeChunk;
+						READ_CHILD(stream, localizeChunk);
+						chunk = localizeChunk;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -240,6 +247,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
