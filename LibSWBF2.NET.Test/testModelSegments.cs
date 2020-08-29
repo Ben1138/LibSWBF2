@@ -14,33 +14,34 @@ namespace LibSWBF2.NET.Test
         static void Main(string[] args)
         {
             {
-                Logger.SetLogLevel(ELogType.Warning);
-                Logger.OnLog += (LoggerEntry logEntry) => 
-                {
-                    Console.WriteLine(logEntry.ToString());
-                };
+                //Logger.SetLogLevel(ELogType.Warning);
+                //Logger.OnLog += (LoggerEntry logEntry) => 
+                //{
+                //    Console.WriteLine(logEntry.ToString());
+                //};
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
-                //Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
 
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
                 {
-                    Console.WriteLine("\t" + model.Name + "\n");
+                    Console.WriteLine("\n" + model.Name);
 
                     Segment[] segments = model.GetSegments(); 
+                    int i = 0;
                     foreach (Segment seg in segments)
                     {
-                        Console.WriteLine("Getting seg vert buffer");
-                        float[] vBuf = seg.GetVertexBuffer();
-                        Console.WriteLine("Getting seg texname");
-
+                        Console.WriteLine("\tSegment " + i++ + ": ");
+                        float[] vBuf = seg.GetVertexBuffer();                        
                         string texName = seg.GetMaterialTexName();
+
                         Console.WriteLine("\t\t" + "Num verts: " + 
-                                          vBuf.Length / 3 + " Texture name: " +
+                                          vBuf.Length / 3 + 
+                                        "\n \t\tTexture name: " +
                                           texName);
                     }
+                    
                 } 
             }
         }

@@ -57,6 +57,12 @@ namespace LibSWBF2::Wrappers
 		delete m_NameToIndexMaps;
 	}
 
+	void Level::testCall()
+	{
+		LOG_WARN("TESTING CALL");
+	}
+
+
 	void Level::ExploreChildrenRecursive(GenericBaseChunk* root)
 	{
 		// IMPORTANT: crawl textures BEFORE models, so texture references via string can be resolved in models
