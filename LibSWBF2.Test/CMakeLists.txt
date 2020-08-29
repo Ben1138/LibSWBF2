@@ -17,10 +17,16 @@ project(libSWBF2_TESTS)
 
 #SOURCES
 add_executable(lght_TEST testLights.cpp)
+add_executable(segments_TEST testSegments.cpp)
+
 
 #SETTINGS
 set_property(TARGET lght_TEST PROPERTY CXX_STANDARD 20)
 set_property(TARGET lght_TEST PROPERTY CXX_STANDARD_REQUIRED ON)
 
+set_property(TARGET segments_TEST PROPERTY CXX_STANDARD 20)
+set_property(TARGET segments_TEST PROPERTY CXX_STANDARD_REQUIRED ON)
+
 #LINKING
 target_link_libraries(lght_TEST PUBLIC SWBF2)
+target_link_libraries(segments_TEST PUBLIC SWBF2)
