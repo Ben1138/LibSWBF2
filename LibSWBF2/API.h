@@ -57,7 +57,7 @@ namespace LibSWBF2
 
 		// Wrappers - Model
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
-		LIBSWBF2_API const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount);
+		LIBSWBF2_API const void Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount);
 		LIBSWBF2_API uint8_t Model_IsSkeletalMesh(const Model* model);
 		LIBSWBF2_API uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount);
 
