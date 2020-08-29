@@ -17,6 +17,9 @@ namespace LibSWBF2::Wrappers
 		Localization();
 		~Localization();
 
+		Localization& operator=(const Localization& other);
+		Localization& operator=(Localization&& other);
+
 	private:
 		Locl* p_Locl;
 		class LocalizationMaps* m_LocalizationMaps;
