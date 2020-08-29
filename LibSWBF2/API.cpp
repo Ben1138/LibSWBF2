@@ -113,12 +113,29 @@ namespace LibSWBF2
 		return name.Buffer();
 	}
 
-	const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount)
-	{
+	const void Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount)
+	{	
+		//Still need to figure out why this didn't work at first
+		/*
 		CheckPtr(model,);
 		const List<Segment>& segments = model->GetSegments();
-		segmentArr = segments.GetArrayPtr();
 		segmentCount = (uint32_t)segments.Size();
+		segmentArr = segments.GetArrayPtr();
+		*/
+
+		CheckPtr(model, );
+		const List<Segment>& segments = model->GetSegments();
+
+		static List<const Segment*> segmentPtrs;
+		segmentPtrs.Clear();
+
+		for (size_t i = 0; i < segments.Size(); ++i)
+		{
+			segmentPtrs.Add(&segments[i]);
+		}
+
+		segmentArr = segmentPtrs.GetArrayPtr();
+		segmentCount = (uint32_t)segmentPtrs.Size();
 	}
 
 	uint8_t Model_IsSkeletalMesh(const Model* model)
@@ -147,12 +164,8 @@ namespace LibSWBF2
 
 	LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{
-		COUT("STARTING VERT BUFF READ");
-
 		Vector3 *verts;
 		segment -> GetVertexBuffer(numVerts, verts);
-
-		COUT("Got vbuf with " << numVerts << "verts");
 
 		vertBuffer = new float[numVerts * 3];
 

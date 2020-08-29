@@ -116,18 +116,9 @@ namespace LibSWBF2::Wrappers
 
 	void Segment::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const
 	{
-
-		p_VertexBuffer -> m_Positions.COUTME();
 		p_VertexBuffer -> m_Positions.GetArrayPtr();
-
-		COUT("GONNA READDDDD: ");
-		COUT((void *) &(p_VertexBuffer->m_Positions[0]));
-
-		uint32_t countl = (uint32_t)p_VertexBuffer->m_Positions.Size();
-		COUT("VBUF COUNT" << countl);
-		count = countl;
+		count = (uint32_t)p_VertexBuffer->m_Positions.Size();
 		vertexBuffer = p_VertexBuffer->m_Positions.GetArrayPtr();
-		COUT("GOT VBUF IN SEGMENT CLASS");
 	}
 
 	void Segment::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const

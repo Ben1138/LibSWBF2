@@ -41,7 +41,7 @@ namespace LibSWBF2.Wrappers
             IntPtr[] segments = new IntPtr[segmentCount];
             Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
 
-            Segment[] segmentsArray = new Segment[segmentCount];
+            Segment[] segmentsArray = new Segment[(int)segmentCount];
             for (int i = 0; i < segmentCount; i++)
             {
                 segmentsArray[i] = new Segment(segments[i]);
