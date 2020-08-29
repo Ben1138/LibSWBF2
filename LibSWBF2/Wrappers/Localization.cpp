@@ -22,6 +22,21 @@ namespace LibSWBF2::Wrappers
 		delete m_LocalizationMaps;
 	}
 
+	Localization& Localization::operator=(const Localization& other)
+	{
+		p_Locl = other.p_Locl;
+		m_LocalizationMaps->m_HashToIndexMap = other.m_LocalizationMaps->m_HashToIndexMap;
+		return *this;
+	}
+
+	Localization& Localization::operator=(Localization&& other)
+	{
+		p_Locl = other.p_Locl;
+		m_LocalizationMaps = other.m_LocalizationMaps;
+		other.m_LocalizationMaps = new LocalizationMaps();
+		return *this;
+	}
+
 	bool Localization::FromChunk(Locl* loclChunk, Localization& out)
 	{
 		if (loclChunk == nullptr)

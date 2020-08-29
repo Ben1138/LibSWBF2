@@ -57,7 +57,7 @@ namespace LibSWBF2::Wrappers
 			Texture texture;
 			if (Texture::FromChunk(textureChunk, texture))
 			{
-				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace LibSWBF2::Wrappers
 			Model model;
 			if (Model::FromChunk(this, modelChunk, model))
 			{
-				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(model));
+				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(std::move((model))));
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace LibSWBF2::Wrappers
 			World world;
 			if (World::FromChunk(this, worldChunk, world))
 			{
-				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(world));
+				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace LibSWBF2::Wrappers
 			Terrain terrain;
 			if (Terrain::FromChunk(this, terrainChunk, terrain))
 			{
-				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(terrain));
+				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace LibSWBF2::Wrappers
 			Script script;
 			if (Script::FromChunk(scriptChunk, script))
 			{
-				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(script));
+				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(std::move(script)));
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace LibSWBF2::Wrappers
 			Localization localization;
 			if (Localization::FromChunk(loclChunk, localization))
 			{
-				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(localization.GetName()), m_Localizations.Add(localization));
+				m_NameToIndexMaps->LocalizationNameToIndex.emplace(ToLower(localization.GetName()), m_Localizations.Add(std::move(localization)));
 			}
 		}
 

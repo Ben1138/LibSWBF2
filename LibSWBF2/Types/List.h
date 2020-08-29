@@ -28,6 +28,9 @@ namespace LibSWBF2::Types
 		// returns index of added element
 		size_t Add(const T& Element);
 
+		// returns index of added element
+		size_t Add(T&& Element);
+
 		// returns index of last added element
 		size_t Append(const List<T>& Items);
 

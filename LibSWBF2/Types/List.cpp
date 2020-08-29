@@ -119,6 +119,22 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
+	size_t List<T>::Add(T&& Element)
+	{
+		if (ArrayPtr == nullptr)
+		{
+			Init(LIST_DEFAULT_INIT_SIZE);
+		}
+		if (NumElements >= MaxElements || ArrayPtr == nullptr)
+		{
+			Resize(MaxElements * 2);
+		}
+
+		ArrayPtr[NumElements++] = std::move(Element);
+		return NumElements - 1;
+	}
+
+	template<class T>
 	size_t List<T>::Append(const List<T>& Items)
 	{
 		if (ArrayPtr == nullptr)
