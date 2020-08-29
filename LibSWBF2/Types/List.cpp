@@ -395,14 +395,6 @@ namespace LibSWBF2::Types
 	{
 		return ArrayPtr;
 	}
-
-	template<class T>
-	void List<T>::COUTME() const
-	{
-		COUT("IVE BEEN COUTED");
-	}
-
-
 }
 
 
@@ -483,6 +475,10 @@ namespace LibSWBF2
 
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
+	template class LIBSWBF2_API Types::List<Wrappers::Segment *>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Segment *>;
+	//template class LIBSWBF2_API Types::List<const Wrappers::Segment>;
+
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
 	template class LIBSWBF2_API Types::List<Wrappers::Material>;
