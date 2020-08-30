@@ -8,57 +8,31 @@ using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Model : NativeWrapper
+    public class Instance : NativeWrapper
     {
-        internal Model(IntPtr modelPtr) : base(modelPtr)
-        {
-
-        }
+        internal Instance(IntPtr modelPtr) : base(modelPtr){}
 
         public string Name
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_GetName(NativeInstance); 
+                return APIWrapper.Instace_GetName(NativeInstance); 
             }
         }
 
-        public bool IsSkeletalMesh
-        {
-            get 
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
-            }
-        }
-
-        public Segment[] GetSegments()
+        public Vector4 GetRotation()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
-            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
-            IntPtr[] segments = new IntPtr[segmentCount];
-            Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
-
-            Segment[] segmentsArray = new Segment[(int)segmentCount];
-            for (int i = 0; i < segmentCount; i++)
-            {
-                segmentsArray[i] = new Segment(segments[i]);
-            }
-
-            return segmentsArray;
+            APIWrapper.Instance_GetRotation(NativeInstance, out float x, out float y, out float z, out float w); 
+            return new Vector4(x,y,z,w);   
         }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSkeleton()
+        public Vector3 GetPosition()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
-            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
-            IntPtr[] bones = new IntPtr[boneCount];
-            Marshal.Copy(boneArr, bones, 0, (int)boneCount);
-            return bones;
+            APIWrapper.Instance_GetPosition(NativeInstance, out float x, out float y, out float z);
+            return new Vector3(x,y,z);
         }
     }
 }

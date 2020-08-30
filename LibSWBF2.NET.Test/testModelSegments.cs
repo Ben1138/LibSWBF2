@@ -14,14 +14,14 @@ namespace LibSWBF2.NET.Test
         static void Main(string[] args)
         {
             {
-                //Logger.SetLogLevel(ELogType.Warning);
-                //Logger.OnLog += (LoggerEntry logEntry) => 
-                //{
-                //    Console.WriteLine(logEntry.ToString());
-                //};
+                Logger.SetLogLevel(ELogType.Warning);
+                Logger.OnLog += (LoggerEntry logEntry) => 
+                {
+                    Console.WriteLine(logEntry.ToString());
+                };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
 
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
@@ -41,7 +41,6 @@ namespace LibSWBF2.NET.Test
                                         "\n \t\tTexture name: " +
                                           texName);
                     }
-                    
                 } 
             }
         }
