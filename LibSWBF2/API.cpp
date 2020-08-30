@@ -81,6 +81,7 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
+
 	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
 	{
 		CheckPtr(level, );
@@ -101,6 +102,28 @@ namespace LibSWBF2
 		modelArr = modelPtrs.GetArrayPtr();
 		modelCount = (uint32_t)modelPtrs.Size();
 	}
+
+	void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount)
+	{
+		CheckPtr(level, );
+		const List<World>& worlds = level->GetWorlds();
+
+		// since level->GetModels() just returns a reference to the actual list
+		// member of level, which will persist even after this call ended, we can safely
+		// provide the model addresses of the underlying buffer to the inquirer.
+		// The inquirer of course is not allowed to alter the data!
+		static List<const World*> worldPtrs;
+		worldPtrs.Clear();
+
+		for (size_t i = 0; i < worlds.Size(); ++i)
+		{
+			worldPtrs.Add(&worlds[i]);
+		}
+
+		worldArr = worldPtrs.GetArrayPtr();
+		worldCount = (uint32_t) worldPtrs.Size();
+	}
+
 
 	const char* Model_GetName(const Model* model)
 	{
@@ -342,4 +365,72 @@ namespace LibSWBF2
 		lastToString = EVBUFFlagsToString(flags);
 		return lastToString.Buffer();
 	}
+
+    const char* World_GetName(const World* world)
+    {
+		CheckPtr(world, nullptr);
+		const String& name = world->GetName();
+		char *buffer = new char[strlen(name.Buffer()) + 1]();
+		strcpy(buffer, name.Buffer());
+		return buffer;
+    }
+
+    const void World_GetInstances(const World* model, const Instance**& instanceArr, uint32_t& instCount)
+    {
+    	CheckPtr(model, );
+		const List<Instance>& segments = model->GetInstances();
+
+		static List<const Instance*> segmentPtrs;
+		segmentPtrs.Clear();
+
+		for (size_t i = 0; i < segments.Size(); ++i)
+		{
+			segmentPtrs.Add(&segments[i]);
+		}
+
+		instanceArr = segmentPtrs.GetArrayPtr();
+		instCount = (uint32_t)segmentPtrs.Size();
+    }
+    
+
+    // Wrappers - Instance
+    const char* Instance_GetName(const Instance* instance)
+    {
+		CheckPtr(instance, nullptr);
+		const String& name = instance->GetName();
+		char *buffer = new char[strlen(name.Buffer()) + 1]();
+		strcpy(buffer, name.Buffer());
+		return buffer;
+    }
+
+    const Vector4* Instance_GetRotation(const Instance* instance)
+    {
+    	return new Vector4(instance -> GetRotation());
+    }
+
+    const Vector3* Instance_GetPosition(const Instance* instance)
+    {
+    	return new Vector3(instance -> GetPosition());
+    }
+
+    const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+       	w = vec -> m_W;
+    } 
+
+    const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+    } 
+
+    const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    } 
 }
