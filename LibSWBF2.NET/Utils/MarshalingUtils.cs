@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -13,8 +12,10 @@ namespace LibSWBF2.Utils
 {
     class MemUtils {
 
-        /*FROM https://stackoverflow.com/a/39961349*/
+        /*  FROM https://stackoverflow.com/a/39961349  */
         public delegate object ConstructorDelegate(params object[] args);
+
+        private static Dictionary<Type,ConstructorDelegate> constructorsDict = new Dictionary<Type,ConstructorDelegate>();
 
         public static ConstructorDelegate CreateConstructor(Type type, params Type[] parameters)
         {
@@ -42,12 +43,17 @@ namespace LibSWBF2.Utils
             return constructor.Compile();
         }
     
-        public static T[] ptrsToObjects<T>(IntPtr nativePtr, int count)
+        public static T[] ptrsToObjects<T>(IntPtr nativePtr, int count) where T : NativeWrapper
         {
             T[] objectArr = new T[count];
             IntPtr[] ptrs = new IntPtr[count];
 
-            var typeConstructor = CreateConstructor(typeof(T), typeof(IntPtr));
+            if (!constructorsDict.ContainsKey(typeof(T)))
+            {
+                constructorsDict[typeof(T)] = CreateConstructor(typeof(T), typeof(IntPtr));
+            }
+
+            var typeConstructor = constructorsDict[typeof(T)];
 
             Marshal.Copy(nativePtr, ptrs, 0, count);
             
@@ -64,7 +70,8 @@ namespace LibSWBF2.Utils
             IntPtr[] stringPtrs = new IntPtr[count];
             Marshal.Copy(nativePtr, stringPtrs, 0, count);
 
-            for (int i = 0; i < count; i++){
+            for (int i = 0; i < count; i++)
+            {
                 strings.Add(Marshal.PtrToStringAnsi(stringPtrs[i]));
             }
 
