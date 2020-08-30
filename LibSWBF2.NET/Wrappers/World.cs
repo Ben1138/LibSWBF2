@@ -11,25 +11,22 @@ namespace LibSWBF2.Wrappers
 {
     public class World : NativeWrapper
     {
-        internal Model(IntPtr worldPtr) : base(worldPtr)
-        {
-
-        }
+        public World(IntPtr worldPtr) : base(worldPtr){}
 
         public string Name
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper._GetName(NativeInstance); 
+                return APIWrapper.World_GetName(NativeInstance); 
             }
         }
 
         public Instance[] GetInstances()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr instArr, out uint instCount);
-            return ptrsToObjects<Instance>(instArr, instCount);
+            APIWrapper.World_GetInstances(NativeInstance, out IntPtr instArr, out uint instCount);
+            return ptrsToObjects<Instance>(instArr, (int) instCount);
         }
     }
 }
