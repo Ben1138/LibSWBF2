@@ -34,6 +34,8 @@ int main()
 	Level *testLVL = Level::FromFile("/home/will/Desktop/MLC.lvl");
 #endif
 
+	COUT("Loaded file");
+
 	const List<Model>& models = testLVL -> GetModels();
 
 	for (int i = 0; i < models.Size(); i++)
@@ -46,7 +48,11 @@ int main()
 			uint32_t vBufSize;
 			Vector3 *vertexBuffer;
 
+			uint32_t indexBufSize;
+			uint16_t *indexBuffer;
+
 			segments[j].GetVertexBuffer(vBufSize, vertexBuffer);
+			segments[j].GetIndexBuffer(indexBufSize, indexBuffer);
 
 			const Material& segmentMat = segments[j].GetMaterial();
 			const Texture* segmentTex = segmentMat.GetTexture(0);//?
@@ -61,6 +67,19 @@ int main()
 
 			COUT(fmt::format("\tVertexBuffer size: {}", vBufSize));
 			COUT(fmt::format("\tSegment texName: {}", segTex));
+
+			int numDegenerates = 0;
+			for (int i = 0; i < (int) indexBufSize - 2; i+=3)
+			{
+				if (indexBuffer[i] == indexBuffer[i+1] ||
+					indexBuffer[i+1] == indexBuffer[i+2] ||
+					indexBuffer[i] == indexBuffer[i+2])
+				{
+					numDegenerates++;
+				}
+			}
+			COUT(fmt::format("\tFound {} degenerates out of {}", numDegenerates, indexBufSize));
+
 		}
 
 	}

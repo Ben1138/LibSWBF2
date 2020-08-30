@@ -178,6 +178,22 @@ namespace LibSWBF2
 		}
 	}
 
+	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)
+	{
+		Vector3 *normals;
+		segment -> GetNormalBuffer(numNormals, normals);
+
+		normalsBuffer = new float[numNormals * 3];
+
+		for (int i = 0; i < (int) numNormals; i++)
+		{
+			Vector3& curVec = normals[i];
+			normalsBuffer[i * 3] = curVec.m_X;
+			normalsBuffer[i * 3 + 1] = curVec.m_Y;
+			normalsBuffer[i * 3 + 2] = curVec.m_Z;
+		}
+	}
+
 	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
 	{
 		Vector2 *UVs;
