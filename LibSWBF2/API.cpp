@@ -162,7 +162,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-	LIBSWBF2_API const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
+	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{
 		Vector3 *verts;
 		segment -> GetVertexBuffer(numVerts, verts);
@@ -177,9 +177,8 @@ namespace LibSWBF2
 			vertBuffer[i * 3 + 2] = curVec.m_Z;
 		}
 	}
-	
 
-	LIBSWBF2_API const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
+	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
 	{
 		Vector2 *UVs;
 		segment -> GetUVBuffer(numUVs, UVs);
@@ -193,9 +192,8 @@ namespace LibSWBF2
 			UVBuffer[i * 2 + 1] = curVec.m_Y;
 		}
 	}
-	
 
-	LIBSWBF2_API const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
+	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
 	{
 		uint16_t *indicies;
 		segment -> GetIndexBuffer(numInds, indicies);
@@ -208,18 +206,26 @@ namespace LibSWBF2
 		}
 	}
 	
-
-	LIBSWBF2_API const char* Segment_GetMaterialTexName(const Segment* segment)
+	const char* Segment_GetMaterialTexName(const Segment* segment)
 	{
+		//static const char *missing = "TEXTURE_MISSING";
 		const Material& segmentMat = segment -> GetMaterial();
 		const Texture* segmentTex = segmentMat.GetTexture(0);//?
+
+		if (segmentTex == nullptr)
+		{
+			String *missing = new String("");
+			return missing -> Buffer();
+		}
+
 		String *segmentTexName = new String(segmentTex -> GetName());
 		return segmentTexName -> Buffer();
 	}
 
-
-
-
+	const int32_t Segment_GetTopology(const Segment* segment)
+	{
+		return (int32_t) segment -> GetTopology();
+	}
 
 	const Model* Level_GetModel(const Level* level, const char* modelName)
 	{
