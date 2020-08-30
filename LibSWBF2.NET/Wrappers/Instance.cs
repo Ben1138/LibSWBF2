@@ -5,34 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
+using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
     public class Instance : NativeWrapper
     {
-        internal Instance(IntPtr modelPtr) : base(modelPtr){}
+        public Instance(IntPtr modelPtr) : base(modelPtr){}
 
         public string Name
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Instace_GetName(NativeInstance); 
+                return APIWrapper.Instance_GetName(NativeInstance); 
             }
         }
 
         public Vector4 GetRotation()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Instance_GetRotation(NativeInstance, out float x, out float y, out float z, out float w); 
-            return new Vector4(x,y,z,w);   
+            return new Vector4(APIWrapper.Instance_GetRotation(NativeInstance)); 
         }
 
         public Vector3 GetPosition()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Instance_GetPosition(NativeInstance, out float x, out float y, out float z);
-            return new Vector3(x,y,z);
+            return new Vector3(APIWrapper.Instance_GetPosition(NativeInstance));
         }
     }
 }
