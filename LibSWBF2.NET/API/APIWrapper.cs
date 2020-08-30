@@ -14,15 +14,20 @@ namespace LibSWBF2
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LogCallback(IntPtr LoggerEntryPtr);
 
-        /* Vector3 
+        // Vectors 
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GetVector3Elements(IntPtr ptr, out float x,
+        public static extern void Vector4_FromPtr(IntPtr ptr, out float x,
+                                                    out float y, out float z,
+                                                                 out float w);
+
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Vector3_FromPtr(IntPtr ptr, out float x,
                                                     out float y, out float z);
 
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GetVector2Elements(IntPtr ptr, out float x,
-                                                                 out float y);
-        */
+        public static extern void Vector2_FromPtr(IntPtr ptr, out float x,
+                                                              out float y);
+        
 
         // Logging //
 
@@ -54,6 +59,14 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetTerrain(IntPtr level);
 
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
+
+        //Basic texture handling
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
+                                        out IntPtr imgData, out int width, out int height);
 
         //Terrain
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
@@ -68,13 +81,6 @@ namespace LibSWBF2
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetIndicies(IntPtr terrain, out uint numIndicies, out IntPtr indices);
-
-
-        //Basic texture handling
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
-                                        out IntPtr imgData, out int width, out int height);
 
 
         // Model //
@@ -113,5 +119,25 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]//TODO: fix memleak in elegant way
         public static extern string Segment_GetMaterialTexName(IntPtr seg);
+
+
+        // World //
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStr)] 
+        public static extern string World_GetName(IntPtr world);
+
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void World_GetInstances(IntPtr world, out IntPtr instanceArr, out uint instCount);
+
+        // Instance //
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStr)] 
+        public static extern string Instance_GetName(IntPtr instance);
+
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Instance_GetRotation(IntPtr instance);
+        
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Instance_GetPosition(IntPtr instance);
     }
 }

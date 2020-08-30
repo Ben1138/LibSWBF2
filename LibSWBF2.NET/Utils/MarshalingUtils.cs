@@ -48,12 +48,21 @@ namespace LibSWBF2.Utils
             T[] objectArr = new T[count];
             IntPtr[] ptrs = new IntPtr[count];
 
+            
             if (!constructorsDict.ContainsKey(typeof(T)))
             {
                 constructorsDict[typeof(T)] = CreateConstructor(typeof(T), typeof(IntPtr));
             }
 
             var typeConstructor = constructorsDict[typeof(T)];
+            
+
+            //var typeConstructor = CreateConstructor(typeof(T), typeof(IntPtr));
+
+            if (nativePtr == IntPtr.Zero)
+            {
+                return objectArr;
+            }
 
             Marshal.Copy(nativePtr, ptrs, 0, count);
             

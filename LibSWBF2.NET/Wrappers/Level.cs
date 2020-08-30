@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using LibSWBF2.Utils;
+
 
 namespace LibSWBF2.Wrappers
 {
@@ -87,6 +89,15 @@ namespace LibSWBF2.Wrappers
 
             return models;
         }
+
+
+        public World[] GetWorlds()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetWorlds(NativeInstance, out IntPtr worldArr, out uint worldCount);
+            return MemUtils.ptrsToObjects<World>(worldArr, (int) worldCount);
+        }
+
 
         public Model GetModel(string modelName)
         {
