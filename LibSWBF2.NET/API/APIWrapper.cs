@@ -108,7 +108,7 @@ namespace LibSWBF2
         public static extern void Segment_GetNormalBuffer(IntPtr seg, out uint numNormals, out IntPtr normalsBuffer);
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Segment_GetTopology(const Segment* segment);
+        public static extern int Segment_GetTopology(IntPtr segment);
 
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]//TODO: fix memleak in elegant way
