@@ -43,8 +43,9 @@ namespace LibSWBF2
 		LIBSWBF2_API void Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
 		LIBSWBF2_API void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount);
-		//LIBSWBF2_API void GetTextures(const Level* level, Texture*& modelArr, uint32_t& modelCount);
-		//LIBSWBF2_API void GetWorlds(const Level* level, World*& modelArr, uint32_t& modelCount);
+		LIBSWBF2_API void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& modelCount);
+
+		//LIBSWBF2_API void GetTextures(const Level* level, Texture**& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetTerrains(const Level* level, Terrain*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetScripts(const Level* level, Script*& modelArr, uint32_t& modelCount);
 					 
@@ -81,5 +82,19 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, char**& result);
 		LIBSWBF2_API const void Terrain_GetHeights(const Terrain *ter, uint32_t& width, uint32_t height, float_t*& heightData);
 		LIBSWBF2_API const Terrain* Level_GetTerrain(const Level* level);
+
+		// Wrappers - World
+        LIBSWBF2_API const char* World_GetName(const World* world);
+        LIBSWBF2_API const void World_GetInstances(const World* world, const Instance**& instanceArr, uint32_t& instCount);
+
+        // Wrappers - Instance
+        LIBSWBF2_API const char* Instance_GetName(const Instance* instance);
+        LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);
+        LIBSWBF2_API const Vector3* Instance_GetPosition(const Instance* instance);
+
+        // Wrappers - Vectors
+		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w);        
+		LIBSWBF2_API const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z); 
+		LIBSWBF2_API const void Vector2_FromPtr(const Vector2* vec, float& x, float& y); 
 	}
 }
