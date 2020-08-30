@@ -10,7 +10,7 @@ namespace LibSWBF2.Wrappers
 {
     public class Segment : NativeWrapper
     {
-        internal Segment(IntPtr segmentPtr) : base(segmentPtr)
+        public Segment(IntPtr segmentPtr) : base(segmentPtr)
         {
 
         }
