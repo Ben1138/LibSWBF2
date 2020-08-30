@@ -110,7 +110,9 @@ namespace LibSWBF2
 		// char buffers of String's are always null terminated, so we
 		// can just return the buffer pointer.
 		const String& name = model->GetName();
-		return name.Buffer();
+		char *buffer = new char[strlen(name.Buffer()) + 1]();
+		strcpy(buffer, name.Buffer());
+		return buffer;
 	}
 
 	const void Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount)
