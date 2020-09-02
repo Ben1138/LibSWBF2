@@ -29,10 +29,18 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/omni.lvl");
+	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
 #endif
+
+	const List<Light>& lights = testLVL -> GetLights();
+
+	for (int i = 0; i < lights.Size(); i++)
+	{
+		Light lighti = lights[i];
+		COUT(lighti.ToString().Buffer());
+	}
 
 	return 0;
 }

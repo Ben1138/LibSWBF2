@@ -78,7 +78,6 @@ namespace LibSWBF2::Wrappers
                 					  lightListChunk ->	p_LightBodies[i], 
                 					  newLight))
                 {
-                	LOG_WARN((newLight.ToString()).Buffer());
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
                 }
 			}
