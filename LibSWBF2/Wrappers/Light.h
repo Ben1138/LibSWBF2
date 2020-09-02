@@ -25,6 +25,18 @@ public:
 	ELightType GetType();
 	Vector3 GetColor();
 
+	bool GetCastSpecular();
+
+
+	/*Type specific getters*/
+	bool GetOmniRadius(float_t& radiusOut);
+
+	bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut);
+
+	bool GetDirLength(float_t& lengthOut);
+	bool GetDirTexture(String& textureNameOut);
+
+
 	Light(DATA_TAG* tag, SCOP_LGHT* body);
 	Light() = default;
 

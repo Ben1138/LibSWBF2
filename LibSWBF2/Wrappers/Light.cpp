@@ -65,5 +65,47 @@ String Light::ToString()
         ).c_str();
 }
 
+bool Light::GetOmniRadius(float_t& radiusOut)
+{
+    if (GetType() != ELightType::Omni)
+    {
+        return false;
+    }
+    //radiusOut = p_FieldsChunk -> p_RangeChunk -> m_Range;
+    return true;
+}
+
+bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut)
+{
+    if (GetType() != ELightType::Spot)
+    {
+        return false;
+    }
+    //innerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_InnerAngle; 
+    //outerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_OuterAngle; 
+    return true;
+}
+
+bool Light::GetDirLength(float_t& lengthOut)
+{
+    if (GetType() != ELightType::Dir)
+    {
+        return false;
+    }
+    //lengthOut = p_FieldsChunk -> p_RangeChunk -> m_Range;
+    return true;
+}
+
+
+bool Light::GetDirTexture(String& textureNameOut)
+{
+    if (GetType() != ELightType::Dir)
+    {
+        return false;
+    }
+    //textureNameOut = p_FieldsChunk -> p_TextureChunk -> m_TextureName;
+    return true;
+}
+
 
 }
