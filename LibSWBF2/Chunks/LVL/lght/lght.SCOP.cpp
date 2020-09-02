@@ -11,6 +11,10 @@
 
 #include <algorithm>
 #include <cstring>
+#include <iostream>
+
+#define COUT(x) std::cout << x << std::endl;
+
 
 
 using namespace LibSWBF2::Chunks::LVL::common;
@@ -39,19 +43,36 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
     BaseChunk::ReadFromStream(stream);
     Check(stream);
 
+    LOG_WARN("\nREADING LGHT");
+
     while (ThereIsAnother(stream))
     {
-        READ_CHILD(stream, p_RotationChunk);
-        READ_CHILD(stream, p_PositionChunk);
-        READ_CHILD(stream, p_TypeChunk);
-        READ_CHILD(stream, p_ColorChunk);
+        uint32_t nextDATATag = DATA::PeekDATATag(stream);
 
-        while (ThereIsAnother(stream))
+        LOG_WARN(fmt::format("Next tag: {}", nextDATATag).c_str());
+
+        switch (nextDATATag)
         {
-            READ_CHILD_GENERIC(stream); //temp till I figure out best way to handle
-                                        //fields specific to light types
+            case 564937055:
+                READ_CHILD(stream, p_RotationChunk);
+                break;
+            case 2471448074:
+                READ_CHILD(stream, p_PositionChunk);
+                break;
+            case 1361572173:
+                READ_CHILD(stream, p_TypeChunk);
+                break;
+            case 1031692888:
+                READ_CHILD(stream, p_ColorChunk);
+                break;
+            default:
+                READ_CHILD_GENERIC(stream);
+                break; 
         }
     }
+
+    LOG_WARN("FINISHED LGHT\n");
+
     BaseChunk::EnsureEnd(stream);
 }
     
