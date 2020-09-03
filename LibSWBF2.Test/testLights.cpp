@@ -38,8 +38,8 @@ int main()
 
 	for (int i = 0; i < lights.Size(); i++)
 	{
-		Light lighti = lights[i];
-		COUT(lighti.ToString().Buffer());
+	Light lighti = lights[0];
+	COUT(lighti.ToString().Buffer());
 	}
 
 	return 0;
