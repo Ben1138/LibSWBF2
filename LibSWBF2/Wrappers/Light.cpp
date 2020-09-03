@@ -7,7 +7,7 @@ namespace LibSWBF2::Wrappers
 {
 
 
-bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
+bool Light::FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out)
 {
     if (body == nullptr || tag == nullptr)
     {
@@ -20,7 +20,7 @@ bool Light::FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out)
 }
 
 
-Light::Light(DATA_TAG* tag, SCOP_LGHT* body) : p_TagChunk(tag), p_FieldsChunk(body){}
+Light::Light(DATA_STRING* tag, SCOP_LGHT* body) : p_TagChunk(tag), p_FieldsChunk(body){}
 
 
 Vector4 Light::GetRotation()
@@ -40,7 +40,7 @@ Vector3 Light::GetColor()
 
 String Light::GetName()
 {
-    return p_TagChunk -> m_Name;
+    return p_TagChunk -> m_String;
 }
 
 ELightType Light::GetType()
@@ -49,7 +49,7 @@ ELightType Light::GetType()
 
 	if (typeChunk != nullptr)
     {
-	   	return (ELightType) (.1f + typeChunk -> m_FloatMember);  
+	   	return (ELightType) (.1f + typeChunk -> m_Float);  
 	}
 
 	return ELightType::Unknown;
@@ -74,7 +74,7 @@ bool Light::GetRange(float_t& rangeOut)
     {
         return false;
     }
-    rangeOut = p_FieldsChunk -> p_RangeChunk -> m_FloatMember;
+    rangeOut = p_FieldsChunk -> p_RangeChunk -> m_Float;
     return true;
 }
 

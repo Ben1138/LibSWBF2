@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::LVL::lght
 {
 struct LIBSWBF2_API DATA_FLOAT : public DATA {
 
-	float_t m_FloatMember;
+	float_t m_Float;
 	
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;

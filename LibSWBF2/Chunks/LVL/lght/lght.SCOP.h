@@ -7,6 +7,7 @@
 #include "Chunks/LVL/lght/vec3.DATA.h"
 #include "Chunks/LVL/lght/vec4.DATA.h"
 #include "Chunks/LVL/lght/float.DATA.h"
+#include "Chunks/LVL/lght/string.DATA.h"
 
 #include "Types/List.h"
 
@@ -28,10 +29,10 @@ Cone(float innerAngle, float outerAngle) - 0x6a4b40dd (Spot specific)
 
 Global light SCOP:
 
-Light1(string name) - 0x3a6956db
-Light2(string name) - 0xa76756da
-top(3 ints) - 0x3cdc10a7
-bottom(3 ints) - 0x2a6ba74e
+Light1(string name) - 0x3a6956db / 3679873338
+Light2(string name) - 0xa76756da / 3663095719
+top(3 ints) - 0x3cdc10a7 / 2802900028
+bottom(3 ints) - 0x2a6ba74e / 1319594794
 
 */
 
@@ -63,19 +64,8 @@ struct LIBSWBF2_API SCOP_LGHT : public GenericChunk<"SCOP"_m>{
     Global light section fields
     */
 
-    //DATA_LIGHT
-    // *p_TopColorChunk;
-    // *p_BottomColorChunk;
-
-
-
-
-
-
-
-
-
-
+    DATA_VEC3 *p_TopColorChunk, *p_BottomColorChunk;
+    DATA_STRING *p_Light1Name, *p_Light2Name;
 };
 
 }

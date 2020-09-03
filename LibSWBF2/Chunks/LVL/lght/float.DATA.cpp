@@ -25,13 +25,13 @@ namespace LibSWBF2::Chunks::LVL::lght
         Check(stream);
 
         stream.SkipBytes(5);
-        m_FloatMember = stream.ReadFloat();
+        m_Float = stream.ReadFloat();
 
         BaseChunk::EnsureEnd(stream);
 	}
 
 	String DATA_FLOAT::ToString()
 	{
-		return fmt::format("Float member: {}", m_FloatMember).c_str();
+		return fmt::format("Float member: {}", m_Float).c_str();
 	}
 }
