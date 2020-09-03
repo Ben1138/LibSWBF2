@@ -21,7 +21,7 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
 
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
