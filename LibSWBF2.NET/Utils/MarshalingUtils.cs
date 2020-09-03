@@ -46,9 +46,14 @@ namespace LibSWBF2.Utils
         public static T[] ptrsToObjects<T>(IntPtr nativePtr, int count) where T : NativeWrapper
         {
             T[] objectArr = new T[count];
+
+            if (nativePtr == IntPtr.Zero)
+            {
+                return objectArr;
+            }
+
             IntPtr[] ptrs = new IntPtr[count];
 
-            
             if (!constructorsDict.ContainsKey(typeof(T)))
             {
                 constructorsDict[typeof(T)] = CreateConstructor(typeof(T), typeof(IntPtr));
@@ -56,14 +61,6 @@ namespace LibSWBF2.Utils
 
             var typeConstructor = constructorsDict[typeof(T)];
             
-
-            //var typeConstructor = CreateConstructor(typeof(T), typeof(IntPtr));
-
-            if (nativePtr == IntPtr.Zero)
-            {
-                return objectArr;
-            }
-
             Marshal.Copy(nativePtr, ptrs, 0, count);
             
             for (int i = 0; i < count; i++){
