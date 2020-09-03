@@ -40,13 +40,11 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
     BaseChunk::ReadFromStream(stream);
     Check(stream);
 
-    LOG_WARN("\nREADING LGHT");
-
     while (ThereIsAnother(stream))
     {
         uint32_t nextDATATag = DATA::PeekDATATag(stream);
 
-        LOG_WARN(fmt::format("Next tag: {}", nextDATATag).c_str());
+        //LOG_WARN("Next Tag: {}", nextDATATag);
 
         switch (nextDATATag)
         {
@@ -64,19 +62,27 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
                 break;
             case 4208725202:
                 READ_CHILD(stream, p_RangeChunk);
-                LOG_WARN(fmt::format("Range read: {}", p_RangeChunk -> m_FloatMember).c_str());
                 break;
             case 3711978346:
                 READ_CHILD(stream, p_ConeChunk);
-                LOG_WARN(fmt::format("Cone read: {}", p_ConeChunk -> ToString()).c_str());
+                break;
+            case 3679873338:
+                READ_CHILD(stream, p_Light1Name);
+                break;
+            case 3663095719:
+                READ_CHILD(stream, p_Light2Name);
+                break;
+            case 2802900028:
+                READ_CHILD(stream, p_TopColorChunk);
+                break;
+            case 1319594794:
+                READ_CHILD(stream, p_BottomColorChunk);
                 break;
             default:
                 READ_CHILD_GENERIC(stream);
                 break; 
         }
     }
-
-    LOG_WARN("FINISHED LGHT\n");
 
     BaseChunk::EnsureEnd(stream);
 }

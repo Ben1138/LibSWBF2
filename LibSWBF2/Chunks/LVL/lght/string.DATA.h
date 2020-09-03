@@ -12,10 +12,10 @@ using namespace LibSWBF2::Chunks::LVL::common;
 namespace LibSWBF2::Chunks::LVL::lght
 {
 
-struct LIBSWBF2_API DATA_TAG : public DATA {
+struct LIBSWBF2_API DATA_STRING : public DATA {
 
-	bool m_LocalLight;
-	String m_Name;
+	uint32_t m_Tag;
+	String m_String;
 
 	void RefreshSize() override;
 	void WriteToStream(FileWriter& stream) override;

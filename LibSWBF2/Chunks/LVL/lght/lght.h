@@ -5,7 +5,7 @@
 #include "Chunks/LVL/common/SCOP.h"
 
 #include "Chunks/LVL/lght/lght.SCOP.h"
-#include "Chunks/LVL/lght/lighttag.DATA.h"
+#include "Chunks/LVL/lght/string.DATA.h"
 #include "Chunks/LVL/lght/vec4.DATA.h"
 #include "Chunks/LVL/lght/vec3.DATA.h"
 
@@ -23,8 +23,12 @@ public:
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
 
-    List<DATA_TAG *> p_LightTags;
+    List<DATA_STRING *> p_LightTags;
     List<SCOP_LGHT *> p_LightBodies;
+
+    DATA_STRING *p_GlobalLightingTag;
+    SCOP_LGHT *p_GlobalLightingBody;
+
     STR<"NAME"_m> *p_Marker; //unknown purpose, hashed layer name?
 };
 

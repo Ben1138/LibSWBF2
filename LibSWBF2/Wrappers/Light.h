@@ -31,16 +31,16 @@ public:
 
 
 
-	Light(DATA_TAG* tag, SCOP_LGHT* body);
+	Light(DATA_STRING* tag, SCOP_LGHT* body);
 	Light() = default;
 
 	String ToString();
-	static bool FromChunks(DATA_TAG *tag, SCOP_LGHT* body, Light& out);
+	static bool FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out);
 
 
 private:
 
-	DATA_TAG* p_TagChunk;
+	DATA_STRING* p_TagChunk;
 	SCOP_LGHT* p_FieldsChunk;
 };
 

@@ -23,16 +23,16 @@ namespace LibSWBF2::Chunks::LVL::lght
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks
+        READ_CHILD(stream, p_Marker);
 
         while (ThereIsAnother(stream))
         {
-            DATA_TAG *tempTag;
+            DATA_STRING *tempTag;
             SCOP_LGHT *tempBody;
             
             READ_CHILD(stream, tempTag);
 
-            if (tempTag -> m_LocalLight) //Check local flag before proceding
+            if (tempTag -> m_Tag == 3801947695) //Check if SCOP is for global or local lighting
             {
                 READ_CHILD(stream, tempBody);
                 p_LightTags.Add(tempTag);
@@ -40,7 +40,9 @@ namespace LibSWBF2::Chunks::LVL::lght
             }
             else 
             {
-                READ_CHILD_GENERIC(stream);
+            	READ_CHILD(stream, tempBody);
+            	p_GlobalLightingTag = tempTag;
+                p_GlobalLightingBody = tempBody;
             }
         }
 
