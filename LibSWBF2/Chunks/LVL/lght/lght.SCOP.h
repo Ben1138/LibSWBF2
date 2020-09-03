@@ -8,10 +8,6 @@
 #include "Chunks/LVL/lght/vec4.DATA.h"
 #include "Chunks/LVL/lght/float.DATA.h"
 
-
-
-
-#include "Chunks/LVL/lght/lighttype.DATA.h"
 #include "Types/List.h"
 
 
@@ -51,13 +47,35 @@ struct LIBSWBF2_API SCOP_LGHT : public GenericChunk<"SCOP"_m>{
 	void WriteToStream(FileWriter& stream) override;
 	void ReadFromStream(FileReader& stream) override;
 
+	/*
+	Local light fields
+	*/
+
 	DATA_VEC4 *p_RotationChunk;
     DATA_VEC3 *p_PositionChunk;
-    DATA_LIGHTTYPE *p_TypeChunk;
+    DATA_FLOAT *p_TypeChunk;
     DATA_VEC3 *p_ColorChunk;
 
     DATA_FLOAT *p_RangeChunk;
     DATA_VEC2 *p_ConeChunk;
+
+    /*
+    Global light section fields
+    */
+
+    //DATA_LIGHT
+    // *p_TopColorChunk;
+    // *p_BottomColorChunk;
+
+
+
+
+
+
+
+
+
+
 };
 
 }

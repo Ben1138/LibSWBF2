@@ -5,9 +5,6 @@
 #include "FileReader.h"
 
 #include "lght.SCOP.h"
-#include "Chunks/LVL/lght/vec3.DATA.h"
-#include "Chunks/LVL/lght/vec4.DATA.h"
-#include "Chunks/LVL/lght/lighttype.DATA.h"
 
 #include <algorithm>
 #include <cstring>

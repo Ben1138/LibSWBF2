@@ -6,7 +6,6 @@
 
 #include "Chunks/LVL/lght/lght.SCOP.h"
 #include "Chunks/LVL/lght/lighttag.DATA.h"
-#include "Chunks/LVL/lght/lighttype.DATA.h"
 #include "Chunks/LVL/lght/vec4.DATA.h"
 #include "Chunks/LVL/lght/vec3.DATA.h"
 
