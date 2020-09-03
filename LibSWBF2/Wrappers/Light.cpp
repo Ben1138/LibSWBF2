@@ -49,7 +49,7 @@ ELightType Light::GetType()
 
 	if (typeChunk != nullptr)
     {
-	   	return (ELightType) (.1f + typeChunk -> m_LightType);  
+	   	return (ELightType) (.1f + typeChunk -> m_FloatMember);  
 	}
 
 	return ELightType::Unknown;
@@ -65,15 +65,19 @@ String Light::ToString()
         ).c_str();
 }
 
-bool Light::GetOmniRadius(float_t& radiusOut)
+
+bool Light::GetRange(float_t& rangeOut)
 {
-    if (GetType() != ELightType::Omni)
+    ELightType lightType = GetType();
+
+    if (lightType != ELightType::Omni && lightType != ELightType::Spot)
     {
         return false;
     }
-    //radiusOut = p_FieldsChunk -> p_RangeChunk -> m_Range;
+    rangeOut = p_FieldsChunk -> p_RangeChunk -> m_FloatMember;
     return true;
 }
+
 
 bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut)
 {
@@ -81,29 +85,8 @@ bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut)
     {
         return false;
     }
-    //innerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_InnerAngle; 
-    //outerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_OuterAngle; 
-    return true;
-}
-
-bool Light::GetDirLength(float_t& lengthOut)
-{
-    if (GetType() != ELightType::Dir)
-    {
-        return false;
-    }
-    //lengthOut = p_FieldsChunk -> p_RangeChunk -> m_Range;
-    return true;
-}
-
-
-bool Light::GetDirTexture(String& textureNameOut)
-{
-    if (GetType() != ELightType::Dir)
-    {
-        return false;
-    }
-    //textureNameOut = p_FieldsChunk -> p_TextureChunk -> m_TextureName;
+    innerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_Vec.m_X; 
+    outerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_Vec.m_Y; 
     return true;
 }
 
