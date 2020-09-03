@@ -2,6 +2,7 @@
 #include "Chunks/GenericChunk.h"
 #include "PTCH.VBUF.h"
 #include "PTCH.IBUF.h"
+#include "PTCH.INFO.h"
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
@@ -14,6 +15,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
 		IBUF* m_GeometryIndexBuffer;
 		IBUF* m_TextureExtraIndexBuffer;
+
+		PTCH_INFO* p_PatchInfo;
 
 	public:
 		void RefreshSize() override;
