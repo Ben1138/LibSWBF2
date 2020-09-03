@@ -65,6 +65,14 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
             case 1031692888:
                 READ_CHILD(stream, p_ColorChunk);
                 break;
+            case 4208725202:
+                READ_CHILD(stream, p_RangeChunk);
+                LOG_WARN(fmt::format("Range read: {}", p_RangeChunk -> m_FloatMember).c_str());
+                break;
+            case 3711978346:
+                READ_CHILD(stream, p_ConeChunk);
+                LOG_WARN(fmt::format("Cone read: {}", p_ConeChunk -> ToString()).c_str());
+                break;
             default:
                 READ_CHILD_GENERIC(stream);
                 break; 
