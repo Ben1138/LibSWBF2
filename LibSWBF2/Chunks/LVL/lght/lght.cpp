@@ -18,43 +18,30 @@ namespace LibSWBF2::Chunks::LVL::lght
 		THROW("Not implemented!");
 	}
 
-
 	void lght::ReadFromStream(FileReader& stream)
 	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
-        
-        /*
-         It seems in every ucfb, the first lght chunk contains
-         all local lights, and the other per-world lght's merely index
-         into the first one.  So for now, before we do per-world stuff,
-         we just parse this first chunk.
-         */
 
-        if (!lght::skip)
+        READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks
+
+        while (ThereIsAnother(stream))
         {
-            READ_CHILD(stream, p_Marker); //Will determine meaning when investigating other lght chunks
+            DATA_TAG *tempTag;
+            SCOP_LGHT *tempBody;
+            
+            READ_CHILD(stream, tempTag);
 
-            while (ThereIsAnother(stream))
+            if (tempTag -> m_LocalLight) //Check local flag before proceding
             {
-                DATA_TAG *tempTag;
-                SCOP_LGHT *tempBody;
-                
-                READ_CHILD(stream, tempTag);
-
-                if (tempTag -> m_LocalLight) //Check local flag before proceding
-                {
-                    READ_CHILD(stream, tempBody);
-                    p_LightTags.Add(tempTag);
-                    p_LightBodies.Add(tempBody);
-                }
-                else 
-                {
-                    READ_CHILD_GENERIC(stream);
-                }
+                READ_CHILD(stream, tempBody);
+                p_LightTags.Add(tempTag);
+                p_LightBodies.Add(tempBody);
             }
-
-            lght::skip = true;
+            else 
+            {
+                READ_CHILD_GENERIC(stream);
+            }
         }
 
 		BaseChunk::EnsureEnd(stream);
