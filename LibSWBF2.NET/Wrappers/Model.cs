@@ -11,10 +11,9 @@ namespace LibSWBF2.Wrappers
 {
     public class Model : NativeWrapper
     {
-        public Model(IntPtr modelPtr) : base(modelPtr)
-        {
+        public Model(IntPtr modelPtr) : base(modelPtr) {}
 
-        }
+        public Model() : base(IntPtr.Zero) {}
 
         public string Name
         {

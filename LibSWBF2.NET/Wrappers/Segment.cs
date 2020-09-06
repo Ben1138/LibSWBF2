@@ -15,6 +15,8 @@ namespace LibSWBF2.Wrappers
 
         }
 
+        public Segment() : base(IntPtr.Zero) {}
+
         public float[] GetVertexBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");

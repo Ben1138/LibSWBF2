@@ -13,6 +13,9 @@ namespace LibSWBF2.Wrappers
     {
         public Instance(IntPtr modelPtr) : base(modelPtr){}
 
+        public Instance() : base(IntPtr.Zero) {}
+
+
         public string Name
         {
             get 

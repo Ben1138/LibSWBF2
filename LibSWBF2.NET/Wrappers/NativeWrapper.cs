@@ -24,5 +24,10 @@ namespace LibSWBF2.Wrappers
         {
             return NativeInstance != IntPtr.Zero;
         }
+
+        public virtual void SetPtr(IntPtr ptr)
+        {
+            NativeInstance = ptr;
+        }
     }
 }
