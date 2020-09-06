@@ -13,6 +13,8 @@ namespace LibSWBF2.Wrappers
     {
         public World(IntPtr worldPtr) : base(worldPtr){}
 
+        public World() : base(IntPtr.Zero){}
+
         public string Name
         {
             get 
