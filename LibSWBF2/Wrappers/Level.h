@@ -6,6 +6,7 @@
 #include "Terrain.h"
 #include "Script.h"
 #include "Light.h"
+#include "GlobalLighting.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -66,6 +67,9 @@ namespace LibSWBF2::Wrappers
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
+
+		GlobalLightingConfig m_GlobalLightingConfig;
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

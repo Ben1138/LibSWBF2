@@ -68,15 +68,19 @@ void SCOP_LGHT::ReadFromStream(FileReader& stream)
                 break;
             case 3679873338:
                 READ_CHILD(stream, p_Light1Name);
+                //LOG_WARN("Got light 1: {}", p_Light1Name -> m_String.Buffer());
                 break;
             case 3663095719:
                 READ_CHILD(stream, p_Light2Name);
+                //LOG_WARN("Got light 2: {}", p_Light2Name -> m_String.Buffer());
                 break;
             case 2802900028:
                 READ_CHILD(stream, p_TopColorChunk);
+                //LOG_WARN("Got top color: {}", p_TopColorChunk -> ToString().Buffer());
                 break;
             case 1319594794:
                 READ_CHILD(stream, p_BottomColorChunk);
+                //LOG_WARN("Got bottom color: {}", p_BottomColorChunk -> ToString().Buffer());
                 break;
             default:
                 READ_CHILD_GENERIC(stream);

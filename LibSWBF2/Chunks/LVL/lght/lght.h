@@ -26,8 +26,8 @@ public:
     List<DATA_STRING *> p_LightTags;
     List<SCOP_LGHT *> p_LightBodies;
 
-    DATA_STRING *p_GlobalLightingTag;
-    SCOP_LGHT *p_GlobalLightingBody;
+    DATA_STRING *p_GlobalLightingTag = 0;
+    SCOP_LGHT *p_GlobalLightingBody = 0;
 
     STR<"NAME"_m> *p_Marker; //unknown purpose, hashed layer name?
 };

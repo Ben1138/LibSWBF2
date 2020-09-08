@@ -81,6 +81,11 @@ namespace LibSWBF2::Wrappers
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
                 }
 			}
+
+			if (lightListChunk -> p_GlobalLightingBody)
+			{
+				GlobalLightingConfig::FromChunk(lightListChunk -> p_GlobalLightingBody, m_GlobalLightingConfig);
+			}
 		}
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
