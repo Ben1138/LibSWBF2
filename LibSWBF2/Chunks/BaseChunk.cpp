@@ -28,16 +28,16 @@ namespace LibSWBF2::Chunks
 
 		LOG_INFO("Position: {}", m_ChunkPosition);
 		LOG_INFO("Header: {}", m_Header);
-		LOG_INFO("Size: {}", m_Size);
+		LOG_INFO("Size: {:#x}", m_Size);
 
 		if (!IsValidHeader(m_Header) || m_Size < 0)
 		{
-			THROW("Invalid Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
+			THROW("Invalid Chunk: '{}' Size: {:#x} At Position: {:#x} with File Size of: {:#x}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
 		}
 
 		if (stream.GetPosition() + m_Size > stream.GetFileSize())
 		{
-			THROW("Chunk is too big and will end up out of file! Chunk: '{}' Size: {} At Position: {} with File Size of: {}", m_Header, m_Size, stream.GetPosition() - 8, stream.GetFileSize());
+			THROW("Chunk is too big and will end up out of file! Chunk: '{}' Size: {:#x} At Position: {:#x} with File Size of: {:#x}", m_Header, m_Size, stream.GetPosition() - 8, stream.GetFileSize());
 		}
 	}
 
@@ -133,7 +133,7 @@ namespace LibSWBF2::Chunks
 	{
 		if (stream.GetPosition() == stream.GetFileSize())
 		{
-			LOG_WARN("Cannot skip chunk from end position: {}", stream.GetPosition());
+			LOG_WARN("Cannot skip chunk from end position: {:#x}", stream.GetPosition());
 			return false;
 		}
 
@@ -142,7 +142,7 @@ namespace LibSWBF2::Chunks
 
 		if (printWarn)
 		{
-			LOG_WARN("[{}] Unexpected Chunk found: {} at position {}. Skipping {} Bytes...", m_Header, head, stream.GetPosition(), alignedSize);
+			LOG_WARN("[{}] Unexpected Chunk found: {} at position {:#x}. Skipping {:#x} Bytes...", m_Header, head, stream.GetPosition(), alignedSize);
 		}
 
 		return stream.SkipBytes(alignedSize);
@@ -156,7 +156,7 @@ namespace LibSWBF2::Chunks
 		size_t endPos = GetDataPosition() + GetAlignedSize();
 		if (stream.GetPosition() < endPos)
 		{
-			//LOG_WARN("[{}] We did not end up at the Chunks end position ({})! Instead we are here:{}! Moving Position to Chunks end position...", m_Header, endPos, stream.GetPosition());
+			//LOG_WARN("[{}] We did not end up at the Chunks end position ({:#x})! Instead we are here:{:#x}! Moving Position to Chunks end position...", m_Header, endPos, stream.GetPosition());
 			stream.SetPosition(endPos);
 		}
 		else
@@ -172,7 +172,7 @@ namespace LibSWBF2::Chunks
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !IsKnownHeader(stream.ReadChunkHeader(true)))
 		{
 			stream.SetPosition(stream.GetPosition() + 1);
-			LOG_WARN("[{}] Could not find next valid header, skipping to position: {}", m_Header, stream.GetPosition());
+			LOG_WARN("[{}] Could not find next valid header, skipping to position: {:#x}", m_Header, stream.GetPosition());
 		}
 	}
 }

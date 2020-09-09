@@ -7,6 +7,7 @@
 #include "Script.h"
 #include "Light.h"
 #include "GlobalLighting.h"
+#include "Localization.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -39,6 +40,7 @@ namespace LibSWBF2::Wrappers
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
 		List<Light> m_Lights;
+		List<Localization> m_Localizations;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -60,6 +62,7 @@ namespace LibSWBF2::Wrappers
 		const List<World>& GetWorlds() const;
 		const List<Terrain>& GetTerrains() const;
 		const List<Script>& GetScripts() const;
+		const List<Localization>& GetLocalizations() const;
 
 		const Light* GetLight(String lightName) const;
 		const Model* GetModel(String modelName) const;
@@ -67,6 +70,7 @@ namespace LibSWBF2::Wrappers
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
+		const Localization* GetLocalization(String loclName) const;
 
 		GlobalLightingConfig m_GlobalLightingConfig;
 

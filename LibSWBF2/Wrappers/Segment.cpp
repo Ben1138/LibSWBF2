@@ -69,14 +69,14 @@ namespace LibSWBF2::Wrappers
 					uint8_t localIndex = skin->m_BoneIndices[i];
 					if (localIndex >= boneMap->m_IndexCount)
 					{
-						LOG_ERROR("Local index {} points out of bounds into Bone Map of size {}!", localIndex, boneMap->m_IndexCount);
+						LOG_WARN("Local index {} points out of bounds into Bone Map of size {}!", localIndex, boneMap->m_IndexCount);
 					}
 					else
 					{
 						uint8_t boneIndex = boneMap->m_IndexMap[localIndex];
 						if (boneIndex >= skeleton->p_BoneNames->m_Texts.Size())
 						{
-							LOG_ERROR("Bone index {} is out of bounds {}!", boneIndex, skeleton->p_BoneNames->m_Texts.Size());
+							LOG_WARN("Bone index {} is out of bounds {}!", boneIndex, skeleton->p_BoneNames->m_Texts.Size());
 						}
 						else
 						{
@@ -88,7 +88,7 @@ namespace LibSWBF2::Wrappers
 			}
 			else if (skin != nullptr && boneMap == nullptr && skin->m_Type == 1)
 			{
-				LOG_ERROR("Bone map is missing!");
+				LOG_WARN("Bone map is missing!");
 			}
 		}
 

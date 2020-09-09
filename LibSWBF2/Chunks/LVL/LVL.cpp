@@ -23,6 +23,7 @@ namespace LibSWBF2::Chunks::LVL
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
+		m_LVLType = ELVLType::Generic;
 		size_t pos = stream.GetPosition();
 
 		ChunkHeader next1 = stream.ReadChunkHeader(false);	// either next chunk header OR unknown value
@@ -31,14 +32,23 @@ namespace LibSWBF2::Chunks::LVL
 
 		// we assume to be in a Sound LVL file if there's no next chunk immediately
 		// (unknown chunk header) AND after reading size left there's a "emo_" chunk
-		m_IsSoundLVL = !IsKnownHeader(next1) && next3 == "emo_"_h;
-
-		if (m_IsSoundLVL)
+		if (!IsKnownHeader(next1) && next3 == "emo_"_h)
 		{
+			m_LVLType = ELVLType::Sound;
 			m_NameHash = next1.m_Magic;	// let's pretend we read a uint32 in the first place...
 			m_SizeLeft = next2;
 		}
-		else
+		else if (!IsKnownHeader(next1) && !IsKnownHeader(next3))
+		{
+			stream.SetPosition(0xF800);
+			ChunkHeader	next4 = stream.ReadChunkHeader(true);
+			if (IsKnownHeader(next4))
+			{
+				m_LVLType = ELVLType::Core;
+			}
+		}
+
+		if (m_LVLType == ELVLType::Generic)
 		{
 			// all other LVL types (AFAIK)
 			stream.SetPosition(pos);
@@ -112,8 +122,8 @@ namespace LibSWBF2::Chunks::LVL
 
 	String LVL::ToString()
 	{
-		std::string result = fmt::format("Sound LVL: {}", m_IsSoundLVL ? "Yes" : "No");
-		if (m_IsSoundLVL)
+		std::string result = fmt::format("LVL Type: {}", LVLTypeToString(m_LVLType));
+		if (m_LVLType == ELVLType::Sound)
 		{
 			String name;
 			if (!FNV::Lookup(m_NameHash, name))

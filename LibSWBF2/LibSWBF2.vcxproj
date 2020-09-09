@@ -191,9 +191,8 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
   <ItemGroup>
     <ClInclude Include="API.h" />
     <ClInclude Include="Chunks\BNK\BNK.h" />
-    <ClInclude Include="Chunks\LVL\common\DATA.h" />
-    <ClInclude Include="Chunks\LVL\common\SCOP.h" />
-    <ClInclude Include="Chunks\LVL\lght\lght.h" />
+    <ClInclude Include="Chunks\LVL\Locl\Locl.BODY.h" />
+    <ClInclude Include="Chunks\LVL\Locl\Locl.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
     <ClInclude Include="Chunks\LVL\modl\BMAP.h" />
     <ClInclude Include="Chunks\LVL\modl\IBUF.h" />
@@ -230,12 +229,13 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
+    <ClInclude Include="Types\LocalizeEntry.h" />
     <ClInclude Include="Types\SoundBankHeader.h" />
     <ClInclude Include="Types\SoundClip.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
     <ClInclude Include="Wrappers\Instance.h" />
     <ClInclude Include="Wrappers\Level.h" />
-    <ClInclude Include="Wrappers\Light.h" />
+    <ClInclude Include="Wrappers\Localization.h" />
     <ClInclude Include="Wrappers\Material.h" />
     <ClInclude Include="Wrappers\Model.h" />
     <ClInclude Include="Wrappers\Script.h" />
@@ -320,8 +320,8 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
   <ItemGroup>
     <ClCompile Include="API.cpp" />
     <ClCompile Include="Chunks\BNK\BNK.cpp" />
-    <ClCompile Include="Chunks\LVL\common\SCOP.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\lght.cpp" />
+    <ClCompile Include="Chunks\LVL\Locl\Locl.BODY.cpp" />
+    <ClCompile Include="Chunks\LVL\Locl\Locl.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
     <ClCompile Include="Chunks\LVL\modl\BMAP.cpp" />
     <ClCompile Include="Chunks\LVL\modl\IBUF.cpp" />
@@ -359,12 +359,13 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
+    <ClCompile Include="Types\LocalizeEntry.cpp" />
     <ClCompile Include="Types\SoundBankHeader.cpp" />
     <ClCompile Include="Types\SoundClip.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />
     <ClCompile Include="Wrappers\Level.cpp" />
-    <ClCompile Include="Wrappers\Light.cpp" />
+    <ClCompile Include="Wrappers\Localization.cpp" />
     <ClCompile Include="Wrappers\Material.cpp" />
     <ClCompile Include="Wrappers\Model.cpp" />
     <ClCompile Include="Wrappers\Script.cpp" />
