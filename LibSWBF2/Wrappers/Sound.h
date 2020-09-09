@@ -31,6 +31,7 @@ namespace LibSWBF2::Wrappers
 		static bool FromSoundClip(SoundClip* soundClip, Sound& out);
 
 		String GetName() const;
+		FNVHash GetHashedName() const;
 		bool GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};
 }

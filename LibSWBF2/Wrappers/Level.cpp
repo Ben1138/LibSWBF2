@@ -5,7 +5,7 @@
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/lght/lght.h"
-
+#include "Chunks/LVL/Locl/Locl.h"
 #include <unordered_map>
 
 
@@ -20,6 +20,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> TerrainNameToIndex;
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
 		std::unordered_map<std::string, size_t> LightNameToIndex;
+		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
@@ -63,7 +64,7 @@ namespace LibSWBF2::Wrappers
 			Texture texture;
 			if (Texture::FromChunk(textureChunk, texture))
 			{
-				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(texture));
+				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
 		}
 
@@ -102,7 +103,7 @@ namespace LibSWBF2::Wrappers
 			Model model;
 			if (Model::FromChunk(this, modelChunk, model))
 			{
-				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(model));
+				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(std::move((model))));
 			}
 		}
 
@@ -112,7 +113,7 @@ namespace LibSWBF2::Wrappers
 			World world;
 			if (World::FromChunk(this, worldChunk, world))
 			{
-				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(world));
+				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
 		}
 
@@ -122,7 +123,7 @@ namespace LibSWBF2::Wrappers
 			Terrain terrain;
 			if (Terrain::FromChunk(this, terrainChunk, terrain))
 			{
-				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(terrain));
+				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
 			}
 		}
 
@@ -132,7 +133,17 @@ namespace LibSWBF2::Wrappers
 			Script script;
 			if (Script::FromChunk(scriptChunk, script))
 			{
-				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(script));
+				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(std::move(script)));
+			}
+		}
+
+		Locl* loclChunk = dynamic_cast<Locl*>(root);
+		if (loclChunk != nullptr)
+		{
+			Localization localization;
+			if (Localization::FromChunk(loclChunk, localization))
+			{
+				m_NameToIndexMaps->LocalizationNameToIndex.emplace(ToLower(localization.GetName()), m_Localizations.Add(std::move(localization)));
 			}
 		}
 
@@ -219,6 +230,11 @@ namespace LibSWBF2::Wrappers
 
 		//LOG_WARN("Could not find Light '{}'!", lightName);
 		return nullptr;
+  }
+  
+	const List<Localization>& Level::GetLocalizations() const
+	{
+		return m_Localizations;
 	}
 
 	const Model* Level::GetModel(String modelName) const
@@ -234,7 +250,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Models[it->second];
 		}
 
-		//LOG_WARN("Could not find Model '{}'!", modelName);
 		return nullptr;
 	}
 
@@ -251,7 +266,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Textures[it->second];
 		}
 
-		//LOG_WARN("Could not find Texture '{}'!", textureName);
 		return nullptr;
 	}
 
@@ -268,7 +282,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Worlds[it->second];
 		}
 
-		//LOG_WARN("Could not find World '{}'!", worldName);
 		return nullptr;
 	}
 
@@ -285,7 +298,6 @@ namespace LibSWBF2::Wrappers
 			return &m_Terrains[it->second];
 		}
 
-		//LOG_WARN("Could not find Terrain '{}'!", terrainName);
 		return nullptr;
 	}
 
@@ -302,7 +314,22 @@ namespace LibSWBF2::Wrappers
 			return &m_Scripts[it->second];
 		}
 
-		//LOG_WARN("Could not find Script '{}'!", scriptName);
+		return nullptr;
+	}
+
+	const Localization* Level::GetLocalization(String loclName) const
+	{
+		if (loclName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->LocalizationNameToIndex.find(ToLower(loclName));
+		if (it != m_NameToIndexMaps->LocalizationNameToIndex.end())
+		{
+			return &m_Localizations[it->second];
+		}
+
 		return nullptr;
 	}
 
@@ -319,7 +346,6 @@ namespace LibSWBF2::Wrappers
 			return it->second;
 		}
 
-		//LOG_WARN("Could not find Skeleton '{}'!", scriptName);
 		return nullptr;
 	}
 }

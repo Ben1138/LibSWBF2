@@ -39,7 +39,7 @@ namespace LibSWBF2::Chunks::MSH
 
 		if (m_Header != "HEDR"_h)
 		{
-			LOG_ERROR("This is not a valid MSH file!");
+			THROW("This is not a valid MSH file!");
 		}
 
 		while (ThereIsAnother(stream))

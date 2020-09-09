@@ -17,6 +17,7 @@
 #include "LVL/skel/skel.h"
 #include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
+#include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 
@@ -48,7 +49,7 @@ namespace LibSWBF2::Chunks
 		GenericBaseChunk* parent = GetParent();
 		if (parent != nullptr && (stream.GetPosition() + m_Size) > (parent->GetDataPosition() + parent->GetDataSize()))
 		{
-			THROW("Current chunk size {} exceeds parent data size!", m_Size);
+			THROW("Current chunk size {:#x} exceeds parent data size!", m_Size);
 		}
 	}
 
@@ -155,6 +156,11 @@ namespace LibSWBF2::Chunks
 						LVL::lght::lght* unknown;
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
+					else if (nextHead == "Locl"_h)
+					{
+						LVL::Localization::Locl* localizeChunk;
+						READ_CHILD(stream, localizeChunk);
+						chunk = localizeChunk;
 					}
 					else
 					{
@@ -170,8 +176,8 @@ namespace LibSWBF2::Chunks
 					delete chunk;
 					chunk = nullptr;
 
-					LOG_ERROR(e.what());
-					//LOG_ERROR("Skipping invalid Chunk: '{}' at pos: {}", nextHead, stream.GetPosition() - 8);
+					LOG_WARN(e.what());
+					//LOG_WARN("Skipping invalid Chunk: '{}' at pos: {:#x}", nextHead, stream.GetPosition() - 8);
 					break;
 				}
 			}
@@ -248,6 +254,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;

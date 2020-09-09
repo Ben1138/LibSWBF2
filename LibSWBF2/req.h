@@ -26,4 +26,6 @@ namespace LibSWBF2
 
 	typedef uint32_t CRCChecksum;
 	typedef uint32_t FNVHash;
+
+	typedef uint16_t Widechar;
 }
