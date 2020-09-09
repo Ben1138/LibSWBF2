@@ -8,7 +8,6 @@
 
 namespace LibSWBF2::Chunks::LVL::lght
 {
-
 	void DATA_VEC4::RefreshSize()
 	{
 		THROW("Not implemented!");

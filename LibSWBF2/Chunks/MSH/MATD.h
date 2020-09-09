@@ -1,7 +1,7 @@
 #pragma once
 #include "Chunks/BaseChunk.h"
 #include "Chunks/STR.h"
-#include "DATA.h"
+#include "MSH.DATA.h"
 #include "ATRB.h"
 
 namespace LibSWBF2::Chunks::MSH

@@ -121,6 +121,18 @@
     <Filter Include="Source Files\Chunks\LVL\Locl">
       <UniqueIdentifier>{13fbc170-4e3e-4ab6-8606-e03ccd30ba40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\lght">
+      <UniqueIdentifier>{84857e2d-80b2-4cad-a065-3608bbb61240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\lght">
+      <UniqueIdentifier>{852d61c7-dc1c-462d-90ab-474c0ee47e21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\common">
+      <UniqueIdentifier>{b1bac627-95c2-44c3-a226-817677625021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\common">
+      <UniqueIdentifier>{e1c20c9d-1f78-4267-a5db-71777b55dffb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -281,9 +293,6 @@
     </ClInclude>
     <ClInclude Include="Chunks\LVL\tex_\tex_.INFO.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\MSH\DATA.h">
-      <Filter>Header Files\Chunks\MSH</Filter>
     </ClInclude>
     <ClInclude Include="Chunks\LVL\tex_\FMT_.h">
       <Filter>Header Files\Chunks\LVL\tex_</Filter>
@@ -504,6 +513,42 @@
     <ClInclude Include="Wrappers\Localization.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\float.DATA.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\lght.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\lght.SCOP.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\string.DATA.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\vec2.DATA.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\vec3.DATA.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\common\DATA.h">
+      <Filter>Header Files\Chunks\LVL\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\Light.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\GlobalLighting.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\common\SCOP.h">
+      <Filter>Header Files\Chunks\LVL\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\MSH\MSH.DATA.h">
+      <Filter>Header Files\Chunks\MSH</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\vec4.DATA.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -652,9 +697,6 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tex_\tex_.INFO.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\MSH\DATA.cpp">
-      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tex_\FMT_.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
@@ -868,6 +910,39 @@
     </ClCompile>
     <ClCompile Include="Wrappers\Localization.cpp">
       <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\float.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\lght.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\lght.SCOP.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\string.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\vec2.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\vec3.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\vec4.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\Light.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\GlobalLighting.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\common\DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\MSH\MSH.DATA.cpp">
+      <Filter>Source Files\Chunks\MSH</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,5 @@
 #pragma once
-
 #include "Chunks/LVL/lght/lght.h"
-#include "InternalHelpers.h"
-
 #include "Types/Colorf.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
@@ -10,38 +7,31 @@
 
 namespace LibSWBF2::Wrappers
 {
+	using namespace LibSWBF2::Chunks::LVL::lght;
+	using namespace LibSWBF2::Types;
 
-using namespace LibSWBF2::Chunks::LVL::lght;
-using namespace LibSWBF2::Types;
+	struct LIBSWBF2_API Light
+	{
+	public:
+		String GetName();
 
-struct Light {
+		Vector4 GetRotation();
+		Vector3 GetPosition();
+		ELightType GetType();
+		Vector3 GetColor();
 
-public:
+		bool GetCastSpecular();
+		bool GetRange(float_t& rangeOut);
+		bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut);
 
-	String GetName();
+		Light(DATA_STRING* tag, SCOP_LGHT* body);
+		Light() = default;
 
-	Vector4 GetRotation();
-	Vector3 GetPosition();
-	ELightType GetType();
-	Vector3 GetColor();
+		String ToString();
+		static bool FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out);
 
-	bool GetCastSpecular();
-	bool GetRange(float_t& rangeOut);
-	bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut);
-
-
-
-	Light(DATA_STRING* tag, SCOP_LGHT* body);
-	Light() = default;
-
-	String ToString();
-	static bool FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out);
-
-
-private:
-
-	DATA_STRING* p_TagChunk;
-	SCOP_LGHT* p_FieldsChunk;
-};
-
+	private:
+		DATA_STRING* p_TagChunk;
+		SCOP_LGHT* p_FieldsChunk;
+	};
 }

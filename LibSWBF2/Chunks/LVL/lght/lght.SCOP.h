@@ -1,6 +1,4 @@
 #pragma once
-
-#include "stdafx.h"
 #include "Chunks/GenericChunk.h"
 #include "Chunks/LVL/common/DATA.h"
 #include "Chunks/LVL/lght/vec2.DATA.h"
@@ -41,31 +39,29 @@ using LibSWBF2::Chunks::LVL::common::DATA;
 
 namespace LibSWBF2::Chunks::LVL::lght
 {
+    struct LIBSWBF2_API SCOP_LGHT : public GenericChunk<"SCOP"_m>
+    {
+	    void RefreshSize() override;
+	    void WriteToStream(FileWriter& stream) override;
+	    void ReadFromStream(FileReader& stream) override;
 
-struct LIBSWBF2_API SCOP_LGHT : public GenericChunk<"SCOP"_m>{
-	
-	void RefreshSize() override;
-	void WriteToStream(FileWriter& stream) override;
-	void ReadFromStream(FileReader& stream) override;
+	    /*
+	    Local light fields
+	    */
 
-	/*
-	Local light fields
-	*/
+	    DATA_VEC4 *p_RotationChunk;
+        DATA_VEC3 *p_PositionChunk;
+        DATA_FLOAT *p_TypeChunk;
+        DATA_VEC3 *p_ColorChunk;
 
-	DATA_VEC4 *p_RotationChunk;
-    DATA_VEC3 *p_PositionChunk;
-    DATA_FLOAT *p_TypeChunk;
-    DATA_VEC3 *p_ColorChunk;
+        DATA_FLOAT *p_RangeChunk;
+        DATA_VEC2 *p_ConeChunk;
 
-    DATA_FLOAT *p_RangeChunk;
-    DATA_VEC2 *p_ConeChunk;
+        /*
+        Global light section fields
+        */
 
-    /*
-    Global light section fields
-    */
-
-    DATA_VEC3 *p_TopColorChunk, *p_BottomColorChunk;
-    DATA_STRING *p_Light1Name, *p_Light2Name;
-};
-
+        DATA_VEC3 *p_TopColorChunk, *p_BottomColorChunk;
+        DATA_STRING *p_Light1Name, *p_Light2Name;
+    };
 }
