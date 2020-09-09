@@ -21,7 +21,7 @@ namespace LibSWBF2::Wrappers
     GlobalLightingConfig::GlobalLightingConfig(SCOP_LGHT* body) : p_FieldsChunk(body) {}
 
 
-    bool GlobalLightingConfig::GetTopColor(Vector3& colorOut)
+    bool GlobalLightingConfig::GetTopColor(Vector3& colorOut) const
     {
         if (p_FieldsChunk->p_TopColorChunk == nullptr)
         {
@@ -31,7 +31,7 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 
-    bool GlobalLightingConfig::GetBottomColor(Vector3& colorOut)
+    bool GlobalLightingConfig::GetBottomColor(Vector3& colorOut) const
     {
         if (p_FieldsChunk->p_BottomColorChunk == nullptr)
         {
@@ -41,7 +41,7 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 
-    bool GlobalLightingConfig::GetLight1(String& light1NameOut)
+    bool GlobalLightingConfig::GetLight1(String& light1NameOut) const
     {
         if (p_FieldsChunk->p_Light1Name == nullptr)
         {
@@ -52,7 +52,7 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 
-    bool GlobalLightingConfig::GetLight2(String& light2NameOut)
+    bool GlobalLightingConfig::GetLight2(String& light2NameOut) const
     {
         if (p_FieldsChunk->p_Light2Name == nullptr)
         {
@@ -63,7 +63,7 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 
-    String GlobalLightingConfig::ToString()
+    String GlobalLightingConfig::ToString() const
     {
         String stringRep = "Global lighting section: ";
         Vector3 color;
