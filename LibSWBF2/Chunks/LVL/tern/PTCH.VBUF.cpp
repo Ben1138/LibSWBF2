@@ -46,7 +46,6 @@ namespace LibSWBF2::Chunks::LVL::terrain
         {
             static int tstvar = 0;
             static uint8_t biggerInt = 0;
-            biggerInt++;
 
             LOG_WARN("Element size: {} Element count: {}", m_ElementSize, m_ElementCount);
 
@@ -56,13 +55,16 @@ namespace LibSWBF2::Chunks::LVL::terrain
             {
                 int j = (int) i / 4;
 
-                p_SplatMapData[j] = stream.ReadByte();
-                p_SplatMapData[j + 1] = stream.ReadByte();
-                p_SplatMapData[j + 2] = stream.ReadByte();
-                p_SplatMapData[j + 3] = stream.ReadByte();
-                stream.SkipBytes(m_ElementSize - 4);
+                
 
+                p_SplatMapData[j] = biggerInt * 10;//stream.ReadByte();
+                p_SplatMapData[j + 1] = biggerInt * 10;//stream.ReadByte();
+                p_SplatMapData[j + 2] = biggerInt * 10;//stream.ReadByte();
+                p_SplatMapData[j + 3] = biggerInt * 10;//stream.ReadByte();
+                stream.SkipBytes(m_ElementSize - 4);
             }
+
+            biggerInt++;
         }
         else
         {
