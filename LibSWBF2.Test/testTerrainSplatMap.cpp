@@ -32,20 +32,24 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Square_Tex1_Tex2_Blended.lvl");
+	Level *testLVL1 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Blended.lvl");
+	Level *testLVL2 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Painted.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
 #endif
 
-	const Terrain& terr = testLVL -> GetTerrains()[0];
 
 	uint32_t width, height, elementSize;
 	uint8_t *imgData;
 
-	terr.GetSplatMap(width,height,elementSize,imgData);
+	const Terrain& terr1 = testLVL1 -> GetTerrains()[0];
+	terr1.GetSplatMap(width,height,elementSize,imgData);
+	stbi_write_png("testsplat_blended.png", width, height, 4, reinterpret_cast<void *>(imgData), width*4);
 
-	stbi_write_png("testsplat.png", width, height, 4, reinterpret_cast<void *>(imgData), width*4);
 
+	const Terrain& terr2 = testLVL2 -> GetTerrains()[0];
+	terr2.GetSplatMap(width,height,elementSize,imgData);
+	stbi_write_png("testsplat_painted.png", width, height, 4, reinterpret_cast<void *>(imgData), width*4);
 
 	return 0;
 }

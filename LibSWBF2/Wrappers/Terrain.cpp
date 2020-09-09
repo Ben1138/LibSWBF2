@@ -152,11 +152,11 @@ namespace LibSWBF2::Wrappers
 
 			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 			{
-				int localPatchY = j / 8; 
-				int localPatchX = j % 8;
+				int localPatchY = j / 9; 
+				int localPatchX = j % 9;
 
 				int finalIndex = 4 * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
-				int patchIndex = 4 * (localPatchY * 8 + localPatchX);
+				int patchIndex = 4 * (localPatchY * 9 + localPatchX);
 
 				if (finalIndex < dataLength)
 				{
@@ -168,8 +168,8 @@ namespace LibSWBF2::Wrappers
 			}
 		}   
 
-		width = (uint32_t) gridSize;
-		height = (uint32_t) gridSize;
+		width = gridSize;
+		height = gridSize;
 		elementSize = 4;    
 	}
 
