@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "PTCH.VBUF.h"
+#include "PTCH.INFO.h"
+#include "PTCH.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
+
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
@@ -44,27 +47,55 @@ namespace LibSWBF2::Chunks::LVL::terrain
         }
         else if (m_BufferType == ETerrainBufferType::Texture)
         {
-            static int tstvar = 0;
-            static uint8_t biggerInt = 0;
 
-            LOG_WARN("Element size: {} Element count: {}", m_ElementSize, m_ElementCount);
+            PTCH *parentPatch = reinterpret_cast<PTCH*>(m_Parent);
+            PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
 
+            auto slotsList = patchInfo -> m_TextureSlotsUsed;
+            int numSlotsUsed = (int) slotsList.Size();
+            
             p_SplatMapData = new uint8_t[ m_ElementSize * m_ElementCount ]();
+
+            uint8_t *elementBuffer = new uint8_t[m_ElementSize]();
 
             for (uint32_t i = 0; i < m_ElementCount * m_ElementSize; i+=m_ElementSize)
             {
                 int j = (int) i / 4;
 
-                
+                stream.ReadBytes(elementBuffer, m_ElementSize);
 
-                p_SplatMapData[j] = biggerInt * 10;//stream.ReadByte();
-                p_SplatMapData[j + 1] = biggerInt * 10;//stream.ReadByte();
-                p_SplatMapData[j + 2] = biggerInt * 10;//stream.ReadByte();
-                p_SplatMapData[j + 3] = biggerInt * 10;//stream.ReadByte();
-                stream.SkipBytes(m_ElementSize - 4);
+                for (int k = 0; k < slotsList.Size(); k++)
+                {
+                    int slot = (int) slotsList[k];
+
+                    if (slot > 3)
+                    {
+                        continue;
+                    }
+
+                    //slot = slot == 3 ? 2 : slot;
+
+                    if (k == 0)
+                    {
+                        p_SplatMapData[j + slot] = elementBuffer[15];
+                    }
+
+                    if (k == 1)
+                    {
+                        p_SplatMapData[j + slot] = elementBuffer[11];
+                    }
+
+                    if (k == 2)
+                    {
+                        p_SplatMapData[j + slot] = elementBuffer[6];
+                    }
+                }
+
+                p_SplatMapData[j + 3] = 255;
+
             }
 
-            biggerInt++;
+            delete[] elementBuffer;
         }
         else
         {
