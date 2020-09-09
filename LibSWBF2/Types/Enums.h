@@ -59,7 +59,7 @@ namespace LibSWBF2
 		LOWD = 4
 	};
 
-	enum class ETopology : int32_t 
+	enum class ETopology : int32_t
 	{
 		PointList = 1,
 		LineList = 2,
@@ -97,7 +97,7 @@ namespace LibSWBF2
 		None = 0b0u,
 		Position = 0b10u,
 		Unknown1 = 0b100u,		// definetly not bone indices
-		
+
 		// this is questionable... not found in all of sides/rep.lvl. Another UV maybe (2 float)?
 		BlendWeight = 0b1000u,
 
@@ -126,6 +126,14 @@ namespace LibSWBF2
 		TextureExtra = 130
 	};
 
+	enum class ELightType : uint32_t
+	{
+	    Omni = 2,
+		Dir = 1,
+		Spot = 3,
+		Unknown = 0,
+  };
+  
 	enum class ELVLType
 	{
 		Generic,
@@ -139,6 +147,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API ModelPurposeToString(EModelPurpose flags);
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
+	Types::String LIBSWBF2_API ELightTypeToString(ELightType type);
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);

@@ -167,9 +167,6 @@ typedef enum _D3DFORMAT
 
 #ifndef _WIN32
 
-//Lazy redef copy/pasted from D3DToDXGI
-//for crossplat compilation's sake 
-
 typedef enum DXGI_FORMAT
 {
     DXGI_FORMAT_UNKNOWN	                    = 0,

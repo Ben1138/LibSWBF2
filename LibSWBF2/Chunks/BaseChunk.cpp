@@ -107,7 +107,7 @@ namespace LibSWBF2::Chunks
 	{
 		return GetAlignedSize() + sizeof(ChunkHeader) + sizeof(ChunkSize);
 	}
-	
+
 	size_t BaseChunk::GetPosition() const
 	{
 		return m_ChunkPosition;
@@ -162,7 +162,7 @@ namespace LibSWBF2::Chunks
 		else
 		{
 			// if we've got trailing bytes, skip them too
-			//ForwardToNextHeader(stream);
+			ForwardToNextHeader(stream);
 		}
 	}
 
@@ -176,3 +176,4 @@ namespace LibSWBF2::Chunks
 		}
 	}
 }
+

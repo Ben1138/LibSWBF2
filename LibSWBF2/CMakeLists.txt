@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
+cmake_policy(SET CMP0079 NEW)
+
 
 #[[
 
@@ -21,16 +23,18 @@ project(libSWBF2)
 
 
 
+
 #SETTINGS
 
 add_library(SWBF2)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
+#Setting a GLOBAL property seems to never work...
 set_property(TARGET SWBF2 PROPERTY CXX_STANDARD 20)
 set_property(TARGET SWBF2 PROPERTY CXX_STANDARD_REQUIRED ON)
 
-if (NOT ${CMAKE_BUILD_TYPE} EQUAL "DEBUG")
+if (NOT ${CMAKE_BUILD_TYPE} EQUAL "Debug")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
@@ -40,26 +44,39 @@ target_compile_options(SWBF2 PUBLIC -Wno-attributes)
 
 #SOURCES
 
-include_directories(.)
-include_directories(DirectX)
-
 if(APPLE)
 	include_directories(/usr/local/include)
 endif()
+
+target_include_directories(SWBF2 PUBLIC .)
+target_include_directories(SWBF2 PUBLIC DirectX)
+
+add_subdirectory(Chunks)
 
 #Lazy, should fix
 file(GLOB CORE_FILES *.cpp)
 file(GLOB LOGGING_FILES Logging/*.cpp)
 file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
-file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp)
+file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp DirectX/*.c)
 
-target_sources(SWBF2 PUBLIC ${CORE_FILES} 
+target_sources(SWBF2 PRIVATE ${CORE_FILES} 
 							${DIRECTX_FILES}
 							${WRAPPERS_FILES} 
 							${LOGGING_FILES}
 							${TYPES_FILES})
-add_subdirectory(Chunks)
+
+#For XCodeProj generation
+
+file(GLOB_RECURSE ALL_SOURCES *.cpp)
+file(GLOB_RECURSE ALL_HEADERS *.h)
+set(PROJECT_FILES "${ALL_SOURCES}")
+list(APPEND PROJECT_FILES "${ALL_HEADERS}")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
+
+#Needed for correct XCodeProj generation, ALL_HEADERS
+#defined in root lists
+target_sources(SWBF2 PUBLIC ${ALL_HEADERS})
 
 
 
@@ -76,6 +93,9 @@ else()
 	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
-target_link_libraries(SWBF2 PUBLIC chunkMSH chunkLVL
-								   chunkBNK chunkTERR
-								   fmt glm_static)
+target_sources(SWBF2 PRIVATE ${CHUNKS_SOURCES})
+
+find_library(FMTLIB fmt)
+find_library(GLMLIB glm_static)
+
+target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB})

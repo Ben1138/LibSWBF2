@@ -1,64 +1,35 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
+#include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/common/SCOP.h"
+
+#include "Chunks/LVL/lght/lght.SCOP.h"
+#include "Chunks/LVL/lght/string.DATA.h"
+#include "Chunks/LVL/lght/vec4.DATA.h"
+#include "Chunks/LVL/lght/vec3.DATA.h"
 
 
 
-/*
-'lght' chunk spec
+using namespace LibSWBF2::Chunks::LVL::common;
 
-Example with a single omnidirectional light
-
-'lght' (number of lights not explicitly stated, presumably derived from lght chunk length)
-
-	'name' (? 8 bytes, seems to signal start of light list, kind of redundant...)
-		
-		'data' local light/global light flag (? bytes), name string (? bytes)
-
-		'scop' lighttype/chunklength (uint32) a8 = omni, f4 = spot, e0 = dir
-		              						  c0 = omni (cast specular)
-		    'data' rotation, 25 (28) bytes
-
-		    'data' position, 21 (24) bytes
-
-		    'data' 		  ?, 13 (16) bytes
-
-			'data'    color, 21 (24) bytes
-
-			'data'		  ?,  9 (12) bytes
-
-			'data'		  ?, 13 (16) bytes
-*/
-
-namespace LibSWBF2::Chunks::LVL::light
+namespace LibSWBF2::Chunks::LVL::lght
 {
 
-	struct DATA;
-	struct SCOP;
+struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
+{
+public:
+	void RefreshSize() override;
+	void WriteToStream(FileWriter& stream) override;
+	void ReadFromStream(FileReader& stream) override;
 
-	struct LIBSWBF2_API lght : public GenericChunk<"lght"_m>
-	{
-	public:
+    List<DATA_STRING *> p_LightTags;
+    List<SCOP_LGHT *> p_LightBodies;
 
-		/*
-		Childchunks for each light.  Each light
-		has a single header and block chunk.  
-		Each DATA contains light's the name and ?.
-		Each SCOP contains DATA children which describe
-		the various traits of each light.
-		*/
+    DATA_STRING *p_GlobalLightingTag = 0;
+    SCOP_LGHT *p_GlobalLightingBody = 0;
 
-		List<DATA *> p_localLightHeaders;
-		List<SCOP *> p_localLightBlocks;
+    STR<"NAME"_m> *p_Marker; //unknown purpose, hashed layer name?
+};
 
-		List<DATA *> p_globalLightHeaders; //**will be changed**
-		List<SCOP *> p_globalLightBlocks;  //**will be changed**
-
-	public:
-		void RefreshSize() override;
-		void WriteToStream(FileWriter& stream) override;
-		void ReadFromStream(FileReader& stream) override;
-
-		String ToString() override;
-	};
 }
