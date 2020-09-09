@@ -21,6 +21,8 @@
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 
+#include "LVL/lght/lght.h"
+
 
 namespace LibSWBF2::Chunks
 {
@@ -149,6 +151,11 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
+					else if (nextHead == "lght"_h)
+					{
+						LVL::lght::lght* unknown;
+						READ_CHILD(stream, unknown);
+						chunk = unknown;
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -262,4 +269,12 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"RTYP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
+
+	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
+    template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+    template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
+    template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 }
+

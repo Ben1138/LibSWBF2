@@ -228,6 +228,21 @@ namespace LibSWBF2
 		}
 	}
 
+	Types::String LIBSWBF2_API ELightTypeToString(ELightType type)
+	{
+		switch(type)
+		{
+			case ELightType::Omni:
+				return "Omnidirectional";
+			case ELightType::Spot:
+				return "Spot";
+			case ELightType::Dir:
+				return "Directional";
+			default:
+				return "Unknown";
+		}
+	}
+
 	Types::String LVLTypeToString(ELVLType type)
 	{
 		switch (type)

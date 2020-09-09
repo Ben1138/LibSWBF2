@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace LibSWBF2::Types
 {
 	struct LIBSWBF2_API String

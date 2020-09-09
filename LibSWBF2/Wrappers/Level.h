@@ -5,6 +5,8 @@
 #include "World.h"
 #include "Terrain.h"
 #include "Script.h"
+#include "Light.h"
+#include "GlobalLighting.h"
 #include "Localization.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
@@ -37,6 +39,7 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
+		List<Light> m_Lights;
 		List<Localization> m_Localizations;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
@@ -53,6 +56,7 @@ namespace LibSWBF2::Wrappers
 
 		bool IsWorldLevel() const;
 
+		const List<Light>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
@@ -60,12 +64,16 @@ namespace LibSWBF2::Wrappers
 		const List<Script>& GetScripts() const;
 		const List<Localization>& GetLocalizations() const;
 
+		const Light* GetLight(String lightName) const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
 		const Localization* GetLocalization(String loclName) const;
+
+		GlobalLightingConfig m_GlobalLightingConfig;
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);
