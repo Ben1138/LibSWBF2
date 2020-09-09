@@ -150,18 +150,20 @@ namespace LibSWBF2::Chunks
 
 	void BaseChunk::EnsureEnd(FileReader& stream)
 	{
-		if (stream.GetPosition() == stream.GetFileSize())
+		size_t currPos = stream.GetPosition();
+		if (currPos == stream.GetFileSize())
 			return;
 
 		size_t endPos = GetDataPosition() + GetAlignedSize();
-		if (stream.GetPosition() < endPos)
+		if (currPos < endPos)
 		{
 			//LOG_WARN("[{}] We did not end up at the Chunks end position ({:#x})! Instead we are here:{:#x}! Moving Position to Chunks end position...", m_Header, endPos, stream.GetPosition());
 			stream.SetPosition(endPos);
 		}
-		else
+		else if (currPos > endPos)
 		{
-			// if we've got trailing bytes, skip them too
+			// This should NEVER happen!
+			LOG_WARN("[{}] Ended up outside of current chunk (end is at: {:#x}, we are at: {:#x}! Too many bytes read: {}", m_Header, endPos, currPos, currPos - endPos);
 			ForwardToNextHeader(stream);
 		}
 	}
@@ -169,11 +171,13 @@ namespace LibSWBF2::Chunks
 	void BaseChunk::ForwardToNextHeader(FileReader& stream)
 	{
 		// if we've got any trailing bytes, skip them too
+		size_t lastPos = stream.GetPosition();
 		while (stream.GetFileSize() - stream.GetPosition() >= 4 && !IsKnownHeader(stream.ReadChunkHeader(true)))
 		{
 			stream.SetPosition(stream.GetPosition() + 1);
-			LOG_WARN("[{}] Could not find next valid header, skipping to position: {:#x}", m_Header, stream.GetPosition());
 		}
+		size_t skipped = stream.GetPosition() - lastPos;
+		LOG_WARN("[{}] Forwarded to next header at {:#x}, skipped {} bytes!", m_Header, stream.GetPosition(), skipped);
 	}
 }
 

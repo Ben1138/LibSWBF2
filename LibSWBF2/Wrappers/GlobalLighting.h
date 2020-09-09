@@ -10,24 +10,24 @@ namespace LibSWBF2::Wrappers
 	using namespace LibSWBF2::Chunks::LVL::lght;
 	using namespace LibSWBF2::Types;
 
-	struct LIBSWBF2_API GlobalLightingConfig
+	class LIBSWBF2_API GlobalLightingConfig
 	{
-	public:
-		bool GetTopColor(Vector3& colorOut);
-		bool GetBottomColor(Vector3& colorOut);
-
-		bool GetLight1(String& light1NameOut);
-		bool GetLight2(String& light2NameOut);
+		friend class Level;
 
 		GlobalLightingConfig(SCOP_LGHT* body);
 		GlobalLightingConfig() = default;
 
-		String ToString();
+		SCOP_LGHT* p_FieldsChunk;
+
+	public:
 		static bool FromChunk(SCOP_LGHT* body, GlobalLightingConfig& out);
 
+		bool GetTopColor(Vector3& colorOut) const;
+		bool GetBottomColor(Vector3& colorOut) const;
 
-	private:
-		SCOP_LGHT* p_FieldsChunk;
+		bool GetLight1(String& light1NameOut) const;
+		bool GetLight2(String& light2NameOut) const;
+
+		String ToString() const;
 	};
 }
-

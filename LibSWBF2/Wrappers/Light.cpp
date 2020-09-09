@@ -22,27 +22,27 @@ namespace LibSWBF2::Wrappers
     Light::Light(DATA_STRING* tag, SCOP_LGHT* body) : p_TagChunk(tag), p_FieldsChunk(body){}
 
 
-    Vector4 Light::GetRotation()
+    Vector4 Light::GetRotation() const
     {
         return p_FieldsChunk -> p_RotationChunk -> m_Vec;
     }
 
-    Vector3 Light::GetPosition()
+    Vector3 Light::GetPosition() const
     {
         return p_FieldsChunk -> p_PositionChunk -> m_Vec;
     }
 
-    Vector3 Light::GetColor()
+    Vector3 Light::GetColor() const
     {
         return p_FieldsChunk -> p_ColorChunk -> m_Vec;
     }
 
-    String Light::GetName()
+    String Light::GetName() const
     {
         return p_TagChunk -> m_String;
     }
 
-    ELightType Light::GetType()
+    ELightType Light::GetType() const
     {	
 	    auto* typeChunk = p_FieldsChunk -> p_TypeChunk;
 
@@ -54,7 +54,7 @@ namespace LibSWBF2::Wrappers
 	    return ELightType::Unknown;
     }
 
-    String Light::ToString()
+    String Light::ToString() const
     {
         return fmt::format(
                 "Name: {}, Position: {}, Rotation: {}, Color: {}, Type: {}",
@@ -64,7 +64,7 @@ namespace LibSWBF2::Wrappers
             ).c_str();
     }
 
-    bool Light::GetRange(float_t& rangeOut)
+    bool Light::GetRange(float_t& rangeOut) const
     {
         ELightType lightType = GetType();
 
@@ -76,7 +76,7 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 
-    bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut)
+    bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut) const
     {
         if (GetType() != ELightType::Spot)
         {
