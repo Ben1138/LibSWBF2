@@ -156,6 +156,7 @@ namespace LibSWBF2::Chunks
 						LVL::lght::lght* unknown;
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
