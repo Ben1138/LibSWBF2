@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         //stream.ReadUInt32(); //IDK what this int means yet
         //m_ElementSize = stream.ReadUInt32();
-        m_ElementSize = 15; //this is overwhelmingly common, stubbing it for now...
+        m_ElementSize = 16; //this is overwhelmingly common, stubbing it for now...
 
         BaseChunk::EnsureEnd(stream);
     }
