@@ -22,8 +22,6 @@ namespace LibSWBF2::Chunks::LVL::terrain
       
         uint32_t numTextureSlotsUsed = (uint32_t) stream.ReadByte();
 
-        LOG_WARN("Reading {} bytes", numTextureSlotsUsed);
-
         for (uint32_t i = 0; i < numTextureSlotsUsed; i++)
         {
             uint32_t texIndex = (uint32_t) stream.ReadByte();

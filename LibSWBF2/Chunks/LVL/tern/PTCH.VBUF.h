@@ -13,6 +13,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
 		ETerrainBufferType m_BufferType;
 		List<Types::TerrainBufferEntry> m_TerrainBuffer;
 
+		uint8_t *p_SplatMapData;
+
 	public:
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
