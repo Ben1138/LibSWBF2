@@ -56,6 +56,8 @@ namespace LibSWBF2::Wrappers
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
 
 		void GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const;
+
+		void GetSplatMap(uint32_t& width, uint32_t& height, uint32_t& elementSize, uint8_t*& imgData) const;
  
 		// Texture name for each terrain layer. Usually 16 layers
 		const List<String>& GetLayerTextures() const;

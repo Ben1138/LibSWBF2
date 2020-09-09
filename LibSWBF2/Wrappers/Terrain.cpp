@@ -123,6 +123,57 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
+
+	void Terrain::GetSplatMap(uint32_t& width, uint32_t& height, uint32_t& elementSize, uint8_t*& imgData) const
+	{
+		auto *info = p_Terrain -> p_Info;
+		
+		uint16_t& gridSize = info->m_GridSize;
+		float_t& gridUnitSize = info->m_GridUnitSize;
+		uint16_t& numVertsPerPatchEdge = info->m_PatchEdgeSize;
+		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
+
+		int dataLength = (int) (gridSize * gridSize * 4);
+        imgData = new uint8_t[dataLength]();
+
+		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
+
+//		LOG_WARN("Num verts per patch: {}, num patches per row: {}, row size: {}", numVertsPerPatchEdge, numPatchesPerRow, gridDim);
+
+		for (size_t i = 0; i < patches.Size(); i++)
+		{	
+			PTCH* curPatch = patches[i];
+			VBUF* patchSplatChunk = curPatch -> m_TextureBuffer;
+
+			int patchY = i / (int) numPatchesPerRow;
+			int patchX = i % (int) numPatchesPerRow;
+
+			int patchStartIndex = patchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + patchX * numVertsPerPatchEdge;
+
+			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
+			{
+				int localPatchY = j / 8; 
+				int localPatchX = j % 8;
+
+				int finalIndex = 4 * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
+				int patchIndex = 4 * (localPatchY * 8 + localPatchX);
+
+				if (finalIndex < dataLength)
+				{
+					imgData[finalIndex] = patchSplatChunk -> p_SplatMapData[patchIndex];
+					imgData[finalIndex + 1] = patchSplatChunk -> p_SplatMapData[patchIndex + 1];
+					imgData[finalIndex + 2] = patchSplatChunk -> p_SplatMapData[patchIndex + 2];
+					imgData[finalIndex + 3] = 255;
+				}
+			}
+		}   
+
+		width = (uint32_t) gridSize;
+		height = (uint32_t) gridSize;
+		elementSize = 4;    
+	}
+
+
 	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
 		static List<uint32_t> indices;

@@ -42,6 +42,28 @@ namespace LibSWBF2::Chunks::LVL::terrain
                 }
             //}
         }
+        else if (m_BufferType == ETerrainBufferType::Texture)
+        {
+            static int tstvar = 0;
+            static uint8_t biggerInt = 0;
+            biggerInt++;
+
+            LOG_WARN("Element size: {} Element count: {}", m_ElementSize, m_ElementCount);
+
+            p_SplatMapData = new uint8_t[ m_ElementSize * m_ElementCount ]();
+
+            for (uint32_t i = 0; i < m_ElementCount * m_ElementSize; i+=m_ElementSize)
+            {
+                int j = (int) i / 4;
+
+                p_SplatMapData[j] = stream.ReadByte();
+                p_SplatMapData[j + 1] = stream.ReadByte();
+                p_SplatMapData[j + 2] = stream.ReadByte();
+                p_SplatMapData[j + 3] = stream.ReadByte();
+                stream.SkipBytes(m_ElementSize - 4);
+
+            }
+        }
         else
         {
             LOG_INFO("Skip yet unsupported Terrain Buffer Type: {}", TerrainBufferTypeToString(m_BufferType));
