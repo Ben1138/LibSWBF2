@@ -76,7 +76,6 @@ namespace LibSWBF2::Chunks::LVL::terrain
             else if (next == "INFO"_h)
             {
             	READ_CHILD(stream, p_PatchInfo);
-            	//LOG_WARN(p_PatchInfo -> ToString().Buffer());
             }
             else
             {

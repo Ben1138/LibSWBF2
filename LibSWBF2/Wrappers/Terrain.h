@@ -57,7 +57,7 @@ namespace LibSWBF2::Wrappers
 
 		void GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const;
 
-		void GetSplatMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& imgData) const;
+		void GetBlendMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& imgData) const;
  
 		// Texture name for each terrain layer. Usually 16 layers
 		const List<String>& GetLayerTextures() const;
