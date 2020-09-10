@@ -40,17 +40,17 @@ int main()
 #endif
 
 
-	uint32_t width, height, elementSize;
+	uint32_t dim, elementSize;
 	uint8_t *imgData;
 
 	const Terrain& terr1 = testLVL1 -> GetTerrains()[0];
-	terr1.GetSplatMap(width,height,elementSize,imgData);
-	stbi_write_png("testsplat_blended.png", width, height, 4, reinterpret_cast<void *>(imgData), width*4);
+	terr1.GetSplatMap(dim,elementSize,imgData);
+	stbi_write_png("testsplat_blended.png", dim, dim, 4, reinterpret_cast<void *>(imgData), dim*4);
 
 
 	const Terrain& terr2 = testLVL2 -> GetTerrains()[0];
-	terr2.GetSplatMap(width,height,elementSize,imgData);
-	stbi_write_png("testsplat_painted.png", width, height, 4, reinterpret_cast<void *>(imgData), width*4);
+	terr2.GetSplatMap(dim,elementSize,imgData);
+	stbi_write_png("testsplat_painted.png", dim, dim, 4, reinterpret_cast<void *>(imgData), dim*4);
 
 	return 0;
 }
