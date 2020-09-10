@@ -27,6 +27,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
         m_ElementSize = stream.ReadUInt32();
         m_BufferType = (ETerrainBufferType)stream.ReadUInt32();
 
+        LOG_WARN("On vbuf: numElements: {}, elementSize: {}", m_ElementCount, m_ElementSize);
+
         if (m_BufferType == ETerrainBufferType::Geometry)
         {
             //if (m_ElementCount != 81)
@@ -47,52 +49,38 @@ namespace LibSWBF2::Chunks::LVL::terrain
         }
         else if (m_BufferType == ETerrainBufferType::Texture)
         {
+            //I'm so far as baffled as you as to why these are so...
+            //The other data stored in each element isn't garbage 
+            //or all default, it is mostly patterned.  Exact 
+            //pattern/meaning still unknown.
+            static int KNOWN_STRENGTH_OFFSETS[] = {15, 11, 6, 3};
 
-            PTCH *parentPatch = reinterpret_cast<PTCH*>(m_Parent);
+            //PTCH *parentPatch = reinterpret_cast<PTCH*>(m_Parent);
+            PTCH *parentPatch = dynamic_cast<PTCH*>(m_Parent);
             PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
 
-            auto slotsList = patchInfo -> m_TextureSlotsUsed;
+            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
             int numSlotsUsed = (int) slotsList.Size();
             
-            p_SplatMapData = new uint8_t[ m_ElementSize * m_ElementCount ]();
+            //For now, this will just contain the strengths of all texture 
+            //slots used, not the raw file VBUF elements...
+            p_SplatMapData = new uint8_t[numSlotsUsed * m_ElementCount]();
 
+            //Temp buffer for storing each raw (usually 16 byte long)
+            //VBUF element
             uint8_t *elementBuffer = new uint8_t[m_ElementSize]();
 
-            for (uint32_t i = 0; i < m_ElementCount * m_ElementSize; i+=m_ElementSize)
-            {
-                int j = (int) i / 4;
+            int limit = numSlotsUsed <= 3 ? numSlotsUsed : 3;
 
+            for (int i = 0; i < ((int) m_ElementCount) * numSlotsUsed; i += numSlotsUsed)
+            {
                 stream.ReadBytes(elementBuffer, m_ElementSize);
 
-                for (int k = 0; k < slotsList.Size(); k++)
-                {
-                    int slot = (int) slotsList[k];
-
-                    if (slot > 3)
-                    {
-                        continue;
-                    }
-
-                    //slot = slot == 3 ? 2 : slot;
-
-                    if (k == 0)
-                    {
-                        p_SplatMapData[j + slot] = elementBuffer[15];
-                    }
-
-                    if (k == 1)
-                    {
-                        p_SplatMapData[j + slot] = elementBuffer[11];
-                    }
-
-                    if (k == 2)
-                    {
-                        p_SplatMapData[j + slot] = elementBuffer[6];
-                    }
+                //Don't know how > 4 strengths are stored per VBUF element just yet
+                for (int j = 0; j < limit; j++)
+                {                 
+                    p_SplatMapData[i + j] = elementBuffer[ KNOWN_STRENGTH_OFFSETS[j] ];
                 }
-
-                p_SplatMapData[j + 3] = 255;
-
             }
 
             delete[] elementBuffer;
