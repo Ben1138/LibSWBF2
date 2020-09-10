@@ -21,12 +21,15 @@ namespace LibSWBF2::Chunks::LVL::terrain
         Check(stream);
       
         uint32_t numTextureSlotsUsed = (uint32_t) stream.ReadByte();
+        LOG_WARN("READING PATCH INFO ... numTextureSlotsUsed {}", numTextureSlotsUsed);
+
 
         for (uint32_t i = 0; i < numTextureSlotsUsed; i++)
         {
             uint32_t texIndex = (uint32_t) stream.ReadByte();
             m_TextureSlotsUsed.Add(texIndex);
         } 
+
 
         //stream.ReadUInt32(); //IDK what this int means yet
         //m_ElementSize = stream.ReadUInt32();
