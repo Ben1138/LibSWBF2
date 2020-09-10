@@ -322,6 +322,12 @@ namespace LibSWBF2
     	ter -> GetHeights(width, height, heightData);
     }
 
+	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
+	{
+		ter -> GetSplatMap(ter, dim, numLayers, data);
+	}
+
+
 
     const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
     {

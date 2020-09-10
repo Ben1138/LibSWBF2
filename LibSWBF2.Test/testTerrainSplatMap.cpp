@@ -34,6 +34,7 @@ int main()
 #ifdef __APPLE__
 	Level *testLVL1 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Blended.lvl");
 	Level *testLVL2 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Painted.lvl");
+	//Level *testLVL2 = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
 #endif
