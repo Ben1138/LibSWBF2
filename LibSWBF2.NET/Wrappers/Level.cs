@@ -1,4 +1,5 @@
 ﻿using LibSWBF2.Logging;
+using LibSWBF2.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,14 +75,12 @@ namespace LibSWBF2.Wrappers
         public Model[] GetModels()
         {
             APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
-            IntPtr[] modelPtrs= new IntPtr[modelCount];
-            Marshal.Copy(modelArr, modelPtrs, 0, (int)modelCount);
-
-            Model[] models = new Model[modelCount];
-            for (int i = 0; i < modelCount; i++)
+            
+            Model[] models = MemUtils.IntPtrsToWrappers<Model>(modelArr, (int) modelCount);
+            
+            foreach (Model model in models)
             {
-                models[i] = new Model(modelPtrs[i]);
-                Children.Add(new WeakReference<NativeWrapper>(models[i]));
+                Children.Add(new WeakReference<NativeWrapper>(model));                
             }
 
             return models;
