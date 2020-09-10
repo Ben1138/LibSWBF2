@@ -124,7 +124,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetSplatMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& imgData) const
+	void Terrain::GetBlendMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& finalBlendMapData) const
 	{
 		auto *info = p_Terrain -> p_Info;
 		
@@ -132,13 +132,13 @@ namespace LibSWBF2::Wrappers
 		float_t& gridUnitSize = info->m_GridUnitSize;
 		uint16_t& numVertsPerPatchEdge = info->m_PatchEdgeSize;
 		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
+		uint32_t numTexLayers = (uint32_t) info -> m_TextureCount;
 
-		int dataLength = (int) (gridSize * gridSize * 4);
-		int numLayers = (int) info -> m_TextureCount;
+		int dataLength = (int) (gridSize * gridSize * numTexLayers);
         
-        imgData = new uint8_t[dataLength]();
+        finalBlendMapData = new uint8_t[dataLength]();
         dim = gridSize;
-		elementSize = (uint32_t) 4; 
+		elementSize = numTexLayers; 
 
 		/*
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
@@ -147,28 +147,39 @@ namespace LibSWBF2::Wrappers
 
 		for (size_t i = 0; i < patches.Size(); i++)
 		{	
-			PTCH* curPatch = patches[i];
-			VBUF* patchSplatChunk = curPatch -> m_TextureBuffer;
+			auto *curPatch = patches[i];
+			auto *patchInfo = curPatch -> p_PatchInfo;
+			auto *patchSplatChunk = curPatch -> m_TextureBuffer;
+			uint8_t *curPatchBlendMap = patchSplatChunk -> p_SplatMapData;
 
-			int patchY = i / (int) numPatchesPerRow;
-			int patchX = i % (int) numPatchesPerRow;
+            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
+            int numSlotsInPatch = slotsList.Size();
 
-			int patchStartIndex = patchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + patchX * numVertsPerPatchEdge;
+			int globalPatchY = i / (int) numPatchesPerRow;
+			int globalPatchX = i % (int) numPatchesPerRow;
+
+			int patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
 
 			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 			{
 				int localPatchY = j / numVertsPerPatchEdge; 
 				int localPatchX = j % numVertsPerPatchEdge;
 
-				int finalIndex = 4 * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
-				int patchIndex = 4 * (localPatchY * numVertsPerPatchEdge + localPatchX);
+				//Starting index into final array (finalBlendMapData)
+				int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
+				
+				//Index into current patch's VBUF's blend data (curPatchBlendMap)
+				int localPatchIndex = numSlotsInPatch * (localPatchY * numVertsPerPatchEdge + localPatchX);
 
-				if (finalIndex < dataLength)
+				for (int k = 0; k < numSlotsInPatch; k++)
 				{
-					imgData[finalIndex] = patchSplatChunk -> p_SplatMapData[patchIndex];
-					imgData[finalIndex + 1] = patchSplatChunk -> p_SplatMapData[patchIndex + 1];
-					imgData[finalIndex + 2] = patchSplatChunk -> p_SplatMapData[patchIndex + 2];
-					imgData[finalIndex + 3] = 0;//255;
+					int slot = (int) slotsList[k];
+					int finalDataIndex = globalDataIndex + slot;
+
+					if (finalDataIndex < dataLength)
+					{	
+						finalBlendMapData[finalDataIndex] = curPatchBlendMap[localPatchIndex];
+					}
 				}
 			}
 		} 
