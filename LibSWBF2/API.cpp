@@ -324,7 +324,7 @@ namespace LibSWBF2
 
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{
-		ter -> GetSplatMap(ter, dim, numLayers, data);
+		ter -> GetSplatMap(dim, numLayers, data);
 	}
 
 

@@ -78,21 +78,18 @@ namespace LibSWBF2.Wrappers
 
         public byte[] GetBlendMap(out int dim, out int numLayersUsed)
         {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetBlendMap(NativeInstance, out uint edgeLength, out uint numLayers, out IntPtr bytesNative);
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetBlendMap(NativeInstance, out uint edgeLength, out uint numLayers, out IntPtr bytesNative);
 
-                int mapSize = (int) (edgeLength * edgeLength * numLayers);
+            int mapSize = (int) (edgeLength * edgeLength * numLayers);
 
-                byte[] byteArray = new byte[mapSize];
-                Marshal.Copy(bytesNative, byteArray, 0, mapSize);
-                
-                edgeLength = (int) edgeLength;
-                numLayersUsed = (int) numLayers;
+            byte[] byteArray = new byte[mapSize];
+            Marshal.Copy(bytesNative, byteArray, 0, mapSize);
+            
+            dim = (int) edgeLength;
+            numLayersUsed = (int) numLayers;
 
-                return byteArray;
-            }
+            return byteArray;  
         } 
     }
 }
