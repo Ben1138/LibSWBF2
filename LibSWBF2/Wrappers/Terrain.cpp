@@ -134,10 +134,11 @@ namespace LibSWBF2::Wrappers
 		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
 
 		int dataLength = (int) (gridSize * gridSize * 4);
+		int numLayers = (int) info -> m_TextureCount;
         
         imgData = new uint8_t[dataLength]();
         dim = gridSize;
-		elementSize = 4; 
+		elementSize = (uint32_t) num; 
 
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
@@ -155,11 +156,11 @@ namespace LibSWBF2::Wrappers
 
 			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 			{
-				int localPatchY = j / 9; 
-				int localPatchX = j % 9;
+				int localPatchY = j / numVertsPerPatchEdge; 
+				int localPatchX = j % numVertsPerPatchEdge;
 
 				int finalIndex = 4 * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
-				int patchIndex = 4 * (localPatchY * 9 + localPatchX);
+				int patchIndex = 4 * (localPatchY * numVertsPerPatchEdge + localPatchX);
 
 				if (finalIndex < dataLength)
 				{

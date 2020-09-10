@@ -36,7 +36,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         }
 
         m_LayerTextures.Clear();
-        for (uint16_t i = 0; i < info->m_MaxTextureLayers; ++i)
+        for (uint16_t i = 0; i < info->m_TextureCount; ++i)
         {
             m_LayerTextures.Add(stream.ReadString());
         }
