@@ -27,6 +27,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
         m_ElementSize = stream.ReadUInt32();
         m_BufferType = (ETerrainBufferType)stream.ReadUInt32();
 
+        LOG_WARN("On vbuf: numElements: {}, elementSize: {}", m_ElementCount, m_ElementSize);
+
         if (m_BufferType == ETerrainBufferType::Geometry)
         {
             //if (m_ElementCount != 81)
@@ -53,7 +55,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             //pattern/meaning still unknown.
             static int KNOWN_STRENGTH_OFFSETS[] = {15, 11, 6, 3};
 
-            PTCH *parentPatch = reinterpret_cast<PTCH*>(m_Parent);
+            PTCH *parentPatch = dynamic_cast<PTCH*>(m_Parent);
             PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
 
             List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
