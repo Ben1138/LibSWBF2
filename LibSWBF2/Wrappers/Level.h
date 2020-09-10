@@ -42,6 +42,9 @@ namespace LibSWBF2::Wrappers
 		List<Light> m_Lights;
 		List<Localization> m_Localizations;
 
+		bool m_bHasGlobalLighting;
+		GlobalLightingConfig m_GlobalLightingConfig;
+
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
 
@@ -71,9 +74,7 @@ namespace LibSWBF2::Wrappers
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
 		const Localization* GetLocalization(String loclName) const;
-
-		GlobalLightingConfig m_GlobalLightingConfig;
-
+		const GlobalLightingConfig* GetGlobalLighting() const;
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);
