@@ -59,6 +59,7 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
 
+
         //Basic texture handling
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -78,6 +79,9 @@ namespace LibSWBF2
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetIndicies(IntPtr terrain, out uint numIndicies, out IntPtr indices);
+
+        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetBlendMap(IntPtr terrain, out uint edgeLength, out uint numLayers, out IntPtr data);
 
 
         // Model //
@@ -125,6 +129,7 @@ namespace LibSWBF2
 
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void World_GetInstances(IntPtr world, out IntPtr instanceArr, out uint instCount);
+
 
         // Instance //
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]

@@ -124,7 +124,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetSplatMap(uint32_t& width, uint32_t& height, uint32_t& elementSize, uint8_t*& imgData) const
+	void Terrain::GetSplatMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& imgData) const
 	{
 		auto *info = p_Terrain -> p_Info;
 		
@@ -134,7 +134,10 @@ namespace LibSWBF2::Wrappers
 		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
 
 		int dataLength = (int) (gridSize * gridSize * 4);
+        
         imgData = new uint8_t[dataLength]();
+        dim = gridSize;
+		elementSize = 4; 
 
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
@@ -163,14 +166,10 @@ namespace LibSWBF2::Wrappers
 					imgData[finalIndex] = patchSplatChunk -> p_SplatMapData[patchIndex];
 					imgData[finalIndex + 1] = patchSplatChunk -> p_SplatMapData[patchIndex + 1];
 					imgData[finalIndex + 2] = patchSplatChunk -> p_SplatMapData[patchIndex + 2];
-					imgData[finalIndex + 3] = 255;
+					imgData[finalIndex + 3] = 0;//255;
 				}
 			}
-		}   
-
-		width = gridSize;
-		height = gridSize;
-		elementSize = 4;    
+		}      
 	}
 
 
