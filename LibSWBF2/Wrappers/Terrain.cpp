@@ -138,11 +138,12 @@ namespace LibSWBF2::Wrappers
         
         imgData = new uint8_t[dataLength]();
         dim = gridSize;
-		elementSize = (uint32_t) num; 
+		elementSize = (uint32_t) 4; 
 
+		/*
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
-//		LOG_WARN("Num verts per patch: {}, num patches per row: {}, row size: {}", numVertsPerPatchEdge, numPatchesPerRow, gridDim);
+		//LOG_WARN("Num verts per patch: {}, num patches per row: {}, row size: {}", numVertsPerPatchEdge, numPatchesPerRow, gridDim);
 
 		for (size_t i = 0; i < patches.Size(); i++)
 		{	
@@ -170,7 +171,8 @@ namespace LibSWBF2::Wrappers
 					imgData[finalIndex + 3] = 0;//255;
 				}
 			}
-		}      
+		} 
+		*/     
 	}
 
 
