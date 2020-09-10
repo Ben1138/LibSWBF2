@@ -23,8 +23,8 @@ namespace LibSWBF2::Chunks::LVL::lght
         List<DATA_STRING *> p_LightTags;
         List<SCOP_LGHT *> p_LightBodies;
 
-        DATA_STRING *p_GlobalLightingTag = 0;
-        SCOP_LGHT *p_GlobalLightingBody = 0;
+        DATA_STRING *p_GlobalLightingTag = nullptr;
+        SCOP_LGHT *p_GlobalLightingBody = nullptr;
 
         STR<"NAME"_m> *p_Marker; //unknown purpose, hashed layer name?
     };

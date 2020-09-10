@@ -36,6 +36,7 @@ namespace LibSWBF2::Wrappers
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
+		m_bHasGlobalLighting = false;
 	}
 
 	Level::~Level()
@@ -74,7 +75,6 @@ namespace LibSWBF2::Wrappers
             for (int i = 0; i < lightListChunk->p_LightTags.Size(); i++)
 			{
                 Light newLight;
-
                 if (Light::FromChunks(lightListChunk -> p_LightTags[i], 
                 					  lightListChunk ->	p_LightBodies[i], 
                 					  newLight))
@@ -85,7 +85,12 @@ namespace LibSWBF2::Wrappers
 
 			if (lightListChunk -> p_GlobalLightingBody)
 			{
-				GlobalLightingConfig::FromChunk(lightListChunk -> p_GlobalLightingBody, m_GlobalLightingConfig);
+				if (m_bHasGlobalLighting)
+				{
+					LOG_WARN("Encountered another Global Lighting setting! Loaded more than one world LVL at once?");
+				}
+
+				m_bHasGlobalLighting = GlobalLightingConfig::FromChunk(lightListChunk -> p_GlobalLightingBody, m_GlobalLightingConfig);
 			}
 		}
 
@@ -235,6 +240,15 @@ namespace LibSWBF2::Wrappers
 	const List<Localization>& Level::GetLocalizations() const
 	{
 		return m_Localizations;
+	}
+
+	const GlobalLightingConfig* Level::GetGlobalLighting() const
+	{
+		if (!m_bHasGlobalLighting)
+		{
+			return nullptr;
+		}
+		return &m_GlobalLightingConfig;
 	}
 
 	const Model* Level::GetModel(String modelName) const
