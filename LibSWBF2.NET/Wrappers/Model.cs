@@ -13,7 +13,7 @@ namespace LibSWBF2.Wrappers
     {
         public Model(IntPtr modelPtr) : base(modelPtr) {}
 
-        public Model() : base(IntPtr.Zero) {}
+        public Model() : base(IntPtr.Zero){}
 
         public string Name
         {

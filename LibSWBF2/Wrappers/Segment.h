@@ -31,8 +31,8 @@ namespace LibSWBF2::Wrappers
 		~Segment() = default;
 
 	private:
-		segm* p_Segment = nullptr;
-		VBUF* p_VertexBuffer = nullptr;
+		segm* p_Segment;
+		VBUF* p_VertexBuffer;
 
 		Material m_Material;
 		List<VertexWeight> m_VertexWeights;

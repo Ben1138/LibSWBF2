@@ -44,7 +44,8 @@ namespace LibSWBF2.NET.Test
                     Console.WriteLine(printStr);
                 }
 
-                float[] arr = terrain.Heights;
+                terrain.GetHeightMap(out uint dim, out uint dimScale, out float[] heightMapData);
+                terrain.GetBlendMap(out dim, out uint numLayers, out byte[] blendMapData);
             }
 
             Console.ReadKey();
