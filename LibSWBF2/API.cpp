@@ -317,9 +317,9 @@ namespace LibSWBF2
         result = convertedIndicies;
     }
 
-    const void Terrain_GetHeights(const Terrain *ter, uint32_t& width, uint32_t height, float_t*& heightData)
+    const void Terrain_GetHeights(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t& heightScale, float_t*& heightData)
     {
-    	ter -> GetHeights(width, height, heightData);
+    	ter -> GetHeights(dim, dimScale, heightScale, heightData);
     }
 
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
