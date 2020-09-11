@@ -139,26 +139,22 @@ namespace LibSWBF2
 		Terrain
 	*/
 	
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTexes, char**& nameStrings)
+	//Will eventually return pointers to Texture wrappers...
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& nameStrings)
 	{
-		//CheckPtr(tern, nullptr);
+		CheckPtr(tern, );
         const List<String>& texNames = tern -> GetLayerTextures();
-
-        int numTextures = texNames.Size();
+        numTextures = (uint32_t) texNames.Size();
 
         if (numTextures > 0)
         {
-        	nameStrings = new char *[numTextures];
+        	nameStrings = new const char *[numTextures];
 
         	for (int i = 0; i < numTextures; i++)
 	        {
-	        	const String& temp = texNames[i];
-	        	nameStrings[i] = new char[temp.Length() + 1]();
-	        	strcpy(nameStrings[i], temp.Buffer());
+	        	nameStrings[i] = texNames[i].Buffer(); 
 	        }
         }
-
-        numTexes = (uint32_t) numTextures;
 	}
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)

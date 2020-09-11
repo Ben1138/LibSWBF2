@@ -46,9 +46,11 @@ namespace LibSWBF2.Wrappers
             Marshal.Copy(heightsNative, heights, 0, dataLength);
             data = heights;
 
+            //For now, height maps aren't actual members of the ptch chunks/Terrain wrappers,
+            //so the managed representation must be freed explicitly
             Marshal.FreeHGlobal(heightsNative); 
         }
-        
+
 
         public void GetBlendMap(out uint dim, out uint numLayers, out byte[] data)
         {
@@ -61,6 +63,8 @@ namespace LibSWBF2.Wrappers
             Marshal.Copy(bytesNative, byteArray, 0, dataLength);
             data = byteArray; 
 
+            //For now, blend maps aren't actual members of the ptch chunks/Terrain wrappers,
+            //so the managed representation must be freed explicitly
             Marshal.FreeHGlobal(bytesNative); 
         } 
     }

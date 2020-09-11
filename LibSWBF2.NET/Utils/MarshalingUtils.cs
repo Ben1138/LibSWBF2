@@ -12,7 +12,7 @@ namespace LibSWBF2.Utils
 {
     class MemUtils {
 
-        public static T[] IntPtrToWrapperList<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
+        public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
             if (nativePtr == IntPtr.Zero) return new T[0];
 

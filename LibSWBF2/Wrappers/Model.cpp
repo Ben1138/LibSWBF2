@@ -2,9 +2,6 @@
 #include "Level.h"
 #include "InternalHelpers.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace LibSWBF2::Wrappers
 {
 	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)

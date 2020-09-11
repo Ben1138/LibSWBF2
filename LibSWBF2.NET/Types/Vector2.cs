@@ -7,15 +7,5 @@ namespace LibSWBF2.Types
     {
         public float X;
         public float Y;
-
-        public Vector2(IntPtr nativePtr)
-        {
-        	APIWrapper.Vector2_FromPtr(nativePtr, out X, out Y);
-        }
-
-        public override String ToString()
-        {
-            return "(" + X + ", " + Y + ")";
-        }
     }
 }
