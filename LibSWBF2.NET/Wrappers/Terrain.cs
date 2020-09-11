@@ -19,14 +19,22 @@ namespace LibSWBF2.Wrappers
         public Terrain() : base(IntPtr.Zero){}
 
 
+
+        public void GetHeightBounds(out float floor, out float ceiling)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetHeightBounds(NativeInstance, out floor, out ceiling);
+        }
+
+
         public List<string> GetTextureNames()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr stringsPtr);
-            return MemUtils.ptrToStringList(stringsPtr, (int) numTextures);   
+            return MemUtils.IntPtrToStringList(stringsPtr, (int) numTextures);   
         }
 
-        /*
+        
         public float[] Vertices
         {
             get
@@ -39,12 +47,12 @@ namespace LibSWBF2.Wrappers
                 return rawVerts;
             }
         }
-        */
+        
 
-        public void GetHeightMap(out uint dim, out uint dimScale, out float heightScale, out float[] data) 
+        public void GetHeightMap(out uint dim, out uint dimScale, out float[] data) 
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Terrain_GetHeights(NativeInstance, out dim, out dimScale, out heightScale, out IntPtr heightsNative);
+            APIWrapper.Terrain_GetHeightMap(NativeInstance, out dim, out dimScale, out IntPtr heightsNative);
 
             int dataLength = (int) (dim * dim);
 
@@ -53,7 +61,7 @@ namespace LibSWBF2.Wrappers
             data = heights;
         }
 
-        /*
+        
         public int[] Indicies
         {
             get
@@ -66,7 +74,7 @@ namespace LibSWBF2.Wrappers
                 return rawInds;
             }
         }
-        */
+        
 
         public void GetBlendMap(out uint dim, out uint numLayers, out byte[] data)
         {
