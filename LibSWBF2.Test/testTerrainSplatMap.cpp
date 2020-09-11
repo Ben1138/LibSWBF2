@@ -57,7 +57,7 @@ int main()
 	//Level *testLVL2 = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 #else
 	Level *testLVL1 = Level::FromFile("/home/will/Desktop/geo1.lvl");
-	Level *testLVL2 = Level::FromFile("/home/will/Desktop/hole.lvl");
+	Level *testLVL2 = Level::FromFile("/home/will/Desktop/MLC.lvl");
 	//Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
 #endif
 

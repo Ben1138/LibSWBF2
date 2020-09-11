@@ -32,7 +32,7 @@ namespace LibSWBF2.Utils
         }
         
 
-        public static List<string> ptrToStringList(IntPtr nativePtr, int count)
+        public static List<string> IntPtrToStringList(IntPtr nativePtr, int count)
         {
             List<string> strings = new List<string>();
             IntPtr[] stringPtrs = new IntPtr[count];
