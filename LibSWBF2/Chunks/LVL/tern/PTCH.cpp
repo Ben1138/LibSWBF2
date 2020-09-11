@@ -33,10 +33,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             if (next == "VBUF"_h)
             {
                 VBUF* bufferChunk;
-                Check(stream);
-                LOG_WARN("About to read VBUF from PTCH...");
                 READ_CHILD(stream, bufferChunk);
-                LOG_WARN("I guess we read the vbuf");
                 
                 switch (bufferChunk->m_BufferType)
                 {
