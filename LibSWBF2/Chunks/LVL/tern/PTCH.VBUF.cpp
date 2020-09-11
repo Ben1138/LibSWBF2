@@ -53,7 +53,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             //The other data stored in each element isn't garbage 
             //or all default, it is mostly patterned.  Exact 
             //pattern/meaning still unknown.
-            static int KNOWN_STRENGTH_OFFSETS[] = {15, 11, 6, 3};
+            static int KNOWN_STRENGTH_OFFSETS[] = {15, 11, 6};
 
             PTCH *parentPatch = dynamic_cast<PTCH*>(GetParent());
             PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
@@ -71,8 +71,8 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
                 for (int j = 0; j < numSlotsUsed; j++)
                 {                 
-                    //Don't know how > 4 strengths are stored per VBUF element just yet
-                    int newElement = j <= 3 ? elementBuffer[KNOWN_STRENGTH_OFFSETS[j]] : 0;
+                    //Don't know how > 3 strengths are stored per VBUF element just yet
+                    int newElement = j < 3 ? elementBuffer[KNOWN_STRENGTH_OFFSETS[j]] : 0;
                     m_BlendMapData.Add(newElement);
                 }
             }
