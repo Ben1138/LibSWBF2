@@ -145,7 +145,7 @@ namespace LibSWBF2::Wrappers
 			auto *curPatch = patches[i];
 			auto *patchInfo = curPatch -> p_PatchInfo;
 			auto *patchSplatChunk = curPatch -> m_TextureBuffer;
-			uint8_t *curPatchBlendMap = patchSplatChunk -> p_SplatMapData;
+			List<uint8_t>curPatchBlendMap = patchSplatChunk -> m_BlendMapData;
 
             List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
             int numSlotsInPatch = slotsList.Size();
