@@ -52,8 +52,6 @@ namespace LibSWBF2.Wrappers
                 }
                 else
                 {
-                    Console.WriteLine("Another destruct iter");
-
                     Children.Remove(childRef);
                 }
             }
@@ -85,7 +83,7 @@ namespace LibSWBF2.Wrappers
 
             for (int i = 0; i < numTerrains; i++)
             {
-                //Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
+                Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
             }
 
             return terrains;
