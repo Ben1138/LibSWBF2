@@ -59,22 +59,12 @@ namespace LibSWBF2.Wrappers
             float[] heights = new float[dataLength];
             Marshal.Copy(heightsNative, heights, 0, dataLength);
             data = heights;
+
+            //For now, height maps aren't actual members of the ptch chunks/Terrain wrappers,
+            //so the managed representation must be freed explicitly
+            Marshal.FreeHGlobal(heightsNative); 
         }
 
-        
-        public int[] Indicies
-        {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetIndicies(NativeInstance, out uint numInds, out IntPtr indiciesNative);
-
-                int[] rawInds = new int[(int) numInds];
-                Marshal.Copy(indiciesNative, rawInds, 0, (int) numInds);
-                return rawInds;
-            }
-        }
-        
 
         public void GetBlendMap(out uint dim, out uint numLayers, out byte[] data)
         {
@@ -85,7 +75,12 @@ namespace LibSWBF2.Wrappers
 
             byte[] byteArray = new byte[dataLength];
             Marshal.Copy(bytesNative, byteArray, 0, dataLength);
-            data = byteArray;  
+
+            data = byteArray; 
+
+            //For now, blend maps aren't actual members of the ptch chunks/Terrain wrappers,
+            //so the managed representation must be freed explicitly
+            Marshal.FreeHGlobal(bytesNative); 
         } 
     }
 }

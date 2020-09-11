@@ -4,9 +4,6 @@
 #include "Types/List.h"
 #include "InternalHelpers.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -112,56 +109,12 @@ namespace LibSWBF2::Wrappers
 	{
 		count = p_Segment->p_IndexBuffer->m_IndicesCount;
 		indexBuffer = p_Segment->p_IndexBuffer->m_Indices.GetArrayPtr();
-
-		uint16_t *trianglesBuffer = new uint16_t[count * 3];
-		int numDegenerates = 0;
-		int j = 0; //index into non-degenerate triangles list
-		for (int i = 0; i < (int) (count - 2); i++)
-		{
-			if (indexBuffer[i]   == indexBuffer[i+1] ||
-				indexBuffer[i+1] == indexBuffer[i+2] ||
-				indexBuffer[i]   == indexBuffer[i+2])
-			{
-				numDegenerates++;
-			} 
-			else 
-			{
-				if (i % 2 == 0)
-				{
-					trianglesBuffer[j]   = indexBuffer[i];
-					trianglesBuffer[j+1] = indexBuffer[i+1];
-					trianglesBuffer[j+2] = indexBuffer[i+2];
-				} 
-				else 
-				{
-					trianglesBuffer[j]   = indexBuffer[i+1];
-					trianglesBuffer[j+1] = indexBuffer[i];
-					trianglesBuffer[j+2] = indexBuffer[i+2];
-				}
-				j+=3;
-			}
-		}
-
-		count = j;
-
-		uint16_t *finalTriangleBuffer = new uint16_t[count];
-		memcpy(finalTriangleBuffer, trianglesBuffer, 2 * count);
-		indexBuffer = finalTriangleBuffer;
-
-		delete[] trianglesBuffer;
 	}
 
 	void Segment::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const
 	{
-		count = 0;
-		vertexBuffer = nullptr;	
-
-		if (p_VertexBuffer != nullptr)
-		{
-			p_VertexBuffer -> m_Positions.GetArrayPtr();
-			count = (uint32_t)p_VertexBuffer->m_Positions.Size();
-			vertexBuffer = p_VertexBuffer->m_Positions.GetArrayPtr();			
-		}
+		count = (uint32_t)p_VertexBuffer->m_Positions.Size();
+		vertexBuffer = p_VertexBuffer->m_Positions.GetArrayPtr();
 	}
 
 	void Segment::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const

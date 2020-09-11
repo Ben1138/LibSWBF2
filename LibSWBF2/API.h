@@ -78,9 +78,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
 
 		// Wrappers - Terrain
-        LIBSWBF2_API const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result);
-        LIBSWBF2_API const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result);
-		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, char**& result);
+
+		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, const char**& result);
 		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling);

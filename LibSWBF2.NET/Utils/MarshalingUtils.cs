@@ -12,8 +12,7 @@ namespace LibSWBF2.Utils
 {
     class MemUtils {
 
-
-        public static T[] ptrsToObjects<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
+        public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
             T[] objectArr = new T[count];
 
