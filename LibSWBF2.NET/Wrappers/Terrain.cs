@@ -19,19 +19,14 @@ namespace LibSWBF2.Wrappers
         public Terrain() : base(IntPtr.Zero){}
 
 
-        public int width;
-        public int height;
-
-        public List<string> TextureNames
+        public List<string> GetTextureNames()
         {
-            get 
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr stringsPtr);
-                return MemUtils.ptrToStringList(stringsPtr, (int) numTextures);
-            }
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr stringsPtr);
+            return MemUtils.ptrToStringList(stringsPtr, (int) numTextures);   
         }
 
+        /*
         public float[] Vertices
         {
             get
@@ -44,25 +39,21 @@ namespace LibSWBF2.Wrappers
                 return rawVerts;
             }
         }
+        */
 
-        public float[] Heights
+        public void GetHeightMap(out uint dim, out uint dimScale, out float heightScale, out float[] data) 
         {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetHeights(NativeInstance, out uint _width, out uint _height, out IntPtr heightsNative);
-                width = (int) _width;
-                height = (int) _width;
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetHeights(NativeInstance, out dim, out dimScale, out heightScale, out IntPtr heightsNative);
 
-                Console.WriteLine("Heights width = " + _width);
-                Console.WriteLine("Heights height = " + _height);
+            int dataLength = (int) (dim * dim);
 
-                float[] heights = new float[(int) width * width];
-                Marshal.Copy(heightsNative, heights, 0, (int) width * width);
-                return heights;
-            }
+            float[] heights = new float[dataLength];
+            Marshal.Copy(heightsNative, heights, 0, dataLength);
+            data = heights;
         }
 
+        /*
         public int[] Indicies
         {
             get
@@ -75,21 +66,18 @@ namespace LibSWBF2.Wrappers
                 return rawInds;
             }
         }
+        */
 
-        public byte[] GetBlendMap(out int dim, out int numLayersUsed)
+        public void GetBlendMap(out uint dim, out uint numLayers, out byte[] data)
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Terrain_GetBlendMap(NativeInstance, out uint edgeLength, out uint numLayers, out IntPtr bytesNative);
+            APIWrapper.Terrain_GetBlendMap(NativeInstance, out dim, out numLayers, out IntPtr bytesNative);
 
-            int mapSize = (int) (edgeLength * edgeLength * numLayers);
+            int dataLength = (int) (dim * dim * numLayers);
 
-            byte[] byteArray = new byte[mapSize];
-            Marshal.Copy(bytesNative, byteArray, 0, mapSize);
-            
-            dim = (int) edgeLength;
-            numLayersUsed = (int) numLayers;
-
-            return byteArray;  
+            byte[] byteArray = new byte[dataLength];
+            Marshal.Copy(bytesNative, byteArray, 0, dataLength);
+            data = byteArray;  
         } 
     }
 }

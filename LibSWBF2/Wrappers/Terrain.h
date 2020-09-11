@@ -55,7 +55,7 @@ namespace LibSWBF2::Wrappers
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
 
-		void GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const;
+		void GetHeights(uint32_t& dim, uint32_t& dimScale, float_t& heightScale, float_t*& heightData) const;
 
 		void GetBlendMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& imgData) const;
  
