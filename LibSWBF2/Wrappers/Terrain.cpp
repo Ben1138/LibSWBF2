@@ -2,16 +2,11 @@
 #include "Terrain.h"
 #include "InternalHelpers.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::terrain::PTCH;
 	using Chunks::LVL::terrain::VBUF;
 	using Chunks::LVL::terrain::IBUF;
-
-
 
 	bool Terrain::FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out)
 	{

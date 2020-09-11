@@ -51,7 +51,7 @@ namespace LibSWBF2::Wrappers
 
 	String Texture::GetName() const
 	{
-        return p_Texture->p_Name->m_Text;      
+		return p_Texture->p_Name->m_Text;
 	}
 
 	uint32_t Texture::GetNumMipMaps() const
