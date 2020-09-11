@@ -130,7 +130,9 @@ namespace LibSWBF2::Wrappers
 		
 		uint16_t& gridSize = info->m_GridSize;
 		float_t& gridUnitSize = info->m_GridUnitSize;
-		uint16_t& numVertsPerPatchEdge = info->m_PatchEdgeSize;
+		uint16_t numVertsPerPatchEdge = info->m_PatchEdgeSize;
+		uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
+
 		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
 		uint32_t numTexLayers = (uint32_t) info -> m_TextureCount;
 
@@ -138,9 +140,10 @@ namespace LibSWBF2::Wrappers
         
         finalBlendMapData = new uint8_t[dataLength]();
         dim = gridSize;
+		COUT("Num texes: " << numTexLayers);
 		elementSize = numTexLayers; 
 
-		/*
+
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
 		//LOG_WARN("Num verts per patch: {}, num patches per row: {}, row size: {}", numVertsPerPatchEdge, numPatchesPerRow, gridDim);
@@ -162,14 +165,14 @@ namespace LibSWBF2::Wrappers
 
 			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 			{
-				int localPatchY = j / numVertsPerPatchEdge; 
-				int localPatchX = j % numVertsPerPatchEdge;
+				int localPatchY = j / dataEdgeSize; 
+				int localPatchX = j % dataEdgeSize;
 
 				//Starting index into final array (finalBlendMapData)
 				int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
 				
 				//Index into current patch's VBUF's blend data (curPatchBlendMap)
-				int localPatchIndex = numSlotsInPatch * (localPatchY * numVertsPerPatchEdge + localPatchX);
+				int localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
 
 				for (int k = 0; k < numSlotsInPatch; k++)
 				{
@@ -178,12 +181,12 @@ namespace LibSWBF2::Wrappers
 
 					if (finalDataIndex < dataLength)
 					{	
-						finalBlendMapData[finalDataIndex] = curPatchBlendMap[localPatchIndex];
+						finalBlendMapData[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
 					}
 				}
 			}
 		} 
-		*/     
+		    
 	}
 
 
