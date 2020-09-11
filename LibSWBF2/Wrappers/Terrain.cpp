@@ -327,15 +327,15 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetHeights(uint32_t& width, uint32_t& height, float_t*& heightData) const {
+	void Terrain::GetHeights(uint32_t& dim, uint32_t& dimScale, float_t& heightScale, float_t*& heightData) const {
 
         auto info = p_Terrain -> p_Info;
 
-        float_t gridSize = (float_t) info -> m_GridSize;
+        float_t gridSize     = (float_t) info -> m_GridSize;
 		float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
-		float_t maxY = (float_t) info -> m_HeightCeiling;
-       	float_t minY = (float_t) info -> m_HeightFloor;
+		float_t maxY = info -> m_HeightCeiling;
+       	float_t minY = info -> m_HeightFloor;
 
        	float_t halfLength = gridSize * gridUnitSize / 2.0f;
        	float_t maxZ = halfLength, minZ = -halfLength;
@@ -346,6 +346,9 @@ namespace LibSWBF2::Wrappers
 
         int heightsLength = (int) gridSize * gridSize;
 		heightData = new float_t[heightsLength]();
+		dim = (uint32_t) info -> m_GridSize;
+		dimScale = (uint32_t) info -> m_GridUnitSize;
+		heightScale = maxY - minY;
 
         for (int i = 0; i < numVerts; i++)
         {
@@ -363,11 +366,7 @@ namespace LibSWBF2::Wrappers
                 heightData[dataIndex] = yFrac;
             }
         }
-
-        width = (uint32_t) gridSize;
-        height = (uint32_t) gridSize;
 	}
-
 
 
 	const List<String>& Terrain::GetLayerTextures() const

@@ -64,7 +64,7 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
-                                        out IntPtr imgData, out int width, out int height);
+                                                        out IntPtr imgData, out int width, out int height);
 
         //Terrain
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
@@ -72,7 +72,8 @@ namespace LibSWBF2
         public static extern void Terrain_GetTexNames(IntPtr terrain, out uint numTextures, out IntPtr names);
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetHeights(IntPtr terrain, out uint width, out uint height, out IntPtr heightData);
+        public static extern void Terrain_GetHeights(IntPtr terrain, out uint dim, out uint dimScale,
+                                                    out float heightScale, out IntPtr heightData);
         
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetVerts(IntPtr terrain, out uint numVertices, out IntPtr vertices);
