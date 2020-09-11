@@ -10,7 +10,7 @@ namespace LibSWBF2.Wrappers
     {
         protected IntPtr NativeInstance = IntPtr.Zero;
 
-        public NativeWrapper(IntPtr native)
+        internal NativeWrapper(IntPtr native)
         {
             NativeInstance = native;
         }

@@ -70,6 +70,9 @@
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LoggerEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Vector2.cs" />
+    <Compile Include="Types\Vector3.cs" />
+    <Compile Include="Types\Vector4.cs" />
     <Compile Include="Wrappers\Level.cs" />
     <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
