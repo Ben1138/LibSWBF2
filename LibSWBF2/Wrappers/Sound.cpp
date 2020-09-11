@@ -27,6 +27,11 @@ namespace LibSWBF2::Wrappers
 		return name;
 	}
 
+	FNVHash Sound::GetHashedName() const
+	{
+		return p_SoundClip->m_NameHash;
+	}
+
 	bool Sound::GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{
 		if (p_SoundClip == nullptr)

@@ -71,7 +71,7 @@ namespace LibSWBF2::Wrappers
 			List<Types::TerrainBufferEntry>& terrainBuffer = vertexBuffer->m_TerrainBuffer;
 			if (vertexBuffer->m_ElementCount != terrainBuffer.Size())
 			{
-				LOG_ERROR("Specified element count '{}' does not match up with actual buffer size '{}'! Patch index: {}", vertexBuffer->m_ElementCount, terrainBuffer.Size(), i);
+				LOG_WARN("Specified element count '{}' does not match up with actual buffer size '{}'! Patch index: {}", vertexBuffer->m_ElementCount, terrainBuffer.Size(), i);
 				continue;
 			}
 
@@ -282,24 +282,6 @@ namespace LibSWBF2::Wrappers
 		vertexBuffer = m_Positions.GetArrayPtr();
 	}
 
-	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& buffer) const
-	{
-        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
-        uint32_t numVerts = m_Positions.Size();
-        float_t *rawVerts = new float_t[numVerts * 3];
-
-        for (int i = 0; i < numVerts; i++)
-        {
-            Vector3& curVert = vertexBuffer[i];
-            rawVerts[i * 3]     = curVert.m_X;
-            rawVerts[i * 3 + 1] = curVert.m_Y;
-            rawVerts[i * 3 + 2] = curVert.m_Z;
-        }
-
-        count = numVerts;
-        buffer = rawVerts;
-	}
-
 	void Terrain::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const
 	{
 		count = (uint32_t)m_Normals.Size();
@@ -364,13 +346,11 @@ namespace LibSWBF2::Wrappers
         }
 	}
 
-
 	void Terrain::GetHeightBounds(float_t& floor, float_t& ceiling) const 
 	{
 		ceiling = p_Terrain -> p_Info -> m_HeightCeiling;
        	floor   = p_Terrain -> p_Info -> m_HeightFloor;
 	}
-
 
 	const List<String>& Terrain::GetLayerTextures() const
 	{

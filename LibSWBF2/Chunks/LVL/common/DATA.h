@@ -1,14 +1,13 @@
 #pragma once
-
-#include "stdafx.h"
 #include "Chunks/GenericChunk.h"
 #include "Chunks/RawData.h"
 #include "Types/Enums.h"
-
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::common
 {
-
-struct LIBSWBF2_API DATA : public RawData<"DATA"_m> {};
-
+	struct LIBSWBF2_API DATA : public GenericChunk<"DATA"_m>
+	{
+		static uint32_t PeekDATATag(FileReader& stream);
+	};
 }

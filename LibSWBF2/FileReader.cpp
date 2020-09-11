@@ -185,7 +185,7 @@ namespace LibSWBF2
 	{
 		if (NewPosition < 0 || NewPosition > m_FileSize)
 		{
-			LOG_ERROR("Cannot set read position to {} because it is out of range! Range: 0 - {}", NewPosition, m_FileSize);
+			LOG_WARN("Cannot set read position to {:#x} because it is out of range! Range: 0x00 - {:#x}", NewPosition, m_FileSize);
 			return;
 		}
 
@@ -201,7 +201,6 @@ namespace LibSWBF2
 	{
 		if (!m_Reader.is_open())
 		{
-			//LOG_ERROR("Error during read process! File '{}' is not open!", m_FileName);
 			THROW("Error during read process! File '{}' is not open!", m_FileName);
 		}
 
@@ -220,15 +219,13 @@ namespace LibSWBF2
 			{
 				reason += " Reading Error on I/O operation!";
 			}
-			//LOG_ERROR("Error during read process in '{}'! Reason: {}", m_FileName, reason);
 			THROW("Error during read process in '{}'! Reason: {}", m_FileName, reason);
 		}
 
 		size_t current = (size_t)m_Reader.tellg();
 		if (current + ReadSize > m_FileSize)
 		{
-			//LOG_ERROR("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
-			THROW("Reading {} bytes will end up out of file!  Current position: {}  FileSize: {}", ReadSize, current, m_FileSize);
+			THROW("Reading {:#x} bytes will end up out of file!  Current position: {:#x}  FileSize: {:#x}", ReadSize, current, m_FileSize);
 		}
 
 		return true;

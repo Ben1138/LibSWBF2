@@ -132,6 +132,13 @@ namespace LibSWBF2
 		Dir = 1,
 		Spot = 3,
 		Unknown = 0,
+  };
+  
+	enum class ELVLType
+	{
+		Generic,
+		Sound,
+		Core
 	};
 
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
@@ -141,6 +148,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
 	Types::String LIBSWBF2_API ELightTypeToString(ELightType type);
+	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);

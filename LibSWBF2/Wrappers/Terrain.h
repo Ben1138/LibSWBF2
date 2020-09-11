@@ -44,8 +44,6 @@ namespace LibSWBF2::Wrappers
 		// count is number of vectors, NOT number of bytes!
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
 
-		void GetVertexBufferRaw(uint32_t& count, float_t*& vertexBuffer) const;
-
 		// count is number of vectors, NOT number of bytes!
 		void GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const;
 
