@@ -34,7 +34,7 @@ namespace LibSWBF2::Chunks
 
 		void ReadGenerics(FileReader& stream);
 
-	protected:
+	private:
 		GenericBaseChunk* m_Parent = nullptr;
 		List<GenericBaseChunk*> m_Children;
 	};

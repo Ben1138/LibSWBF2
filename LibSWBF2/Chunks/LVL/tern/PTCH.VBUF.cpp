@@ -55,7 +55,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
             //pattern/meaning still unknown.
             static int KNOWN_STRENGTH_OFFSETS[] = {15, 11, 6, 3};
 
-            PTCH *parentPatch = dynamic_cast<PTCH*>(m_Parent);
+            PTCH *parentPatch = dynamic_cast<PTCH*>(GetParent());
             PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
 
             List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
