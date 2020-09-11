@@ -6,7 +6,7 @@
 #include "Logging/Logger.h"
 
 
-namespace LibSWBF2::Chunks::LVL::light
+namespace LibSWBF2::Chunks::LVL::lght
 {
 	void lght::RefreshSize()
 	{
@@ -18,50 +18,34 @@ namespace LibSWBF2::Chunks::LVL::light
 		THROW("Not implemented!");
 	}
 
-    /*
-     There isn't much abstraction here, just basic exposure
-     of the chunk structure.  All light semantics are parsed from
-     the SCOP/DATA chunks in the Light wrapper classes.
-     */
-
 	void lght::ReadFromStream(FileReader& stream)
 	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
-        
-        /*
-         It seems in every ucfb, the first lght chunk contains
-         all local lights, and the other per-world lght's merely index
-         into the first one.  So for now, before we do per-world stuff,
-         we just parse this first chunk.
-         */
 
-        if (!lght::skip)
+        READ_CHILD(stream, p_Marker);
+
+        while (ThereIsAnother(stream))
         {
-            STR<"NAME"_m> *p_Marker;
-            READ_CHILD(stream, p_Marker);
-            delete p_Marker;
+            DATA_STRING *tempTag;
+            SCOP_LGHT *tempBody;
+            
+            READ_CHILD(stream, tempTag);
 
-            //PositionInChunk might not be best for this
-            while (BaseChunk::PositionInChunk(stream.GetPosition()))
+            if (tempTag -> m_Tag == 3801947695) //Check if SCOP is for global or local lighting
             {
-                DATA *tempHeader;
-                SCOP *tempScope;
-                
-                READ_CHILD(stream, tempHeader);
-                READ_CHILD(stream, tempScope);
-
-                //This in combo with PositionInChunk might be a bad way...
-                ForwardToNextHeader(stream);
+                READ_CHILD(stream, tempBody);
+                p_LightTags.Add(tempTag);
+                p_LightBodies.Add(tempBody);
             }
+            else 
+            {
+            	READ_CHILD(stream, tempBody);
+            	p_GlobalLightingTag = tempTag;
+                p_GlobalLightingBody = tempBody;
+            }
+        }
 
-            lght::skip = true;
-        }
-        else
-        {
-        	m_Empty = true;
-        }
-        
 		BaseChunk::EnsureEnd(stream);
 	}
 }

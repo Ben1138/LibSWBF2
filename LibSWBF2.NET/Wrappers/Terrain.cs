@@ -34,20 +34,6 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToStringList(stringsPtr, (int) numTextures);   
         }
 
-        
-        public float[] Vertices
-        {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetVerts(NativeInstance, out uint numVerts, out IntPtr vertsNative);
-
-                float[] rawVerts = new float[((int)numVerts) * 3];
-                Marshal.Copy(vertsNative, rawVerts, 0, (int) numVerts * 3);
-                return rawVerts;
-            }
-        }
-        
 
         public void GetHeightMap(out uint dim, out uint dimScale, out float[] data) 
         {
@@ -59,20 +45,8 @@ namespace LibSWBF2.Wrappers
             float[] heights = new float[dataLength];
             Marshal.Copy(heightsNative, heights, 0, dataLength);
             data = heights;
-        }
 
-        
-        public int[] Indicies
-        {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                APIWrapper.Terrain_GetIndicies(NativeInstance, out uint numInds, out IntPtr indiciesNative);
-
-                int[] rawInds = new int[(int) numInds];
-                Marshal.Copy(indiciesNative, rawInds, 0, (int) numInds);
-                return rawInds;
-            }
+            Marshal.FreeHGlobal(heightsNative); 
         }
         
 
@@ -85,7 +59,9 @@ namespace LibSWBF2.Wrappers
 
             byte[] byteArray = new byte[dataLength];
             Marshal.Copy(bytesNative, byteArray, 0, dataLength);
-            data = byteArray;  
+            data = byteArray; 
+
+            Marshal.FreeHGlobal(bytesNative); 
         } 
     }
 }

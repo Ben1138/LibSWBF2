@@ -1,9 +1,5 @@
 #pragma once
-
-#include "Chunks/LVL/common/SCOP.h"
-#include "Chunks/LVL/common/DATA.h"
-#include "InternalHelpers.h"
-
+#include "Chunks/LVL/lght/lght.h"
 #include "Types/Colorf.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
@@ -11,57 +7,33 @@
 
 namespace LibSWBF2::Wrappers
 {
+	using namespace LibSWBF2::Chunks::LVL::lght;
+	using namespace LibSWBF2::Types;
 
-using namespace LibSWBF2::Chunks::LVL::common;
-using namespace LibSWBF2::Types;
+	class LIBSWBF2_API Light
+	{
+		friend class Level;
+		friend class List<Light>;
 
-struct Light {
+		Light(DATA_STRING* tag, SCOP_LGHT* body);
+		Light() = default;
 
-public:
+		DATA_STRING* p_TagChunk;
+		SCOP_LGHT* p_FieldsChunk;
 
-	Vector3 m_Position;
-	Vector4 m_Rotation;
+	public:
+		static bool FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out);
 
-	Vector3 m_Color; //defined as Vector3 since Colorf
-					 //is buggy, TODO: FIX COLORF
-	String m_Name;
-	ELightType m_Type;
+		String GetName() const;
 
-	bool m_CastSpecular;
+		Vector4 GetRotation() const;
+		Vector3 GetPosition() const;
+		ELightType GetType() const;
+		Vector3 GetColor() const;
 
-	Light(DATA* tag, SCOP* body);
-	Light() = default;
+		bool GetRange(float_t& rangeOut) const;
+		bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut) const;
 
-	virtual String ToString();
-	static ELightType TypeFromSCOP(SCOP* body);
-	static bool FromChunks(DATA *tag, SCOP* body, Light& out);
-};
-
-
-
-struct OmnidirectionalLight : Light {
-
-public:
-	OmnidirectionalLight(DATA* description, SCOP* body);
-	int m_Radius;
-	String ToString();
-};
-
-
-struct SpotLight : Light {
-
-public:
-	SpotLight(DATA* description, SCOP* body);
-	int m_InnerAngle, m_OuterAngle;
-};
-
-
-struct DirectionalLight : Light {
-
-public:
-	DirectionalLight(DATA* description, SCOP* body);
-	int m_Length;
-};
- 
-
+		String ToString() const;
+	};
 }

@@ -1,177 +1,89 @@
 #include "stdafx.h"
-
 #include "Light.h"
-
+#include "InternalHelpers.h"
 #include <stdint.h>
-
-void read3Floats(const uint8_t *rawPtr, 
-				float_t& x, float_t& y,
-				float_t& z){
-    const float_t *floatPtr = reinterpret_cast<const float_t *>(rawPtr);
-    x = *(floatPtr); 
-    y = *(floatPtr + 1); 
-    z = *(floatPtr + 2);   
-}
-
-void read4Floats(const uint8_t *rawPtr, 
-				float_t& x, float_t& y,
-                float_t& z, float_t& w){
-    const float_t *floatPtr = reinterpret_cast<const float_t *>(rawPtr);
-    x = *(floatPtr); 
-    y = *(floatPtr + 1); 
-    z = *(floatPtr + 2);
-    w = *(floatPtr + 3);   
-}
 
 
 namespace LibSWBF2::Wrappers
 {
+    bool Light::FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out)
+    {
+        if (body == nullptr || tag == nullptr)
+        {
+            LOG_ERROR("tag or body was null in Light wrapper constructor");
+            return false;
+        }
 
-bool Light::FromChunks(DATA *tag, SCOP* body, Light& out)
-{
-	if (tag == nullptr)
-	{
-		LOG_ERROR("Given light DATA  was NULL!");
-		return false;
-	}
-	if (body == nullptr)
-	{
-		LOG_ERROR("Given light SCOP was NULL!");
-		return false;
-	}
-
-	ELightType lightType = Light::TypeFromSCOP(body);
-
-	switch (lightType)
-	{
-		case ELightType::Omni:
-            out = OmnidirectionalLight(tag, body);
-			break;
-		case ELightType::Spot:
-            out = SpotLight(tag, body);
-			break;
-		case ELightType::Dir:
-            out = DirectionalLight(tag, body);
-			break;
-		default:
-			return false;
-			break;
-	}
-
-	return true;
-}
+	    out = Light(tag, body);
+	    return true;
+    }
 
 
-ELightType Light::TypeFromSCOP(SCOP *body)
-{
-	if (body -> GetChildren().Size() >= 3){
-		const uint8_t *rawData;
-	    size_t size;
-
-	    DATA *typeChunk = dynamic_cast<DATA *>(body -> GetChildren()[2]); 
-	    typeChunk -> GetData(rawData, size);
-
-	    if (size < 9){
-	    	return ELightType::Unknown;
-	    } else {
-	   		return (ELightType) (.1f + *((const float_t *) (rawData + 5)));  
-	   	}
-	}
-
-	return ELightType::Unknown;
-}
+    Light::Light(DATA_STRING* tag, SCOP_LGHT* body) : p_TagChunk(tag), p_FieldsChunk(body){}
 
 
-Light::Light(DATA* tag, SCOP* body)
-{
-    m_CastSpecular = false;
-    
-    const uint8_t *rawData;
-    const float_t *floatData;
-    size_t size;
+    Vector4 Light::GetRotation() const
+    {
+        return p_FieldsChunk -> p_RotationChunk -> m_Vec;
+    }
 
+    Vector3 Light::GetPosition() const
+    {
+        return p_FieldsChunk -> p_PositionChunk -> m_Vec;
+    }
 
-    //NAME (FIX MESSY)
-    tag -> GetData(rawData, size);
-    
-    //Actual name always starts 17 bytes after header
-    char *name = new char[size - 16]();
-    memcpy(name, rawData + 17, size - 17);
-    m_Name = name;
-    delete[] name;
+    Vector3 Light::GetColor() const
+    {
+        return p_FieldsChunk -> p_ColorChunk -> m_Vec;
+    }
 
+    String Light::GetName() const
+    {
+        return p_TagChunk -> m_String;
+    }
 
-    /*
-    Get DATA chunks for fields
-    */
+    ELightType Light::GetType() const
+    {	
+	    auto* typeChunk = p_FieldsChunk -> p_TypeChunk;
 
-    const auto children = body -> GetChildren();
-    float x,y,z,w;
+	    if (typeChunk != nullptr)
+        {
+	   	    return (ELightType) (.1f + typeChunk -> m_Float);  
+	    }
 
-    //ROTATION
-    DATA *rotationChunk = dynamic_cast<DATA *>(children[0]); 
-    rotationChunk -> GetData(rawData, size);
+	    return ELightType::Unknown;
+    }
 
-    read4Floats(rawData+5,x,y,z,w);
-    m_Rotation = Vector4(x,y,z,w);
-   
-    //POSITION
-    DATA *positionChunk = dynamic_cast<DATA *>(children[1]); 
-    positionChunk -> GetData(rawData, size);
+    String Light::ToString() const
+    {
+        return fmt::format(
+                "Name: {}, Position: {}, Rotation: {}, Color: {}, Type: {}",
+                GetName().Buffer(), GetPosition().ToString().Buffer(), 
+                GetRotation().ToString().Buffer(), GetColor().ToString().Buffer(),
+                ELightTypeToString(GetType()).Buffer()
+            ).c_str();
+    }
 
-    read3Floats(rawData+5,x,y,z);  
-    m_Position = Vector3(x,y,z);
+    bool Light::GetRange(float_t& rangeOut) const
+    {
+        ELightType lightType = GetType();
 
-    //COLOR
-    DATA *colorChunk = dynamic_cast<DATA *>(children[3]); 
-    colorChunk -> GetData(rawData, size);
+        if (lightType != ELightType::Omni && lightType != ELightType::Spot)
+        {
+            return false;
+        }
+        rangeOut = p_FieldsChunk -> p_RangeChunk -> m_Float;
+        return true;
+    }
 
-    read3Floats(rawData+5,x,y,z); 
-    m_Color = Vector3(x,y,z);
-}
-
-String Light::ToString()
-{
-    String posStr = m_Position.ToString();
-    String rotStr = m_Rotation.ToString();
-    String colStr = m_Color.ToString();
-
-    return fmt::format(
-            "Type: {}, Name: {}, Position: {}, Rotation: {}, Color: {}\n",
-            ELightTypeToString(m_Type).Buffer(),
-            m_Name.Buffer(), posStr.Buffer(), rotStr.Buffer(), 
-            colStr.Buffer()).c_str();
-}
-
-
-OmnidirectionalLight::OmnidirectionalLight(DATA* description, SCOP* body) :
-					Light(description, body) 
-{
-    int radius = 0;
-    m_Type = ELightType::Omni;
-}
-
-String OmnidirectionalLight::ToString()
-{
-	String basicData = ELightTypeToString(m_Type) + " light " + Light::ToString();
-	return basicData;
-}
-
-SpotLight::SpotLight(DATA* description, SCOP* body) :
-					Light(description, body) 
-{
-    int innerAngle = 0;
-    int outerAngle = 0;
-    m_Type = ELightType::Spot;
-
-}
-
-DirectionalLight::DirectionalLight(DATA* description, SCOP* body) :
-					Light(description, body)
-{
-	int length = 0;
-	m_Type = ELightType::Dir;
-}
-
-
+    bool Light::GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut) const
+    {
+        if (GetType() != ELightType::Spot)
+        {
+            return false;
+        }
+        innerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_Vec.m_X; 
+        outerAngleOut = p_FieldsChunk -> p_ConeChunk -> m_Vec.m_Y; 
+        return true;
+    }
 }

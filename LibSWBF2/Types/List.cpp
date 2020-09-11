@@ -2,7 +2,6 @@
 #include "List.h"
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
-
 #include "Chunks/LVL/common/SCOP.h"
 #include "Chunks/LVL/common/DATA.h"
 #include "Chunks/LVL/lght/lght.h"
@@ -124,6 +123,22 @@ namespace LibSWBF2::Types
 		}
 
 		ArrayPtr[NumElements++] = Element;
+		return NumElements - 1;
+	}
+
+	template<class T>
+	size_t List<T>::Add(T&& Element)
+	{
+		if (ArrayPtr == nullptr)
+		{
+			Init(LIST_DEFAULT_INIT_SIZE);
+		}
+		if (NumElements >= MaxElements || ArrayPtr == nullptr)
+		{
+			Resize(MaxElements * 2);
+		}
+
+		ArrayPtr[NumElements++] = std::move(Element);
 		return NumElements - 1;
 	}
 
@@ -411,6 +426,7 @@ namespace LibSWBF2::Types
 #include "Polygon.h"
 #include "LibString.h"
 #include "SoundClip.h"
+#include "LocalizeEntry.h"
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
@@ -452,6 +468,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<RotationFrame>;
 	template class LIBSWBF2_API Types::List<TerrainBufferEntry>;
 	template class LIBSWBF2_API Types::List<SoundClip>;
+	template class LIBSWBF2_API Types::List<LocalizeEntry>;
 	template class LIBSWBF2_API Types::List<MSH::SEGM>;
 	template class LIBSWBF2_API Types::List<MSH::MATD>;
 	template class LIBSWBF2_API Types::List<MSH::MODL>;
@@ -468,7 +485,11 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
-	template class LIBSWBF2_API Types::List<LVL::light::lght*>;
+
+	template class LIBSWBF2_API Types::List<LVL::lght::lght*>;
+	template class LIBSWBF2_API Types::List<LVL::lght::SCOP_LGHT*>;
+	template class LIBSWBF2_API Types::List<LVL::lght::DATA_STRING*>;
+
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
 	
@@ -479,9 +500,12 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance *>;
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 
-	template class LIBSWBF2_API Types::List<const Wrappers::Instance *>;
-	template class LIBSWBF2_API Types::List<const Wrappers::World *>;
-	template class LIBSWBF2_API Types::List<const Wrappers::Segment *>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Segment*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Terrain*>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
@@ -492,6 +516,6 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
-	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
-	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
+	template class LIBSWBF2_API Types::List<Wrappers::Localization>;
+
 }

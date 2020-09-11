@@ -66,7 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="testWorldsInstances.cs" />
+    <Compile Include="testTerrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +87,6 @@
     <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.so" "$(TargetDir)libSWBF2.so"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <PostBuildEvent>copy "$(SolutionDir)x64\$(ConfigurationName)\LibSWBF2.dll" "$(TargetDir)SWBF2.dll" /y</PostBuildEvent>
+    <PostBuildEvent>copy "$(SolutionDir)x64\$(ConfigurationName)\LibSWBF2.dll" "$(TargetDir)LibSWBF2.dll" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

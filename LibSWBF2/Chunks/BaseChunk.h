@@ -41,7 +41,6 @@ namespace LibSWBF2::Chunks
 		bool ThereIsAnother(FileReader& stream);
 		bool SkipChunk(FileReader& stream, const bool& printWarn = true);
 		void EnsureEnd(FileReader& stream);
-		//void EnsureTrallingBytes(FileWriter& stream); // TODO
 		void ForwardToNextHeader(FileReader& stream);
 
 		ChunkHeader GetHeader() const;

@@ -45,7 +45,7 @@ namespace LibSWBF2::Types
 		uint16_t magic = stream.ReadUInt16();
 		if (magic != 0x3738)
 		{
-			THROW("Next clip doesn't start with magic! pos: {}", m_HeaderPosition);
+			THROW("Next clip doesn't start with magic! pos: {:#x}", m_HeaderPosition);
 		}
 
 		m_NameHash = stream.ReadUInt32();
@@ -65,20 +65,20 @@ namespace LibSWBF2::Types
 
 		if (m_DataLength == 0 || m_SampleCount == 0)
 		{
-			LOG_WARN("Found empty sound clip? Data length: {}, Sample count: {} at pos: {}", m_DataLength, m_SampleCount, m_HeaderPosition);
+			LOG_WARN("Found empty sound clip? Data length: {:#x}, Sample count: {} at pos: {:#x}", m_DataLength, m_SampleCount, m_HeaderPosition);
 		}
 		else
 		{
 			float_t blockAlign = (float_t)m_DataLength / (float_t)m_SampleCount;
 			if (blockAlign != 2.0f)
 			{
-				//LOG_WARN("Found sound clip with a block align of {}! Data length: {}, Sample count: {} at pos: {}", blockAlign, m_DataLength, m_SampleCount, m_HeaderPosition);
+				//LOG_WARN("Found sound clip with a block align of {}! Data length: {:#x}, Sample count: {} at pos: {:#x}", blockAlign, m_DataLength, m_SampleCount, m_HeaderPosition);
 			}
 		}
 		
 		//if (m_SampleRate != 44100 && m_SampleRate != 22050)
 		//{
-		//	LOG_WARN("Weird sample rate {} encountered in sound clip header at pos: {}", m_SampleRate, headerPos);
+		//	LOG_WARN("Weird sample rate {} encountered in sound clip header at pos: {:#x}", m_SampleRate, headerPos);
 		//}
 
 		uint8_t headerSize = 48;
@@ -94,7 +94,7 @@ namespace LibSWBF2::Types
 			unknown1 = stream.ReadUInt32();
 			if (unknown1 != 0x2E789FB4)
 			{
-				THROW("Unknown sound clip header size/type at pos: {}", m_HeaderPosition);
+				THROW("Unknown sound clip header size/type at pos: {:#x}", m_HeaderPosition);
 			}
 		}
 		stream.SkipBytes(6);
