@@ -140,13 +140,10 @@ namespace LibSWBF2::Wrappers
         
         finalBlendMapData = new uint8_t[dataLength]();
         dim = gridSize;
-		COUT("Num texes: " << numTexLayers);
 		elementSize = numTexLayers; 
 
 
 		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
-
-		//LOG_WARN("Num verts per patch: {}, num patches per row: {}, row size: {}", numVertsPerPatchEdge, numPatchesPerRow, gridDim);
 
 		for (size_t i = 0; i < patches.Size(); i++)
 		{	
@@ -327,8 +324,8 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetHeights(uint32_t& dim, uint32_t& dimScale, float_t& heightScale, float_t*& heightData) const {
-
+	void Terrain::GetHeightMap(uint32_t& dim, uint32_t& dimScale, float_t*& heightData) const
+    {
         auto info = p_Terrain -> p_Info;
 
         float_t gridSize     = (float_t) info -> m_GridSize;
@@ -348,7 +345,6 @@ namespace LibSWBF2::Wrappers
 		heightData = new float_t[heightsLength]();
 		dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
-		heightScale = maxY - minY;
 
         for (int i = 0; i < numVerts; i++)
         {
@@ -366,6 +362,13 @@ namespace LibSWBF2::Wrappers
                 heightData[dataIndex] = yFrac;
             }
         }
+	}
+
+
+	void Terrain::GetHeightBounds(float_t& floor, float_t& ceiling) const 
+	{
+		ceiling = p_Terrain -> p_Info -> m_HeightCeiling;
+       	floor   = p_Terrain -> p_Info -> m_HeightFloor;
 	}
 
 
