@@ -21,7 +21,7 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/home/will/Desktop/geo1.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
                 //Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
 
                 Terrain terrain = level.GetTerrains()[0];
