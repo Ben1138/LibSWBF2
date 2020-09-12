@@ -4,6 +4,7 @@
 #include "InternalHelpers.h"
 #include "Chunks/LVL/common/SCOP.h"
 #include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/common/PROP.h"
 #include "Chunks/LVL/lght/lght.h"
 #include "Wrappers/Light.h"
 
@@ -488,6 +489,7 @@ namespace LibSWBF2
 
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
+    template class LIBSWBF2_API Types::List<LVL::common::PROP*>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;

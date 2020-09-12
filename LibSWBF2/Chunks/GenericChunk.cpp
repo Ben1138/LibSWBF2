@@ -20,6 +20,7 @@
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
+#include "LVL/common/GenericClass.h"
 
 #include "LVL/lght/lght.h"
 
@@ -163,6 +164,30 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, localizeChunk);
 						chunk = localizeChunk;
 					}
+					else if (nextHead == "entc"_h)
+					{
+						LVL::common::entc* entityClass;
+						READ_CHILD(stream, entityClass);
+						chunk = entityClass;
+					}
+					else if (nextHead == "ordc"_h)
+					{
+						LVL::common::ordc* entityClass;
+						READ_CHILD(stream, entityClass);
+						chunk = entityClass;
+					}
+					else if (nextHead == "wpnc"_h)
+					{
+						LVL::common::wpnc* weaponClass;
+						READ_CHILD(stream, weaponClass);
+						chunk = weaponClass;
+					}
+					else if (nextHead == "expc"_h)
+					{
+						LVL::common::expc* explosionClass;
+						READ_CHILD(stream, explosionClass);
+						chunk = explosionClass;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -256,6 +281,14 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
@@ -271,11 +304,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
 
-	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
-	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
-    template struct LIBSWBF2_API GenericChunk<"lght"_m>;
-    template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
-    template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
+	// odf class types (see common/GenericCLass.cpp)
+	template struct LIBSWBF2_API GenericChunk<"entc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ordc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
 }
 

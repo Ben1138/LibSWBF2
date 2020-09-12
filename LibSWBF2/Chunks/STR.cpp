@@ -80,5 +80,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API STR<"TNAM"_m>;
 	template struct LIBSWBF2_API STR<"SNAM"_m>;
 	template struct LIBSWBF2_API STR<"DTLX"_m>;
-	//template struct LIBSWBF2_API STR<"Name"_m>;
+	template struct LIBSWBF2_API STR<"BASE"_m>;
+	template struct LIBSWBF2_API STR<"TYPE"_m>;
+	template struct LIBSWBF2_API STR<"PROP"_m>;
 }
