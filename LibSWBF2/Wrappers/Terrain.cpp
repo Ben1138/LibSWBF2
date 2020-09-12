@@ -354,6 +354,35 @@ namespace LibSWBF2::Wrappers
 		dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
 
+		for (int i = 0; i < numVerts; i++)
+		{
+			heightData[i] = -1.0f;
+		}
+
+		uint32_t ibufLength;
+		uint32_t *ibufData;
+		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
+
+		for (int i = 0; i < (int) ibufLength; i++)
+		{
+			int curInd = (int) ibufData[i];
+			Vector3& curVert = vertexBuffer[curInd];
+        	
+        	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
+        	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
+        	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
+
+        	int uIndex = (int) (xFrac * gridSize + .00001f);
+        	int vIndex = (int) (zFrac * gridSize + .00001f);
+            int dataIndex = uIndex + vIndex * (int) gridSize;
+
+            if (uIndex < (int) gridSize && vIndex < (int) gridSize)
+            {
+                heightData[dataIndex] = yFrac;
+            }
+		}
+
+		/*
         for (int i = 0; i < numVerts; i++)
         {
         	Vector3& curVert = vertexBuffer[i];
@@ -370,6 +399,7 @@ namespace LibSWBF2::Wrappers
                 heightData[dataIndex] = yFrac;
             }
         }
+        */
 	}
 
 
