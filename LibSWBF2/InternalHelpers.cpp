@@ -41,24 +41,29 @@ namespace LibSWBF2
 	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset)
 	{		
 		List<uint32_t> result;
+		uint16_t a,b,c;
 
 		for (int i = 0; i < indexBuffer.Size() - 2; i++)
 		{
-			if (indexBuffer[i]   != indexBuffer[i+1] && //Check for degenerate tris
-				indexBuffer[i+1] != indexBuffer[i+2] && //
-				indexBuffer[i]   != indexBuffer[i+2])	//
+			a = indexBuffer[i]   + offset;
+			b = indexBuffer[i+1] + offset;
+			c = indexBuffer[i+2] + offset; 
+
+			if (a != b && //Check for degenerate tris
+				b != c && //
+				a != c)	  //
 			{
 				if (i % 2 == 0) //swap clockwiseness 
 				{
-					result.Add(indexBuffer[i]   + offset);
-					result.Add(indexBuffer[i+1] + offset);
-					result.Add(indexBuffer[i+2] + offset);
+					result.Add(a);
+					result.Add(b);
+					result.Add(c);
 				} 
 				else 
 				{
-					result.Add(indexBuffer[i+1] + offset);
-					result.Add(indexBuffer[i]   + offset);
-					result.Add(indexBuffer[i+2] + offset);
+					result.Add(b);
+					result.Add(a);
+					result.Add(c);
 				}
 			}
 		}
