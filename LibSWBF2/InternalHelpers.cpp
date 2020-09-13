@@ -38,40 +38,35 @@ namespace LibSWBF2
 		return Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 	}
 
+
 	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset)
-	{
+	{		
 		List<uint32_t> result;
+		uint16_t a,b,c;
 
-		uint8_t triCount = 0;
-		size_t numIndices = indexBuffer.Size();
-		for (size_t i = 0; i < numIndices; ++i)
+		for (int i = 0; i < indexBuffer.Size() - 2; i++)
 		{
-			if (triCount == 3)
+			a = indexBuffer[i]   + offset;
+			b = indexBuffer[i+1] + offset;
+			c = indexBuffer[i+2] + offset; 
+
+			if (a != b && b != c && a != c)	//Catch degenerate 
 			{
-				i -= 2;
-				triCount = 0;
+				if (i % 2 != 0) //swap clockwiseness 
+				{
+					std::swap(a,b);
+				}
+
+				result.Add(a);
+				result.Add(b);
+				result.Add(c);
 			}
-
-			result.Add(indexBuffer[i] + offset);
-			triCount++;
-		}
-
-		//after conversion to Triangle List, indices are listed CW CCW CW CCW, so let's flip them
-		bool flip = false;
-		size_t numTriangles = result.Size();
-		for (size_t i = 0; i < numTriangles; i += 3)
-		{
-			if (flip)
-			{
-				std::swap(result[i], result[i + 2]);
-			}
-			flip = !flip;
-
-			LOG_WARN("tri: ({},{},{})", result[i], result[i+1], result[i+2]);
 		}
 
 		return result;
 	}
+
+
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix)
 	{
 		glm::mat3 mat = ToGLM(matrix);

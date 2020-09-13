@@ -62,6 +62,9 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
+
 
         //Basic texture handling
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
@@ -108,44 +111,56 @@ namespace LibSWBF2
     
 
         // Segment //
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetIndexBuffer(IntPtr seg, out uint numIndicies, out IntPtr indexBuffer);
 
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetUVBuffer(IntPtr seg, out uint numUVCoords, out IntPtr indexBuffer);
         
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetVertexBuffer(IntPtr seg, out uint numVerts, out IntPtr vertsBuffer);
 
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetNormalBuffer(IntPtr seg, out uint numNormals, out IntPtr normalsBuffer);
         
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int Segment_GetTopology(IntPtr segment);
 
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]//TODO: fix memleak in elegant way
         public static extern string Segment_GetMaterialTexName(IntPtr seg);
 
 
         // World //
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)] 
         public static extern string World_GetName(IntPtr world);
 
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void World_GetInstances(IntPtr world, out IntPtr instanceArr, out uint instCount);
 
 
         // Instance //
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)] 
         public static extern string Instance_GetName(IntPtr instance);
 
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetRotation(IntPtr instance);
         
-        [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetPosition(IntPtr instance);
+
+
+
+        // Light //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStr)] 
+        public static extern string Light_GetAllFields(
+                                    IntPtr lightPtr,   out IntPtr rotPtr,
+                                    out IntPtr posPtr, out uint lightType, 
+                                    out IntPtr colPtr, out float range,
+                                    out IntPtr conePtr
+                                );
     }
 }

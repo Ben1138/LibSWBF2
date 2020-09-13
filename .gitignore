@@ -371,3 +371,7 @@ build/
 xcuserdata
 !xcshareddata
 *.moved-aside
+
+
+#Mono crash files
+*mono_crash.*.json
