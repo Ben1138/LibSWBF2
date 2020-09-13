@@ -103,7 +103,8 @@ namespace LibSWBF2::Wrappers
 		const EntityClass* entityClass = GetEntityClass();
 		if (entityClass == nullptr)
 		{
-			LOG_WARN("Could not resolve Entity Class '{}' from instance '{}'", GetType(), GetName());
+			// This can happen if the Entity Class is in another LVL (e.g. com_bldg_controlzone)
+			//LOG_WARN("Could not resolve Entity Class '{}' from instance '{}'", GetType(), GetName());
 			return false;
 		}
 
@@ -117,15 +118,5 @@ namespace LibSWBF2::Wrappers
 			return false;
 		}
 		return GetProperty(FNV::Hash(propertyName), outValue);
-	}
-
-	const Model* Instance::GetGeometry() const
-	{
-		String outGeometryName;
-		if (GetProperty("GeometryName", outGeometryName))
-		{
-			return p_Parent->GetModel(outGeometryName);
-		}
-		return nullptr;
 	}
 }

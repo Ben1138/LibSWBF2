@@ -41,7 +41,6 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 		Vector3 GetPosition() const;
 		Vector4 GetRotation() const;
-		const EntityClass* GetEntityClass() const;
 
 		// will fallback to entity class property, if existent
 		bool GetProperty(FNVHash hashedPropertyName, String& outValue) const;
@@ -49,7 +48,7 @@ namespace LibSWBF2::Wrappers
 		// will fallback to entity class property, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
 
-		// will return 'nullptr' if no geometry has been specified
-		const Model* GetGeometry() const;
+		// will try to resolve within this Level
+		const EntityClass* GetEntityClass() const;
 	};
 }

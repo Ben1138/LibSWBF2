@@ -50,21 +50,31 @@ namespace LibSWBF2::Wrappers
 		return p_Material->m_AttachedLight;
 	}
 
-	const Texture* Material::GetTexture(uint8_t index) const
+	bool Material::GetTextureName(uint8_t index, String& outName) const
 	{
 		segm* segment = dynamic_cast<segm*>(p_Material->GetParent());
 		if (segment == nullptr)
 		{
 			LOG_ERROR("Parent of MTRL is not segm!");
-			return nullptr;
+			return false;
 		}
 
 		if (index >= segment->m_Textures.Size())
 		{
 			LOG_WARN("Texture index '{}' is out of bounds ({})!", index, segment->m_Textures.Size());
-			return nullptr;
+			return false;
 		}
+		outName = segment->m_Textures[index]->m_Name;
+		return true;
+	}
 
-		return m_MainContainer->GetTexture(segment->m_Textures[index]->m_Name);
+	const Texture* Material::GetTexture(uint8_t index) const
+	{
+		String textureName;
+		if (GetTextureName(index, textureName))
+		{
+			return m_MainContainer->GetTexture(textureName);
+		}
+		return nullptr;
 	}
 }
