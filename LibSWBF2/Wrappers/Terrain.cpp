@@ -177,8 +177,51 @@ namespace LibSWBF2::Wrappers
 					}
 				}
 			}
-		} 
-		    
+		}  
+	}
+
+
+	List<uint32_t> GetTriList(List<uint16_t> indexBuffer, uint32_t offset)
+	{
+		
+		List<uint32_t> result;
+		int numDegenerates = 0;
+
+		//offset = 0;
+
+		for (int i = 0; i < indexBuffer.Size() - 2; i++)
+		{
+			if (indexBuffer[i]   == indexBuffer[i+1] ||
+				indexBuffer[i+1] == indexBuffer[i+2] ||
+				indexBuffer[i]   == indexBuffer[i+2])
+			{
+				numDegenerates++;
+			} 
+			else 
+			{
+				if (i % 2 == 0)
+				{
+					result.Add(indexBuffer[i] + offset);
+					result.Add(indexBuffer[i+1] + offset);
+					result.Add(indexBuffer[i+2]+ offset);
+					//LOG_WARN("Example tri: ({},{},{})", indexBuffer[i+0],indexBuffer[i+1],indexBuffer[i+2]);
+
+					//LOG_WARN("Index example: {}", indexBuffer[i]);
+				} 
+				else 
+				{
+					//LOG_WARN("Index example: {}", indexBuffer[i]);
+
+					result.Add(indexBuffer[i+1]+ offset);
+					result.Add(indexBuffer[i]+ offset);
+					result.Add(indexBuffer[i+2]+ offset);
+				}
+			}
+		}
+
+		//LOG_WARN("Found {} degenerates out of {} tris", numDegenerates, indexBuffer.Size());
+
+		return result;
 	}
 
 
@@ -219,7 +262,9 @@ namespace LibSWBF2::Wrappers
 					VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
 					if (indexBuffer != nullptr)
 					{
-						List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
+						//List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
+						List<uint32_t> triangleList = GetTriList(indexBuffer->m_IndexBuffer, vertexOffset);
+
 						indices.Append(triangleList);
 						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
 					}
@@ -332,6 +377,8 @@ namespace LibSWBF2::Wrappers
 		uint32_t *ibufData;
 		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
+		int* holesTex = new int[heightsLength]();
+
 		for (int i = 0; i < (int) ibufLength; i++)
 		{
 			int curInd = (int) ibufData[i];
@@ -348,8 +395,36 @@ namespace LibSWBF2::Wrappers
             if (uIndex < (int) gridSize && vIndex < (int) gridSize)
             {
                 heightData[dataIndex] = yFrac;
+                holesTex[dataIndex]++;
             }
 		}
+
+		float avg = 0.0f;
+		float max = -1000, min = 1000;
+		float numrefs;
+		for (int i = 0; i < heightsLength; i++)
+		{
+			numrefs = (float) holesTex[i];
+			avg += numrefs;
+
+			if (((int) numrefs) < 6)
+			{
+				heightData[i] = 0.0f;
+			}
+			else {
+				heightData[i] = 1.0f;
+			}
+
+			max = numrefs > max ? numrefs : max;
+			min = (numrefs < min) ? numrefs : min;
+		}
+
+		for (int i = 0; i < heightsLength; i++)
+		{
+			//heightData[i] = (((float) holesTex[i]) - min) / (max - min);
+		}
+
+		//LOG_WARN("Average num index refs: {}, min: {}, max: {}", avg / ((float) heightsLength), min, max);
 
 		/*
         for (int i = 0; i < numVerts; i++)
