@@ -37,7 +37,7 @@ namespace LibSWBF2::Wrappers
         return p_FieldsChunk -> p_ColorChunk -> m_Vec;
     }
 
-    String Light::GetName() const
+    const String& Light::GetName() const
     {
         return p_TagChunk -> m_String;
     }

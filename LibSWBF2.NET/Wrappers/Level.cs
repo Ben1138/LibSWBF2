@@ -100,6 +100,14 @@ namespace LibSWBF2.Wrappers
         }
 
 
+        public Light[] GetLights()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetLights(NativeInstance, out IntPtr LightArr, out uint LightCount);
+            return MemUtils.IntPtrToWrapperArray<Light>(LightArr, (int) LightCount);
+        }    
+
+
         public World[] GetWorlds()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
@@ -121,7 +129,22 @@ namespace LibSWBF2.Wrappers
             return model;
         }
 
-        public bool GetTexture(string name, out byte[] texBytes, out int width, out int height)
+
+        public Terrain[] GetTerrains()
+        {   
+            APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);
+            Terrain[] terrains = MemUtils.IntPtrToWrapperArray<Terrain>(terrainsArr, (int) numTerrains);
+
+            for (int i = 0; i < numTerrains; i++)
+            {
+                Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
+            }
+
+            return terrains;
+        }
+
+
+        public bool GetTexture(string name, out int width, out int height, out byte[] texBytes)
         {
             texBytes = null;
             bool result = APIWrapper.Level_GetTextureData(NativeInstance, name, out IntPtr bytesRaw, out width, out height);

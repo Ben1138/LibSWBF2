@@ -501,9 +501,13 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance *>;
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 
-	template class LIBSWBF2_API Types::List<const Wrappers::Instance *>;
-	template class LIBSWBF2_API Types::List<const Wrappers::World *>;
-	template class LIBSWBF2_API Types::List<const Wrappers::Segment *>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Segment*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Terrain*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Light*>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
