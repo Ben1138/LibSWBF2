@@ -9,7 +9,6 @@ namespace LibSWBF2::Chunks::LVL::terrain
 	{
 	public:
 
-		uint32_t m_ElementSize;
 		List<uint32_t> m_TextureSlotsUsed;
 
 	public:
