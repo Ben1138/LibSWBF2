@@ -57,6 +57,7 @@ namespace LibSWBF2::Chunks::LVL::common
 	}
 
 
+	template struct LIBSWBF2_API GenericClass<0>;
 	template struct LIBSWBF2_API GenericClass<"entc"_m>;
 	template struct LIBSWBF2_API GenericClass<"ordc"_m>;
 	template struct LIBSWBF2_API GenericClass<"wpnc"_m>;

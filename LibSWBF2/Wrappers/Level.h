@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "GlobalLighting.h"
 #include "Localization.h"
+#include "EntityClass.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
@@ -41,6 +42,7 @@ namespace LibSWBF2::Wrappers
 		List<Script> m_Scripts;
 		List<Light> m_Lights;
 		List<Localization> m_Localizations;
+		List<EntityClass> m_EntityClasses;
 
 		bool m_bHasGlobalLighting;
 		GlobalLightingConfig m_GlobalLightingConfig;
@@ -66,15 +68,17 @@ namespace LibSWBF2::Wrappers
 		const List<Terrain>& GetTerrains() const;
 		const List<Script>& GetScripts() const;
 		const List<Localization>& GetLocalizations() const;
+		const List<EntityClass>& GetEntityClasses() const;
 
 		const Light* GetLight(String lightName) const;
+		const GlobalLightingConfig* GetGlobalLighting() const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;
 		const Script* GetScript(String scriptName) const;
 		const Localization* GetLocalization(String loclName) const;
-		const GlobalLightingConfig* GetGlobalLighting() const;
+		const EntityClass* GetEntityClass(String typeName) const;
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

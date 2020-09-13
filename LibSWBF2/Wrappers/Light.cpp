@@ -60,7 +60,7 @@ namespace LibSWBF2::Wrappers
                 "Name: {}, Position: {}, Rotation: {}, Color: {}, Type: {}",
                 GetName().Buffer(), GetPosition().ToString().Buffer(), 
                 GetRotation().ToString().Buffer(), GetColor().ToString().Buffer(),
-                ELightTypeToString(GetType()).Buffer()
+                LightTypeToString(GetType()).Buffer()
             ).c_str();
     }
 
