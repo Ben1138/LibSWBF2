@@ -49,22 +49,16 @@ namespace LibSWBF2
 			b = indexBuffer[i+1] + offset;
 			c = indexBuffer[i+2] + offset; 
 
-			if (a != b && //Check for degenerate tris
-				b != c && //
-				a != c)	  //
+			if (a != b && b != c && a != c)	//Catch degenerate 
 			{
-				if (i % 2 == 0) //swap clockwiseness 
+				if (i % 2 != 0) //swap clockwiseness 
 				{
-					result.Add(a);
-					result.Add(b);
-					result.Add(c);
-				} 
-				else 
-				{
-					result.Add(b);
-					result.Add(a);
-					result.Add(c);
+					std::swap(a,b);
 				}
+
+				result.Add(a);
+				result.Add(b);
+				result.Add(c);
 			}
 		}
 
