@@ -271,7 +271,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"scr_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"SMNA_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SMNA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
