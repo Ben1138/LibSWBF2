@@ -64,6 +64,6 @@ namespace LibSWBF2
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
 		LIBSWBF2_API const char* ENUM_MaterialFlagsToString(EMaterialFlags flags);
-		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
+		LIBSWBF2_API const char* ENUM_VBUFFlagsToString(EVBUFFlags flags);
 	}
 }

@@ -172,9 +172,9 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "ordc"_h)
 					{
-						LVL::common::ordc* entityClass;
-						READ_CHILD(stream, entityClass);
-						chunk = entityClass;
+						LVL::common::ordc* ordenanceClass;
+						READ_CHILD(stream, ordenanceClass);
+						chunk = ordenanceClass;
 					}
 					else if (nextHead == "wpnc"_h)
 					{

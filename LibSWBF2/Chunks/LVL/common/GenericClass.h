@@ -22,6 +22,7 @@ namespace LibSWBF2::Chunks::LVL::common
 		String ToString() override;
 	};
 
+	struct LIBSWBF2_API GenericClassNC : public GenericClass<0> {};
 	struct LIBSWBF2_API entc : public GenericClass<"entc"_m> {};
 	struct LIBSWBF2_API ordc : public GenericClass<"ordc"_m> {};
 	struct LIBSWBF2_API wpnc : public GenericClass<"wpnc"_m> {};
