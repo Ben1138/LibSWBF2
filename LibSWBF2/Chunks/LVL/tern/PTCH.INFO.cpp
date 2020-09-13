@@ -24,8 +24,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         for (uint32_t i = 0; i < numTextureSlotsUsed; i++)
         {
-            uint32_t texIndex = (uint32_t) stream.ReadByte();
-            m_TextureSlotsUsed.Add(texIndex);
+            m_TextureSlotsUsed.Add((uint32_t) stream.ReadByte());
         } 
 
         BaseChunk::EnsureEnd(stream);
@@ -43,7 +42,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         std::string result = fmt::format(
             "Element Size: {}\nTexture slots used: {}\n", 
-            m_ElementSize, 
+            m_TextureSlotsUsed.Size(), 
             str_TextureSlotsUsed
         );
 
