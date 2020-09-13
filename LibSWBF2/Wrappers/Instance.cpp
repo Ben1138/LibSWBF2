@@ -60,7 +60,7 @@ namespace LibSWBF2::Wrappers
 		for (size_t i = 0; i < instanceChunk->m_OverrideProperties.Size(); ++i)
 		{
 			FNVHash hashedName = instanceChunk->m_OverrideProperties[i]->m_PropertyName;
-			out.m_PropertyMapping->m_HashToIndex.emplace(hashedName, i);
+			out.m_PropertyMapping->m_HashToIndex.emplace(hashedName, (uint32_t)i);
 		}
 
 		return true;
