@@ -2,6 +2,7 @@
 #include "Instance.h"
 #include "Types/LibString.h"
 #include "InternalHelpers.h"
+#include "Hashing.h"
 #include "Level.h"
 
 namespace LibSWBF2::Wrappers
@@ -10,7 +11,6 @@ namespace LibSWBF2::Wrappers
 	{
 	public:
 		std::unordered_map<FNVHash, uint32_t> m_HashToIndex;
-		std::unordered_map<std::string, uint32_t> m_NameToIndex;
 	};
 
 
@@ -22,6 +22,22 @@ namespace LibSWBF2::Wrappers
 	Instance::~Instance()
 	{
 		delete m_PropertyMapping;
+	}
+
+	Instance& Instance::operator=(const Instance& other)
+	{
+		p_Parent = other.p_Parent;
+		p_Instance = other.p_Instance;
+		m_PropertyMapping->m_HashToIndex = other.m_PropertyMapping->m_HashToIndex;
+		return *this;
+	}
+
+	Instance& Instance::operator=(Instance&& other)
+	{
+		p_Parent = other.p_Parent;
+		p_Instance = other.p_Instance;
+		other.m_PropertyMapping = new PropertyMap();
+		return *this;
 	}
 
 	bool Instance::FromChunk(Level* mainContainer, inst* instanceChunk, Instance& out)
@@ -39,6 +55,14 @@ namespace LibSWBF2::Wrappers
 
 		out.p_Parent = mainContainer;
 		out.p_Instance = instanceChunk;
+
+		instanceChunk->m_OverrideProperties.Clear();
+		for (size_t i = 0; i < instanceChunk->m_OverrideProperties.Size(); ++i)
+		{
+			FNVHash hashedName = instanceChunk->m_OverrideProperties[i]->m_PropertyName;
+			out.m_PropertyMapping->m_HashToIndex.emplace(hashedName, i);
+		}
+
 		return true;
 	}
 
@@ -92,22 +116,7 @@ namespace LibSWBF2::Wrappers
 		{
 			return false;
 		}
-
-		auto it = m_PropertyMapping->m_NameToIndex.find(ToLower(propertyName));
-		if (it != m_PropertyMapping->m_NameToIndex.end())
-		{
-			outValue = p_Instance->m_OverrideProperties[it->second]->m_Value;
-			return true;
-		}
-
-		const EntityClass* entityClass = GetEntityClass();
-		if (entityClass == nullptr)
-		{
-			LOG_WARN("Could not resolve Entity Class '{}' from instance '{}'", GetType(), GetName());
-			return false;
-		}
-
-		return entityClass->GetProperty(propertyName, outValue);
+		return GetProperty(FNV::Hash(propertyName), outValue);
 	}
 
 	const Model* Instance::GetGeometry() const
@@ -117,5 +126,6 @@ namespace LibSWBF2::Wrappers
 		{
 			return p_Parent->GetModel(outGeometryName);
 		}
+		return nullptr;
 	}
 }
