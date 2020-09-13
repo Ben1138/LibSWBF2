@@ -19,6 +19,9 @@ namespace LibSWBF2::Wrappers
 		EntityClass();
 		~EntityClass();
 
+		EntityClass& operator=(const EntityClass& other);
+		EntityClass& operator=(EntityClass&& other);
+
 	private:
 		GenericClassNC* p_classChunk;
 		EEntityClassType m_EntityClassType;
@@ -26,7 +29,6 @@ namespace LibSWBF2::Wrappers
 
 	public:
 		// Only available template instances for "FromChunk" are:
-		// - GenericClassNC*
 		// - entc*
 		// - ordc*
 		// - wpnc*

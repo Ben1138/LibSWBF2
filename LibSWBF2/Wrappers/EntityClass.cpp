@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "EntityClass.h"
 #include "InternalHelpers.h"
+#include "Hashing.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include <string>
 #include <map>
@@ -17,7 +18,6 @@ namespace LibSWBF2::Wrappers
 	{
 	public:
 		std::unordered_map<FNVHash, uint32_t> m_HashToIndex;
-		std::unordered_map<std::string, uint32_t> m_NameToIndex;
 	};
 
 
@@ -29,6 +29,23 @@ namespace LibSWBF2::Wrappers
 	EntityClass::~EntityClass()
 	{
 		delete m_PropertyMapping;
+		m_PropertyMapping = nullptr;
+	}
+
+	EntityClass& EntityClass::operator=(const EntityClass& other)
+	{
+		p_classChunk = other.p_classChunk;
+		m_EntityClassType = other.m_EntityClassType;
+		m_PropertyMapping->m_HashToIndex = other.m_PropertyMapping->m_HashToIndex;
+		return *this;
+	}
+
+	EntityClass& EntityClass::operator=(EntityClass&& other)
+	{
+		p_classChunk = other.p_classChunk;
+		m_PropertyMapping = other.m_PropertyMapping;
+		other.m_PropertyMapping = new PropertyMap();
+		return *this;
 	}
 
 	template<class EntityClassType>
@@ -42,19 +59,19 @@ namespace LibSWBF2::Wrappers
 
 		out.p_classChunk = (GenericClassNC*)classChunk;
 
-		if (typeid(EntityClassType) == typeid(entc))
+		if (typeid(EntityClassType*) == typeid(entc*))
 		{
 			out.m_EntityClassType = EEntityClassType::GameObjectClass;
 		}
-		else if (typeid(EntityClassType) == typeid(ordc))
+		else if (typeid(EntityClassType*) == typeid(ordc*))
 		{
 			out.m_EntityClassType = EEntityClassType::OrdnanceClass;
 		}
-		else if (typeid(EntityClassType) == typeid(wpnc))
+		else if (typeid(EntityClassType*) == typeid(wpnc*))
 		{
 			out.m_EntityClassType = EEntityClassType::WeaponClass;
 		}
-		else if (typeid(EntityClassType) == typeid(expc))
+		else if (typeid(EntityClassType*) == typeid(expc*))
 		{
 			out.m_EntityClassType = EEntityClassType::ExplosionClass;
 		}
@@ -62,6 +79,13 @@ namespace LibSWBF2::Wrappers
 		{
 			LOG_ERROR("Invalid EntityClass Type: {}", typeid(classChunk).name());
 			return false;
+		}
+
+		out.m_PropertyMapping->m_HashToIndex.clear();
+		for (size_t i = 0; i < classChunk->m_Properties.Size(); ++i)
+		{
+			FNVHash hashedName = classChunk->m_Properties[i]->m_PropertyName;
+			out.m_PropertyMapping->m_HashToIndex.emplace(hashedName, (uint32_t)i);
 		}
 
 		return true;
@@ -94,18 +118,10 @@ namespace LibSWBF2::Wrappers
 		{
 			return false;
 		}
-
-		auto it = m_PropertyMapping->m_NameToIndex.find(ToLower(propertyName));
-		if (it != m_PropertyMapping->m_NameToIndex.end())
-		{
-			outValue = p_classChunk->m_Properties[it->second]->m_Value;
-			return true;
-		}
-		return false;
+		return GetProperty(FNV::Hash(propertyName), outValue);
 	}
 	
 
-	template LIBSWBF2_API bool EntityClass::FromChunk(GenericClassNC* classChunk, EntityClass& out);
 	template LIBSWBF2_API bool EntityClass::FromChunk(entc* classChunk, EntityClass& out);
 	template LIBSWBF2_API bool EntityClass::FromChunk(ordc* classChunk, EntityClass& out);
 	template LIBSWBF2_API bool EntityClass::FromChunk(wpnc* classChunk, EntityClass& out);

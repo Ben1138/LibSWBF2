@@ -26,6 +26,9 @@ namespace LibSWBF2::Wrappers
 		Instance();
 		~Instance();
 
+		Instance& operator=(const Instance& other);
+		Instance& operator=(Instance&& other);
+
 	private:
 		Level* p_Parent;
 		inst* p_Instance;

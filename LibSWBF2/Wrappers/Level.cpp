@@ -153,12 +153,41 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		// IMPORTANT: crawl entity classes AFTER models, so model references via string can be resolved
-		if (dynamic_cast<entc*>(root) || dynamic_cast<ordc*>(root) || dynamic_cast<wpnc*>(root) || dynamic_cast<expc*>(root))
+		entc* entityChunk = dynamic_cast<entc*>(root);
+		if (entityChunk != nullptr)
 		{
-			GenericClassNC* classChunk = (GenericClassNC*)root;
 			EntityClass entityClass;
-			if (EntityClass::FromChunk(classChunk, entityClass))
+			if (EntityClass::FromChunk(entityChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		ordc* ordenanceChunk = dynamic_cast<ordc*>(root);
+		if (ordenanceChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(ordenanceChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		wpnc* weaponChunk = dynamic_cast<wpnc*>(root);
+		if (weaponChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(weaponChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		expc* explosionChunk = dynamic_cast<expc*>(root);
+		if (explosionChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(explosionChunk, entityClass))
 			{
 				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
 			}
