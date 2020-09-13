@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InternalHelpers.h"
+#include "Logging/Logger.h"
 
 namespace LibSWBF2
 {
@@ -65,6 +66,8 @@ namespace LibSWBF2
 				std::swap(result[i], result[i + 2]);
 			}
 			flip = !flip;
+
+			LOG_WARN("tri: ({},{},{})", result[i], result[i+1], result[i+2]);
 		}
 
 		return result;

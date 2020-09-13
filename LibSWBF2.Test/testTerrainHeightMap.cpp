@@ -36,18 +36,11 @@ uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
 		imageIndex = i * 4;
 		float curHeight = heightMapData[i];
 
-		if (curHeight < -.1)
-		{
-			imageData[imageIndex]   = 255;
-		}
-		else 
-		{	
-			uint8_t h = (uint8_t) (curHeight * 254.0f);
-			imageData[imageIndex]   = h;
-			imageData[imageIndex+1] = h;
-			imageData[imageIndex+2] = h;
-		}
-
+		uint8_t h = (uint8_t) (curHeight * 255.0f);
+		imageData[imageIndex]   = h;
+		imageData[imageIndex+1] = h;
+		imageData[imageIndex+2] = h;
+	
 		imageData[imageIndex+3] = 255;
 	}
 
