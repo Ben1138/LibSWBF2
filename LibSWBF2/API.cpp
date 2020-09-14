@@ -190,10 +190,11 @@ namespace LibSWBF2
 		// model->GetName() returns a ref to the persistent member,
 		// char buffers of String's are always null terminated, so we
 		// can just return the buffer pointer.
-		const String& name = model->GetName();
-		char *buffer = new char[strlen(name.Buffer()) + 1]();
-		strcpy(buffer, name.Buffer());
-		return buffer;
+
+		//const String& name = model->GetName();
+
+		String *name = new String(model -> GetName());
+		return name -> Buffer();
 	}
 
 	const void Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount)
