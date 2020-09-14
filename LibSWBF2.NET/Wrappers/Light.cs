@@ -29,7 +29,6 @@ namespace LibSWBF2.Wrappers
             spotAngles = lightType == LightType.Spot ? new Vector2(conePtr) : new Vector2();
         }
 
-
         internal Light(IntPtr lightPtr) : base(lightPtr)
         {
             SetFields(lightPtr);
@@ -50,7 +49,6 @@ namespace LibSWBF2.Wrappers
             " Rotation: "   + rotation.ToString() +
             " Color: "      + color.ToString()    +
             " Type: "       + lightType.ToString();
-
         }
 
         public string name;

@@ -65,12 +65,19 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetLight(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
 
         //Basic texture handling
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
                                                         out IntPtr imgData, out int width, out int height);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Level_GetGlobalLighting(IntPtr level, out IntPtr topColor, out IntPtr bottomColor, 
+                                                        out IntPtr light1Name, out IntPtr light2Name);        
 
         //Terrain
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
@@ -155,7 +162,7 @@ namespace LibSWBF2
 
         // Light //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)] 
+        [return: MarshalAs(UnmanagedType.LPStr)]
         public static extern string Light_GetAllFields(
                                     IntPtr lightPtr,   out IntPtr rotPtr,
                                     out IntPtr posPtr, out uint lightType, 

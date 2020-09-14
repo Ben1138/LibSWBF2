@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LibSWBF2.Utils;
+using LibSWBF2.Types;
 
 
 namespace LibSWBF2.Wrappers
@@ -130,6 +131,19 @@ namespace LibSWBF2.Wrappers
         }
 
 
+        public Light GetLight(string lightName)
+        {
+            IntPtr LightPtr = APIWrapper.Level_GetLight(NativeInstance, lightName);
+            if (LightPtr == null)
+            {
+                return null;
+            }
+
+            Light Light = new Light(LightPtr);
+            return Light;
+        }
+
+
         public Terrain[] GetTerrains()
         {   
             APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);
@@ -154,6 +168,37 @@ namespace LibSWBF2.Wrappers
                 Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
             }
             Marshal.FreeHGlobal(bytesRaw); 
+            return result;
+        }
+
+
+        public bool GetGlobalLightingConfig(out Vector3 topColor, 
+                                            out Vector3 bottomColor, 
+                                            out Light Light1, 
+                                            out Light Light2)
+        {
+            bool result = APIWrapper.Level_GetGlobalLighting(NativeInstance, out IntPtr topCol, 
+                                                out IntPtr bottomCol, out IntPtr light1Name, 
+                                                out IntPtr light2Name);
+
+            Console.WriteLine("Exited native get global lighting...");
+
+            Light1 = null;
+            Light2 = null;
+
+            topColor = new Vector3(topCol);
+            bottomColor = new Vector3(bottomCol);
+
+            if (result)
+            {
+                Console.WriteLine(light1Name);
+                Console.WriteLine(light2Name);
+                Light1 = light1Name == IntPtr.Zero ? null : GetLight( Marshal.PtrToStringAnsi(light1Name) );
+                Light2 = light2Name == IntPtr.Zero ? null : GetLight( Marshal.PtrToStringAnsi(light2Name) );
+            }
+
+            Console.WriteLine("Set lights...");
+
             return result;
         }
     }
