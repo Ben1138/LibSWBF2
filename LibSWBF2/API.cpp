@@ -5,8 +5,6 @@
 #include "Chunks/MSH/MSH.h"
 
 #include <string.h>
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2
 {
@@ -144,6 +142,36 @@ namespace LibSWBF2
 
 		LightArr = LightPtrs.GetArrayPtr();
 		LightCount = (uint32_t) LightPtrs.Size();
+	}
+
+
+	const Light* Level_GetLight(const Level* level, const char* lightName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetLight(lightName);
+	}
+
+
+	bool Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
+								const char*& light1Name, const char*& light2Name)
+	{
+		const auto* config = level -> GetGlobalLighting();
+		static Vector3 topCol, bottomCol;
+		static String name1, name2;
+		static const char *tststr = "sun";
+
+		if (config != nullptr)
+		{	
+			topColor    = nullptr; //config -> GetTopColor(topCol) ? &topCol : nullptr;
+			bottomColor = config -> GetBottomColor(bottomCol) ? &bottomCol : nullptr;
+
+			//light1Name = tststr;
+			//light2Name = tststr;
+
+			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : nullptr;
+			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : nullptr;
+		}
+		return config != nullptr;
 	}
 
 
@@ -496,6 +524,8 @@ namespace LibSWBF2
                                     Vector3*& colPtr, float_t& range,
                                     Vector2*& conePtr)
     {
+    	CheckPtr(lightPtr, nullptr);
+
     	static Vector3 lastPos, lastCol;
     	static Vector4 lastRot; 
     	static Vector2 lastCone(0,0);	
@@ -516,8 +546,10 @@ namespace LibSWBF2
     	posPtr  = &lastPos;
     	conePtr = &lastCone;
 
-    	const String& name = lightPtr -> GetName();
-    	return name.Buffer();
-    }
+    	String *name = new String(lightPtr -> GetName());
+    	return name -> Buffer();
 
+    	//const String& name = lightPtr -> GetName();
+    	//return name.Buffer();
+    }
 }
