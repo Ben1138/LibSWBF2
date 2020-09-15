@@ -80,6 +80,13 @@ namespace LibSWBF2
 	}
 
 
+	const Model* Level_GetModel(const Level* level, const char* modelName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetModel(modelName);
+	}
+
+
 	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
 	{
 		CheckPtr(level, );
@@ -100,6 +107,42 @@ namespace LibSWBF2
 		modelArr = modelPtrs.GetArrayPtr();
 		modelCount = (uint32_t)modelPtrs.Size();
 	}
+
+
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
+    {
+    	const Texture *tex = level -> GetTexture(texName);
+    	if (tex == nullptr)
+    	{
+    		return false;
+    	}
+
+    	uint16_t w,h;
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
+    	height = h;
+    	width = w;
+    	//Will add another null check
+    	return true;
+    }
+    
+
+	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
+	{
+		CheckPtr(level, );
+		const List<Terrain>& terrains = level->GetTerrains();
+
+		static List<const Terrain*> terrainPtrs;
+		terrainPtrs.Clear();
+
+		for (size_t i = 0; i < terrains.Size(); ++i)
+		{
+			terrainPtrs.Add(&terrains[i]);
+		}
+
+		terrainArr = terrainPtrs.GetArrayPtr();
+		terrainCount = (uint32_t)terrainPtrs.Size();
+	}
+
 
 	void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount)
 	{
@@ -190,12 +233,12 @@ namespace LibSWBF2
 		// model->GetName() returns a ref to the persistent member,
 		// char buffers of String's are always null terminated, so we
 		// can just return the buffer pointer.
-
 		//const String& name = model->GetName();
 
 		String *name = new String(model -> GetName());
 		return name -> Buffer();
 	}
+
 
 	const void Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount)
 	{	
@@ -214,11 +257,13 @@ namespace LibSWBF2
 		segmentCount = (uint32_t)segmentPtrs.Size();
 	}
 
+
 	uint8_t Model_IsSkeletalMesh(const Model* model)
 	{
 		CheckPtr(model, false);
 		return model->IsSkeletalMesh();
 	}
+
 
 	uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount)
 	{
@@ -238,6 +283,7 @@ namespace LibSWBF2
 		return true;
 	}
 
+
 	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{
 		Vector3 *verts;
@@ -254,6 +300,7 @@ namespace LibSWBF2
 		}
 	}
 
+
 	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)
 	{
 		Vector3 *normals;
@@ -269,6 +316,7 @@ namespace LibSWBF2
 			normalsBuffer[i * 3 + 2] = curVec.m_Z;
 		}
 	}
+
 
 	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
 	{
@@ -332,102 +380,54 @@ namespace LibSWBF2
 		return segmentTexName -> Buffer();
 	}
 
+
 	const int32_t Segment_GetTopology(const Segment* segment)
 	{
 		return (int32_t) segment -> GetTopology();
 	}
 
-	const Model* Level_GetModel(const Level* level, const char* modelName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetModel(modelName);
-	}
 
-
-	//Will eventually return pointers to Texture wrappers...
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& nameStrings)
+	//scraped together test
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTexes, char**& nameStrings)
 	{
-		CheckPtr(tern, );
+		//CheckPtr(tern, nullptr);
         const List<String>& texNames = tern -> GetLayerTextures();
-        numTextures = (uint32_t) texNames.Size();
+
+        int numTextures = texNames.Size();
 
         if (numTextures > 0)
         {
-        	nameStrings = new const char *[numTextures];
+        	nameStrings = new char *[numTextures];
 
         	for (int i = 0; i < numTextures; i++)
 	        {
-	        	nameStrings[i] = texNames[i].Buffer(); 
+	        	const String& temp = texNames[i];
+	        	nameStrings[i] = new char[temp.Length() + 1]();
+	        	strcpy(nameStrings[i], temp.Buffer());
 	        }
         }
+
+        numTexes = (uint32_t) numTextures;
 	}
 
-    const void Terrain_GetVerts(const Terrain* ter, uint32_t& numVerts, float_t *& result)
-    {
-        ter -> GetVertexBufferRaw(numVerts, result);
-    }
-
-    const void Terrain_GetIndicies(const Terrain* ter, uint32_t& numInds, int *& result)
-    {
-    	uint32_t *indicies;
-        ter -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
-
-        int *convertedIndicies = new int[numInds];
-
-        for (int i = 0; i < numInds; i++)
-        {
-        	convertedIndicies[i] = (int) indicies[i];
-        }
-
-        result = convertedIndicies;
-    }
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
+
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
+
 
 	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
 	{
 		ter -> GetHeightBounds(floor, ceiling);
 	}
 
-
-
-
-    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
-    {
-    	const Texture *tex = level -> GetTexture(texName);
-    	if (tex == nullptr)
-    	{
-    		return false;
-    	}
-
-    	uint16_t w,h;
-    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
-    	height = h;
-    	width = w;
-    	//Will add another null check
-    	return true;
-    }
-
-	const Terrain* Level_GetTerrain(const Level* level)
-	{
-		CheckPtr(level, nullptr);
-        return level -> GetTerrains().GetArrayPtr();
-	}
-
-	const char* ENUM_TopologyToString(ETopology topology)
-	{
-		static Types::String lastToString;
-		lastToString = TopologyToString(topology);
-		return lastToString.Buffer();
-	}
 
 	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)
 	{
@@ -488,6 +488,20 @@ namespace LibSWBF2
     const Vector3* Instance_GetPosition(const Instance* instance)
     {
     	return new Vector3(instance -> GetPosition());
+    }
+
+    const char * Instance_GetModelName(const Instance* instance)
+    {
+    	static const String geometryNameProperty("GeometryName");
+		const EntityClass *instanceClass = instance -> GetEntityClass();
+		static String geometryName; 
+
+		if (instanceClass != nullptr && instanceClass -> GetProperty(geometryNameProperty,geometryName))
+		{
+			return (new String(geometryName.Buffer())) -> Buffer();
+		}
+
+		return (new String("")) -> Buffer();
     }
 
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
