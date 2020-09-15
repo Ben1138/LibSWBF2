@@ -40,6 +40,13 @@ uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
 		imageData[imageIndex]   = h;
 		imageData[imageIndex+1] = h;
 		imageData[imageIndex+2] = h;
+
+		if (curHeight < -.01)
+		{
+			imageData[imageIndex] = 255;
+			imageData[imageIndex + 1] = 0;
+			imageData[imageIndex + 2] = 0;
+		}
 	
 		imageData[imageIndex+3] = 255;
 	}

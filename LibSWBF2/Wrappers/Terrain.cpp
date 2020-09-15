@@ -363,12 +363,19 @@ namespace LibSWBF2::Wrappers
 		uint32_t *ibufData;
 		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
-		int* holesTex = new int[heightsLength]();
-
 		for (int i = 0; i < (int) ibufLength; i++)
 		{
 			int curInd = (int) ibufData[i];
 			Vector3& curVert = vertexBuffer[curInd];
+
+			//int xcoord = int(round(curVert.m_X));
+			//int ycoord = int(round(curVert.m_Z));
+
+
+			if (fmod(curVert.m_X,(float)gridUnitSize) > .01 || fmod(curVert.m_Z,(float)gridUnitSize) > .01)
+			{
+				continue;
+			}
         	
         	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
         	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
@@ -381,55 +388,8 @@ namespace LibSWBF2::Wrappers
             if (uIndex < (int) gridSize && vIndex < (int) gridSize)
             {
                 heightData[dataIndex] = yFrac;
-                holesTex[dataIndex]++;
             }
 		}
-
-		float avg = 0.0f;
-		float max = -1000, min = 1000;
-		float numrefs;
-		for (int i = 0; i < heightsLength; i++)
-		{
-			numrefs = (float) holesTex[i];
-			avg += numrefs;
-
-			if (((int) numrefs) < 6)
-			{
-				heightData[i] = 0.0f;
-			}
-			else {
-				heightData[i] = 1.0f;
-			}
-
-			max = numrefs > max ? numrefs : max;
-			min = (numrefs < min) ? numrefs : min;
-		}
-
-		for (int i = 0; i < heightsLength; i++)
-		{
-			//heightData[i] = (((float) holesTex[i]) - min) / (max - min);
-		}
-
-		//LOG_WARN("Average num index refs: {}, min: {}, max: {}", avg / ((float) heightsLength), min, max);
-
-		/*
-        for (int i = 0; i < numVerts; i++)
-        {
-        	Vector3& curVert = vertexBuffer[i];
-        	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
-        	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
-        	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
-
-        	int uIndex = (int) (xFrac * gridSize + .00001f);
-        	int vIndex = (int) (zFrac * gridSize + .00001f);
-            int dataIndex = uIndex + vIndex * (int) gridSize;
-
-            if (uIndex < (int) gridSize && vIndex < (int) gridSize)
-            {
-                heightData[dataIndex] = yFrac;
-            }
-        }
-        */
 	}
 
 
