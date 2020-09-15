@@ -22,13 +22,13 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
+                Level level = Level.FromFile(@"/Volumes/bootable/stockdata/_lvl_pc/mus/mus1.lvl");
 
                 Light[] lights = level.GetLights();
 
                 foreach (var light in lights)
                 {
-                    //Console.WriteLine(light.ToString());
+                    Console.WriteLine(light.ToString());
                 }
 
                 if (level.GetGlobalLightingConfig(
