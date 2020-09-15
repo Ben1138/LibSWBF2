@@ -19,15 +19,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #SOURCES
 
-add_executable(lghtTest 	 testLights.cpp)
+add_executable(lightsTest 	 testLights.cpp)
 add_executable(segmentsTest  testSegments.cpp)
 add_executable(blendmapTest  testTerrainSplatMap.cpp)
 add_executable(heightmapTest testTerrainHeightMap.cpp)
+add_executable(entitiesTest  testInstancesEntities.cpp)
 
 
 #LINKING
 
-target_link_libraries(lghtTest      PUBLIC SWBF2)
+target_link_libraries(lightsTest    PUBLIC SWBF2)
 target_link_libraries(segmentsTest  PUBLIC SWBF2)
 target_link_libraries(blendmapTest  PUBLIC SWBF2)
 target_link_libraries(heightmapTest PUBLIC SWBF2)
+target_link_libraries(entitiesTest  PUBLIC SWBF2)
