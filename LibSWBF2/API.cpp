@@ -10,6 +10,7 @@ namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+
 	// Logging //
 	void LOG_SetCallbackMethod(const LogCallback Callback)
 	{
@@ -103,6 +104,8 @@ namespace LibSWBF2
 	//TEMPORARY: Basic texture handling until I push the other wrappers...
     const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
     {
+    	CheckPtr(level, false);
+
     	const Texture *tex = level -> GetTexture(texName);
     	if (tex == nullptr)
     	{
@@ -143,32 +146,57 @@ namespace LibSWBF2
 	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& nameStrings)
 	{
 		CheckPtr(tern, );
+
+		static const char** dataPtr = nullptr;
+		delete dataPtr;
+		dataPtr = nullptr;
+
         const List<String>& texNames = tern -> GetLayerTextures();
         numTextures = (uint32_t) texNames.Size();
 
-        if (numTextures > 0)
-        {
-        	nameStrings = new const char *[numTextures];
+    	dataPtr = new const char *[numTextures];
 
-        	for (int i = 0; i < numTextures; i++)
-	        {
-	        	nameStrings[i] = texNames[i].Buffer(); 
-	        }
+    	for (int i = 0; i < numTextures; i++)
+        {
+        	dataPtr[i] = texNames[i].Buffer(); 
         }
+
+        nameStrings = dataPtr;
+    
 	}
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
-    	ter -> GetHeightMap(dim, dimScale, heightData);
+    	CheckPtr(ter, );
+
+		static float_t *dataPtr = nullptr;
+		delete dataPtr;
+		dataPtr = nullptr;
+
+    	ter -> GetHeightMap(dim, dimScale, dataPtr);
+
+    	heightData = dataPtr;
     }
 
+
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
-	{
-		ter -> GetBlendMap(dim, numLayers, data);
+	{	
+    	CheckPtr(ter, );
+
+		static uint8_t *dataPtr = nullptr;
+		delete dataPtr;
+		dataPtr = nullptr;
+
+		ter -> GetBlendMap(dim, numLayers, dataPtr);
+
+		data = dataPtr;
 	}
+
 
 	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
 	{
+    	CheckPtr(ter, );
+
 		ter -> GetHeightBounds(floor, ceiling);
 	}
 
