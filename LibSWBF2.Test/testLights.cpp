@@ -27,8 +27,8 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
-	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");
+	//Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	Level *testLVL = Level::FromFile("/Volumes/bootable/stockdata/_lvl_pc/mus/mus1.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
 #endif

@@ -29,7 +29,8 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	//Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	Level *testLVL = Level::FromFile("/Volumes/bootable/stockdata/_lvl_pc/mus/mus1.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/MLC.lvl");
 #endif
@@ -57,6 +58,15 @@ int main()
 			const Material& segmentMat = segments[j].GetMaterial();
 			const Texture* segmentTex = segmentMat.GetTexture(0);//?
 
+			if (segmentMat.GetFlags() == EMaterialFlags::Scrolling)
+			{
+				COUT("Found glow at " << models[i].GetName().Buffer() << " segment " << j);
+			}
+			else 
+			{
+				continue;
+			}
+
 			if (segmentTex == nullptr)
 			{
 				COUT("\t TEXTURE MISSING");
@@ -65,7 +75,7 @@ int main()
 			String *segmentTexName = new String(segmentTex -> GetName());
 			const char *segTex = segmentTexName -> Buffer();
 
-			COUT(fmt::format("\tVertexBuffer size: {}", vBufSize));
+			//COUT(fmt::format("\tVertexBuffer size: {}", vBufSize));
 			COUT(fmt::format("\tSegment texName: {}", segTex));
 
 			int numDegenerates = 0;
@@ -78,7 +88,7 @@ int main()
 					numDegenerates++;
 				}
 			}
-			COUT(fmt::format("\tFound {} degenerates out of {}", numDegenerates, indexBufSize));
+			//COUT(fmt::format("\tFound {} degenerates out of {}", numDegenerates, indexBufSize));
 		}
 
 	}
