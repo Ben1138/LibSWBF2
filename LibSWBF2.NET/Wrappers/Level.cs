@@ -193,8 +193,14 @@ namespace LibSWBF2.Wrappers
             {
                 Console.WriteLine(light1Name);
                 Console.WriteLine(light2Name);
-                Light1 = light1Name == IntPtr.Zero ? null : GetLight( Marshal.PtrToStringAnsi(light1Name) );
-                Light2 = light2Name == IntPtr.Zero ? null : GetLight( Marshal.PtrToStringAnsi(light2Name) );
+
+                string lightOneName = Marshal.PtrToStringAnsi(light1Name);
+                string lightTwoName = Marshal.PtrToStringAnsi(light2Name);
+                GetLight( lightOneName );
+                GetLight( lightTwoName );
+
+                //Light1 = light1Name == IntPtr.Zero ? null : GetLight( lightOneName );
+                //Light2 = light2Name == IntPtr.Zero ? null : GetLight( lightTwoName );
             }
 
             Console.WriteLine("Set lights...");

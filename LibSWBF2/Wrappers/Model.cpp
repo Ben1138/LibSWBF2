@@ -32,7 +32,7 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	const String& Model::GetName() const
+	String Model::GetName() const
 	{
 		return p_Model->p_Name->m_Text;
 	}

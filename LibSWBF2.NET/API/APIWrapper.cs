@@ -66,7 +66,7 @@ namespace LibSWBF2
         public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetLight(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
+        public static extern IntPtr Level_GetLight(IntPtr level,  string lightName);
 
         //Basic texture handling
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
@@ -102,8 +102,7 @@ namespace LibSWBF2
 
         // Model //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Model_GetName(IntPtr model);
+        public static extern IntPtr Model_GetName(IntPtr model);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Model_GetSegments(IntPtr model, out IntPtr segmentArr, out uint segmentCount);
@@ -149,8 +148,7 @@ namespace LibSWBF2
 
         // Instance //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)] 
-        public static extern string Instance_GetName(IntPtr instance);
+        public static extern IntPtr Instance_GetName(IntPtr instance);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetRotation(IntPtr instance);
@@ -158,12 +156,13 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetPosition(IntPtr instance);
 
-
-
-        // Light //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Light_GetAllFields(
+        public static extern IntPtr Instance_GetModelName(IntPtr instance);
+
+
+        // Light - All-getter method called on class construction w/valid ptr //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Light_GetAllFields(
                                     IntPtr lightPtr,   out IntPtr rotPtr,
                                     out IntPtr posPtr, out uint lightType, 
                                     out IntPtr colPtr, out float range,

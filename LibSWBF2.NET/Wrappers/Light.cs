@@ -16,10 +16,11 @@ namespace LibSWBF2.Wrappers
 
         private void SetFields(IntPtr ptr)
         {
-            name = APIWrapper.Light_GetAllFields(ptr, out IntPtr rotPtr,
+            name = Marshal.PtrToStringAnsi( APIWrapper.Light_GetAllFields(ptr, out IntPtr rotPtr,
                                         out IntPtr posPtr, out uint kind, 
                                         out IntPtr colPtr, out range,
-                                        out IntPtr conePtr);
+                                        out IntPtr conePtr)
+                                    );
 
             rotation = new Vector4(rotPtr);
             position = new Vector3(posPtr);
