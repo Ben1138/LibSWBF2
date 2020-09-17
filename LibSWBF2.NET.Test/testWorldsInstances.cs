@@ -22,8 +22,10 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
+                
                 Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-
+                //Level level = Level.FromFile(@"/Volumes/bootable/stockdata/_lvl_pc/kas/kas2.lvl");
+                
                 World[] worlds = level.GetWorlds();
 
                 foreach (World world in worlds)

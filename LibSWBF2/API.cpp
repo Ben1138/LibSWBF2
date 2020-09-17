@@ -201,20 +201,19 @@ namespace LibSWBF2
 		const auto* config = level -> GetGlobalLighting();
 		static Vector3 topCol, bottomCol;
 		static String name1, name2;
-		static const char *tststr = "sun";
 
 		if (config != nullptr)
 		{	
-			topColor    = nullptr; //config -> GetTopColor(topCol) ? &topCol : nullptr;
+			topColor    = config -> GetTopColor(topCol) ? &topCol : nullptr;
 			bottomColor = config -> GetBottomColor(bottomCol) ? &bottomCol : nullptr;
 
-			//light1Name = tststr;
-			//light2Name = tststr;
+			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : "";
+			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : "";
 
-			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : nullptr;
-			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : nullptr;
+			return true;
 		}
-		return config != nullptr;
+
+		return false;
 	}
 
 
@@ -228,15 +227,16 @@ namespace LibSWBF2
 
 	const char* Model_GetName(const Model* model)
 	{
-		CheckPtr(model, nullptr);
+		static String nameString;
+		CheckPtr(model, "");
 
 		// model->GetName() returns a ref to the persistent member,
 		// char buffers of String's are always null terminated, so we
 		// can just return the buffer pointer.
 		//const String& name = model->GetName();
 
-		String *name = new String(model -> GetName());
-		return name -> Buffer();
+		nameString = model -> GetName();
+		return nameString.Buffer();
 	}
 
 
@@ -332,6 +332,7 @@ namespace LibSWBF2
 			UVBuffer[i * 2 + 1] = curVec.m_Y;
 		}
 	}
+
 
 	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
 	{
@@ -438,18 +439,18 @@ namespace LibSWBF2
 
 	const char* ENUM_VBUFFlagsToString(EVBUFFlags flags)
 	{
-		static Types::String lastToString;
+		static String lastToString;
 		lastToString = VBUFFlagsToString(flags);
 		return lastToString.Buffer();
 	}
 
     const char* World_GetName(const World* world)
     {
-		CheckPtr(world, nullptr);
+		CheckPtr(world, "");
 		const String& name = world->GetName();
-		char *buffer = new char[strlen(name.Buffer()) + 1]();
-		strcpy(buffer, name.Buffer());
-		return buffer;
+		//char *buffer = new char[strlen(name.Buffer()) + 1]();
+		//strcpy(buffer, name.Buffer());
+		return name.Buffer();
     }
 
     const void World_GetInstances(const World* model, const Instance**& instanceArr, uint32_t& instCount)
@@ -473,35 +474,41 @@ namespace LibSWBF2
     // Wrappers - Instance
     const char* Instance_GetName(const Instance* instance)
     {
-		CheckPtr(instance, nullptr);
-		const String& name = instance->GetName();
-		char *buffer = new char[strlen(name.Buffer()) + 1]();
-		strcpy(buffer, name.Buffer());
-		return buffer;
+        CheckPtr(instance,"")
+
+    	static String instanceName;
+		instanceName = instance->GetName();
+		return instanceName.Buffer();
     }
 
     const Vector4* Instance_GetRotation(const Instance* instance)
     {
-    	return new Vector4(instance -> GetRotation());
+    	static Vector4 tempVec;
+    	tempVec = instance -> GetRotation();
+    	return &tempVec;
     }
 
     const Vector3* Instance_GetPosition(const Instance* instance)
     {
-    	return new Vector3(instance -> GetPosition());
+        static Vector3 tempVec;
+    	tempVec = instance -> GetPosition();
+    	return &tempVec;
     }
 
     const char * Instance_GetModelName(const Instance* instance)
     {
+    	CheckPtr(instance,"")
     	static const String geometryNameProperty("GeometryName");
+    	static String geometryName; 
+
 		const EntityClass *instanceClass = instance -> GetEntityClass();
-		static String geometryName; 
 
 		if (instanceClass != nullptr && instanceClass -> GetProperty(geometryNameProperty,geometryName))
 		{
-			return (new String(geometryName.Buffer())) -> Buffer();
+			return geometryName.Buffer();
 		}
 
-		return (new String("")) -> Buffer();
+		return "";
     }
 
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
@@ -553,10 +560,7 @@ namespace LibSWBF2
     	posPtr  = &lastPos;
     	conePtr = &lastCone;
 
-    	String *name = new String(lightPtr -> GetName());
-    	return name -> Buffer();
-
-    	//const String& name = lightPtr -> GetName();
-    	//return name.Buffer();
+    	const String& name = lightPtr -> GetName();
+    	return name.Buffer();
     }
 }
