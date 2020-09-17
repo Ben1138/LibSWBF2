@@ -558,6 +558,9 @@
     <ClInclude Include="Wrappers\EntityClass.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\PTCH.INFO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -961,6 +964,9 @@
     </ClCompile>
     <ClCompile Include="Wrappers\EntityClass.cpp">
       <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\PTCH.INFO.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
