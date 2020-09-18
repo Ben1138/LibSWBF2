@@ -315,7 +315,8 @@ namespace LibSWBF2::Wrappers
        	float_t maxZ = halfLength, minZ = halfLength * -1.0f;
        	float_t maxX = halfLength, minX = halfLength * -1.0f;
 
-		heightData = new float_t[(int) (gridSize * gridSize)]();
+       	int heightDataLength = (int) (gridSize * gridSize);
+		heightData = new float_t[heightDataLength]();
 		dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
 
@@ -326,7 +327,7 @@ namespace LibSWBF2::Wrappers
 		uint32_t *ibufData;
 		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
-		for (int i = 0; i < numVerts; i++)
+		for (int i = 0; i < heightDataLength; i++)
 		{
 			heightData[i] = -1.0f;
 		}
