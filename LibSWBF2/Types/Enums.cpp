@@ -157,7 +157,7 @@ namespace LibSWBF2
 		return fmt::format("Unknown Model Purpose: {}", purpose).c_str();
 	}
 
-	Types::String EVBUFFlagsToString(EVBUFFlags flags)
+	Types::String VBUFFlagsToString(EVBUFFlags flags)
 	{
 		std::string result = "[";
 		if ((flags & EVBUFFlags::Position) != 0)
@@ -228,7 +228,7 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String LIBSWBF2_API ELightTypeToString(ELightType type)
+	Types::String LIBSWBF2_API LightTypeToString(ELightType type)
 	{
 		switch(type)
 		{
@@ -255,6 +255,23 @@ namespace LibSWBF2
 				return "Core";
 			default:
 				return fmt::format("Unknown ELVLType: {}", (int)type).c_str();
+		}
+	}
+
+	Types::String EntityClassToString(EEntityClassType type)
+	{
+		switch (type)
+		{
+			case EEntityClassType::GameObjectClass:
+				return "GameObjectClass";
+			case EEntityClassType::OrdnanceClass:
+				return "OrdnanceClass";
+			case EEntityClassType::WeaponClass:
+				return "WeaponClass";
+			case EEntityClassType::ExplosionClass:
+				return "ExplosionClass";
+			default:
+				return fmt::format("Unknown EEntityClassType: {}", (int)type).c_str();
 		}
 	}
 	

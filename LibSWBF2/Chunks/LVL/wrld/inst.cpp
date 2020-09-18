@@ -21,12 +21,24 @@ namespace LibSWBF2::Chunks::LVL::wrld
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        READ_CHILD(stream, p_Info);
-
-        // TODO: get rid of this once we know all the specific chunks
+        m_OverrideProperties.Clear();
 		while (ThereIsAnother(stream))
 		{
-            READ_CHILD_GENERIC(stream);
+            ChunkHeader next = stream.ReadChunkHeader(true);
+            if (next == "INFO"_h)
+            {
+                READ_CHILD(stream, p_Info);
+            }
+            else if (next == "PROP"_h)
+            {
+                PROP* prop;
+                READ_CHILD(stream, prop);
+                m_OverrideProperties.Add(prop);
+            }
+            else
+            {
+                READ_CHILD_GENERIC(stream);
+            }
 		}
 
         BaseChunk::EnsureEnd(stream);

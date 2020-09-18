@@ -549,6 +549,15 @@
     <ClInclude Include="Chunks\LVL\lght\vec4.DATA.h">
       <Filter>Header Files\Chunks\LVL\lght</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\common\PROP.h">
+      <Filter>Header Files\Chunks\LVL\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\common\GenericClass.h">
+      <Filter>Header Files\Chunks\LVL\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\EntityClass.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -943,6 +952,15 @@
     </ClCompile>
     <ClCompile Include="Chunks\MSH\MSH.DATA.cpp">
       <Filter>Source Files\Chunks\MSH</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\common\PROP.cpp">
+      <Filter>Source Files\Chunks\LVL\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\common\GenericClass.cpp">
+      <Filter>Source Files\Chunks\LVL\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\EntityClass.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

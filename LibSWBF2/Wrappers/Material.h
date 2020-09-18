@@ -38,7 +38,9 @@ namespace LibSWBF2::Wrappers
 		const Color& GetSpecularColor() const;
 		uint32_t GetSpecularExponent() const;
 		const String& GetAttachedLight() const;
+		bool GetTextureName(uint8_t index, String& outName) const;
 
+		// will try to resolve within this Level
 		const Texture* GetTexture(uint8_t index) const;
 	};
 }

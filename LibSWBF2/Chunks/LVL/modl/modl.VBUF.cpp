@@ -194,7 +194,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     {
         std::string result = "Count = " + std::to_string(m_Count) + "\n";
         result += "Stride = " + std::to_string(m_Stride) + "\n";
-        result += "Flags = " + std::string(EVBUFFlagsToString(m_Flags).Buffer()) + "\n";
+        result += "Flags = " + std::string(VBUFFlagsToString(m_Flags).Buffer()) + "\n";
         result += "Positions[" + std::to_string(m_Positions.Size()) + "]\n";
         result += "Normals[" + std::to_string(m_Normals.Size()) + "]\n";
         result += "Tangents[" + std::to_string(m_Tangents.Size()) + "]\n";
