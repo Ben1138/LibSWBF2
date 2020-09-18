@@ -149,6 +149,14 @@ namespace LibSWBF2
 		ExplosionClass
 	};
 
+	enum class ELevelLoadStatus
+	{
+		Uninitialized,
+		Loading,
+		Loaded,
+		Failed
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
