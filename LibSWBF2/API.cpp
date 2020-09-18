@@ -10,6 +10,28 @@ namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+	//Explicit Mem Handling
+	void FreeFloatBuffer(float buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeByteBuffer(uint8_t buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeUIntBuffer(uint buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeCharPtrBuffer(char *buffer[])
+	{
+		delete[] buffer;
+	}
+
+
 
 	// Logging //
 	void LOG_SetCallbackMethod(const LogCallback Callback)
@@ -147,56 +169,35 @@ namespace LibSWBF2
 	{
 		CheckPtr(tern, );
 
-		static const char** dataPtr = nullptr;
-		delete dataPtr;
-		dataPtr = nullptr;
-
         const List<String>& texNames = tern -> GetLayerTextures();
         numTextures = (uint32_t) texNames.Size();
 
-    	dataPtr = new const char *[numTextures];
+    	nameStrings = new const char *[numTextures]; 
 
     	for (int i = 0; i < numTextures; i++)
         {
-        	dataPtr[i] = texNames[i].Buffer(); 
+        	nameStrings[i] = texNames[i].Buffer(); 
         }
-
-        nameStrings = dataPtr;
-    
 	}
+
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
     	CheckPtr(ter, );
-
-		static float_t *dataPtr = nullptr;
-		delete dataPtr;
-		dataPtr = nullptr;
-
-    	ter -> GetHeightMap(dim, dimScale, dataPtr);
-
-    	heightData = dataPtr;
+    	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
 
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{	
     	CheckPtr(ter, );
-
-		static uint8_t *dataPtr = nullptr;
-		delete dataPtr;
-		dataPtr = nullptr;
-
-		ter -> GetBlendMap(dim, numLayers, dataPtr);
-
-		data = dataPtr;
+		ter -> GetBlendMap(dim, numLayers, data);
 	}
 
 
 	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
 	{
     	CheckPtr(ter, );
-
 		ter -> GetHeightBounds(floor, ceiling);
 	}
 
