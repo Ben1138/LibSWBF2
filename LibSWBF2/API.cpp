@@ -266,10 +266,10 @@ namespace LibSWBF2
 		return lastToString.Buffer();
 	}
 
-	const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags)
+	const char* ENUM_VBUFFlagsToString(EVBUFFlags flags)
 	{
 		static Types::String lastToString;
-		lastToString = EVBUFFlagsToString(flags);
+		lastToString = VBUFFlagsToString(flags);
 		return lastToString.Buffer();
 	}
 }

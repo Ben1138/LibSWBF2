@@ -21,6 +21,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> ScriptNameToIndex;
 		std::unordered_map<std::string, size_t> LightNameToIndex;
 		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
+		std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
 
@@ -158,6 +159,46 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		entc* entityChunk = dynamic_cast<entc*>(root);
+		if (entityChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(entityChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		ordc* ordenanceChunk = dynamic_cast<ordc*>(root);
+		if (ordenanceChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(ordenanceChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		wpnc* weaponChunk = dynamic_cast<wpnc*>(root);
+		if (weaponChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(weaponChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		expc* explosionChunk = dynamic_cast<expc*>(root);
+		if (explosionChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(explosionChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
 		{
@@ -241,7 +282,7 @@ namespace LibSWBF2::Wrappers
 
 		//LOG_WARN("Could not find Light '{}'!", lightName);
 		return nullptr;
-  }
+	}
   
 	const List<Localization>& Level::GetLocalizations() const
 	{
@@ -255,6 +296,11 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 		return &m_GlobalLightingConfig;
+	}
+
+	const List<EntityClass>& Level::GetEntityClasses() const
+	{
+		return m_EntityClasses;
 	}
 
 	const Model* Level::GetModel(String modelName) const
@@ -348,6 +394,22 @@ namespace LibSWBF2::Wrappers
 		if (it != m_NameToIndexMaps->LocalizationNameToIndex.end())
 		{
 			return &m_Localizations[it->second];
+		}
+
+		return nullptr;
+	}
+
+	const EntityClass* Level::GetEntityClass(String typeName) const
+	{
+		if (typeName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->EntityClassTypeToIndex.find(ToLower(typeName));
+		if (it != m_NameToIndexMaps->EntityClassTypeToIndex.end())
+		{
+			return &m_EntityClasses[it->second];
 		}
 
 		return nullptr;
