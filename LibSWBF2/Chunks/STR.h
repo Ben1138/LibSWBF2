@@ -6,10 +6,6 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	struct LIBSWBF2_API STR : public GenericChunk<Header>
 	{
-		STR() = default;
-		~STR() = default;
-
-	public:
 		String m_Text;
 
 	public:

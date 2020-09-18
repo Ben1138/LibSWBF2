@@ -27,8 +27,8 @@ namespace LibSWBF2::Chunks
 		bool WriteToFile(const String& Path);
 		bool ReadFromFile(const String& Path);
 
-		BaseChunk() = default;
-		virtual ~BaseChunk() = default;
+		BaseChunk();
+		virtual ~BaseChunk();
 
 		// These MUST be overridden in subclasses!
 		virtual void RefreshSize();
@@ -48,11 +48,17 @@ namespace LibSWBF2::Chunks
 		ChunkSize GetAlignedSize() const;	// size of the data, including trailing bytes, exclude header
 		ChunkSize GetFullSize() const;		// size of the whole chunk, including header, data and trailling bytes
 
+		// thread safe call
+		float_t GetReadingProgress();
+
 	protected:
 		// since these variables are critical
 		// we should keep them protected
 		ChunkHeader m_Header;
 		ChunkSize m_Size = 0; // Data Size, no header, no trailling bytes
 		size_t m_ChunkPosition = 0;	// pointing to the chunks header
+
+	private:
+		class MultiThreadHandling* m_ThreadHandling = nullptr;
 	};
 }
