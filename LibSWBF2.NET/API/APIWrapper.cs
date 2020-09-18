@@ -24,6 +24,22 @@ namespace LibSWBF2
         public static extern void LOG_SetLogfileLevel(Logging.ELogType LogfileLevel);
 
 
+        // Explicit Mem Handling //
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FreeFloatBuffer(IntPtr ptr);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FreeByteBuffer(IntPtr ptr);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FreeUIntBuffer(IntPtr ptr);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FreeCharPtrBuffer(IntPtr ptr);
+
+
+
         // Level //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

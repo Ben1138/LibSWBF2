@@ -10,6 +10,29 @@ namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+	//Explicit Mem Handling
+	void FreeFloatBuffer(float buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeByteBuffer(uint8_t buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeUIntBuffer(uint buffer[])
+	{
+		delete[] buffer;
+	}
+
+	void FreeCharPtrBuffer(char *buffer[])
+	{
+		delete[] buffer;
+	}
+
+
+
 	// Logging //
 	void LOG_SetCallbackMethod(const LogCallback Callback)
 	{
@@ -103,6 +126,8 @@ namespace LibSWBF2
 	//TEMPORARY: Basic texture handling until I push the other wrappers...
     const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
     {
+    	CheckPtr(level, false);
+
     	const Texture *tex = level -> GetTexture(texName);
     	if (tex == nullptr)
     	{
@@ -143,32 +168,36 @@ namespace LibSWBF2
 	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& nameStrings)
 	{
 		CheckPtr(tern, );
+
         const List<String>& texNames = tern -> GetLayerTextures();
         numTextures = (uint32_t) texNames.Size();
 
-        if (numTextures > 0)
-        {
-        	nameStrings = new const char *[numTextures];
+    	nameStrings = new const char *[numTextures]; 
 
-        	for (int i = 0; i < numTextures; i++)
-	        {
-	        	nameStrings[i] = texNames[i].Buffer(); 
-	        }
+    	for (int i = 0; i < numTextures; i++)
+        {
+        	nameStrings[i] = texNames[i].Buffer(); 
         }
 	}
 
+
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
+    	CheckPtr(ter, );
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
+
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
-	{
+	{	
+    	CheckPtr(ter, );
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
 
+
 	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
 	{
+    	CheckPtr(ter, );
 		ter -> GetHeightBounds(floor, ceiling);
 	}
 

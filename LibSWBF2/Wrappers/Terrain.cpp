@@ -177,8 +177,7 @@ namespace LibSWBF2::Wrappers
 					}
 				}
 			}
-		} 
-		    
+		}  
 	}
 
 
@@ -220,6 +219,7 @@ namespace LibSWBF2::Wrappers
 					if (indexBuffer != nullptr)
 					{
 						List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
+
 						indices.Append(triangleList);
 						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
 					}
@@ -312,33 +312,43 @@ namespace LibSWBF2::Wrappers
        	float_t minY = info -> m_HeightFloor;
 
        	float_t halfLength = gridSize * gridUnitSize / 2.0f;
-       	float_t maxZ = halfLength, minZ = -halfLength;
-       	float_t maxX = halfLength, minX = -halfLength;
+       	float_t maxZ = halfLength, minZ = halfLength * -1.0f;
+       	float_t maxX = halfLength, minX = halfLength * -1.0f;
 
-        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
-        uint32_t numVerts = m_Positions.Size();
-
-        int heightsLength = (int) gridSize * gridSize;
-		heightData = new float_t[heightsLength]();
+		heightData = new float_t[(int) (gridSize * gridSize)]();
 		dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
 
-        for (int i = 0; i < numVerts; i++)
-        {
-        	Vector3& curVert = vertexBuffer[i];
-        	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
-        	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
-        	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
+		Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
+        uint32_t numVerts = m_Positions.Size();
 
-        	int uIndex = (int) (xFrac * gridSize + .00001f);
-        	int vIndex = (int) (zFrac * gridSize + .00001f);
-            int dataIndex = uIndex + vIndex * (int) gridSize;
+		uint32_t ibufLength;
+		uint32_t *ibufData;
+		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
-            if (uIndex < (int) gridSize && vIndex < (int) gridSize)
+		for (int i = 0; i < numVerts; i++)
+		{
+			heightData[i] = -1.0f;
+		}
+
+		for (int i = 0; i < (int) ibufLength; i++)
+		{
+			Vector3& curVert = vertexBuffer[ibufData[i]];
+
+			if (fmod(curVert.m_X, gridUnitSize) > .1 || //omit irregularities
+				fmod(curVert.m_Z, gridUnitSize) > .1)
+			{
+				continue;
+			}
+        	
+        	uint32_t uIndex = (uint32_t) ((curVert.m_X - minX)/gridUnitSize + .001f);
+        	uint32_t vIndex = (uint32_t) ((curVert.m_Z - minZ)/gridUnitSize + .001f);
+
+            if (uIndex < dim && vIndex < dim)
             {
-                heightData[dataIndex] = yFrac;
+                heightData[uIndex + vIndex * dim] = (curVert.m_Y - minY)/(maxY - minY);
             }
-        }
+		}
 	}
 
 	void Terrain::GetHeightBounds(float_t& floor, float_t& ceiling) const 
