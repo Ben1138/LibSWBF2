@@ -107,7 +107,12 @@ namespace LibSWBF2
 			result += "AttachedLight, ";
 		}
 
-		result.resize(result.size() - 2);
+		size_t resultSize = result.size();
+		if (resultSize > 1)
+		{
+			result.resize(resultSize - 2); //failed on overflow when length == 1
+		}
+
 		result += "]";
 		return result.c_str();
 	}

@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="testTerrain.cs" />
+    <Compile Include="testModelSegments.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

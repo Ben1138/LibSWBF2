@@ -20,7 +20,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="testTerrainHeightMap.cpp">
+    <ClCompile Include="testSegments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

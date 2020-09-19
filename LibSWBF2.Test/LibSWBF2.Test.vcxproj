@@ -166,7 +166,7 @@
     <ClInclude Include="stbi\stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="testTerrainHeightMap.cpp" />
+    <ClCompile Include="testSegments.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
