@@ -528,6 +528,11 @@ namespace LibSWBF2
 
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
     {
+    	if (vec == nullptr)
+    	{
+    		x = y = z = w = 0.0f;
+    		return;
+    	}
     	x = vec -> m_X;
     	y = vec -> m_Y;
     	z = vec -> m_Z;
@@ -536,6 +541,11 @@ namespace LibSWBF2
 
     const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
     {
+    	if (vec == nullptr)
+    	{
+    		x = y = z = 0.0f;
+    		return;
+    	}
     	x = vec -> m_X;
     	y = vec -> m_Y;
     	z = vec -> m_Z;
@@ -543,6 +553,11 @@ namespace LibSWBF2
 
     const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
     {
+    	if (vec == nullptr)
+    	{
+    		x = y = 0.0f;
+    		return;
+    	}
     	x = vec -> m_X;
     	y = vec -> m_Y;
     } 
