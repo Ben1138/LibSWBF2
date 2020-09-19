@@ -65,7 +65,7 @@ void bcToRGBA(int w, int h, unsigned char *src, uint32_t *sink, int mode) {
         blockSize = 8; //BC1 uses 8 byte blocks, 
                        //must half size of srcdata comsumed
         srcSize /= 2;
-        decomp_func = &detexDecompressBlockBC1;
+        decomp_func = &detexDecompressBlockBC1A;
     } else if (mode == 2){
         decomp_func = &detexDecompressBlockBC2;
     } else {
