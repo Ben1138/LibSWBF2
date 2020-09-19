@@ -158,15 +158,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="testTerrainSplatMap.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LibSWBF2\LibSWBF2.vcxproj">
       <Project>{6b0dc0e0-c1ff-49d4-bf4a-dbe195212030}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stbi\stb_image_write.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="testTerrainHeightMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,9 @@
 #include "Terrain.h"
 #include "InternalHelpers.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::terrain::PTCH;
@@ -354,7 +357,7 @@ namespace LibSWBF2::Wrappers
 		dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
 
-		for (int i = 0; i < numVerts; i++)
+		for (int i = 0; i < heightsLength; i++)
 		{
 			heightData[i] = -1.0f;
 		}
