@@ -77,6 +77,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void    Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
 		LIBSWBF2_API const char*   Segment_GetMaterialTexName(const Segment* segment);
 		LIBSWBF2_API const int32_t Segment_GetTopology(const Segment* segment);
+		LIBSWBF2_API const char*   Segment_GetMaterialFlags(const Segment* segment);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);

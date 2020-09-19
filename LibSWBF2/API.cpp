@@ -367,18 +367,19 @@ namespace LibSWBF2
 	
 	const char* Segment_GetMaterialTexName(const Segment* segment)
 	{
+		static String nameString;
+		
 		//static const char *missing = "TEXTURE_MISSING";
 		const Material& segmentMat = segment -> GetMaterial();
 		const Texture* segmentTex = segmentMat.GetTexture(0);//?
 
 		if (segmentTex == nullptr)
 		{
-			String *missing = new String("");
-			return missing -> Buffer();
+			return "";
 		}
 
-		String *segmentTexName = new String(segmentTex -> GetName());
-		return segmentTexName -> Buffer();
+		nameString = segmentTex -> GetName();
+		return nameString.Buffer();
 	}
 
 
@@ -386,6 +387,16 @@ namespace LibSWBF2
 	{
 		return (int32_t) segment -> GetTopology();
 	}
+
+
+	const char* Segment_GetMaterialFlags(const Segment* segment)
+	{
+		static String flagsString;
+		const Material& segmentMat = segment->GetMaterial();
+		flagsString = MaterialFlagsToString(segmentMat.GetFlags());
+		return flagsString.Buffer();
+	}
+
 
 
 	//scraped together test

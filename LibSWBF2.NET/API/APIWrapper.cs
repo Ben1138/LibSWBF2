@@ -135,14 +135,13 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Segment_GetMaterialTexName(IntPtr seg);
 
-        //[return: MarshalAs(UnmanagedType.LPStr)]//TODO: fix memleak in elegant way
-
-        // World //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Segment_GetMaterialFlags(IntPtr seg);
+
+
+         // World //
+         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr World_GetName(IntPtr world);
-        //[return: MarshalAs(UnmanagedType.LPStr)] 
-
-
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void World_GetInstances(IntPtr world, out IntPtr instanceArr, out uint instCount);

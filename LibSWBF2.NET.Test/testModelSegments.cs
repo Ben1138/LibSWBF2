@@ -22,7 +22,7 @@ namespace LibSWBF2.NET.Test
 
                 Console.WriteLine("Loading... This might take a while...");
                 //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-                Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
+                Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\yav\yav1.lvl");
 
                 Model[] models = level.GetModels();
 
@@ -30,6 +30,11 @@ namespace LibSWBF2.NET.Test
                 int j = 0;
                 foreach (Model model in models)
                 {
+                    if (!model.Name.Contains("sky"))
+                    {
+                        //continue;
+                    }
+
                     Console.WriteLine(j++);
                     Console.WriteLine("\n" + model.Name);
 
@@ -40,11 +45,14 @@ namespace LibSWBF2.NET.Test
                         Console.WriteLine("\tSegment " + i++ + ": ");
                         float[] vBuf = seg.GetVertexBuffer();                        
                         string texName = seg.GetMaterialTexName();
+                        string materialFlags = seg.GetMaterialFlags();
 
                         Console.WriteLine("\t\t" + "Num verts: " + 
                                           vBuf.Length / 3 + 
                                         "\n \t\tTexture name: " +
-                                          texName);
+                                          texName +
+                                        "\n \t\tMaterial traits: " +
+                                          materialFlags);
                     }
                 } 
             }

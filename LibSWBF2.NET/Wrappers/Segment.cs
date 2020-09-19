@@ -69,5 +69,12 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return APIWrapper.Segment_GetTopology(NativeInstance);            
         }
+
+        public string GetMaterialFlags()
+        {
+            return Marshal.PtrToStringAnsi(APIWrapper.Segment_GetMaterialFlags(NativeInstance));
+        }
+
+
     }
 }
