@@ -181,7 +181,7 @@ namespace LibSWBF2.Wrappers
                                                 out IntPtr bottomCol, out IntPtr light1Name, 
                                                 out IntPtr light2Name);
 
-            Console.WriteLine("Exited native get global lighting...");
+            //Console.WriteLine("Exited native get global lighting...");
 
             Light1 = null;
             Light2 = null;
@@ -191,9 +191,6 @@ namespace LibSWBF2.Wrappers
 
             if (result)
             {
-                Console.WriteLine(light1Name);
-                Console.WriteLine(light2Name);
-
                 string lightOneName = Marshal.PtrToStringAnsi(light1Name);
                 string lightTwoName = Marshal.PtrToStringAnsi(light2Name);
                 GetLight( lightOneName );
@@ -202,8 +199,6 @@ namespace LibSWBF2.Wrappers
                 //Light1 = light1Name == IntPtr.Zero ? null : GetLight( lightOneName );
                 //Light2 = light2Name == IntPtr.Zero ? null : GetLight( lightTwoName );
             }
-
-            Console.WriteLine("Set lights...");
 
             return result;
         }

@@ -21,8 +21,8 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-                Level level = Level.FromFile(@"/Volumes/bootable/stockdata/_lvl_pc/yav/yav1.lvl");
+                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
+                //Level level = Level.FromFile(@"/Volumes/bootable/stockdata/_lvl_pc/yav/yav1.lvl");
                 //Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\yav\yav1.lvl");
 
                 Model[] models = level.GetModels();
