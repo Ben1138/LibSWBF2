@@ -62,7 +62,7 @@ namespace LibSWBF2.Wrappers
 
             //For now, height maps aren't actual members of the ptch chunks/Terrain wrappers,
             //so the managed representation must be freed explicitly
-            Marshal.FreeHGlobal(heightsNative); 
+            //Marshal.FreeHGlobal(heightsNative); 
         }
 
 
@@ -80,7 +80,7 @@ namespace LibSWBF2.Wrappers
 
             //For now, blend maps aren't actual members of the ptch chunks/Terrain wrappers,
             //so the managed representation must be freed explicitly
-            Marshal.FreeHGlobal(bytesNative); 
+            //Marshal.FreeHGlobal(bytesNative); 
         } 
     }
 }

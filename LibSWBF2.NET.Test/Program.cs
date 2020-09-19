@@ -21,8 +21,9 @@ namespace LibSWBF2.NET.Test
                 };
 
                 Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
+                //Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
                 //Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+                Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
 
                 Terrain terrain = level.GetTerrain();
 
@@ -46,6 +47,9 @@ namespace LibSWBF2.NET.Test
 
                 terrain.GetHeightMap(out uint dim, out uint dimScale, out float[] heightMapData);
                 terrain.GetBlendMap(out dim, out uint numLayers, out byte[] blendMapData);
+
+                Console.Write("Heightmap data length: ");
+                Console.WriteLine(heightMapData.Length);
             }
 
             Console.ReadKey();

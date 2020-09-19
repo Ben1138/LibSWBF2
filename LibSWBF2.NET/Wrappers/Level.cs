@@ -167,7 +167,7 @@ namespace LibSWBF2.Wrappers
                 texBytes = new byte[width * height * 4];
                 Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
             }
-            Marshal.FreeHGlobal(bytesRaw); 
+            //Marshal.FreeHGlobal(bytesRaw); 
             return result;
         }
 

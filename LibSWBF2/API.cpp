@@ -403,8 +403,12 @@ namespace LibSWBF2
         	for (int i = 0; i < numTextures; i++)
 	        {
 	        	const String& temp = texNames[i];
-	        	nameStrings[i] = new char[temp.Length() + 1]();
-	        	strcpy(nameStrings[i], temp.Buffer());
+	        	
+				nameStrings[i] = const_cast<char *>( (new String(temp.Buffer())) -> Buffer() );
+				//strcpy(nameStrings[i], temp.Buffer());
+
+				//nameStrings[i] = new char[temp.Length() + 1]();
+	        	//strcpy(nameStrings[i], temp.Buffer());
 	        }
         }
 

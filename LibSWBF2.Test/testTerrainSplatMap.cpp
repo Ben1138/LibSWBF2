@@ -1,6 +1,16 @@
+#ifdef _WIN32
+
+#include "../LibSWBF2/LibSWBF2.h"
+#include "../LibSWBF2/FileWriter.h"
+#include "../LibSWBF2/Chunks/LVL/LVL.h"
+
+#else
+
 #include "LibSWBF2.h"
 #include "FileWriter.h"
 #include "Chunks/LVL/LVL.h"
+
+#endif
 
 #include <iostream>
 #include <fstream>
@@ -23,7 +33,7 @@ using LibSWBF2::Logging::LoggerEntry;
 
 
 
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
+void libLog(const LoggerEntry* log) { COUT(log->ToString().Buffer()); }
 
 
 uint8_t* GetFirstThreeLayersRGBA(uint8_t *blendMapData, int dim, int elementSize)
@@ -51,14 +61,13 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
-#ifdef __APPLE__
-	Level *testLVL1 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Blended.lvl");
-	Level *testLVL2 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Painted.lvl");
-	//Level *testLVL2 = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+#if defined( __APPLE__ )
+	Level* testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
+#elif defined(_WIN32)
+	Level* testLVL1 = Level::FromFile("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\geo\\geo1.lvl");
+	Level* testLVL2 = Level::FromFile("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\kas\\kas2.lvl");
 #else
-	Level *testLVL1 = Level::FromFile("/home/will/Desktop/geo1.lvl");
-	Level *testLVL2 = Level::FromFile("/home/will/Desktop/MLC.lvl");
-	//Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	Level* testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
 #endif
 
 

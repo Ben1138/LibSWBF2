@@ -22,12 +22,15 @@ namespace LibSWBF2.NET.Test
 
                 Console.WriteLine("Loading... This might take a while...");
                 //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-                Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\kas\kas2.lvl");
+                Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
 
                 Model[] models = level.GetModels();
 
+                Console.WriteLine(models.Length);
+                int j = 0;
                 foreach (Model model in models)
                 {
+                    Console.WriteLine(j++);
                     Console.WriteLine("\n" + model.Name);
 
                     Segment[] segments = model.GetSegments(); 

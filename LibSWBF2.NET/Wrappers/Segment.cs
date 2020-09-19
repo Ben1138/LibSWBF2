@@ -61,7 +61,7 @@ namespace LibSWBF2.Wrappers
         public string GetMaterialTexName()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return APIWrapper.Segment_GetMaterialTexName(NativeInstance);
+            return Marshal.PtrToStringAnsi( APIWrapper.Segment_GetMaterialTexName(NativeInstance) );
         }
 
         public int GetTopology()
