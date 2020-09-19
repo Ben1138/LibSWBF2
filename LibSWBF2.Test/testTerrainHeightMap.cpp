@@ -1,6 +1,16 @@
+#ifdef _WIN32
+
+#include "../LibSWBF2/LibSWBF2.h"
+#include "../LibSWBF2/FileWriter.h"
+#include "../LibSWBF2/Chunks/LVL/LVL.h"
+
+#else
+
 #include "LibSWBF2.h"
 #include "FileWriter.h"
 #include "Chunks/LVL/LVL.h"
+
+#endif
 
 #include <iostream>
 #include <fstream>
@@ -60,10 +70,12 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
-#ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
+#if defined( __APPLE__ )
+	Level* testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
+#elif defined(_WIN32)
+	Level* testLVL = Level::FromFile("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\geo\\geo1.lvl");
 #else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	Level* testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
 #endif
 
 	uint32_t dim, scale;
@@ -71,6 +83,8 @@ int main()
 
 	const Terrain& terr = testLVL -> GetTerrains()[0];
 	terr.GetHeightMap(dim,scale,heightMapData);
+	//dim = 512;
+	//heightMapData = new float[dim * dim]();
 
 	stbi_write_png("height_test.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
 
