@@ -88,7 +88,7 @@ namespace LibSWBF2::Chunks
 	{
 		FileReader reader;
 		{
-			std::lock_guard<std::mutex> lock(m_ThreadHandling->m_Lock);
+			LOCK(m_ThreadHandling->m_Lock);
 			m_ThreadHandling->m_CurrentReader = &reader;
 		}
 		bool bSuccess = false;
@@ -97,6 +97,7 @@ namespace LibSWBF2::Chunks
 			try
 			{
 				ReadFromStream(reader);
+				LOCK(m_ThreadHandling->m_Lock);
 				reader.Close();
 				LOG_INFO("Successfully finished reading process!");
 				bSuccess = true;
@@ -105,6 +106,7 @@ namespace LibSWBF2::Chunks
 			{
 				LOG_ERROR(e.what());
 				LOG_ERROR("Aborting read process...");
+				LOCK(m_ThreadHandling->m_Lock);
 				reader.Close();
 			}
 		}
@@ -113,7 +115,7 @@ namespace LibSWBF2::Chunks
 			LOG_WARN("Could not open File {}! Non existent?", Path);
 		}
 		{
-			std::lock_guard<std::mutex> lock(m_ThreadHandling->m_Lock);
+			LOCK(m_ThreadHandling->m_Lock);
 			m_ThreadHandling->m_CurrentReader = nullptr;
 		}
 		return bSuccess;
@@ -213,10 +215,10 @@ namespace LibSWBF2::Chunks
 
 	float_t BaseChunk::GetReadingProgress()
 	{
-		std::lock_guard<std::mutex> lock(m_ThreadHandling->m_Lock);
+		LOCK(m_ThreadHandling->m_Lock);
 		if (m_ThreadHandling->m_CurrentReader == nullptr)
 		{
-			return 0.0f;
+			return 1.0f;
 		}
 
 		return (float_t)m_ThreadHandling->m_CurrentReader->GetPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();

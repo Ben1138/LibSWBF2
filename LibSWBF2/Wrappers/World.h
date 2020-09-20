@@ -3,6 +3,11 @@
 #include "Instance.h"
 #include "Chunks/LVL/wrld/wrld.h"
 
+namespace LibSWBF2
+{
+	class LevelContainer;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -24,7 +29,7 @@ namespace LibSWBF2::Wrappers
 		List<Instance> m_Instances;	// a.k.a. world objects
 
 	public:
-		static bool FromChunk(Level* mainContainer, wrld* worldChunk, World& out);
+		static bool FromChunk(LevelContainer* mainContainer, wrld* worldChunk, World& out);
 
 		Types::String GetName() const;
 		const List<Instance>& GetInstances() const;

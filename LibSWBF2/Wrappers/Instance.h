@@ -5,6 +5,11 @@
 #include "Types/List.h"
 #include "Chunks/LVL/wrld/inst.h"
 
+namespace LibSWBF2
+{
+	class LevelContainer;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using LibSWBF2::Chunks::LVL::wrld::inst;
@@ -30,12 +35,12 @@ namespace LibSWBF2::Wrappers
 		Instance& operator=(Instance&& other);
 
 	private:
-		Level* p_Parent;
+		LevelContainer* p_MainContainer;
 		inst* p_Instance;
 		class PropertyMap* m_PropertyMapping;
 
 	public:
-		static bool FromChunk(Level* mainContainer, inst* instanceChunk, Instance& out);
+		static bool FromChunk(LevelContainer* mainContainer, inst* instanceChunk, Instance& out);
 
 		String GetType() const;
 		String GetName() const;
@@ -48,7 +53,6 @@ namespace LibSWBF2::Wrappers
 		// will fallback to entity class property, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
 
-		// will try to resolve within this Level
 		const EntityClass* GetEntityClass() const;
 	};
 }

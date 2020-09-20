@@ -2,6 +2,7 @@
 #include "EntityClass.h"
 #include "InternalHelpers.h"
 #include "Hashing.h"
+#include "LevelContainer.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include <string>
 #include <map>
@@ -24,6 +25,7 @@ namespace LibSWBF2::Wrappers
 	EntityClass::EntityClass()
 	{
 		m_PropertyMapping = new PropertyMap();
+		p_MainContainer = nullptr;
 	}
 
 	EntityClass::~EntityClass()
@@ -49,7 +51,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 	template<class EntityClassType>
-	bool EntityClass::FromChunk(EntityClassType* classChunk, EntityClass& out)
+	bool EntityClass::FromChunk(LevelContainer* mainContainer, EntityClassType* classChunk, EntityClass& out)
 	{
 		if (classChunk == nullptr)
 		{
@@ -58,6 +60,7 @@ namespace LibSWBF2::Wrappers
 		}
 
 		out.p_classChunk = (GenericClassNC*)classChunk;
+		out.p_MainContainer = mainContainer;
 
 		if (typeid(EntityClassType*) == typeid(entc*))
 		{
@@ -91,14 +94,23 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String EntityClass::GetClassType() const
+	String EntityClass::GetTypeName() const
 	{
 		return p_classChunk->p_Type->m_Text;
 	}
 
-	String EntityClass::GetClassBase() const
+	String EntityClass::GetBaseName() const
 	{
 		return p_classChunk->p_Base->m_Text;
+	}
+
+	const EntityClass* EntityClass::GetBase() const
+	{
+		if (p_MainContainer == nullptr)
+		{
+			return nullptr;
+		}
+		return p_MainContainer->FindEntityClass(GetBaseName());
 	}
 
 	bool EntityClass::GetProperty(FNVHash hashedPropertyName, String& outValue) const
@@ -108,6 +120,11 @@ namespace LibSWBF2::Wrappers
 		{
 			outValue = p_classChunk->m_Properties[it->second]->m_Value;
 			return true;
+		}
+		const EntityClass* base = GetBase();
+		if (base != nullptr)
+		{
+			return base->GetProperty(hashedPropertyName, outValue);
 		}
 		return false;
 	}
@@ -122,8 +139,8 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	template LIBSWBF2_API bool EntityClass::FromChunk(entc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(ordc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(wpnc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(expc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, entc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, ordc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, wpnc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, expc* classChunk, EntityClass& out);
 }

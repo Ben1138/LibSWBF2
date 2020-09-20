@@ -14,6 +14,11 @@
 #include "Chunks/LVL/LVL.h"
 
 
+namespace LibSWBF2
+{
+	class LevelContainer;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -29,11 +34,14 @@ namespace LibSWBF2::Wrappers
 	class LIBSWBF2_API Level
 	{
 	private:
-		Level(LVL* lvl);
+		friend LevelContainer;
+
+		Level(LVL* lvl, LevelContainer* mainContainer);
 		~Level();
 
 	private:
 		LVL* p_lvl;
+		LevelContainer* p_MainContainer;	// can be NULL
 
 		List<Model> m_Models;
 		List<Texture> m_Textures;
@@ -57,6 +65,7 @@ namespace LibSWBF2::Wrappers
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
 		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);
+		static Level* FromChunk(LVL* lvl, LevelContainer* mainContainer);
 		static void Destroy(Level* level);
 
 		bool IsWorldLevel() const;
