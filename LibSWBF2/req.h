@@ -29,5 +29,5 @@ namespace LibSWBF2
 
 	typedef uint16_t Widechar;
 
-	typedef uint16_t LevelHandle;
+	typedef uint16_t SWBF2Handle;
 }

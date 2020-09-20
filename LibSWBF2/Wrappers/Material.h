@@ -8,7 +8,7 @@
 
 namespace LibSWBF2
 {
-	class LevelContainer;
+	class Container;
 }
 
 namespace LibSWBF2::Wrappers

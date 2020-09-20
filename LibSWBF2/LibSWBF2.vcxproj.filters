@@ -558,7 +558,7 @@
     <ClInclude Include="Wrappers\EntityClass.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="LevelContainer.h">
+    <ClInclude Include="Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -965,7 +965,7 @@
     <ClCompile Include="Wrappers\EntityClass.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="LevelContainer.cpp">
+    <ClCompile Include="Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

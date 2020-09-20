@@ -275,20 +275,20 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String LevelLoadStatusToString(ELevelLoadStatus type)
+	Types::String LoadStatusToString(ELoadStatus type)
 	{
 		switch (type)
 		{
-			case ELevelLoadStatus::Uninitialized:
+			case ELoadStatus::Uninitialized:
 				return "Uninitialized";
-			case ELevelLoadStatus::Loading:
+			case ELoadStatus::Loading:
 				return "Loading";
-			case ELevelLoadStatus::Loaded:
+			case ELoadStatus::Loaded:
 				return "Loaded";
-			case ELevelLoadStatus::Failed:
+			case ELoadStatus::Failed:
 				return "Failed";
 			default:
-				return fmt::format("Unknown ELevelLoadStatus: {}", (int)type).c_str();
+				return fmt::format("Unknown ELoadStatus: {}", (int)type).c_str();
 		}
 	}
 	
