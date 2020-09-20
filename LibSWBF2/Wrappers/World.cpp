@@ -4,7 +4,7 @@
 
 namespace LibSWBF2::Wrappers
 {
-	bool World::FromChunk(LevelContainer* mainContainer, wrld* worldChunk, World& out)
+	bool World::FromChunk(Container* mainContainer, wrld* worldChunk, World& out)
 	{
 		if (mainContainer == nullptr)
 		{

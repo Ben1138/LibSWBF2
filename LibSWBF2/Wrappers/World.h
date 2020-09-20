@@ -5,7 +5,7 @@
 
 namespace LibSWBF2
 {
-	class LevelContainer;
+	class Container;
 }
 
 namespace LibSWBF2::Wrappers
@@ -29,7 +29,7 @@ namespace LibSWBF2::Wrappers
 		List<Instance> m_Instances;	// a.k.a. world objects
 
 	public:
-		static bool FromChunk(LevelContainer* mainContainer, wrld* worldChunk, World& out);
+		static bool FromChunk(Container* mainContainer, wrld* worldChunk, World& out);
 
 		Types::String GetName() const;
 		const List<Instance>& GetInstances() const;

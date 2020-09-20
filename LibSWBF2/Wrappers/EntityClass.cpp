@@ -2,7 +2,7 @@
 #include "EntityClass.h"
 #include "InternalHelpers.h"
 #include "Hashing.h"
-#include "LevelContainer.h"
+#include "Container.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include <string>
 #include <map>
@@ -51,7 +51,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 	template<class EntityClassType>
-	bool EntityClass::FromChunk(LevelContainer* mainContainer, EntityClassType* classChunk, EntityClass& out)
+	bool EntityClass::FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out)
 	{
 		if (classChunk == nullptr)
 		{
@@ -139,8 +139,8 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, entc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, ordc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, wpnc* classChunk, EntityClass& out);
-	template LIBSWBF2_API bool EntityClass::FromChunk(LevelContainer* mainContainer, expc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, entc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, ordc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, wpnc* classChunk, EntityClass& out);
+	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, expc* classChunk, EntityClass& out);
 }

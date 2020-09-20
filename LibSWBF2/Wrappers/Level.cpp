@@ -19,7 +19,7 @@ namespace LibSWBF2::Wrappers
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::lght;
 
-	Level::Level(LVL* lvl, LevelContainer* mainContainer)
+	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
@@ -202,7 +202,7 @@ namespace LibSWBF2::Wrappers
 		return result;
 	}
 
-	Level* Level::FromChunk(LVL* lvl, LevelContainer* mainContainer)
+	Level* Level::FromChunk(LVL* lvl, Container* mainContainer)
 	{
 		if (lvl == nullptr)
 		{

@@ -58,6 +58,12 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
 		};
+
+		class SoundMapsWrapper
+		{
+		public:
+			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
+		};
 	}
 }
 

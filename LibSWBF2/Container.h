@@ -1,5 +1,6 @@
 #pragma once
 #include "Wrappers/Level.h"
+#include "Wrappers/SoundBank.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Types/Enums.h"
@@ -9,6 +10,8 @@ namespace LibSWBF2
 	using LibSWBF2::Types::String;
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Wrappers::Level;
+	using LibSWBF2::Wrappers::SoundBank;
+	using LibSWBF2::Wrappers::Sound;
 	using LibSWBF2::Wrappers::Model;
 	using LibSWBF2::Wrappers::Texture;
 	using LibSWBF2::Wrappers::World;
@@ -19,28 +22,30 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::EntityClass;
 
 
-	class LIBSWBF2_API LevelContainer
+	class LIBSWBF2_API Container
 	{
 	private:
-		LevelContainer();
-		~LevelContainer();
+		Container();
+		~Container();
 
-		class LevelContainerMembers* m_ThreadSafeMembers = nullptr;
+		class ContainerMembers* m_ThreadSafeMembers = nullptr;
 
 		void LoadLevelAsync(size_t index, const String& path, const List<String>* subLVLsToLoad);
+		void LoadSoundBankAsync(size_t index, const String& path);
 		uint64_t m_OverallSize = 0;
 
 	public:
-		static LevelContainer* Create();
-		static void Delete(LevelContainer* instance);
+		static Container* Create();
+		static void Delete(Container* instance);
 
-		LevelHandle AddLevel(String path, const List<String>* subLVLsToLoad = nullptr);
+		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr);
+		SWBF2Handle AddSoundBank(const String& path);
 		void StartLoading();
 		void FreeAll();
 		bool IsDone() const;
-		ELevelLoadStatus GetLevelStatus(LevelHandle handle) const;
-		float_t GetLevelProgress(LevelHandle handle) const;
-		Level* GetLevel(LevelHandle handle) const;
+		ELoadStatus GetLevelStatus(SWBF2Handle handle) const;
+		float_t GetLevelProgress(SWBF2Handle handle) const;
+		Level* GetLevel(SWBF2Handle handle) const;
 		float_t GetOverallProgress();
 
 		const Light* FindLight(String lightName) const;
@@ -51,6 +56,8 @@ namespace LibSWBF2
 		const Script* FindScript(String scriptName) const;
 		const Localization* FindLocalization(String loclName) const;
 		const EntityClass* FindEntityClass(String typeName) const;
+		const Sound* FindSound(String soundName) const;
+		const Sound* FindSound(FNVHash hashedSoundName) const;
 
 		// count is number of wide chars, NOT number of bytes!
 		bool GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const;
