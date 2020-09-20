@@ -34,7 +34,7 @@ namespace LibSWBF2::Wrappers
 		List<Color> m_Colors;
 
 	public:
-		static bool FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out);
+		static bool FromChunk(tern* terrainChunk, Terrain& out);
 
 		String GetName() const;
 

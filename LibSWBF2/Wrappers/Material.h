@@ -6,6 +6,11 @@
 #include "Types/LibString.h"
 #include "Texture.h"
 
+namespace LibSWBF2
+{
+	class LevelContainer;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::modl::MTRL;
