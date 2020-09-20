@@ -38,7 +38,7 @@ namespace LibSWBF2
 	};
 
 	template<class T>
-	void CopyMap(std::unordered_map<std::string, size_t>& levelMap, List<T> list, std::unordered_map<std::string, const T*>& containerMap)
+	void CopyMap(std::unordered_map<std::string, size_t>& levelMap, const List<T>& list, std::unordered_map<std::string, const T*>& containerMap)
 	{
 		for (auto& it : levelMap)
 		{
@@ -171,18 +171,20 @@ namespace LibSWBF2
 			return;
 		}
 
-		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		for (LevelLoadStatus& status : m_ThreadSafeMembers->m_Statuses)
 		{
-			if (status.m_Level != nullptr)
+			LOCK(m_ThreadSafeMembers->m_StatusLock);
+			for (LevelLoadStatus& status : m_ThreadSafeMembers->m_Statuses)
 			{
-				Level::Destroy(status.m_Level);
-				status.m_Level = nullptr;
+				if (status.m_Level != nullptr)
+				{
+					Level::Destroy(status.m_Level);
+					status.m_Level = nullptr;
+				}
 			}
 		}
-		m_ThreadSafeMembers->m_Statuses.clear();
-		m_ThreadSafeMembers->m_Processes.clear();
-		m_ThreadSafeMembers->m_ScheduledLevels.clear();
+		
+		delete m_ThreadSafeMembers;
+		m_ThreadSafeMembers = new LevelContainerMembers();
 	}
 
 	bool LevelContainer::IsDone() const
