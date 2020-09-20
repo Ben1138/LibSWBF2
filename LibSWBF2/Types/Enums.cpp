@@ -230,7 +230,7 @@ namespace LibSWBF2
 
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type)
 	{
-		switch(type)
+		switch (type)
 		{
 			case ELightType::Omni:
 				return "Omnidirectional";
@@ -272,6 +272,23 @@ namespace LibSWBF2
 				return "ExplosionClass";
 			default:
 				return fmt::format("Unknown EEntityClassType: {}", (int)type).c_str();
+		}
+	}
+
+	Types::String LevelLoadStatusToString(ELevelLoadStatus type)
+	{
+		switch (type)
+		{
+			case ELevelLoadStatus::Uninitialized:
+				return "Uninitialized";
+			case ELevelLoadStatus::Loading:
+				return "Loading";
+			case ELevelLoadStatus::Loaded:
+				return "Loaded";
+			case ELevelLoadStatus::Failed:
+				return "Failed";
+			default:
+				return fmt::format("Unknown ELevelLoadStatus: {}", (int)type).c_str();
 		}
 	}
 	

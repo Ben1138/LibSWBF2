@@ -166,6 +166,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
+	Types::String LIBSWBF2_API LevelLoadStatusToString(ELevelLoadStatus type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
