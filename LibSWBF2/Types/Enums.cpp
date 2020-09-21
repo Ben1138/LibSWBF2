@@ -325,7 +325,27 @@ namespace LibSWBF2
 
 		return result.c_str();
 	}
-	
+
+	Types::String CollisionPrimitiveTypeToString(ECollisionPrimitiveType type)
+	{
+		if (type == ECollisionPrimitiveType::Sphere)
+		{
+			return "Sphere";
+		}
+
+		if (type == ECollisionPrimitiveType::Cylinder)
+		{
+			return "Cylinder";
+		}
+
+		if (type == ECollisionPrimitiveType::Cube)
+		{
+			return "Cube";
+		}
+
+		return "Unknown Primitive Type"
+	}
+
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
 		return static_cast<EMaterialFlags> (
