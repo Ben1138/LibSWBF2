@@ -48,8 +48,6 @@ namespace LibSWBF2::Chunks::LVL::coll
         	}
         	else
         	{
-        		//stream.SetPosition(stream.GetPosition() + 1);
-        		//ForwardToNextHeader(stream);
         		READ_CHILD_GENERIC(stream);
         	}
         }
