@@ -30,4 +30,6 @@ namespace LibSWBF2
 	typedef uint16_t Widechar;
 
 	typedef uint16_t SWBF2Handle;
+
+#define SWBF2HANDLE_INVALID 0xffff
 }
