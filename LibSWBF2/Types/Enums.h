@@ -92,6 +92,16 @@ namespace LibSWBF2
 		AttachedLight = 134217728,
 	};
 
+	enum class ECollisionMaskType : uint32_t
+	{
+		Ordnance = 1,
+        Vehicle = 2,
+        Building = 4,
+        Terrain = 8,
+        Soldier = 16,
+        Flag = 32,
+	};
+
 	enum class EVBUFFlags : uint32_t
 	{
 		None = 0b0u,
@@ -166,6 +176,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
+	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskType type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -179,4 +190,9 @@ namespace LibSWBF2
 	EVBUFFlags LIBSWBF2_API operator &(EVBUFFlags lhs, EVBUFFlags rhs);
 	bool LIBSWBF2_API operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 	bool LIBSWBF2_API operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
+
+	ECollisionMaskType LIBSWBF2_API operator &(ECollisionMaskType lhs, ECollisionMaskType rhs);
+	bool LIBSWBF2_API operator ==(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs);
+	bool LIBSWBF2_API operator !=(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs);
+
 }
