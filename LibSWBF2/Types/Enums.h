@@ -102,6 +102,13 @@ namespace LibSWBF2
         Flag = 32,
 	};
 
+	enum class ECollisionPrimitiveType : uint32_t
+	{
+		Sphere = 1,//can also be 0...
+		Cylinder = 2,
+		Cube = 4,
+	};
+
 	enum class EVBUFFlags : uint32_t
 	{
 		None = 0b0u,
@@ -177,6 +184,8 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskType type);
+	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
+
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
