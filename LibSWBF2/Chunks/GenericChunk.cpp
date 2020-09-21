@@ -326,8 +326,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
 
 	// collision
-	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TREE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LEAF"_m>;
 	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
 

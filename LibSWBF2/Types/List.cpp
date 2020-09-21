@@ -6,6 +6,8 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "Chunks/LVL/common/PROP.h"
 #include "Chunks/LVL/lght/lght.h"
+#include "Chunks/LVL/coll/TREE.NODE.h"
+#include "Chunks/LVL/coll/TREE.LEAF.h"
 #include "Wrappers/Light.h"
 
 
@@ -490,6 +492,9 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
     template class LIBSWBF2_API Types::List<LVL::common::PROP*>;
+
+    template class LIBSWBF2_API Types::List<LVL::coll::TREE_NODE*>;
+    template class LIBSWBF2_API Types::List<LVL::coll::TREE_LEAF*>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
