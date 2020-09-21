@@ -16,7 +16,6 @@ namespace LibSWBF2::Chunks::LVL::coll
 
 	    Types::String ToString() override;
 
-        List<Vector3> m_Content;
-
+        List<Vector3> m_Verts;
     };
 }
