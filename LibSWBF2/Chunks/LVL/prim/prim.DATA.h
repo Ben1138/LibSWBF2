@@ -16,7 +16,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 
 		Types::String ToString() override;
 
-		uint32_t m_PrimitiveType;
+		ECollisionPrimitiveType m_PrimitiveType;
 		float_t m_Field1, m_Field2, m_Field3;
 	};
 }
