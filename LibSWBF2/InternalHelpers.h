@@ -13,6 +13,8 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <unordered_map>
+
 
 namespace LibSWBF2
 {
