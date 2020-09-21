@@ -23,14 +23,6 @@ namespace LibSWBF2::Chunks::LVL::coll
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        /*
-        //TEST ALWAYS PASSES
-        if (GetDataSize() % 12 != 0)
-        {
-            LOG_WARN("{} is not divisible by 12, so POSI might be misinterpreted...", GetDataSize());
-        }
-        */
-
         Vector3 tmp;
         while (ThereIsAnother(stream))
         {
