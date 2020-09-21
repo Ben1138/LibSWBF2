@@ -33,7 +33,7 @@ int main()
 	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
 #endif
 
-	COUT(testLVL -> m_GlobalLightingConfig.ToString().Buffer());
+	COUT(testLVL -> GetGlobalLighting() -> ToString().Buffer());
 
 	const List<Light>& lights = testLVL -> GetLights();
 
