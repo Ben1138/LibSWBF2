@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks::LVL::coll
     Types::String POSI::ToString()
     {
         String stringRep("");
-        //return String(fmt::format("Num verts: {}", m_Content.Size()).c_str());
+        stringRep = stringRep + String(fmt::format("Num verts: {}\n", m_Content.Size()).c_str());
 
         for (int i  = 0; i < m_Content.Size(); i++)
         {
