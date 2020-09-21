@@ -23,15 +23,16 @@ namespace LibSWBF2::Chunks::LVL::coll
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_TestField1 = stream.ReadInt16();
-        m_TestField2 = stream.ReadInt16();
-        m_TestField3 = stream.ReadInt16();
+        m_VecLower.ReadFromStream(stream);
+        m_VecUpper.ReadFromStream(stream);
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
     Types::String TREE_NODE::ToString() 
     {
-        return fmt::format("1: {}, 2: {}, 3: {}", m_TestField1, m_TestField2, m_TestField3).c_str();
+        return fmt::format("Lower vector: {}\nHigher vector: {}",
+        				    m_VecLower.ToString().Buffer(),
+        				    m_VecUpper.ToString().Buffer()).c_str();
     }
 }

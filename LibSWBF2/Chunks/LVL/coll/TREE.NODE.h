@@ -18,7 +18,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 
         Types::String ToString() override;
 
-        int16_t m_TestField1, m_TestField2, m_TestField3;
+        Vector3u8 m_VecLower, m_VecUpper;
 
     private:
         uint32_t m_FlattenedTreeIndex;
