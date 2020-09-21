@@ -23,9 +23,9 @@ namespace LibSWBF2::Chunks::LVL::coll
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_TestField1 = stream.ReadUInt16();
-        m_TestField2 = stream.ReadUInt16();
-        m_TestField3 = stream.ReadUInt16();
+        m_TestField1 = stream.ReadInt16();
+        m_TestField2 = stream.ReadInt16();
+        m_TestField3 = stream.ReadInt16();
 
 		BaseChunk::EnsureEnd(stream);
 	}

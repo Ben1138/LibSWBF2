@@ -3,6 +3,7 @@
 #include "Chunks/STR.h"
 #include "POSI.h"
 #include "TREE.h"
+#include "coll.INFO.h"
 
 
 namespace LibSWBF2::Chunks::LVL::coll
@@ -19,8 +20,8 @@ namespace LibSWBF2::Chunks::LVL::coll
         STR<"NAME"_m> *p_ChunkName;
         STR<"NODE"_m> *p_NodeName;
 
+        INFO_coll *p_Info;
         TREE *p_SpatialDataStructure;
-
         POSI *p_Verts;
     };
 }
