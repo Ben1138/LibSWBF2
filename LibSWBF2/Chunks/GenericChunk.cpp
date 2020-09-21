@@ -196,24 +196,13 @@ namespace LibSWBF2::Chunks
 						LVL::coll::coll* collisionMesh;
 						READ_CHILD(stream, collisionMesh);
 						chunk = collisionMesh;
-					}
-					
-					
+					}					
 					else if (nextHead == "prim"_h)
 					{
 						LVL::prim::prim* collisionPrimitives;
 						READ_CHILD(stream, collisionPrimitives);
 						chunk = collisionPrimitives;
 					}
-
-					else if (nextHead == "XFRM"_h)
-					{
-						LVL::wrld::XFRM* transform;
-						READ_CHILD(stream, transform);
-						chunk = transform;
-					}
-					
-
 					else
 					{
 						GenericChunkNC* generic;
@@ -340,6 +329,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
 	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
 
 }
 

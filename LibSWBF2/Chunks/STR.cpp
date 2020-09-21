@@ -84,5 +84,4 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API STR<"PROP"_m>;
 
 	template struct LIBSWBF2_API STR<"INFO"_m>;
-
 }
