@@ -37,10 +37,11 @@ namespace LibSWBF2::Chunks::LVL::prim
 
 
         READ_CHILD(stream, p_InfoHeader);
+        ChunkHeader nextHeader;
 
         while (ThereIsAnother(stream))
         {
-        	ChunkHeader nextHeader = stream.ReadChunkHeader(true);
+        	nextHeader = stream.ReadChunkHeader(true);
         	
         	if (nextHeader == "DATA"_h)
     		{

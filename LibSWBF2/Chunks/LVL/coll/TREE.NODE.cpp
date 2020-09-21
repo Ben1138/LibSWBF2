@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "coll.h"
+#include "TREE.NODE.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
@@ -8,34 +8,27 @@
 
 namespace LibSWBF2::Chunks::LVL::coll
 {
-	void coll::RefreshSize()
+	void TREE_NODE::RefreshSize()
 	{
 		THROW("Not implemented!");
 	}
 
-	void coll::WriteToStream(FileWriter& stream)
+	void TREE_NODE::WriteToStream(FileWriter& stream)
 	{
 		THROW("Not implemented!");
 	}
 
-	void coll::ReadFromStream(FileReader& stream)
+	void TREE_NODE::ReadFromStream(FileReader& stream)
 	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
-
-        READ_CHILD(stream, p_ChunkName);
-        READ_CHILD(stream, p_NodeName);
-
-        READ_CHILD_GENERIC(stream);
-        READ_CHILD(stream, p_Verts);
-
-        READ_CHILD(stream, p_SpatialDataStructure);
-
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String coll::ToString() 
+	/*
+    Types::String TREE_NODE::ToString() 
     {
         return p_ChunkName -> ToString();
     }
+    */
 }
