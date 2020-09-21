@@ -2,6 +2,7 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
 #include "../wrld/XFRM.h"
+#include "Types/Enums.h"
 
 
 namespace LibSWBF2::Chunks::LVL::prim
@@ -15,6 +16,6 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         Types::String ToString() override;
         
-        uint32_t m_MaskFlags; //solider, Ordnance, building, vehicle, etc...
+        ECollisionMaskType m_MaskFlags; //solider, Ordnance, building, vehicle, etc...
     };
 }
