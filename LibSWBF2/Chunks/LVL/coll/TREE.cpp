@@ -48,6 +48,7 @@ namespace LibSWBF2::Chunks::LVL::coll
         	}
         	else
         	{
+                LOG_WARN("Irregular TREE child: {}", nextHeader.ToString());
         		READ_CHILD_GENERIC(stream);
         	}
         }
@@ -57,7 +58,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 
     Types::String TREE::ToString() 
     {
-        return fmt::format("{} internal nodes, {} leaf nodes,   leaves w/4 {}, leaves w/3 {}",
+        return fmt::format("{} internal nodes, {} leaf nodes",
         				    m_Nodes.Size(),
         				    m_Leaves.Size()).c_str();
     }

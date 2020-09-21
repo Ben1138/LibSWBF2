@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks::LVL::coll
         STR<"NODE"_m> *p_NodeName;
 
         INFO_coll *p_Info;
-        TREE *p_SpatialDataStructure;
+        TREE *p_Tree;
         POSI *p_Verts;
     };
 }
