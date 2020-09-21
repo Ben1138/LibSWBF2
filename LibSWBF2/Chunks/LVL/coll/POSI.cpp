@@ -23,16 +23,19 @@ namespace LibSWBF2::Chunks::LVL::coll
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
+        /*
+        //TEST ALWAYS PASSES
         if (GetDataSize() % 12 != 0)
         {
             LOG_WARN("{} is not divisible by 12, so POSI might be misinterpreted...", GetDataSize());
         }
+        */
 
         Vector3 tmp;
         while (ThereIsAnother(stream))
         {
             tmp.ReadFromStream(stream);
-            m_Content.Add(tmp);
+            m_Verts.Add(tmp);
         }
 
 		BaseChunk::EnsureEnd(stream);
@@ -41,11 +44,11 @@ namespace LibSWBF2::Chunks::LVL::coll
     Types::String POSI::ToString()
     {
         String stringRep("");
-        stringRep = stringRep + String(fmt::format("Num verts: {}\n", m_Content.Size()).c_str());
+        stringRep = stringRep + String(fmt::format("Num verts: {}\n", m_Verts.Size()).c_str());
 
-        for (int i  = 0; i < m_Content.Size(); i++)
+        for (int i  = 0; i < m_Verts.Size(); i++)
         {
-            stringRep = stringRep + m_Content[i].ToString();
+            stringRep = stringRep + m_Verts[i].ToString();
             stringRep = stringRep + "\n";
         }
 

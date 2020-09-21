@@ -10,6 +10,7 @@ namespace LibSWBF2::Chunks::LVL::coll
     {
 
     friend struct TREE;
+    friend struct coll;
 
     public:
 	    void RefreshSize() override;
