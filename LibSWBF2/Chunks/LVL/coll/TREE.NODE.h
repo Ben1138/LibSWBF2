@@ -1,26 +1,24 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
-#include "POSI.h"
-#include "TREE.h"
+//#include "TREE.h"
 
 
 namespace LibSWBF2::Chunks::LVL::coll
 {
-    struct LIBSWBF2_API coll : public GenericChunk<"coll"_m>
+    struct LIBSWBF2_API TREE_NODE : public GenericChunk<"NODE"_m>
     {
+
+    friend struct TREE;
+
     public:
 	    void RefreshSize() override;
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        Types::String ToString() override;
+        //Types::String TREE_NODE::ToString()
 
-        STR<"NAME"_m> *p_ChunkName;
-        STR<"NODE"_m> *p_NodeName;
-
-        TREE *p_SpatialDataStructure;
-
-        POSI *p_Verts;
+    private:
+        uint32_t m_FlattenedTreeIndex;
     };
 }
