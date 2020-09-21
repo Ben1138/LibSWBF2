@@ -88,7 +88,7 @@ namespace LibSWBF2
 			status->m_LoadStatus = ELoadStatus::Loading;
 		}
 
-		if (lvl->ReadFromFile(scheduled.m_Path, scheduled.m_SubLVLsToLoad))
+		if (lvl->ReadFromFile(scheduled.m_Path, scheduled.m_SubLVLsToLoad.Size() > 0 ? &scheduled.m_SubLVLsToLoad : nullptr))
 		{
 			Level* level = Level::FromChunk(lvl, this);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
@@ -194,18 +194,19 @@ namespace LibSWBF2
 
 	SWBF2Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, subLVLsToLoad, false, bRegisterContents });
+		m_ThreadSafeMembers->m_Scheduled.push_back({ path, subLVLsToLoad != nullptr ? *subLVLsToLoad : List<String>(), false, bRegisterContents });
 		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
 	}
 
 	SWBF2Handle Container::AddSoundBank(const String& path, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, nullptr, true, bRegisterContents });
+		m_ThreadSafeMembers->m_Scheduled.push_back({ path, List<String>(), true, bRegisterContents });
 		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
 	}
 
 	void Container::StartLoading()
 	{
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		if (m_ThreadSafeMembers->m_Processes.size() > 0)
 		{
 			LOG_WARN("Already running!");
@@ -216,16 +217,14 @@ namespace LibSWBF2
 			LOG_WARN("No levels scheduled to load!");
 			return;
 		}
-
-		m_OverallSize = 0;
-		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		size_t num = m_ThreadSafeMembers->m_Scheduled.size();
-
-		if (num > 0)
+		if (m_ThreadSafeMembers->m_Statuses.size() > 0)
 		{
 			LOG_WARN("Call 'FreeAll' first!");
 			return;
 		}
+
+		m_OverallSize = 0;
+		size_t num = m_ThreadSafeMembers->m_Scheduled.size();
 
 		m_ThreadSafeMembers->m_Statuses.clear();
 		for (size_t i = 0; i < num; ++i)
