@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_MaskFlags = (ECollisionMaskType) stream.ReadUInt32();
+        m_MaskFlags = (ECollisionMaskFlags) stream.ReadUInt32();
 
         BaseChunk::EnsureEnd(stream);
     }

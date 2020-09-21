@@ -12,11 +12,16 @@ namespace LibSWBF2::Wrappers
                             STR<"NAME"_m> *name, MASK *mask,
                             CollisionPrimitive& out)
     {
-        return false;
+        if (transform == nullptr || name == nullptr || fields == nullptr)
+        {
+            return false;
+        }
+        out = CollisionPrimitive(fields, transform, name, mask);
+        return true;
     }
 
     CollisionPrimitive::CollisionPrimitive(DATA_PRIM *fields, XFRM *transform, 
-                                        STR<"NAME"_m> *name, MASK *mask,) : p_FieldsChunk(fields), 
+                                        STR<"NAME"_m> *name, MASK *mask) : p_FieldsChunk(fields), 
                                         p_TransformChunk(transform), p_NameChunk(name),
                                         p_MaskChunk(mask) {}
 
@@ -36,13 +41,16 @@ namespace LibSWBF2::Wrappers
         return p_NameChunk -> ToString();
     }
 
-    
     ECollisionPrimitiveType CollisionPrimitive::GetType() const
     {	
 	    return p_FieldsChunk -> m_PrimitiveType;
     }
-    
 
+    ECollisionMaskFlags CollisionPrimitive::GetMaskFlags() const
+    {
+        return p_MaskChunk == nullptr ? 0 : p_MaskChunk -> m_MaskFlags;
+    }
+    
     bool CollisionPrimitive::GetCubeDims(float_t& xOut, float_t& yOut, float_t& zOut) const
     {
         bool status = p_FieldsChunk -> m_PrimitiveType == ECollisionPrimitiveType::Cube;
