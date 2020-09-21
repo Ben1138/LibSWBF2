@@ -1,10 +1,12 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
+#include "../wrld/XFRM.h"
+
 
 namespace LibSWBF2::Chunks::LVL::prim
 {
-    struct LIBSWBF2_API prim : public GenericChunk<"prim"_m>
+    struct LIBSWBF2_API MASK : public GenericChunk<"MASK"_m>
     {
     public:
 	    void RefreshSize() override;
@@ -13,6 +15,6 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         Types::String ToString() override;
         
-        STR<"INFO"_m> *p_InfoHeader;
+        uint32_t m_MaskFlags; //solider, Ordnance, building, vehicle, etc...
     };
 }
