@@ -37,6 +37,7 @@ namespace LibSWBF2::Wrappers
 		Vector3 GetPosition() const;
 
 		ECollisionPrimitiveType GetType() const;
+		ECollisionMaskFlags GetMaskFlags() const
 
 		bool GetCubeDims(float_t& xOut, float_t& yOut, float_t& zOut) const;
 		bool GetCylinderDims(float_t& radiusOut, float_t& heightOut) const;

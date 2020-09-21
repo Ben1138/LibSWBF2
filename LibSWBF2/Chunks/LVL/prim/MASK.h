@@ -16,6 +16,6 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         Types::String ToString() override;
         
-        ECollisionMaskType m_MaskFlags; //solider, Ordnance, building, vehicle, etc...
+        ECollisionMaskFlags m_MaskFlags; //solider, Ordnance, building, vehicle, etc...
     };
 }
