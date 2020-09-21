@@ -98,4 +98,4 @@ target_sources(SWBF2 PRIVATE ${CHUNKS_SOURCES})
 find_library(FMTLIB fmt)
 find_library(GLMLIB glm_static)
 
-target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB})
+target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB} pthread)
