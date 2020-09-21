@@ -24,7 +24,7 @@ namespace LibSWBF2
 	struct Schedule
 	{
 		String m_Path;
-		const List<String>* m_SubLVLsToLoad = nullptr;
+		List<String> m_SubLVLsToLoad;
 		bool m_bIsSoundBank = false;
 		bool bRegisterContents = true;
 	};
