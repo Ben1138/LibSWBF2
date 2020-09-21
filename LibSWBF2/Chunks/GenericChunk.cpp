@@ -23,6 +23,7 @@
 #include "LVL/common/GenericClass.h"
 
 #include "LVL/lght/lght.h"
+#include "LVL/coll/coll.h"
 
 
 namespace LibSWBF2::Chunks
@@ -188,6 +189,14 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, explosionClass);
 						chunk = explosionClass;
 					}
+
+					else if (nextHead == "coll"_h)
+					{
+						LVL::coll::coll* collision;
+						READ_CHILD(stream, collision);
+						chunk = collision;
+					}
+
 					else
 					{
 						GenericChunkNC* generic;
@@ -309,5 +318,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"ordc"_m>;
 	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
 	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
+
+	// collision
+	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
+
 }
 
