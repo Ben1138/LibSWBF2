@@ -57,7 +57,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 
     Types::String TREE::ToString() 
     {
-        return fmt::format("{} internal nodes, {} leaf nodes",
+        return fmt::format("{} internal nodes, {} leaf nodes,   leaves w/4 {}, leaves w/3 {}",
         				    m_Nodes.Size(),
         				    m_Leaves.Size()).c_str();
     }

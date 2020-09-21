@@ -5,6 +5,8 @@
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
 
+#include <string>
+
 
 namespace LibSWBF2::Chunks::LVL::coll
 {
@@ -23,7 +25,11 @@ namespace LibSWBF2::Chunks::LVL::coll
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        stream.SkipBytes(16);
+        m_NumVerts 		    = stream.ReadUInt32();
+        m_NumInternalNodes  = stream.ReadUInt32();
+        m_NumLeafNodes      = stream.ReadUInt32();
+        m_NumIndiciesInTree = stream.ReadUInt32();
+        
         m_BBoxMin.ReadFromStream(stream);
         m_BBoxMax.ReadFromStream(stream);
 
@@ -32,6 +38,12 @@ namespace LibSWBF2::Chunks::LVL::coll
 
     Types::String INFO_coll::ToString() 
     {
-        return "BBox lower: " + m_BBoxMin.ToString() + ", BBox upper: " + m_BBoxMax.ToString();
+    	return fmt::format("BBox lower: {}\nBBox upper: {} \
+    		   \nNum vertices in POSI: {}\nNum internal nodes {} \
+    		   \nNum leaf nodes: {} \
+    		   \nTotal num indicies in leaves: {}",
+    		   m_BBoxMin.ToString().Buffer(), m_BBoxMax.ToString().Buffer(),
+    		   m_NumVerts, m_NumInternalNodes, m_NumLeafNodes, 
+    		   m_NumIndiciesInTree).c_str();
     }
 }

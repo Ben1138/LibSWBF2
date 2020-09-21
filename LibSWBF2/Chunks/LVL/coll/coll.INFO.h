@@ -14,5 +14,9 @@ namespace LibSWBF2::Chunks::LVL::coll
         Types::String ToString() override;
 
         Vector3 m_BBoxMin, m_BBoxMax;
+        uint32_t m_NumVerts;
+
+    private:
+    	uint32_t m_NumInternalNodes, m_NumLeafNodes, m_NumIndiciesInTree;
     };
 }
