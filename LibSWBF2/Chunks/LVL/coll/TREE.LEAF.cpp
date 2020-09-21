@@ -22,13 +22,37 @@ namespace LibSWBF2::Chunks::LVL::coll
 	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
+
+        uint32_t numIndicies = (uint32_t) stream.ReadByte();
+
+        stream.SkipBytes(6);
+
+        for (uint32_t i = 0; i < numIndicies; i++)
+        {
+        	m_Indicies.Add(stream.ReadUInt16());
+        }
+
+        /*
+        if (GetDataSize() - numVerts != 11)
+        {
+        	LOG_WARN("Leaf - vert prediction wrong at {}, byte read {}", stream.GetPosition(), numVerts);
+        }
+        */
+
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	/*
+	
     Types::String TREE_LEAF::ToString() 
     {
-        return p_ChunkName -> ToString();
+        String stringRep("{");
+
+        for (int i = 0; i < m_Indicies.Size(); i++)
+        {
+        	stringRep = stringRep + fmt::format(" {}", m_Indicies[i]).c_str();
+        }
+
+        stringRep = stringRep + " }";
+        return stringRep;
     }
-    */
 }
