@@ -16,7 +16,9 @@ namespace LibSWBF2::Chunks::LVL::coll
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        //Types::String TREE_NODE::ToString()
+        Types::String ToString() override;
+
+        uint16_t m_TestField1, m_TestField2, m_TestField3;
 
     private:
         uint32_t m_FlattenedTreeIndex;
