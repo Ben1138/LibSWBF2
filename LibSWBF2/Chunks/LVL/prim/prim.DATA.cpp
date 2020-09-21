@@ -23,7 +23,9 @@ namespace LibSWBF2::Chunks::LVL::prim
 		BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_PrimitiveType = stream.ReadUInt32();
+        uint32_t rawUInt = stream.ReadUInt32();
+
+        m_PrimitiveType = (ECollisionPrimitiveType) (rawUInt == 0 ? 0x1 : rawUInt);
 
         m_Field1 = stream.ReadFloat();
         m_Field2 = stream.ReadFloat();
@@ -37,24 +39,26 @@ namespace LibSWBF2::Chunks::LVL::prim
 		String stringRep("");
 		switch (m_PrimitiveType)
 		{
-			case 0:
-			case 1:
+			case ECollisionPrimitiveType::Sphere:
 				stringRep = stringRep + fmt::format(
 											"PrimitiveType: Sphere, Radius: {}", 
 											m_Field1).c_str();
 				break;
-			case 2:
+
+			case ECollisionPrimitiveType::Cylinder:
 				stringRep = stringRep + fmt::format(
 											"PrimitiveType: Cylinder, Radius: {}, Height: {}",
 											m_Field1, m_Field2).c_str();
 				break;
-			case 4:
+
+			case ECollisionPrimitiveType::Cube:
 				stringRep = stringRep + fmt::format(
 											"PrimitiveType: Cube, x: {}, y: {}, z: {}",
 											m_Field1, m_Field2, m_Field3).c_str();
 				break;
+
 			default:
-				stringRep = String("Unknown primitive type");
+				stringRep = String("Unknown Collision Primitive Type");
 		}
 
 		return stringRep;
