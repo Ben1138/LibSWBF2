@@ -280,36 +280,36 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String CollisionMaskTypeToString(ECollisionMaskType type)
+	Types::String CollisionMaskTypeToString(ECollisionMaskFlags type)
 	{
 		std::string result = "[";
 
-        if ((type & ECollisionMaskType::Ordnance) != 0)
+        if ((type & ECollisionMaskFlags::Ordnance) != 0)
         {
             result += "Ordnance, ";
         }
 
-        if ((type & ECollisionMaskType::Vehicle) != 0)
+        if ((type & ECollisionMaskFlags::Vehicle) != 0)
         {
             result += "Vehicle, ";
         }
 
-        if ((type & ECollisionMaskType::Building) != 0)
+        if ((type & ECollisionMaskFlags::Building) != 0)
         {
             result += "Building, ";
         }
 
-        if ((type & ECollisionMaskType::Terrain) != 0)
+        if ((type & ECollisionMaskFlags::Terrain) != 0)
         {
             result += "Terrain, ";
         }
 
-        if ((type & ECollisionMaskType::Soldier) != 0)
+        if ((type & ECollisionMaskFlags::Soldier) != 0)
         {
             result += "Soldier, ";
         }
 
-        if ((type & ECollisionMaskType::Flag) != 0)
+        if ((type & ECollisionMaskFlags::Flag) != 0)
         {
             result += "Flag, ";
         }
