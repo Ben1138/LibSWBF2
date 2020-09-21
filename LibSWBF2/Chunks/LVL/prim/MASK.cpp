@@ -24,45 +24,13 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_MaskFlags = stream.ReadUInt32();
+        m_MaskFlags = (ECollisionMaskType) stream.ReadUInt32();
 
         BaseChunk::EnsureEnd(stream);
     }
 
     Types::String MASK::ToString()
     {
-        String stringRep("[");
-
-        if ((m_MaskFlags & 0x1) != 0)
-        {
-            stringRep = stringRep + " Ordnance";
-        }
-
-        if ((m_MaskFlags & 0x2) != 0)
-        {
-            stringRep = stringRep + " Vehicle";
-        }
-
-        if ((m_MaskFlags & 0x4) != 0)
-        {
-            stringRep = stringRep + " Building";
-        }
-
-        if ((m_MaskFlags & 0x8) != 0)
-        {
-            stringRep = stringRep + " Terrain";
-        }
-
-        if ((m_MaskFlags & 0x10) != 0)
-        {
-            stringRep = stringRep + " Soldier";
-        }
-
-        if ((m_MaskFlags & 0x20) != 0)
-        {
-            stringRep = stringRep + " Flag";
-        }
-
-        return stringRep + " ]";
+        return CollisionMaskTypeToString(m_MaskFlags);
     }
 }

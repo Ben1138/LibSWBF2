@@ -279,6 +279,52 @@ namespace LibSWBF2
 				return fmt::format("Unknown EEntityClassType: {}", (int)type).c_str();
 		}
 	}
+
+	Types::String CollisionMaskTypeToString(ECollisionMaskType type)
+	{
+		std::string result = "[";
+
+        if ((type & ECollisionMaskType::Ordnance) != 0)
+        {
+            result += "Ordnance, ";
+        }
+
+        if ((type & ECollisionMaskType::Vehicle) != 0)
+        {
+            result += "Vehicle, ";
+        }
+
+        if ((type & ECollisionMaskType::Building) != 0)
+        {
+            result += "Building, ";
+        }
+
+        if ((type & ECollisionMaskType::Terrain) != 0)
+        {
+            result += "Terrain, ";
+        }
+
+        if ((type & ECollisionMaskType::Soldier) != 0)
+        {
+            result += "Soldier, ";
+        }
+
+        if ((type & ECollisionMaskType::Flag) != 0)
+        {
+            result += "Flag, ";
+        }
+
+        size_t resultSize = result.size();
+
+        if (resultSize > 1)
+        {
+        	result.resize(result.size() - 2);
+        }
+
+		result += "]";
+
+		return result.c_str();
+	}
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
@@ -340,5 +386,24 @@ namespace LibSWBF2
 	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)
 	{
 		return static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) != rhs;
+	}
+
+
+	ECollisionMaskType operator &(ECollisionMaskType lhs, ECollisionMaskType rhs)
+	{
+		return static_cast<ECollisionMaskType> (
+			static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) &
+			static_cast<std::underlying_type<ECollisionMaskType>::type>(rhs)
+			);
+	}
+
+	bool operator ==(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) != rhs;
 	}
 }
