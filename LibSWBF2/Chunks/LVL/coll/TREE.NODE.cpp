@@ -22,13 +22,16 @@ namespace LibSWBF2::Chunks::LVL::coll
 	{       
         BaseChunk::ReadFromStream(stream);
         Check(stream);
+
+        m_TestField1 = stream.ReadUInt16();
+        m_TestField2 = stream.ReadUInt16();
+        m_TestField3 = stream.ReadUInt16();
+
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	/*
     Types::String TREE_NODE::ToString() 
     {
-        return p_ChunkName -> ToString();
+        return fmt::format("1: {}, 2: {}, 3: {}", m_TestField1, m_TestField2, m_TestField3).c_str();
     }
-    */
 }
