@@ -5,6 +5,8 @@
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
 
+#include <string>
+
 
 namespace LibSWBF2::Chunks::LVL::coll
 {
@@ -25,19 +27,12 @@ namespace LibSWBF2::Chunks::LVL::coll
 
         uint32_t numIndicies = (uint32_t) stream.ReadByte();
 
-        stream.SkipBytes(6);
+        stream.SkipBytes(6); //unknown
 
         for (uint32_t i = 0; i < numIndicies; i++)
         {
         	m_Indicies.Add(stream.ReadUInt16());
         }
-
-        /*
-        if (GetDataSize() - numVerts != 11)
-        {
-        	LOG_WARN("Leaf - vert prediction wrong at {}, byte read {}", stream.GetPosition(), numVerts);
-        }
-        */
 
 		BaseChunk::EnsureEnd(stream);
 	}
@@ -45,14 +40,14 @@ namespace LibSWBF2::Chunks::LVL::coll
 	
     Types::String TREE_LEAF::ToString() 
     {
-        String stringRep("{");
+        std::string stringRep = "{";
 
         for (int i = 0; i < m_Indicies.Size(); i++)
         {
-        	stringRep = stringRep + fmt::format(" {}", m_Indicies[i]).c_str();
+        	stringRep += fmt::format(" {}", m_Indicies[i]).c_str();
         }
 
-        stringRep = stringRep + " }";
-        return stringRep;
+        stringRep += " }";
+        return stringRep.c_str();
     }
 }
