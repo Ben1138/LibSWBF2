@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "prim.h"
 #include "prim.DATA.h"
+#include "../wrld/XFRM.h"
+#include "MASK.h"
+
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
@@ -25,25 +28,47 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        READ_CHILD(stream, p_InfoHeader);
+        DATA_PRIM *tempDATA;
+        wrld::XFRM *tempXFRM;
+        MASK *tempMASK;
+        STR<"NODE"_m> *tempNODE;
+        STR<"PRNT"_m> *tempPRNT;
+        STR<"NAME"_m> *tempNAME;
 
-        DATA_PRIM *tmpData;
-        //STR<"NODE"> *tempNode;
+
+        READ_CHILD(stream, p_InfoHeader);
 
         while (ThereIsAnother(stream))
         {
         	ChunkHeader nextHeader = stream.ReadChunkHeader(true);
-
+        	
         	if (nextHeader == "DATA"_h)
+    		{
+    			READ_CHILD(stream, tempDATA);
+    		}
+    		else if (nextHeader == "NODE"_h)
+    		{
+        		READ_CHILD(stream, tempNODE);
+        	}
+    		else if (nextHeader == "PRNT"_h)
+    		{
+        		READ_CHILD(stream, tempPRNT);
+        	}
+        	else if (nextHeader == "MASK"_h)
         	{
-        		READ_CHILD(stream, tmpData);
-        	} else if (nextHeader == "coll"_h)
-        	{
-        		stream.SetPosition(stream.GetPosition() + 1);
-        		BaseChunk::ForwardToNextHeader(stream);
-        	} else
-        	{
-		        READ_CHILD_GENERIC(stream);		
+        		READ_CHILD(stream, tempMASK);
+			}
+			else if (nextHeader == "XFRM"_h)
+			{
+        		READ_CHILD(stream, tempXFRM);
+			}
+			else if (nextHeader == "NAME"_h)
+			{
+        		READ_CHILD(stream, tempNAME);
+			}
+			else 
+			{
+			    READ_CHILD_GENERIC(stream);
         	}       	
         }
 
