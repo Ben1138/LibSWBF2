@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "prim.h"
+#include "prim.DATA.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
@@ -26,16 +27,25 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         READ_CHILD(stream, p_InfoHeader);
 
-        //while (ThereIsAnother(stream))
-        //{
-	    //    READ_CHILD_GENERIC(stream);
-	        //READ_CHILD_GENERIC(stream);
-	        //READ_CHILD_GENERIC(stream);
+        DATA_PRIM *tmpData;
+        //STR<"NODE"> *tempNode;
 
-	        //READ_CHILD(stream, p_Transform);
+        while (ThereIsAnother(stream))
+        {
+        	ChunkHeader nextHeader = stream.ReadChunkHeader(true);
 
-	        //READ_CHILD_GENERIC(stream);        	
-        //}
+        	if (nextHeader == "DATA"_h)
+        	{
+        		READ_CHILD(stream, tmpData);
+        	} else if (nextHeader == "coll"_h)
+        	{
+        		stream.SetPosition(stream.GetPosition() + 1);
+        		BaseChunk::ForwardToNextHeader(stream);
+        	} else
+        	{
+		        READ_CHILD_GENERIC(stream);		
+        	}       	
+        }
 
 		BaseChunk::EnsureEnd(stream);
 	}
