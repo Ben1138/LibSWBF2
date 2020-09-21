@@ -35,7 +35,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         if ((m_MaskFlags & 0x1) != 0)
         {
-            stringRep = stringRep + " Soldier";
+            stringRep = stringRep + " Ordnance";
         }
 
         if ((m_MaskFlags & 0x2) != 0)
@@ -50,12 +50,12 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         if ((m_MaskFlags & 0x8) != 0)
         {
-            stringRep = stringRep + " Ordnance";
+            stringRep = stringRep + " Terrain";
         }
 
         if ((m_MaskFlags & 0x10) != 0)
         {
-            stringRep = stringRep + " Terrain";
+            stringRep = stringRep + " Soldier";
         }
 
         if ((m_MaskFlags & 0x20) != 0)
