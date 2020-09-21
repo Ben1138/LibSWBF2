@@ -11,6 +11,7 @@
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
+#include "LVL/wrld/XFRM.h"
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
 #include "LVL/zaa_/zaa_.h"
@@ -24,6 +25,7 @@
 
 #include "LVL/lght/lght.h"
 #include "LVL/coll/coll.h"
+#include "LVL/prim/prim.h"
 
 
 namespace LibSWBF2::Chunks
@@ -189,13 +191,28 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, explosionClass);
 						chunk = explosionClass;
 					}
-
 					else if (nextHead == "coll"_h)
 					{
-						LVL::coll::coll* collision;
-						READ_CHILD(stream, collision);
-						chunk = collision;
+						LVL::coll::coll* collisionMesh;
+						READ_CHILD(stream, collisionMesh);
+						chunk = collisionMesh;
 					}
+					
+					
+					else if (nextHead == "prim"_h)
+					{
+						LVL::prim::prim* collisionPrimitives;
+						READ_CHILD(stream, collisionPrimitives);
+						chunk = collisionPrimitives;
+					}
+
+					else if (nextHead == "XFRM"_h)
+					{
+						LVL::wrld::XFRM* transform;
+						READ_CHILD(stream, transform);
+						chunk = transform;
+					}
+					
 
 					else
 					{
@@ -322,6 +339,7 @@ namespace LibSWBF2::Chunks
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
 
 }
 
