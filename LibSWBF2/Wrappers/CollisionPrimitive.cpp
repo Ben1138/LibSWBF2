@@ -87,7 +87,7 @@ namespace LibSWBF2::Wrappers
 
     String CollisionPrimitive::ToString() const
     {
-        return "";
+        return p_FieldsChunk -> ToString();
     }
 }
 
