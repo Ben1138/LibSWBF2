@@ -31,6 +31,21 @@ namespace LibSWBF2::Chunks::LVL::coll
 
         READ_CHILD(stream, p_SpatialDataStructure);
 
+        /*
+        //TEST ALWAYS PASSES
+        for (int i = 0; i < p_SpatialDataStructure -> m_Leaves.Size(); i++)
+        {
+        	List<uint16_t> &indexList = p_SpatialDataStructure -> m_Leaves[i] -> m_Indicies;
+        	for (int j = 0; j < indexList.Size(); j++)
+        	{
+        		if (indexList[j] >= p_Verts -> m_Content.Size())
+        		{
+        			LOG_WARN("INDEX OUT OF BOUNDS IN TREE LEAF");
+        		}
+        	}
+        }
+        */
+
 		BaseChunk::EnsureEnd(stream);
 	}
 
