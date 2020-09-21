@@ -94,6 +94,7 @@ namespace LibSWBF2
 
 	enum class ECollisionMaskFlags : uint32_t
 	{
+		All = 0,
 		Ordnance = 1,
         Vehicle = 2,
         Building = 4,
