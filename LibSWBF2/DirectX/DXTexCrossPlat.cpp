@@ -1,7 +1,8 @@
 #include "DXTexCrossPlat.h"
 #include "DXTexCrossPlatConverters.h"
 #include "DXHelpers.h"
-//#include "Logging/Logger.h"
+
+#include "Logging/Logger.h"
 #include <cstring>
 
 #include <iostream>
