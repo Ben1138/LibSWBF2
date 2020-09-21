@@ -319,16 +319,19 @@ namespace LibSWBF2
         if (resultSize > 1)
         {
         	result.resize(result.size() - 2);
+        	result += "]";
+        } else 
+        {
+        	result.resize(0);
+        	result += "[All]";
         }
-
-		result += "]";
 
 		return result.c_str();
 	}
 
 	Types::String CollisionPrimitiveTypeToString(ECollisionPrimitiveType type)
 	{
-		if (type == ECollisionPrimitiveType::Sphere)
+		if (type == ECollisionPrimitiveType::Sphere || (uint32_t) type == 0x0)
 		{
 			return "Sphere";
 		}
@@ -343,7 +346,7 @@ namespace LibSWBF2
 			return "Cube";
 		}
 
-		return "Unknown Primitive Type"
+		return "Unknown Collision Primitive Type";
 	}
 
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
@@ -409,21 +412,21 @@ namespace LibSWBF2
 	}
 
 
-	ECollisionMaskType operator &(ECollisionMaskType lhs, ECollisionMaskType rhs)
+	ECollisionMaskFlags operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs)
 	{
-		return static_cast<ECollisionMaskType> (
-			static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) &
-			static_cast<std::underlying_type<ECollisionMaskType>::type>(rhs)
+		return static_cast<ECollisionMaskFlags> (
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) &
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(rhs)
 			);
 	}
 
-	bool operator ==(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs)
+	bool operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
 	{
-		return static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) == rhs;
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) == rhs;
 	}
 
-	bool operator !=(ECollisionMaskType lhs, std::underlying_type<ECollisionMaskType>::type rhs)
+	bool operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
 	{
-		return static_cast<std::underlying_type<ECollisionMaskType>::type>(lhs) != rhs;
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) != rhs;
 	}
 }

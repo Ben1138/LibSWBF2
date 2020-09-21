@@ -41,14 +41,14 @@ namespace LibSWBF2::Wrappers
         return p_NameChunk -> ToString();
     }
 
-    ECollisionPrimitiveType CollisionPrimitive::GetType() const
+    ECollisionPrimitiveType CollisionPrimitive::GetPrimitiveType() const
     {	
 	    return p_FieldsChunk -> m_PrimitiveType;
     }
 
     ECollisionMaskFlags CollisionPrimitive::GetMaskFlags() const
     {
-        return p_MaskChunk == nullptr ? 0 : p_MaskChunk -> m_MaskFlags;
+        return p_MaskChunk == nullptr ? ECollisionMaskFlags::All : p_MaskChunk -> m_MaskFlags;
     }
     
     bool CollisionPrimitive::GetCubeDims(float_t& xOut, float_t& yOut, float_t& zOut) const
