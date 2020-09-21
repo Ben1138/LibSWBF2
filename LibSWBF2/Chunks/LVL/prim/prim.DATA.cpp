@@ -1,10 +1,9 @@
 #include "stdafx.h"
-#include "vec3.DATA.h"
+#include "prim.DATA.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
-#include "vec2.DATA.h"
 
 
 namespace LibSWBF2::Chunks::LVL::prim
@@ -33,7 +32,7 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::EnsureEnd(stream);
 	}
 
-	String DATA_PRIM::ToString()
+	Types::String DATA_PRIM::ToString()
 	{
 		String stringRep("");
 		switch (m_PrimitiveType)
