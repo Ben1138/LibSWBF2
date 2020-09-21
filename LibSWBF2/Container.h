@@ -21,6 +21,13 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
 
+	struct Schedule
+	{
+		String m_Path;
+		const List<String>* m_SubLVLsToLoad = nullptr;
+		bool m_bIsSoundBank = false;
+		bool bRegisterContents = true;
+	};
 
 	class LIBSWBF2_API Container
 	{
@@ -29,17 +36,17 @@ namespace LibSWBF2
 		~Container();
 
 		class ContainerMembers* m_ThreadSafeMembers = nullptr;
-
-		void LoadLevelAsync(size_t index, const String& path, const List<String>* subLVLsToLoad);
-		void LoadSoundBankAsync(size_t index, const String& path);
 		uint64_t m_OverallSize = 0;
+
+		void LoadLevelAsync(size_t index, const Schedule& scheduled);
+		void LoadSoundBankAsync(size_t index, const Schedule& scheduled);
 
 	public:
 		static Container* Create();
 		static void Delete(Container* instance);
 
-		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr);
-		SWBF2Handle AddSoundBank(const String& path);
+		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
+		SWBF2Handle AddSoundBank(const String& path, bool bRegisterContents = true);
 		void StartLoading();
 		void FreeAll();
 		bool IsDone() const;
@@ -47,6 +54,11 @@ namespace LibSWBF2
 		float_t GetLevelProgress(SWBF2Handle handle) const;
 		Level* GetLevel(SWBF2Handle handle) const;
 		float_t GetOverallProgress();
+
+		// will return the first encountered world LVL, if existent
+		Level* TryGetWorldLevel() const;
+
+		const List<const World*>& GetWorlds();
 
 		const Light* FindLight(String lightName) const;
 		const Model* FindModel(String modelName) const;

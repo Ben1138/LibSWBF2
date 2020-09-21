@@ -23,13 +23,6 @@ namespace LibSWBF2
 		uint64_t m_FileSize = 0;
 	};
 
-	struct Schedule
-	{
-		String m_Path;
-		const List<String>* m_SubLVLsToLoad = nullptr;
-		bool m_bIsSoundBank = false;
-	};
-
 	class ContainerMembers
 	{
 	public:
@@ -39,15 +32,17 @@ namespace LibSWBF2
 		std::vector<Schedule> m_Scheduled;
 
 		// TODO: rework once we allow modifications (add / delete) in Levels
-		std::unordered_map<std::string, const Texture*> TextureDB;
-		std::unordered_map<std::string, const Model*> ModelDB;
-		std::unordered_map<std::string, const World*> WorldDB;
-		std::unordered_map<std::string, const Terrain*> TerrainDB;
-		std::unordered_map<std::string, const Script*> ScriptDB;
-		std::unordered_map<std::string, const Light*> LightDB;
-		std::unordered_map<std::string, const Localization*> LocalizationDB;
-		std::unordered_map<std::string, const EntityClass*> EntityClassDB;
-		std::unordered_map<FNVHash, const Sound*> SoundDB;
+		std::unordered_map<std::string, const Texture*> m_TextureDB;
+		std::unordered_map<std::string, const Model*> m_ModelDB;
+		std::unordered_map<std::string, const World*> m_WorldDB;
+		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
+		std::unordered_map<std::string, const Script*> m_ScriptDB;
+		std::unordered_map<std::string, const Light*> m_LightDB;
+		std::unordered_map<std::string, const Localization*> m_LocalizationDB;
+		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
+		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
+
+		List<const World*> m_Worlds;
 	};
 
 	template<class T1, class T2>
@@ -59,7 +54,16 @@ namespace LibSWBF2
 		}
 	}
 
-	void Container::LoadLevelAsync(size_t index, const String& path, const List<String>* subLVLsToLoad)
+	template<class T>
+	void CopyList(const List<T>& srcList, List<const T*>& dstList)
+	{
+		for (size_t i = 0; i < srcList.Size(); ++i)
+		{
+			dstList.Add(&srcList[i]);
+		}
+	}
+
+	void Container::LoadLevelAsync(size_t index, const Schedule& scheduled)
 	{
 		LoadStatus* status = nullptr;
 		LVL* lvl = nullptr;
@@ -68,7 +72,7 @@ namespace LibSWBF2
 			status = &m_ThreadSafeMembers->m_Statuses[index];
 
 			FileReader reader;
-			if (!reader.Open(path))
+			if (!reader.Open(scheduled.m_Path))
 			{
 				status->m_LoadStatus = ELoadStatus::Failed;
 				return;
@@ -84,23 +88,24 @@ namespace LibSWBF2
 			status->m_LoadStatus = ELoadStatus::Loading;
 		}
 
-		if (lvl->ReadFromFile(path, subLVLsToLoad))
+		if (lvl->ReadFromFile(scheduled.m_Path, scheduled.m_SubLVLsToLoad))
 		{
 			Level* level = Level::FromChunk(lvl, this);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
 			status->m_Level = level;
-			if (level != nullptr)
+			if (level != nullptr && scheduled.bRegisterContents)
 			{
-				CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->TextureDB);
-				CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->ModelDB);
-				CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->WorldDB);
-				CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->ScriptDB);
-				CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->LightDB);
-				CopyMap(level->m_NameToIndexMaps->LocalizationNameToIndex,	level->m_Localizations, m_ThreadSafeMembers->LocalizationDB);
-				CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->EntityClassDB);
+				CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->m_TextureDB);
+				CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->m_ModelDB);
+				CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
+				CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
+				CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
+				CopyMap(level->m_NameToIndexMaps->LocalizationNameToIndex,	level->m_Localizations, m_ThreadSafeMembers->m_LocalizationDB);
+				CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
+				CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
 				status->m_LoadStatus = ELoadStatus::Loaded;
 			}
-			else
+			else if (level == nullptr)
 			{
 				status->m_LoadStatus = ELoadStatus::Failed;
 				LVL::Destroy(lvl);
@@ -115,7 +120,7 @@ namespace LibSWBF2
 		status->m_Chunk = nullptr;
 	}
 
-	void Container::LoadSoundBankAsync(size_t index, const String& path)
+	void Container::LoadSoundBankAsync(size_t index, const Schedule& scheduled)
 	{
 		LoadStatus* status = nullptr;
 		BNK* bnk = nullptr;
@@ -124,7 +129,7 @@ namespace LibSWBF2
 			status = &m_ThreadSafeMembers->m_Statuses[index];
 
 			FileReader reader;
-			if (!reader.Open(path))
+			if (!reader.Open(scheduled.m_Path))
 			{
 				status->m_LoadStatus = ELoadStatus::Failed;
 				return;
@@ -140,17 +145,17 @@ namespace LibSWBF2
 			status->m_LoadStatus = ELoadStatus::Loading;
 		}
 
-		if (bnk->ReadFromFile(path))
+		if (bnk->ReadFromFile(scheduled.m_Path))
 		{
 			SoundBank* soundBank = SoundBank::FromChunk(bnk);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
 			status->m_SoundBank = soundBank;
-			if (soundBank != nullptr)
+			if (soundBank != nullptr && scheduled.bRegisterContents)
 			{
-				CopyMap(soundBank->m_NameToIndexMaps->SoundHashToIndex, soundBank->m_Sounds, m_ThreadSafeMembers->SoundDB);
+				CopyMap(soundBank->m_NameToIndexMaps->SoundHashToIndex, soundBank->m_Sounds, m_ThreadSafeMembers->m_SoundDB);
 				status->m_LoadStatus = ELoadStatus::Loaded;
 			}
-			else
+			else if (soundBank == nullptr)
 			{
 				status->m_LoadStatus = ELoadStatus::Failed;
 				BNK::Destroy(bnk);
@@ -187,15 +192,15 @@ namespace LibSWBF2
 		delete instance;
 	}
 
-	SWBF2Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad)
+	SWBF2Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, subLVLsToLoad, false });
+		m_ThreadSafeMembers->m_Scheduled.push_back({ path, subLVLsToLoad, false, bRegisterContents });
 		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
 	}
 
-	SWBF2Handle Container::AddSoundBank(const String& path)
+	SWBF2Handle Container::AddSoundBank(const String& path, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, nullptr, true });
+		m_ThreadSafeMembers->m_Scheduled.push_back({ path, nullptr, true, bRegisterContents });
 		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
 	}
 
@@ -216,6 +221,12 @@ namespace LibSWBF2
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		size_t num = m_ThreadSafeMembers->m_Scheduled.size();
 
+		if (num > 0)
+		{
+			LOG_WARN("Call 'FreeAll' first!");
+			return;
+		}
+
 		m_ThreadSafeMembers->m_Statuses.clear();
 		for (size_t i = 0; i < num; ++i)
 		{
@@ -223,11 +234,11 @@ namespace LibSWBF2
 			Schedule& scheduled = m_ThreadSafeMembers->m_Scheduled[i];
 			if (scheduled.m_bIsSoundBank)
 			{
-				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadSoundBankAsync, this, i, scheduled.m_Path));
+				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadSoundBankAsync, this, i, scheduled));
 			}
 			else
 			{
-				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadLevelAsync, this, i, scheduled.m_Path, scheduled.m_SubLVLsToLoad));
+				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadLevelAsync, this, i, scheduled));
 			}
 		}
 		m_ThreadSafeMembers->m_Scheduled.clear();
@@ -325,6 +336,25 @@ namespace LibSWBF2
 		return m_ThreadSafeMembers->m_Statuses[handle].m_Level;
 	}
 
+	Level* Container::TryGetWorldLevel() const
+	{
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		size_t num = m_ThreadSafeMembers->m_Statuses.size();
+		if (num == 0)
+		{
+			return nullptr;
+		}
+		for (size_t i = 0; i < num; ++i)
+		{
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[i];
+			if (status.m_LoadStatus == ELoadStatus::Loaded && status.m_Level != nullptr && status.m_Level->IsWorldLevel())
+			{
+				return status.m_Level;
+			}
+		}
+		return nullptr;
+	}
+
 	float_t Container::GetOverallProgress()
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
@@ -358,20 +388,27 @@ namespace LibSWBF2
 		return progress;
 	}
 
-	const Light* Container::FindLight(String lightName) const
+	const List<const World*>& Container::GetWorlds()
 	{
 		if (!IsDone())
 		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
+			LOG_WARN("Cannot lookup all Worlds while still loading!");
+			static const List<const World*> tmp;
+			return tmp;
 		}
+		return m_ThreadSafeMembers->m_Worlds;
+	}
+
+	const Light* Container::FindLight(String lightName) const
+	{
 		if (lightName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->LightDB.find(ToLower(lightName));
-		if (it != m_ThreadSafeMembers->LightDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_LightDB.find(ToLower(lightName));
+		if (it != m_ThreadSafeMembers->m_LightDB.end())
 		{
 			return it->second;
 		}
@@ -381,18 +418,14 @@ namespace LibSWBF2
 
 	const Model* Container::FindModel(String modelName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (modelName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->ModelDB.find(ToLower(modelName));
-		if (it != m_ThreadSafeMembers->ModelDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_ModelDB.find(ToLower(modelName));
+		if (it != m_ThreadSafeMembers->m_ModelDB.end())
 		{
 			return it->second;
 		}
@@ -402,18 +435,14 @@ namespace LibSWBF2
 
 	const Texture* Container::FindTexture(String textureName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (textureName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->TextureDB.find(ToLower(textureName));
-		if (it != m_ThreadSafeMembers->TextureDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_TextureDB.find(ToLower(textureName));
+		if (it != m_ThreadSafeMembers->m_TextureDB.end())
 		{
 			return it->second;
 		}
@@ -423,18 +452,14 @@ namespace LibSWBF2
 
 	const World* Container::FindWorld(String worldName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (worldName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->WorldDB.find(ToLower(worldName));
-		if (it != m_ThreadSafeMembers->WorldDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_WorldDB.find(ToLower(worldName));
+		if (it != m_ThreadSafeMembers->m_WorldDB.end())
 		{
 			return it->second;
 		}
@@ -444,18 +469,14 @@ namespace LibSWBF2
 
 	const Terrain* Container::FindTerrain(String terrainName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (terrainName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->TerrainDB.find(ToLower(terrainName));
-		if (it != m_ThreadSafeMembers->TerrainDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_TerrainDB.find(ToLower(terrainName));
+		if (it != m_ThreadSafeMembers->m_TerrainDB.end())
 		{
 			return it->second;
 		}
@@ -465,18 +486,14 @@ namespace LibSWBF2
 
 	const Script* Container::FindScript(String scriptName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (scriptName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->ScriptDB.find(ToLower(scriptName));
-		if (it != m_ThreadSafeMembers->ScriptDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_ScriptDB.find(ToLower(scriptName));
+		if (it != m_ThreadSafeMembers->m_ScriptDB.end())
 		{
 			return it->second;
 		}
@@ -486,18 +503,14 @@ namespace LibSWBF2
 
 	const Localization* Container::FindLocalization(String loclName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (loclName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->LocalizationDB.find(ToLower(loclName));
-		if (it != m_ThreadSafeMembers->LocalizationDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_LocalizationDB.find(ToLower(loclName));
+		if (it != m_ThreadSafeMembers->m_LocalizationDB.end())
 		{
 			return it->second;
 		}
@@ -507,18 +520,14 @@ namespace LibSWBF2
 
 	const EntityClass* Container::FindEntityClass(String typeName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (typeName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_ThreadSafeMembers->EntityClassDB.find(ToLower(typeName));
-		if (it != m_ThreadSafeMembers->EntityClassDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_EntityClassDB.find(ToLower(typeName));
+		if (it != m_ThreadSafeMembers->m_EntityClassDB.end())
 		{
 			return it->second;
 		}
@@ -528,11 +537,6 @@ namespace LibSWBF2
 
 	const Sound* Container::FindSound(String soundName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
 		if (soundName.IsEmpty())
 		{
 			return nullptr;
@@ -542,18 +546,12 @@ namespace LibSWBF2
 
 	const Sound* Container::FindSound(FNVHash hashedSoundName) const
 	{
-		if (!IsDone())
-		{
-			LOG_WARN("Cannot lookup Light '{}' while still loading!");
-			return nullptr;
-		}
-
-		auto it = m_ThreadSafeMembers->SoundDB.find(hashedSoundName);
-		if (it != m_ThreadSafeMembers->SoundDB.end())
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_SoundDB.find(hashedSoundName);
+		if (it != m_ThreadSafeMembers->m_SoundDB.end())
 		{
 			return it->second;
 		}
-
 		return nullptr;
 	}
 
