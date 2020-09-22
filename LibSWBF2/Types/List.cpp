@@ -500,6 +500,8 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::prim::MASK *>;
     template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
     template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
+    template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
+    template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
