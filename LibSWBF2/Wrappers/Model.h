@@ -1,6 +1,9 @@
 #pragma once
 #include "req.h"
 #include "Segment.h"
+#include "CollisionPrimitive.h"
+#include "CollisionMesh.h"
+
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/skel/skel.h"
 
@@ -35,8 +38,9 @@ namespace LibSWBF2::Wrappers
 		modl* p_Model;
 		skel* p_Skeleton;
 		List<Segment> m_Segments;
-		//CollisionMesh m_CollisionMesh;
-		//List<CollisionPrimitive> m_CollisionPrimitives;
+
+		CollisionMesh m_CollisionMesh;
+		List<CollisionPrimitive> m_CollisionPrimitives;
 
 	public:
 		static bool FromChunk(Level* mainContainer, modl* modelChunk, Model& out);
@@ -46,7 +50,7 @@ namespace LibSWBF2::Wrappers
 		bool IsSkeletalMesh() const;
 		bool GetSkeleton(List<Bone>& bones) const;
 
-		//bool GetCollisionMesh(CollisionMesh& collMesh) const;
-		//bool Get
+		const CollisionMesh& GetCollisionMesh() const;
+		List<CollisionPrimitive> GetCollisionPrimitives(ECollisionMaskFlags mask = ECollisionMaskFlags::All) const;
 	};
 }

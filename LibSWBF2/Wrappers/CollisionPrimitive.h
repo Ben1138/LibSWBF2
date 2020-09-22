@@ -22,7 +22,6 @@ namespace LibSWBF2::Wrappers
 		friend class Level;
 		friend class List<CollisionPrimitive>;
 
-		CollisionPrimitive() = default;
 		
 
 	private:
@@ -30,15 +29,20 @@ namespace LibSWBF2::Wrappers
 		XFRM *p_TransformChunk;
 		STR<"NAME"_m> *p_NameChunk;
 		MASK *p_MaskChunk;
-
-	public:
-		static bool FromChunks(DATA_PRIM *fields, XFRM *transform, 
-							STR<"NAME"_m> *name, MASK *mask,
-							CollisionPrimitive& out);
+		STR<"PRNT"_m> *p_ParentChunk;
 		
-		CollisionPrimitive(DATA_PRIM *fields, XFRM *transform, 
-                           STR<"NAME"_m> *name, MASK *mask);
+		CollisionPrimitive(STR<"NAME"_m> *name, MASK *mask,
+                           STR<"PRNT"_m> *parent, XFRM *transform,
+                           DATA_PRIM *fields);
 
+		CollisionPrimitive() = default;
+
+		
+		static bool FromChunks(STR<"NAME"_m> *name, MASK *mask,
+                           STR<"PRNT"_m> *parent, XFRM *transform,
+                           DATA_PRIM *fields, CollisionPrimitive& out);
+	public:
+		
 		String GetName() const;
 
 		Vector4 GetRotation() const;

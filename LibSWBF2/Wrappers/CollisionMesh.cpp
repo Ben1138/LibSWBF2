@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Wrappers
 {
-    static bool FromChunk(coll *collChunk, CollisionMesh& out)
+    bool CollisionMesh::FromChunk(coll *collChunk, CollisionMesh& out)
     {
         if (collChunk == nullptr)
         {
