@@ -23,7 +23,7 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_StringMember  = stream.ReadString();
+        m_ModelName  = stream.ReadString();
         m_NumPrimitives = stream.ReadUInt16();
 
 		BaseChunk::EnsureEnd(stream);
@@ -32,6 +32,6 @@ namespace LibSWBF2::Chunks::LVL::prim
     Types::String INFO_prim::ToString() 
     {
     	return fmt::format("String member: {}\nNum primitives {}",
-    		   m_StringMember.Buffer(), m_NumPrimitives).c_str();
+    		   m_ModelName.Buffer(), m_NumPrimitives).c_str();
     }
 }

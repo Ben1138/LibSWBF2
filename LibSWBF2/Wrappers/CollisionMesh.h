@@ -15,17 +15,19 @@ namespace LibSWBF2::Wrappers
 	{
 		friend class Level;
 		friend class List<CollisionMesh>;
-
-		CollisionMesh() = default;
+		friend class Model;
 		
 	private:
+
+		static bool FromChunk(coll *fieldsChunk, CollisionMesh& out);
+		
+		CollisionMesh(coll *fieldsChunk);
+		CollisionMesh() = default;
+
 		coll *p_CollisionChunk;
 		List<uint32_t> m_Indicies;
 
 	public:
-		static bool FromChunk(coll *fieldsChunk, CollisionMesh& out);
-	
-		CollisionMesh(coll *fieldsChunk);
 
 		String GetName() const;
 
