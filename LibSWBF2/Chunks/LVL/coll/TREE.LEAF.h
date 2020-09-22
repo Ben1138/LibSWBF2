@@ -19,7 +19,6 @@ namespace LibSWBF2::Chunks::LVL::coll
 
         Types::String ToString() override;
 
-    private:
         uint32_t m_FlattenedTreeIndex;
         List<uint16_t> m_Indicies;
     };

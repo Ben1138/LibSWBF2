@@ -1,15 +1,11 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
 
 
-namespace LibSWBF2::Chunks::LVL::coll
+namespace LibSWBF2::Chunks::LVL::prim
 {
-    struct LIBSWBF2_API TREE_NODE : public GenericChunk<"NODE"_m>
+    struct LIBSWBF2_API INFO_prim : public GenericChunk<"INFO"_m>
     {
-
-    friend struct TREE;
-
     public:
 	    void RefreshSize() override;
 	    void WriteToStream(FileWriter& stream) override;
@@ -17,9 +13,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 
         Types::String ToString() override;
 
-        Vector3u8 m_VecLower, m_VecUpper;
-
-    private:
-        uint32_t m_FlattenedTreeIndex;
+        Types::String m_StringMember;
+        uint16_t m_NumPrimitives;
     };
 }

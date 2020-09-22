@@ -8,7 +8,7 @@
 
 namespace LibSWBF2::Chunks::LVL::prim
 {
-	struct LIBSWBF2_API DATA_PRIM : public common::DATA
+	struct LIBSWBF2_API DATA_PRIM : public GenericChunk<"DATA"_m>
 	{
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
