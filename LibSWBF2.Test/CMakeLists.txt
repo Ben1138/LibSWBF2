@@ -12,6 +12,7 @@ that links to SWBF2.
 
 ]]
 
+
 project(libSWBF2_TESTS)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -24,6 +25,7 @@ add_executable(segmentsTest  testSegments.cpp)
 add_executable(blendmapTest  testTerrainSplatMap.cpp)
 add_executable(heightmapTest testTerrainHeightMap.cpp)
 add_executable(entitiesTest  testInstancesEntities.cpp)
+add_executable(collisionTest testCollision.cpp)
 
 
 #LINKING
@@ -33,3 +35,4 @@ target_link_libraries(segmentsTest  PUBLIC SWBF2)
 target_link_libraries(blendmapTest  PUBLIC SWBF2)
 target_link_libraries(heightmapTest PUBLIC SWBF2)
 target_link_libraries(entitiesTest  PUBLIC SWBF2)
+target_link_libraries(collisionTest PUBLIC SWBF2)
