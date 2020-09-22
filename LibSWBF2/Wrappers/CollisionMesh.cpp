@@ -26,7 +26,7 @@ namespace LibSWBF2::Wrappers
 
     void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer)
     {
-        if (requestedTopology != ETopology::TriangleList)
+        if (requestedTopology != ETopology::TriangleList || p_CollisionChunk == nullptr)
         {
             count = 0;
             return;
@@ -48,13 +48,24 @@ namespace LibSWBF2::Wrappers
 
     void CollisionMesh::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const
     {
-        List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
+    	if (p_CollisionChunk== nullptr)
+    	{
+    		count = 0;
+    		return;
+    	}
+
+    	List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
         count = verts.Size();
         vertexBuffer = verts.GetArrayPtr();
     }
         
     String CollisionMesh::ToString() const
     {
+    	if (p_CollisionChunk == nullptr)
+    	{
+    		return "";
+    	}
+
         return p_CollisionChunk -> p_ChunkName -> ToString() + "\n" +
                p_CollisionChunk -> p_Info -> ToString();
     }
