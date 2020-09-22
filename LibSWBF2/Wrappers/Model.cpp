@@ -96,4 +96,14 @@ namespace LibSWBF2::Wrappers
 		}
 		return true;
 	}
+
+
+	//bool Model::GetCollisionMesh(CollisionMesh& collMesh) const
+	//{
+		
+	//}
+
+
+
+
 }
