@@ -33,11 +33,35 @@ namespace LibSWBF2
 
 	// Convert an index buffer from Triangle Strip format to Triangle List format
 	// optional: offset is added to each individual index.
-	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset=0);
+	List<uint32_t> TriangleStripToTriangleList(List<uint16_t>& indexBuffer, uint32_t offset=0);
 
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix);
 
 	std::string ToLower(String name);
+
+
+	namespace Chunks::LVL::skel
+	{
+		struct skel;
+	}
+
+	namespace Wrappers
+	{
+		class MapsWrapper
+		{
+		public:
+			std::unordered_map<std::string, size_t> TextureNameToIndex;
+			std::unordered_map<std::string, size_t> ModelNameToIndex;
+			std::unordered_map<std::string, size_t> WorldNameToIndex;
+			std::unordered_map<std::string, size_t> TerrainNameToIndex;
+			std::unordered_map<std::string, size_t> ScriptNameToIndex;
+			std::unordered_map<std::string, size_t> LightNameToIndex;
+			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
+			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
+			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
+			std::unordered_map<std::string, size_t> CollisionMeshNameToIndex;
+		};
+	}
 }
 
 // adding custom fmt formatters

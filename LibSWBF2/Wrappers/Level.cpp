@@ -6,6 +6,7 @@
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
+#include "Chunks/LVL/coll/coll.h"
 #include <unordered_map>
 
 
@@ -32,6 +33,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::lght;
+    using namespace Chunks::LVL::coll;
 
 	Level::Level(LVL* lvl)
 	{
@@ -112,6 +114,41 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(std::move((model))));
 			}
 		}
+
+		/*
+		coll* collisionChunk = dynamic_cast<coll*>(root);
+		if (collisionChunk != nullptr)
+		{
+			CollisionMesh collMesh;
+			if (CollisionMesh::FromChunk(this, collisionChunk, collMesh))
+			{
+				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
+				{
+					m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())].m_CollisionMesh = collMesh;
+				}
+			}
+		}
+		
+		prim* collisionPrimitiveChunk = dynamic_cast<prim*>(root);
+		if (collisionPrimitiveChunk != nullptr)
+		{
+			const List<GenericBaseChunk*>& primChildren = collisionPrimitiveChunk -> GetChildren();
+
+			for (int i = 0; i < primChildren.Size(); i++)
+			{
+
+			}
+
+			CollisionMesh collMesh;
+			if (CollisionMesh::FromChunk(this, collisionChunk, collMesh))
+			{
+				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
+				{
+					m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())].m_CollisionMesh = collMesh;
+				}
+			}
+		}
+		*/
 
 		wrld* worldChunk = dynamic_cast<wrld*>(root);
 		if (worldChunk != nullptr)
