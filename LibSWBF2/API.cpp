@@ -284,6 +284,15 @@ namespace LibSWBF2
 	}
 
 
+	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
+	{
+		const CollisionMesh& mesh = model -> GetCollisionMesh();
+		return &mesh;
+	}
+
+
+	//Segment
+
 	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{
 		Vector3 *verts;
@@ -301,7 +310,7 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)
+	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)	
 	{
 		Vector3 *normals;
 		segment -> GetNormalBuffer(numNormals, normals);
@@ -396,6 +405,51 @@ namespace LibSWBF2
 		flagsString = MaterialFlagsToString(segmentMat.GetFlags());
 		return flagsString.Buffer();
 	}
+
+
+	const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	{
+		static int* tempBuffer = nullptr;
+		delete tempBuffer;
+
+		LOG_WARN("Current collmesh to string: {}", collMesh -> ToString());
+
+		uint32_t* meshBuffer;
+
+		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
+
+		tempBuffer = new int[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			tempBuffer[i] = (int) meshBuffer[i];
+		}
+
+		outBuffer = tempBuffer;
+	}
+    
+
+    const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer)
+    {
+    	static float_t *tempBuffer = nullptr;
+    	delete tempBuffer;
+
+    	Vector3 *verts;
+    	collMesh -> GetVertexBuffer(count, verts);
+
+    	tempBuffer = new float_t[count * 3];
+
+    	for (int i = 0; i < count; i++)
+    	{
+    		Vector3& curVec = verts[i];
+
+    		tempBuffer[3*i]     = curVec.m_X; 
+    		tempBuffer[3*i + 1] = curVec.m_Y; 
+    		tempBuffer[3*i + 2] = curVec.m_Z; 
+    	}
+
+    	buffer = tempBuffer;
+    }
 
 
 

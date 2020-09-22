@@ -50,5 +50,11 @@ namespace LibSWBF2.Wrappers
             Marshal.Copy(boneArr, bones, 0, (int)boneCount);
             return bones;
         }
+
+        public CollisionMesh GetCollisionMesh()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
+        }
     }
 }

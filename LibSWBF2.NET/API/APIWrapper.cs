@@ -100,7 +100,9 @@ namespace LibSWBF2
         [DllImport("SWBF2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetHeightBounds(IntPtr terrain, out float floor, out float ceiling);
 
+
         // Model //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Model_GetName(IntPtr model);
         
@@ -114,9 +116,14 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Model_GetCollisionMesh(IntPtr model);
+
     
 
         // Segment //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetIndexBuffer(IntPtr seg, out uint numIndicies, out IntPtr indexBuffer);
 
@@ -140,6 +147,7 @@ namespace LibSWBF2
 
 
          // World //
+
          [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr World_GetName(IntPtr world);
 
@@ -162,6 +170,7 @@ namespace LibSWBF2
 
 
         // Light - All-getter method called on class construction w/valid ptr //
+        
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Light_GetAllFields(
                                     IntPtr lightPtr,   out IntPtr rotPtr,
@@ -169,5 +178,14 @@ namespace LibSWBF2
                                     out IntPtr colPtr, out float range,
                                     out IntPtr conePtr
                                 );
+
+
+        // CollisionMesh //
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CollisionMesh_GetIndexBuffer(IntPtr collMesh, out uint count, out IntPtr buffer);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CollisionMesh_GetVertexBuffer(IntPtr collMesh, out uint count, out IntPtr buffer);
     }
 }

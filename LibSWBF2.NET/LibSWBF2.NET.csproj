@@ -83,6 +83,7 @@
     <Compile Include="Wrappers\Light.cs" />
     <Compile Include="Wrappers\Instance.cs" />
     <Compile Include="Utils\MarshalingUtils.cs" />
+    <Compile Include="Wrappers\CollisionMesh.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
