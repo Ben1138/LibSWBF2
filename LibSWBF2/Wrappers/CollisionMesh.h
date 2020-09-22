@@ -26,6 +26,7 @@ namespace LibSWBF2::Wrappers
 
 		coll *p_CollisionChunk;
 		List<uint32_t> m_Indicies;
+		List<Vector3>  m_Vertices;
 
 	public:
 

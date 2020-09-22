@@ -12,15 +12,17 @@ that links to SWBF2.
 
 ]]
 
+
 project(libSWBF2_TESTS)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #SOURCES
-add_executable(lght_TEST testLights.cpp)
+add_executable(lightsTest 	  testLights.cpp)
+add_executable(collisionTest  testCollision.cpp)
 
-#SETTINGS
-set_property(TARGET lght_TEST PROPERTY CXX_STANDARD 20)
-set_property(TARGET lght_TEST PROPERTY CXX_STANDARD_REQUIRED ON)
 
 #LINKING
-target_link_libraries(lght_TEST PUBLIC SWBF2)
+target_link_libraries(lightsTest     PUBLIC SWBF2)
+target_link_libraries(collisionTest  PUBLIC SWBF2)
