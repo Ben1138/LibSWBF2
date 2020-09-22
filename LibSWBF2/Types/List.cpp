@@ -8,6 +8,7 @@
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/coll/TREE.NODE.h"
 #include "Chunks/LVL/coll/TREE.LEAF.h"
+#include "Chunks/LVL/prim/prim.h"
 #include "Wrappers/Light.h"
 
 
@@ -495,6 +496,10 @@ namespace LibSWBF2
 
     template class LIBSWBF2_API Types::List<LVL::coll::TREE_NODE*>;
     template class LIBSWBF2_API Types::List<LVL::coll::TREE_LEAF*>;
+
+    template class LIBSWBF2_API Types::List<LVL::prim::MASK *>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
+    template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
