@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 
         Types::String ToString() override;
 
-        Types::String m_StringMember;
+        Types::String m_ModelName;
         uint16_t m_NumPrimitives;
     };
 }

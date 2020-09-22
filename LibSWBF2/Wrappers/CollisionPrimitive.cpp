@@ -8,22 +8,24 @@
 
 namespace LibSWBF2::Wrappers
 {
-    static bool FromChunks(DATA_PRIM *fields, XFRM *transform, 
-                            STR<"NAME"_m> *name, MASK *mask,
-                            CollisionPrimitive& out)
+    bool CollisionPrimitive::FromChunks(STR<"NAME"_m> *name, MASK *mask,
+                           STR<"PRNT"_m> *parent, XFRM *transform,
+                           DATA_PRIM *fields, CollisionPrimitive& out)
     {
         if (transform == nullptr || name == nullptr || fields == nullptr)
         {
             return false;
         }
-        out = CollisionPrimitive(fields, transform, name, mask);
+        out = CollisionPrimitive(name, mask, parent, transform, fields);
         return true;
     }
 
-    CollisionPrimitive::CollisionPrimitive(DATA_PRIM *fields, XFRM *transform, 
-                                        STR<"NAME"_m> *name, MASK *mask) : p_FieldsChunk(fields), 
-                                        p_TransformChunk(transform), p_NameChunk(name),
-                                        p_MaskChunk(mask) {}
+    CollisionPrimitive::CollisionPrimitive(
+                STR<"NAME"_m> *name, MASK *mask,
+                STR<"PRNT"_m> *parent, XFRM *transform,
+                DATA_PRIM *fields) : p_TransformChunk(transform),
+                                     p_NameChunk(name), p_MaskChunk(mask),
+                                     p_ParentChunk(parent), p_FieldsChunk(fields) {}
 
 
     Vector4 CollisionPrimitive::GetRotation() const
