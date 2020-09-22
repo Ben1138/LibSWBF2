@@ -22,9 +22,8 @@ namespace LibSWBF2::Wrappers
 		friend class Level;
 		friend class List<CollisionPrimitive>;
 
-		
-
 	private:
+		
 		DATA_PRIM *p_FieldsChunk;
 		XFRM *p_TransformChunk;
 		STR<"NAME"_m> *p_NameChunk;
