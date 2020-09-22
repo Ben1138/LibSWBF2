@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "prim.h"
-#include "prim.DATA.h"
-#include "../wrld/XFRM.h"
-#include "MASK.h"
 
 #include "InternalHelpers.h"
 #include "FileReader.h"
@@ -35,25 +32,43 @@ namespace LibSWBF2::Chunks::LVL::prim
         STR<"PRNT"_m> *tempPRNT;
         STR<"NAME"_m> *tempNAME;
 
-
-        READ_CHILD(stream, p_InfoHeader);
+        READ_CHILD(stream, p_InfoChunk);
         ChunkHeader nextHeader;
 
-        while (ThereIsAnother(stream))
+        for (int i = 0; i < p_InfoChunk -> m_NumPrimitives; i++)
         {
-        	nextHeader = stream.ReadChunkHeader(true);
-        	
+            READ_CHILD(stream, tempNAME);
+            m_PrimitiveNAMEs.Add(tempNAME);
+
+            nextHeader = stream.ReadChunkHeader(true);
+
+            if (nextHeader == "MASK"_h)
+            {
+                READ_CHILD(stream, tempMASK);
+
+            } else 
+            {
+                tempMASK = nullptr;
+            }
+
+            m_PrimitiveMASKs.Add(tempMASK);
+
+            READ_CHILD(stream, tempPRNT);
+            m_PrimitivePRNTs.Add(tempPRNT);
+
+            READ_CHILD(stream, tempXFRM);
+            m_PrimitiveXFRMs.Add(tempXFRM);
+
+            READ_CHILD(stream, tempDATA);
+            m_PrimitiveDATAs.Add(tempDATA);
+
+        	/*
         	if (nextHeader == "DATA"_h)
     		{
     			READ_CHILD(stream, tempDATA);
     		}
-    		else if (nextHeader == "NODE"_h)
-    		{
-        		READ_CHILD(stream, tempNODE);
-        	}
     		else if (nextHeader == "PRNT"_h)
     		{
-        		READ_CHILD(stream, tempPRNT);
         	}
         	else if (nextHeader == "MASK"_h)
         	{
@@ -66,11 +81,13 @@ namespace LibSWBF2::Chunks::LVL::prim
 			else if (nextHeader == "NAME"_h)
 			{
         		READ_CHILD(stream, tempNAME);
+
 			}
 			else 
 			{
 			    READ_CHILD_GENERIC(stream);
-        	}       	
+        	} 
+            */      	
         }
 
 		BaseChunk::EnsureEnd(stream);
@@ -79,6 +96,6 @@ namespace LibSWBF2::Chunks::LVL::prim
 
 	Types::String prim::ToString()
 	{
-		return p_InfoHeader -> ToString();
+		return p_InfoChunk -> ToString();
 	}
 }
