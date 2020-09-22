@@ -98,12 +98,26 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	//bool Model::GetCollisionMesh(CollisionMesh& collMesh) const
-	//{
+	const CollisionMesh& Model::GetCollisionMesh() const
+	{
+		return m_CollisionMesh;
+	}
+
+
+	List<CollisionPrimitive> Model::GetCollisionPrimitives(ECollisionMaskFlags mask) const
+	{
+		List<CollisionPrimitive> maskedPrimitives;
 		
-	//}
+		for (int i = 0; i < m_CollisionPrimitives.Size(); i++)
+		{
+			const CollisionPrimitive& curPrimitive = m_CollisionPrimitives[i];
 
+			if ((curPrimitive.GetMaskFlags() & mask) != 0)
+			{
+				maskedPrimitives.Add(curPrimitive);
+			}
+		}
 
-
-
+		return maskedPrimitives;
+	}
 }
