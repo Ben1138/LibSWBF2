@@ -46,8 +46,7 @@ namespace LibSWBF2
         // Model //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Model_GetName(IntPtr model);
+        public static extern IntPtr Model_GetName(IntPtr model);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Model_GetSegments(IntPtr model, out IntPtr segmentArr, out uint segmentCount);
