@@ -21,7 +21,7 @@ namespace LibSWBF2.Wrappers
 
             if (count > 0)
             {
-                Marshal.Copy(buffer, verts, 0, (int)count);
+                Marshal.Copy(buffer, verts, 0, (int)count * 3);
             }
             
             return verts;

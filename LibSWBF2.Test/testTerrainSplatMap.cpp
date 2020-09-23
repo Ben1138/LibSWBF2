@@ -1,16 +1,6 @@
-#ifdef _WIN32
-
 #include "../LibSWBF2/LibSWBF2.h"
 #include "../LibSWBF2/FileWriter.h"
 #include "../LibSWBF2/Chunks/LVL/LVL.h"
-
-#else
-
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
-
-#endif
 
 #include <iostream>
 #include <fstream>
@@ -22,7 +12,6 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
-using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 
 using LibSWBF2::Logging::Logger;
@@ -61,26 +50,34 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
+	const char* path1; 
+	const char* path2;
+
 #if defined( __APPLE__ )
-	Level* testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
+	path1 = "/Users/will/Desktop/geo1.lvl";
+	path2 = "/Users/will/Desktop/MLC.lvl";
 #elif defined(_WIN32)
-	Level* testLVL1 = Level::FromFile("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\geo\\geo1.lvl");
-	Level* testLVL2 = Level::FromFile("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\kas\\kas2.lvl");
+	path1 = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\geo\\geo1.lvl";
+	path2 = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Star Wars Battlefront II\\GameData\\data\\_lvl_pc\\kas\\kas2.lvl";
 #else
-	Level* testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	path1 = "/home/will/Desktop/geo1.lvl";
+	path2 = "/home/will/Desktop/MLC.lvl";
 #endif
+
+	Level* testLVL1 = Level::FromFile(path1);
+	Level* testLVL2 = Level::FromFile(path2);
 
 
 	uint32_t dim, elementSize;
 
 	uint8_t *blendMapData;
 
-	const Terrain& terr1 = testLVL1 -> GetTerrains()[0];
+	const LibSWBF2::Wrappers::Terrain& terr1 = testLVL1 -> GetTerrains()[0];
 	terr1.GetBlendMap(dim,elementSize,blendMapData);
 	stbi_write_png("testsplat_blended.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 
 
-	const Terrain& terr2 = testLVL2 -> GetTerrains()[0];
+	const LibSWBF2::Wrappers::Terrain& terr2 = testLVL2 -> GetTerrains()[0];
 	terr2.GetBlendMap(dim,elementSize,blendMapData);
 	stbi_write_png("testsplat_painted.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 
