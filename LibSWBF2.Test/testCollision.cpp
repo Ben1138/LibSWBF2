@@ -28,7 +28,8 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	//Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
 	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");
 #else
 	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
@@ -39,6 +40,7 @@ int main()
 	for (int i = 0; i < models.Size(); i++)
 	{
 		const Model& modeli = models[i];
+		COUT("On model " << i);
 		COUT(modeli.GetName().Buffer());
 		
 		const List<CollisionPrimitive>& prims = modeli.GetCollisionPrimitives();
@@ -58,7 +60,10 @@ int main()
 		Vector3* verts;
 
 		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);
+		COUT("GOT INDICES");
+		
 		mesh.GetVertexBuffer(numVertices, verts);
+		COUT("GOT VERTICES");
 
 		COUT("\t\tIndicies length: " << numIndices);
 		COUT("\t\tVertices length: " << numVertices << "\n");

@@ -18,6 +18,8 @@ namespace LibSWBF2::Wrappers
     
     CollisionMesh::CollisionMesh(coll *collChunk) : p_CollisionChunk(collChunk) {}
 
+    CollisionMesh::CollisionMesh() : p_CollisionChunk(nullptr) {}
+
 
     String CollisionMesh::GetName() const
     {
@@ -29,6 +31,7 @@ namespace LibSWBF2::Wrappers
         if (requestedTopology != ETopology::TriangleList || p_CollisionChunk == nullptr)
         {
             count = 0;
+            indexBuffer = nullptr;
             return;
         }
 
@@ -51,6 +54,7 @@ namespace LibSWBF2::Wrappers
     	if (p_CollisionChunk== nullptr)
     	{
     		count = 0;
+            vertexBuffer = nullptr;
     		return;
     	}
 
