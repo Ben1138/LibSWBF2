@@ -74,12 +74,12 @@ int main()
 
 	const LibSWBF2::Wrappers::Terrain& terr1 = testLVL1 -> GetTerrains()[0];
 	terr1.GetBlendMap(dim,elementSize,blendMapData);
-	stbi_write_png("testsplat_blended.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
+	stbi_write_png("testsplat1.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 
 
 	const LibSWBF2::Wrappers::Terrain& terr2 = testLVL2 -> GetTerrains()[0];
 	terr2.GetBlendMap(dim,elementSize,blendMapData);
-	stbi_write_png("testsplat_painted.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
+	stbi_write_png("testsplat2.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 
 	return 0;
 }

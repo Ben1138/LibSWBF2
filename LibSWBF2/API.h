@@ -72,13 +72,13 @@ namespace LibSWBF2
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 
 		// Wrappers - Segment
-		LIBSWBF2_API const void    Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
-		LIBSWBF2_API const void    Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void    Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
-		LIBSWBF2_API const void    Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
-		LIBSWBF2_API const char*   Segment_GetMaterialTexName(const Segment* segment);
-		LIBSWBF2_API const int32_t Segment_GetTopology(const Segment* segment);
-		LIBSWBF2_API const char*   Segment_GetMaterialFlags(const Segment* segment);
+		LIBSWBF2_API const void     Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
+		LIBSWBF2_API const void     Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
+		LIBSWBF2_API const void     Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
+		LIBSWBF2_API const void     Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
+		LIBSWBF2_API const char*    Segment_GetMaterialTexName(const Segment* segment);
+		LIBSWBF2_API const int32_t  Segment_GetTopology(const Segment* segment);
+		LIBSWBF2_API const uint32_t Segment_GetMaterialFlags(const Segment* segment);
 
 		// Wrappers - CollisionMesh
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& buffer);

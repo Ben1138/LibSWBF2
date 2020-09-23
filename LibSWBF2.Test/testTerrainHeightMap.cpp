@@ -73,7 +73,7 @@ int main()
 	const LibSWBF2::Wrappers::Terrain& terr = testLVL -> GetTerrains()[0];
 	
 	terr.GetHeightMap(dim,scale,heightMapData);
-	stbi_write_png("geo1_test_windows.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
+	stbi_write_png("geo1_test.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
 
 	return 0;
 }

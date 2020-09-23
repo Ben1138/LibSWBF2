@@ -32,7 +32,7 @@ int main()
 	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
 	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");
 #else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	Level *testLVL = Level::FromFile("/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/kas/kas2.lvl");
 #endif
 
 	const List<Model>& models = testLVL -> GetModels();
@@ -40,8 +40,7 @@ int main()
 	for (int i = 0; i < models.Size(); i++)
 	{
 		const Model& modeli = models[i];
-		COUT("On model " << i);
-		COUT(modeli.GetName().Buffer());
+		COUT("\n" << modeli.GetName().Buffer());
 		
 		const List<CollisionPrimitive>& prims = modeli.GetCollisionPrimitives();
 		CollisionMesh mesh  			  = modeli.GetCollisionMesh();
@@ -59,11 +58,8 @@ int main()
 		uint32_t *indices;
 		Vector3* verts;
 
-		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);
-		COUT("GOT INDICES");
-		
+		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);		
 		mesh.GetVertexBuffer(numVertices, verts);
-		COUT("GOT VERTICES");
 
 		COUT("\t\tIndicies length: " << numIndices);
 		COUT("\t\tVertices length: " << numVertices << "\n");
