@@ -161,8 +161,6 @@ namespace LibSWBF2
 		static int* tempBuffer = nullptr;
 		delete tempBuffer;
 
-		LOG_WARN("Current collmesh to string: {}", collMesh -> ToString());
-
 		uint32_t* meshBuffer;
 
 		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
