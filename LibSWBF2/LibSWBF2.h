@@ -13,7 +13,11 @@
 #include "Chunks/BNK/BNK.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
-#include "API.h"
+#include "Logging/Logger.h"
+
+//FIX THE AMBIGUOUS TERRAIN REF
+
+//#include "API.h"
 
 // Include this file when LibSWBF2 externally
 // This header should not be included in its own project

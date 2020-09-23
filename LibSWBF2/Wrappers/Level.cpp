@@ -12,20 +12,7 @@
 
 namespace LibSWBF2::Wrappers
 {
-	class MapsWrapper
-	{
-	public:
-		std::unordered_map<std::string, size_t> TextureNameToIndex;
-		std::unordered_map<std::string, size_t> ModelNameToIndex;
-		std::unordered_map<std::string, size_t> WorldNameToIndex;
-		std::unordered_map<std::string, size_t> TerrainNameToIndex;
-		std::unordered_map<std::string, size_t> ScriptNameToIndex;
-		std::unordered_map<std::string, size_t> LightNameToIndex;
-		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
-		std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
-		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
-	};
-
+	
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;

@@ -28,7 +28,7 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.World_GetInstances(NativeInstance, out IntPtr instArr, out uint instCount);
-            return MemUtils.ptrsToObjects<Instance>(instArr, (int) instCount);
+            return MemUtils.IntPtrToWrapperArray<Instance>(instArr, (int) instCount);
         }
     }
 }

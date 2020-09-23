@@ -1,16 +1,6 @@
-#ifdef _WIN32
-
 #include "../LibSWBF2/LibSWBF2.h"
 #include "../LibSWBF2/FileWriter.h"
 #include "../LibSWBF2/Chunks/LVL/LVL.h"
-
-#else
-
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
-
-#endif
 
 #include <iostream>
 #include <fstream>
@@ -22,7 +12,6 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
-using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 
 using LibSWBF2::Logging::Logger;
@@ -81,7 +70,7 @@ int main()
 	uint32_t dim, scale;
 	float *heightMapData;
 
-	const Terrain& terr = testLVL -> GetTerrains()[0];
+	const LibSWBF2::Wrappers::Terrain& terr = testLVL -> GetTerrains()[0];
 	
 	terr.GetHeightMap(dim,scale,heightMapData);
 	stbi_write_png("geo1_test_windows.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);

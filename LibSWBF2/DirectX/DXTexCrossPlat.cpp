@@ -53,7 +53,7 @@ uint8_t* CrossPlatImage::DumpRGBA(){
 
   if (!valid) return nullptr;
 
-  COUT("Format: " << LibSWBF2::D3DToString(format).Buffer());
+  //COUT("Format: " << LibSWBF2::D3DToString(format).Buffer());
 
   uint32_t* sink = new uint32_t[width * height]();
   uint8_t* source = data.get();

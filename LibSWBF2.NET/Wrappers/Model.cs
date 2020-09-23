@@ -37,7 +37,7 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
-            return MemUtils.ptrsToObjects<Segment>(segmentArr, (int) segmentCount);
+            return MemUtils.IntPtrToWrapperArray<Segment>(segmentArr, (int) segmentCount);
         }
 
         // TODO: swap IntPtr with actualy wrapper class

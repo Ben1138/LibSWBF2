@@ -17,7 +17,6 @@ namespace LibSWBF2
 		class Segment;
 		class CollisionMesh;
 		struct Bone;
-		class Terrain;
 		class Light;
 
 		//class Texture;
@@ -95,7 +94,7 @@ namespace LibSWBF2
 
 		// Wrappers - Terrain
 
-		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, const char**& result);
+		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, char**& result);
 		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
@@ -109,6 +108,8 @@ namespace LibSWBF2
         LIBSWBF2_API const char* 	Instance_GetName(const Instance* instance);
         LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);
         LIBSWBF2_API const Vector3* Instance_GetPosition(const Instance* instance);
+   		LIBSWBF2_API const char *   Instance_GetModelName(const Instance* instance);
+
 
         // Wrappers - Vectors
 		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float_t& x, float_t& y, float_t& z, float_t &w);        
