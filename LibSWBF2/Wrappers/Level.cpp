@@ -12,6 +12,7 @@
 
 namespace LibSWBF2::Wrappers
 {
+	/*
 	class MapsWrapper
 	{
 	public:
@@ -25,6 +26,7 @@ namespace LibSWBF2::Wrappers
 		std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
 	};
+	*/
 
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
