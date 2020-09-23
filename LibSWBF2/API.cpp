@@ -398,12 +398,9 @@ namespace LibSWBF2
 	}
 
 
-	const char* Segment_GetMaterialFlags(const Segment* segment)
+	const uint32_t Segment_GetMaterialFlags(const Segment* segment)
 	{
-		static String flagsString;
-		const Material& segmentMat = segment->GetMaterial();
-		flagsString = MaterialFlagsToString(segmentMat.GetFlags());
-		return flagsString.Buffer();
+		return segment == nullptr ? 0 : (uint32_t) segment->GetMaterial().GetFlags();
 	}
 
 

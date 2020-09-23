@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
 using LibSWBF2.Logging;
+using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
@@ -70,11 +72,9 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Segment_GetTopology(NativeInstance);            
         }
 
-        public string GetMaterialFlags()
+        public uint GetMaterialFlags()
         {
-            return Marshal.PtrToStringAnsi(APIWrapper.Segment_GetMaterialFlags(NativeInstance));
+            return APIWrapper.Segment_GetMaterialFlags(NativeInstance);
         }
-
-
     }
 }

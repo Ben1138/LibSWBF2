@@ -143,7 +143,7 @@ namespace LibSWBF2
         public static extern IntPtr Segment_GetMaterialTexName(IntPtr seg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Segment_GetMaterialFlags(IntPtr seg);
+        public static extern uint Segment_GetMaterialFlags(IntPtr seg);
 
 
          // World //

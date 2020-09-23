@@ -3,6 +3,7 @@
 #include "Chunks/STR.h"
 #include "POSI.h"
 #include "TREE.h"
+#include "../prim/MASK.h"
 #include "coll.INFO.h"
 
 
@@ -23,5 +24,6 @@ namespace LibSWBF2::Chunks::LVL::coll
         INFO_coll *p_Info;
         TREE *p_Tree;
         POSI *p_Verts;
+        prim::MASK *p_Mask;
     };
 }
