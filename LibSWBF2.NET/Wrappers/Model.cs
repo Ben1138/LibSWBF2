@@ -20,7 +20,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return Marshal.PtrToStringAnsi( APIWrapper.Model_GetName(NativeInstance) ); 
+                return Marshal.PtrToStringAnsi(APIWrapper.Model_GetName(NativeInstance)); 
             }
         }
 
