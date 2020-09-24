@@ -149,6 +149,14 @@ namespace LibSWBF2
 		ExplosionClass
 	};
 
+	enum class ELoadStatus
+	{
+		Uninitialized,
+		Loading,
+		Loaded,
+		Failed
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
@@ -158,6 +166,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
+	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
