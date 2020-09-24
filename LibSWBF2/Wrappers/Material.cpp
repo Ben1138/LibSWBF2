@@ -2,6 +2,7 @@
 #include "Material.h"
 #include "Segment.h"
 #include "Level.h"
+#include "Container.h"
 #include "InternalHelpers.h"
 
 
@@ -71,7 +72,7 @@ namespace LibSWBF2::Wrappers
 	const Texture* Material::GetTexture(uint8_t index) const
 	{
 		String textureName;
-		if (GetTextureName(index, textureName))
+		if (m_MainContainer != nullptr && GetTextureName(index, textureName))
 		{
 			return m_MainContainer->GetTexture(textureName);
 		}
