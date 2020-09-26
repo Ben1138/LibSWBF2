@@ -82,6 +82,7 @@
     <Compile Include="Wrappers\World.cs" />
     <Compile Include="Wrappers\Light.cs" />
     <Compile Include="Wrappers\Instance.cs" />
+    <Compile Include="Wrappers\Bone.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
     <Compile Include="Wrappers\Texture.cs" />
     <Compile Include="Wrappers\CollisionPrimitive.cs" />

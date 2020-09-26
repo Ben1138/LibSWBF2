@@ -153,16 +153,13 @@ namespace LibSWBF2
 	}
 
 
-	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
+	void Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc)
 	{
+		/*
 		modelCount = 0;
 		CheckPtr(level, );
 		const List<Model>& models = level->GetModels();
 
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer.
-		// The inquirer of course is not allowed to alter the data!
 		static List<const Model*> modelPtrs;
 		modelPtrs.Clear();
 
@@ -173,6 +170,12 @@ namespace LibSWBF2
 
 		modelArr = modelPtrs.GetArrayPtr();
 		modelCount = (uint32_t)modelPtrs.Size();
+		*/
+
+		const List<Model>& models = level->GetModels();
+		modelArr = (void *) models.GetArrayPtr();
+		modelCount = (uint32_t) models.Size();
+		inc = sizeof(Model);
 	}
 
 
@@ -390,38 +393,18 @@ namespace LibSWBF2
 	}
 
 
-	uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount)
+	uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc)
 	{
 		CheckPtr(model, false);
 
-		static List<CollisionPrimitive> primsList;
-		static List<CollisionPrimitive *> primPtrs;
-		
-		numPrims = 0;
-		CheckPtr(model,);
-
-		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
-		primPtrs.Clear();
-
-		for (size_t i = 0; i < primsList.Size(); i++)
-		{
-			primPtrs.Add(&primsList[i]);
-		}		
-
-		primArrayPtr = primPtrs.GetArrayPtr();
-		numPrims = (uint32_t) primPtrs.Size();
-
-		// keep this static, so the buffer is valid after the call ends.
-		// this of course results in holding a permanent copy of the last queried
-		// bone list in memory, and will overwrite the buffer in the next query...
-		// TODO: maybe make the bone list a member of Model?
 		static List<Bone> bones;
 		if (!model->GetSkeleton(bones))
 		{
 			return false;
 		}
 		boneArr = bones.GetArrayPtr();
-		boneCount = (uint32_t)bones.Size();
+		boneCount = (uint32_t) bones.Size();
+		inc = sizeof(Bone);
 		return true;
 	}
 
@@ -460,10 +443,11 @@ namespace LibSWBF2
 									const char *& parentName, const Vector3*& loc,
 									const Vector4*& rot)
 	{
-		name = &(bone -> m_BoneName);
-		parentName = &(bone -> m_Parent);
-		loc = &(bone -> m_Position);
+	    name = (bone -> m_BoneName).Buffer();
+	    loc = &(bone -> m_Position);
 		rot = &(bone -> m_Rotation);
+		
+		parentName = (bone -> m_BoneName).Buffer();
 	}
 
 

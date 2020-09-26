@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Enums;
+using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
@@ -16,18 +17,18 @@ namespace LibSWBF2.Wrappers
 
         internal override void SetPtr(IntPtr ptr)
         {
-        	APIWrapper.Bone_FetchAllFields(NativeInstance, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
+        	APIWrapper.Bone_FetchAllFields(ptr, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
 
         	name = Marshal.PtrToStringAnsi(namePtr);
-        	parentName = Marshal.PtrToStringAnsi(parentNamePtr);
+        	//parentName = Marshal.PtrToStringAnsi(parentNamePtr);
 
         	rotation = new Vector4(rot);
         	location = new Vector3(loc);
         }
 
 
-        public string name
-        public string parentName;
+        public string name;
+        public string parentName = "nully";
         public Vector4 rotation;
         public Vector3 location;
     }

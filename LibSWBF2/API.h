@@ -70,7 +70,7 @@ namespace LibSWBF2
 		LIBSWBF2_API Level*  Level_FromFile(const char* path);
 		LIBSWBF2_API void    Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
-		LIBSWBF2_API void 	 Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount);
+		LIBSWBF2_API void 	 Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc);
 		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
 		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
@@ -85,7 +85,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
 		LIBSWBF2_API const void  Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount);
 		LIBSWBF2_API uint8_t 	 Model_IsSkeletalMesh(const Model* model);
-		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone**& boneArr, uint32_t& boneCount);
+		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
