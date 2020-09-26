@@ -21,6 +21,10 @@ namespace LibSWBF2
 		Level* m_Level = nullptr;
 		SoundBank* m_SoundBank = nullptr;
 		uint64_t m_FileSize = 0;
+
+#ifdef _DEBUG
+		std::string m_LVLPath;
+#endif
 	};
 
 	class ContainerMembers
@@ -38,9 +42,10 @@ namespace LibSWBF2
 		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
 		std::unordered_map<std::string, const Light*> m_LightDB;
-		std::unordered_map<std::string, const Localization*> m_LocalizationDB;
 		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
+
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
+		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
 
 		List<const World*> m_Worlds;
 	};
@@ -63,111 +68,142 @@ namespace LibSWBF2
 		}
 	}
 
-	void Container::LoadLevelAsync(size_t index, const Schedule& scheduled)
+	void Container::LoadLevelAsync(const Schedule& scheduled)
 	{
-		LoadStatus* status = nullptr;
+		// do not globally lock in order to not block
+		// while performing ReadFromFile!
+
 		LVL* lvl = nullptr;
 		{
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status = &m_ThreadSafeMembers->m_Statuses[index];
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
 
 			FileReader reader;
 			if (!reader.Open(scheduled.m_Path))
 			{
-				status->m_LoadStatus = ELoadStatus::Failed;
+				status.m_LoadStatus = ELoadStatus::Failed;
 				return;
 			}
 			else
 			{
-				status->m_FileSize = reader.GetFileSize();
+				status.m_FileSize = reader.GetFileSize();
 				reader.Close();
 			}
 
 			lvl = LVL::Create();
-			status->m_Chunk = lvl;
-			status->m_LoadStatus = ELoadStatus::Loading;
+			status.m_Chunk = lvl;
+			status.m_LoadStatus = ELoadStatus::Loading;
 		}
 
 		if (lvl->ReadFromFile(scheduled.m_Path, scheduled.m_SubLVLsToLoad.Size() > 0 ? &scheduled.m_SubLVLsToLoad : nullptr))
 		{
 			Level* level = Level::FromChunk(lvl, this);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status->m_Level = level;
-			if (level != nullptr && scheduled.bRegisterContents)
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+			status.m_Level = level;
+			if (level != nullptr)
 			{
-				CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->m_TextureDB);
-				CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->m_ModelDB);
-				CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
-				CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
-				CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
-				CopyMap(level->m_NameToIndexMaps->LocalizationNameToIndex,	level->m_Localizations, m_ThreadSafeMembers->m_LocalizationDB);
-				CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
-				CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
-				status->m_LoadStatus = ELoadStatus::Loaded;
+				if (scheduled.bRegisterContents)
+				{
+					CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->m_TextureDB);
+					CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->m_ModelDB);
+					CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
+					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
+					CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
+					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
+					CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
+
+					for (auto& it : level->m_NameToIndexMaps->LocalizationNameToIndex)
+					{
+						auto find = m_ThreadSafeMembers->m_LocalizationDB.find(it.first);
+						if (find == m_ThreadSafeMembers->m_LocalizationDB.end())
+						{
+							List<const Localization*> list;
+							list.Add(&level->m_Localizations[it.second]);
+							m_ThreadSafeMembers->m_LocalizationDB.emplace(it.first, list);
+						}
+						else
+						{
+							find->second.Add(&level->m_Localizations[it.second]);
+						}
+					}
+				}
+
+				level->m_FullPath = scheduled.m_Path;
+				status.m_LoadStatus = ELoadStatus::Loaded;
 			}
-			else if (level == nullptr)
+			else
 			{
-				status->m_LoadStatus = ELoadStatus::Failed;
+				status.m_LoadStatus = ELoadStatus::Failed;
 				LVL::Destroy(lvl);
 			}
 		}
 		else
 		{
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status->m_LoadStatus = ELoadStatus::Failed;
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+			status.m_LoadStatus = ELoadStatus::Failed;
 			LVL::Destroy(lvl);
 		}
-		status->m_Chunk = nullptr;
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+		status.m_Chunk = nullptr;
 	}
 
-	void Container::LoadSoundBankAsync(size_t index, const Schedule& scheduled)
+	void Container::LoadSoundBankAsync(const Schedule& scheduled)
 	{
-		LoadStatus* status = nullptr;
+		// do not globally lock in order to not block
+		// while performing ReadFromFile!
+
 		BNK* bnk = nullptr;
 		{
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status = &m_ThreadSafeMembers->m_Statuses[index];
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
 
 			FileReader reader;
 			if (!reader.Open(scheduled.m_Path))
 			{
-				status->m_LoadStatus = ELoadStatus::Failed;
+				status.m_LoadStatus = ELoadStatus::Failed;
 				return;
 			}
 			else
 			{
-				status->m_FileSize = reader.GetFileSize();
+				status.m_FileSize = reader.GetFileSize();
 				reader.Close();
 			}
 
 			bnk = BNK::Create();
-			status->m_Chunk = bnk;
-			status->m_LoadStatus = ELoadStatus::Loading;
+			status.m_Chunk = bnk;
+			status.m_LoadStatus = ELoadStatus::Loading;
 		}
 
 		if (bnk->ReadFromFile(scheduled.m_Path))
 		{
 			SoundBank* soundBank = SoundBank::FromChunk(bnk);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status->m_SoundBank = soundBank;
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+			status.m_SoundBank = soundBank;
 			if (soundBank != nullptr && scheduled.bRegisterContents)
 			{
 				CopyMap(soundBank->m_NameToIndexMaps->SoundHashToIndex, soundBank->m_Sounds, m_ThreadSafeMembers->m_SoundDB);
-				status->m_LoadStatus = ELoadStatus::Loaded;
+				status.m_LoadStatus = ELoadStatus::Loaded;
 			}
 			else if (soundBank == nullptr)
 			{
-				status->m_LoadStatus = ELoadStatus::Failed;
+				status.m_LoadStatus = ELoadStatus::Failed;
 				BNK::Destroy(bnk);
 			}
 		}
 		else
 		{
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
-			status->m_LoadStatus = ELoadStatus::Failed;
+			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+			status.m_LoadStatus = ELoadStatus::Failed;
 			BNK::Destroy(bnk);
 		}
-		status->m_Chunk = nullptr;
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
+		status.m_Chunk = nullptr;
 	}
 
 	Container::Container()
@@ -194,50 +230,61 @@ namespace LibSWBF2
 
 	SWBF2Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, subLVLsToLoad != nullptr ? *subLVLsToLoad : List<String>(), false, bRegisterContents });
-		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		LoadStatus& status = m_ThreadSafeMembers->m_Statuses.emplace_back();
+#ifdef _DEBUG
+		status.m_LVLPath = path.Buffer();
+#endif
+		SWBF2Handle handle = (SWBF2Handle)m_ThreadSafeMembers->m_Statuses.size() - 1;
+		m_ThreadSafeMembers->m_Scheduled.push_back(
+		{ 
+			handle, 
+			path, 
+			subLVLsToLoad != nullptr ? *subLVLsToLoad : List<String>(), 
+			false, 
+			bRegisterContents
+		});
+		return handle;
 	}
 
 	SWBF2Handle Container::AddSoundBank(const String& path, bool bRegisterContents)
 	{
-		m_ThreadSafeMembers->m_Scheduled.push_back({ path, List<String>(), true, bRegisterContents });
-		return (SWBF2Handle)m_ThreadSafeMembers->m_Scheduled.size() - 1;
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		LoadStatus& status = m_ThreadSafeMembers->m_Statuses.emplace_back();
+#ifdef _DEBUG
+		status.m_LVLPath = path.Buffer();
+#endif
+		SWBF2Handle handle = (SWBF2Handle)m_ThreadSafeMembers->m_Statuses.size() - 1;
+		m_ThreadSafeMembers->m_Scheduled.push_back(
+		{ 
+			handle,
+			path, 
+			List<String>(), 
+			true, 
+			bRegisterContents 
+		});
+		return handle;
 	}
 
 	void Container::StartLoading()
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		if (m_ThreadSafeMembers->m_Processes.size() > 0)
-		{
-			LOG_WARN("Already running!");
-			return;
-		}
 		if (m_ThreadSafeMembers->m_Scheduled.size() == 0)
 		{
 			LOG_WARN("No levels scheduled to load!");
 			return;
 		}
-		if (m_ThreadSafeMembers->m_Statuses.size() > 0)
-		{
-			LOG_WARN("Call 'FreeAll' first!");
-			return;
-		}
 
 		m_OverallSize = 0;
-		size_t num = m_ThreadSafeMembers->m_Scheduled.size();
-
-		m_ThreadSafeMembers->m_Statuses.clear();
-		for (size_t i = 0; i < num; ++i)
+		for (Schedule& scheduled : m_ThreadSafeMembers->m_Scheduled)
 		{
-			m_ThreadSafeMembers->m_Statuses.emplace_back();
-			Schedule& scheduled = m_ThreadSafeMembers->m_Scheduled[i];
 			if (scheduled.m_bIsSoundBank)
 			{
-				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadSoundBankAsync, this, i, scheduled));
+				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadSoundBankAsync, this, scheduled));
 			}
 			else
 			{
-				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadLevelAsync, this, i, scheduled));
+				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadLevelAsync, this, scheduled));
 			}
 		}
 		m_ThreadSafeMembers->m_Scheduled.clear();
@@ -304,6 +351,20 @@ namespace LibSWBF2
 			bIsDone = status.m_LoadStatus != ELoadStatus::Loading && status.m_LoadStatus != ELoadStatus::Uninitialized && bIsDone;
 		}
 		return bIsDone;
+	}
+
+	List<SWBF2Handle> Container::GetLoadedLevels() const
+	{
+		List<SWBF2Handle> handles;
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		for (size_t i = 0; i < m_ThreadSafeMembers->m_Statuses.size(); ++i)
+		{
+			if (m_ThreadSafeMembers->m_Statuses[i].m_Level != nullptr)
+			{
+				handles.Add((SWBF2Handle)i);
+			}
+		}
+		return handles;
 	}
 
 	ELoadStatus Container::GetLevelStatus(SWBF2Handle handle) const
@@ -512,18 +573,18 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
-	const Localization* Container::FindLocalization(String loclName) const
+	const List<const Localization*>* Container::FindLocalizations(String languageName) const
 	{
-		if (loclName.IsEmpty())
+		if (languageName.IsEmpty())
 		{
 			return nullptr;
 		}
 
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_LocalizationDB.find(ToLower(loclName));
+		auto it = m_ThreadSafeMembers->m_LocalizationDB.find(ToLower(languageName));
 		if (it != m_ThreadSafeMembers->m_LocalizationDB.end())
 		{
-			return it->second;
+			return &it->second;
 		}
 
 		return nullptr;
@@ -568,12 +629,19 @@ namespace LibSWBF2
 
 	bool Container::GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const
 	{
-		const Localization* local = FindLocalization(language);
-		if (local == nullptr)
+		const List<const Localization*>* locals = FindLocalizations(language);
+		if (locals == nullptr)
 		{
 			LOG_WARN("Cannot find language '{}'!", language);
 			return false;
 		}
-		return local->GetLocalizedWideString(path, chars, count);
+		for (size_t i = 0; i < locals->Size(); ++i)
+		{
+			if ((*locals)[i]->GetLocalizedWideString(path, chars, count))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
