@@ -102,8 +102,8 @@ namespace LibSWBF2.Wrappers
 
         public Model[] GetModels()
         {
-            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
-            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount);
+            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount, out int inc);
+            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount, inc);
 
             for (int i = 0; i < modelCount; i++)
             {

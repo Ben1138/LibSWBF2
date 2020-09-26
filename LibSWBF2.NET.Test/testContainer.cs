@@ -43,7 +43,9 @@ namespace LibSWBF2.NET.Test
 
             Console.WriteLine("Loading... This might take a while...");
 
-            string path1 = @"/Users/will/Desktop/geo1.lvl";
+            //string path1 = @"/Users/will/Desktop/common.lvl";
+            string path1 = @"/Users/will/Downloads/VDI/data/_LVL_PC/SIDE/pen.lvl";
+
             string path2 = @"/Users/will/Desktop/MLC.lvl";
 
             //string path1 = @"/Users/will/Desktop/MLC.lvl";
@@ -56,7 +58,7 @@ namespace LibSWBF2.NET.Test
 
             Container container = new Container();
             uint handle1 = container.AddLevel(path1);
-            uint handle2 = container.AddLevel(path2);
+            //uint handle2 = container.AddLevel(path2);
 
             float progress1 = 0.0f, progress2 = 0.0f;
 
@@ -68,17 +70,17 @@ namespace LibSWBF2.NET.Test
                              (int) (progress1 * 100.0f), (int) (progress2 * 100.0f));
 
                 progress1 = container.GetProgress(handle1);
-                progress2 = container.GetProgress(handle2);
+                //progress2 = container.GetProgress(handle2);
             }
 
             Level lvl1 = container.GetLevel(handle1);
-            Level lvl2 = container.GetLevel(handle2);
+            //Level lvl2 = container.GetLevel(handle2);
 
-            Console.WriteLine("\nFirst level contains {0} models, second contains {1}", 
-                                lvl1.GetModels().Length, lvl2.GetModels().Length);
+            //Console.WriteLine("\nFirst level contains {0} models, second contains {1}", 
+            //                    lvl1.GetModels().Length, lvl2.GetModels().Length);
 
 
-            Model[] models = lvl2.GetModels();
+            Model[] models = lvl1.GetModels();
 
             Stopwatch sw = Stopwatch.StartNew();
 
@@ -86,8 +88,19 @@ namespace LibSWBF2.NET.Test
             {
                 Model containerModel = container.FindWrapper<Model>(model.Name);
 
-                uint[] inds1 = containerModel.GetCollisionMesh().GetIndices();
-                uint[] inds2 = model.GetCollisionMesh().GetIndices();
+                if (containerModel.IsSkeletalMesh){
+                    Console.WriteLine("Skeletal mesh found: " + containerModel.Name);
+                    foreach (Bone bone in containerModel.GetSkeleton())
+                    {
+                        Console.WriteLine("\tBone: " + bone.name);
+                    }
+                }
+                else {
+                    Console.WriteLine(containerModel.Name + " aint skeletal.");
+                }
+
+                //uint[] inds1 = containerModel.GetCollisionMesh().GetIndices();
+               // uint[] inds2 = model.GetCollisionMesh().GetIndices();
 
                 //Console.WriteLine("Container collision ibuf length {0}, Direct collision ibuf length {1}",
                 //                inds1.Length, inds2.Length);

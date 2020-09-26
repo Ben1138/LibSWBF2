@@ -84,7 +84,7 @@ namespace LibSWBF2
         public static extern bool Level_IsWorldLevel(IntPtr level);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount);
+        public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount, out int inc);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
@@ -148,7 +148,7 @@ namespace LibSWBF2
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount);
+        public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount, out int inc);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Model_GetCollisionMesh(IntPtr model);
