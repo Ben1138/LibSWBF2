@@ -48,7 +48,7 @@ namespace LibSWBF2
 		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
 		SWBF2Handle AddSoundBank(const String& path, bool bRegisterContents = true);
 		void StartLoading();
-		void FreeAll();
+		void FreeAll(bool bLog=true);
 		bool IsDone() const;
 		ELoadStatus GetLevelStatus(SWBF2Handle handle) const;
 		float_t GetLevelProgress(SWBF2Handle handle) const;

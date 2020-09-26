@@ -177,7 +177,7 @@ namespace LibSWBF2
 
 	Container::~Container()
 	{
-		FreeAll();
+		FreeAll(false);
 		delete m_ThreadSafeMembers;
 		m_ThreadSafeMembers = nullptr;
 	}
@@ -243,17 +243,23 @@ namespace LibSWBF2
 		m_ThreadSafeMembers->m_Scheduled.clear();
 	}
 
-	void Container::FreeAll()
+	void Container::FreeAll(bool bLog)
 	{
 		if (m_ThreadSafeMembers->m_Processes.size() == 0)
 		{
-			LOG_WARN("Nothing to free!");
+			if (bLog)
+			{
+				LOG_WARN("Nothing to free!");
+			}
 			return;
 		}
 
 		if (!IsDone())
 		{
-			LOG_WARN("Cannot free while still running!");
+			if (bLog)
+			{
+				LOG_WARN("Cannot free while still running!");
+			}
 			return;
 		}
 
