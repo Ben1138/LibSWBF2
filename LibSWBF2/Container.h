@@ -23,12 +23,17 @@ namespace LibSWBF2
 
 	struct Schedule
 	{
+		SWBF2Handle m_Handle;
 		String m_Path;
 		List<String> m_SubLVLsToLoad;
 		bool m_bIsSoundBank = false;
 		bool bRegisterContents = true;
 	};
 
+	// Procedure:
+	// - Schedule levels and sound banks to load via AddLevel / AddSoundBank
+	// - Call StartLoading();
+	// - Repeat as many times as you want. Also possible while loading.
 	class LIBSWBF2_API Container
 	{
 	private:
@@ -38,8 +43,8 @@ namespace LibSWBF2
 		class ContainerMembers* m_ThreadSafeMembers = nullptr;
 		uint64_t m_OverallSize = 0;
 
-		void LoadLevelAsync(size_t index, const Schedule& scheduled);
-		void LoadSoundBankAsync(size_t index, const Schedule& scheduled);
+		void LoadLevelAsync(const Schedule& scheduled);
+		void LoadSoundBankAsync(const Schedule& scheduled);
 
 	public:
 		static Container* Create();
@@ -50,6 +55,7 @@ namespace LibSWBF2
 		void StartLoading();
 		void FreeAll(bool bForce=false);
 		bool IsDone() const;
+		List<SWBF2Handle> GetLoadedLevels() const;
 		ELoadStatus GetLevelStatus(SWBF2Handle handle) const;
 		float_t GetLevelProgress(SWBF2Handle handle) const;
 		Level* GetLevel(SWBF2Handle handle) const;
@@ -66,11 +72,11 @@ namespace LibSWBF2
 		const World* FindWorld(String worldName) const;
 		const Terrain* FindTerrain(String terrainName) const;
 		const Script* FindScript(String scriptName) const;
-		const Localization* FindLocalization(String loclName) const;
 		const EntityClass* FindEntityClass(String typeName) const;
 		const Sound* FindSound(String soundName) const;
 		const Sound* FindSound(FNVHash hashedSoundName) const;
 
+		const List<const Localization*>* FindLocalizations(String languageName) const;
 		// count is number of wide chars, NOT number of bytes!
 		bool GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const;
 	};

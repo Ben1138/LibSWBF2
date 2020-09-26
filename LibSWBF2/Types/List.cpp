@@ -508,4 +508,5 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 }

@@ -42,6 +42,7 @@ namespace LibSWBF2::Wrappers
 	private:
 		LVL* p_lvl;
 		Container* p_MainContainer;	// can be NULL
+		String m_FullPath;
 
 		List<Model> m_Models;
 		List<Texture> m_Textures;
@@ -68,6 +69,8 @@ namespace LibSWBF2::Wrappers
 		static Level* FromChunk(LVL* lvl, Container* mainContainer);
 		static void Destroy(Level* level);
 
+		const String& GetLevelPath() const;
+		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
 		const List<Light>& GetLights() const;

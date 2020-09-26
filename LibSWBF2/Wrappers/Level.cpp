@@ -7,7 +7,9 @@
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include <unordered_map>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 namespace LibSWBF2::Wrappers
 {
@@ -198,6 +200,7 @@ namespace LibSWBF2::Wrappers
 
 		Level* result = new Level(lvl, nullptr);
 		result->ExploreChildrenRecursive(lvl);
+		result->m_FullPath = path;
 
 		return result;
 	}
@@ -225,6 +228,16 @@ namespace LibSWBF2::Wrappers
 		}
 
 		delete level;
+	}
+
+	const String& Level::GetLevelPath() const
+	{
+		return m_FullPath;
+	}
+
+	String Level::GetLevelName() const
+	{
+		return (const char*)fs::path(m_FullPath.Buffer()).filename().c_str();
 	}
 
 	bool Level::IsWorldLevel() const
