@@ -40,15 +40,10 @@ namespace LibSWBF2::Chunks::LVL::prim
             READ_CHILD(stream, tempNAME);
             m_PrimitiveNAMEs.Add(tempNAME);
 
-            nextHeader = stream.ReadChunkHeader(true);
-
-            if (nextHeader == "MASK"_h)
+            tempMASK = nullptr;
+            if (stream.ReadChunkHeader(true) == "MASK"_h)
             {
                 READ_CHILD(stream, tempMASK);
-
-            } else 
-            {
-                tempMASK = nullptr;
             }
 
             m_PrimitiveMASKs.Add(tempMASK);

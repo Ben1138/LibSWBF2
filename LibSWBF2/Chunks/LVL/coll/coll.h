@@ -3,6 +3,7 @@
 #include "Chunks/STR.h"
 #include "POSI.h"
 #include "TREE.h"
+#include "../prim/MASK.h"
 #include "coll.INFO.h"
 
 
@@ -18,6 +19,7 @@ namespace LibSWBF2::Chunks::LVL::coll
         Types::String ToString() override;
 
         STR<"NAME"_m> *p_ChunkName;
+        prim::MASK    *p_Mask;
         STR<"NODE"_m> *p_NodeName;
 
         INFO_coll *p_Info;

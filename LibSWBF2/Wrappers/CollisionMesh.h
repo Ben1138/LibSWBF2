@@ -36,6 +36,8 @@ namespace LibSWBF2::Wrappers
 		void GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer);
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
 
+		ECollisionMaskFlags GetMaskFlags() const;
+
 		String ToString() const;
 	};
 }
