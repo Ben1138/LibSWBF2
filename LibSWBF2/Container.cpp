@@ -177,7 +177,7 @@ namespace LibSWBF2
 
 	Container::~Container()
 	{
-		FreeAll(false);
+		FreeAll(true);
 		delete m_ThreadSafeMembers;
 		m_ThreadSafeMembers = nullptr;
 	}
@@ -243,24 +243,30 @@ namespace LibSWBF2
 		m_ThreadSafeMembers->m_Scheduled.clear();
 	}
 
-	void Container::FreeAll(bool bLog)
+	void Container::FreeAll(bool bForce)
 	{
-		if (m_ThreadSafeMembers->m_Processes.size() == 0)
+		if (!bForce && m_ThreadSafeMembers->m_Statuses.size() == 0)
 		{
-			if (bLog)
-			{
-				LOG_WARN("Nothing to free!");
-			}
+			LOG_WARN("Nothing to free!");
 			return;
 		}
 
 		if (!IsDone())
 		{
-			if (bLog)
+			if (bForce)
+			{
+				for (std::future<void>& process : m_ThreadSafeMembers->m_Processes)
+				{
+					// join all processes... you cannot just abort another thread in c++, see:
+					// https://stackoverflow.com/questions/13678155/cancel-a-c-11-async-task
+					process.wait();
+				}
+			}
+			else
 			{
 				LOG_WARN("Cannot free while still running!");
+				return;
 			}
-			return;
 		}
 
 		{
