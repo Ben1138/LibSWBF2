@@ -28,7 +28,6 @@ namespace LibSWBF2::Chunks::LVL::prim
         DATA_PRIM *tempDATA;
         wrld::XFRM *tempXFRM;
         MASK *tempMASK;
-        STR<"NODE"_m> *tempNODE;
         STR<"PRNT"_m> *tempPRNT;
         STR<"NAME"_m> *tempNAME;
 

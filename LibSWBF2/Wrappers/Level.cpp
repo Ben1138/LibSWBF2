@@ -113,7 +113,7 @@ namespace LibSWBF2::Wrappers
 			{
 				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
 				{
-					int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
+					size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
 					m_Models[modelIndex].m_CollisionMesh = collMesh;
 				}
 				else 
@@ -150,7 +150,7 @@ namespace LibSWBF2::Wrappers
 			if (m_NameToIndexMaps -> ModelNameToIndex.count(
 				ToLower(modelName)) == 1)
 			{
-				int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
+				size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
 				m_Models[modelIndex].m_CollisionPrimitives = std::move(primitives);	
 			} 
 			else
