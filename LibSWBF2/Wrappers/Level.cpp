@@ -8,26 +8,12 @@
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include <unordered_map>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 namespace LibSWBF2::Wrappers
 {
-	/*
-	class MapsWrapper
-	{
-	public:
-		std::unordered_map<std::string, size_t> TextureNameToIndex;
-		std::unordered_map<std::string, size_t> ModelNameToIndex;
-		std::unordered_map<std::string, size_t> WorldNameToIndex;
-		std::unordered_map<std::string, size_t> TerrainNameToIndex;
-		std::unordered_map<std::string, size_t> ScriptNameToIndex;
-		std::unordered_map<std::string, size_t> LightNameToIndex;
-		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
-		std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
-		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
-	};
-	*/
-
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
@@ -37,11 +23,12 @@ namespace LibSWBF2::Wrappers
     using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
 
-	Level::Level(LVL* lvl)
+	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
 		m_bHasGlobalLighting = false;
+		p_MainContainer = mainContainer;
 	}
 
 	Level::~Level()
@@ -176,7 +163,7 @@ namespace LibSWBF2::Wrappers
 		if (worldChunk != nullptr)
 		{
 			World world;
-			if (World::FromChunk(this, worldChunk, world))
+			if (World::FromChunk(p_MainContainer, worldChunk, world))
 			{
 				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
@@ -186,7 +173,7 @@ namespace LibSWBF2::Wrappers
 		if (terrainChunk != nullptr)
 		{
 			Terrain terrain;
-			if (Terrain::FromChunk(this, terrainChunk, terrain))
+			if (Terrain::FromChunk(terrainChunk, terrain))
 			{
 				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
 			}
@@ -216,9 +203,9 @@ namespace LibSWBF2::Wrappers
 		if (entityChunk != nullptr)
 		{
 			EntityClass entityClass;
-			if (EntityClass::FromChunk(entityChunk, entityClass))
+			if (EntityClass::FromChunk(p_MainContainer, entityChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -226,9 +213,9 @@ namespace LibSWBF2::Wrappers
 		if (ordenanceChunk != nullptr)
 		{
 			EntityClass entityClass;
-			if (EntityClass::FromChunk(ordenanceChunk, entityClass))
+			if (EntityClass::FromChunk(p_MainContainer, ordenanceChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -236,9 +223,9 @@ namespace LibSWBF2::Wrappers
 		if (weaponChunk != nullptr)
 		{
 			EntityClass entityClass;
-			if (EntityClass::FromChunk(weaponChunk, entityClass))
+			if (EntityClass::FromChunk(p_MainContainer, weaponChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -246,9 +233,9 @@ namespace LibSWBF2::Wrappers
 		if (explosionChunk != nullptr)
 		{
 			EntityClass entityClass;
-			if (EntityClass::FromChunk(explosionChunk, entityClass))
+			if (EntityClass::FromChunk(p_MainContainer, explosionChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetClassType()), m_EntityClasses.Add(std::move(entityClass)));
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -268,7 +255,22 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		Level* result = new Level(lvl);
+		Level* result = new Level(lvl, nullptr);
+		result->ExploreChildrenRecursive(lvl);
+		result->m_FullPath = path;
+
+		return result;
+	}
+
+	Level* Level::FromChunk(LVL* lvl, Container* mainContainer)
+	{
+		if (lvl == nullptr)
+		{
+			LOG_WARN("Given LVL chunk is NULL!");
+			return nullptr;
+		}
+
+		Level* result = new Level(lvl, mainContainer);
 		result->ExploreChildrenRecursive(lvl);
 
 		return result;
@@ -283,6 +285,16 @@ namespace LibSWBF2::Wrappers
 		}
 
 		delete level;
+	}
+
+	const String& Level::GetLevelPath() const
+	{
+		return m_FullPath;
+	}
+
+	String Level::GetLevelName() const
+	{
+		return (const char*)fs::path(m_FullPath.Buffer()).filename().c_str();
 	}
 
 	bool Level::IsWorldLevel() const

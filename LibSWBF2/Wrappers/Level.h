@@ -15,6 +15,11 @@
 #include "CollisionMesh.h"
 
 
+namespace LibSWBF2
+{
+	class Container;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -30,11 +35,15 @@ namespace LibSWBF2::Wrappers
 	class LIBSWBF2_API Level
 	{
 	private:
-		Level(LVL* lvl);
+		friend Container;
+
+		Level(LVL* lvl, Container* mainContainer);
 		~Level();
 
 	private:
 		LVL* p_lvl;
+		Container* p_MainContainer;	// can be NULL
+		String m_FullPath;
 
 		List<Model> m_Models;
 		List<Texture> m_Textures;
@@ -58,8 +67,11 @@ namespace LibSWBF2::Wrappers
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
 		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);
+		static Level* FromChunk(LVL* lvl, Container* mainContainer);
 		static void Destroy(Level* level);
 
+		const String& GetLevelPath() const;
+		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
 		const List<Light>& GetLights() const;

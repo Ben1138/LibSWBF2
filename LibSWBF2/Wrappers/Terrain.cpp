@@ -8,13 +8,8 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::terrain::VBUF;
 	using Chunks::LVL::terrain::IBUF;
 
-	bool Terrain::FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out)
+	bool Terrain::FromChunk(tern* terrainChunk, Terrain& out)
 	{
-		if (mainContainer == nullptr)
-		{
-			LOG_ERROR("Given mainContainer was NULL!");
-			return false;
-		}
 		if (terrainChunk == nullptr)
 		{
 			LOG_ERROR("Given terrainChunk was NULL!");
