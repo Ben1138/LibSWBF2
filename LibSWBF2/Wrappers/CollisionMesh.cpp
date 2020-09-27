@@ -51,7 +51,7 @@ namespace LibSWBF2::Wrappers
             }
         }
 
-        count       = m_Indicies.Size();
+        count       = (uint32_t)m_Indicies.Size();
         indexBuffer = m_Indicies.GetArrayPtr();
     }
 
@@ -65,7 +65,7 @@ namespace LibSWBF2::Wrappers
     	}
 
     	List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
-        count = verts.Size();
+        count = (uint32_t)verts.Size();
         vertexBuffer = verts.GetArrayPtr();
     }
         

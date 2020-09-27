@@ -167,7 +167,7 @@ namespace LibSWBF2
 
 		tempBuffer = new int[count];
 
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < (int)count; i++)
 		{
 			tempBuffer[i] = (int) meshBuffer[i];
 		}
@@ -186,7 +186,7 @@ namespace LibSWBF2
 
     	tempBuffer = new float_t[count * 3];
 
-    	for (int i = 0; i < count; i++)
+    	for (int i = 0; i < (int)count; i++)
     	{
     		Vector3& curVec = verts[i];
 
