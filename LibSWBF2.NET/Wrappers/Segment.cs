@@ -19,6 +19,13 @@ namespace LibSWBF2.Wrappers
 
         public Segment() : base(IntPtr.Zero) {}
 
+        public uint GetVertexBufferLength()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+
+            return APIWrapper.Segment_GetVertexBufferLength(NativeInstance);
+        }
+
         public float[] GetVertexBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");

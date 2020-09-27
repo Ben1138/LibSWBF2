@@ -156,9 +156,17 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
                                                             out int numPrims, out IntPtr ptr);
-    
+
+
+        // Bone //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]    
+        public static extern void Bone_FetchAllFields(IntPtr NativeInstance, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
 
         // Segment //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint Segment_GetVertexBufferLength(IntPtr seg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Segment_GetIndexBuffer(IntPtr seg, out uint numIndicies, out IntPtr indexBuffer);

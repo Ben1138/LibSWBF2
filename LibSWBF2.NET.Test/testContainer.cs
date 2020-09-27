@@ -43,8 +43,8 @@ namespace LibSWBF2.NET.Test
 
             Console.WriteLine("Loading... This might take a while...");
 
-            string path1 = @"/home/will/Desktop/geo1.lvl";
-            string path2 = @"/home/will/Desktop/MLC.lvl";
+            string path1 = @"/Users/will/Desktop/geo1.lvl";
+            string path2 = @"/Users/will/Desktop/MLC.lvl";
 
             //string path1 = @"/Users/will/Desktop/MLC.lvl";
             //string path2 = @"/Users/will/Desktop/geo1.lvl";
