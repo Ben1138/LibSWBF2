@@ -142,14 +142,14 @@ namespace LibSWBF2
 		return true;
 	}
 
-	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
+	CollisionMesh* Model_GetCollisionMesh(Model *model)
 	{
-		const CollisionMesh& mesh = model -> GetCollisionMesh();
+		CollisionMesh& mesh = model -> GetCollisionMesh();
 		return &mesh;
 	}
 
 
-	const Model* Level_GetModel(const Level* level, const char* modelName)
+	Model* Level_GetModel(Level* level, const char* modelName)
 	{
 		CheckPtr(level, nullptr);
 		return level->GetModel(modelName);

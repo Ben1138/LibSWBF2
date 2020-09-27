@@ -98,7 +98,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const CollisionMesh& Model::GetCollisionMesh() const
+	CollisionMesh& Model::GetCollisionMesh()
 	{
 		return m_CollisionMesh;
 	}

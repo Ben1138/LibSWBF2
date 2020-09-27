@@ -37,7 +37,7 @@ namespace LibSWBF2
 
 		// TODO: rework once we allow modifications (add / delete) in Levels
 		std::unordered_map<std::string, const Texture*> m_TextureDB;
-		std::unordered_map<std::string, const Model*> m_ModelDB;
+		std::unordered_map<std::string,		  Model*> m_ModelDB;
 		std::unordered_map<std::string, const World*> m_WorldDB;
 		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
@@ -50,8 +50,19 @@ namespace LibSWBF2
 		List<const World*> m_Worlds;
 	};
 
+	// const version
 	template<class T1, class T2>
 	void CopyMap(std::unordered_map<T2, size_t>& levelMap, const List<T1>& list, std::unordered_map<T2, const T1*>& containerMap)
+	{
+		for (auto& it : levelMap)
+		{
+			containerMap.emplace(it.first, &list[it.second]);
+		}
+	}
+
+	// non const version
+	template<class T1, class T2>
+	void CopyMap(std::unordered_map<T2, size_t>& levelMap, List<T1>& list, std::unordered_map<T2, T1*>& containerMap)
 	{
 		for (auto& it : levelMap)
 		{
@@ -488,7 +499,7 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
-	const Model* Container::FindModel(String modelName) const
+	Model* Container::FindModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
 		{
