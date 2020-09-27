@@ -394,6 +394,23 @@ namespace LibSWBF2
 	{
 		CheckPtr(model, false);
 
+		static List<CollisionPrimitive> primsList;
+		static List<CollisionPrimitive *> primPtrs;
+		
+		numPrims = 0;
+		CheckPtr(model,);
+
+		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
+		primPtrs.Clear();
+
+		for (size_t i = 0; i < primsList.Size(); i++)
+		{
+			primPtrs.Add(&primsList[i]);
+		}		
+
+		primArrayPtr = primPtrs.GetArrayPtr();
+		numPrims = (uint32_t) primPtrs.Size();
+
 		// keep this static, so the buffer is valid after the call ends.
 		// this of course results in holding a permanent copy of the last queried
 		// bone list in memory, and will overwrite the buffer in the next query...
@@ -437,6 +454,18 @@ namespace LibSWBF2
 		primArrayPtr = primPtrs.GetArrayPtr();
 		numPrims = (uint32_t) primPtrs.Size();		
 	}
+
+
+	const void Bone_FetchAllFields(const Bone* bone, const char *&name,
+									const char *& parentName, const Vector3*& loc,
+									const Vector4*& rot)
+	{
+		name = &(bone -> m_BoneName);
+		parentName = &(bone -> m_Parent);
+		loc = &(bone -> m_Position);
+		rot = &(bone -> m_Rotation);
+	}
+
 
 
 	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& outBuffer)
@@ -515,6 +544,15 @@ namespace LibSWBF2
 
     
     //Segment
+
+    const uint32_t Segment_GetVertexBufferLength(const Segment* segment)
+    {
+    	Vector3 *verts;
+    	uint32_t numVerts;
+		segment -> GetVertexBuffer(numVerts, verts);
+    	return numVerts;
+    }
+
 
 	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
 	{

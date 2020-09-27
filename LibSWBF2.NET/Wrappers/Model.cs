@@ -35,6 +35,13 @@ namespace LibSWBF2.Wrappers
             }
         }
 
+        public List<Bone> GetSkeleton()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr bones, out uint numBones);
+            return MemUtils.IntPtrToWrapperArray(bones, numBones);
+        }
+
         public Segment[] GetSegments()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
