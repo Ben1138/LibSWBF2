@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "DATA.h"
+#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::common
 {
