@@ -6,6 +6,9 @@
 #include "Chunks/LVL/common/DATA.h"
 #include "Chunks/LVL/common/PROP.h"
 #include "Chunks/LVL/lght/lght.h"
+#include "Chunks/LVL/coll/TREE.NODE.h"
+#include "Chunks/LVL/coll/TREE.LEAF.h"
+#include "Chunks/LVL/prim/prim.h"
 #include "Wrappers/Light.h"
 
 
@@ -491,6 +494,15 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
     template class LIBSWBF2_API Types::List<LVL::common::PROP*>;
 
+    template class LIBSWBF2_API Types::List<LVL::coll::TREE_NODE*>;
+    template class LIBSWBF2_API Types::List<LVL::coll::TREE_LEAF*>;
+
+    template class LIBSWBF2_API Types::List<LVL::prim::MASK *>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
+    template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
+    template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
+    template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
+
 	template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
@@ -505,6 +517,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;
 	template class LIBSWBF2_API Types::List<Wrappers::EntityClass>;
+	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
+
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;

@@ -280,6 +280,75 @@ namespace LibSWBF2
 		}
 	}
 
+	Types::String CollisionMaskTypeToString(ECollisionMaskFlags type)
+	{
+		std::string result = "[";
+
+        if ((type & ECollisionMaskFlags::Ordnance) != 0)
+        {
+            result += "Ordnance, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Vehicle) != 0)
+        {
+            result += "Vehicle, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Building) != 0)
+        {
+            result += "Building, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Terrain) != 0)
+        {
+            result += "Terrain, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Soldier) != 0)
+        {
+            result += "Soldier, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Flag) != 0)
+        {
+            result += "Flag, ";
+        }
+
+        size_t resultSize = result.size();
+
+        if (resultSize > 1)
+        {
+        	result.resize(result.size() - 2);
+        	result += "]";
+        } else 
+        {
+        	result.resize(0);
+        	result += "[All]";
+        }
+
+		return result.c_str();
+	}
+
+	Types::String CollisionPrimitiveTypeToString(ECollisionPrimitiveType type)
+	{
+		if (type == ECollisionPrimitiveType::Sphere || (uint32_t) type == 0x0)
+		{
+			return "Sphere";
+		}
+
+		if (type == ECollisionPrimitiveType::Cylinder)
+		{
+			return "Cylinder";
+		}
+
+		if (type == ECollisionPrimitiveType::Cube)
+		{
+			return "Cube";
+		}
+
+		return "Unknown Collision Primitive Type";
+	}
+
 	Types::String LoadStatusToString(ELoadStatus type)
 	{
 		switch (type)
@@ -297,6 +366,7 @@ namespace LibSWBF2
 		}
 	}
 	
+
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
 		return static_cast<EMaterialFlags> (
@@ -357,5 +427,24 @@ namespace LibSWBF2
 	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)
 	{
 		return static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) != rhs;
+	}
+
+
+	ECollisionMaskFlags operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs)
+	{
+		return static_cast<ECollisionMaskFlags> (
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) &
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(rhs)
+			);
+	}
+
+	bool operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) != rhs;
 	}
 }
