@@ -5,9 +5,29 @@
 #include "FileReader.h"
 #include "Logging/Logger.h"
 #include <string>
+#include <mutex>
 
 namespace LibSWBF2::Chunks
 {
+	class MultiThreadHandling
+	{
+	public:
+		FileReader* m_CurrentReader = nullptr;
+		std::mutex m_Lock;
+	};
+
+
+	BaseChunk::BaseChunk()
+	{
+		m_ThreadHandling = new MultiThreadHandling();
+	}
+
+	BaseChunk::~BaseChunk()
+	{
+		delete m_ThreadHandling;
+		m_ThreadHandling = nullptr;
+	}
+
 	void BaseChunk::RefreshSize()
 	{
 		// must be overwritten by inheriting classes!
@@ -67,25 +87,38 @@ namespace LibSWBF2::Chunks
 	bool BaseChunk::ReadFromFile(const String& Path)
 	{
 		FileReader reader;
+		{
+			LOCK(m_ThreadHandling->m_Lock);
+			m_ThreadHandling->m_CurrentReader = &reader;
+		}
+		bool bSuccess = false;
 		if (reader.Open(Path))
 		{
 			try
 			{
 				ReadFromStream(reader);
+				LOCK(m_ThreadHandling->m_Lock);
 				reader.Close();
+				LOG_INFO("Successfully finished reading process!");
+				bSuccess = true;
 			}
 			catch (std::runtime_error& e)
 			{
 				LOG_ERROR(e.what());
 				LOG_ERROR("Aborting read process...");
+				LOCK(m_ThreadHandling->m_Lock);
 				reader.Close();
-				return false;
 			}
-			LOG_INFO("Successfully finished reading process!");
-			return true;
 		}
-		LOG_WARN("Could not open File {}! Non existent?", Path);
-		return false;
+		else
+		{
+			LOG_WARN("Could not open File {}! Non existent?", Path);
+		}
+		{
+			LOCK(m_ThreadHandling->m_Lock);
+			m_ThreadHandling->m_CurrentReader = nullptr;
+		}
+		return bSuccess;
 	}
 
 	ChunkHeader BaseChunk::GetHeader() const
@@ -178,6 +211,17 @@ namespace LibSWBF2::Chunks
 		}
 		size_t skipped = stream.GetPosition() - lastPos;
 		LOG_WARN("[{}] Forwarded to next header at {:#x}, skipped {} bytes!", m_Header, stream.GetPosition(), skipped);
+	}
+
+	float_t BaseChunk::GetReadingProgress()
+	{
+		LOCK(m_ThreadHandling->m_Lock);
+		if (m_ThreadHandling->m_CurrentReader == nullptr)
+		{
+			return 1.0f;
+		}
+
+		return (float_t)m_ThreadHandling->m_CurrentReader->GetPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
 	}
 }
 

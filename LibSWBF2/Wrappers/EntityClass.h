@@ -3,6 +3,11 @@
 #include "Types/Enums.h"
 #include "Types/List.h"
 
+namespace LibSWBF2
+{
+	class Container;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using LibSWBF2::Chunks::LVL::common::GenericClassNC;
@@ -23,6 +28,7 @@ namespace LibSWBF2::Wrappers
 		EntityClass& operator=(EntityClass&& other);
 
 	private:
+		Container* p_MainContainer;
 		GenericClassNC* p_classChunk;
 		EEntityClassType m_EntityClassType;
 		class PropertyMap* m_PropertyMapping;
@@ -34,11 +40,16 @@ namespace LibSWBF2::Wrappers
 		// - wpnc*
 		// - expc*
 		template<class EntityClassType>
-		static bool FromChunk(EntityClassType* classChunk, EntityClass& out);
+		static bool FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out);
 
-		String GetClassType() const;
-		String GetClassBase() const;
+		String GetTypeName() const;
+		String GetBaseName() const;
+		const EntityClass* GetBase() const;
+
+		// will fall back to base class, if existent
 		bool GetProperty(FNVHash hashedPropertyName, String& outValue) const;
+
+		// will fall back to base class, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
 	};
 }

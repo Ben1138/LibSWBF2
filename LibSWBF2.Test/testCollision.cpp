@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
@@ -13,6 +14,7 @@ using LibSWBF2::Types::List;
 using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 
+using LibSWBF2::Container;
 using LibSWBF2::Logging::Logger;
 using LibSWBF2::Logging::LoggerEntry;
 
@@ -27,13 +29,26 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
+	const char *path;
+
 #ifdef __APPLE__
-	//Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
-	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");
+	path = "/Users/will/Desktop/geo1.lvl";
 #else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	path = "/home/will/Desktop/geo1.lvl";
 #endif
+
+	Container *container = Container::Create();
+	auto handle = container -> AddLevel(path);
+	container -> StartLoading();
+
+	while (!container -> IsDone())
+	{
+		usleep(100000);
+	}
+
+	Level *testLVL = container -> GetLevel(handle);
+
+
 
 	const List<Model>& models = testLVL -> GetModels();
 
