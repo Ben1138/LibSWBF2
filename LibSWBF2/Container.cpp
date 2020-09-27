@@ -119,6 +119,7 @@ namespace LibSWBF2
 					CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->m_TextureDB);
 					CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->m_ModelDB);
 					CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
+					CopyMap(level->m_NameToIndexMaps->TerrainNameToIndex,		level->m_Terrains,		m_ThreadSafeMembers->m_TerrainDB);
 					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
 					CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
 					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
