@@ -13,6 +13,7 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
+		class CollisionMesh;
 		struct Bone;
 		//class Texture;
 		//class World;
@@ -57,9 +58,16 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount);
 		LIBSWBF2_API uint8_t Model_IsSkeletalMesh(const Model* model);
 		LIBSWBF2_API uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount);
+		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 
 		// Wrappers - Segment
 		// ....
+
+		// Wrappers - CollisionMesh
+		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& buffer);
+        LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
+
+
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);

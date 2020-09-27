@@ -12,6 +12,7 @@
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
+#include "CollisionMesh.h"
 
 
 namespace LibSWBF2

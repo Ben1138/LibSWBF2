@@ -142,11 +142,63 @@ namespace LibSWBF2
 		return true;
 	}
 
+	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
+	{
+		const CollisionMesh& mesh = model -> GetCollisionMesh();
+		return &mesh;
+	}
+
+
 	const Model* Level_GetModel(const Level* level, const char* modelName)
 	{
 		CheckPtr(level, nullptr);
 		return level->GetModel(modelName);
 	}
+
+
+	const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	{
+		static int* tempBuffer = nullptr;
+		delete tempBuffer;
+
+		uint32_t* meshBuffer;
+
+		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
+
+		tempBuffer = new int[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			tempBuffer[i] = (int) meshBuffer[i];
+		}
+
+		outBuffer = tempBuffer;
+	}
+    
+
+    const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer)
+    {
+    	static float_t *tempBuffer = nullptr;
+    	delete tempBuffer;
+
+    	Vector3 *verts;
+    	collMesh -> GetVertexBuffer(count, verts);
+
+    	tempBuffer = new float_t[count * 3];
+
+    	for (int i = 0; i < count; i++)
+    	{
+    		Vector3& curVec = verts[i];
+
+    		tempBuffer[3*i]     = curVec.m_X; 
+    		tempBuffer[3*i + 1] = curVec.m_Y; 
+    		tempBuffer[3*i + 2] = curVec.m_Z; 
+    	}
+
+    	buffer = tempBuffer;
+    }
+
+
 
 	const char* ENUM_TopologyToString(ETopology topology)
 	{

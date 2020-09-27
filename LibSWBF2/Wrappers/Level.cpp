@@ -6,6 +6,7 @@
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
+#include "Chunks/LVL/coll/coll.h"
 #include <unordered_map>
 #include <filesystem>
 
@@ -20,6 +21,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::lght;
+    using namespace Chunks::LVL::coll;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
@@ -99,6 +101,61 @@ namespace LibSWBF2::Wrappers
 			if (Model::FromChunk(this, modelChunk, model))
 			{
 				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(std::move((model))));
+			}
+		}
+
+		
+		coll* collisionChunk = dynamic_cast<coll*>(root);
+		if (collisionChunk != nullptr)
+		{
+			CollisionMesh collMesh;
+			if (CollisionMesh::FromChunk(collisionChunk, collMesh))
+			{
+				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
+				{
+					int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
+					m_Models[modelIndex].m_CollisionMesh = collMesh;
+				}
+				else 
+				{
+					LOG_ERROR("CollisionMesh references missing model {}", collMesh.GetName());
+				}
+			}
+		}
+		
+		prim* primChunk = dynamic_cast<prim*>(root);
+		if (primChunk != nullptr)
+		{
+			List<CollisionPrimitive> primitives;
+			auto& NAMEList = primChunk -> m_PrimitiveNAMEs;
+			auto& MASKList = primChunk -> m_PrimitiveMASKs;
+			auto& PRNTList = primChunk -> m_PrimitivePRNTs;
+			auto& XFRMList = primChunk -> m_PrimitiveXFRMs;
+			auto& DATAList = primChunk -> m_PrimitiveDATAs;
+			
+			for (int i = 0; i < primChunk -> p_InfoChunk -> m_NumPrimitives; i++)
+			{
+				CollisionPrimitive newPrimitive;
+
+				if (CollisionPrimitive::FromChunks(NAMEList[i], MASKList[i], 
+												PRNTList[i], XFRMList[i], 
+												DATAList[i], newPrimitive))
+				{
+					primitives.Add(newPrimitive);	
+				}
+			}
+
+			String& modelName = primChunk -> p_InfoChunk -> m_ModelName;
+
+			if (m_NameToIndexMaps -> ModelNameToIndex.count(
+				ToLower(modelName)) == 1)
+			{
+				int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
+				m_Models[modelIndex].m_CollisionPrimitives = std::move(primitives);	
+			} 
+			else
+			{
+				LOG_ERROR("CollisionPrimitive references missing model {}", modelName);
 			}
 		}
 

@@ -20,7 +20,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_GetName(NativeInstance); 
+                return Marshal.PtrToStringAnsi(APIWrapper.Model_GetName(NativeInstance)); 
             }
         }
 
@@ -53,6 +53,12 @@ namespace LibSWBF2.Wrappers
             IntPtr[] bones = new IntPtr[boneCount];
             Marshal.Copy(boneArr, bones, 0, (int)boneCount);
             return bones;
+        }
+
+        public CollisionMesh GetCollisionMesh()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
         }
     }
 }
