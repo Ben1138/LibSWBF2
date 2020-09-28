@@ -346,7 +346,7 @@ namespace LibSWBF2
 			return "Cube";
 		}
 
-		return "Unknown Collision Primitive Type";
+		return fmt::format("Unknown Collision Primitive Type: {}", (uint32_t) type).c_str();
 	}
 
 	Types::String LoadStatusToString(ELoadStatus type)
@@ -366,7 +366,6 @@ namespace LibSWBF2
 		}
 	}
 	
-
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
 		return static_cast<EMaterialFlags> (
