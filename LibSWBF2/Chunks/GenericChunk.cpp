@@ -11,6 +11,7 @@
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
+#include "LVL/wrld/XFRM.h"
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
 #include "LVL/zaa_/zaa_.h"
@@ -20,8 +21,11 @@
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
+#include "LVL/common/GenericClass.h"
 
 #include "LVL/lght/lght.h"
+#include "LVL/coll/coll.h"
+#include "LVL/prim/prim.h"
 
 
 namespace LibSWBF2::Chunks
@@ -163,6 +167,42 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, localizeChunk);
 						chunk = localizeChunk;
 					}
+					else if (nextHead == "entc"_h)
+					{
+						LVL::common::entc* entityClass;
+						READ_CHILD(stream, entityClass);
+						chunk = entityClass;
+					}
+					else if (nextHead == "ordc"_h)
+					{
+						LVL::common::ordc* ordenanceClass;
+						READ_CHILD(stream, ordenanceClass);
+						chunk = ordenanceClass;
+					}
+					else if (nextHead == "wpnc"_h)
+					{
+						LVL::common::wpnc* weaponClass;
+						READ_CHILD(stream, weaponClass);
+						chunk = weaponClass;
+					}
+					else if (nextHead == "expc"_h)
+					{
+						LVL::common::expc* explosionClass;
+						READ_CHILD(stream, explosionClass);
+						chunk = explosionClass;
+					}
+					else if (nextHead == "coll"_h)
+					{
+						LVL::coll::coll* collisionMesh;
+						READ_CHILD(stream, collisionMesh);
+						chunk = collisionMesh;
+					}					
+					else if (nextHead == "prim"_h)
+					{
+						LVL::prim::prim* collisionPrimitives;
+						READ_CHILD(stream, collisionPrimitives);
+						chunk = collisionPrimitives;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -246,7 +286,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"scr_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"SMNA_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SMNA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
@@ -256,6 +296,14 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
@@ -271,11 +319,19 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
 
-	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
-	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
-    template struct LIBSWBF2_API GenericChunk<"lght"_m>;
-    template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
-    template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
+	// odf class types (see common/GenericCLass.cpp)
+	template struct LIBSWBF2_API GenericChunk<"entc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ordc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
+
+	// collision
+	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TREE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LEAF"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
+
 }
 

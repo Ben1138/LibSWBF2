@@ -6,24 +6,14 @@
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
+#include "Chunks/LVL/coll/coll.h"
 #include <unordered_map>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 namespace LibSWBF2::Wrappers
 {
-	class MapsWrapper
-	{
-	public:
-		std::unordered_map<std::string, size_t> TextureNameToIndex;
-		std::unordered_map<std::string, size_t> ModelNameToIndex;
-		std::unordered_map<std::string, size_t> WorldNameToIndex;
-		std::unordered_map<std::string, size_t> TerrainNameToIndex;
-		std::unordered_map<std::string, size_t> ScriptNameToIndex;
-		std::unordered_map<std::string, size_t> LightNameToIndex;
-		std::unordered_map<std::string, size_t> LocalizationNameToIndex;
-		std::unordered_map<std::string, skel*> SkeletonNameToSkel;
-	};
-
 	using Chunks::GenericBaseChunk;
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
@@ -31,12 +21,14 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::lght;
+    using namespace Chunks::LVL::coll;
 
-	Level::Level(LVL* lvl)
+	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
 		m_bHasGlobalLighting = false;
+		p_MainContainer = mainContainer;
 	}
 
 	Level::~Level()
@@ -118,11 +110,66 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		
+		coll* collisionChunk = dynamic_cast<coll*>(root);
+		if (collisionChunk != nullptr)
+		{
+			CollisionMesh collMesh;
+			if (CollisionMesh::FromChunk(collisionChunk, collMesh))
+			{
+				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
+				{
+					size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
+					m_Models[modelIndex].m_CollisionMesh = collMesh;
+				}
+				else 
+				{
+					LOG_ERROR("CollisionMesh references missing model {}", collMesh.GetName());
+				}
+			}
+		}
+		
+		prim* primChunk = dynamic_cast<prim*>(root);
+		if (primChunk != nullptr)
+		{
+			List<CollisionPrimitive> primitives;
+			auto& NAMEList = primChunk -> m_PrimitiveNAMEs;
+			auto& MASKList = primChunk -> m_PrimitiveMASKs;
+			auto& PRNTList = primChunk -> m_PrimitivePRNTs;
+			auto& XFRMList = primChunk -> m_PrimitiveXFRMs;
+			auto& DATAList = primChunk -> m_PrimitiveDATAs;
+			
+			for (int i = 0; i < primChunk -> p_InfoChunk -> m_NumPrimitives; i++)
+			{
+				CollisionPrimitive newPrimitive;
+
+				if (CollisionPrimitive::FromChunks(NAMEList[i], MASKList[i], 
+												PRNTList[i], XFRMList[i], 
+												DATAList[i], newPrimitive))
+				{
+					primitives.Add(newPrimitive);	
+				}
+			}
+
+			String& modelName = primChunk -> p_InfoChunk -> m_ModelName;
+
+			if (m_NameToIndexMaps -> ModelNameToIndex.count(
+				ToLower(modelName)) == 1)
+			{
+				size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
+				m_Models[modelIndex].m_CollisionPrimitives = std::move(primitives);	
+			} 
+			else
+			{
+				LOG_ERROR("CollisionPrimitive references missing model {}", modelName);
+			}
+		}
+
 		wrld* worldChunk = dynamic_cast<wrld*>(root);
 		if (worldChunk != nullptr)
 		{
 			World world;
-			if (World::FromChunk(this, worldChunk, world))
+			if (World::FromChunk(p_MainContainer, worldChunk, world))
 			{
 				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
@@ -132,7 +179,7 @@ namespace LibSWBF2::Wrappers
 		if (terrainChunk != nullptr)
 		{
 			Terrain terrain;
-			if (Terrain::FromChunk(this, terrainChunk, terrain))
+			if (Terrain::FromChunk(terrainChunk, terrain))
 			{
 				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
 			}
@@ -158,6 +205,46 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		entc* entityChunk = dynamic_cast<entc*>(root);
+		if (entityChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(p_MainContainer, entityChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		ordc* ordenanceChunk = dynamic_cast<ordc*>(root);
+		if (ordenanceChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(p_MainContainer, ordenanceChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		wpnc* weaponChunk = dynamic_cast<wpnc*>(root);
+		if (weaponChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(p_MainContainer, weaponChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
+		expc* explosionChunk = dynamic_cast<expc*>(root);
+		if (explosionChunk != nullptr)
+		{
+			EntityClass entityClass;
+			if (EntityClass::FromChunk(p_MainContainer, explosionChunk, entityClass))
+			{
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+			}
+		}
+
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
 		{
@@ -174,7 +261,22 @@ namespace LibSWBF2::Wrappers
 			return nullptr;
 		}
 
-		Level* result = new Level(lvl);
+		Level* result = new Level(lvl, nullptr);
+		result->ExploreChildrenRecursive(lvl);
+		result->m_FullPath = path;
+
+		return result;
+	}
+
+	Level* Level::FromChunk(LVL* lvl, Container* mainContainer)
+	{
+		if (lvl == nullptr)
+		{
+			LOG_WARN("Given LVL chunk is NULL!");
+			return nullptr;
+		}
+
+		Level* result = new Level(lvl, mainContainer);
 		result->ExploreChildrenRecursive(lvl);
 
 		return result;
@@ -189,6 +291,16 @@ namespace LibSWBF2::Wrappers
 		}
 
 		delete level;
+	}
+
+	const String& Level::GetLevelPath() const
+	{
+		return m_FullPath;
+	}
+
+	String Level::GetLevelName() const
+	{
+		return (const char*)fs::path(m_FullPath.Buffer()).filename().c_str();
 	}
 
 	bool Level::IsWorldLevel() const
@@ -241,7 +353,7 @@ namespace LibSWBF2::Wrappers
 
 		//LOG_WARN("Could not find Light '{}'!", lightName);
 		return nullptr;
-  }
+	}
   
 	const List<Localization>& Level::GetLocalizations() const
 	{
@@ -257,7 +369,12 @@ namespace LibSWBF2::Wrappers
 		return &m_GlobalLightingConfig;
 	}
 
-	const Model* Level::GetModel(String modelName) const
+	const List<EntityClass>& Level::GetEntityClasses() const
+	{
+		return m_EntityClasses;
+	}
+
+	Model* Level::GetModel(String modelName)
 	{
 		if (modelName.IsEmpty())
 		{
@@ -348,6 +465,22 @@ namespace LibSWBF2::Wrappers
 		if (it != m_NameToIndexMaps->LocalizationNameToIndex.end())
 		{
 			return &m_Localizations[it->second];
+		}
+
+		return nullptr;
+	}
+
+	const EntityClass* Level::GetEntityClass(String typeName) const
+	{
+		if (typeName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->EntityClassTypeToIndex.find(ToLower(typeName));
+		if (it != m_NameToIndexMaps->EntityClassTypeToIndex.end())
+		{
+			return &m_EntityClasses[it->second];
 		}
 
 		return nullptr;

@@ -107,7 +107,12 @@ namespace LibSWBF2
 			result += "AttachedLight, ";
 		}
 
-		result.resize(result.size() - 2);
+		size_t resultSize = result.size();
+		if (resultSize > 1)
+		{
+			result.resize(resultSize - 2); //failed w/overflow when length == 1 eg "["
+		}
+
 		result += "]";
 		return result.c_str();
 	}
@@ -157,7 +162,7 @@ namespace LibSWBF2
 		return fmt::format("Unknown Model Purpose: {}", purpose).c_str();
 	}
 
-	Types::String EVBUFFlagsToString(EVBUFFlags flags)
+	Types::String VBUFFlagsToString(EVBUFFlags flags)
 	{
 		std::string result = "[";
 		if ((flags & EVBUFFlags::Position) != 0)
@@ -228,9 +233,9 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String LIBSWBF2_API ELightTypeToString(ELightType type)
+	Types::String LIBSWBF2_API LightTypeToString(ELightType type)
 	{
-		switch(type)
+		switch (type)
 		{
 			case ELightType::Omni:
 				return "Omnidirectional";
@@ -257,7 +262,111 @@ namespace LibSWBF2
 				return fmt::format("Unknown ELVLType: {}", (int)type).c_str();
 		}
 	}
+
+	Types::String EntityClassToString(EEntityClassType type)
+	{
+		switch (type)
+		{
+			case EEntityClassType::GameObjectClass:
+				return "GameObjectClass";
+			case EEntityClassType::OrdnanceClass:
+				return "OrdnanceClass";
+			case EEntityClassType::WeaponClass:
+				return "WeaponClass";
+			case EEntityClassType::ExplosionClass:
+				return "ExplosionClass";
+			default:
+				return fmt::format("Unknown EEntityClassType: {}", (int)type).c_str();
+		}
+	}
+
+	Types::String CollisionMaskTypeToString(ECollisionMaskFlags type)
+	{
+		std::string result = "[";
+
+        if ((type & ECollisionMaskFlags::Ordnance) != 0)
+        {
+            result += "Ordnance, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Vehicle) != 0)
+        {
+            result += "Vehicle, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Building) != 0)
+        {
+            result += "Building, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Terrain) != 0)
+        {
+            result += "Terrain, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Soldier) != 0)
+        {
+            result += "Soldier, ";
+        }
+
+        if ((type & ECollisionMaskFlags::Flag) != 0)
+        {
+            result += "Flag, ";
+        }
+
+        size_t resultSize = result.size();
+
+        if (resultSize > 1)
+        {
+        	result.resize(result.size() - 2);
+        	result += "]";
+        } else 
+        {
+        	result.resize(0);
+        	result += "[All]";
+        }
+
+		return result.c_str();
+	}
+
+	Types::String CollisionPrimitiveTypeToString(ECollisionPrimitiveType type)
+	{
+		if (type == ECollisionPrimitiveType::Sphere || (uint32_t) type == 0x0)
+		{
+			return "Sphere";
+		}
+
+		if (type == ECollisionPrimitiveType::Cylinder)
+		{
+			return "Cylinder";
+		}
+
+		if (type == ECollisionPrimitiveType::Cube)
+		{
+			return "Cube";
+		}
+
+		return fmt::format("Unknown Collision Primitive Type: {}", ((uint32_t) type)).c_str();
+	}
+
+	Types::String LoadStatusToString(ELoadStatus type)
+	{
+		switch (type)
+		{
+			case ELoadStatus::Uninitialized:
+				return "Uninitialized";
+			case ELoadStatus::Loading:
+				return "Loading";
+			case ELoadStatus::Loaded:
+				return "Loaded";
+			case ELoadStatus::Failed:
+				return "Failed";
+			default:
+				return fmt::format("Unknown ELoadStatus: {}", (int)type).c_str();
+		}
+	}
 	
+
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
 		return static_cast<EMaterialFlags> (
@@ -318,5 +427,24 @@ namespace LibSWBF2
 	bool operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs)
 	{
 		return static_cast<std::underlying_type<EVBUFFlags>::type>(lhs) != rhs;
+	}
+
+
+	ECollisionMaskFlags operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs)
+	{
+		return static_cast<ECollisionMaskFlags> (
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) &
+			static_cast<std::underlying_type<ECollisionMaskFlags>::type>(rhs)
+			);
+	}
+
+	bool operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) != rhs;
 	}
 }

@@ -1,6 +1,5 @@
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
+#include "../LibSWBF2/LibSWBF2.h"
+#include "../LibSWBF2/FileWriter.h"
 
 #include <iostream>
 #include <fstream>
@@ -11,8 +10,8 @@
 
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
+using LibSWBF2::Wrappers::Terrain;
 
-using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 
 using LibSWBF2::Logging::Logger;
@@ -51,25 +50,28 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
+	const char* path1;
+	const char* path2;
+
 #ifdef __APPLE__
-	Level *testLVL1 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Blended.lvl");
-	Level *testLVL2 = Level::FromFile("/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Painted.lvl");
-	//Level *testLVL2 = Level::FromFile("/Users/will/Desktop/MLC.lvl");
+	path1 = "/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Blended.lvl";
+	path2 = "/Users/will/Desktop/terrainblendinglvls/TST_Tex3_Painted.lvl";
 #else
-	Level *testLVL1 = Level::FromFile("/home/will/Desktop/geo1.lvl");
-	Level *testLVL2 = Level::FromFile("/home/will/Desktop/MLC.lvl");
-	//Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	path1 = "/home/will/Desktop/geo1.lvl";
+	path2 = "/home/will/Desktop/MLC.lvl";
 #endif
 
+	Level *testLVL1 = Level::FromFile(path1);
+	Level *testLVL2 = Level::FromFile(path2);
 
 	uint32_t dim, elementSize;
 	uint8_t *blendMapData;
 
-	const Terrain& terr1 = testLVL1 -> GetTerrains()[0];
+	const LibSWBF2::Wrappers::Terrain& terr1 = testLVL1 -> GetTerrains()[0];
 	terr1.GetBlendMap(dim,elementSize,blendMapData);
 	stbi_write_png("testsplat_blended.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 
-	const Terrain& terr2 = testLVL2 -> GetTerrains()[0];
+	const LibSWBF2::Wrappers::Terrain& terr2 = testLVL2 -> GetTerrains()[0];
 	terr2.GetBlendMap(dim,elementSize,blendMapData);
 	stbi_write_png("testsplat_painted.png", dim, dim, 4, reinterpret_cast<void *>(GetFirstThreeLayersRGBA(blendMapData,dim,elementSize)), dim*4);
 

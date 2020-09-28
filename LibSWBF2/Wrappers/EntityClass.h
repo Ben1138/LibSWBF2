@@ -1,0 +1,55 @@
+#pragma once
+#include "Chunks/LVL/common/GenericClass.h"
+#include "Types/Enums.h"
+#include "Types/List.h"
+
+namespace LibSWBF2
+{
+	class Container;
+}
+
+namespace LibSWBF2::Wrappers
+{
+	using LibSWBF2::Chunks::LVL::common::GenericClassNC;
+	using LibSWBF2::Types::String;
+	using LibSWBF2::Types::List;
+
+
+	class LIBSWBF2_API EntityClass
+	{
+	private:
+		friend class Level;
+		friend List<EntityClass>;
+
+		EntityClass();
+		~EntityClass();
+
+		EntityClass& operator=(const EntityClass& other);
+		EntityClass& operator=(EntityClass&& other);
+
+	private:
+		Container* p_MainContainer;
+		GenericClassNC* p_classChunk;
+		EEntityClassType m_EntityClassType;
+		class PropertyMap* m_PropertyMapping;
+
+	public:
+		// Only available template instances for "FromChunk" are:
+		// - entc*
+		// - ordc*
+		// - wpnc*
+		// - expc*
+		template<class EntityClassType>
+		static bool FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out);
+
+		String GetTypeName() const;
+		String GetBaseName() const;
+		const EntityClass* GetBase() const;
+
+		// will fall back to base class, if existent
+		bool GetProperty(FNVHash hashedPropertyName, String& outValue) const;
+
+		// will fall back to base class, if existent
+		bool GetProperty(const String& propertyName, String& outValue) const;
+	};
+}

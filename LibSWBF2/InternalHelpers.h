@@ -13,6 +13,8 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <unordered_map>
+
 
 namespace LibSWBF2
 {
@@ -31,11 +33,40 @@ namespace LibSWBF2
 
 	// Convert an index buffer from Triangle Strip format to Triangle List format
 	// optional: offset is added to each individual index.
-	List<uint32_t> TriangleStripToTriangleList(List<uint16_t> indexBuffer, uint32_t offset=0);
+	List<uint32_t> TriangleStripToTriangleList(List<uint16_t>& indexBuffer, uint32_t offset=0);
 
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix);
 
 	std::string ToLower(String name);
+
+
+	namespace Chunks::LVL::skel
+	{
+		struct skel;
+	}
+
+	namespace Wrappers
+	{
+		class MapsWrapper
+		{
+		public:
+			std::unordered_map<std::string, size_t> TextureNameToIndex;
+			std::unordered_map<std::string, size_t> ModelNameToIndex;
+			std::unordered_map<std::string, size_t> WorldNameToIndex;
+			std::unordered_map<std::string, size_t> TerrainNameToIndex;
+			std::unordered_map<std::string, size_t> ScriptNameToIndex;
+			std::unordered_map<std::string, size_t> LightNameToIndex;
+			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
+			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
+			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
+		};
+
+		class SoundMapsWrapper
+		{
+		public:
+			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
+		};
+	}
 }
 
 // adding custom fmt formatters
@@ -89,6 +120,7 @@ struct fmt::formatter<LibSWBF2::Chunks::BaseChunk> {
 #define LOG_ERROR(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), LibSWBF2::ELogType::Error, __LINE__, __FILENAME__)
 
 #define THROW(...) throw LibException(fmt::format("{} - IN {} {}", fmt::format(__VA_ARGS__), __LINE__, __FILENAME__))
+#define LOCK(MutexLock) std::lock_guard<std::mutex> _SomeUnusualLockName(MutexLock)
 
 #ifdef _MSC_VER
 #define STRNLEN(...) strnlen_s(__VA_ARGS__)

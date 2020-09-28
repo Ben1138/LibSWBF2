@@ -1,11 +1,15 @@
 #pragma once
 #include "LoggerEntry.h"
-#include "FileWriter.h"
 #include "Types/LibString.h"
 #include "Chunks/HeaderNames.h"
 #include "Chunks/BaseChunk.h"
 #include <memory>
 
+
+namespace LibSWBF2
+{
+	class FileWriter;
+}
 
 namespace LibSWBF2::Logging
 {
@@ -29,7 +33,7 @@ namespace LibSWBF2::Logging
 	private:
 		static std::unique_ptr<Logger> m_Instance;
 		LogCallback m_OnLogCallback = nullptr;
-		FileWriter m_Writer;
+		FileWriter* m_Writer;
 		ELogType m_LogfileLevel = ELogType::Warning;
 	};
 }
