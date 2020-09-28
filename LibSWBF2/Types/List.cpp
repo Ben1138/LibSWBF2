@@ -11,9 +11,6 @@
 #include "Chunks/LVL/prim/prim.h"
 #include "Wrappers/Light.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 
 namespace LibSWBF2::Types
 {
