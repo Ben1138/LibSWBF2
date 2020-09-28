@@ -113,6 +113,18 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
+	Terrain::Terrain()
+	{
+		p_HeightMap = nullptr;
+		p_BlendMap = nullptr;
+	}
+
+	Terrain::~Terrain()
+	{
+		delete p_HeightMap;
+		delete p_BlendMap;
+	}
+
 
 	void Terrain::GetBlendMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& finalBlendMapData) const
 	{
