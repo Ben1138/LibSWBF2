@@ -1,16 +1,18 @@
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
+#include "../LibSWBF2/LibSWBF2.h"
+#include "../LibSWBF2/FileWriter.h"
+#include "../LibSWBF2/Chunks/LVL/LVL.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stbi/stb_image_write.h"
 
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
+using LibSWBF2::Container;
 
 using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
@@ -60,19 +62,31 @@ int main()
 {
 	Logger::SetLogCallback(&libLog);
 
+	const char *path;
+
 #ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
+	path = "/Users/will/Desktop/geo1.lvl";
 #else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/geo1.lvl");
+	path = "/home/will/Desktop/geo1.lvl";
 #endif
+
+	Container *container = Container::Create();
+	auto handle = container -> AddLevel(path);
+	container -> StartLoading();
+
+	while (!container -> IsDone())
+	{
+		usleep(100000);
+	}
+
+	Level *testLVL = container -> GetLevel(handle);
 
 	uint32_t dim, scale;
 	float *heightMapData;
 
 	const LibSWBF2::Wrappers::Terrain& terr = testLVL -> GetTerrains()[0];
-	
 	terr.GetHeightMap(dim,scale,heightMapData); //segfault here
-
+	
 	stbi_write_png("height_test.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
 
 	return 0;

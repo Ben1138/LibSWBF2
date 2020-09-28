@@ -129,7 +129,7 @@ namespace LibSWBF2::Wrappers
 	void Terrain::GetBlendMap(uint32_t& dim, uint32_t& numTexLayers, uint8_t*& finalBlendMapData) const
 	{
 		auto *info = p_Terrain -> p_Info;
-		dim = info -> m_GridSize;
+		dim = (uint32_t) info -> m_GridSize;
 		numTexLayers = (uint32_t) info -> m_TextureCount;
 
 		if (p_BlendMap == nullptr)
@@ -139,7 +139,7 @@ namespace LibSWBF2::Wrappers
 			uint16_t numPatchesPerRow = dim / numVertsPerPatchEdge;
 
 			int dataLength = dim * dim * numTexLayers;
-	        finalBlendMapData = new uint8_t[dataLength]();
+	        p_BlendMap = new uint8_t[dataLength]();
 
 			List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
@@ -176,7 +176,7 @@ namespace LibSWBF2::Wrappers
 
 						if (finalDataIndex < dataLength)
 						{	
-							finalBlendMapData[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
+							p_BlendMap[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
 						}
 					}
 				}
@@ -315,7 +315,9 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
-	        float_t gridSize     = (float_t) info -> m_GridSize;
+    		LOG_WARN("Initializing heightmap");
+
+	        float_t gridSize     = (float_t) dim;
 			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
 			float_t maxY = info -> m_HeightCeiling;
@@ -325,20 +327,15 @@ namespace LibSWBF2::Wrappers
 	       	float_t maxZ = halfLength, minZ = halfLength * -1.0f;
 	       	float_t maxX = halfLength, minX = halfLength * -1.0f;
 
-	       	int heightDataLength = (int) (gridSize * gridSize);
+	       	int heightDataLength = dim * dim;
 			p_HeightMap = new float_t[heightDataLength]();
-
-
-	        uint32_t numVerts = m_Positions.Size();
 
 			uint32_t ibufLength;
 			uint32_t *ibufData;
 			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
-			for (int i = 0; i < heightDataLength; i++)
-			{
-				heightData[i] = -1.0f;
-			}
+			//Inits to -5.96541e+29
+			memset((void *) p_HeightMap, 0xf0, sizeof(float_t) * heightDataLength);
 
 			for (int i = 0; i < (int) ibufLength; i++)
 			{
@@ -355,7 +352,7 @@ namespace LibSWBF2::Wrappers
 
 	            if (uIndex < dim && vIndex < dim)
 	            {
-	                heightData[uIndex + vIndex * dim] = (curVert.m_Y - minY)/(maxY - minY);
+	                p_HeightMap[uIndex + vIndex * dim] = (curVert.m_Y - minY)/(maxY - minY);
 	            }
 			}
 		}
