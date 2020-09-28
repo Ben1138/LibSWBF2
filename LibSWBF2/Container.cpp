@@ -37,7 +37,7 @@ namespace LibSWBF2
 
 		// TODO: rework once we allow modifications (add / delete) in Levels
 		std::unordered_map<std::string, const Texture*> m_TextureDB;
-		std::unordered_map<std::string,		  Model*> m_ModelDB;
+		std::unordered_map<std::string,	const Model*> m_ModelDB;
 		std::unordered_map<std::string, const World*> m_WorldDB;
 		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
@@ -500,7 +500,7 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
-	Model* Container::FindModel(String modelName) const
+	const Model* Container::FindModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
 		{

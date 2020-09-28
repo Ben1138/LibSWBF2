@@ -50,17 +50,16 @@ int main()
 	Level *testLVL = container -> GetLevel(handle);
 
 
-
 	const List<Model>& models = testLVL -> GetModels();
 
 	for (int i = 0; i < models.Size(); i++)
 	{
 		const Model& modeli = models[i];
-		COUT("On model " << i);
+
 		COUT(modeli.GetName().Buffer());
 		
-		List<CollisionPrimitive> prims = modeli.GetCollisionPrimitives();
-		const CollisionMesh& mesh  	   = modeli.GetCollisionMesh();
+		const List<CollisionPrimitive>& prims = modeli.GetCollisionPrimitives();
+		const CollisionMesh& mesh = modeli.GetCollisionMesh();
 
 		COUT("\n\tPrimitives: ");
 
@@ -76,10 +75,7 @@ int main()
 		Vector3* verts;
 
 		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);
-		COUT("GOT INDICES");
-		
 		mesh.GetVertexBuffer(numVertices, verts);
-		COUT("GOT VERTICES");
 
 		COUT("\t\tIndicies length: " << numIndices);
 		COUT("\t\tVertices length: " << numVertices << "\n");

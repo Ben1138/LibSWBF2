@@ -36,31 +36,21 @@ namespace LibSWBF2::Chunks::LVL::prim
 
 	Types::String DATA_PRIM::ToString()
 	{
-		String stringRep;
 		switch (m_PrimitiveType)
 		{
 			case ECollisionPrimitiveType::Sphere:
-				stringRep = fmt::format(
-											"PrimitiveType: Sphere, Radius: {}", 
-											m_Field1).c_str();
-				break;
-
+				return fmt::format("Type: Sphere, Radius: {}", 
+									m_Field1).c_str();
 			case ECollisionPrimitiveType::Cylinder:
-				stringRep = fmt::format(
-											"PrimitiveType: Cylinder, Radius: {}, Height: {}",
-											m_Field1, m_Field2).c_str();
-				break;
-
+				return fmt::format("Type: Cylinder, Radius: {}, Height: {}",
+									m_Field1, m_Field2).c_str();
 			case ECollisionPrimitiveType::Cube:
-				stringRep = fmt::format(
-											"PrimitiveType: Cube, x: {}, y: {}, z: {}",
-											m_Field1, m_Field2, m_Field3).c_str();
-				break;
-
+				return fmt::format("Type: Cube, x: {}, y: {}, z: {}",
+									m_Field1, m_Field2, m_Field3).c_str();
 			default:
-				stringRep = CollisionPrimitiveTypeToString(m_PrimitiveType);
+				String unknown = CollisionPrimitiveTypeToString(m_PrimitiveType);
+				return fmt::format("{}, field1: {}, field2: {}, field3: {}",
+									unknown.Buffer(), m_Field1, m_Field2, m_Field3).c_str();
 		}
-
-		return stringRep;
 	}
 }
