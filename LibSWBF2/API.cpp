@@ -142,6 +142,7 @@ namespace LibSWBF2
 		return true;
 	}
 
+
 	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
 	{
 		const CollisionMesh& mesh = model -> GetCollisionMesh();
@@ -156,12 +157,10 @@ namespace LibSWBF2
 	}
 
 
-	const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
 	{
 		static int* tempBuffer = nullptr;
 		delete tempBuffer;
-
-		LOG_WARN("Current collmesh to string: {}", collMesh -> ToString());
 
 		uint32_t* meshBuffer;
 
@@ -169,7 +168,7 @@ namespace LibSWBF2
 
 		tempBuffer = new int[count];
 
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < (int)count; i++)
 		{
 			tempBuffer[i] = (int) meshBuffer[i];
 		}
@@ -188,7 +187,7 @@ namespace LibSWBF2
 
     	tempBuffer = new float_t[count * 3];
 
-    	for (int i = 0; i < count; i++)
+    	for (int i = 0; i < (int)count; i++)
     	{
     		Vector3& curVec = verts[i];
 

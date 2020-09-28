@@ -64,11 +64,21 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         size_t dataSize = GetDataSize();
         D3DFORMAT d3dFormat = fmt->p_Info->m_Format;
 
-        uint8_t* bytes = new uint8_t[dataSize];
+        // it seems like sometimes (in core.lvl) the specified image size
+        // is far smaller than the actual BODY data size... So just do a quick
+        // sanity check here before allocating and performing a memcpy
+        if (dataSize > width * height * 4)
+        {
+            stream.SkipBytes(dataSize);
+            LOG_WARN("Suspicious image size: {}! Skipping image!", dataSize);
+            BaseChunk::EnsureEnd(stream);
+            return;
+        }
 
+        uint8_t* bytes = new uint8_t[dataSize];
         if (!stream.ReadBytes(bytes, dataSize))
         {
-            LOG_ERROR("Reading data failed!");
+            LOG_ERROR("Reading image data of size '{}' failed!", dataSize);
             BaseChunk::EnsureEnd(stream);
             return;
         }
@@ -77,15 +87,13 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         p_Image = new DirectX::ScratchImage();
         p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
         const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
-        memcpy(img -> pixels, bytes, dataSize);
+        memcpy(img->pixels, bytes, dataSize);
 #else
         p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
                                                     d3dFormat, bytes,
                                                     dataSize);
 #endif
-
         delete[] bytes;
-
         BaseChunk::EnsureEnd(stream);       
     }
 
@@ -94,7 +102,9 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
     {
         if (p_Image == nullptr)
         {
-            LOG_WARN("Called GetImageData before reading!");
+            LOG_WARN("No image!");
+            width = 0;
+            height = 0;
             data = nullptr;
             return false;
         }

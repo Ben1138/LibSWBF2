@@ -107,7 +107,12 @@ namespace LibSWBF2
 			result += "AttachedLight, ";
 		}
 
-		result.resize(result.size() - 2);
+		size_t resultSize = result.size();
+		if (resultSize > 1)
+		{
+			result.resize(resultSize - 2); //failed w/overflow when length == 1 eg "["
+		}
+
 		result += "]";
 		return result.c_str();
 	}
@@ -230,7 +235,7 @@ namespace LibSWBF2
 
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type)
 	{
-		switch(type)
+		switch (type)
 		{
 			case ELightType::Omni:
 				return "Omnidirectional";
@@ -341,9 +346,26 @@ namespace LibSWBF2
 			return "Cube";
 		}
 
-		return "Unknown Collision Primitive Type";
+		return fmt::format("Unknown Collision Primitive Type: {}", (uint32_t) type).c_str();
 	}
 
+	Types::String LoadStatusToString(ELoadStatus type)
+	{
+		switch (type)
+		{
+			case ELoadStatus::Uninitialized:
+				return "Uninitialized";
+			case ELoadStatus::Loading:
+				return "Loading";
+			case ELoadStatus::Loaded:
+				return "Loaded";
+			case ELoadStatus::Failed:
+				return "Failed";
+			default:
+				return fmt::format("Unknown ELoadStatus: {}", (int)type).c_str();
+		}
+	}
+	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
 		return static_cast<EMaterialFlags> (

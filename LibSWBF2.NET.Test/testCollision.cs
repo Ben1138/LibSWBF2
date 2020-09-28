@@ -24,7 +24,8 @@ namespace LibSWBF2.NET.Test
             //Level level = Level.FromFile(@"F:\SteamLibrary\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\geo\geo1.lvl");
             //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
             Level level = Level.FromFile(@"/home/will/Desktop/geo1.lvl");
-
+            //Level level = Level.FromFile(@"/home/will/Desktop/geo1.lvl");
+            //Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
 
             Model[] models = level.GetModels();
             foreach (Model model in models)
@@ -36,7 +37,6 @@ namespace LibSWBF2.NET.Test
                 Console.WriteLine("\tNum collision verticies: " + mesh.GetVertices().Length.ToString());
             }
 
-            //level.Delete();
             Console.WriteLine("Done!");
         }
     }

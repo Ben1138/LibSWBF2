@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Logger.h"
+#include "FileWriter.h"
 
 namespace LibSWBF2::Logging
 {
@@ -7,12 +8,14 @@ namespace LibSWBF2::Logging
 
 	Logger::Logger()
 	{
-		m_Writer.Open(LOG_FILE, true);
+		m_Writer = new FileWriter();
+		m_Writer->Open(LOG_FILE, true);
 	}
 
 	Logger::~Logger()
 	{
-		m_Writer.Close();
+		m_Writer->Close();
+		delete m_Writer;
 	}
 
 	std::unique_ptr<Logger>& Logger::GetInstance()
@@ -40,7 +43,7 @@ namespace LibSWBF2::Logging
 		if (message.length() > 0 && level >= m_LogfileLevel)
 		{
 			LoggerEntry entry(message.c_str(), level, line, file);
-			m_Writer.WriteLine(entry.ToString());
+			m_Writer->WriteLine(entry.ToString());
 
 			if (m_OnLogCallback != nullptr)
 			{

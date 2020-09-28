@@ -7,7 +7,7 @@
 
 namespace LibSWBF2
 {
-	class LevelContainer;
+	class Container;
 }
 
 namespace LibSWBF2::Wrappers
@@ -35,12 +35,12 @@ namespace LibSWBF2::Wrappers
 		Instance& operator=(Instance&& other);
 
 	private:
-		LevelContainer* p_MainContainer;
+		Container* p_MainContainer;
 		inst* p_Instance;
 		class PropertyMap* m_PropertyMapping;
 
 	public:
-		static bool FromChunk(LevelContainer* mainContainer, inst* instanceChunk, Instance& out);
+		static bool FromChunk(Container* mainContainer, inst* instanceChunk, Instance& out);
 
 		String GetType() const;
 		String GetName() const;

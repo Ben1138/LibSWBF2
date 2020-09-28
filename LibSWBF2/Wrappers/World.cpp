@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "World.h"
 #include "InternalHelpers.h"
+#include "Container.h"
 
 namespace LibSWBF2::Wrappers
 {
-	bool World::FromChunk(LevelContainer* mainContainer, wrld* worldChunk, World& out)
+	bool World::FromChunk(Container* mainContainer, wrld* worldChunk, World& out)
 	{
 		if (mainContainer == nullptr)
 		{
@@ -18,6 +19,7 @@ namespace LibSWBF2::Wrappers
 		}
 
 		out.p_World = worldChunk;
+		out.m_MainContainer = mainContainer;
 
 		List<inst*>& instances = worldChunk->m_Instances;
 		for (size_t i = 0; i < instances.Size(); ++i)
@@ -44,6 +46,15 @@ namespace LibSWBF2::Wrappers
 	Types::String World::GetTerrainName() const
 	{
 		return p_World->p_TerrainName != nullptr ? p_World->p_TerrainName->m_Text : "";
+	}
+
+	const Terrain* World::GetTerrain() const
+	{
+		if (m_MainContainer == nullptr || p_World->p_TerrainName == nullptr)
+		{
+			return nullptr;
+		}
+		return m_MainContainer->FindTerrain(p_World->p_TerrainName->m_Text);
 	}
 	
 	Types::String World::GetSkyName() const
