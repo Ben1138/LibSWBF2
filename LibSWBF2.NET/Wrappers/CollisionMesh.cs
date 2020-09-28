@@ -18,7 +18,11 @@ namespace LibSWBF2.Wrappers
 
             APIWrapper.CollisionMesh_GetVertexBuffer(NativeInstance, out uint count, out IntPtr buffer);
             float[] verts = new float[count * 3];
-            Marshal.Copy(buffer, verts, 0, (int)count);
+
+            if (count > 0)
+            {
+                Marshal.Copy(buffer, verts, 0, (int)count);
+            }
             
             return verts;
         }
@@ -29,7 +33,11 @@ namespace LibSWBF2.Wrappers
 
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
             int[] inds = new int[(int)count];
-            Marshal.Copy(buffer, inds, 0, (int)count);
+
+            if (count > 0)
+            {
+                Marshal.Copy(buffer, inds, 0, (int)count);
+            }
             
             return inds;
         }

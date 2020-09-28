@@ -22,19 +22,20 @@ namespace LibSWBF2::Wrappers
 		static bool FromChunk(coll *fieldsChunk, CollisionMesh& out);
 		
 		CollisionMesh(coll *fieldsChunk);
+		CollisionMesh(); 
 
-		coll *p_CollisionChunk;
-		List<uint32_t> m_Indicies;
-		List<Vector3>  m_Vertices;
+		coll *p_CollisionChunk = nullptr;
+		mutable List<uint32_t> m_Indicies;
+
 
 	public:
-		CollisionMesh() = default;
-
-
+		
 		String GetName() const;
 
-		void GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer);
+		void GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const;
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
+
+		ECollisionMaskFlags GetMaskFlags() const;
 
 		String ToString() const;
 	};

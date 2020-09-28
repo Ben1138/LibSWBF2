@@ -133,6 +133,18 @@
     <Filter Include="Source Files\Chunks\LVL\common">
       <UniqueIdentifier>{e1c20c9d-1f78-4267-a5db-71777b55dffb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\prim">
+      <UniqueIdentifier>{77aea65d-12c4-482d-8f13-18b665644385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\prim">
+      <UniqueIdentifier>{47182b83-6910-4777-ae7c-bc9463dc71bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\coll">
+      <UniqueIdentifier>{bc2100f0-8cde-4cfc-aae2-fc7634f850fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\coll">
+      <UniqueIdentifier>{7a65403c-beb6-49bd-86ae-fd730c4f7105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -558,8 +570,44 @@
     <ClInclude Include="Wrappers\EntityClass.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="LevelContainer.h">
+    <ClInclude Include="Container.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\CollisionMesh.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\CollisionPrimitive.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\prim\MASK.h">
+      <Filter>Header Files\Chunks\LVL\prim</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\prim\prim.DATA.h">
+      <Filter>Header Files\Chunks\LVL\prim</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\prim\prim.h">
+      <Filter>Header Files\Chunks\LVL\prim</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\prim\prim.INFO.h">
+      <Filter>Header Files\Chunks\LVL\prim</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\coll.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\coll.INFO.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\POSI.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\TREE.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\TREE.LEAF.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\coll\TREE.NODE.h">
+      <Filter>Header Files\Chunks\LVL\coll</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -965,8 +1013,44 @@
     <ClCompile Include="Wrappers\EntityClass.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="LevelContainer.cpp">
+    <ClCompile Include="Container.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\CollisionMesh.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\CollisionPrimitive.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\prim\MASK.cpp">
+      <Filter>Source Files\Chunks\LVL\prim</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\prim\prim.cpp">
+      <Filter>Source Files\Chunks\LVL\prim</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\prim\prim.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\prim</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\prim\prim.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\prim</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\coll.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\coll.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\POSI.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\TREE.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\TREE.LEAF.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\coll\TREE.NODE.cpp">
+      <Filter>Source Files\Chunks\LVL\coll</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

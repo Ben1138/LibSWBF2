@@ -46,11 +46,8 @@ namespace LibSWBF2.Wrappers
                 {
                     child.Invalidate();
                 }
-                else
-                {
-                    Children.Remove(childRef);
-                }
             }
+            Children.Clear();
         }
 
         public static Level FromFile(string path)

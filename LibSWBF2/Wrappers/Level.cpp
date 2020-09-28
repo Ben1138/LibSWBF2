@@ -8,7 +8,9 @@
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include <unordered_map>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 namespace LibSWBF2::Wrappers
 {
@@ -21,7 +23,7 @@ namespace LibSWBF2::Wrappers
     using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
 
-	Level::Level(LVL* lvl, LevelContainer* mainContainer)
+	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
@@ -111,7 +113,7 @@ namespace LibSWBF2::Wrappers
 			{
 				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
 				{
-					int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
+					size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
 					m_Models[modelIndex].m_CollisionMesh = collMesh;
 				}
 				else 
@@ -148,7 +150,7 @@ namespace LibSWBF2::Wrappers
 			if (m_NameToIndexMaps -> ModelNameToIndex.count(
 				ToLower(modelName)) == 1)
 			{
-				int modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
+				size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
 				m_Models[modelIndex].m_CollisionPrimitives = std::move(primitives);	
 			} 
 			else
@@ -255,11 +257,12 @@ namespace LibSWBF2::Wrappers
 
 		Level* result = new Level(lvl, nullptr);
 		result->ExploreChildrenRecursive(lvl);
+		result->m_FullPath = path;
 
 		return result;
 	}
 
-	Level* Level::FromChunk(LVL* lvl, LevelContainer* mainContainer)
+	Level* Level::FromChunk(LVL* lvl, Container* mainContainer)
 	{
 		if (lvl == nullptr)
 		{
@@ -282,6 +285,16 @@ namespace LibSWBF2::Wrappers
 		}
 
 		delete level;
+	}
+
+	const String& Level::GetLevelPath() const
+	{
+		return m_FullPath;
+	}
+
+	String Level::GetLevelName() const
+	{
+		return (const char*)fs::path(m_FullPath.Buffer()).filename().c_str();
 	}
 
 	bool Level::IsWorldLevel() const

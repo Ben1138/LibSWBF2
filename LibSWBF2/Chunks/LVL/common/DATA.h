@@ -2,7 +2,6 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/RawData.h"
 #include "Types/Enums.h"
-#include "FileReader.h"
 
 namespace LibSWBF2::Chunks::LVL::common
 {

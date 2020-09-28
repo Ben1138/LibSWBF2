@@ -5,7 +5,7 @@
 
 namespace LibSWBF2
 {
-	class LevelContainer;
+	class Container;
 }
 
 namespace LibSWBF2::Wrappers
@@ -28,7 +28,7 @@ namespace LibSWBF2::Wrappers
 		EntityClass& operator=(EntityClass&& other);
 
 	private:
-		LevelContainer* p_MainContainer;
+		Container* p_MainContainer;
 		GenericClassNC* p_classChunk;
 		EEntityClassType m_EntityClassType;
 		class PropertyMap* m_PropertyMapping;
@@ -40,7 +40,7 @@ namespace LibSWBF2::Wrappers
 		// - wpnc*
 		// - expc*
 		template<class EntityClassType>
-		static bool FromChunk(LevelContainer* mainContainer, EntityClassType* classChunk, EntityClass& out);
+		static bool FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out);
 
 		String GetTypeName() const;
 		String GetBaseName() const;

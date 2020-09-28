@@ -17,7 +17,7 @@
 
 namespace LibSWBF2
 {
-	class LevelContainer;
+	class Container;
 }
 
 namespace LibSWBF2::Wrappers
@@ -35,14 +35,15 @@ namespace LibSWBF2::Wrappers
 	class LIBSWBF2_API Level
 	{
 	private:
-		friend LevelContainer;
+		friend Container;
 
-		Level(LVL* lvl, LevelContainer* mainContainer);
+		Level(LVL* lvl, Container* mainContainer);
 		~Level();
 
 	private:
 		LVL* p_lvl;
-		LevelContainer* p_MainContainer;	// can be NULL
+		Container* p_MainContainer;	// can be NULL
+		String m_FullPath;
 
 		List<Model> m_Models;
 		List<Texture> m_Textures;
@@ -66,9 +67,11 @@ namespace LibSWBF2::Wrappers
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
 		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);
-		static Level* FromChunk(LVL* lvl, LevelContainer* mainContainer);
+		static Level* FromChunk(LVL* lvl, Container* mainContainer);
 		static void Destroy(Level* level);
 
+		const String& GetLevelPath() const;
+		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
 		const List<Light>& GetLights() const;

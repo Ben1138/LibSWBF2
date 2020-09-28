@@ -4,7 +4,7 @@
 #include "InternalHelpers.h"
 #include "Hashing.h"
 #include "Level.h"
-#include "LevelContainer.h"
+#include "Container.h"
 
 namespace LibSWBF2::Wrappers
 {
@@ -41,7 +41,7 @@ namespace LibSWBF2::Wrappers
 		return *this;
 	}
 
-	bool Instance::FromChunk(LevelContainer* mainContainer, inst* instanceChunk, Instance& out)
+	bool Instance::FromChunk(Container* mainContainer, inst* instanceChunk, Instance& out)
 	{
 		if (mainContainer == nullptr)
 		{
@@ -109,7 +109,7 @@ namespace LibSWBF2::Wrappers
 		if (entityClass == nullptr)
 		{
 			// This can happen if the Entity Class is in another LVL (e.g. com_bldg_controlzone)
-			// and there's no LevelContainer above the currently owning Level instance
+			// and there's no Container above the currently owning Level instance
 			return false;
 		}
 

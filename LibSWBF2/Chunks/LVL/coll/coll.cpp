@@ -24,6 +24,15 @@ namespace LibSWBF2::Chunks::LVL::coll
         Check(stream);
 
         READ_CHILD(stream, p_ChunkName);
+
+        prim::MASK *tempMASK = nullptr;
+        if (stream.ReadChunkHeader(true) == "MASK"_h)
+        {
+            READ_CHILD(stream, tempMASK);
+        }
+
+        p_Mask = tempMASK;
+
         READ_CHILD(stream, p_NodeName);
         READ_CHILD(stream, p_Info);
         READ_CHILD(stream, p_Verts);
