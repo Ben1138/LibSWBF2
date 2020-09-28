@@ -9,17 +9,22 @@ namespace LibSWBF2::Wrappers
 {
 	using Types::SoundClip;
 
-	class SoundMapsWrapper
-	{
-	public:
-		std::unordered_map<FNVHash, size_t> SoundHashToIndex;
-	};
-
 
 	SoundBank::SoundBank(BNK* soundBank)
 	{
 		p_soundBank = soundBank;
 		m_NameToIndexMaps = new SoundMapsWrapper();
+
+		List<SoundClip>& clips = soundBank->m_SoundBank.m_Clips;
+		for (size_t i = 0; i < clips.Size(); ++i)
+		{
+			Sound sound;
+			if (Sound::FromSoundClip(&clips[i], sound))
+			{
+				size_t index = m_Sounds.Add(sound);
+				m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
+			}
+		}
 	}
 
 	SoundBank::~SoundBank()
@@ -45,19 +50,17 @@ namespace LibSWBF2::Wrappers
 		}
 		
 		SoundBank* result = new SoundBank(soundBank);
-
-		List<SoundClip>& clips = soundBank->m_SoundBank.m_Clips;
-		for (size_t i = 0; i < clips.Size(); ++i)
-		{
-			Sound sound;
-			if (Sound::FromSoundClip(&clips[i], sound))
-			{
-				size_t index = result->m_Sounds.Add(sound);
-				result->m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
-			}
-		}
-
 		return result;
+	}
+
+	SoundBank* SoundBank::FromChunk(BNK* soundChunk)
+	{
+		if (soundChunk == nullptr)
+		{
+			LOG_WARN("Given soundCHunk is NULL!");
+			return nullptr;
+		}
+		return new SoundBank(soundChunk);
 	}
 
 	void SoundBank::Destroy(SoundBank* SoundBank)

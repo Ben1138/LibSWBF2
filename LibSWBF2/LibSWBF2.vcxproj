@@ -191,7 +191,15 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
   <ItemGroup>
     <ClInclude Include="API.h" />
     <ClInclude Include="Chunks\BNK\BNK.h" />
+    <ClInclude Include="Chunks\LVL\coll\coll.h" />
+    <ClInclude Include="Chunks\LVL\coll\coll.INFO.h" />
+    <ClInclude Include="Chunks\LVL\coll\POSI.h" />
+    <ClInclude Include="Chunks\LVL\coll\TREE.h" />
+    <ClInclude Include="Chunks\LVL\coll\TREE.LEAF.h" />
+    <ClInclude Include="Chunks\LVL\coll\TREE.NODE.h" />
     <ClInclude Include="Chunks\LVL\common\DATA.h" />
+    <ClInclude Include="Chunks\LVL\common\GenericClass.h" />
+    <ClInclude Include="Chunks\LVL\common\PROP.h" />
     <ClInclude Include="Chunks\LVL\common\SCOP.h" />
     <ClInclude Include="Chunks\LVL\lght\float.DATA.h" />
     <ClInclude Include="Chunks\LVL\lght\lght.h" />
@@ -213,6 +221,10 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\LVL\modl\SKIN.h" />
     <ClInclude Include="Chunks\LVL\modl\TNAM.h" />
     <ClInclude Include="Chunks\LVL\modl\modl.VBUF.h" />
+    <ClInclude Include="Chunks\LVL\prim\MASK.h" />
+    <ClInclude Include="Chunks\LVL\prim\prim.DATA.h" />
+    <ClInclude Include="Chunks\LVL\prim\prim.h" />
+    <ClInclude Include="Chunks\LVL\prim\prim.INFO.h" />
     <ClInclude Include="Chunks\LVL\scr_\scr_.h" />
     <ClInclude Include="Chunks\LVL\scr_\scr_.INFO.h" />
     <ClInclude Include="Chunks\LVL\skel\skel.h" />
@@ -238,10 +250,14 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\RawData.h" />
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
+    <ClInclude Include="Container.h" />
     <ClInclude Include="Types\LocalizeEntry.h" />
     <ClInclude Include="Types\SoundBankHeader.h" />
     <ClInclude Include="Types\SoundClip.h" />
     <ClInclude Include="Types\TerrainBufferEntry.h" />
+    <ClInclude Include="Wrappers\CollisionMesh.h" />
+    <ClInclude Include="Wrappers\CollisionPrimitive.h" />
+    <ClInclude Include="Wrappers\EntityClass.h" />
     <ClInclude Include="Wrappers\GlobalLighting.h" />
     <ClInclude Include="Wrappers\Instance.h" />
     <ClInclude Include="Wrappers\Level.h" />
@@ -331,7 +347,15 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
   <ItemGroup>
     <ClCompile Include="API.cpp" />
     <ClCompile Include="Chunks\BNK\BNK.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\coll.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\coll.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\POSI.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\TREE.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\TREE.LEAF.cpp" />
+    <ClCompile Include="Chunks\LVL\coll\TREE.NODE.cpp" />
     <ClCompile Include="Chunks\LVL\common\DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\common\GenericClass.cpp" />
+    <ClCompile Include="Chunks\LVL\common\PROP.cpp" />
     <ClCompile Include="Chunks\LVL\lght\float.DATA.cpp" />
     <ClCompile Include="Chunks\LVL\lght\lght.cpp" />
     <ClCompile Include="Chunks\LVL\lght\lght.SCOP.cpp" />
@@ -352,6 +376,10 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\LVL\modl\SKIN.cpp" />
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp" />
     <ClCompile Include="Chunks\LVL\modl\modl.VBUF.cpp" />
+    <ClCompile Include="Chunks\LVL\prim\MASK.cpp" />
+    <ClCompile Include="Chunks\LVL\prim\prim.cpp" />
+    <ClCompile Include="Chunks\LVL\prim\prim.DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\prim\prim.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\scr_\scr_.cpp" />
     <ClCompile Include="Chunks\LVL\scr_\scr_.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\skel\skel.cpp" />
@@ -378,10 +406,14 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Types\LocalizeEntry.cpp" />
     <ClCompile Include="Types\SoundBankHeader.cpp" />
     <ClCompile Include="Types\SoundClip.cpp" />
     <ClCompile Include="Types\TerrainBufferEntry.cpp" />
+    <ClCompile Include="Wrappers\CollisionMesh.cpp" />
+    <ClCompile Include="Wrappers\CollisionPrimitive.cpp" />
+    <ClCompile Include="Wrappers\EntityClass.cpp" />
     <ClCompile Include="Wrappers\GlobalLighting.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />
     <ClCompile Include="Wrappers\Level.cpp" />

@@ -92,6 +92,24 @@ namespace LibSWBF2
 		AttachedLight = 134217728,
 	};
 
+	enum class ECollisionMaskFlags : uint32_t
+	{
+		All = 0xffffffff,
+		Ordnance = 1,
+        Vehicle = 2,
+        Building = 4,
+        Terrain = 8,
+        Soldier = 16,
+        Flag = 32,
+	};
+
+	enum class ECollisionPrimitiveType : uint32_t
+	{
+		Sphere = 1,//can also be 0...
+		Cylinder = 2,
+		Cube = 4,
+	};
+
 	enum class EVBUFFlags : uint32_t
 	{
 		None = 0b0u,
@@ -132,7 +150,7 @@ namespace LibSWBF2
 		Dir = 1,
 		Spot = 3,
 		Unknown = 0,
-  };
+	};
   
 	enum class ELVLType
 	{
@@ -141,14 +159,35 @@ namespace LibSWBF2
 		Core
 	};
 
+	enum class EEntityClassType
+	{
+		GameObjectClass,
+		OrdnanceClass,
+		WeaponClass,
+		ExplosionClass
+	};
+
+	enum class ELoadStatus
+	{
+		Uninitialized,
+		Loading,
+		Loaded,
+		Failed
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
 	Types::String LIBSWBF2_API ModelPurposeToString(EModelPurpose flags);
-	Types::String LIBSWBF2_API EVBUFFlagsToString(EVBUFFlags flags);
+	Types::String LIBSWBF2_API VBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
-	Types::String LIBSWBF2_API ELightTypeToString(ELightType type);
+	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
 	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
+	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
+	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
+	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
+
+	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -162,4 +201,8 @@ namespace LibSWBF2
 	EVBUFFlags LIBSWBF2_API operator &(EVBUFFlags lhs, EVBUFFlags rhs);
 	bool LIBSWBF2_API operator ==(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
 	bool LIBSWBF2_API operator !=(EVBUFFlags lhs, std::underlying_type<EVBUFFlags>::type rhs);
+
+	ECollisionMaskFlags LIBSWBF2_API operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs);
+	bool LIBSWBF2_API operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
+	bool LIBSWBF2_API operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
 }

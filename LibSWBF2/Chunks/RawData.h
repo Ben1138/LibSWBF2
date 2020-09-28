@@ -6,7 +6,7 @@ namespace LibSWBF2::Chunks
 	template<uint32_t Header>
 	struct LIBSWBF2_API RawData : public GenericChunk<Header>
 	{
-		~RawData();
+		virtual ~RawData() override;
 
 	private:
 		uint8_t* p_Data = nullptr;
