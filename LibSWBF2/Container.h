@@ -67,7 +67,7 @@ namespace LibSWBF2
 		const List<const World*>& GetWorlds();
 
 		const Light* FindLight(String lightName) const;
-			  Model* FindModel(String modelName) const;
+		const Model* FindModel(String modelName) const;
 		const Texture* FindTexture(String textureName) const;
 		const World* FindWorld(String worldName) const;
 		const Terrain* FindTerrain(String terrainName) const;

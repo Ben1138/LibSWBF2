@@ -32,7 +32,6 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-
             int[] inds = new int[(int)count];
 
             if (count > 0)

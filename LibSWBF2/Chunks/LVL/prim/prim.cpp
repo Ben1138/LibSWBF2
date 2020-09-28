@@ -54,34 +54,7 @@ namespace LibSWBF2::Chunks::LVL::prim
             m_PrimitiveXFRMs.Add(tempXFRM);
 
             READ_CHILD(stream, tempDATA);
-            m_PrimitiveDATAs.Add(tempDATA);
-
-        	/*
-        	if (nextHeader == "DATA"_h)
-    		{
-    			READ_CHILD(stream, tempDATA);
-    		}
-    		else if (nextHeader == "PRNT"_h)
-    		{
-        	}
-        	else if (nextHeader == "MASK"_h)
-        	{
-        		READ_CHILD(stream, tempMASK);
-			}
-			else if (nextHeader == "XFRM"_h)
-			{
-        		READ_CHILD(stream, tempXFRM);
-			}
-			else if (nextHeader == "NAME"_h)
-			{
-        		READ_CHILD(stream, tempNAME);
-
-			}
-			else 
-			{
-			    READ_CHILD_GENERIC(stream);
-        	} 
-            */      	
+            m_PrimitiveDATAs.Add(tempDATA);     	
         }
 
 		BaseChunk::EnsureEnd(stream);

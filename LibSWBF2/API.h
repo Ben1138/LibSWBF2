@@ -57,13 +57,13 @@ namespace LibSWBF2
 		//LIBSWBF2_API void GetTerrains(const Level* level, Terrain*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetScripts(const Level* level, Script*& modelArr, uint32_t& modelCount);
 					 
-		LIBSWBF2_API Model* Level_GetModel(Level* level, const char* modelName);
+		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		//LIBSWBF2_API const Texture* GetTexture(String textureName) const;
 		//LIBSWBF2_API const World* GetWorld(String worldName) const;
 		//LIBSWBF2_API const Script* GetScript(String scriptName) const;
 
 		// Wrappers - Model
-		LIBSWBF2_API const char* Model_GetName(Model* model);
+		LIBSWBF2_API const char* Model_GetName(const Model* model);
 		LIBSWBF2_API const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount);
 		LIBSWBF2_API uint8_t Model_IsSkeletalMesh(const Model* model);
 		LIBSWBF2_API uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount);
@@ -79,7 +79,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling);
 
 		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& buffer);
+		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& buffer);
         LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
 

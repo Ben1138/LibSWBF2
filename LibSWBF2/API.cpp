@@ -183,6 +183,7 @@ namespace LibSWBF2
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
+    	dim = 0;
     	CheckPtr(ter, );
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
@@ -190,6 +191,7 @@ namespace LibSWBF2
 
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{	
+		dim = 0;
     	CheckPtr(ter, );
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
@@ -246,21 +248,22 @@ namespace LibSWBF2
 		return true;
 	}
 
-	const CollisionMesh* Model_GetCollisionMesh(Model *model)
+
+	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
 	{
 		const CollisionMesh& mesh = model -> GetCollisionMesh();
 		return &mesh;
 	}
 
 
-	Model* Level_GetModel(Level* level, const char* modelName)
+	const Model* Level_GetModel(const Level* level, const char* modelName)
 	{
 		CheckPtr(level, nullptr);
 		return level->GetModel(modelName);
 	}
 
 
-	const void CollisionMesh_GetIndexBuffer(CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
 	{
 		static int* tempBuffer = nullptr;
 		delete tempBuffer;

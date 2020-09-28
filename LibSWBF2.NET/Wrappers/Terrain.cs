@@ -46,8 +46,6 @@ namespace LibSWBF2.Wrappers
             float[] heights = new float[dataLength];
             Marshal.Copy(heightsNative, heights, 0, dataLength);
             data = heights;
-
-            APIWrapper.FreeFloatBuffer(heightsNative);
         }
 
 
@@ -61,8 +59,6 @@ namespace LibSWBF2.Wrappers
             byte[] byteArray = new byte[dataLength];
             Marshal.Copy(bytesNative, byteArray, 0, dataLength);
             data = byteArray; 
-
-            APIWrapper.FreeByteBuffer(bytesNative);
         } 
     }
 }
