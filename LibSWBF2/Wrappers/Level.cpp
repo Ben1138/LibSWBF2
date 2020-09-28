@@ -368,7 +368,7 @@ namespace LibSWBF2::Wrappers
 		return m_EntityClasses;
 	}
 
-	Model* Level::GetModel(String modelName)
+	const Model* Level::GetModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
 		{

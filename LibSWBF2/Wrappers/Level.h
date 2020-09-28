@@ -85,7 +85,7 @@ namespace LibSWBF2::Wrappers
 
 		const Light* GetLight(String lightName) const;
 		const GlobalLightingConfig* GetGlobalLighting() const;
-			  Model* GetModel(String modelName);
+		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
 		const Terrain* GetTerrain(String terrainName) const;

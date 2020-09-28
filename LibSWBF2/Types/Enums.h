@@ -186,7 +186,6 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
-
 	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);

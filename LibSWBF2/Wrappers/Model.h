@@ -3,6 +3,7 @@
 #include "Segment.h"
 #include "CollisionPrimitive.h"
 #include "CollisionMesh.h"
+
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/skel/skel.h"
 
@@ -49,7 +50,7 @@ namespace LibSWBF2::Wrappers
 		bool IsSkeletalMesh() const;
 		bool GetSkeleton(List<Bone>& bones) const;
 
-		CollisionMesh& GetCollisionMesh();
+		const CollisionMesh& GetCollisionMesh() const;
 		List<CollisionPrimitive> GetCollisionPrimitives(ECollisionMaskFlags mask =
 															ECollisionMaskFlags::All) const;
 	};
