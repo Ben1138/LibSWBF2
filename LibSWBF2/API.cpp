@@ -21,7 +21,7 @@ namespace LibSWBF2
 		delete[] buffer;
 	}
 
-	void FreeUIntBuffer(uint buffer[])
+	void FreeUIntBuffer(uint32_t buffer[])
 	{
 		delete[] buffer;
 	}

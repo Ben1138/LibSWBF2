@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stbi/stb_image_write.h"
@@ -11,6 +12,8 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 using LibSWBF2::Wrappers::Terrain;
+using LibSWBF2::Container;
+
 
 using namespace LibSWBF2::Wrappers;
 
@@ -61,8 +64,19 @@ int main()
 	path2 = "/home/will/Desktop/MLC.lvl";
 #endif
 
-	Level *testLVL1 = Level::FromFile(path1);
-	Level *testLVL2 = Level::FromFile(path2);
+	Container *container = Container::Create();
+	auto handle1 = container -> AddLevel(path1);
+	auto handle2 = container -> AddLevel(path2);
+
+	container -> StartLoading();
+
+	while (!container -> IsDone())
+	{
+		usleep(100000);
+	}
+
+	Level *testLVL1 = container -> GetLevel(handle1);
+	Level *testLVL2 = container -> GetLevel(handle2);
 
 	uint32_t dim, elementSize;
 	uint8_t *blendMapData;

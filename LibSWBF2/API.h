@@ -29,7 +29,7 @@ namespace LibSWBF2
 		//Explicit Mem Handling //
 		LIBSWBF2_API void FreeFloatBuffer(float buffer[]);
 		LIBSWBF2_API void FreeByteBuffer(uint8_t buffer[]);
-		LIBSWBF2_API void FreeUIntBuffer(uint buffer[]);
+		LIBSWBF2_API void FreeUIntBuffer(uint32_t buffer[]);
 		LIBSWBF2_API void FreeCharPtrBuffer(char * buffer[]);
 
 		// Logging //
