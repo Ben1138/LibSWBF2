@@ -10,10 +10,15 @@ namespace LibSWBF2
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 	// Logging //
-	void LOG_SetCallbackMethod(const LogCallback Callback)
+	bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{
-		CheckPtr(Callback,)
-		Logging::Logger::SetLogCallback(Callback);
+		static Logging::LoggerEntry current;
+		bool hasLogEntry = Logging::Logger::GetNextLog(current);
+		msg = current.m_Message.Buffer();
+		level = current.m_Level;
+		line = current.m_Line;
+		file = current.m_File.Buffer();
+		return hasLogEntry;
 	}
 
 	void LOG_SetLogfileLevel(ELogType LogfileLevel)
