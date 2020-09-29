@@ -35,6 +35,15 @@ namespace LibSWBF2.NET.Test
 
                 Console.WriteLine("\tNum collision indices:   " + mesh.GetIndices().Length.ToString());
                 Console.WriteLine("\tNum collision verticies: " + mesh.GetVertices().Length.ToString());
+            
+                Console.WriteLine("\tPrimitives: ");
+
+                CollisionPrimitive[] prims = model.GetPrimitivesMasked();
+
+                foreach (var prim in prims)
+                {
+                    Console.WriteLine("\t\t{0}", prim.name);
+                }
             }
 
             Console.WriteLine("Done!");

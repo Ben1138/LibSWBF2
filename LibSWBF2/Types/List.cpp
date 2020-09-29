@@ -519,8 +519,11 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::EntityClass>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
 
+	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
+
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 }

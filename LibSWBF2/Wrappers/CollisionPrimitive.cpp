@@ -28,19 +28,24 @@ namespace LibSWBF2::Wrappers
                                      p_ParentChunk(parent), p_FieldsChunk(fields) {}
 
 
-    Vector4 CollisionPrimitive::GetRotation() const
+    const Vector4& CollisionPrimitive::GetRotation() const
     {
         return MatrixToQuaternion(p_TransformChunk -> m_RotationMatrix);
     }
 
-    Vector3 CollisionPrimitive::GetPosition() const
+    const Vector3& CollisionPrimitive::GetPosition() const
     {
         return p_TransformChunk -> m_Position;
     }
 
-    String CollisionPrimitive::GetName() const
+    const String& CollisionPrimitive::GetName() const
     {
         return p_NameChunk -> ToString();
+    }
+
+    const String& CollisionPrimitive::GetParentName() const
+    {
+        return p_ParentChunk -> ToString();
     }
 
     ECollisionPrimitiveType CollisionPrimitive::GetPrimitiveType() const
