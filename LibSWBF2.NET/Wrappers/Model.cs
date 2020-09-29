@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
 using LibSWBF2.Logging;
+using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
 {
@@ -60,5 +62,13 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
         }
+
+        public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);
+            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr,numPrims);
+        }
+
     }
 }

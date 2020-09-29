@@ -157,6 +157,29 @@ namespace LibSWBF2
 	}
 
 
+	const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
+										CollisionPrimitive**& primArrayPtr)
+	{
+		static List<CollisionPrimitive> primsList;
+		static List<CollisionPrimitive *> primPtrs;
+		
+		numPrims = 0;
+		CheckPtr(model,);
+
+		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
+		primPtrs.Clear();
+
+		for (size_t i = 0; i < primsList.Size(); ++i)
+		{
+			primPtrs.Add(&primsList[i]);
+		}		
+
+
+		primArrayPtr = primPtrs.GetArrayPtr();
+		numPrims = (uint32_t) primPtrs.Size();		
+	}
+
+
 	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
 	{
 		static int* tempBuffer = nullptr;
@@ -198,6 +221,43 @@ namespace LibSWBF2
 
     	buffer = tempBuffer;
     }
+
+
+    //CollisionPrimitive
+
+    const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
+                                            float_t& f1, float_t& f2, float_t& f3,
+                                            const char *& name, const char *& parentName,
+                                            uint32_t& maskFlags, uint32_t& primitiveType,
+                                            const Vector3*& pos, const Vector4*& rot)
+    {
+    	f1 = f2 = f3 = 0.0f;
+
+    	name = primPtr -> GetName().Buffer();
+    	parentName = primPtr -> GetParentName().Buffer();
+
+    	maskFlags = (uint32_t) primPtr -> GetMaskFlags();
+    	primitiveType = (uint32_t) primPtr -> GetPrimitiveType();
+
+    	pos = &(primPtr -> GetPosition()); 
+    	rot = &(primPtr -> GetRotation()); 
+
+    	switch (primitiveType)
+    	{
+    		case 1:
+    			primPtr -> GetSphereRadius(f1);
+    			return;
+    		case 2:
+    			primPtr -> GetCylinderDims(f1,f2);
+    			return;
+    		case 4:
+    			primPtr -> GetCubeDims(f1,f2,f3);
+    			return;
+    		default:
+    			return;
+    	}
+    }
+
 
 
 

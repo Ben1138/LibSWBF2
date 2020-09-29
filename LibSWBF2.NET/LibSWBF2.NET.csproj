@@ -77,6 +77,8 @@
     <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
+    <Compile Include="Wrappers\CollisionPrimitive.cs" />
+    <Compile Include="Utils\MarshalingUtils.cs" />    
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

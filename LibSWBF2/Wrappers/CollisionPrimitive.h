@@ -42,10 +42,11 @@ namespace LibSWBF2::Wrappers
                            DATA_PRIM *fields, CollisionPrimitive& out);
 	public:
 		
-		String GetName() const;
+		const String& GetName() const;
+		const String& GetParentName() const;
 
-		Vector4 GetRotation() const;
-		Vector3 GetPosition() const;
+		const Vector4& GetRotation() const;
+		const Vector3& GetPosition() const;
 
 		ECollisionPrimitiveType GetPrimitiveType() const;
 		ECollisionMaskFlags GetMaskFlags() const;

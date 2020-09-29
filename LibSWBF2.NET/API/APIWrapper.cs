@@ -62,6 +62,10 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Model_GetCollisionMesh(IntPtr model);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
+                                                            out int numPrims, out IntPtr ptr);
+
 
 
         // CollisionMesh //
@@ -71,6 +75,17 @@ namespace LibSWBF2
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void CollisionMesh_GetVertexBuffer(IntPtr collMesh, out uint count, out IntPtr buffer);
+
+
+
+        // CollisionPrimitive //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CollisionPrimitive_FetchAllFields(IntPtr nativePtr,
+                                                    out float f1, out float f2, out float f3,
+                                                    out IntPtr name, out IntPtr parentName,
+                                                    out uint maskFlags, out uint primitiveType,
+                                                    out IntPtr pos, out IntPtr rot);
 
     }
 }
