@@ -346,6 +346,11 @@ namespace LibSWBF2
 			return "Cube";
 		}
 
+		if (type == ECollisionPrimitiveType::Empty)
+		{
+			return "Empty";
+		}
+
 		return fmt::format("Unknown Collision Primitive Type: {}", (uint32_t) type).c_str();
 	}
 
