@@ -50,6 +50,8 @@ namespace LibSWBF2
 			{
 				m_Reader.seekg(pos);
 			}
+
+			m_LatestChunkPos = pos;
 		}
 		return value;
 	}
@@ -245,10 +247,5 @@ namespace LibSWBF2
 	size_t FileReader::GetLatestChunkPosition()
 	{
 		return m_LatestChunkPos;
-	}
-
-	void FileReader::SetLatestChunkPosition(size_t position)
-	{
-		m_LatestChunkPos = position;
 	}
 }
