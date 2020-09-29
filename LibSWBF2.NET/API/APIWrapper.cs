@@ -15,6 +15,23 @@ namespace LibSWBF2
         public delegate void LogCallback(IntPtr LoggerEntryPtr);
 
 
+
+        // Vectors 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Vector4_FromPtr(IntPtr ptr, out float x,
+                                                    out float y, out float z,
+                                                                 out float w);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Vector3_FromPtr(IntPtr ptr, out float x,
+                                                    out float y, out float z);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Vector2_FromPtr(IntPtr ptr, out float x,
+                                                              out float y);
+
+
+
         // Logging //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
