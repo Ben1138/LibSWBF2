@@ -4,6 +4,7 @@
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
 #include "Wrappers/Level.h"
+#include "Container.h"
 
 namespace LibSWBF2
 {
@@ -58,6 +59,56 @@ namespace LibSWBF2
 		CheckPtr(modl, EModelPurpose::Miscellaneous)
 		return modl->GetPurpose();
 	}
+
+
+	const Container* Container_Initialize()
+	{
+		return Container::Create();
+	}
+
+	uint32_t Container_AddLevel(Container* container, const char *path)
+	{
+		return (uint32_t) container -> AddLevel(path);
+	}
+
+	float_t Container_GetProgress(Container* container, uint32_t handleNum)
+	{
+		SWBF2Handle handle = (uint16_t) handleNum;
+		return container -> GetLevelProgress(handle);
+	}  
+
+	const Level* Container_GetLevel(Container* container, uint32_t handleNum)
+	{
+		SWBF2Handle handle = (uint16_t) handleNum;
+		return container -> GetLevel(handle);
+	}
+
+	const void Container_LoadLevels(Container* container)
+	{
+		container -> StartLoading();
+	}
+
+	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
+	{
+		switch (type)
+		{
+			case 0:
+				return static_cast<const void *>(container -> FindModel(name));
+			case 1:
+				return static_cast<const void *>(container -> FindTexture(name));
+			case 2:
+				return static_cast<const void *>(container -> FindWorld(name));
+			case 3:
+				return static_cast<const void *>(container -> FindEntityClass(name));
+			case 4:
+				return static_cast<const void *>(container -> FindTerrain(name));
+			default:
+				return nullptr;
+		}
+	}
+
+
+
 
 	// Wrappers
 	Level* Level_FromFile(const char* path)

@@ -24,6 +24,26 @@ namespace LibSWBF2
         public static extern void LOG_SetLogfileLevel(Logging.ELogType LogfileLevel);
 
 
+        // Container //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_Initialize();  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint Container_AddLevel(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float Container_GetProgress(IntPtr container, uint handle);  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetLevel(IntPtr container, uint handle); 
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Container_LoadLevels(IntPtr container);
+
         // Level //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

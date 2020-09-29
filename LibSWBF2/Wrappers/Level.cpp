@@ -104,7 +104,6 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		
 		coll* collisionChunk = dynamic_cast<coll*>(root);
 		if (collisionChunk != nullptr)
 		{

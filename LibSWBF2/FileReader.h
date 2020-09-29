@@ -2,6 +2,7 @@
 #include "Chunks/HeaderNames.h"
 #include "Types/LibString.h"
 #include <fstream>
+#include <atomic>
 
 namespace LibSWBF2
 {
@@ -28,6 +29,9 @@ namespace LibSWBF2
 		size_t GetFileSize();
 		bool SkipBytes(const size_t& Amount);
 		void Close();
+
+		std::atomic_size_t m_LatestChunkPos;
+
 	private:
 		bool CheckGood(size_t ReadSize);
 

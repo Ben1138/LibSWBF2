@@ -30,23 +30,30 @@ int main()
 	Logger::SetLogCallback(&libLog);
 
 	const char *path;
+	const char *path1;
 
 #ifdef __APPLE__
 	path = "/Users/will/Desktop/geo1.lvl";
+	path1 = "/Users/will/Desktop/geo1.lvl";
 #else
 	path = "/home/will/Desktop/geo1.lvl";
 #endif
 
 	Container *container = Container::Create();
 	auto handle = container -> AddLevel(path);
+	//auto handle1 = container -> AddLevel(path1);
 	container -> StartLoading();
 
 	while (!container -> IsDone())
 	{
 		usleep(100000);
+		std::cout << "\rProgress: " << container -> GetLevelProgress(handle) << std::flush;
 	}
 
+	std::cout << std::endl;
+
 	Level *testLVL = container -> GetLevel(handle);
+	//Level *testLVL1 = container -> GetLevel(handle1);
 
 
 	const List<Model>& models = testLVL -> GetModels();

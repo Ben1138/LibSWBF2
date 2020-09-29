@@ -9,7 +9,7 @@ namespace LibSWBF2
 
 	FileReader::FileReader()
 	{
-
+		m_LatestChunkPos = 0;
 	}
 
 	FileReader::~FileReader()

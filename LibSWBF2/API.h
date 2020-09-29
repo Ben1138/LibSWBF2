@@ -4,6 +4,8 @@
 
 namespace LibSWBF2
 {
+	class Container;
+
 	namespace Chunks::MSH { struct MSH; }
 	namespace Chunks::MSH { struct MODL; }
 	namespace Chunks::MSH { struct STRP; }
@@ -36,6 +38,14 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t MSH_WriteToFile(Chunks::MSH::MSH* msh, const char* path);
 		LIBSWBF2_API void STRP_CalcPolygons(Chunks::MSH::STRP* strp);
 		LIBSWBF2_API EModelPurpose MODL_GetPurpose(Chunks::MSH::MODL* modl);
+
+		// Wrappers - Container
+        LIBSWBF2_API const Container* Container_Initialize();  
+        LIBSWBF2_API uint32_t Container_AddLevel(Container* container, const char *path);
+        LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
+        LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
+        LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+        LIBSWBF2_API const void Container_LoadLevels(Container* container);
 
 		// Wrappers - Level
 		LIBSWBF2_API Level* Level_FromFile(const char* path);
