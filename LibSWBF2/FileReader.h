@@ -30,7 +30,9 @@ namespace LibSWBF2
 		bool SkipBytes(const size_t& Amount);
 		void Close();
 
-		std::atomic_size_t m_LatestChunkPos;
+		size_t GetLatestChunkPosition();
+		void SetLatestChunkPosition(size_t position);
+
 
 	private:
 		bool CheckGood(size_t ReadSize);
@@ -38,5 +40,6 @@ namespace LibSWBF2
 		size_t m_FileSize = 0;
 		Types::String m_FileName;
 		std::ifstream m_Reader;
+		std::atomic_size_t m_LatestChunkPos;
 	};
 }

@@ -240,4 +240,16 @@ namespace LibSWBF2
 		}
 		return false;
 	}
+
+
+	size_t FileReader::GetLatestChunkPosition()
+	{
+		return m_LatestChunkPos;
+	}
+
+
+	void FileReader::SetLatestChunkPosition(size_t position)
+	{
+		m_LatestChunkPos = position;
+	}
 }
