@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
+using LibSWBF2.Types;
 using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
@@ -35,29 +37,23 @@ namespace LibSWBF2.Wrappers
 
         public bool GetCubeDims(out float x, out float y, out float z)
         {
-            if (primitiveType != 4) return false;
-
             x = f1;
             y = f2;
             z = f3;
-            return true;
+            return primitiveType == 4;
         }
 
         public bool GetCylinderDims(out float radius, out float height)
         {
-            if (primitiveType != 2) return false;
-
             radius = f1;
             height = f2;
-            return true;
+            return primitiveType == 2;
         }
 
         public bool GetSphereRadius(out float radius)
         {
-            if (primitiveType != 1) return false;
-
             radius = f1;
-            return true;
+            return primitiveType == 1;
         }
 
         public Vector4 rotation;

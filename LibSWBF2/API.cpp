@@ -259,6 +259,30 @@ namespace LibSWBF2
     }
 
 
+    
+    const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+       	w = vec -> m_W;
+    } 
+
+    const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+    } 
+
+    const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    } 
+
+
+
 
 
 	const char* ENUM_TopologyToString(ETopology topology)
