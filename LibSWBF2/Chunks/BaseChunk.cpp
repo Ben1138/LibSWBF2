@@ -46,8 +46,6 @@ namespace LibSWBF2::Chunks
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
 
-		stream.SetLatestChunkPosition(m_ChunkPosition);
-
 		LOG_INFO("Position: {}", m_ChunkPosition);
 		LOG_INFO("Header: {}", m_Header);
 		LOG_INFO("Size: {:#x}", m_Size);
@@ -226,4 +224,3 @@ namespace LibSWBF2::Chunks
 		return (float_t)m_ThreadHandling->m_CurrentReader->GetLatestChunkPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
 	}
 }
-

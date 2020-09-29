@@ -29,10 +29,8 @@ namespace LibSWBF2
 		size_t GetFileSize();
 		bool SkipBytes(const size_t& Amount);
 		void Close();
-
+		
 		size_t GetLatestChunkPosition();
-		void SetLatestChunkPosition(size_t position);
-
 
 	private:
 		bool CheckGood(size_t ReadSize);
