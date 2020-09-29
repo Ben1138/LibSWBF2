@@ -84,7 +84,7 @@ namespace LibSWBF2
                                                     float_t& f1, float_t& f2, float_t& f3,
                                                     const char *& name, const char *& parentName,
                                                     uint32_t& maskFlags, uint32_t& primitiveType,
-                                                    const Vector3*& pos, const Vector4*& rot);
+                                                    Vector3*& pos, Vector4*& rot);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);

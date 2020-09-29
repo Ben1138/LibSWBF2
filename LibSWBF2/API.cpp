@@ -231,28 +231,28 @@ namespace LibSWBF2
                                             float_t& f1, float_t& f2, float_t& f3,
                                             const char *& namePtr, const char *& parentNamePtr,
                                             uint32_t& maskFlags, uint32_t& primitiveType,
-                                            const Vector3*& pos, const Vector4*& rot)
+                                            Vector3*& pos, Vector4*& rot)
     {
+    	static String name, parentName;
+    	static Vector3 posTemp;
+    	static Vector4 rotTemp;
+
     	f1 = f2 = f3 = 0.0f;
 
-    	COUT("Is null? " << (primPtr == nullptr));
-    	//COUT("Prim name: " << primPtr -> GetName().Buffer());
-
-    	const String& name = primPtr -> GetName();
-    	const String& parentName = primPtr -> GetParentName();
-
-    	COUT("Set namez");
+    	name = primPtr -> GetName();
+    	parentName = primPtr -> GetParentName();
 
     	namePtr = name.Buffer();
     	parentNamePtr = parentName.Buffer();
 
-    	COUT("Set name ptrs");
-
     	maskFlags = (uint32_t) primPtr -> GetMaskFlags();
     	primitiveType = (uint32_t) primPtr -> GetPrimitiveType();
 
-    	pos = &(primPtr -> GetPosition()); 
-    	rot = &(primPtr -> GetRotation()); 
+    	rotTemp = primPtr -> GetRotation();
+    	posTemp = primPtr -> GetPosition();
+
+    	pos = &posTemp; 
+    	rot = &rotTemp; 
 
     	switch (primitiveType)
     	{
