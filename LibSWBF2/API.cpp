@@ -5,6 +5,9 @@
 #include "Chunks/MSH/MSH.h"
 #include "Wrappers/Level.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
@@ -169,11 +172,10 @@ namespace LibSWBF2
 		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
 		primPtrs.Clear();
 
-		for (size_t i = 0; i < primsList.Size(); ++i)
+		for (size_t i = 0; i < primsList.Size(); i++)
 		{
 			primPtrs.Add(&primsList[i]);
 		}		
-
 
 		primArrayPtr = primPtrs.GetArrayPtr();
 		numPrims = (uint32_t) primPtrs.Size();		
@@ -227,14 +229,24 @@ namespace LibSWBF2
 
     const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
                                             float_t& f1, float_t& f2, float_t& f3,
-                                            const char *& name, const char *& parentName,
+                                            const char *& namePtr, const char *& parentNamePtr,
                                             uint32_t& maskFlags, uint32_t& primitiveType,
                                             const Vector3*& pos, const Vector4*& rot)
     {
     	f1 = f2 = f3 = 0.0f;
 
-    	name = primPtr -> GetName().Buffer();
-    	parentName = primPtr -> GetParentName().Buffer();
+    	COUT("Is null? " << (primPtr == nullptr));
+    	//COUT("Prim name: " << primPtr -> GetName().Buffer());
+
+    	const String& name = primPtr -> GetName();
+    	const String& parentName = primPtr -> GetParentName();
+
+    	COUT("Set namez");
+
+    	namePtr = name.Buffer();
+    	parentNamePtr = parentName.Buffer();
+
+    	COUT("Set name ptrs");
 
     	maskFlags = (uint32_t) primPtr -> GetMaskFlags();
     	primitiveType = (uint32_t) primPtr -> GetPrimitiveType();
@@ -259,7 +271,7 @@ namespace LibSWBF2
     }
 
 
-    
+
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
     {
     	x = vec -> m_X;
