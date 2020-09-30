@@ -80,6 +80,10 @@ namespace LibSWBF2
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const bool   Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& w, int&h);
+		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
+
+		LIBSWBF2_API const void Texture_GetMetadata(const Texture* tex, int32_t width, int32_t height);
+		LIBSWBF2_API const uint8_t Texture_DumpRGBA(const Texture* tex, void* buffer);
 
 		// Wrappers - Model
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
@@ -107,9 +111,6 @@ namespace LibSWBF2
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);
         LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
-		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);
-        LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
         // Wrappers - CollisionPrimitive
         LIBSWBF2_API const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
