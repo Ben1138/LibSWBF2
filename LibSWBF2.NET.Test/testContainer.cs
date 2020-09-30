@@ -45,7 +45,6 @@ namespace LibSWBF2.NET.Test
 
             //string path1 = @"/Users/will/Desktop/common.lvl";
             string path1 = @"/Users/will/Downloads/VDI/data/_LVL_PC/SIDE/pen.lvl";
-
             string path2 = @"/Users/will/Desktop/MLC.lvl";
 
             //string path1 = @"/Users/will/Desktop/MLC.lvl";

@@ -12,7 +12,22 @@ namespace LibSWBF2.Utils
 {
     class MemUtils {
 
-        public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count, int inc = 8) where T : NativeWrapper, new()
+        public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count, int elSize) where T : NativeWrapper, new()
+        {
+            if (nativePtr == IntPtr.Zero) return new T[0];
+
+            T[] wrappers = new T[count];
+
+            for (int i = 0; i < count; i++){
+                wrappers[i] = new T();
+                wrappers[i].SetPtr(IntPtr.Add(nativePtr, elSize * i));
+            }
+
+            return wrappers;
+        }
+
+
+        public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
             if (nativePtr == IntPtr.Zero) return new T[0];
 
@@ -20,15 +35,9 @@ namespace LibSWBF2.Utils
             IntPtr[] ptrArr = new IntPtr[count];
             Marshal.Copy(nativePtr, ptrArr, 0, count);
 
-
-            //Console.WriteLine("NEW TEST -----------------------");
             for (int i = 0; i < count; i++){
                 wrappers[i] = new T();
-                IntPtr incedPtr = IntPtr.Add(nativePtr, inc * i); 
-                IntPtr realPtr = ptrArr[i];
-                //Console.WriteLine(String.Format("\tRealptr: {0}  Incremented: {1}", realPtr.ToInt32(), incedPtr.ToInt32() ));
-                wrappers[i].SetPtr(IntPtr.Add(nativePtr, inc * i));
-                //wrappers[i].SetPtr(ptrArr[i]);
+                wrappers[i].SetPtr(ptrArr[i]);
             }
 
             return wrappers;

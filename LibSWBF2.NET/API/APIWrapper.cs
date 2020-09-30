@@ -227,11 +227,15 @@ namespace LibSWBF2
         // Texture //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-         public static extern bool Texture_GetMetaData(IntPtr texture, out uint height, 
+        public static extern bool Texture_GetMetaData(IntPtr texture, out uint height, 
                                                         out uint width, out IntPtr namePtr);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-         public static extern IntPtr Texture_GetBytes(IntPtr texture);
+        public static extern IntPtr Texture_GetBytes(IntPtr texture);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern unsafe bool Texture_DumpRGBA(IntPtr texture, void *buffer);         
 
 
         // CollisionMesh //

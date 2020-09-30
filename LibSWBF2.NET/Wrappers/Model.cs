@@ -59,7 +59,7 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);
-            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr,numPrims);
+            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr, numPrims);
         }
     }
 }
