@@ -19,10 +19,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #SOURCES
-add_executable(lightsTest 	  testLights.cpp)
-add_executable(collisionTest  testCollision.cpp)
+add_executable(lightsTest 	       testLights.cpp)
+add_executable(collisionTest       testCollision.cpp)
+add_executable(basicContainerTest  testContainerBasic.cpp)
 
 
 #LINKING
-target_link_libraries(lightsTest     PUBLIC SWBF2)
-target_link_libraries(collisionTest  PUBLIC SWBF2)
+target_link_libraries(lightsTest     	  PUBLIC SWBF2)
+target_link_libraries(collisionTest    	  PUBLIC SWBF2)
+target_link_libraries(basicContainerTest  PUBLIC SWBF2)
