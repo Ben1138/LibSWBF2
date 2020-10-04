@@ -107,8 +107,12 @@ namespace LibSWBF2
 	}
 
 	//TEMPORARY: Basic texture handling until I push the other wrappers...
-    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height)
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imageDataOut, int& width, int& height)
     {
+    	static const uint8_t *imageData = nullptr;
+    	delete imageData;
+
+    	width = height = 0;
     	CheckPtr(level, false);
 
     	const Texture *tex = level -> GetTexture(texName);
@@ -118,9 +122,10 @@ namespace LibSWBF2
     	}
 
     	uint16_t w,h;
-    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imgData);
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
     	height = h;
     	width = w;
+    	imageDataOut = imageData;
     	return true;
     }
 
