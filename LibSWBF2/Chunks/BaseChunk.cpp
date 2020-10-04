@@ -221,7 +221,6 @@ namespace LibSWBF2::Chunks
 			return 1.0f;
 		}
 
-		return (float_t)m_ThreadHandling->m_CurrentReader->GetPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
+		return (float_t)m_ThreadHandling->m_CurrentReader->GetLatestChunkPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
 	}
 }
-

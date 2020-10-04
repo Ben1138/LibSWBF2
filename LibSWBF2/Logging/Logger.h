@@ -4,6 +4,8 @@
 #include "Chunks/HeaderNames.h"
 #include "Chunks/BaseChunk.h"
 #include <memory>
+#include <queue>
+#include <mutex>
 
 
 namespace LibSWBF2
@@ -13,27 +15,28 @@ namespace LibSWBF2
 
 namespace LibSWBF2::Logging
 {
-	typedef void(*LogCallback)(const LoggerEntry*);
-
 	// Singleton
-	// TODO: Make static class instead of singleton
 	class Logger
 	{
 	public:
-		Logger();	// do not call anywhere else!
+		Logger(); // do not call anywhere else
 		~Logger();
 
-		const String LOG_FILE = "LibSWBF2.log";
 		static std::unique_ptr<Logger>& GetInstance();
 
-		LIBSWBF2_API static void SetLogCallback(const LogCallback Callback);
 		LIBSWBF2_API static void SetLogfileLevel(const ELogType LogfileLevel);
+		LIBSWBF2_API static bool GetNextLog(LoggerEntry& nextLogEntry);
+
 		void Log(const std::string &message, const ELogType level, const unsigned long line, const char* file);
 
 	private:
+		const String LOG_FILE = "LibSWBF2.log";
+		const int MAX_ENTRIES = 10000;
+
 		static std::unique_ptr<Logger> m_Instance;
-		LogCallback m_OnLogCallback = nullptr;
 		FileWriter* m_Writer;
 		ELogType m_LogfileLevel = ELogType::Warning;
+		std::queue<LoggerEntry> m_Logs;
+		std::mutex m_Lock;
 	};
 }
