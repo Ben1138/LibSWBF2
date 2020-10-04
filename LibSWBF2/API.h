@@ -24,13 +24,6 @@ namespace LibSWBF2
 	// Provide mangling free C-functions to be accessible from C# wrapper
 	extern "C"
 	{
-
-		//Explicit Mem Handling //
-		LIBSWBF2_API void FreeFloatBuffer(float buffer[]);
-		LIBSWBF2_API void FreeByteBuffer(uint8_t buffer[]);
-		LIBSWBF2_API void FreeUIntBuffer(uint32_t buffer[]);
-		LIBSWBF2_API void FreeCharPtrBuffer(char * buffer[]);
-
 		// Logging //
 		LIBSWBF2_API bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
