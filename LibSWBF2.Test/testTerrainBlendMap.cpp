@@ -25,8 +25,6 @@ using LibSWBF2::Logging::LoggerEntry;
 
 
 
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
-
 
 uint8_t* GetFirstThreeLayersRGBA(uint8_t *blendMapData, int dim, int elementSize)
 {
@@ -51,8 +49,6 @@ uint8_t* GetFirstThreeLayersRGBA(uint8_t *blendMapData, int dim, int elementSize
 
 int main()
 {
-	Logger::SetLogCallback(&libLog);
-
 	const char* path1;
 	const char* path2;
 

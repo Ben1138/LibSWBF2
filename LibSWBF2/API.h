@@ -7,7 +7,6 @@ namespace LibSWBF2
 	namespace Chunks::MSH { struct MSH; }
 	namespace Chunks::MSH { struct MODL; }
 	namespace Chunks::MSH { struct STRP; }
-	using Logging::LogCallback;
 	namespace Wrappers 
 	{ 
 		class Level; 
@@ -33,7 +32,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void FreeCharPtrBuffer(char * buffer[]);
 
 		// Logging //
-		LIBSWBF2_API void LOG_SetCallbackMethod(const LogCallback Callback);
+		LIBSWBF2_API bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
 
 		// MSH //

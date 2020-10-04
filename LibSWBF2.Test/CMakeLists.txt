@@ -19,15 +19,17 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #SOURCES
-add_executable(lightsTest 	 testLights.cpp)
-add_executable(collisionTest testCollision.cpp)
-add_executable(blendMapTest  testTerrainBlendMap.cpp)
-add_executable(heightmapTest testTerrainHeightMap.cpp)
-#add_executable(segmentsTest  testSegments.cpp)
+add_executable(lightsTest 	      testLights.cpp)
+add_executable(collisionTest 	  testCollision.cpp)
+add_executable(blendMapTest  	  testTerrainBlendMap.cpp)
+add_executable(heightmapTest 	  testTerrainHeightMap.cpp)
+add_executable(basicContainerTest testContainerBasic.cpp)
+#add_executable(segmentsTest  	  testSegments.cpp)
 
 #LINKING
 target_link_libraries(lightsTest    PUBLIC SWBF2)
 target_link_libraries(collisionTest PUBLIC SWBF2)
 target_link_libraries(blendMapTest  PUBLIC SWBF2)
 target_link_libraries(heightmapTest PUBLIC SWBF2)
-#target_link_libraries(segmentsTest  PUBLIC SWBF2)
+target_link_libraries(basicContainerTest  PUBLIC SWBF2)
+#target_link_libraries(segmentsTest PUBLIC SWBF2)
