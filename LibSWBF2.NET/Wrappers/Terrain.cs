@@ -29,9 +29,7 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Terrain_GetTexNames(NativeInstance, out uint numTextures, out IntPtr stringsPtr);
             List<string> names = MemUtils.IntPtrToStringList(stringsPtr, (int) numTextures); 
-
-            APIWrapper.FreeCharPtrBuffer(stringsPtr);
-
+            
             return names;
         }
 

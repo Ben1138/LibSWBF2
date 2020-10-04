@@ -10,28 +10,6 @@ namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
-	//Explicit Mem Handling
-	void FreeFloatBuffer(float buffer[])
-	{
-		delete[] buffer;
-	}
-
-	void FreeByteBuffer(uint8_t buffer[])
-	{
-		delete[] buffer;
-	}
-
-	void FreeUIntBuffer(uint32_t buffer[])
-	{
-		delete[] buffer;
-	}
-
-	void FreeCharPtrBuffer(char *buffer[])
-	{
-		delete[] buffer;
-	}
-
-
 
 	// Logging //
 	bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
@@ -170,19 +148,24 @@ namespace LibSWBF2
 	*/
 	
 	//Will eventually return pointers to Texture wrappers...
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& nameStrings)
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& namesOut)
 	{
+		static const char** nameStrings = nullptr;
+		delete nameStrings; 
+
+		numTextures = 0;
 		CheckPtr(tern, );
 
         const List<String>& texNames = tern -> GetLayerTextures();
         numTextures = (uint32_t) texNames.Size();
 
     	nameStrings = new const char *[numTextures]; 
-
     	for (int i = 0; i < numTextures; i++)
         {
         	nameStrings[i] = texNames[i].Buffer(); 
         }
+
+        namesOut = nameStrings;
 	}
 
 
