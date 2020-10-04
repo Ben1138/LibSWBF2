@@ -25,13 +25,13 @@ using LibSWBF2::Logging::LoggerEntry;
 
 #define COUT(x) std::cout << x << std::endl
 
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
+//void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
 
 
 
 int main()
 {
-	Logger::SetLogCallback(&libLog);
+	//Logger::SetLogCallback(&libLog);
 
 	const char *path1;
 	const char *path2;
