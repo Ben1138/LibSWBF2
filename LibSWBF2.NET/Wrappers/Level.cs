@@ -71,7 +71,7 @@ namespace LibSWBF2.Wrappers
         public Model[] GetModels()
         {
             APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
-            IntPtr[] modelPtrs= new IntPtr[modelCount];
+            IntPtr[] modelPtrs = new IntPtr[modelCount];
             Marshal.Copy(modelArr, modelPtrs, 0, (int)modelCount);
 
             Model[] models = new Model[modelCount];
