@@ -25,8 +25,6 @@ using LibSWBF2::Logging::LoggerEntry;
 
 
 
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
-
 
 uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
 {
@@ -60,8 +58,6 @@ uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
 
 int main()
 {
-	Logger::SetLogCallback(&libLog);
-
 	const char *path;
 
 #ifdef __APPLE__
