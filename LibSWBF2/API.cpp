@@ -4,6 +4,7 @@
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
 #include "Wrappers/Level.h"
+#include "Wrappers/Terrain.h"
 
 #include <iostream>
 #define COUT(x) std::cout << x << std::endl
@@ -12,8 +13,9 @@ namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+
 	// Logging //
-	bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
+	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{
 		static Logging::LoggerEntry current;
 		bool hasLogEntry = Logging::Logger::GetNextLog(current);
@@ -106,6 +108,98 @@ namespace LibSWBF2
 		modelArr = modelPtrs.GetArrayPtr();
 		modelCount = (uint32_t)modelPtrs.Size();
 	}
+
+	//TEMPORARY: Basic texture handling until I push the other wrappers...
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imageDataOut, int& width, int& height)
+    {
+    	static const uint8_t *imageData = nullptr;
+    	delete imageData;
+
+    	width = height = 0;
+    	CheckPtr(level, false);
+
+    	const Texture *tex = level -> GetTexture(texName);
+    	if (tex == nullptr)
+    	{
+    		return false;
+    	}
+
+    	uint16_t w,h;
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
+    	height = h;
+    	width = w;
+    	imageDataOut = imageData;
+    	return true;
+    }
+
+
+	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
+	{
+		CheckPtr(level, );
+		const List<Terrain>& terrains = level->GetTerrains();
+
+		static List<const Terrain*> terrainPtrs;
+		terrainPtrs.Clear();
+
+		for (size_t i = 0; i < terrains.Size(); ++i)
+		{
+			terrainPtrs.Add(&terrains[i]);
+		}
+
+		terrainArr = terrainPtrs.GetArrayPtr();
+		terrainCount = (uint32_t)terrainPtrs.Size();
+	}
+
+
+	/*
+		Terrain
+	*/
+	
+	//Will eventually return pointers to Texture wrappers...
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& namesOut)
+	{
+		static const char** nameStrings = nullptr;
+		delete nameStrings; 
+
+		numTextures = 0;
+		CheckPtr(tern, );
+
+        const List<String>& texNames = tern -> GetLayerTextures();
+        numTextures = (uint32_t) texNames.Size();
+
+    	nameStrings = new const char *[numTextures]; 
+    	for (uint32_t i = 0; i < numTextures; i++)
+        {
+        	nameStrings[i] = texNames[i].Buffer(); 
+        }
+
+        namesOut = nameStrings;
+	}
+
+
+    const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
+    {
+    	dim = 0;
+    	CheckPtr(ter, );
+    	ter -> GetHeightMap(dim, dimScale, heightData);
+    }
+
+
+	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
+	{	
+		dim = 0;
+    	CheckPtr(ter, );
+		ter -> GetBlendMap(dim, numLayers, data);
+	}
+
+
+	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
+	{
+    	CheckPtr(ter, );
+		ter -> GetHeightBounds(floor, ceiling);
+	}
+
+
 
 	const char* Model_GetName(const Model* model)
 	{

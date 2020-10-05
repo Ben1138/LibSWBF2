@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using LibSWBF2.Utils;
+
+
 namespace LibSWBF2.Wrappers
 {
     public class Level : NativeWrapper
@@ -68,21 +71,34 @@ namespace LibSWBF2.Wrappers
             get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
 
+        
+        public Terrain[] GetTerrains()
+        {   
+            APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);
+            Terrain[] terrains = MemUtils.IntPtrToWrapperArray<Terrain>(terrainsArr, (int) numTerrains);
+
+            for (int i = 0; i < numTerrains; i++)
+            {
+                Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
+            }
+
+            return terrains;
+        }
+
+
         public Model[] GetModels()
         {
             APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
-            IntPtr[] modelPtrs = new IntPtr[modelCount];
-            Marshal.Copy(modelArr, modelPtrs, 0, (int)modelCount);
+            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount);
 
-            Model[] models = new Model[modelCount];
             for (int i = 0; i < modelCount; i++)
             {
-                models[i] = new Model(modelPtrs[i]);
                 Children.Add(new WeakReference<NativeWrapper>(models[i]));
             }
 
             return models;
         }
+
 
         public Model GetModel(string modelName)
         {
@@ -95,6 +111,20 @@ namespace LibSWBF2.Wrappers
             Model model = new Model(modelPtr);
             Children.Add(new WeakReference<NativeWrapper>(model));
             return model;
+        }
+
+
+        public bool GetTexture(string name, out int width, out int height, out byte[] texBytes)
+        {
+            texBytes = null;
+            bool result = APIWrapper.Level_GetTextureData(NativeInstance, name, out IntPtr bytesRaw, out width, out height);
+            if (result)
+            {
+                texBytes = new byte[width * height * 4];
+                Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
+            }
+
+            return result;
         }
     }
 }

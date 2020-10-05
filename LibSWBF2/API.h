@@ -12,12 +12,12 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
+		class Terrain;
 		class CollisionMesh;
 		struct Bone;
 		class CollisionPrimitive;
 		//class Texture;
 		//class World;
-		//class Terrain;
 		//class Script;
 	}
 
@@ -35,7 +35,7 @@ namespace LibSWBF2
 	extern "C"
 	{
 		// Logging //
-		LIBSWBF2_API bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
+		LIBSWBF2_API uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
 
 		// MSH //
@@ -51,6 +51,9 @@ namespace LibSWBF2
 		LIBSWBF2_API void Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
 		LIBSWBF2_API void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount);
+		LIBSWBF2_API void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
+    	LIBSWBF2_API const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& width, int& height);
+
 		//LIBSWBF2_API void GetTextures(const Level* level, Texture*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetWorlds(const Level* level, World*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetTerrains(const Level* level, Terrain*& modelArr, uint32_t& modelCount);
@@ -59,7 +62,6 @@ namespace LibSWBF2
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		//LIBSWBF2_API const Texture* GetTexture(String textureName) const;
 		//LIBSWBF2_API const World* GetWorld(String worldName) const;
-		//LIBSWBF2_API const Terrain* GetTerrain(String terrainName) const;
 		//LIBSWBF2_API const Script* GetScript(String scriptName) const;
 
 		// Wrappers - Model
@@ -71,8 +73,15 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
 
+
 		// Wrappers - Segment
 		// ....
+
+		// Wrappers - Terrain
+		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, const char**& result);
+		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
+		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
+		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling);
 
 		// Wrappers - CollisionMesh
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& buffer);
