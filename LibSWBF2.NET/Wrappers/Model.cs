@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
+using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
 {
@@ -14,6 +15,8 @@ namespace LibSWBF2.Wrappers
         {
 
         }
+
+        public Model() : base(IntPtr.Zero){}
 
         public string Name
         {

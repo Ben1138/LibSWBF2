@@ -55,20 +55,32 @@ void a8r8g8b8ToRBGA(int w, int h, unsigned char *src, uint32_t *sink) {
 
 void bcToRGBA(int w, int h, unsigned char *src, uint32_t *sink, int mode) {
     
-    thread_local static uint32_t *blockSink = new uint32_t[16]; 
+    static uint32_t *blockSink = new uint32_t[16]; 
+
+    bool (*decomp_func) (const uint8_t * DETEX_RESTRICT bitstring, uint32_t mode_mask,
+                        uint32_t flags, uint8_t * DETEX_RESTRICT pixel_buffer);
+
+    int blockSize = 16, srcSize = w * h;
+    if (mode == 1){   
+        blockSize = 8; //BC1 uses 8 byte blocks, 
+                       //must half size of srcdata comsumed
+        srcSize /= 2;
+        decomp_func = &detexDecompressBlockBC1;
+    } else if (mode == 2){
+        decomp_func = &detexDecompressBlockBC2;
+    } else {
+        decomp_func = &detexDecompressBlockBC3;
+    }
 
     //Iterate through each block
-    for (int i = 0; i < w * h; i+=16) {
+    for (int i = 0; i < srcSize; i += blockSize) {
         
         //Decompresses a 4x4 block (16 bytes, but pixels are not byte-aligned)
-        
-        if (mode == 1)
-            detexDecompressBlockBC1(src + i, 1, 1, reinterpret_cast<uint8_t *>(blockSink));
-        else  
-            detexDecompressBlockBC2(src + i, 1, 1, reinterpret_cast<uint8_t *>(blockSink));
+        //2nd & 3rd params aren't even used in detex...
+        (*decomp_func) (src + i, 1, 1, reinterpret_cast<uint8_t *>(blockSink));
 
         //Good to be explicit w/this kind of thing
-        int blockNum = i / 16;
+        int blockNum = i / blockSize;
         int numBlocksInRow = w / 4;
 
         int x = 4 * (blockNum % numBlocksInRow);

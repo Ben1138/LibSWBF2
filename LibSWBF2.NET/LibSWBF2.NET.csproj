@@ -76,6 +76,8 @@
     <Compile Include="Wrappers\Level.cs" />
     <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
+    <Compile Include="Wrappers\Terrain.cs" />
+    <Compile Include="Utils\MarshalingUtils.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

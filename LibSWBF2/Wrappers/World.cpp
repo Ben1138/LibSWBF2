@@ -3,6 +3,9 @@
 #include "InternalHelpers.h"
 #include "Container.h"
 
+#include "Chunks/LVL/wrld/wrld.h"
+
+
 namespace LibSWBF2::Wrappers
 {
 	bool World::FromChunk(Container* mainContainer, wrld* worldChunk, World& out)

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LibSWBF2.Logging;
+//using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
 
 namespace LibSWBF2.NET.Test
@@ -12,12 +12,14 @@ namespace LibSWBF2.NET.Test
     class Program
     {
         static void Main(string[] args)
-        {            
+        {      
+            /*      
             Logger.SetLogLevel(ELogType.Warning);
             Logger.OnLog += (LoggerEntry logEntry) => 
             {
                 Console.WriteLine(logEntry.ToString());
             };
+            */
 
             Console.WriteLine("Loading... This might take a while...");
             
