@@ -609,6 +609,9 @@
     <ClInclude Include="Chunks\LVL\coll\TREE.NODE.h">
       <Filter>Header Files\Chunks\LVL\coll</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\tern\PTCH.INFO.h">
+      <Filter>Header Files\Chunks\LVL\tern</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1051,6 +1054,9 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\coll\TREE.NODE.cpp">
       <Filter>Source Files\Chunks\LVL\coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\tern\PTCH.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\tern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
