@@ -12,7 +12,7 @@ namespace LibSWBF2
 
 
 	// Logging //
-	bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
+	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{
 		static Logging::LoggerEntry current;
 		bool hasLogEntry = Logging::Logger::GetNextLog(current);
@@ -165,7 +165,7 @@ namespace LibSWBF2
         numTextures = (uint32_t) texNames.Size();
 
     	nameStrings = new const char *[numTextures]; 
-    	for (int i = 0; i < numTextures; i++)
+    	for (uint32_t i = 0; i < numTextures; i++)
         {
         	nameStrings[i] = texNames[i].Buffer(); 
         }

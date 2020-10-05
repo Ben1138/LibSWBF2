@@ -11,14 +11,11 @@ namespace LibSWBF2
         const string LIB_NAME = "SWBF2";
 #endif
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void LogCallback(IntPtr LoggerEntryPtr);
-
-
         // Logging //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void LOG_SetCallbackMethod(LogCallback Callback);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool LOG_GetNextLog(out IntPtr msg, out Logging.ELogType level, out uint line, out IntPtr file);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void LOG_SetLogfileLevel(Logging.ELogType LogfileLevel);

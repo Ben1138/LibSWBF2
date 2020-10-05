@@ -64,8 +64,6 @@ namespace LibSWBF2::Wrappers
 		friend class Model;
 		friend class Segment;
 
-		void testCall();
-
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
 		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);

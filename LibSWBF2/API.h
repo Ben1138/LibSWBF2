@@ -25,7 +25,7 @@ namespace LibSWBF2
 	extern "C"
 	{
 		// Logging //
-		LIBSWBF2_API bool LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
+		LIBSWBF2_API uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
 
 		// MSH //
