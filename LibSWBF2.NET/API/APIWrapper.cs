@@ -11,9 +11,9 @@ namespace LibSWBF2
         const string LIB_NAME = "SWBF2";
 #endif
 
+        // Logging //
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LogCallback(IntPtr LoggerEntryPtr);
-
 
 
         // Vectors 
@@ -31,11 +31,11 @@ namespace LibSWBF2
                                                               out float y);
 
 
-
         // Logging //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void LOG_SetCallbackMethod(LogCallback Callback);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool LOG_GetNextLog(out IntPtr msg, out Logging.ELogType level, out uint line, out IntPtr file);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void LOG_SetLogfileLevel(Logging.ELogType LogfileLevel);
@@ -58,6 +58,29 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetTerrains(IntPtr level, out IntPtr terrainArr, out uint terrainCount);
+
+        //Basic texture handling
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
+                                                        out IntPtr imgData, out int width, out int height);
+
+
+        //Terrain
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetTexNames(IntPtr terrain, out uint numTextures, out IntPtr names);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetHeightMap(IntPtr terrain, out uint dim, out uint dimScale, out IntPtr heightData);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetBlendMap(IntPtr terrain, out uint edgeLength, out uint numLayers, out IntPtr data);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetHeightBounds(IntPtr terrain, out float floor, out float ceiling);
 
 
         // Model //
@@ -103,6 +126,5 @@ namespace LibSWBF2
                                                     out IntPtr name, out IntPtr parentName,
                                                     out uint maskFlags, out uint primitiveType,
                                                     out IntPtr pos, out IntPtr rot);
-
     }
 }

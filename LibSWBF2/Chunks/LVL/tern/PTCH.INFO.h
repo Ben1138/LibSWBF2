@@ -5,15 +5,11 @@
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
-	struct LIBSWBF2_API VBUF : public GenericChunk<"VBUF"_m>
+	struct LIBSWBF2_API PTCH_INFO : public GenericChunk<"INFO"_m>
 	{
 	public:
-		uint32_t m_ElementCount;
-		uint32_t m_ElementSize;
-		ETerrainBufferType m_BufferType;
-		List<Types::TerrainBufferEntry> m_TerrainBuffer;
 
-		List<uint8_t> m_BlendMapData;
+		List<uint32_t> m_TextureSlotsUsed;
 
 	public:
 		void RefreshSize() override;

@@ -1,7 +1,7 @@
 #include "LibSWBF2.h"
 #include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
 #include "Types/Enums.h"
+#include "../LibSWBF2/Wrappers/Model.h"
 
 #include <iostream>
 #include <fstream>
@@ -11,8 +11,9 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
-using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
+using LibSWBF2::Wrappers::Model;
+using LibSWBF2::Wrappers::CollisionMesh;
 
 using LibSWBF2::Container;
 using LibSWBF2::Logging::Logger;
@@ -21,14 +22,10 @@ using LibSWBF2::Logging::LoggerEntry;
 
 #define COUT(x) std::cout << x << std::endl
 
-//void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
-
 
 
 int main()
 {
-	//Logger::SetLogCallback(&libLog);
-
 	const char *path;
 
 #ifdef __APPLE__

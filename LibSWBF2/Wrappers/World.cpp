@@ -3,15 +3,13 @@
 #include "InternalHelpers.h"
 #include "Container.h"
 
+#include "Chunks/LVL/wrld/wrld.h"
+
+
 namespace LibSWBF2::Wrappers
 {
 	bool World::FromChunk(Container* mainContainer, wrld* worldChunk, World& out)
 	{
-		if (mainContainer == nullptr)
-		{
-			LOG_ERROR("Given mainContainer was NULL!");
-			return false;
-		}
 		if (worldChunk == nullptr)
 		{
 			LOG_ERROR("Given worldChunk was NULL!");

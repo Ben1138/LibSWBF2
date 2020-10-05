@@ -21,8 +21,8 @@ namespace LibSWBF2::Wrappers
 		friend Level;
 		friend List<Terrain>;
 
-		Terrain() = default;
-		~Terrain() = default;
+		Terrain();
+		~Terrain();
 
 	private:
 		tern* p_Terrain;
@@ -32,6 +32,9 @@ namespace LibSWBF2::Wrappers
 		List<Vector3> m_Normals;
 		List<Vector2> m_TexCoords;
 		List<Color> m_Colors;
+
+		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
+		mutable uint8_t* p_BlendMap;  //
 
 	public:
 		static bool FromChunk(tern* terrainChunk, Terrain& out);
@@ -53,6 +56,12 @@ namespace LibSWBF2::Wrappers
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
 
+		void GetHeightMap(uint32_t& dim, uint32_t& dimScale, float_t*& heightData) const;
+
+		void GetBlendMap(uint32_t& dim, uint32_t& numLayers, uint8_t*& imgData) const;
+
+		void GetHeightBounds(float_t& floor, float_t& ceiling) const;
+ 
 		// Texture name for each terrain layer. Usually 16 layers
 		const List<String>& GetLayerTextures() const;
 	};
