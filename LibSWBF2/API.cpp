@@ -6,8 +6,6 @@
 #include "Wrappers/Level.h"
 #include "Wrappers/Terrain.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2
 {
