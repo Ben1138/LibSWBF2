@@ -19,7 +19,6 @@ using LibSWBF2::Logging::LoggerEntry;
 #define COUT(x) std::cout << x << std::endl
 
 
-
 int main()
 {
 #ifdef __APPLE__

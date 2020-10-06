@@ -15,11 +15,21 @@ namespace LibSWBF2
 		class Terrain;
 		class CollisionMesh;
 		struct Bone;
+		class CollisionPrimitive;
 		//class Texture;
 		//class World;
 		//class Script;
 	}
+
+
+	namespace Types
+	{
+		struct Vector4;
+		struct Vector3;
+	}
+
 	using namespace Wrappers;
+	using namespace Types;
 
 	// Provide mangling free C-functions to be accessible from C# wrapper
 	extern "C"
@@ -60,6 +70,9 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t Model_IsSkeletalMesh(const Model* model);
 		LIBSWBF2_API uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
+		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
+														CollisionPrimitive**& primArrayPtr);
+
 
 		// Wrappers - Segment
 		// ....
@@ -74,10 +87,22 @@ namespace LibSWBF2
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& buffer);
         LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
+        // Wrappers - CollisionPrimitive
+        LIBSWBF2_API const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
+                                                    float_t& f1, float_t& f2, float_t& f3,
+                                                    const char *& name, const char *& parentName,
+                                                    uint32_t& maskFlags, uint32_t& primitiveType,
+                                                    Vector3*& pos, Vector4*& rot);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
 		LIBSWBF2_API const char* ENUM_MaterialFlagsToString(EMaterialFlags flags);
 		LIBSWBF2_API const char* ENUM_VBUFFlagsToString(EVBUFFlags flags);
+
+
+		// Wrappers - Vectors
+		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float_t& x, float_t& y, float_t& z, float_t &w);        
+		LIBSWBF2_API const void Vector3_FromPtr(const Vector3* vec, float_t& x, float_t& y, float_t& z); 
+		LIBSWBF2_API const void Vector2_FromPtr(const Vector2* vec, float_t& x, float_t& y); 
 	}
 }

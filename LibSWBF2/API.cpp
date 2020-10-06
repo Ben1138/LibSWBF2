@@ -6,6 +6,7 @@
 #include "Wrappers/Level.h"
 #include "Wrappers/Terrain.h"
 
+
 namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
@@ -256,6 +257,28 @@ namespace LibSWBF2
 	}
 
 
+	const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
+										CollisionPrimitive**& primArrayPtr)
+	{
+		static List<CollisionPrimitive> primsList;
+		static List<CollisionPrimitive *> primPtrs;
+		
+		numPrims = 0;
+		CheckPtr(model,);
+
+		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
+		primPtrs.Clear();
+
+		for (size_t i = 0; i < primsList.Size(); i++)
+		{
+			primPtrs.Add(&primsList[i]);
+		}		
+
+		primArrayPtr = primPtrs.GetArrayPtr();
+		numPrims = (uint32_t) primPtrs.Size();		
+	}
+
+
 	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
 	{
 		static int* tempBuffer = nullptr;
@@ -297,6 +320,77 @@ namespace LibSWBF2
 
     	buffer = tempBuffer;
     }
+
+
+    //CollisionPrimitive
+
+    const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
+                                            float_t& f1, float_t& f2, float_t& f3,
+                                            const char *& namePtr, const char *& parentNamePtr,
+                                            uint32_t& maskFlags, uint32_t& primitiveType,
+                                            Vector3*& pos, Vector4*& rot)
+    {
+    	static String name, parentName;
+    	static Vector3 posTemp;
+    	static Vector4 rotTemp;
+
+    	f1 = f2 = f3 = 0.0f;
+
+    	name = primPtr -> GetName();
+    	parentName = primPtr -> GetParentName();
+
+    	namePtr = name.Buffer();
+    	parentNamePtr = parentName.Buffer();
+
+    	maskFlags = (uint32_t) primPtr -> GetMaskFlags();
+    	primitiveType = (uint32_t) primPtr -> GetPrimitiveType();
+
+    	rotTemp = primPtr -> GetRotation();
+    	posTemp = primPtr -> GetPosition();
+
+    	pos = &posTemp; 
+    	rot = &rotTemp; 
+
+    	switch (primitiveType)
+    	{
+    		case 1:
+    			primPtr -> GetSphereRadius(f1);
+    			return;
+    		case 2:
+    			primPtr -> GetCylinderDims(f1,f2);
+    			return;
+    		case 4:
+    			primPtr -> GetCubeDims(f1,f2,f3);
+    			return;
+    		default:
+    			return;
+    	}
+    }
+
+
+
+    const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+       	w = vec -> m_W;
+    } 
+
+    const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+    } 
+
+    const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    } 
+
+
 
 
 
