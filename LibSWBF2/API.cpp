@@ -5,16 +5,24 @@
 #include "Chunks/MSH/MSH.h"
 #include "Wrappers/Level.h"
 #include "Container.h"
+#include "Wrappers/Terrain.h"
+
 
 namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+
 	// Logging //
-	void LOG_SetCallbackMethod(const LogCallback Callback)
+	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{
-		CheckPtr(Callback,)
-		Logging::Logger::SetLogCallback(Callback);
+		static Logging::LoggerEntry current;
+		bool hasLogEntry = Logging::Logger::GetNextLog(current);
+		msg = current.m_Message.Buffer();
+		level = current.m_Level;
+		line = current.m_Line;
+		file = current.m_File.Buffer();
+		return hasLogEntry;
 	}
 
 	void LOG_SetLogfileLevel(ELogType LogfileLevel)
@@ -150,6 +158,98 @@ namespace LibSWBF2
 		modelCount = (uint32_t)modelPtrs.Size();
 	}
 
+	//TEMPORARY: Basic texture handling until I push the other wrappers...
+    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imageDataOut, int& width, int& height)
+    {
+    	static const uint8_t *imageData = nullptr;
+    	delete imageData;
+
+    	width = height = 0;
+    	CheckPtr(level, false);
+
+    	const Texture *tex = level -> GetTexture(texName);
+    	if (tex == nullptr)
+    	{
+    		return false;
+    	}
+
+    	uint16_t w,h;
+    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
+    	height = h;
+    	width = w;
+    	imageDataOut = imageData;
+    	return true;
+    }
+
+
+	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
+	{
+		CheckPtr(level, );
+		const List<Terrain>& terrains = level->GetTerrains();
+
+		static List<const Terrain*> terrainPtrs;
+		terrainPtrs.Clear();
+
+		for (size_t i = 0; i < terrains.Size(); ++i)
+		{
+			terrainPtrs.Add(&terrains[i]);
+		}
+
+		terrainArr = terrainPtrs.GetArrayPtr();
+		terrainCount = (uint32_t)terrainPtrs.Size();
+	}
+
+
+	/*
+		Terrain
+	*/
+	
+	//Will eventually return pointers to Texture wrappers...
+	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& namesOut)
+	{
+		static const char** nameStrings = nullptr;
+		delete nameStrings; 
+
+		numTextures = 0;
+		CheckPtr(tern, );
+
+        const List<String>& texNames = tern -> GetLayerTextures();
+        numTextures = (uint32_t) texNames.Size();
+
+    	nameStrings = new const char *[numTextures]; 
+    	for (uint32_t i = 0; i < numTextures; i++)
+        {
+        	nameStrings[i] = texNames[i].Buffer(); 
+        }
+
+        namesOut = nameStrings;
+	}
+
+
+    const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
+    {
+    	dim = 0;
+    	CheckPtr(ter, );
+    	ter -> GetHeightMap(dim, dimScale, heightData);
+    }
+
+
+	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
+	{	
+		dim = 0;
+    	CheckPtr(ter, );
+		ter -> GetBlendMap(dim, numLayers, data);
+	}
+
+
+	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
+	{
+    	CheckPtr(ter, );
+		ter -> GetHeightBounds(floor, ceiling);
+	}
+
+
+
 	const char* Model_GetName(const Model* model)
 	{
 		CheckPtr(model, nullptr);
@@ -208,6 +308,28 @@ namespace LibSWBF2
 	}
 
 
+	const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
+										CollisionPrimitive**& primArrayPtr)
+	{
+		static List<CollisionPrimitive> primsList;
+		static List<CollisionPrimitive *> primPtrs;
+		
+		numPrims = 0;
+		CheckPtr(model,);
+
+		primsList = model -> GetCollisionPrimitives((ECollisionMaskFlags) mask);
+		primPtrs.Clear();
+
+		for (size_t i = 0; i < primsList.Size(); i++)
+		{
+			primPtrs.Add(&primsList[i]);
+		}		
+
+		primArrayPtr = primPtrs.GetArrayPtr();
+		numPrims = (uint32_t) primPtrs.Size();		
+	}
+
+
 	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
 	{
 		static int* tempBuffer = nullptr;
@@ -249,6 +371,77 @@ namespace LibSWBF2
 
     	buffer = tempBuffer;
     }
+
+
+    //CollisionPrimitive
+
+    const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
+                                            float_t& f1, float_t& f2, float_t& f3,
+                                            const char *& namePtr, const char *& parentNamePtr,
+                                            uint32_t& maskFlags, uint32_t& primitiveType,
+                                            Vector3*& pos, Vector4*& rot)
+    {
+    	static String name, parentName;
+    	static Vector3 posTemp;
+    	static Vector4 rotTemp;
+
+    	f1 = f2 = f3 = 0.0f;
+
+    	name = primPtr -> GetName();
+    	parentName = primPtr -> GetParentName();
+
+    	namePtr = name.Buffer();
+    	parentNamePtr = parentName.Buffer();
+
+    	maskFlags = (uint32_t) primPtr -> GetMaskFlags();
+    	primitiveType = (uint32_t) primPtr -> GetPrimitiveType();
+
+    	rotTemp = primPtr -> GetRotation();
+    	posTemp = primPtr -> GetPosition();
+
+    	pos = &posTemp; 
+    	rot = &rotTemp; 
+
+    	switch (primitiveType)
+    	{
+    		case 1:
+    			primPtr -> GetSphereRadius(f1);
+    			return;
+    		case 2:
+    			primPtr -> GetCylinderDims(f1,f2);
+    			return;
+    		case 4:
+    			primPtr -> GetCubeDims(f1,f2,f3);
+    			return;
+    		default:
+    			return;
+    	}
+    }
+
+
+
+    const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+       	w = vec -> m_W;
+    } 
+
+    const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    	z = vec -> m_Z;
+    } 
+
+    const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
+    {
+    	x = vec -> m_X;
+    	y = vec -> m_Y;
+    } 
+
+
 
 
 

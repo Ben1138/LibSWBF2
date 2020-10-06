@@ -73,6 +73,10 @@ namespace LibSWBF2::Chunks::LVL::terrain
                         break;
                 }
             }
+            else if (next == "INFO"_h)
+            {
+            	READ_CHILD(stream, p_PatchInfo);
+            }
             else
             {
                 READ_CHILD_GENERIC(stream);

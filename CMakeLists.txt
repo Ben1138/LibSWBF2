@@ -15,7 +15,7 @@ painless.
 
 ]]
 
-project(libSWBF2_ALL)
+project(libSWBF2)
 
 
 #For XCodeProj generation

@@ -18,14 +18,9 @@ using LibSWBF2::Logging::LoggerEntry;
 
 #define COUT(x) std::cout << x << std::endl
 
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
-
-
 
 int main()
 {
-	Logger::SetLogCallback(&libLog);
-
 #ifdef __APPLE__
 	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
 	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");

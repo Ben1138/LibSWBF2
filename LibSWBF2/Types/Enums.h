@@ -107,6 +107,7 @@ namespace LibSWBF2
 	{
 		Sphere = 1,//can also be 0...
 		Cylinder = 2,
+		Empty = 3, //not confirmed in documentation read so far 
 		Cube = 4,
 	};
 

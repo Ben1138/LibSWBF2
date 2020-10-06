@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
 
 namespace LibSWBF2.NET.Test
@@ -15,16 +14,10 @@ namespace LibSWBF2.NET.Test
     {
         static void Main(string[] args)
         {            
-            Logger.SetLogLevel(ELogType.Warning);
-            Logger.OnLog += (LoggerEntry logEntry) => 
-            {
-                Console.WriteLine(logEntry.ToString());
-            };
-
             Console.WriteLine("Loading... This might take a while...");
 
-            string path2 = @"/Users/will/Desktop/MLC.lvl";
-            string path1 = @"/Users/will/Desktop/geo1.lvl";
+            string path2 = @"/home/will/Desktop/MLC.lvl";
+            string path1 = @"/home/will/Desktop/geo1.lvl";
             
             //string path1 = @"/home/will/Desktop/geo1.lvl";
             //string path2 = @"/Users/will/Desktop/geo1.lvl";
@@ -40,7 +33,6 @@ namespace LibSWBF2.NET.Test
 
             container.LoadLevels();
 
-            Thread.Sleep(100);
 
             while (!(done1 && done2))
             {

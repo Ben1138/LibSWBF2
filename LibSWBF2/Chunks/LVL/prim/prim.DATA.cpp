@@ -47,6 +47,9 @@ namespace LibSWBF2::Chunks::LVL::prim
 			case ECollisionPrimitiveType::Cube:
 				return fmt::format("Type: Cube, x: {}, y: {}, z: {}",
 									m_Field1, m_Field2, m_Field3).c_str();
+			case ECollisionPrimitiveType::Empty:
+				return "Empty";
+				
 			default:
 				String unknown = CollisionPrimitiveTypeToString(m_PrimitiveType);
 				return fmt::format("{}, field1: {}, field2: {}, field3: {}",

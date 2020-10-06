@@ -32,7 +32,7 @@ namespace LibSWBF2::Wrappers
 		m_PropertyMapping->m_HashToIndex = other.m_PropertyMapping->m_HashToIndex;
 		return *this;
 	}
-
+	
 	Instance& Instance::operator=(Instance&& other)
 	{
 		p_MainContainer = other.p_MainContainer;
@@ -43,11 +43,6 @@ namespace LibSWBF2::Wrappers
 
 	bool Instance::FromChunk(Container* mainContainer, inst* instanceChunk, Instance& out)
 	{
-		if (mainContainer == nullptr)
-		{
-			LOG_ERROR("Given mainContainer was NULL!");
-			return false;
-		}
 		if (instanceChunk == nullptr)
 		{
 			LOG_ERROR("Given instanceChunk was NULL!");
