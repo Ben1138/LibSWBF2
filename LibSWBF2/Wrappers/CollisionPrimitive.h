@@ -43,6 +43,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		
 		String GetName() const;
+		String GetParentName() const;
 
 		Vector4 GetRotation() const;
 		Vector3 GetPosition() const;

@@ -43,6 +43,11 @@ namespace LibSWBF2::Wrappers
         return p_NameChunk -> ToString();
     }
 
+    String CollisionPrimitive::GetParentName() const
+    {
+        return p_ParentChunk -> ToString();
+    }
+
     ECollisionPrimitiveType CollisionPrimitive::GetPrimitiveType() const
     {	
 	    return p_FieldsChunk -> m_PrimitiveType;

@@ -24,7 +24,6 @@ using LibSWBF2::Logging::LoggerEntry;
 
 
 
-
 int main()
 {
 	const char *path;

@@ -510,6 +510,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Segment *>;
 	template class LIBSWBF2_API Types::List<Wrappers::Instance *>;
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
+	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
 
 	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
@@ -518,6 +519,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Terrain*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
