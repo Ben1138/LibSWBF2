@@ -11,12 +11,19 @@ namespace LibSWBF2
         const string LIB_NAME = "SWBF2";
 #endif
 
+        // Memory //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void Memory_Blit(void *dest, void *src, int numBytes);
+
+
         // Logging //
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LogCallback(IntPtr LoggerEntryPtr);
 
 
-        // Vectors 
+        // Vectors //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Vector4_FromPtr(IntPtr ptr, out float x,
                                                     out float y, out float z,
@@ -64,7 +71,6 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Container_IsDone(IntPtr container);
-
 
 
         // Level //
@@ -132,6 +138,15 @@ namespace LibSWBF2
         public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
                                                             out int numPrims, out IntPtr ptr);
 
+
+        // Texture //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+         public static extern bool Texture_GetMetaData(IntPtr texture, out uint height, 
+                                                        out uint width, out IntPtr namePtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+         public static extern IntPtr Texture_GetBytes(IntPtr texture);
 
 
         // CollisionMesh //

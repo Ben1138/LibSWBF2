@@ -13,7 +13,10 @@ namespace LibSWBF2.Wrappers
     public class Container : NativeWrapper
     {
         private static Dictionary<Type, uint> wrapperMap;
+        
+
         public Container() : base(APIWrapper.Container_Initialize()){}
+        
         static Container()
         {
             wrapperMap = new Dictionary<Type, uint>();
@@ -45,7 +48,7 @@ namespace LibSWBF2.Wrappers
             APIWrapper.Container_LoadLevels(NativeInstance);
         }
 
-        public T GetWrapper<T>(string name) where T : NativeWrapper, new()
+        public T FindWrapper<T>(string name) where T : NativeWrapper, new()
         {
             if (wrapperMap.ContainsKey(typeof(T)))
             {

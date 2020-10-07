@@ -36,6 +36,10 @@ namespace LibSWBF2
 	// Provide mangling free C-functions to be accessible from C# wrapper
 	extern "C"
 	{
+		//Memory //
+		LIBSWBF2_API void Memory_Blit(void *dest, void *src, int numBytes);
+
+
 		// Logging //
 		LIBSWBF2_API uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
 		LIBSWBF2_API void LOG_SetLogfileLevel(ELogType LogfileLevel);
@@ -95,7 +99,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling);
 
 		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& buffer);
+		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& buffer);
         LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
         // Wrappers - CollisionPrimitive

@@ -16,6 +16,13 @@ namespace LibSWBF2
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 
+	// Memory //
+	void Memory_Blit(void *dest, void *src, int numBytes)
+	{
+		memcpy(dest, src, numBytes);
+	}
+
+
 	// Logging //
 	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{
@@ -71,7 +78,6 @@ namespace LibSWBF2
 		return modl->GetPurpose();
 	}
 
-
 	const Container* Container_Initialize()
 	{
 		return Container::Create();
@@ -97,7 +103,6 @@ namespace LibSWBF2
 	const Level* Container_GetLevel(Container* container, uint32_t handleNum)
 	{
 		CheckPtr(container,nullptr);
-		//SWBF2Handle handle = ;
 		return container -> GetLevel((uint16_t) handleNum);
 	}
 
@@ -115,12 +120,6 @@ namespace LibSWBF2
 				return static_cast<const void *>(container -> FindModel(name));
 			case 1:
 				return static_cast<const void *>(container -> FindTexture(name));
-			case 2:
-				return static_cast<const void *>(container -> FindWorld(name));
-			case 3:
-				return static_cast<const void *>(container -> FindEntityClass(name));
-			case 4:
-				return static_cast<const void *>(container -> FindTerrain(name));
 			default:
 				return nullptr;
 		}
@@ -340,23 +339,23 @@ namespace LibSWBF2
 	}
 
 
-	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& outBuffer)
 	{
-		static int* tempBuffer = nullptr;
-		delete tempBuffer;
+		//static int* tempBuffer = nullptr;
+		//delete tempBuffer;
 
-		uint32_t* meshBuffer;
+		//uint32_t* meshBuffer;
 
-		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
+		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, outBuffer);
 
-		tempBuffer = new int[count];
+		//tempBuffer = new int[count];
 
-		for (int i = 0; i < (int)count; i++)
-		{
-			tempBuffer[i] = (int) meshBuffer[i];
-		}
+		//for (int i = 0; i < (int)count; i++)
+		//{
+		//	tempBuffer[i] = (int) meshBuffer[i];
+		//}
 
-		outBuffer = tempBuffer;
+		//outBuffer = tempBuffer;
 	}
     
 

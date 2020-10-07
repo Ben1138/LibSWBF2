@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
+using LibSWBF2.Utils;
 using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
@@ -27,11 +29,15 @@ namespace LibSWBF2.Wrappers
             return verts;
         }
 
-        public int[] GetIndices()
+        public ushort[] GetIndices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
+            
+            return MemUtils.IntPtrToArray<ushort>(buffer, (int) count);
+
+            /*
             int[] inds = new int[(int)count];
 
             if (count > 0)
@@ -40,6 +46,8 @@ namespace LibSWBF2.Wrappers
             }
             
             return inds;
+            */
+            
         }
     }
 }

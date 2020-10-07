@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using static System.Diagnostics.Stopwatch;
+
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
 
@@ -66,13 +68,29 @@ namespace LibSWBF2.NET.Test
                 progress2 = container.GetProgress(handle2);
             }
 
-            Console.WriteLine();
-
             Level lvl1 = container.GetLevel(handle1);
             Level lvl2 = container.GetLevel(handle2);
 
-            Console.WriteLine("First level contains {0} models, second contains {1}", 
+            Console.WriteLine("\nFirst level contains {0} models, second contains {1}", 
                                 lvl1.GetModels().Length, lvl2.GetModels().Length);
+
+
+            Model[] models = lvl2.GetModels();
+
+            Stopwatch sw = Stopwatch.StartNew();
+
+            foreach (Model model in models)
+            {
+                Model containerModel = container.FindWrapper<Model>(model.Name);
+
+                ushort[] inds1 = containerModel.GetCollisionMesh().GetIndices();
+                ushort[] inds2 = model.GetCollisionMesh().GetIndices();
+
+                //Console.WriteLine("Container collision ibuf length {0}, Direct collision ibuf length {1}",
+                //                inds1.Length, inds2.Length);
+            }
+
+            Console.WriteLine("Elapsed: {0}", sw.Elapsed);
 
             m_Lock.EnterWriteLock();
             m_bCatchLogs = false;
