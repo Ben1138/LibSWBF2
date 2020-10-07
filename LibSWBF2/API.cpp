@@ -7,6 +7,9 @@
 #include "Container.h"
 #include "Wrappers/Terrain.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl
+
 
 namespace LibSWBF2
 {
@@ -81,18 +84,26 @@ namespace LibSWBF2
 
 	float_t Container_GetProgress(Container* container, uint32_t handleNum)
 	{
-		SWBF2Handle handle = (uint16_t) handleNum;
-		return container -> GetLevelProgress(handle);
+		CheckPtr(container, -1.0f)
+		return container -> GetLevelProgress((uint16_t) handleNum);
 	}  
+
+	const bool Container_IsDone(Container* container)
+	{
+		CheckPtr(container, false);
+		return container -> IsDone();
+	}
 
 	const Level* Container_GetLevel(Container* container, uint32_t handleNum)
 	{
-		SWBF2Handle handle = (uint16_t) handleNum;
-		return container -> GetLevel(handle);
+		CheckPtr(container,nullptr);
+		//SWBF2Handle handle = ;
+		return container -> GetLevel((uint16_t) handleNum);
 	}
 
 	const void Container_LoadLevels(Container* container)
 	{
+		CheckPtr(container,);
 		container -> StartLoading();
 	}
 
@@ -116,8 +127,6 @@ namespace LibSWBF2
 	}
 
 
-
-
 	// Wrappers
 	Level* Level_FromFile(const char* path)
 	{
@@ -139,6 +148,7 @@ namespace LibSWBF2
 
 	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
 	{
+		modelCount = 0;
 		CheckPtr(level, );
 		const List<Model>& models = level->GetModels();
 

@@ -61,6 +61,12 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_LoadLevels(IntPtr container);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Container_IsDone(IntPtr container);
+
+
+
         // Level //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

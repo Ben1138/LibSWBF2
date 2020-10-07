@@ -68,7 +68,6 @@ namespace LibSWBF2.NET.Test
             m_bCatchLogs = false;
             m_Lock.ExitWriteLock();
             logThread.Join();
-            Console.ReadKey();
         }
     }
 }

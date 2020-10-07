@@ -55,6 +55,12 @@ int main()
 	}
 
 	std::cout << std::endl;
-	
+
+	const Level *lvl1 = container -> GetLevel(handle1);
+	const Level *lvl2 = container -> GetLevel(handle2);
+
+	COUT("Level1 num models: " << lvl1 -> GetModels().Size());
+	COUT("Level2 num models: " << lvl2 -> GetModels().Size());
+
 	return 0;
 }

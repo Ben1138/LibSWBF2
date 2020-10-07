@@ -55,6 +55,7 @@ namespace LibSWBF2
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
         LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
         LIBSWBF2_API const void Container_LoadLevels(Container* container);
+		LIBSWBF2_API const bool Container_IsDone(Container* container);
 
 		// Wrappers - Level
 		LIBSWBF2_API Level* Level_FromFile(const char* path);

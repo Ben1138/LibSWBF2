@@ -32,7 +32,12 @@ namespace LibSWBF2.Wrappers
 
         public Level GetLevel(uint handle)
         {
-            return null;// new Level(APIWrapper.Container_GetLevel(NativeInstance, handle));
+            if (GetProgress(handle) < 1.0)
+            {
+                return null;
+            }
+
+            return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
         }
 
         public void LoadLevels()
@@ -58,6 +63,12 @@ namespace LibSWBF2.Wrappers
             }
 
             return null;
+        }
+
+
+        public bool IsDone()
+        {
+            return APIWrapper.Container_IsDone(NativeInstance);
         }
     }
 }

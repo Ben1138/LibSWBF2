@@ -66,6 +66,18 @@ namespace LibSWBF2.Wrappers
             return level;
         }
 
+        internal static Level FromNative(IntPtr native)
+        {
+            if (native == null)
+            {
+                return null;
+            }
+
+            Level level = new Level();
+            level.NativeInstance = native;
+            return level;
+        }
+
         public bool IsWorldLevel
         {
             get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
