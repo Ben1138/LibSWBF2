@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading; 
 
 using LibSWBF2.Logging;
 
@@ -33,11 +34,18 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Container_GetProgress(NativeInstance, handle);
         }
 
-        public Level GetLevel(uint handle)
+        public Level GetLevel(uint handle, bool block = false)
         {
-            if (GetProgress(handle) < 1.0)
+            while (!IsDone())
             {
-                return null;
+                if (block)
+                {
+                    Thread.Sleep(200);
+                } 
+                else 
+                {
+                    return null;
+                } 
             }
 
             return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
