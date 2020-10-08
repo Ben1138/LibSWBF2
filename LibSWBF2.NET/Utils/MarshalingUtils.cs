@@ -31,50 +31,20 @@ namespace LibSWBF2.Utils
 
         public static T[] IntPtrToArray<T>(IntPtr dataPtr, int count) where T : unmanaged
         {
-            if (dataPtr == IntPtr.Zero || count == 0) return new T[0];
-
             T[] array = new T[count];
-            int opt = 0;
 
-            if (opt == 0) {        
-                unsafe
+            if (dataPtr == IntPtr.Zero || count == 0) return array;
+            
+            unsafe
+            {
+                int numBytes = count * sizeof(T);
+                T* srcPtr = (T*) dataPtr.ToPointer();
+                fixed (T* destPtr = array)
                 {
-                    int numBytes = count * sizeof(T);
-                    T* srcPtr = (T*) dataPtr.ToPointer();
-                    fixed (T* destPtr = array)
-                    {
-                        long* srcPtrLong  = (long *) srcPtr;
-                        long* destPtrLong = (long *) destPtr; 
-
-                        var j = 0;
-                        while (j < numBytes / 8)
-                        {
-                          *(destPtrLong + j++) = *(srcPtrLong++);
-                        }
-
-                        byte* srcPtrByte  = (byte *) srcPtr;
-                        byte* destPtrByte = (byte *) destPtr;
-
-                        j *= 8;
-                        while (j < numBytes)
-                        {
-                            *(destPtrByte + j++) = *(srcPtrByte++);
-                        }
-                    }
+                    APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
                 }
-            }
-            else {
-                unsafe
-                {
-                    int numBytes = count * sizeof(T);
-                    T* srcPtr = (T*) dataPtr.ToPointer();
-                    fixed (T* destPtr = array)
-                    {
-                        APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
-                    }
-                }    
-            }
-
+            }    
+            
             return array;
         }
 
