@@ -67,35 +67,6 @@ namespace LibSWBF2
 	}
 
 
-	List<uint16_t> TriangleStripToTriangleListShort(List<uint16_t>& indexBuffer, uint32_t offset)
-	{
-		List<uint16_t> result;
-		uint16_t a,b,c;
-
-		for (int i = 0; i < indexBuffer.Size() - 2; i++)
-		{
-			a = indexBuffer[i]   + offset;
-			b = indexBuffer[i+1] + offset;
-			c = indexBuffer[i+2] + offset; 
-
-			if (a != b && b != c && a != c)	//Catch degenerate 
-			{
-				if (i % 2 != 0) //swap clockwiseness 
-				{
-					std::swap(a,b);
-				}
-
-				result.Add(a);
-				result.Add(b);
-				result.Add(c);
-			}
-		}
-
-		return result;
-	}
-
-
-
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix)
 	{
 		glm::mat3 mat = ToGLM(matrix);

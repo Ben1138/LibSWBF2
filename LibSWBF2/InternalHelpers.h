@@ -34,8 +34,6 @@ namespace LibSWBF2
 	// Convert an index buffer from Triangle Strip format to Triangle List format
 	// optional: offset is added to each individual index.
 	List<uint32_t> TriangleStripToTriangleList(List<uint16_t>& indexBuffer, uint32_t offset=0);
-	List<uint16_t> TriangleStripToTriangleListShort(List<uint16_t>& indexBuffer, uint32_t offset=0);
-
 
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix);
 

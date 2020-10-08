@@ -99,7 +99,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling);
 
 		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& buffer);
+		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);
         LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
 
         // Wrappers - CollisionPrimitive

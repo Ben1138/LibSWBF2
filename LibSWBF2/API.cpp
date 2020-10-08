@@ -336,7 +336,7 @@ namespace LibSWBF2
 	}
 
 
-	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& outBuffer)
+	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& outBuffer)
 	{
 		//static int* tempBuffer = nullptr;
 		//delete tempBuffer;

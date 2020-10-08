@@ -29,13 +29,13 @@ namespace LibSWBF2.Wrappers
             return verts;
         }
 
-        public ushort[] GetIndices()
+        public uint[] GetIndices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
             
-            return MemUtils.IntPtrToArray<ushort>(buffer, (int) count);
+            return MemUtils.IntPtrToArray<uint>(buffer, (int) count);
 
             /*
             int[] inds = new int[(int)count];

@@ -86,8 +86,8 @@ namespace LibSWBF2.NET.Test
             {
                 Model containerModel = container.FindWrapper<Model>(model.Name);
 
-                ushort[] inds1 = containerModel.GetCollisionMesh().GetIndices();
-                ushort[] inds2 = model.GetCollisionMesh().GetIndices();
+                uint[] inds1 = containerModel.GetCollisionMesh().GetIndices();
+                uint[] inds2 = model.GetCollisionMesh().GetIndices();
 
                 //Console.WriteLine("Container collision ibuf length {0}, Direct collision ibuf length {1}",
                 //                inds1.Length, inds2.Length);
