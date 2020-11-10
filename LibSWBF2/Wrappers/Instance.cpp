@@ -4,6 +4,7 @@
 #include "InternalHelpers.h"
 #include "Hashing.h"
 #include "Level.h"
+#include "Container.h"
 
 namespace LibSWBF2::Wrappers
 {
@@ -26,34 +27,29 @@ namespace LibSWBF2::Wrappers
 
 	Instance& Instance::operator=(const Instance& other)
 	{
-		p_Parent = other.p_Parent;
+		p_MainContainer = other.p_MainContainer;
 		p_Instance = other.p_Instance;
 		m_PropertyMapping->m_HashToIndex = other.m_PropertyMapping->m_HashToIndex;
 		return *this;
 	}
-
+	
 	Instance& Instance::operator=(Instance&& other)
 	{
-		p_Parent = other.p_Parent;
+		p_MainContainer = other.p_MainContainer;
 		p_Instance = other.p_Instance;
 		other.m_PropertyMapping = new PropertyMap();
 		return *this;
 	}
 
-	bool Instance::FromChunk(Level* mainContainer, inst* instanceChunk, Instance& out)
+	bool Instance::FromChunk(Container* mainContainer, inst* instanceChunk, Instance& out)
 	{
-		if (mainContainer == nullptr)
-		{
-			LOG_ERROR("Given mainContainer was NULL!");
-			return false;
-		}
 		if (instanceChunk == nullptr)
 		{
 			LOG_ERROR("Given instanceChunk was NULL!");
 			return false;
 		}
 
-		out.p_Parent = mainContainer;
+		out.p_MainContainer = mainContainer;
 		out.p_Instance = instanceChunk;
 
 		instanceChunk->m_OverrideProperties.Clear();
@@ -88,7 +84,11 @@ namespace LibSWBF2::Wrappers
 
 	const EntityClass* Instance::GetEntityClass() const
 	{
-		return p_Parent->GetEntityClass(GetType());
+		if (p_MainContainer == nullptr)
+		{
+			return nullptr;
+		}
+		return p_MainContainer->FindEntityClass(GetType());
 	}
 
 	bool Instance::GetProperty(FNVHash hashedPropertyName, String& outValue) const
@@ -104,7 +104,7 @@ namespace LibSWBF2::Wrappers
 		if (entityClass == nullptr)
 		{
 			// This can happen if the Entity Class is in another LVL (e.g. com_bldg_controlzone)
-			//LOG_WARN("Could not resolve Entity Class '{}' from instance '{}'", GetType(), GetName());
+			// and there's no Container above the currently owning Level instance
 			return false;
 		}
 

@@ -26,7 +26,13 @@ namespace LibSWBF2::Wrappers
         return p_CollisionChunk -> p_ChunkName -> ToString();
     }
 
-    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer)
+    ECollisionMaskFlags CollisionMesh::GetMaskFlags() const
+    {
+        auto *maskChunk = p_CollisionChunk -> p_Mask;
+        return maskChunk == nullptr ? ECollisionMaskFlags::All : maskChunk -> m_MaskFlags;
+    }
+
+    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
     {
         if (requestedTopology != ETopology::TriangleList || p_CollisionChunk == nullptr)
         {
@@ -45,7 +51,7 @@ namespace LibSWBF2::Wrappers
             }
         }
 
-        count       = m_Indicies.Size();
+        count       = (uint32_t)m_Indicies.Size();
         indexBuffer = m_Indicies.GetArrayPtr();
     }
 
@@ -59,7 +65,7 @@ namespace LibSWBF2::Wrappers
     	}
 
     	List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
-        count = verts.Size();
+        count = (uint32_t)verts.Size();
         vertexBuffer = verts.GetArrayPtr();
     }
         

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
+using LibSWBF2.Utils;
 using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
@@ -15,32 +17,15 @@ namespace LibSWBF2.Wrappers
         public float[] GetVertices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.CollisionMesh_GetVertexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-            float[] verts = new float[count * 3];
-
-            if (count > 0)
-            {
-                Marshal.Copy(buffer, verts, 0, (int)count * 3);
-            }
-            
-            return verts;
+            return MemUtils.IntPtrToArray<float>(buffer, (int) count * 3);
         }
 
-        public int[] GetIndices()
+        public uint[] GetIndices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-
-            int[] inds = new int[(int)count];
-
-            if (count > 0)
-            {
-                Marshal.Copy(buffer, inds, 0, (int)count);
-            }
-            
-            return inds;
+            return MemUtils.IntPtrToArray<uint>(buffer, (int) count);
         }
     }
 }

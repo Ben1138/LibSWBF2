@@ -4,6 +4,12 @@
 #include "Types/LibString.h"
 #include "Sound.h"
 
+
+namespace LibSWBF2
+{
+	class Container;
+}
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -20,6 +26,8 @@ namespace LibSWBF2::Wrappers
 	class LIBSWBF2_API SoundBank
 	{
 	private:
+		friend Container;
+
 		SoundBank(BNK* soundBank);
 		~SoundBank();
 
@@ -31,6 +39,7 @@ namespace LibSWBF2::Wrappers
 	public:
 
 		static SoundBank* FromFile(String path);
+		static SoundBank* FromChunk(BNK* soundChunk);
 		static void Destroy(SoundBank* soundBank);
 
 		const List<Sound>& GetSounds() const;

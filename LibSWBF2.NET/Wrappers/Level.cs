@@ -10,6 +10,7 @@ using LibSWBF2.Utils;
 using LibSWBF2.Types;
 
 
+
 namespace LibSWBF2.Wrappers
 {
     public class Level : NativeWrapper
@@ -57,6 +58,18 @@ namespace LibSWBF2.Wrappers
         public static Level FromFile(string path)
         {
             IntPtr native = APIWrapper.Level_FromFile(path);
+            if (native == null)
+            {
+                return null;
+            }
+
+            Level level = new Level();
+            level.NativeInstance = native;
+            return level;
+        }
+
+        internal static Level FromNative(IntPtr native)
+        {
             if (native == null)
             {
                 return null;

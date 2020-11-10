@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,22 +14,40 @@ namespace LibSWBF2.Utils
 
         public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
-            T[] objectArr = new T[count];
+            if (nativePtr == IntPtr.Zero) return new T[0];
 
-            if (nativePtr == IntPtr.Zero) return objectArr;
+            T[] wrappers = new T[count];
+            IntPtr[] ptrArr = new IntPtr[count];
+            Marshal.Copy(nativePtr, ptrArr, 0, count);
 
-            IntPtr[] ptrs = new IntPtr[count];
-            
-            Marshal.Copy(nativePtr, ptrs, 0, count);
-            
             for (int i = 0; i < count; i++){
-                objectArr[i] = new T();
-                objectArr[i].SetPtr(ptrs[i]);
+                wrappers[i] = new T();
+                wrappers[i].SetPtr(ptrArr[i]);
             }
 
-            return objectArr;
+            return wrappers;
         }
-        
+
+
+        public static T[] IntPtrToArray<T>(IntPtr dataPtr, int count) where T : unmanaged
+        {
+            T[] array = new T[count];
+
+            if (dataPtr == IntPtr.Zero || count == 0) return array;
+            
+            unsafe
+            {
+                int numBytes = count * sizeof(T);
+                T* srcPtr = (T*) dataPtr.ToPointer();
+                fixed (T* destPtr = array)
+                {
+                    APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
+                }
+            }    
+            
+            return array;
+        }
+
 
         public static List<string> IntPtrToStringList(IntPtr nativePtr, int count)
         {

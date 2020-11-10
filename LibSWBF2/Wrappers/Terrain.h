@@ -21,8 +21,8 @@ namespace LibSWBF2::Wrappers
 		friend Level;
 		friend List<Terrain>;
 
-		Terrain() = default;
-		~Terrain() = default;
+		Terrain();
+		~Terrain();
 
 	private:
 		tern* p_Terrain;
@@ -33,8 +33,11 @@ namespace LibSWBF2::Wrappers
 		List<Vector2> m_TexCoords;
 		List<Color> m_Colors;
 
+		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
+		mutable uint8_t* p_BlendMap;  //
+
 	public:
-		static bool FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out);
+		static bool FromChunk(tern* terrainChunk, Terrain& out);
 
 		String GetName() const;
 

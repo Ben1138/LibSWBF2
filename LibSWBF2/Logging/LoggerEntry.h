@@ -8,12 +8,13 @@ namespace LibSWBF2::Logging
 
 	struct LoggerEntry
 	{
-		LoggerEntry(const char* message, const ELogType level, const uint64_t line, const char* file);
+		LoggerEntry() = default;
+		LoggerEntry(const char* message, const ELogType level, const uint32_t line, const char* file);
 		LIBSWBF2_API String ToString() const;
 
-		const char* m_Message;
+		String m_Message;
 		ELogType m_Level;
-		uint64_t m_Line;
-		const char* m_File;
+		uint32_t m_Line;
+		String m_File;
 	};
 }

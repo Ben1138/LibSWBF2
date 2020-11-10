@@ -3,6 +3,7 @@
 #include "req.h"
 #include "LibString.h"
 
+
 namespace LibSWBF2
 {
 	enum class ELogType : uint8_t
@@ -107,6 +108,7 @@ namespace LibSWBF2
 	{
 		Sphere = 1,//can also be 0...
 		Cylinder = 2,
+		Empty = 3, //not confirmed in documentation read so far 
 		Cube = 4,
 	};
 
@@ -167,6 +169,14 @@ namespace LibSWBF2
 		ExplosionClass
 	};
 
+	enum class ELoadStatus
+	{
+		Uninitialized,
+		Loading,
+		Loaded,
+		Failed
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
@@ -178,7 +188,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
-
+	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -196,5 +206,4 @@ namespace LibSWBF2
 	ECollisionMaskFlags LIBSWBF2_API operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs);
 	bool LIBSWBF2_API operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
 	bool LIBSWBF2_API operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
-
 }

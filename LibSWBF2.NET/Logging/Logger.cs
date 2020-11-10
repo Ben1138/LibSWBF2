@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -7,31 +8,33 @@ namespace LibSWBF2.Logging
 {
     public static class Logger
     {
-        public static Action<LoggerEntry> OnLog;
+        static Queue<LoggerEntry> m_ManagedLogs = new Queue<LoggerEntry>();
 
-        static APIWrapper.LogCallback logCallback = new APIWrapper.LogCallback(ReceivedLog);
-        static void ReceivedLog(IntPtr LoggerEntryPtr)
+        public static bool GetNextLog(out LoggerEntry next)
         {
-            var nativeLoggerEntry = (LoggerEntry.NativeStruct)Marshal.PtrToStructure(LoggerEntryPtr, typeof(LoggerEntry.NativeStruct));
-            var log = new LoggerEntry(
-                Marshal.PtrToStringAnsi(nativeLoggerEntry.m_Message),
-                (ELogType)nativeLoggerEntry.m_Level,
-                nativeLoggerEntry.m_Line,
-                Marshal.PtrToStringAnsi(nativeLoggerEntry.m_File)
-            );
-
-            OnLog?.Invoke(log);
-        }
-
-        static Logger()
-        {
-            APIWrapper.LOG_SetCallbackMethod(logCallback);
+            if (APIWrapper.LOG_GetNextLog(out IntPtr msg, out Logging.ELogType level, out uint line, out IntPtr file))
+            {
+                next = new LoggerEntry(
+                    Marshal.PtrToStringAnsi(msg),
+                    level,
+                    line,
+                    Marshal.PtrToStringAnsi(file)
+                );
+                return true;
+            }
+            if (m_ManagedLogs.Count > 0)
+            {
+                next = m_ManagedLogs.Dequeue();
+                return true;
+            }
+            next = null;
+            return false;
         }
 
         // For use in this CS wrapper
-        internal static void Log(string msg, ELogType level, [CallerLineNumber] ulong lineNumber = 0, [CallerFilePath] string file = "")
+        internal static void Log(string msg, ELogType level, [CallerLineNumber] uint lineNumber = 0, [CallerFilePath] string file = "")
         {
-            OnLog?.Invoke(new LoggerEntry(msg, level, lineNumber, Path.GetFileName(file)));
+            m_ManagedLogs.Enqueue(new LoggerEntry(msg, level, lineNumber, Path.GetFileName(file)));
         }
 
         public static void SetLogLevel(ELogType level)
