@@ -82,8 +82,11 @@
     <Compile Include="Wrappers\World.cs" />
     <Compile Include="Wrappers\Light.cs" />
     <Compile Include="Wrappers\Instance.cs" />
-    <Compile Include="Utils\MarshalingUtils.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
+    <Compile Include="Wrappers\Texture.cs" />
+    <Compile Include="Wrappers\CollisionPrimitive.cs" />
+    <Compile Include="Wrappers\Container.cs" />
+    <Compile Include="Utils\MarshalingUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

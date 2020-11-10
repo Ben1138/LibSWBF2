@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
 using LibSWBF2.Logging;
 using LibSWBF2.Utils;
 
@@ -14,6 +15,7 @@ namespace LibSWBF2.Wrappers
         public Model(IntPtr modelPtr) : base(modelPtr) {}
 
         public Model() : base(IntPtr.Zero){}
+
 
         public string Name
         {
@@ -40,21 +42,17 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToWrapperArray<Segment>(segmentArr, (int) segmentCount);
         }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSkeleton()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
-            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
-            IntPtr[] bones = new IntPtr[boneCount];
-            Marshal.Copy(boneArr, bones, 0, (int)boneCount);
-            return bones;
-        }
-
         public CollisionMesh GetCollisionMesh()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
+        }
+
+        public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);
+            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr,numPrims);
         }
     }
 }

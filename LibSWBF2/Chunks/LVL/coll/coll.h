@@ -19,11 +19,12 @@ namespace LibSWBF2::Chunks::LVL::coll
         Types::String ToString() override;
 
         STR<"NAME"_m> *p_ChunkName;
+
+        prim::MASK    *p_Mask;
         STR<"NODE"_m> *p_NodeName;
 
         INFO_coll *p_Info;
         TREE *p_Tree;
         POSI *p_Verts;
-        prim::MASK *p_Mask;
     };
 }

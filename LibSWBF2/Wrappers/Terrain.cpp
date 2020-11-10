@@ -2,22 +2,14 @@
 #include "Terrain.h"
 #include "InternalHelpers.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl
-
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::terrain::PTCH;
 	using Chunks::LVL::terrain::VBUF;
 	using Chunks::LVL::terrain::IBUF;
 
-	bool Terrain::FromChunk(Level* mainContainer, tern* terrainChunk, Terrain& out)
+	bool Terrain::FromChunk(tern* terrainChunk, Terrain& out)
 	{
-		if (mainContainer == nullptr)
-		{
-			LOG_ERROR("Given mainContainer was NULL!");
-			return false;
-		}
 		if (terrainChunk == nullptr)
 		{
 			LOG_ERROR("Given terrainChunk was NULL!");
@@ -121,79 +113,77 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
+	Terrain::Terrain()
+	{
+		p_HeightMap = nullptr;
+		p_BlendMap = nullptr;
+	}
 
-	void Terrain::GetBlendMap(uint32_t& dim, uint32_t& elementSize, uint8_t*& finalBlendMapData) const
+	Terrain::~Terrain()
+	{
+		delete p_HeightMap;
+		delete p_BlendMap;
+	}
+
+
+	void Terrain::GetBlendMap(uint32_t& dim, uint32_t& numTexLayers, uint8_t*& finalBlendMapData) const
 	{
 		auto *info = p_Terrain -> p_Info;
-		
-		uint16_t& gridSize = info->m_GridSize;
-		float_t& gridUnitSize = info->m_GridUnitSize;
-		uint16_t numVertsPerPatchEdge = info->m_PatchEdgeSize;
-		uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
+		dim = (uint32_t) info -> m_GridSize;
+		numTexLayers = (uint32_t) info -> m_TextureCount;
 
-		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
-		uint32_t numTexLayers = (uint32_t) info -> m_TextureCount;
+		if (p_BlendMap == nullptr)
+		{
+			uint16_t numVertsPerPatchEdge = info->m_PatchEdgeSize;
+			uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
+			uint16_t numPatchesPerRow = dim / numVertsPerPatchEdge;
 
-		int dataLength = (int) (gridSize * gridSize * numTexLayers);
-        
-        finalBlendMapData = new uint8_t[dataLength]();
-        dim = gridSize;
+			int dataLength = dim * dim * numTexLayers;
+	        p_BlendMap = new uint8_t[dataLength]();
 
-		COUT("Num texes: " << numTexLayers);
+			List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
-		elementSize = numTexLayers; 
+			for (size_t i = 0; i < patches.Size(); i++)
+			{	
+				auto *curPatch = patches[i];
+				auto *patchInfo = curPatch -> p_PatchInfo;
+				auto *patchSplatChunk = curPatch -> m_TextureBuffer;
+				const List<uint8_t>& curPatchBlendMap = patchSplatChunk -> m_BlendMapData;
 
+	            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
+	            int numSlotsInPatch = slotsList.Size();
 
-		List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
+				int globalPatchY = i / (int) numPatchesPerRow;
+				int globalPatchX = i % (int) numPatchesPerRow;
 
-		for (size_t i = 0; i < patches.Size(); i++)
-		{	
-			auto *curPatch = patches[i];
-			auto *patchInfo = curPatch -> p_PatchInfo;
-			auto *patchSplatChunk = curPatch -> m_TextureBuffer;
-			List<uint8_t>curPatchBlendMap = patchSplatChunk -> m_BlendMapData;
+				int patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
 
-            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
-            int numSlotsInPatch = slotsList.Size();
-
-			int globalPatchY = i / (int) numPatchesPerRow;
-			int globalPatchX = i % (int) numPatchesPerRow;
-
-			int patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
-
-			for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
-			{
-				int localPatchY = j / dataEdgeSize; 
-				int localPatchX = j % dataEdgeSize;
-
-				//Starting index into final array (finalBlendMapData)
-				int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
-				
-				//Index into current patch's VBUF's blend data (curPatchBlendMap)
-				int localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
-
-				for (int k = 0; k < numSlotsInPatch; k++)
+				for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 				{
-					int slot = (int) slotsList[k];
-					int finalDataIndex = globalDataIndex + slot;
+					int localPatchY = j / dataEdgeSize; 
+					int localPatchX = j % dataEdgeSize;
 
-					if (finalDataIndex < dataLength)
-					{	
-						finalBlendMapData[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
+					//Starting index into final array (finalBlendMapData)
+					int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
+					
+					//Index into current patch's VBUF's blend data (curPatchBlendMap)
+					int localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
+
+					for (int k = 0; k < numSlotsInPatch; k++)
+					{
+						int slot = (int) slotsList[k];
+						int finalDataIndex = globalDataIndex + slot;
+
+						if (finalDataIndex < dataLength)
+						{	
+							p_BlendMap[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
+						}
 					}
 				}
-
-				/*
-				if (finalIndex < dataLength)
-				{
-					finalBlendMapData[finalDataIndex] = 0;//patchSplatChunk -> p_SplatMapData[patchIndex];
-					finalBlendMapData[finalIndex + 1] = patchSplatChunk -> p_SplatMapData[patchIndex + 1];
-					finalBlendMapData[finalIndex + 2] = patchSplatChunk -> p_SplatMapData[patchIndex + 2];
-					finalBlendMapData[finalIndex + 3] = 0;//255;
-				}
-				*/
 			}
-		}  
+		}
+
+		finalBlendMapData = p_BlendMap;  
 	}
 
 
@@ -293,24 +283,6 @@ namespace LibSWBF2::Wrappers
 		vertexBuffer = m_Positions.GetArrayPtr();
 	}
 
-	void Terrain::GetVertexBufferRaw(uint32_t& count, float_t*& buffer) const
-	{
-        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
-        uint32_t numVerts = m_Positions.Size();
-        float_t *rawVerts = new float_t[numVerts * 3];
-
-        for (int i = 0; i < numVerts; i++)
-        {
-            Vector3& curVert = vertexBuffer[i];
-            rawVerts[i * 3]     = curVert.m_X;
-            rawVerts[i * 3 + 1] = curVert.m_Y;
-            rawVerts[i * 3 + 2] = curVert.m_Z;
-        }
-
-        count = numVerts;
-        buffer = rawVerts;
-	}
-
 	void Terrain::GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const
 	{
 		count = (uint32_t)m_Normals.Size();
@@ -338,61 +310,54 @@ namespace LibSWBF2::Wrappers
 	void Terrain::GetHeightMap(uint32_t& dim, uint32_t& dimScale, float_t*& heightData) const
     {
         auto info = p_Terrain -> p_Info;
-
-        float_t gridSize     = (float_t) info -> m_GridSize;
-		float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
-
-		float_t maxY = info -> m_HeightCeiling;
-       	float_t minY = info -> m_HeightFloor;
-
-       	float_t halfLength = gridSize * gridUnitSize / 2.0f;
-       	float_t maxZ = halfLength, minZ = -halfLength;
-       	float_t maxX = halfLength, minX = -halfLength;
-
-        Vector3 *vertexBuffer = m_Positions.GetArrayPtr();
-        uint32_t numVerts = m_Positions.Size();
-
-        int heightsLength = (int) gridSize * gridSize;
-		heightData = new float_t[heightsLength]();
-		dim = (uint32_t) info -> m_GridSize;
+    	dim = (uint32_t) info -> m_GridSize;
 		dimScale = (uint32_t) info -> m_GridUnitSize;
 
-		for (int i = 0; i < heightsLength; i++)
-		{
-			heightData[i] = -1.0f;
-		}
+    	if (p_HeightMap == nullptr) //lazy init
+    	{
+    		LOG_WARN("Initializing heightmap");
 
-		uint32_t ibufLength;
-		uint32_t *ibufData;
-		GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
+	        float_t gridSize     = (float_t) dim;
+			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
-		for (int i = 0; i < (int) ibufLength; i++)
-		{
-			int curInd = (int) ibufData[i];
-			Vector3& curVert = vertexBuffer[curInd];
+			float_t maxY = info -> m_HeightCeiling;
+	       	float_t minY = info -> m_HeightFloor;
 
-			//int xcoord = int(round(curVert.m_X));
-			//int ycoord = int(round(curVert.m_Z));
+	       	float_t halfLength = gridSize * gridUnitSize / 2.0f;
+	       	float_t maxZ = halfLength, minZ = halfLength * -1.0f;
+	       	float_t maxX = halfLength, minX = halfLength * -1.0f;
 
+	       	int heightDataLength = dim * dim;
+			p_HeightMap = new float_t[heightDataLength]();
 
-			if (fmod(curVert.m_X,(float)gridUnitSize) > .01 || fmod(curVert.m_Z,(float)gridUnitSize) > .01)
+			uint32_t ibufLength;
+			uint32_t *ibufData;
+			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
+
+			//Inits to -5.96541e+29
+			memset((void *) p_HeightMap, 0xf0, sizeof(float_t) * heightDataLength);
+
+			for (int i = 0; i < (int) ibufLength; i++)
 			{
-				continue;
+				const Vector3& curVert = m_Positions[ibufData[i]];
+
+				if (fmod(curVert.m_X, gridUnitSize) > .1 || //omit irregularities
+					fmod(curVert.m_Z, gridUnitSize) > .1)
+				{
+					continue;
+				}
+	        	
+	        	uint32_t uIndex = (uint32_t) ((curVert.m_X - minX)/gridUnitSize + .001f);
+	        	uint32_t vIndex = (uint32_t) ((curVert.m_Z - minZ)/gridUnitSize + .001f);
+
+	            if (uIndex < dim && vIndex < dim)
+	            {
+	                p_HeightMap[uIndex + vIndex * dim] = (curVert.m_Y - minY)/(maxY - minY);
+	            }
 			}
-        	
-        	float_t xFrac = (curVert.m_X - minX)/(maxX - minX);
-        	float_t yFrac = (curVert.m_Y - minY)/(maxY - minY);
-        	float_t zFrac = (curVert.m_Z - minZ)/(maxZ - minZ);
-
-        	int uIndex = (int) (xFrac * gridSize + .00001f);
-        	int vIndex = (int) (zFrac * gridSize + .00001f);
-            int dataIndex = uIndex + vIndex * (int) gridSize;
-
-            if (uIndex < (int) gridSize && vIndex < (int) gridSize)
-            {
-                heightData[dataIndex] = yFrac;
-            }
 		}
+
+		heightData = p_HeightMap;
 	}
 
 

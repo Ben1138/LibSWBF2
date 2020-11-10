@@ -25,16 +25,17 @@ namespace LibSWBF2::Wrappers
 		CollisionMesh(); 
 
 		coll *p_CollisionChunk = nullptr;
-		List<uint32_t> m_Indicies;
-		List<Vector3>  m_Vertices;
+		mutable List<uint32_t> m_Indicies;
 
 
 	public:
 		
 		String GetName() const;
 
-		void GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer);
+		void GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const;
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
+
+		ECollisionMaskFlags GetMaskFlags() const;
 
 		String ToString() const;
 	};

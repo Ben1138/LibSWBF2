@@ -21,17 +21,11 @@ namespace LibSWBF2::Chunks::LVL::terrain
         Check(stream);
       
         uint32_t numTextureSlotsUsed = (uint32_t) stream.ReadByte();
-        //LOG_WARN("READING PATCH INFO ... numTextureSlotsUsed {}", numTextureSlotsUsed);
 
         for (uint32_t i = 0; i < numTextureSlotsUsed; i++)
         {
-            uint32_t texIndex = (uint32_t) stream.ReadByte();
-            m_TextureSlotsUsed.Add(texIndex);
+            m_TextureSlotsUsed.Add((uint32_t) stream.ReadByte());
         } 
-
-        //stream.ReadUInt32(); //IDK what this int means yet
-        //m_ElementSize = stream.ReadUInt32();
-        m_ElementSize = 16; //this is overwhelmingly common, stubbing it for now...
 
         BaseChunk::EnsureEnd(stream);
     }
@@ -48,7 +42,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
         std::string result = fmt::format(
             "Element Size: {}\nTexture slots used: {}\n", 
-            m_ElementSize, 
+            m_TextureSlotsUsed.Size(), 
             str_TextureSlotsUsed
         );
 

@@ -59,7 +59,12 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
 			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
-			std::unordered_map<std::string, size_t> CollisionMeshNameToIndex;
+		};
+
+		class SoundMapsWrapper
+		{
+		public:
+			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
 		};
 	}
 }
@@ -115,6 +120,7 @@ struct fmt::formatter<LibSWBF2::Chunks::BaseChunk> {
 #define LOG_ERROR(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), LibSWBF2::ELogType::Error, __LINE__, __FILENAME__)
 
 #define THROW(...) throw LibException(fmt::format("{} - IN {} {}", fmt::format(__VA_ARGS__), __LINE__, __FILENAME__))
+#define LOCK(MutexLock) std::lock_guard<std::mutex> _SomeUnusualLockName(MutexLock)
 
 #ifdef _MSC_VER
 #define STRNLEN(...) strnlen_s(__VA_ARGS__)

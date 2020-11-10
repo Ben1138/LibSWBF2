@@ -1,7 +1,4 @@
 #pragma once
-
-
-
 #include "BaseChunk.h"
 #include "HeaderNames.h"
 
@@ -11,7 +8,7 @@ namespace LibSWBF2::Chunks
 	struct LIBSWBF2_API GenericBaseChunk : public BaseChunk
 	{
 		GenericBaseChunk() = default;
-		~GenericBaseChunk();
+		virtual ~GenericBaseChunk() override;
 
 		String GetHeaderName() const;
 		GenericBaseChunk* GetParent() const;

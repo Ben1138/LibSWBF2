@@ -28,7 +28,6 @@ namespace LibSWBF2::Chunks::LVL::prim
         DATA_PRIM *tempDATA;
         wrld::XFRM *tempXFRM;
         MASK *tempMASK;
-        STR<"NODE"_m> *tempNODE;
         STR<"PRNT"_m> *tempPRNT;
         STR<"NAME"_m> *tempNAME;
 
@@ -40,15 +39,10 @@ namespace LibSWBF2::Chunks::LVL::prim
             READ_CHILD(stream, tempNAME);
             m_PrimitiveNAMEs.Add(tempNAME);
 
-            nextHeader = stream.ReadChunkHeader(true);
-
-            if (nextHeader == "MASK"_h)
+            tempMASK = nullptr;
+            if (stream.ReadChunkHeader(true) == "MASK"_h)
             {
                 READ_CHILD(stream, tempMASK);
-
-            } else 
-            {
-                tempMASK = nullptr;
             }
 
             m_PrimitiveMASKs.Add(tempMASK);
@@ -60,34 +54,7 @@ namespace LibSWBF2::Chunks::LVL::prim
             m_PrimitiveXFRMs.Add(tempXFRM);
 
             READ_CHILD(stream, tempDATA);
-            m_PrimitiveDATAs.Add(tempDATA);
-
-        	/*
-        	if (nextHeader == "DATA"_h)
-    		{
-    			READ_CHILD(stream, tempDATA);
-    		}
-    		else if (nextHeader == "PRNT"_h)
-    		{
-        	}
-        	else if (nextHeader == "MASK"_h)
-        	{
-        		READ_CHILD(stream, tempMASK);
-			}
-			else if (nextHeader == "XFRM"_h)
-			{
-        		READ_CHILD(stream, tempXFRM);
-			}
-			else if (nextHeader == "NAME"_h)
-			{
-        		READ_CHILD(stream, tempNAME);
-
-			}
-			else 
-			{
-			    READ_CHILD_GENERIC(stream);
-        	} 
-            */      	
+            m_PrimitiveDATAs.Add(tempDATA);     	
         }
 
 		BaseChunk::EnsureEnd(stream);
