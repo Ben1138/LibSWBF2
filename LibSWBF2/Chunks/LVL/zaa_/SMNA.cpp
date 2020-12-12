@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "zaa_.h"
+#include "SMNA.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
@@ -23,7 +23,9 @@ namespace LibSWBF2::Chunks::LVL::animation
 		m_Unknown1 = stream.ReadUInt32();
 		m_Unknown2 = stream.ReadUInt32();
 		m_Unknown3 = stream.ReadUInt32();
-		m_NumAnimations = stream.ReadUInt32();
+		m_NumAnimations = stream.ReadUInt16();
+
+		m_DebugLevel = stream.ReadUInt16();
 
 		BaseChunk::EnsureEnd(stream);
 	}
