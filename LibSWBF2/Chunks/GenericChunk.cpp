@@ -333,5 +333,9 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
 
+
+	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
 }
 

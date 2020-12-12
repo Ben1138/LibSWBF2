@@ -455,6 +455,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<uint8_t>;
 	template class LIBSWBF2_API Types::List<uint16_t>;
 	template class LIBSWBF2_API Types::List<uint32_t>;
+	template class LIBSWBF2_API Types::List<float_t>;
 	template class LIBSWBF2_API Types::List<Vector2>;
 	template class LIBSWBF2_API Types::List<Vector3>;
 	template class LIBSWBF2_API Types::List<Vector3u8>;

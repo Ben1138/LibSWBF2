@@ -3,14 +3,16 @@
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
-	struct LIBSWBF2_API SMNA : public GenericChunk<"SMNA"_m>
+
+
+	struct LIBSWBF2_API TNJA : public GenericChunk<"TNJA"_m>
 	{
 	public:
-		uint32_t m_Unknown1;
-		uint32_t m_Unknown2;
-		uint32_t m_Unknown3;
-		uint16_t m_NumAnimations;
-		uint16_t m_DebugLevel;
+
+		List<uint32_t> m_BoneCRCs;
+		List<uint32_t> m_RotationOffsets;
+		List<uint32_t> m_TranslationOffsets;
+		List<float_t> m_TranslationParams;
 
 	public:
 		void RefreshSize() override;
