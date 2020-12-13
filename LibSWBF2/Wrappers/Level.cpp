@@ -61,6 +61,22 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		/*
+		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
+		if (animationChunk != nullptr)
+		{
+			AnimationSet animSet;
+			if (AnimationSet::FromChunk(animationChunk, animSet))
+			{
+				m_NameToIndexMaps->AnimHashToIndex()
+			}	
+		}
+		*/
+
+
+
+
+
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr)
 		{
