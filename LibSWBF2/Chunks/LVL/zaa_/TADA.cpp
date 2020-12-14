@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TADA.h"
+#include "BIN_.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 

@@ -47,6 +47,8 @@ namespace LibSWBF2
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
 		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
 
+		std::unordered_map<std::string, const AnimationSet*> m_AnimationSetDB;
+
 		List<const World*> m_Worlds;
 	};
 
@@ -636,6 +638,20 @@ namespace LibSWBF2
 		{
 			return it->second;
 		}
+		return nullptr;
+	}
+
+	const AnimationSet* Container::FindAnimationSet(String setName) const
+	{
+		if (setName.IsEmpty()) return nullptr;
+
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_AnimationSetDB.find(ToLower(setName));
+		if (it != m_ThreadSafeMembers->m_AnimationSetDB.end())
+		{
+			return it->second;
+		}
+
 		return nullptr;
 	}
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
+#include "Chunks/STR.h"
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
@@ -7,9 +8,8 @@ namespace LibSWBF2::Chunks::LVL::animation
 	/*
 	TADA (ADAT == animation data?)
 
-	This chunk is a bit strange.  I haven't gotten it 100% figured out like 
-	TNJA, but this implementation should be able to read 90% of animations properly.
-
+	Contains compressed animation data for each component of each
+	rotation and location of each bone in each animation.
 
 	*/
 
