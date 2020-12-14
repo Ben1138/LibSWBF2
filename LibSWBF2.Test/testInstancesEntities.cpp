@@ -1,41 +1,17 @@
-#include "stdafx.h"
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
-#include "Types/Enums.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-
-using LibSWBF2::Types::String;
-using LibSWBF2::Types::List;
-
-using namespace LibSWBF2::Chunks::LVL;
-using namespace LibSWBF2::Wrappers;
-using namespace LibSWBF2;
-
-using LibSWBF2::Logging::Logger;
-using LibSWBF2::Logging::LoggerEntry;
+#include "testing.h"
 
 
-#define COUT(x) std::cout << x << std::endl
-void libLog(const LoggerEntry* log){ COUT(log->ToString().Buffer()); }
-
-
-
-int main()
+int main(int ac, char **av)
 {
-	Logger::SetLogCallback(&libLog);
+	List<String> pathsInput;
 
-#ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/geo1.lvl");
-	//Level *testLVL = Level::FromFile("/Volumes/bootable/stockdata/_lvl_pc/mus/mus1.lvl");
-#else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/MLC.lvl");
-#endif
+	for (int i = 1; i < ac; i++)
+	{
+		pathsInput.Add(av[i]);
+	}
 
-	COUT("Loaded file");
+	auto testLVL = LoadAndTrackLVLs(pathsInput)[0];
+
 
 	const List<World>& worlds = testLVL -> GetWorlds();
 	const List<EntityClass>& entities = testLVL -> GetEntityClasses();
@@ -47,8 +23,8 @@ int main()
 
 	for (int i = 0; i < entities.Size(); i++)
 	{
-		COUT("Found entity type: " << entities[i].GetClassType().Buffer() 
-			<< " which is subclass of " << entities[i].GetClassBase().Buffer()
+		COUT("Found entity type: " << entities[i].GetTypeName().Buffer() 
+			<< " which is subclass of " << entities[i].GetBaseName().Buffer()
 		);
 	}
 
