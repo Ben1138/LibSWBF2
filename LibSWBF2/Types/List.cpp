@@ -445,6 +445,7 @@ namespace LibSWBF2::Types
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
+#include "Wrappers/AnimationSet.h"
 #include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2
@@ -512,6 +513,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance *>;
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSet*>;
+
 
 	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
@@ -522,6 +525,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Light*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::AnimationSet*>;
+
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
@@ -535,5 +540,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;
 	template class LIBSWBF2_API Types::List<Wrappers::EntityClass>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSet>;
+
 }
 

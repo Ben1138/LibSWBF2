@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 		if (animData == nullptr)
 		{
-			LOG_ERROR("Anim read failed....");
+			//LOG_ERROR("Anim read failed....");
 			BaseChunk::EnsureEnd(stream);
 			return;
 		}

@@ -7,6 +7,7 @@
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
+#include "Chunks/LVL/zaa_/zaa_.h"
 #include <unordered_map>
 #include <filesystem>
 
@@ -22,6 +23,8 @@ namespace LibSWBF2::Wrappers
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
+
+    using namespace Chunks::LVL::animation;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
@@ -61,21 +64,17 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		/*
+		
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
 		{
 			AnimationSet animSet;
 			if (AnimationSet::FromChunk(animationChunk, animSet))
 			{
-				m_NameToIndexMaps->AnimHashToIndex()
+				m_NameToIndexMaps->AnimationSetNameToIndex.emplace(ToLower(animSet.name), m_AnimationSets.Add(std::move(animSet)));
 			}	
 		}
-		*/
-
-
-
-
+		
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr)
@@ -494,6 +493,11 @@ namespace LibSWBF2::Wrappers
 
 		return nullptr;
 	}
+
+
+	//const AnimationSet* 
+
+
 
 	skel* Level::FindSkeleton(String skeletonName) const
 	{
