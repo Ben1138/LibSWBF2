@@ -22,7 +22,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(lightsTest 	 	  testLights.cpp)
 add_executable(segmentsTest  	  testSegments.cpp)
-add_executable(blendmapTest  	  testTerrainSplatMap.cpp)
+add_executable(blendmapTest  	  testTerrainBlendMap.cpp)
 add_executable(heightmapTest 	  testTerrainHeightMap.cpp)
 add_executable(entitiesTest  	  testInstancesEntities.cpp)
 add_executable(collisionTest 	  testCollision.cpp)
