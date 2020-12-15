@@ -73,6 +73,8 @@ namespace LibSWBF2::Wrappers
 		TADA *data = animChunk -> p_Bin -> p_CompressedAnimData;
 		MINA *metadata = animChunk -> p_Bin -> p_AnimsMetadata;	
 
+		bool decompStatus = false;
+
 		List<float_t> values;
 		List<uint16_t> indicies;
 
@@ -91,7 +93,6 @@ namespace LibSWBF2::Wrappers
 				{
 					if (index -> m_BoneCRCs[TNJAOffset] == boneHash)
 					{
-						float mult, bias;
 						int TADAOffset;
 
 						if (component < 4)
@@ -104,28 +105,31 @@ namespace LibSWBF2::Wrappers
 							float mult = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
 							float bias = index -> m_TranslationParams[4 * TNJAOffset + 3];
 
-							decompressor.SetDecompressionParams(mult, bias);
+							decompressor.SetDecompressionParams(bias, mult);
 							TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];
 						}
 
-						return decompressor.DecompressFromOffset(
+						decompStatus = decompressor.DecompressFromOffset(
 												TADAOffset, num_frames, 
 												frame_indices, 
 												frame_values
 											);
+						break;
 					}
-
-					TNJAOffset++;
+					else 
+					{
+						TNJAOffset++;
+					}
 				}
 
-				COUT("COULDNT FIND BONE")
-				return false;				
+				break;			
 			}
-
-			TNJAOffset += metadata -> m_AnimBoneCounts[i];
+			else 
+			{
+				TNJAOffset += metadata -> m_AnimBoneCounts[i];
+			}
 		}
 
-		COUT("COULDNT FIND ANIM")
-		return false;
+		return decompStatus;
 	}
 }
