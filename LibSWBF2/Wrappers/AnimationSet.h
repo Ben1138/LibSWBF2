@@ -7,6 +7,8 @@
 #include "Chunks/LVL/zaa_/zaa_.h"
 
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl;
 
 namespace LibSWBF2::Wrappers
 {
@@ -23,14 +25,14 @@ namespace LibSWBF2::Wrappers
 		static bool FromChunk(zaa_ *chunk, AnimationSet &setOut);
 
 		bool GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
-					List<uint16_t> &frame_indices, List<float_t> &frame_values);
+					List<uint16_t> &frame_indices, List<float_t> &frame_values) const;
 	
-		bool ContainsAnim(uint32_t animHash);
+		bool ContainsAnim(uint32_t animHash) const;
+
+		List<uint32_t> GetAnimHashes() const;
+		List<uint32_t> GetBoneHashes() const;
 
 		String name;
-
-		//List<uint32_t> GetAnimHashes();
-		//List<uint32_t> GetBoneHashes(uint32_t animHash);
 
 
 	private:
@@ -44,13 +46,14 @@ namespace LibSWBF2::Wrappers
 		private:
 
 			int8_t *buffer;
-			size_t read_head;
-			size_t length;
+			int length;
 
-			float bias, multiplier;
+			mutable int read_head;
+
+			mutable float bias, multiplier;
 
 
-			inline bool ReadInt16(int16_t &val)
+			inline bool ReadInt16(int16_t &val) const
 			{
 				if (read_head < length - 1)
 				{
@@ -61,7 +64,7 @@ namespace LibSWBF2::Wrappers
 				return false;
 			}
 
-			inline bool ReadInt8(int8_t &val)
+			inline bool ReadInt8(int8_t &val) const
 			{
 				if (read_head < length)
 				{
@@ -74,10 +77,10 @@ namespace LibSWBF2::Wrappers
 
 		public:
 
-			AnimDecompressor(void *buffer, size_t length)
+			AnimDecompressor(void *_buffer, size_t _length)
 			{
-				buffer = (int8_t *) buffer;
-				length = length;
+				buffer = (int8_t *) _buffer;
+				length = _length;
 			}
 
 			AnimDecompressor()
@@ -86,7 +89,7 @@ namespace LibSWBF2::Wrappers
 				length = 0;
 			}
 
-			void SetDecompressionParams(float mult = 1.0f / 2047.0f, float offset = 0.0)
+			void SetDecompressionParams(float mult = 1.0f / 2047.0f, float offset = 0.0) const
 			{
 				bias = offset;
 				multiplier = mult;
@@ -94,7 +97,7 @@ namespace LibSWBF2::Wrappers
 
 			bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
 									List<uint16_t> &frame_indicies, 
-									List<float> &frame_values)
+									List<float> &frame_values) const
 			{
 				List<uint16_t> indicies;
 				List<float> values;
@@ -112,7 +115,7 @@ namespace LibSWBF2::Wrappers
 				{
 					if (!ReadInt16(shortVal)) return false;
 
-					accum = bias + multiplier * shortVal;
+					accum = bias + multiplier * (float) shortVal;
 
 					indicies.Add(frame_counter);
 					values.Add(accum);
@@ -145,7 +148,7 @@ namespace LibSWBF2::Wrappers
 						// does not apply the offset, only the multiplier.
 						else 
 						{
-							accum += multiplier * byteVal;
+							accum += multiplier * (float) byteVal;
 
 							indicies.Add(frame_counter);
 							values.Add(accum);

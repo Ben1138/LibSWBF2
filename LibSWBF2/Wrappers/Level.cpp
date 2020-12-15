@@ -495,7 +495,22 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	//const AnimationSet* 
+	const AnimationSet* Level::GetAnimationSet(String setName) const
+	{
+		if (setName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->AnimationSetNameToIndex.find(ToLower(setName));
+		if (it != m_NameToIndexMaps->AnimationSetNameToIndex.end())
+		{
+			return &m_AnimationSets[it->second];
+		}
+
+		return nullptr;
+
+	}
 
 
 

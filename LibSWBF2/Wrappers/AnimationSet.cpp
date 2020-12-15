@@ -39,14 +39,35 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	bool AnimationSet::ContainsAnim(uint32_t animHash)
+	bool AnimationSet::ContainsAnim(uint32_t animHash) const
 	{
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes.Contains(animHash);
+	}
+
+	List<uint32_t> AnimationSet::GetAnimHashes() const
+	{
+		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes;
+	}
+
+	List<uint32_t> AnimationSet::GetBoneHashes() const
+	{
+		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
+
+		List<uint32_t> boneHashes;
+
+		int num_bones = animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimBoneCounts[0];
+
+		for (int i = 0; i < num_bones; i++)
+		{
+			boneHashes.Add(index -> m_BoneCRCs[i]);
+		}
+
+		return boneHashes;
 	}
 	
 
 	bool AnimationSet::GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
-										List<uint16_t> &frame_indices, List<float_t> &frame_values)
+										List<uint16_t> &frame_indices, List<float_t> &frame_values) const
 	{
 		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
 		TADA *data = animChunk -> p_Bin -> p_CompressedAnimData;
@@ -92,69 +113,19 @@ namespace LibSWBF2::Wrappers
 												frame_indices, 
 												frame_values
 											);
-
-						/*
-						int frame_counter = 0;
-						float current_value;
-						int8_t byteVal;
-
-						void *read_head = (void *) (data -> p_DataBuffer + TADAOffset);
-
-
-						while (frame_counter < num_frames)
-						{
-							current_value = bias + mult * *((int16_t *) read_head);
-
-							indicies.Add((uint16_t) frame_counter);
-							values.Add(current_value);
-
-							frame_counter++;
-							read_head+=2;
-
-
-							while (frame_counter < num_frames)
-							{
-								byteVal = *((int8_t *) read_head);
-								read_head++;
-
-								if (byteVal == -0x80)
-								{
-									frame_counter += *((int8_t *) read_head);
-									read_head++;
-									break;
-								}
-								else if (byteVal == -0x7f)
-								{
-									break;
-								}
-								else 
-								{
-									current_value += mult * byteVal;
-
-									indicies.Add((uint16_t) frame_counter);
-									values.Add(current_value);
-
-									frame_counter++;
-								}
-							}
-						}
-
-						frame_indices = std::move(indicies);
-						frame_values  = std::move(values);
-
-						return true;
-						*/
 					}
 
 					TNJAOffset++;
 				}
 
+				COUT("COULDNT FIND BONE")
 				return false;				
 			}
 
 			TNJAOffset += metadata -> m_AnimBoneCounts[i];
 		}
 
+		COUT("COULDNT FIND ANIM")
 		return false;
 	}
 }

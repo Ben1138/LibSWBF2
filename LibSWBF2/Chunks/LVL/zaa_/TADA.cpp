@@ -33,7 +33,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 	String TADA::ToString()
 	{
-		return fmt::format("Just contains raw bytes that are processed by the MINA reader").c_str();
+		return fmt::format("Buffer length = {}", m_DataBufferLength).c_str();
 	}
 
 	TADA::~TADA()
