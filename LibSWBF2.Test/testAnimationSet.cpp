@@ -1,6 +1,6 @@
 #include "testing.h"
 
-using LibSWBF2::FNV;
+using LibSWBF2::CRC;
 
 
 int main(int ac, char **av)
@@ -10,7 +10,7 @@ int main(int ac, char **av)
 	List<String> paths;
 	String lvl_path = av[1];
 	String animSetName = av[2];
-	uint32_t animName = 0xfd3418d4;//(uint32_t) FNV::Hash(av[3]);
+	uint32_t animName = (uint32_t) CRC::CalcLowerCRC(av[3]);
 
 	paths.Add(lvl_path);
 	auto testLVLs = LoadAndTrackLVLs(paths);
@@ -21,6 +21,7 @@ int main(int ac, char **av)
 
 	auto animSet = testLVL -> GetAnimationSet(animSetName);
 	auto model = testLVL -> GetModel(animSetName);
+
 
 	if (model == nullptr || animSet == nullptr || !model -> IsSkeletalMesh())
 	{
@@ -39,10 +40,10 @@ int main(int ac, char **av)
 			COUT("\t" << std::hex << hashes[i]);
 		}
 
-
-
 		return -1;
 	}
+
+
 
 	List<Bone> bones;
 
@@ -50,37 +51,25 @@ int main(int ac, char **av)
 
 	if (model -> GetSkeleton(bones))
 	{
-
-		COUT("Model bone hashes: ");
-		for (int i = 0; i < bones.Size(); i++)
-		{
-			COUT("\t" << std::hex << (uint32_t) FNV::Hash(bones[i].m_BoneName));
-		}
-
-		COUT("Bones in anim: ");
-		List<uint32_t> animBones = animSet -> GetBoneHashes();
-		for (int i = 0; i < animBones.Size(); i++)
-		{
-			COUT("\t" << std::hex << animBones[i] << std::dec);
-		}
-
-
 		for (int i = 0; i < bones.Size(); i++)
 		{
 			List<uint16_t> indices;
 			List<float> values;
 
 			Bone &cur_bone = bones[i];
-			uint32_t boneHash = (uint32_t) FNV::Hash(cur_bone.m_BoneName);
+			uint32_t boneHash = (uint32_t) CRC::CalcLowerCRC(cur_bone.m_BoneName.Buffer());
 
-			COUT(fmt::format("\n\n\tBone #{}, {}\n", i, cur_bone.m_BoneName.Buffer()));
+			COUT(fmt::format("\n\n\tBone #{0}, {1}, {2:x}\n", i, cur_bone.m_BoneName.Buffer(), boneHash));
+
 
 			for (uint16_t j = 0; j < 7; j++)
 			{
-				if (!animSet -> GetCurve(animName, animBones[i], j, indices, values))
+				if (!animSet -> GetCurve(animName, boneHash, j, indices, values))
 				{
 					COUT("Bone not found or error occurred");
+					return -1;
 				}
+
 
 				if (j < 4)
 				{
@@ -91,7 +80,7 @@ int main(int ac, char **av)
 					COUT(fmt::format("\t\tLoc {}: ", j - 4));
 				}
 
-				for (int k = 0; k < indices.Size(); k++)
+				for (int k = 0; k < 5 && k < indices.Size(); k++)
 				{
 					COUT("\t\t\t" << indices[k] << ": " << values[k]);
 				}

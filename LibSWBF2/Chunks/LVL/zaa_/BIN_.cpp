@@ -20,18 +20,29 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
+		//Skip SMNA
 		stream.SkipBytes(8);
 
-		m_Unknown1 = stream.ReadUInt32();
-		m_Unknown2 = stream.ReadUInt32();
-		m_Unknown3 = stream.ReadUInt32();
+		m_Version = stream.ReadUInt32();
+		m_NumBones = stream.ReadUInt32();
+		m_DataBufferLength = stream.ReadUInt32();
 
 		m_NumAnimations = stream.ReadUInt16();
 		m_DebugLevel = stream.ReadUInt16();
 
-		READ_CHILD(stream, p_AnimsMetadata);
-		READ_CHILD(stream, p_JointAddresses);
-		READ_CHILD(stream, p_CompressedAnimData);
+		if (m_DebugLevel != 0 || m_Version != 8)
+		{
+			while (ThereIsAnother(stream))
+			{
+				READ_CHILD_GENERIC(stream);
+			}			
+		}
+		else
+		{
+			READ_CHILD(stream, p_AnimsMetadata);
+			READ_CHILD(stream, p_JointAddresses);
+			READ_CHILD(stream, p_CompressedAnimData);
+		}
 
 		BaseChunk::EnsureEnd(stream);
 	}
@@ -39,14 +50,14 @@ namespace LibSWBF2::Chunks::LVL::animation
 	String BIN_::ToString()
 	{
 		return fmt::format(
-			"Unknown 1: {}\n"
-			"Unknown 2: {}\n"
-			"Unknown 3: {}\n"
+			"Chunk version: {}\n"
+			"Num bones: {}\n"
+			"Compressed anim data length: {}\n"
 			"Num Animations: {}\n"
 			"Debug Level: {}",
-			m_Unknown1,
-			m_Unknown2,
-			m_Unknown3,
+			m_Version,
+			m_NumBones,
+			m_DataBufferLength,
 			m_NumAnimations,
 			m_DebugLevel
 		).c_str();

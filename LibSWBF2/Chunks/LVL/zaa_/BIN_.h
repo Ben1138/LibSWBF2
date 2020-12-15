@@ -12,11 +12,22 @@ namespace LibSWBF2::Chunks::LVL::animation
 	public:
 		//SMNA* p_SMNA;
 
-		uint32_t m_Unknown1;
-		uint32_t m_Unknown2;
-		uint32_t m_Unknown3;
+
+		//Always 8 for SWBF2 lvls, will abort read if a
+		//diferent one is encountered.  Confirmed by 
+		//ZAT files
+		uint32_t m_Version; 
+
+		uint32_t m_NumBones; 
+
+		//Length of data buffer in TADA
+		uint32_t m_DataBufferLength;
 
 		uint16_t m_NumAnimations;
+
+		//ZenAsset can pack a bunch of extra debug data
+		//into TADA, essentially writing decompressed anims.
+		//Will abort if not 0.
 		uint16_t m_DebugLevel;
 
 		MINA *p_AnimsMetadata;

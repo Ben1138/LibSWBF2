@@ -75,6 +75,17 @@ namespace LibSWBF2::Wrappers
 				return false;
 			}
 
+			inline bool ReadUInt8(uint8_t &val) const
+			{
+				if (read_head < length)
+				{
+					val = *((uint8_t *) (read_head + buffer));
+					read_head++;
+					return true;
+				}
+				return false;
+			}
+
 		public:
 
 			AnimDecompressor(void *_buffer, size_t _length)
@@ -108,9 +119,10 @@ namespace LibSWBF2::Wrappers
 
 				int16_t shortVal;
 				int8_t byteVal;
+				uint8_t holdDuration;
 
 				float accum = 0.0f;
-
+				
 				while (frame_counter < num_frames)
 				{
 					if (!ReadInt16(shortVal)) return false;
@@ -128,11 +140,11 @@ namespace LibSWBF2::Wrappers
 						if (!ReadInt8(byteVal)) return false;
 
 						// Signals to hold accumulator for x frames,
-						// x specified by the next byte.
+						// x specified by the next (unsigned) byte.
 						if (byteVal == -0x80)
 						{
-							if (!ReadInt8(byteVal)) return false;
-							frame_counter += byteVal;
+							if (!ReadUInt8(holdDuration)) return false;
+							frame_counter += holdDuration;
 							break;
 						}
 
