@@ -43,4 +43,14 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
         BaseChunk::EnsureEnd(stream);
     }
+
+
+    String inst::ToString()
+    {
+        String rep = fmt::format("Name: {}\nType: {}\nOverrides {} properties",
+                                p_Info -> p_Name -> m_Text.Buffer(),
+                                p_Info -> p_Type -> m_Text.Buffer(),
+                                m_OverrideProperties.Size()).c_str();
+        return rep;
+    }
 }

@@ -2,6 +2,7 @@
 #include "zaa_.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
+#include "Exceptions.h"
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
@@ -30,7 +31,14 @@ namespace LibSWBF2::Chunks::LVL::animation
 		// TODO: handle SMNA chunks correctly, before continue reading!
 		// Apparently, their chunk size is always 0 ?
 
-		READ_CHILD(stream, p_Bin);
+		try 
+		{
+			READ_CHILD(stream, p_Bin);
+		}
+		catch (LibException le)
+		{
+			p_Bin = nullptr;
+		}
 
 		/*
 		while (ThereIsAnother(stream))
