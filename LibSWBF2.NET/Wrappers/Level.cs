@@ -182,6 +182,18 @@ namespace LibSWBF2.Wrappers
             return animSet;
         }
 
+        public EntityClass GetEntityClass(string name)
+        {
+            IntPtr ptr = APIWrapper.Level_GetEntityClass(NativeInstance, name);
+            if (ptr == null)
+            {
+                return null;
+            }
+
+            EntityClass ec = new EntityClass(ptr);
+            return ec;   
+        }
+
 
         public bool GetGlobalLightingConfig(out Vector3 topColor, 
                                             out Vector3 bottomColor, 

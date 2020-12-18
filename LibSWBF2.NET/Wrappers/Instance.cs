@@ -37,10 +37,10 @@ namespace LibSWBF2.Wrappers
             return new Vector3(APIWrapper.Instance_GetPosition(NativeInstance));
         }
 
-        public string GetModelName()
+        public string GetEntityClassName()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return Marshal.PtrToStringAnsi( APIWrapper.Instance_GetModelName(NativeInstance) );
+            return Marshal.PtrToStringAnsi(APIWrapper.Instance_GetEntityClassName(NativeInstance));   
         }
     }
 }

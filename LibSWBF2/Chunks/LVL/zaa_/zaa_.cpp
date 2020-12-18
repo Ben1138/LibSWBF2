@@ -19,6 +19,11 @@ namespace LibSWBF2::Chunks::LVL::animation
 	{
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
+		
+		//BaseChunk::EnsureEnd(stream);
+		//return;
+
+
 
 		READ_CHILD(stream, p_Name);
 

@@ -12,26 +12,27 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.NET.Test
 {
-    class Test
+    class InstancesTest
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             {
                 TestBench.StartLogging(ELogType.Warning);
 
                 Level level = TestBench.LoadAndTrackLVL(args[0]);
-                if (level == null) return -1;
+                if (level == null)
+                {
+                    TestBench.StopLogging();
+                    return -1;
+                }
 
+                Console.WriteLine("Finished read!");
                 
                 World[] worlds = level.GetWorlds();
-
-                Console.WriteLine(worlds.Length);
-                Console.WriteLine(worlds[0].Name);
 
                 int k = 0;
                 foreach (World world in worlds)
                 {
-                    Console.WriteLine(k++);
                     Console.WriteLine("\n" + world.Name);
 
                     Instance[] instances = world.GetInstances(); 
@@ -46,13 +47,15 @@ namespace LibSWBF2.NET.Test
                         Vector4 rot = instance.GetRotation();
                         Vector3 pos = instance.GetPosition();
 
-                        Console.WriteLine("\t\t" + "Name: " + instName + 
+                        Console.WriteLine("\t\t" + "Name: " + instName +
+                                        "\n\t\t" + "Class: " + instance.GetEntityClassName() + 
                                         "\n\t\tRotation: " + rot.ToString() +
                                         "\n\t\tPosition: " + pos.ToString());
                     }
                 } 
 
                 TestBench.StopLogging();
+                return 1;
             }
         }
     }
