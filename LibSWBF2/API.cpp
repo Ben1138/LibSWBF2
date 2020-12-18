@@ -145,6 +145,11 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
+	const EntityClass* Level_GetEntityClass(const Level* level, const char* name)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetEntityClass(name);		
+	}
 
 	const Model* Level_GetModel(const Level* level, const char* modelName)
 	{
@@ -721,17 +726,24 @@ namespace LibSWBF2
     	return &tempVec;
     }
 
-    const char * Instance_GetModelName(const Instance* instance)
+    const char * Instance_GetEntityClassName(const Instance* instance)
     {
     	CheckPtr(instance,"")
-    	static const String geometryNameProperty("GeometryName");
-    	static String geometryName; 
+    	static String ecName; 
 
-		const EntityClass *instanceClass = instance -> GetEntityClass();
+		ecName = instance -> GetType();
 
-		if (instanceClass != nullptr && instanceClass -> GetProperty(geometryNameProperty,geometryName))
+		return ecName.Buffer();
+    }
+
+    const char * EntityClass_GetProperty(const EntityClass *ec, const char *propName)
+    {
+    	CheckPtr(ec,"")
+    	static String value; 
+
+		if (ec -> GetProperty(propName, value))
 		{
-			return geometryName.Buffer();
+			return value.Buffer();
 		}
 
 		return "";

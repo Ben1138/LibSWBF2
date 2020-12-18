@@ -24,7 +24,7 @@ namespace LibSWBF2
 		struct Bone;
 		class CollisionPrimitive;
 		class AnimationSet;
-		//class World;
+		class EntityClass;
 		//class Script;
 	}
 
@@ -82,6 +82,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const bool   Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imgData, int& w, int&h);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
+		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 
 		LIBSWBF2_API const void Texture_GetMetadata(const Texture* tex, int32_t width, int32_t height);
 		LIBSWBF2_API const uint8_t Texture_DumpRGBA(const Texture* tex, void* buffer);
@@ -94,6 +95,9 @@ namespace LibSWBF2
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
+
+		// Wrappers - EntityClass
+		const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
 
 		// Wrappers - Bone
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
@@ -139,7 +143,7 @@ namespace LibSWBF2
         LIBSWBF2_API const char* 	Instance_GetName(const Instance* instance);
         LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);
         LIBSWBF2_API const Vector3* Instance_GetPosition(const Instance* instance);
-   		LIBSWBF2_API const char *   Instance_GetModelName(const Instance* instance);
+   		LIBSWBF2_API const char *   Instance_GetEntityClassName(const Instance* instance);
 
 		// Wrappers - Light
 		LIBSWBF2_API const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,

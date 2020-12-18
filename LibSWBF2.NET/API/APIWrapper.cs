@@ -104,6 +104,9 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetAnimationSet(IntPtr level, string setName);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
+
 
 
 
@@ -215,7 +218,7 @@ namespace LibSWBF2
         public static extern IntPtr Instance_GetPosition(IntPtr instance);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Instance_GetModelName(IntPtr instance);
+        public static extern IntPtr Instance_GetEntityClassName(IntPtr instance);
 
 
         // Light - All-getter method called on class construction w/valid ptr //
@@ -277,6 +280,12 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool AnimationSet_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
                                                         out int numFrames, out int numBones);
+
+
+        // EntityClass //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, string propName);        
 
 
     }
