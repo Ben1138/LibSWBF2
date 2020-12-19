@@ -4,27 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using LibSWBF2.Logging;
+
+using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
+
+
 
 namespace LibSWBF2.NET.Test
 {
-    class Test
+    class TerrainTest
     {
         static void Main(string[] args)
         {
             {
-                /*
-                Logger.SetLogLevel(ELogType.Warning);
-                Logger.OnLog += (LoggerEntry logEntry) => 
-                {
-                    Console.WriteLine(logEntry.ToString());
-                };
-                */
+                TestBench.StartLogging(ELogType.Warning);
 
-                Console.WriteLine("Loading... This might take a while...");
-                //Level level = Level.FromFile(@"/Users/will/Desktop/geo1.lvl");
-                Level level = Level.FromFile(@"/home/will/.wine32bit/drive_c/Program Files/Steam/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+                Level level = TestBench.LoadAndTrackLVL(args[0]);
+                if (level == null) return -1;
 
                 Terrain terrain = level.GetTerrains()[0];
 
@@ -44,7 +40,9 @@ namespace LibSWBF2.NET.Test
                 
                 terrain.GetHeightMap(out uint dim, out uint dimScale, out float[] heightMapData);
                 terrain.GetBlendMap(out dim, out uint numLayers, out byte[] blendMapData);
-            }
+                
+                TestBench.StopLogging();
+           }
         }
     }
 }

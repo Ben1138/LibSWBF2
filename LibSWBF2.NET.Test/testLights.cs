@@ -10,22 +10,14 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.NET.Test
 {
-    class Test
+    class LightsTest
     {
         static void Main(string[] args)
         {
             {
-                Logger.SetLogLevel(ELogType.Warning);
-                Logger.OnLog += (LoggerEntry logEntry) => 
-                {
-                    Console.WriteLine(logEntry.ToString());
-                };
+                TestBench.StartLogging(ELogType.Warning);
 
-                Console.WriteLine("Loading... This might take a while...");
-                Level level = Level.FromFile(@"/Volumes/bootable/stockdata/_lvl_pc/nab/nab2.lvl");
-                //Level level = Level.FromFile(@"/Users/will/Desktop/MLC.lvl");
-                //Level level = Level.FromFile(@"C:\Program Files (x86)\Steam\steamapps\common\Star Wars Battlefront II\GameData\data\_lvl_pc\mus\mus1.lvl");
-
+                Level level = TestBench.LoadAndTrackLVL(args[0]);
 
                 Light[] lights = level.GetLights();
 
@@ -52,6 +44,8 @@ namespace LibSWBF2.NET.Test
                         Console.WriteLine("\n Light2: " + light2.ToString());
                     }
                 }
+
+                TestBench.StopLogging();
             }
         }
     }
