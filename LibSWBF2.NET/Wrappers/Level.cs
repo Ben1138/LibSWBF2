@@ -170,6 +170,18 @@ namespace LibSWBF2.Wrappers
             return result;
         }
 
+        public AnimationSet GetAnimationSet(string setName)
+        {
+            IntPtr SetPtr = APIWrapper.Level_GetAnimationSet(NativeInstance, setName);
+            if (SetPtr == null)
+            {
+                return null;
+            }
+
+            AnimationSet animSet = new AnimationSet(SetPtr);
+            return animSet;
+        }
+
 
         public bool GetGlobalLightingConfig(out Vector3 topColor, 
                                             out Vector3 bottomColor, 

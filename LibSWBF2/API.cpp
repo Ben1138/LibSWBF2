@@ -295,6 +295,14 @@ namespace LibSWBF2
 	}
 
 
+	const AnimationSet* Level_GetAnimationSet(const Level* level, const char* setName)
+	{
+		CheckPtr(level, nullptr);
+		return level -> GetAnimationSet(setName);
+	}
+
+
+
 	const char* ENUM_TopologyToString(ETopology topology)
 	{
 		static Types::String lastToString;
@@ -795,5 +803,46 @@ namespace LibSWBF2
 
     	const String& name = lightPtr -> GetName();
     	return name.Buffer();
+    }
+
+
+
+	const bool AnimationSet_GetCurve(const AnimationSet* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+                                                    const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
+	{
+		static List<uint16_t> indices;
+		static List<float_t>  values;
+
+		CheckPtr(setPtr, false);
+
+		bool status = setPtr -> GetCurve(animCRC, boneCRC, comp, indices, values);
+
+		if (status)
+		{
+			numKeys = values.Size();
+			indicesBuffer = indices.GetArrayPtr();
+			valuesBuffer  = values.GetArrayPtr();
+		}
+
+		return status;
+	}
+
+
+    const uint32_t* AnimationSet_GetAnimationCRCs(const AnimationSet* setPtr, int& numCRCs)
+    {
+    	static List<uint32_t> crcs;
+
+    	crcs = setPtr -> GetAnimHashes();
+    	
+    	numCRCs = crcs.Size();
+    	return crcs.GetArrayPtr();
+    }
+    
+
+    const bool AnimationSet_GetAnimationMetadata(const AnimationSet* setPtr, uint32_t animCRC,
+                                                    int& numFrames, int& numBones)
+    {
+		CheckPtr(setPtr, false);
+		return setPtr -> GetAnimationMetadata(animCRC, numFrames, numBones);
     }
 }

@@ -31,6 +31,8 @@ namespace LibSWBF2::Wrappers
 
 		List<uint32_t> GetAnimHashes() const;
 		List<uint32_t> GetBoneHashes() const;
+		
+		bool GetAnimationMetadata(uint32_t animCrc, int &numFrames, int &numBones) const;
 
 		String name;
 

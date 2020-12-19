@@ -99,7 +99,12 @@ namespace LibSWBF2
         public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetLight(IntPtr level,  string lightName);
+        public static extern IntPtr Level_GetLight(IntPtr level, string lightName);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetAnimationSet(IntPtr level, string setName);
+
+
 
 
         //Basic texture handling
@@ -256,5 +261,23 @@ namespace LibSWBF2
                                                     out IntPtr name, out IntPtr parentName,
                                                     out uint maskFlags, out uint primitiveType,
                                                     out IntPtr pos, out IntPtr rot);
+   
+
+        // AnimationSet // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AnimationSet_GetCurve(IntPtr setPtr, uint animCRC, uint boneCRC, uint comp, 
+                                                        out IntPtr indicesBuffer, out IntPtr valuesBuffer, out int numKeys);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr AnimationSet_GetAnimationCRCs(IntPtr setPtr, out int numCRCs);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AnimationSet_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
+                                                        out int numFrames, out int numBones);
+
+
     }
 }

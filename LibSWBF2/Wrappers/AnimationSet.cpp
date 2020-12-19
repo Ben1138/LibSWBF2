@@ -44,10 +44,32 @@ namespace LibSWBF2::Wrappers
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes.Contains(animHash);
 	}
 
+
 	List<uint32_t> AnimationSet::GetAnimHashes() const
 	{
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes;
 	}
+
+
+	bool AnimationSet::GetAnimationMetadata(uint32_t animCRC, int &numFrames, int &numBones) const
+	{
+		MINA *metadata = animChunk -> p_Bin -> p_AnimsMetadata;	
+
+		List<uint32_t> &animHashes = metadata -> m_AnimNameHashes;	
+
+		for (int i = 0; i < animHashes.Size(); i++)
+		{
+			if (animHashes[i] == animCRC)
+			{
+				numBones  = (int) metadata -> m_AnimBoneCounts[i];
+				numFrames = (int) metadata -> m_AnimFrameCounts[i];	
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 
 	List<uint32_t> AnimationSet::GetBoneHashes() const
 	{

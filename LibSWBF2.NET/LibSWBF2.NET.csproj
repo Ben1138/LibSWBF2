@@ -86,8 +86,10 @@
     <Compile Include="Wrappers\CollisionMesh.cs" />
     <Compile Include="Wrappers\Texture.cs" />
     <Compile Include="Wrappers\CollisionPrimitive.cs" />
+    <Compile Include="Wrappers\AnimationSet.cs" />
     <Compile Include="Wrappers\Container.cs" />
     <Compile Include="Utils\MarshalingUtils.cs" />
+    <Compile Include="Utils\Hashing.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
