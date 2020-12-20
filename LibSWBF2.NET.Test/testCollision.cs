@@ -13,7 +13,7 @@ namespace LibSWBF2.NET.Test
 {
     class CollisionTest
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             TestBench.StartLogging(ELogType.Warning);
 
@@ -23,7 +23,7 @@ namespace LibSWBF2.NET.Test
             {
                 Console.WriteLine("Level {0}'s collision meshes: ", i);
 
-                level = lvls[i];
+                var level = lvls[i];
 
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
