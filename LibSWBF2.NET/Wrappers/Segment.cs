@@ -7,11 +7,32 @@ using System.Runtime.InteropServices;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Enums;
+using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
 {
+
+    [StructLayout(LayoutKind.Sequential, Pack=1)]
+    public struct VertexWeight 
+    {
+        public float weight;
+        public byte index;
+    }
+
+
     public class Segment : NativeWrapper
     {
+        /*
+        private static long MySizeof(VertexWeight st)
+        {
+            long before = GC.GetTotalMemory(true);
+            VertexWeight[] array = new VertexWeight[100000];
+            long after = GC.GetTotalMemory(true);
+            var size = (after - before) / array.Length;
+            return size;
+        }
+        */
+
         public Segment(IntPtr segmentPtr) : base(segmentPtr)
         {
 
@@ -28,6 +49,9 @@ namespace LibSWBF2.Wrappers
 
         public float[] GetVertexBuffer()
         {
+            //var vw = new VertexWeight();
+            //Console.WriteLine($"sizeof:{sizeof(VertexWeight)} Marshal.sizeof:{Marshal.SizeOf(vw)} custom sizeof:{MySizeof(vw)}");
+
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.Segment_GetVertexBuffer(NativeInstance, out uint numVerts, out IntPtr vertsArr);
@@ -62,9 +86,14 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
 
             APIWrapper.Segment_GetUVBuffer(NativeInstance, out uint numUVs, out IntPtr UVsArr);
-            float[] UVs = new float[(int)numUVs*2];
-            Marshal.Copy(UVsArr, UVs, 0, (int)numUVs*2);
-            return UVs;
+            return MemUtils.IntPtrToArray<float>(UVsArr, 2 * (int) numUVs);
+        }
+
+        public VertexWeight[] GetVertexWeights()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Segment_GetVertexWeightsBuffer(NativeInstance, out int numVWs, out IntPtr vwBuffer);
+            return MemUtils.IntPtrToArray<VertexWeight>(vwBuffer, numVWs);            
         }
 
         public string GetMaterialTexName()

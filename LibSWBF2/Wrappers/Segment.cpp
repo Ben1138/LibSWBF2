@@ -80,8 +80,8 @@ namespace LibSWBF2::Wrappers
 						}
 						else
 						{
-							String boneName = skeleton->p_BoneNames->m_Texts[boneIndex].Buffer();
-							out.m_VertexWeights.Add({ 1.0f, boneName });
+							//String boneName = skeleton->p_BoneNames->m_Texts[boneIndex].Buffer();
+							out.m_VertexWeights.Add({ 1.0f, boneIndex });
 						}
 					}
 				}

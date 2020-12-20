@@ -31,6 +31,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                //return false;
                 return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
             }
         }

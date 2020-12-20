@@ -63,6 +63,27 @@ namespace LibSWBF2.Utils
             return array;
         }
 
+        /*
+        public static T[] IntPtrToArray<T>(IntPtr dataPtr, int count, int struct_size) where T : new()
+        {
+            T[] array = new T[count];
+
+            if (dataPtr == IntPtr.Zero || count == 0) return array;
+            
+            unsafe
+            {
+                int numBytes = count * struct_size;
+                T* srcPtr = (T*) dataPtr.ToPointer();
+                fixed (T* destPtr = array)
+                {
+                    APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
+                }
+            }    
+            
+            return array;
+        }
+        */
+
 
         public static List<string> IntPtrToStringList(IntPtr nativePtr, int count)
         {

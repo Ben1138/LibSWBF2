@@ -41,6 +41,15 @@ namespace LibSWBF2.NET.Test
                     
                     foreach (Instance instance in instances)
                     {
+
+                        var ec = level.GetEntityClass(instance.GetEntityClassName());
+
+                        if (ec == null)
+                        {
+                            continue;
+                        }
+
+
                         Console.WriteLine("\tInstance " + i++ + ": ");
                         
                         string instName = instance.Name;
@@ -51,6 +60,9 @@ namespace LibSWBF2.NET.Test
                                         "\n\t\t" + "Class: " + instance.GetEntityClassName() + 
                                         "\n\t\tRotation: " + rot.ToString() +
                                         "\n\t\tPosition: " + pos.ToString());
+
+                        //Console.WriteLine("\t\tAttached ODF = " + ec.GetProperty("AttachODF"));
+
                     }
                 } 
 

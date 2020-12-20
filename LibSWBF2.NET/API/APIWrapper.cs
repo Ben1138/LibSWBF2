@@ -189,6 +189,9 @@ namespace LibSWBF2
         public static extern void Segment_GetNormalBuffer(IntPtr seg, out uint numNormals, out IntPtr normalsBuffer);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Segment_GetVertexWeightsBuffer(IntPtr seg, out int numVWeights, out IntPtr vwsBuffer);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int Segment_GetTopology(IntPtr segment);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

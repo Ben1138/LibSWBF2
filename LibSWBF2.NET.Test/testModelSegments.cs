@@ -14,53 +14,56 @@ namespace LibSWBF2.NET.Test
 {
     class ModelsSegmentsTest
     {
-        static void Main(string[] args)
-        {
+        static int Main(string[] args)
+        {            
+            TestBench.StartLogging(ELogType.Warning);
+
+            Level level = TestBench.LoadAndTrackLVL(args[0]);
+            if (level == null) return -1;
+            
+            Model[] models = level.GetModels();
+
+
+            int j = 0;
+            foreach (Model model in models)
             {
-                TestBench.StartLogging(ELogType.Warning);
-
-                Level level = TestBench.LoadAndTrackLVL(args[0]);
-                if (level == null) return -1;
-                
-                Model[] models = level.GetModels();
-
-
-                Console.WriteLine(models.Length);
-                int j = 0;
-                foreach (Model model in models)
+                if (model.IsSkeletalMesh)
                 {
-                    if (!model.Name.Contains("sky"))
+                    Console.WriteLine("\n" + model.Name + "'s bones: ");
+                    
+                    Bone[] bones = model.GetSkeleton();
+
+                    for (int k = 0; k < bones.Length; k++)
                     {
-                        //continue;
+                        Console.WriteLine("\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
                     }
+                }
 
-                    Console.WriteLine("\n" + model.Name);
+                Segment[] segments = model.GetSegments(); 
+                int i = 0;
+                foreach (Segment seg in segments)
+                {
+                    Console.WriteLine("\n\tSegment " + i++ + ": ");
+                    float[] vBuf = seg.GetVertexBuffer();                        
+                    string texName = seg.GetMaterialTexName();
 
-                    Segment[] segments = model.GetSegments(); 
-                    int i = 0;
-                    foreach (Segment seg in segments)
-                    {
-                        Console.WriteLine("\n\tSegment " + i++ + ": ");
-                        float[] vBuf = seg.GetVertexBuffer();                        
-                        string texName = seg.GetMaterialTexName();
-                        string materialFlags = seg.GetMaterialFlags();
+                    VertexWeight[] weights = seg.GetVertexWeights();
 
-                        /*
-                        Console.WriteLine("\t\t" + "Num verts: " + 
-                                          vBuf.Length / 3 + 
-                                        "\n \t\tTexture name: " +
-                                          texName +
-                                        "\n \t\tMaterial traits: " +
-                                          materialFlags);
-                        */
+                    Console.WriteLine("\t\tTopology: {0}", seg.GetTopology());
 
-                        byte[] data;
+                    //Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
 
-                        Console.Write("\tTexture name: " + texName + " Format: ");
-                        level.GetTexture(texName, out int w, out int h, out data);
-                    }
-                } 
-            }
+
+                    //byte[] data;
+
+                    //Console.Write("\tTexture name: " + texName + " Format: ");
+                    //level.GetTexture(texName, out int w, out int h, out data);
+                }
+            } 
+
+            TestBench.StopLogging();
+            
+            return 0;
         }
     }
 }
