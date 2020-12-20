@@ -22,6 +22,7 @@ namespace LibSWBF2
 		class Terrain;
 		class CollisionMesh;
 		struct Bone;
+		struct VertexWeight;
 		class CollisionPrimitive;
 		class AnimationSet;
 		class EntityClass;
@@ -111,6 +112,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const char*    Segment_GetMaterialTexName(const Segment* segment);
 		LIBSWBF2_API const int32_t  Segment_GetTopology(const Segment* segment);
 		LIBSWBF2_API const uint32_t Segment_GetMaterialFlags(const Segment* segment);
+		LIBSWBF2_API const void     Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
+		
 
 		// Wrappers - CollisionMesh
 		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);

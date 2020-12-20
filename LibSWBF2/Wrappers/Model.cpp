@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "InternalHelpers.h"
 
+static LibSWBF2::String empty = "";
+
 namespace LibSWBF2::Wrappers
 {
 	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)
@@ -92,7 +94,7 @@ namespace LibSWBF2::Wrappers
 		for (size_t i = 0; i < p_Skeleton->p_Info->m_BoneCount; ++i)
 		{
 			// first entry (root) doesn't have a parent
-			bones.Add({ names[i], i > 0 ? parents[i - 1] : "", positions[i], MatrixToQuaternion(rotations[i]) });
+			bones.Add({ names[i], i > 0 ? parents[i - 1] : empty, positions[i], MatrixToQuaternion(rotations[i]) });
 		}
 		return true;
 	}

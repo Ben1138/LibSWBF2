@@ -8,8 +8,9 @@
 #include "Wrappers/Level.h"
 #include "Container.h"
 #include "Wrappers/Terrain.h"
+#include "Wrappers/Segment.h"
 
-
+#include <iostream>
 
 namespace LibSWBF2
 {
@@ -460,7 +461,7 @@ namespace LibSWBF2
 	    loc = &(bone -> m_Position);
 		rot = &(bone -> m_Rotation);
 		
-		parentName = (bone -> m_BoneName).Buffer();
+		parentName = (bone -> m_Parent).Buffer();
 	}
 
 
@@ -613,6 +614,30 @@ namespace LibSWBF2
 			indexBuffer[i] = (int) indicies[i];
 		}
 	}
+
+
+
+	const void Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer)
+	{
+		uint32_t count;
+		if (segment -> GetVertexWeights(count, vwBuffer))
+		{
+			numVWs = (int32_t) count;
+
+			/*
+			for (int i = 0; i < numVWs; i++)
+			{
+				std::cout << "Weight, Index = " << vwBuffer[i].m_WeightValue << ", " << (int) vwBuffer[i].m_BoneIndex << std::endl;
+			}
+			*/
+		}
+		else 
+		{
+			numVWs = 0;
+			vwBuffer = nullptr;			
+		}
+	}
+
 
 
 	const char* Segment_GetMaterial(const Segment* segment)

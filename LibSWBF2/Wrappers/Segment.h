@@ -18,8 +18,9 @@ namespace LibSWBF2::Wrappers
 	struct LIBSWBF2_API VertexWeight
 	{
 		float_t m_WeightValue;
-		String m_BoneName;
-	};
+		uint8_t m_BoneIndex;
+	} __attribute__((aligned(1), packed));
+
 
 	class LIBSWBF2_API Segment
 	{

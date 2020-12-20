@@ -20,7 +20,11 @@ namespace LibSWBF2.Wrappers
         	APIWrapper.Bone_FetchAllFields(ptr, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
 
         	name = Marshal.PtrToStringAnsi(namePtr);
-        	//parentName = Marshal.PtrToStringAnsi(parentNamePtr);
+
+            if (parentNamePtr != IntPtr.Zero)
+            {
+                parentName = Marshal.PtrToStringAnsi(parentNamePtr);
+            }
 
         	rotation = new Vector4(rot);
         	location = new Vector3(loc);
@@ -28,7 +32,7 @@ namespace LibSWBF2.Wrappers
 
 
         public string name;
-        public string parentName = "nully";
+        public string parentName = "";
         public Vector4 rotation;
         public Vector3 location;
     }
