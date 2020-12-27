@@ -29,7 +29,6 @@ namespace LibSWBF2
 		//class Script;
 	}
 
-
 	namespace Types
 	{
 		struct Vector4;
@@ -44,7 +43,6 @@ namespace LibSWBF2
 	{
 		//Memory //
 		LIBSWBF2_API void Memory_Blit(void *dest, void *src, int numBytes);
-
 
 		// Logging //
 		LIBSWBF2_API uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
