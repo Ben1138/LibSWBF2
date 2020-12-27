@@ -41,7 +41,7 @@ namespace LibSWBF2::Chunks::LVL::modl
     String SKIN::ToString()
     {
         std::string result = fmt::format("Number of Vertices / Bone Indices = {}\nBone Indices = [", m_VertexCount);
-        for (uint32_t i = 0; i < m_VertexCount; ++i)
+        for (uint32_t i = 0; i < m_VertexCount && i < m_BoneIndices.Size(); ++i)
         {
             result += fmt::format("{}, ", m_BoneIndices[i]);
         }

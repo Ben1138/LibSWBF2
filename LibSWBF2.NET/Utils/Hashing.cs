@@ -16,23 +16,13 @@ namespace LibSWBF2.Utils
 
         public static uint GetCRC(string str)
         {
-            if (str == null)
-            {
-                return 0;
-            }
-
+            if (str == null) return 0;
+            
             uint crc = 0xFFFFFFFF;
             foreach (char p in str)
             {
                 crc = (crc << 8) ^ m_Table32[(crc >> 24) ^ m_ToLower[(byte) p]];
             }
-
-            /*
-            for (const unsigned char* p = (const unsigned char*)str; *p; p++)
-            {
-                crc = (crc << 8) ^ m_Table32[(crc >> 24) ^ m_ToLower[*p]];
-            }
-            */
 
             return ~crc;
         }

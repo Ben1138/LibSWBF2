@@ -12,17 +12,17 @@
 
 #include <iostream>
 
+
+
 namespace LibSWBF2
 {
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
-
 
 	// Memory //
 	void Memory_Blit(void *dest, void *src, int numBytes)
 	{
 		memcpy(dest, src, numBytes);
 	}
-
 
 	// Logging //
 	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)

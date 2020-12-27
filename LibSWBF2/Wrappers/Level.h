@@ -21,6 +21,7 @@ namespace LibSWBF2
 	class Container;
 }
 
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
