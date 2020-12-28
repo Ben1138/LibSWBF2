@@ -96,7 +96,8 @@ namespace LibSWBF2
 														CollisionPrimitive**& primArrayPtr);
 
 		// Wrappers - EntityClass
-		const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
+		LIBSWBF2_API const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
+		LIBSWBF2_API const char *EntityClass_GetBaseName(const EntityClass *ec);
 
 		// Wrappers - Bone
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);

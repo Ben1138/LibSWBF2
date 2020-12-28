@@ -289,7 +289,10 @@ namespace LibSWBF2
         // EntityClass //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, string propName);        
+        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, string propName);  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr EntityClass_GetBaseName(IntPtr ecPtr);    
 
 
     }

@@ -11,6 +11,7 @@
 #include "Wrappers/Segment.h"
 
 #include <iostream>
+#include <string>
 
 
 
@@ -161,23 +162,6 @@ namespace LibSWBF2
 
 	void Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc)
 	{
-		/*
-		modelCount = 0;
-		CheckPtr(level, );
-		const List<Model>& models = level->GetModels();
-
-		static List<const Model*> modelPtrs;
-		modelPtrs.Clear();
-
-		for (size_t i = 0; i < models.Size(); ++i)
-		{
-			modelPtrs.Add(&models[i]);
-		}
-
-		modelArr = modelPtrs.GetArrayPtr();
-		modelCount = (uint32_t)modelPtrs.Size();
-		*/
-
 		const List<Model>& models = level->GetModels();
 		modelArr = (void *) models.GetArrayPtr();
 		modelCount = (uint32_t) models.Size();
@@ -192,6 +176,7 @@ namespace LibSWBF2
     	delete imageData;
 
     	width = height = 0;
+    	imageData = imageDataOut = nullptr;
     	CheckPtr(level, false);
 
     	const Texture *tex = level -> GetTexture(texName);
@@ -202,11 +187,18 @@ namespace LibSWBF2
 
     	uint16_t w,h;
 
-    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
-    	height = h;
-    	width = w;
-    	imageDataOut = imageData;
-    	return true;
+    	if (tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData))
+    	{
+	    	height = h;
+	    	width = w;
+	    	imageDataOut = imageData;
+	    	return true;
+	    }
+	    else 
+	    {
+   	    	imageData = imageDataOut = nullptr;
+	    	return false;
+	    }
     }
 
 
@@ -638,24 +630,6 @@ namespace LibSWBF2
 		}
 	}
 
-
-
-	const char* Segment_GetMaterial(const Segment* segment)
-	{
-		//static const char *missing = "TEXTURE_MISSING";
-		const Material& segmentMat = segment -> GetMaterial();
-		const Texture* segmentTex = segmentMat.GetTexture(0);//?
-
-		if (segmentTex == nullptr)
-		{
-			String *missing = new String("");
-			return missing -> Buffer();
-		}
-
-		String *segmentTexName = new String(segmentTex -> GetName());
-		return segmentTexName -> Buffer();
-	}
-
 	
 	const char* Segment_GetMaterialTexName(const Segment* segment)
 	{
@@ -663,14 +637,18 @@ namespace LibSWBF2
 		
 		//static const char *missing = "TEXTURE_MISSING";
 		const Material& segmentMat = segment -> GetMaterial();
-		const Texture* segmentTex = segmentMat.GetTexture(0);//?
+		const Texture* segmentTex = segmentMat.GetTexture(0);
 
 		if (segmentTex == nullptr)
 		{
-			return "";
+			nameString = "";
 		}
+		else 
+		{
+			nameString = segmentTex -> GetName();
+		}
+		//LOG_WARN("\t\tName String: {}", nameString);
 
-		nameString = segmentTex -> GetName();
 		return nameString.Buffer();
 	}
 
@@ -761,6 +739,8 @@ namespace LibSWBF2
 		return ecName.Buffer();
     }
 
+    // EntityClass
+
     const char * EntityClass_GetProperty(const EntityClass *ec, const char *propName)
     {
     	CheckPtr(ec,"")
@@ -773,6 +753,20 @@ namespace LibSWBF2
 
 		return "";
     }
+
+
+    const char *EntityClass_GetBaseName(const EntityClass *ec)
+    {
+    	CheckPtr(ec,"")
+    	static String baseName;
+
+    	baseName = ec -> GetBaseName();
+    	return baseName.Buffer(); 
+    }
+
+
+
+    // Vector
 
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
     {
