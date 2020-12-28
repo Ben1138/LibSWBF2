@@ -18,7 +18,7 @@ int main(int ac, char** av)
 		auto testLVL = lvlPtrs[i];
 		const List<Model>& models = testLVL -> GetModels();
 
-		COUT("Results from " << testLVL -> GetLevelName().Buffer());
+		COUT("Results from test: ");// << testLVL -> GetLevelName().Buffer());
 
 		for (int i = 0; i < models.Size(); i++)
 		{

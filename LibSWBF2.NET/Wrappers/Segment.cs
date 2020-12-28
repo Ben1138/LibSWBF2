@@ -22,22 +22,7 @@ namespace LibSWBF2.Wrappers
 
     public class Segment : NativeWrapper
     {
-        /*
-        private static long MySizeof(VertexWeight st)
-        {
-            long before = GC.GetTotalMemory(true);
-            VertexWeight[] array = new VertexWeight[100000];
-            long after = GC.GetTotalMemory(true);
-            var size = (after - before) / array.Length;
-            return size;
-        }
-        */
-
-        public Segment(IntPtr segmentPtr) : base(segmentPtr)
-        {
-
-        }
-
+        public Segment(IntPtr segmentPtr) : base(segmentPtr){}
         public Segment() : base(IntPtr.Zero) {}
 
         public uint GetVertexBufferLength()
@@ -49,11 +34,7 @@ namespace LibSWBF2.Wrappers
 
         public float[] GetVertexBuffer()
         {
-            //var vw = new VertexWeight();
-            //Console.WriteLine($"sizeof:{sizeof(VertexWeight)} Marshal.sizeof:{Marshal.SizeOf(vw)} custom sizeof:{MySizeof(vw)}");
-
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.Segment_GetVertexBuffer(NativeInstance, out uint numVerts, out IntPtr vertsArr);
             float[] verts = new float[(int)numVerts*3];
             Marshal.Copy(vertsArr, verts, 0, (int)numVerts*3);
@@ -99,7 +80,13 @@ namespace LibSWBF2.Wrappers
         public string GetMaterialTexName()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return Marshal.PtrToStringAnsi( APIWrapper.Segment_GetMaterialTexName(NativeInstance) );
+            IntPtr strPtr = APIWrapper.Segment_GetMaterialTexName(NativeInstance);
+
+            if (strPtr == IntPtr.Zero)
+            {
+                return "";
+            }            
+            return Marshal.PtrToStringAnsi(strPtr);
         }
 
         public int GetTopology()

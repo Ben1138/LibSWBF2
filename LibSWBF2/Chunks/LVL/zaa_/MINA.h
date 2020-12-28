@@ -13,6 +13,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 	{
 	public:
 
+		List<uint32_t> m_TransBitFlags;
 		List<uint32_t> m_AnimNameHashes;
 		List<uint16_t> m_AnimFrameCounts;
 		List<uint16_t> m_AnimBoneCounts;

@@ -25,7 +25,8 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 		for (int i = 0; i < desc -> m_NumAnimations; i++)
 		{
-			stream.SkipBytes(8);
+			m_TransBitFlags.Add(stream.ReadUInt32());
+			stream.SkipBytes(4);
 			m_AnimNameHashes.Add(stream.ReadUInt32());
 			m_AnimFrameCounts.Add(stream.ReadUInt16());
 			m_AnimBoneCounts.Add(stream.ReadUInt16());
@@ -42,9 +43,11 @@ namespace LibSWBF2::Chunks::LVL::animation
 		{
 			rep = rep + fmt::format(
 					"\n\nAnim name crc: {}\n"
+					"\tTransBitFlags: {}\n"
 					"\tNum frames: {}\n"
 					"\tNum bones: {}\n",
 					m_AnimNameHashes[i],
+					m_TransBitFlags[i],
 					m_AnimFrameCounts[i],
 					m_AnimBoneCounts[i]
 				).c_str();

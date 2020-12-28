@@ -21,5 +21,11 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return Marshal.PtrToStringAnsi(APIWrapper.EntityClass_GetProperty(NativeInstance, propName));   
         }
+
+        public string GetBaseName()
+        {
+            if (!IsValid()) return "";// throw new Exception("Underlying native class is destroyed!");
+            return Marshal.PtrToStringAnsi(APIWrapper.EntityClass_GetBaseName(NativeInstance));               
+        }
     }
 }
