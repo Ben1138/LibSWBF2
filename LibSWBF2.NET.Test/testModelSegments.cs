@@ -26,16 +26,18 @@ namespace LibSWBF2.NET.Test
 
             int j = 0;
             foreach (Model model in models)
-            {
+            {   
+                Console.WriteLine(model.Name + ": ");
+
                 if (model.IsSkeletalMesh)
                 {
-                    Console.WriteLine("\n" + model.Name + "'s bones: ");
+                    Console.WriteLine("\tSkeleton: ");
                     
                     Bone[] bones = model.GetSkeleton();
 
                     for (int k = 0; k < bones.Length; k++)
                     {
-                        Console.WriteLine("\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
+                        Console.WriteLine("\t\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
                     }
                 }
 
@@ -43,7 +45,7 @@ namespace LibSWBF2.NET.Test
                 int i = 0;
                 foreach (Segment seg in segments)
                 {
-                    Console.WriteLine("\n\tSegment " + i++ + ": ");
+                    Console.WriteLine("\tSegment " + i++ + ": ");
                     float[] vBuf = seg.GetVertexBuffer();                        
                     string texName = seg.GetMaterialTexName();
 
@@ -51,13 +53,22 @@ namespace LibSWBF2.NET.Test
 
                     Console.WriteLine("\t\tTopology: {0}", seg.GetTopology());
 
-                    //Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
+
+                    float[] buffer = seg.GetNormalsBuffer();
+                    Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
+
+                    if (model.IsSkeletalMesh)
+                    {
+                        Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
+                    }
 
 
-                    //byte[] data;
+                    Console.Write("\n\t\tTexture: " + texName);
 
-                    //Console.Write("\tTexture name: " + texName + " Format: ");
-                    //level.GetTexture(texName, out int w, out int h, out data);
+                    byte[] data;
+                    level.GetTexture(texName, out int w, out int h, out data);
+                    
+                    Console.WriteLine(" Height: {0} Width: {1} Num bytes: {2}", h, w, data.Length);
                 }
             } 
 

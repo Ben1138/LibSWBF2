@@ -25,9 +25,7 @@ namespace LibSWBF2.NET.Test
                     TestBench.StopLogging();
                     return -1;
                 }
-
-                Console.WriteLine("Finished read!");
-                
+            
                 World[] worlds = level.GetWorlds();
 
                 int k = 0;
@@ -57,9 +55,9 @@ namespace LibSWBF2.NET.Test
                         Vector3 pos = instance.GetPosition();
 
                         Console.WriteLine("\t\t" + "Name: " + instName +
-                                        "\n\t\t" + "Class: " + instance.GetEntityClassName() + 
-                                        "\n\t\tRotation: " + rot.ToString() +
-                                        "\n\t\tPosition: " + pos.ToString());
+                                        "  Class: " + instance.GetEntityClassName() + 
+                                        "  Rotation: " + rot.ToString() +
+                                        "  Position: " + pos.ToString());
 
                         //Console.WriteLine("\t\tAttached ODF = " + ec.GetProperty("AttachODF"));
 

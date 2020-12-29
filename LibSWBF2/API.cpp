@@ -11,6 +11,7 @@
 #include "Wrappers/Segment.h"
 
 #include <iostream>
+#include <string>
 
 namespace LibSWBF2
 {
@@ -192,6 +193,7 @@ namespace LibSWBF2
     	delete imageData;
 
     	width = height = 0;
+    	imageData = imageDataOut = nullptr;
     	CheckPtr(level, false);
 
     	const Texture *tex = level -> GetTexture(texName);
@@ -202,11 +204,18 @@ namespace LibSWBF2
 
     	uint16_t w,h;
 
-    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
-    	height = h;
-    	width = w;
-    	imageDataOut = imageData;
-    	return true;
+    	if (tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData))
+    	{
+	    	height = h;
+	    	width = w;
+	    	imageDataOut = imageData;
+	    	return true;
+	    }
+	    else 
+	    {
+   	    	imageData = imageDataOut = nullptr;
+	    	return false;
+	    }
     }
 
 
@@ -638,24 +647,6 @@ namespace LibSWBF2
 		}
 	}
 
-
-
-	const char* Segment_GetMaterial(const Segment* segment)
-	{
-		//static const char *missing = "TEXTURE_MISSING";
-		const Material& segmentMat = segment -> GetMaterial();
-		const Texture* segmentTex = segmentMat.GetTexture(0);//?
-
-		if (segmentTex == nullptr)
-		{
-			String *missing = new String("");
-			return missing -> Buffer();
-		}
-
-		String *segmentTexName = new String(segmentTex -> GetName());
-		return segmentTexName -> Buffer();
-	}
-
 	
 	const char* Segment_GetMaterialTexName(const Segment* segment)
 	{
@@ -663,14 +654,18 @@ namespace LibSWBF2
 		
 		//static const char *missing = "TEXTURE_MISSING";
 		const Material& segmentMat = segment -> GetMaterial();
-		const Texture* segmentTex = segmentMat.GetTexture(0);//?
+		const Texture* segmentTex = segmentMat.GetTexture(0);
 
 		if (segmentTex == nullptr)
 		{
-			return "";
+			nameString = "";
 		}
+		else 
+		{
+			nameString = segmentTex -> GetName();
+		}
+		//LOG_WARN("\t\tName String: {}", nameString);
 
-		nameString = segmentTex -> GetName();
 		return nameString.Buffer();
 	}
 
