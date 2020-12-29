@@ -373,5 +373,10 @@ xcuserdata
 *.moved-aside
 
 
-#Mono crash files
+# Mono crash files
 *mono_crash.*.json
+*.blob
+
+
+# Shell scripts
+*.sh

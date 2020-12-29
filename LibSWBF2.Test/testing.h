@@ -29,6 +29,39 @@ using LibSWBF2::Logging::LoggerEntry;
 #define COUT(x) std::cout << x << std::endl
 
 
+Container * LoadAndTrackContainer(List<String> paths)
+{
+	Container *container = Container::Create();
+	List<SWBF2Handle> handles;
+
+	for (int i = 0; i < paths.Size(); i++)
+	{
+		handles.Add(container -> AddLevel(paths[i]));
+	}
+
+	container -> StartLoading();
+
+	while (!container -> IsDone())
+	{
+		usleep(100000);
+		
+		std::cout << "\r";
+
+		for (int i = 0; i < handles.Size(); i++)
+		{
+			std::cout << fmt::format("{}: {}% ", i, (int) (container -> GetLevelProgress(handles[i]) * 100.0f)).c_str();
+		}
+
+		std::cout << std::flush;
+	}
+
+	return container;
+}
+
+
+
+
+
 std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 {
 	Container *container = Container::Create();
@@ -66,6 +99,11 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 
 	return lvlPointers;
 }
+
+
+
+
+
 
 
 
