@@ -8,30 +8,33 @@ int main(int ac, char **av)
 	if (ac < 4) return -1;
 
 	List<String> paths;
-	String lvl_path = av[1];
-	String animSetName = av[2];
-	uint32_t animName = (uint32_t) CRC::CalcLowerCRC(av[3]);
 
-	paths.Add(lvl_path);
-	auto testLVLs = LoadAndTrackLVLs(paths);
-
-	if (testLVLs.size() == 0) return -1;
-
-	auto testLVL = testLVLs[0];
-
-	auto animSet = testLVL -> GetAnimationSet(animSetName);
-	auto model = testLVL -> GetModel(animSetName);
-
-
-	if (model == nullptr || animSet == nullptr || !model -> IsSkeletalMesh())
+	for (int i = 1; i < ac - 2; i++)
 	{
-		COUT(animSetName.Buffer() << " must refer to an anim set and model sharing the same name...");
+		paths.Add(av[i]);
+	}
+
+	String animSetName = av[ac - 2];
+	String animName = av[ac - 1];
+	uint32_t animNameCRC = (uint32_t) CRC::CalcLowerCRC(animName.Buffer());
+	//uint32_t animName = (uint32_t) CRC::CalcLowerCRC(av[3]);
+
+	//paths.Add(lvl_path);
+	auto container = LoadAndTrackContainer(paths);
+
+	auto animSet = container -> FindAnimationSet(animSetName);
+
+
+	if (animSet == nullptr)
+	{
+		COUT("\nAnimation Set not found");
 		return -1;
 	}
 
-	if (!animSet -> ContainsAnim(animName))
+
+	if (!animSet -> ContainsAnim(animNameCRC))
 	{
-		COUT(std::hex << animName << " doesn't belong to queried set! This set contains: ");
+		COUT(std::hex << animName.Buffer() << " doesn't belong to queried set! This set contains: ");
 
 		List<uint32_t> hashes = animSet -> GetAnimHashes();
 
@@ -45,26 +48,29 @@ int main(int ac, char **av)
 
 
 
-	List<Bone> bones;
+	//List<Bone> bones;
 
-	COUT(fmt::format("Printing curves for anim {}", animSetName.Buffer()).c_str());
+	COUT(fmt::format("\n\nPrinting curves for anim {}", animName.Buffer()).c_str());
 
-	if (model -> GetSkeleton(bones))
-	{
+	auto bones = animSet -> GetBoneHashes();
+
+	//if (model -> GetSkeleton(bones))
+	//{
 		for (int i = 0; i < bones.Size(); i++)
 		{
 			List<uint16_t> indices;
 			List<float> values;
 
-			Bone &cur_bone = bones[i];
-			uint32_t boneHash = (uint32_t) CRC::CalcLowerCRC(cur_bone.m_BoneName.Buffer());
+			//Bone &cur_bone = bones[i];
+			//uint32_t boneCRC = (uint32_t) CRC::CalcLowerCRC(cur_bone.m_BoneName.Buffer());
+			uint32_t boneCRC = bones[i];
 
-			COUT(fmt::format("\n\n\tBone #{0}, {1}, {2:x}\n", i, cur_bone.m_BoneName.Buffer(), boneHash));
+			COUT(fmt::format("\n\tBone #{0}, 0x{1:x}\n", i, boneCRC));
 
 
 			for (uint16_t j = 0; j < 7; j++)
 			{
-				if (!animSet -> GetCurve(animName, boneHash, j, indices, values))
+				if (!animSet -> GetCurve(animNameCRC, boneCRC, j, indices, values))
 				{
 					COUT("Bone not found or error occurred");
 					return -1;
@@ -86,7 +92,8 @@ int main(int ac, char **av)
 				}
 			}
 		}
-	}
+	//}
+
 
 	return 0;
 }
