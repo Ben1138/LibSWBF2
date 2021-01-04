@@ -15,6 +15,27 @@
 namespace DXTexCrossPlat {
 
 
+void a1r5g5b5(int w, int h, uint8_t *src, uint32_t *sink)
+{
+    uint16_t *inPixels = reinterpret_cast<uint16_t *>(src);
+
+    for(int i = 0; i < w * h; i++) {
+
+        uint32_t outPixel = 0;
+        uint16_t inPixel = inPixels[i];
+
+        outPixel |= (inPixel & BMASK_5BIT) << 19;
+        outPixel |= (inPixel & GMASK_6BIT) << 5;
+        outPixel |= (inPixel & RMASK_5BIT) >> 8;
+        outPixel |= MASK << 24;
+
+        sink[i] = outPixel;     
+    }
+
+}
+
+
+
 
 void r5g6b5ToRGBA(int w, int h, unsigned char *src, uint32_t *sink) {
 

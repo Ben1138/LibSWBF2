@@ -15,5 +15,6 @@ void r5g6b5ToRGBA(int w, int h, uint8_t *src, uint32_t *sink);
 void a8r8g8b8ToRBGA(int w, int h, uint8_t *src, uint32_t *sink);
 void bcToRGBA(int w, int h, uint8_t *src, uint32_t *sink, int mode);
 void lumToRGBA(int w, int h, uint8_t *src, uint32_t *sink, const D3DFORMAT format);
+void a1r5g5b5(int w, int h, uint8_t *src, uint32_t *sink);
 
 }
