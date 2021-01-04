@@ -153,6 +153,18 @@ namespace LibSWBF2
 		Spot = 3,
 		Unknown = 0,
 	};
+
+
+	enum class EAnimationDecompressionStatus : uint32_t
+	{
+		Omitted = 0,
+		Error = 1,
+		Success = 2,
+		InvalidBone = 3,
+		InvalidAnimation = 4,
+	};
+
+
   
 	enum class ELVLType
 	{
@@ -176,6 +188,11 @@ namespace LibSWBF2
 		Loaded,
 		Failed
 	};
+
+
+
+
+
 
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);

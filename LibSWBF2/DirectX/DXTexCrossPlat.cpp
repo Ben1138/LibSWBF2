@@ -2,6 +2,7 @@
 #include "DXTexCrossPlatConverters.h"
 #include "DXHelpers.h"
 
+#include "InternalHelpers.h"
 #include "Logging/Logger.h"
 #include <cstring>
 
@@ -57,6 +58,9 @@ uint8_t* CrossPlatImage::DumpRGBA(){
     case D3DFMT_R5G6B5:
       r5g6b5ToRGBA(width, height, source, sink);
       break;
+    //case D3DFMT_A1R5G5B5:
+    //  a1r5g5b5ToRGBA(width, height, source, sink);
+    //  break;
     case D3DFMT_A8R8G8B8:
       a8r8g8b8ToRBGA(width, height, source, sink);
       break;
@@ -78,9 +82,9 @@ uint8_t* CrossPlatImage::DumpRGBA(){
       lumToRGBA(width, height, source, sink, format);
       break;
     default:
-      //LOG_ERROR("Cant convert this format to RGBA")
-      delete[] sink;
-      sink = nullptr;   
+      LOG_ERROR("Cannot convert {} to R8_G8_B8_A8", LibSWBF2::D3DToString(format));
+      //delete[] sink;
+      //sink = nullptr;   
       break; 
   }
   return reinterpret_cast<uint8_t *>(sink);
