@@ -47,7 +47,7 @@ namespace LibSWBF2
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
 		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
 
-		std::unordered_map<std::string, const AnimationSet*> m_AnimationSetDB;
+		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
 
 		List<const World*> m_Worlds;
 	};
@@ -125,7 +125,7 @@ namespace LibSWBF2
 					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
 					CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
 					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
-					CopyMap(level->m_NameToIndexMaps->AnimationSetNameToIndex,	level->m_AnimationSets, m_ThreadSafeMembers->m_AnimationSetDB);
+					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks, m_ThreadSafeMembers->m_AnimationBankDB);
 
 					CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
 
@@ -643,13 +643,13 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
-	const AnimationSet* Container::FindAnimationSet(String setName) const
+	const AnimationBank* Container::FindAnimationBank(String setName) const
 	{
 		if (setName.IsEmpty()) return nullptr;
 
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_AnimationSetDB.find(ToLower(setName));
-		if (it != m_ThreadSafeMembers->m_AnimationSetDB.end())
+		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(ToLower(setName));
+		if (it != m_ThreadSafeMembers->m_AnimationBankDB.end())
 		{
 			return it->second;
 		}

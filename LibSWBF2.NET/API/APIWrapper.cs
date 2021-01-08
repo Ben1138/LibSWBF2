@@ -103,7 +103,7 @@ namespace LibSWBF2
         public static extern IntPtr Level_GetLight(IntPtr level, string lightName);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetAnimationSet(IntPtr level, string setName);
+        public static extern IntPtr Level_GetAnimationBank(IntPtr level, string setName);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
@@ -274,19 +274,19 @@ namespace LibSWBF2
                                                     out IntPtr pos, out IntPtr rot);
    
 
-        // AnimationSet // 
+        // AnimationBank // 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool AnimationSet_GetCurve(IntPtr setPtr, uint animCRC, uint boneCRC, uint comp, 
+        public static extern bool AnimationBank_GetCurve(IntPtr setPtr, uint animCRC, uint boneCRC, uint comp, 
                                                         out IntPtr indicesBuffer, out IntPtr valuesBuffer, out int numKeys);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr AnimationSet_GetAnimationCRCs(IntPtr setPtr, out int numCRCs);
+        public static extern IntPtr AnimationBank_GetAnimationCRCs(IntPtr setPtr, out int numCRCs);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool AnimationSet_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
+        public static extern bool AnimationBank_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
                                                         out int numFrames, out int numBones);
 
 

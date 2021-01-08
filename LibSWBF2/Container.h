@@ -20,7 +20,7 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::Light;
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
-	using LibSWBF2::Wrappers::AnimationSet;
+	using LibSWBF2::Wrappers::AnimationBank;
 
 	struct Schedule
 	{
@@ -76,7 +76,7 @@ namespace LibSWBF2
 		const EntityClass* FindEntityClass(String typeName) const;
 		const Sound* FindSound(String soundName) const;
 		const Sound* FindSound(FNVHash hashedSoundName) const;
-		const AnimationSet* FindAnimationSet(String setName) const;
+		const AnimationBank* FindAnimationBank(String setName) const;
 
 		const List<const Localization*>* FindLocalizations(String languageName) const;
 		// count is number of wide chars, NOT number of bytes!

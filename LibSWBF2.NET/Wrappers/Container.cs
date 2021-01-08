@@ -26,7 +26,7 @@ namespace LibSWBF2.Wrappers
             wrapperMap[typeof(Texture)]      = 2;
             wrapperMap[typeof(World)]        = 3;
             wrapperMap[typeof(EntityClass)]  = 4;
-            wrapperMap[typeof(AnimationSet)] = 5;
+            wrapperMap[typeof(AnimationBank)] = 5;
         }        
 
         public uint AddLevel(string path)

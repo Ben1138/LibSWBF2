@@ -167,15 +167,15 @@ namespace LibSWBF2.Wrappers
             return new Texture(texPtr);
         }
 
-        public AnimationSet GetAnimationSet(string setName)
+        public AnimationBank GetAnimationBank(string setName)
         {
-            IntPtr SetPtr = APIWrapper.Level_GetAnimationSet(NativeInstance, setName);
+            IntPtr SetPtr = APIWrapper.Level_GetAnimationBank(NativeInstance, setName);
             if (SetPtr == null)
             {
                 return null;
             }
 
-            AnimationSet animSet = new AnimationSet(SetPtr);
+            AnimationBank animSet = new AnimationBank(SetPtr);
             return animSet;
         }
 

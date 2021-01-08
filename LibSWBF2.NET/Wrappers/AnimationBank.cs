@@ -13,20 +13,20 @@ using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
-    public class AnimationSet : NativeWrapper
+    public class AnimationBank : NativeWrapper
     {
-        public AnimationSet(IntPtr AnimationSetPtr) : base(AnimationSetPtr)
+        public AnimationBank(IntPtr AnimationBankPtr) : base(AnimationBankPtr)
         {
 
         }
 
-        public AnimationSet() : base(IntPtr.Zero) {}
+        public AnimationBank() : base(IntPtr.Zero) {}
 
 
         public bool GetCurve(uint animCRC, uint boneCRC, uint component,
                             out ushort[] inds, out float[] values)
         {
-            bool status = APIWrapper.AnimationSet_GetCurve(
+            bool status = APIWrapper.AnimationBank_GetCurve(
                                 NativeInstance, animCRC, boneCRC, component,
                                 out IntPtr indexBuffer, out IntPtr valueBuffer, 
                                 out int numKeys);
@@ -39,13 +39,13 @@ namespace LibSWBF2.Wrappers
 
         public uint[] GetAnimationCRCs()
         {
-            IntPtr crcs = APIWrapper.AnimationSet_GetAnimationCRCs(NativeInstance, out int numAnims);
+            IntPtr crcs = APIWrapper.AnimationBank_GetAnimationCRCs(NativeInstance, out int numAnims);
             return MemUtils.IntPtrToArray<uint>(crcs, numAnims);
         }
 
         public bool GetAnimationMetadata(uint animCRC, out int numFrames, out int numBones)
         {
-            return APIWrapper.AnimationSet_GetAnimationMetadata(NativeInstance, animCRC, out numFrames, out numBones);
+            return APIWrapper.AnimationBank_GetAnimationMetadata(NativeInstance, animCRC, out numFrames, out numBones);
         }
     }
 }
