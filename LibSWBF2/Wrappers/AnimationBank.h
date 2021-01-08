@@ -1,14 +1,7 @@
 #pragma once
-#include "stdafx.h"
-#include "req.h"
-//#include "Types/LibString.h"
-//#include "Types/List.h"
-
 #include "Chunks/LVL/zaa_/zaa_.h"
 
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl;
 
 namespace LibSWBF2::Wrappers
 {
@@ -17,12 +10,12 @@ namespace LibSWBF2::Wrappers
 	using namespace Chunks::LVL::animation;
 
 
-	class LIBSWBF2_API AnimationSet
+	class LIBSWBF2_API AnimationBank
 	{
 
 	public:
 
-		static bool FromChunk(zaa_ *chunk, AnimationSet &setOut);
+		static bool FromChunk(zaa_ *chunk, AnimationBank &setOut);
 
 		bool GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
 					List<uint16_t> &frame_indices, List<float_t> &frame_values) const;
@@ -147,7 +140,7 @@ namespace LibSWBF2::Wrappers
 						{
 							if (!ReadUInt8(holdDuration)) return false;
 							frame_counter += holdDuration;
-							break;
+							//break;
 						}
 
 						// Signals to reset the accumulator to the value

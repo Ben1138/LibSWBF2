@@ -68,10 +68,10 @@ namespace LibSWBF2::Wrappers
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
 		{
-			AnimationSet animSet;
-			if (AnimationSet::FromChunk(animationChunk, animSet))
+			AnimationBank animSet;
+			if (AnimationBank::FromChunk(animationChunk, animSet))
 			{
-				m_NameToIndexMaps->AnimationSetNameToIndex.emplace(ToLower(animSet.name), m_AnimationSets.Add(std::move(animSet)));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animSet.name), m_AnimationBanks.Add(std::move(animSet)));
 			}	
 		}
 		
@@ -495,17 +495,17 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const AnimationSet* Level::GetAnimationSet(String setName) const
+	const AnimationBank* Level::GetAnimationBank(String setName) const
 	{
 		if (setName.IsEmpty())
 		{
 			return nullptr;
 		}
 
-		auto it = m_NameToIndexMaps->AnimationSetNameToIndex.find(ToLower(setName));
-		if (it != m_NameToIndexMaps->AnimationSetNameToIndex.end())
+		auto it = m_NameToIndexMaps->AnimationBankNameToIndex.find(ToLower(setName));
+		if (it != m_NameToIndexMaps->AnimationBankNameToIndex.end())
 		{
-			return &m_AnimationSets[it->second];
+			return &m_AnimationBanks[it->second];
 		}
 
 		return nullptr;

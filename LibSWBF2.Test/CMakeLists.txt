@@ -16,7 +16,7 @@ add_executable(heightmapTest 	  testTerrainHeightMap.cpp)
 add_executable(entitiesTest  	  testInstancesEntities.cpp)
 add_executable(collisionTest 	  testCollision.cpp)
 add_executable(basicContainerTest testContainerBasic.cpp)
-add_executable(animSetTest 		  testAnimationSet.cpp)
+add_executable(animBankTest 	  testAnimationBank.cpp)
 
 
 #LINKING
@@ -28,4 +28,4 @@ target_link_libraries(heightmapTest 	  PUBLIC SWBF2)
 target_link_libraries(entitiesTest  	  PUBLIC SWBF2)
 target_link_libraries(collisionTest 	  PUBLIC SWBF2)
 target_link_libraries(basicContainerTest  PUBLIC SWBF2)
-target_link_libraries(animSetTest  		  PUBLIC SWBF2)
+target_link_libraries(animBankTest  	  PUBLIC SWBF2)

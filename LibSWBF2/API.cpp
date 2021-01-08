@@ -120,7 +120,7 @@ namespace LibSWBF2
     wrapperMap[typeof(Texture)]      = 2;
     wrapperMap[typeof(World)]        = 3;
     wrapperMap[typeof(EntityClass)]  = 4;
-    wrapperMap[typeof(AnimationSet)] = 5;
+    wrapperMap[typeof(AnimationBank)] = 5;
 	*/
 
 	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
@@ -138,7 +138,7 @@ namespace LibSWBF2
 			case 4:
 				return static_cast<const void *>(container -> FindEntityClass(name));
 			case 5:
-				return static_cast<const void *>(container -> FindAnimationSet(name));
+				return static_cast<const void *>(container -> FindAnimationBank(name));
 			default:
 				return nullptr;
 		}
@@ -286,10 +286,10 @@ namespace LibSWBF2
 	}
 
 
-	const AnimationSet* Level_GetAnimationSet(const Level* level, const char* setName)
+	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
 	{
 		CheckPtr(level, nullptr);
-		return level -> GetAnimationSet(setName);
+		return level -> GetAnimationBank(setName);
 	}
 
 
@@ -939,7 +939,7 @@ namespace LibSWBF2
 
 
 
-	const bool AnimationSet_GetCurve(const AnimationSet* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
                                                     const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
 	{
 		static List<uint16_t> indices;
@@ -960,7 +960,7 @@ namespace LibSWBF2
 	}
 
 
-    const uint32_t* AnimationSet_GetAnimationCRCs(const AnimationSet* setPtr, int& numCRCs)
+    const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs)
     {
     	static List<uint32_t> crcs;
 
@@ -971,7 +971,7 @@ namespace LibSWBF2
     }
     
 
-    const bool AnimationSet_GetAnimationMetadata(const AnimationSet* setPtr, uint32_t animCRC,
+    const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                     int& numFrames, int& numBones)
     {
 		CheckPtr(setPtr, false);

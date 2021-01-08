@@ -24,7 +24,7 @@ namespace LibSWBF2
 		struct Bone;
 		struct VertexWeight;
 		class CollisionPrimitive;
-		class AnimationSet;
+		class AnimationBank;
 		class EntityClass;
 		//class Script;
 	}
@@ -76,7 +76,7 @@ namespace LibSWBF2
 		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
 													const char*& light1Name, const char*& light2Name);
 		
-		LIBSWBF2_API const AnimationSet* Level_GetAnimationSet(const Level* level, const char* setName);
+		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
@@ -157,11 +157,11 @@ namespace LibSWBF2
 				                                    Vector2*& conePtr);
 
 
-		LIBSWBF2_API const bool AnimationSet_GetCurve(const AnimationSet* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
                                                         const uint16_t*& indicesBuffer, const float_t*& valuesBuffer,
                                                         int& numKeys);
-        LIBSWBF2_API const uint32_t* AnimationSet_GetAnimationCRCs(const AnimationSet* setPtr, int& numCRCs);
-        LIBSWBF2_API const bool AnimationSet_GetAnimationMetadata(const AnimationSet* setPtr, uint animCRC,
+        LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs);
+        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint animCRC,
                                                         int& numFrames, int& numBones);
 
 

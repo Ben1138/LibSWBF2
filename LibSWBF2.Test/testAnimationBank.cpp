@@ -22,19 +22,19 @@ int main(int ac, char **av)
 	//paths.Add(lvl_path);
 	auto container = LoadAndTrackContainer(paths);
 
-	auto animSet = container -> FindAnimationSet(animSetName);
+	auto animSet = container -> FindAnimationBank(animSetName);
 
 
 	if (animSet == nullptr)
 	{
-		COUT("\nAnimation Set not found");
+		COUT("\nAnimation bank not found");
 		return -1;
 	}
 
 
 	if (!animSet -> ContainsAnim(animNameCRC))
 	{
-		COUT(std::hex << animName.Buffer() << " doesn't belong to queried set! This set contains: ");
+		COUT(std::hex << animName.Buffer() << " doesn't belong to queried bank! This set contains: ");
 
 		List<uint32_t> hashes = animSet -> GetAnimHashes();
 

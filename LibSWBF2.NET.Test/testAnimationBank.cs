@@ -13,7 +13,7 @@ using LibSWBF2.Utils;
 
 namespace LibSWBF2.NET.Test
 {
-    class AnimationSetTest
+    class AnimationBankTest
     {
         static int Main(string[] args)
         {
@@ -38,22 +38,22 @@ namespace LibSWBF2.NET.Test
             }
 
 
-            AnimationSet set = level.GetAnimationSet(animSetName);
-            if (set == null)
+            AnimationBank bank = level.GetAnimationBank(animSetName);
+            if (bank == null)
             {
-                Console.WriteLine("Animation set not found!");
+                Console.WriteLine("Animation bank not found!");
                 TestBench.StopLogging();
                 return -1;
             }
 
 
-            uint[] animHashes = set.GetAnimationCRCs();
+            uint[] animHashes = bank.GetAnimationCRCs();
 
             foreach (uint hash in animHashes)
             {
                 if (hash == HashUtils.GetCRC(animationName))
                 {
-                    set.GetAnimationMetadata(hash, out int numFrames, out int numBones);
+                    bank.GetAnimationMetadata(hash, out int numFrames, out int numBones);
 
 
                     Console.WriteLine("Printing bone curves for {0}(0x{1:X})", animationName, hash);
@@ -65,7 +65,7 @@ namespace LibSWBF2.NET.Test
 
                         Console.WriteLine("\tBone #{0}: {1} (0x{2:X})", i, boneName, boneHash);
 
-                        bool status = set.GetCurve(hash, boneHash, 0,
+                        bool status = bank.GetCurve(hash, boneHash, 0,
                             out ushort[] inds, out float[] values);
 
                         if (!status)

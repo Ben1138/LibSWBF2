@@ -1,4 +1,7 @@
-#include "AnimationSet.h"
+#include "stdafx.h"
+#include "req.h"
+
+#include "AnimationBank.h"
 
 #include "Chunks/LVL/zaa_/BIN_.h"
 #include "Chunks/LVL/zaa_/TADA.h"
@@ -10,7 +13,7 @@ namespace LibSWBF2::Wrappers
 {
 	using namespace Chunks::LVL::animation;
 
-	bool AnimationSet::FromChunk(zaa_ *chunk, AnimationSet &setOut)
+	bool AnimationBank::FromChunk(zaa_ *chunk, AnimationBank &setOut)
 	{
 		if (chunk == nullptr)
 		{
@@ -39,19 +42,19 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	bool AnimationSet::ContainsAnim(uint32_t animHash) const
+	bool AnimationBank::ContainsAnim(uint32_t animHash) const
 	{
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes.Contains(animHash);
 	}
 
 
-	List<uint32_t> AnimationSet::GetAnimHashes() const
+	List<uint32_t> AnimationBank::GetAnimHashes() const
 	{
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes;
 	}
 
 
-	bool AnimationSet::GetAnimationMetadata(uint32_t animCRC, int &numFrames, int &numBones) const
+	bool AnimationBank::GetAnimationMetadata(uint32_t animCRC, int &numFrames, int &numBones) const
 	{
 		MINA *metadata = animChunk -> p_Bin -> p_AnimsMetadata;	
 
@@ -71,7 +74,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<uint32_t> AnimationSet::GetBoneHashes() const
+	List<uint32_t> AnimationBank::GetBoneHashes() const
 	{
 		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
 
@@ -88,7 +91,7 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	bool AnimationSet::GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
+	bool AnimationBank::GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
 										List<uint16_t> &frame_indices, List<float_t> &frame_values) const
 	{
 		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
