@@ -16,14 +16,19 @@ int main(int ac, char **av)
 	const List<World>& worlds = testLVL -> GetWorlds();
 	const List<EntityClass>& entities = testLVL -> GetEntityClasses();
 
-	const String geomProp("GeometryName");
+
+	//for 
 
 
-	COUT("Listing all entities:");
 
+
+	/*
 	List<String> values;
 	List<uint32_t> properties;
 
+	const String geomProp("GeometryName");
+
+	COUT("Listing all entities:");
 
 	for (int i = 0; i < entities.Size(); i++)
 	{
@@ -45,6 +50,7 @@ int main(int ac, char **av)
 			COUT("\tFailed to get overridden properties!");
 		}
 	}
+	*/
 
 	return 0;
 }
