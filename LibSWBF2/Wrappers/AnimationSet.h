@@ -1,14 +1,7 @@
 #pragma once
-#include "stdafx.h"
-#include "req.h"
-//#include "Types/LibString.h"
-//#include "Types/List.h"
 
 #include "Chunks/LVL/zaa_/zaa_.h"
 
-
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl;
 
 namespace LibSWBF2::Wrappers
 {
@@ -146,8 +139,15 @@ namespace LibSWBF2::Wrappers
 						if (byteVal == -0x80)
 						{
 							if (!ReadUInt8(holdDuration)) return false;
-							frame_counter += holdDuration;
-							break;
+							//frame_counter += holdDuration;
+
+							for (int i = 0; i < holdDuration; i++)
+							{
+								indicies.Add(frame_counter++);
+								values.Add(accum);
+							}
+
+							//break;
 						}
 
 						// Signals to reset the accumulator to the value

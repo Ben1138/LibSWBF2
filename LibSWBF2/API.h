@@ -161,7 +161,7 @@ namespace LibSWBF2
                                                         const uint16_t*& indicesBuffer, const float_t*& valuesBuffer,
                                                         int& numKeys);
         LIBSWBF2_API const uint32_t* AnimationSet_GetAnimationCRCs(const AnimationSet* setPtr, int& numCRCs);
-        LIBSWBF2_API const bool AnimationSet_GetAnimationMetadata(const AnimationSet* setPtr, uint animCRC,
+        LIBSWBF2_API const bool AnimationSet_GetAnimationMetadata(const AnimationSet* setPtr, uint32_t animCRC,
                                                         int& numFrames, int& numBones);
 
 

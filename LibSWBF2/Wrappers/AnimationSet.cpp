@@ -1,9 +1,13 @@
+#include "stdafx.h"
+#include "req.h"
+
 #include "AnimationSet.h"
 
 #include "Chunks/LVL/zaa_/BIN_.h"
 #include "Chunks/LVL/zaa_/TADA.h"
 #include "Chunks/LVL/zaa_/TNJA.h"
 #include "Chunks/LVL/zaa_/MINA.h"
+
 
 
 namespace LibSWBF2::Wrappers
@@ -111,40 +115,49 @@ namespace LibSWBF2::Wrappers
 				int num_bones = metadata -> m_AnimBoneCounts[i];
 				uint16_t num_frames = metadata -> m_AnimFrameCounts[i];	
 
+				//Some zaabin files have duplicate entries for bones in TNJA.
+				//The latter of the two is correct, so we try to find it first...
+
+				int tempOffset = TNJAOffset;
+				bool foundBone = false;
 				for (int j = 0; j < num_bones; j++)
 				{
-					if (index -> m_BoneCRCs[TNJAOffset] == boneHash)
+					if (index -> m_BoneCRCs[tempOffset] == boneHash)
 					{
-						int TADAOffset;
-
-						if (component < 4)
-						{
-							decompressor.SetDecompressionParams();
-							TADAOffset = index -> m_RotationOffsets[TNJAOffset * 4 + component];
-						}
-						else
-						{
-							float mult = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
-							float bias = index -> m_TranslationParams[4 * TNJAOffset + 3];
-
-							decompressor.SetDecompressionParams(bias, mult);
-							TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];
-						}
-
-						decompStatus = decompressor.DecompressFromOffset(
-												TADAOffset, num_frames, 
-												frame_indices, 
-												frame_values
-											);
-						break;
+						foundBone = true;
+						TNJAOffset = tempOffset;
 					}
-					else 
-					{
-						TNJAOffset++;
-					}
+
+					tempOffset++;
 				}
 
-				break;			
+				if (!foundBone)
+				{
+					return false;
+				}
+
+
+				int TADAOffset;
+
+				if (component < 4)
+				{
+					decompressor.SetDecompressionParams();
+					TADAOffset = index -> m_RotationOffsets[TNJAOffset * 4 + component];
+				}
+				else
+				{
+					float bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
+					float mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
+
+					decompressor.SetDecompressionParams(mult, bias);
+					TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];
+				}
+
+				decompStatus = decompressor.DecompressFromOffset(
+										TADAOffset, num_frames, 
+										frame_indices, 
+										frame_values
+									);	
 			}
 			else 
 			{
