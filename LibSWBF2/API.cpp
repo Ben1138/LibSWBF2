@@ -320,7 +320,10 @@ namespace LibSWBF2
     	delete imageData;
     	imageData = nullptr;
 
-		CheckPtr(tex,false);
+		if (tex == nullptr)
+		{
+			return false;
+		}
 
 		uint16_t w,h;
 	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);

@@ -45,6 +45,10 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Level* mainContainer, modl* modelChunk, Model& out);
 
+		bool IsSoftSkinned() const;
+		bool IsSkinned() const;
+
+
 		String GetName() const;
 		const List<Segment>& GetSegments() const;
 		bool IsSkeletalMesh() const;

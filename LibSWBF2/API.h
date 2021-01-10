@@ -161,8 +161,8 @@ namespace LibSWBF2
                                                         const uint16_t*& indicesBuffer, const float_t*& valuesBuffer,
                                                         int& numKeys);
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs);
-        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint animCRC,
-                                                        int& numFrames, int& numBones);
+        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
+                                                        			int& numFrames, int& numBones);
 
 
 		// Wrappers - Vectors

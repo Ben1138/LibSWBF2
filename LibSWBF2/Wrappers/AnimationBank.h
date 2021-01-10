@@ -1,8 +1,6 @@
 #pragma once
 #include "Chunks/LVL/zaa_/zaa_.h"
 
-
-
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -140,7 +138,6 @@ namespace LibSWBF2::Wrappers
 						{
 							if (!ReadUInt8(holdDuration)) return false;
 							frame_counter += holdDuration;
-							//break;
 						}
 
 						// Signals to reset the accumulator to the value

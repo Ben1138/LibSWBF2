@@ -4,6 +4,9 @@
 #include "Types/List.h"
 #include "InternalHelpers.h"
 
+#include <iostream>
+#define COUT(x) std::cout << x << std::endl;
+
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -62,6 +65,64 @@ namespace LibSWBF2::Wrappers
 			SKIN* skin = out.p_Segment->p_Skin;
 			BMAP* boneMap = out.p_Segment->p_BoneMap;
 
+			auto& boneIndicies = out.p_VertexBuffer -> m_BoneIndicies;
+			auto& boneWeights  = out.p_VertexBuffer -> m_Weights;
+
+			if (boneIndicies.Size() > 0)
+			{
+				if (boneMap == nullptr)
+				{
+					LOG_ERROR("Bone map missing...");
+					return true;			
+				}
+
+				if (boneWeights.Size() != 0)
+				{
+					for (int i = 0; i < boneIndicies.Size(); i++)
+					{
+						uint8_t index =  boneIndicies[i].m_X;
+						uint8_t index1 = boneIndicies[i].m_Y;
+						uint8_t index2 = boneIndicies[i].m_Z;
+
+						if (index  >= boneMap->m_IndexCount || 
+							index1 >= boneMap->m_IndexCount ||
+							index2 >= boneMap->m_IndexCount)
+						{
+							COUT(fmt::format("Softskin index ({},{},{}) is >= bone map length {}", index, index1, index2, boneMap->m_IndexCount).c_str())
+						}
+						else 
+						{
+							index = (uint8_t)  boneMap->m_IndexMap[index];
+							index1 = (uint8_t) boneMap->m_IndexMap[index1];
+							index2 = (uint8_t) boneMap->m_IndexMap[index2];
+						}
+
+						out.m_VertexWeights.Add({ boneWeights[i].m_X, index });
+						out.m_VertexWeights.Add({ boneWeights[i].m_Y, index1 });
+						out.m_VertexWeights.Add({ boneWeights[i].m_Z, index2 });
+					}
+				}
+				else 
+				{
+					for (int i = 0; i < boneIndicies.Size(); i++)
+					{
+						uint8_t index = boneIndicies[i].m_X;
+
+						if (index >= boneMap->m_IndexCount)
+						{
+							COUT(fmt::format("Index {} is >= bone map length {}", index, boneMap->m_IndexCount).c_str())
+						}
+						else 
+						{
+							index = (uint8_t) boneMap->m_IndexMap[index];
+						}
+
+						out.m_VertexWeights.Add({ 1.0f, index });
+					}
+				}
+			}
+
+			/*
 			if (skin != nullptr && boneMap != nullptr && skin->m_Type == 1)
 			{
 				for (size_t i = 0; i < skin->m_VertexCount; ++i)
@@ -90,6 +151,7 @@ namespace LibSWBF2::Wrappers
 			{
 				LOG_WARN("Bone map is missing!");
 			}
+			*/
 		}
 
 		return true;
