@@ -93,6 +93,40 @@ namespace LibSWBF2.NET.Test
         }
 
 
+        /*
+        public static Container LoadAndTrackContainer(List<string> paths, out List<>)
+        {
+            Container container = new Container();
+
+            List<uint> handles = new List<uint>();
+
+            foreach (var path in paths)
+            {
+                handles.Add(container.AddLevel(path));
+            }
+
+            container.LoadLevels();
+
+            while (!container.IsDone())
+            {
+                string status = "\r";
+                for (int i = 0; i < handles.Count; i++)
+                {
+                    float progress = container.GetProgress(handles[i]);
+                    status += String.Format("{0}: {1}%\t", i, (int) (progress * 100.0f));
+                }
+
+                Console.Write(status);
+            }
+            Console.WriteLine("");
+
+            return container;
+        }
+        */
+
+
+
+
         public static void StartLogging(ELogType logType)
         {
             Logger.SetLogLevel(ELogType.Warning);
