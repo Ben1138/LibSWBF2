@@ -137,7 +137,18 @@ namespace LibSWBF2::Wrappers
 						if (byteVal == -0x80)
 						{
 							if (!ReadUInt8(holdDuration)) return false;
+
+						#ifndef _ANIM_DEBUG
 							frame_counter += holdDuration;
+						#else
+							for (int i = 0; i < holdDuration; i++)
+							{
+								indicies.Add(frame_counter);
+								values.Add(accum);
+
+								frame_counter++;
+							}
+						#endif
 						}
 
 						// Signals to reset the accumulator to the value
