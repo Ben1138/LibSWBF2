@@ -115,6 +115,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const uint32_t Segment_GetMaterialFlags(const Segment* segment);
 		LIBSWBF2_API const void     Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
 		LIBSWBF2_API const char*    Segment_GetBone(const Segment* segment);
+		LIBSWBF2_API const uint8_t  Segment_IsPretransformed(const Segment* segment);
 		
 
 		// Wrappers - CollisionMesh
