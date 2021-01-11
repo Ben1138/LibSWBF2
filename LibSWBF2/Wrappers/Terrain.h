@@ -33,6 +33,9 @@ namespace LibSWBF2::Wrappers
 		List<Vector2> m_TexCoords;
 		List<Color> m_Colors;
 
+		mutable List<uint32_t> indices;
+		mutable ETopology lastRequestedTopology;
+
 		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
 		mutable uint8_t* p_BlendMap;  //
 
