@@ -61,12 +61,15 @@ namespace LibSWBF2.NET.Test
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
                     }
-
-                    if (model.HasNonTrivialHierarchy)
+                    else
                     {
-                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
+                        if (model.HasNonTrivialHierarchy)
+                        {
+                            Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
+                        }
                     }
 
+                    Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
                     
                     Console.Write("\n\t\tTexture: " + texName);
                     Texture tex = level.GetTexture(texName);

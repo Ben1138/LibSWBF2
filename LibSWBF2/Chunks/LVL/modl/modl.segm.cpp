@@ -49,7 +49,6 @@ namespace LibSWBF2::Chunks::LVL::modl
             }
             else if (next == "BMAP"_h)
             {
-                //LOG_WARN("Reading bone map chunk at {}!", stream.GetPosition());
                 READ_CHILD(stream, p_BoneMap);
             }
             else if (next == "VBUF"_h)

@@ -65,5 +65,7 @@ namespace LibSWBF2::Wrappers
 
 		// returns the skeleton bone this segment belongs to
 		String GetBone() const;
+
+		bool IsPretransformed() const;
 	};
 }

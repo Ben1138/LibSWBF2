@@ -679,13 +679,6 @@ namespace LibSWBF2
 		if (segment -> GetVertexWeights(count, vwBuffer))
 		{
 			numVWs = (int32_t) count;
-
-			/*
-			for (int i = 0; i < numVWs; i++)
-			{
-				std::cout << "Weight, Index = " << vwBuffer[i].m_WeightValue << ", " << (int) vwBuffer[i].m_BoneIndex << std::endl;
-			}
-			*/
 		}
 		else 
 		{
@@ -734,6 +727,14 @@ namespace LibSWBF2
 		boneName = segment -> GetBone();
 		return boneName.Buffer();
 	}
+
+
+	const uint8_t Segment_IsPretransformed(const Segment* segment)
+	{
+		CheckPtr(segment, false);
+		return segment -> IsPretransformed();
+	}
+
 
 	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)
 	{

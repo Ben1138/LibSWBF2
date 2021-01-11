@@ -68,10 +68,10 @@ namespace LibSWBF2::Wrappers
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
 		{
-			AnimationBank animSet;
-			if (AnimationBank::FromChunk(animationChunk, animSet))
+			AnimationBank animBank;
+			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
-				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animSet.name), m_AnimationBanks.Add(std::move(animSet)));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
 			}	
 		}
 		
@@ -511,7 +511,6 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 
 	}
-
 
 
 	skel* Level::FindSkeleton(String skeletonName) const

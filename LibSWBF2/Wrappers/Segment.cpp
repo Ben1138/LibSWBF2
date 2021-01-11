@@ -88,7 +88,7 @@ namespace LibSWBF2::Wrappers
 							index1 >= boneMap->m_IndexCount ||
 							index2 >= boneMap->m_IndexCount)
 						{
-							COUT(fmt::format("Softskin index ({},{},{}) is >= bone map length {}", index, index1, index2, boneMap->m_IndexCount).c_str())
+							LOG_ERROR("Softskin index ({},{},{}) is >= bone map length {}", index, index1, index2, boneMap->m_IndexCount);
 						}
 						else 
 						{
@@ -110,7 +110,7 @@ namespace LibSWBF2::Wrappers
 
 						if (index >= boneMap->m_IndexCount)
 						{
-							COUT(fmt::format("Index {} is >= bone map length {}", index, boneMap->m_IndexCount).c_str())
+							LOG_ERROR("Index {} is >= bone map length {}", index, boneMap->m_IndexCount);
 						}
 						else 
 						{
@@ -121,37 +121,6 @@ namespace LibSWBF2::Wrappers
 					}
 				}
 			}
-
-			/*
-			if (skin != nullptr && boneMap != nullptr && skin->m_Type == 1)
-			{
-				for (size_t i = 0; i < skin->m_VertexCount; ++i)
-				{
-					uint8_t localIndex = skin->m_BoneIndices[i];
-					if (localIndex >= boneMap->m_IndexCount)
-					{
-						LOG_WARN("Local index {} points out of bounds into Bone Map of size {}!", localIndex, boneMap->m_IndexCount);
-					}
-					else
-					{
-						uint8_t boneIndex = boneMap->m_IndexMap[localIndex];
-						if (boneIndex >= skeleton->p_BoneNames->m_Texts.Size())
-						{
-							LOG_WARN("Bone index {} is out of bounds {}!", boneIndex, skeleton->p_BoneNames->m_Texts.Size());
-						}
-						else
-						{
-							//String boneName = skeleton->p_BoneNames->m_Texts[boneIndex].Buffer();
-							out.m_VertexWeights.Add({ 1.0f, boneIndex });
-						}
-					}
-				}
-			}
-			else if (skin != nullptr && boneMap == nullptr && skin->m_Type == 1)
-			{
-				LOG_WARN("Bone map is missing!");
-			}
-			*/
 		}
 
 		return true;
@@ -282,5 +251,13 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return "";
+	}
+
+
+	bool Segment::IsPretransformed() const
+	{
+		auto flags = p_VertexBuffer -> m_Flags;
+		return ((flags & EVBUFFlags::Unknown1) != 0 &&
+				(flags & EVBUFFlags::BlendWeight) == 0);
 	}
 }

@@ -107,5 +107,10 @@ namespace LibSWBF2.Wrappers
         {
             return APIWrapper.Segment_GetMaterialFlags(NativeInstance);
         }
+
+        public bool IsPretransformed()
+        {
+            return APIWrapper.Segment_IsPretransformed(NativeInstance);           
+        }
     }
 }

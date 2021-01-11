@@ -202,7 +202,9 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Segment_GetBone(IntPtr seg);
 
-
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Segment_IsPretransformed(IntPtr seg);
 
          // World //
 
