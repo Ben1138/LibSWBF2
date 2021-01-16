@@ -189,9 +189,6 @@ namespace LibSWBF2::Wrappers
 
 	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
-		static List<uint32_t> indices;
-		static ETopology lastRequestedTopology;
-
 		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
 		{
 			indices.Clear();
