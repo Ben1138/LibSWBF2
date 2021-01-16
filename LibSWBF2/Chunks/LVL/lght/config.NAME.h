@@ -3,9 +3,6 @@
 #include "Hashing.h"
 
 
-
-using namespace LibSWBF2::Chunks::LVL::common;
-
 namespace LibSWBF2::Chunks::LVL::lght
 {
     struct LIBSWBF2_API config_NAME : public GenericChunk<"NAME"_m>
@@ -17,7 +14,6 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         FNVHash m_WorldName;
 
-        String config_NAME::ToString() override;
-
+        String ToString() override;
     };
 }

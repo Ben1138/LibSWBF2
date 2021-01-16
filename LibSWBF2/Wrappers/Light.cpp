@@ -6,7 +6,7 @@
 
 namespace LibSWBF2::Wrappers
 {
-    bool Light::FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out, FNVHash worldName)
+    bool Light::FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out)
     {
         if (body == nullptr || tag == nullptr)
         {
@@ -15,7 +15,6 @@ namespace LibSWBF2::Wrappers
         }
 
 	    out = Light(tag, body);
-        out.m_WorldName = worldName;
 	    return true;
     }
 

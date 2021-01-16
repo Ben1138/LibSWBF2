@@ -86,6 +86,7 @@ namespace LibSWBF2::Wrappers
                 					  lightListChunk ->	p_LightBodies[i], 
                 					  newLight))
                 {
+                	newLight.m_WorldName = lightListChunk -> p_Marker -> m_WorldName;
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
                 }
 			}
@@ -179,6 +180,17 @@ namespace LibSWBF2::Wrappers
 			World world;
 			if (World::FromChunk(p_MainContainer, worldChunk, world))
 			{
+				FNVHash worldName = FNV::Hash(world.GetName());
+				for (int i = 0; i < m_Lights.Size(); i++)
+				{
+					auto& light = m_Lights[i];
+
+					if (light.m_WorldName == worldName)
+					{
+						world.m_Lights.Add(light);
+					}
+				}
+
 				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
 		}

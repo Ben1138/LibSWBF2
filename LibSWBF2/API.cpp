@@ -791,6 +791,21 @@ namespace LibSWBF2
     	return (void *) world -> GetTerrain();
     }
 
+
+    const uint8_t World_GetLights(const World* world, Light*& lightArr, int32_t& count, int32_t& inc)
+    {
+    	CheckPtr(world, false);
+
+    	const List<Light>& lights = world -> GetLights();
+
+    	lightArr = lights.GetArrayPtr();
+    	count = lights.Size();
+    	inc = sizeof(Light);
+
+    	return true;
+    }
+
+
     
 
     // Wrappers - Instance
