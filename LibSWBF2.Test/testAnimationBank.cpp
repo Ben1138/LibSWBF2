@@ -1,10 +1,17 @@
 #include "testing.h"
 
 using LibSWBF2::CRC;
-
+using LibSWBF2::FNV;
 
 int main(int ac, char **av)
 {
+	uint32_t t = (uint32_t) FNV::Hash("mus1");
+	COUT(fmt::format("mus1 crc: 0x{0:x}", t).c_str());
+
+	//uint32_t t = (uint32_t) CRC::CalcLowerCRC("mus1");
+	//COUT(fmt::format("mus1 crc: 0x{0:x}", t).c_str());
+
+
 	if (ac < 4) return -1;
 
 	List<String> paths;
@@ -13,6 +20,8 @@ int main(int ac, char **av)
 	{
 		paths.Add(av[i]);
 	}
+
+
 
 	String animSetName = av[ac - 2];
 	String animName = av[ac - 1];

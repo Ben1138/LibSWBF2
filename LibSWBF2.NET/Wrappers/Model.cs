@@ -45,6 +45,16 @@ namespace LibSWBF2.Wrappers
         }
 
 
+        public bool IsSkeletonBroken
+        {
+            get
+            {
+                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                return APIWrapper.Model_IsSkeletonBroken(NativeInstance);
+            }
+        }
+
+
 
         public Bone[] GetSkeleton()
         {

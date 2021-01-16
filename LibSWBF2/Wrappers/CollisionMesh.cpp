@@ -23,6 +23,11 @@ namespace LibSWBF2::Wrappers
 
     String CollisionMesh::GetName() const
     {
+        if (p_CollisionChunk -> p_ChunkName == nullptr){
+            LOG_ERROR("CollisionMesh chunk at 0x{0:x} missing name.", p_CollisionChunk -> GetPosition());
+            return "";
+        }
+
         return p_CollisionChunk -> p_ChunkName -> ToString();
     }
 

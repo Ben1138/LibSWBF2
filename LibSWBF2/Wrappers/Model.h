@@ -54,6 +54,8 @@ namespace LibSWBF2::Wrappers
 		bool IsSkeletalMesh() const;
 		bool HasNonTrivialHierarchy() const;
 		bool GetSkeleton(List<Bone>& bones) const;
+		bool IsSkeletonBroken() const;
+
 
 		const CollisionMesh& GetCollisionMesh() const;
 		List<CollisionPrimitive> GetCollisionPrimitives(ECollisionMaskFlags mask =
