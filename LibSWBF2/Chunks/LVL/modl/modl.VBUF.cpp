@@ -72,13 +72,6 @@ namespace LibSWBF2::Chunks::LVL::modl
             {
                 if ((m_Flags & EVBUFFlags::BlendWeightCompressed) != 0)
                 {
-                    // TODO: generalize Vectors
-                    //int8_t data[4];
-                    //data[0] = stream.ReadByte();
-                    //data[1] = stream.ReadByte();
-                    //data[2] = stream.ReadByte();
-                    //data[3] = stream.ReadByte();
-                    //m_Weights.Add({ (float_t)data[2], (float_t)data[1], 1.0f - data[2] - data[1] });
                     int8_t data[4];
                     data[0] = stream.ReadByte();
                     data[1] = stream.ReadByte();
@@ -87,26 +80,13 @@ namespace LibSWBF2::Chunks::LVL::modl
 
                     float_t one = (float) data[1];
                     float_t two = (float) data[2];
-                    m_Weights.Add({ two, one, 1.0f - two - one});                    
-
+                    m_Weights.Add({ two, one, 1.0f - two - one});
                 }
                 else
                 {
-
-
-                    float_t x, y;
-                    x = stream.ReadFloat();
-                    y = stream.ReadFloat();
-
+                    float_t x = stream.ReadFloat();
+                    float_t y = stream.ReadFloat();
                     m_Weights.Add({ x, y, 1.0f - x - y});
-
-                    /*
-                    float_t x, y;
-                    x = stream.ReadFloat();
-                    y = stream.ReadFloat();
-
-                    m_Weights.Add({ x, y, 1.0f - x - y});
-                    */
                 }
             }
 

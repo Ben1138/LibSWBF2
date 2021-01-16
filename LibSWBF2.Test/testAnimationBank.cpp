@@ -84,7 +84,7 @@ int main(int ac, char **av)
 			COUT(fmt::format("0x{0:x}", boneCRC).c_str());
 
 
-			/*
+			
 			animSet -> GetCurve(animNameCRC, boneCRC, 4, indices,  values);
 			animSet -> GetCurve(animNameCRC, boneCRC, 5, indices1, values1);
 			animSet -> GetCurve(animNameCRC, boneCRC, 6, indices2, values2);
@@ -93,9 +93,9 @@ int main(int ac, char **av)
 			{
 	        	COUT(fmt::format("\t{}: ({}, {}, {})", j, values[j], values1[j], values2[j]));
 			}
-			*/
-
 			
+
+			/*			
 			for (uint16_t j = 0; j < 7; j++)
 			{
 				if (!animSet -> GetCurve(animNameCRC, boneCRC, j, indices, values))
@@ -119,6 +119,7 @@ int main(int ac, char **av)
 					COUT("\t\t\t" << indices[k] << ": " << values[k]);
 				}
 			}
+			*/
 			
 		}
 	//}
