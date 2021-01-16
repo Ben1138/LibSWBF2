@@ -221,6 +221,11 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr World_GetTerrain(IntPtr world);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool World_GetLights(IntPtr world, out IntPtr lightArr, out int count, out int inc);
+
+
 
         // Instance //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

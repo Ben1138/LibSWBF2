@@ -46,5 +46,16 @@ namespace LibSWBF2.Wrappers
             return new Terrain(terPtr);
         }
 
+
+        public Light[] GetLights()
+        {            
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (!APIWrapper.World_GetLights(NativeInstance, out IntPtr lightArr, out int count, out int inc))
+            {
+                return new Light[0];
+            }
+
+            return MemUtils.IntPtrToWrapperArray<Light>(lightArr, count, inc);
+        }
     }
 }
