@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
 using LibSWBF2.Logging;
 using LibSWBF2.Utils;
 
@@ -30,5 +31,20 @@ namespace LibSWBF2.Wrappers
             APIWrapper.World_GetInstances(NativeInstance, out IntPtr instArr, out uint instCount);
             return MemUtils.IntPtrToWrapperArray<Instance>(instArr, (int) instCount);
         }
+
+
+        public Terrain GetTerrain()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            IntPtr terPtr = APIWrapper.World_GetTerrain(NativeInstance);
+
+            if (terPtr == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            return new Terrain(terPtr);
+        }
+
     }
 }

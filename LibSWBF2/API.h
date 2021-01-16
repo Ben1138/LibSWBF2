@@ -92,6 +92,7 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t 	 Model_IsSkeletalMesh(const Model* model);
 		LIBSWBF2_API uint8_t     Model_HasNonTrivialHierarchy(const Model* model);
 		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
+		LIBSWBF2_API uint8_t 	 Model_IsSkeletonBroken(const Model* model);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
 		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
@@ -144,7 +145,7 @@ namespace LibSWBF2
 		// Wrappers - World
         LIBSWBF2_API const char* World_GetName(const World* world);
         LIBSWBF2_API const void  World_GetInstances(const World* world, const Instance**& instanceArr, uint32_t& instCount);
-
+        LIBSWBF2_API const void* World_GetTerrain(const World* world);
         // Wrappers - Instance
         LIBSWBF2_API const char* 	Instance_GetName(const Instance* instance);
         LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);

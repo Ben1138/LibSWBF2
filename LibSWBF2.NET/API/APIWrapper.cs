@@ -164,6 +164,10 @@ namespace LibSWBF2
         public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
                                                             out int numPrims, out IntPtr ptr);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Model_IsSkeletonBroken(IntPtr model);
+
 
         // Bone //
 
@@ -213,6 +217,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void World_GetInstances(IntPtr world, out IntPtr instanceArr, out uint instCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr World_GetTerrain(IntPtr world);
 
 
         // Instance //

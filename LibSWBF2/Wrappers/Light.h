@@ -35,5 +35,7 @@ namespace LibSWBF2::Wrappers
 		bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut) const;
 
 		String ToString() const;
+
+		FNVHash m_WorldName;
 	};
 }

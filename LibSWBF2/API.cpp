@@ -509,6 +509,14 @@ namespace LibSWBF2
 	}
 
 
+	uint8_t Model_IsSkeletonBroken(const Model* model)
+	{
+		CheckPtr(model,false);
+		return model -> IsSkeletonBroken();
+	}
+
+
+
 	const void Bone_FetchAllFields(const Bone* bone, const char *&name,
 									const char *& parentName, const Vector3*& loc,
 									const Vector4*& rot)
@@ -775,6 +783,14 @@ namespace LibSWBF2
 		instanceArr = segmentPtrs.GetArrayPtr();
 		instCount = (uint32_t)segmentPtrs.Size();
     }
+
+
+    const void* World_GetTerrain(const World* world)
+    {
+    	CheckPtr(world, nullptr);
+    	return (void *) world -> GetTerrain();
+    }
+
     
 
     // Wrappers - Instance

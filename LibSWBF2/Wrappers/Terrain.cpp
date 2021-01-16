@@ -190,6 +190,7 @@ namespace LibSWBF2::Wrappers
 	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
 		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
+		//if (true)
 		{
 			indices.Clear();
 
@@ -312,8 +313,6 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
-    		LOG_WARN("Initializing heightmap");
-
 	        float_t gridSize     = (float_t) dim;
 			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
@@ -336,6 +335,13 @@ namespace LibSWBF2::Wrappers
 
 			for (int i = 0; i < (int) ibufLength; i++)
 			{
+				/*
+				if (ibufData[i] >= m_Positions.Size())
+				{
+					continue;
+				}
+				*/
+
 				const Vector3& curVert = m_Positions[ibufData[i]];
 
 				if (fmod(curVert.m_X, gridUnitSize) > .1 || //omit irregularities
