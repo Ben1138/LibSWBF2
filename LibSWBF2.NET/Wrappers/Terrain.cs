@@ -56,16 +56,27 @@ namespace LibSWBF2.Wrappers
         } 
 
 
-        public T[] GetPositions<T>() where T : unmanaged
+        public uint[] GetIndexBuffer()
         {
-            return new T[1];
-        }
-
-        public int[] GetIndices()
-        {
-            return new int[0];
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetIndexBuffer(NativeInstance, out IntPtr buf, out int numInds);
+            return MemUtils.IntPtrToArray<uint>(buf, numInds);
         }
 
 
+        public float[] GetPositionsBuffer()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetVertexBuffer(NativeInstance, out IntPtr buf, out int numVerts);
+            return MemUtils.IntPtrToArray<float>(buf, numVerts * 3);
+        }
+
+
+        public float[] GetNormalsBuffer()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Terrain_GetNormalsBuffer(NativeInstance, out IntPtr buf, out int numVerts);
+            return MemUtils.IntPtrToArray<float>(buf, numVerts * 3);   
+        }
     }
 }

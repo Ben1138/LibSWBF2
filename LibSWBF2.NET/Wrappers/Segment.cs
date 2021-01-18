@@ -77,18 +77,6 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToArray<VertexWeight>(vwBuffer, numVWs);            
         }
 
-        public string GetMaterialTexName()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            IntPtr strPtr = APIWrapper.Segment_GetMaterialTexName(NativeInstance);
-
-            if (strPtr == IntPtr.Zero)
-            {
-                return "";
-            }            
-            return Marshal.PtrToStringAnsi(strPtr);
-        }
-
         public int GetTopology()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
@@ -105,12 +93,6 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return new Material(APIWrapper.Segment_GetMaterial(NativeInstance));            
-        }
-
-
-        public uint GetMaterialFlags()
-        {
-            return APIWrapper.Segment_GetMaterialFlags(NativeInstance);
         }
 
         public bool IsPretransformed()
