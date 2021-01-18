@@ -94,7 +94,7 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
 		LIBSWBF2_API uint8_t 	 Model_IsSkeletonBroken(const Model* model);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
-		LIBSWBF2_API const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
+		LIBSWBF2_API const void  Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
 
 		// Wrappers - EntityClass
@@ -111,9 +111,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
 		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
 		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
-		LIBSWBF2_API const char*     Segment_GetMaterialTexName(const Segment* segment);
 		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
-		LIBSWBF2_API const uint32_t  Segment_GetMaterialFlags(const Segment* segment);
 		LIBSWBF2_API const void      Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
 		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);
 		LIBSWBF2_API const uint8_t   Segment_IsPretransformed(const Segment* segment);
@@ -141,6 +139,10 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
+		LIBSWBF2_API const void Terrain_GetVertexBuffer(const Terrain *ter, float_t*& positions, int32_t& numVerts);
+		LIBSWBF2_API const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals);
+
+		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numInds);
 
 		// Wrappers - World
         LIBSWBF2_API const char* World_GetName(const World* world);
@@ -162,8 +164,7 @@ namespace LibSWBF2
 
 		// Wrappers - AnimationBank
 		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
-                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer,
-                                                        int& numKeys);
+                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys);
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int& numFrames, int& numBones);

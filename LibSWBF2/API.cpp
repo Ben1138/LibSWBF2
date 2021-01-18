@@ -414,6 +414,87 @@ namespace LibSWBF2
 	}
 
 
+	const void Terrain_GetVertexBuffer(const Terrain *terr, float_t*& positions, int32_t& numVerts)
+	{
+		static float_t *rawBuffer = nullptr;
+
+		numVerts = 0;
+		CheckPtr(terr,)
+
+		delete rawBuffer;
+
+		Vector3 *positionsBuf;
+		uint32_t numBufVerts;
+
+		terr -> GetVertexBuffer(numBufVerts, positionsBuf);
+
+		rawBuffer = new float_t[numBufVerts * 3];
+
+		numVerts = (int32_t) numBufVerts;
+
+		for (int32_t i = 0; i < numVerts * 3; i+=3)
+		{
+			Vector3& cur = positionsBuf[i / 3];
+			rawBuffer[i] = cur.m_X;
+			rawBuffer[i+1] = cur.m_Y;
+			rawBuffer[i+2] = cur.m_Z;
+		}
+
+		positions = rawBuffer;
+	}
+
+
+	const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals)
+	{
+		static float_t *rawBuffer = nullptr;
+
+		numNormals = 0;
+		CheckPtr(ter,)
+
+		delete rawBuffer;
+
+		Vector3 *normalsBuf;
+		uint32_t numBufVerts;
+
+		ter -> GetNormalBuffer(numBufVerts, normalsBuf);
+
+		rawBuffer = new float_t[numBufVerts * 3];
+
+		numNormals = (int32_t) numBufVerts;
+
+		for (int32_t i = 0; i < numNormals * 3; i+=3)
+		{
+			Vector3& cur = normalsBuf[i / 3];
+			rawBuffer[i] = cur.m_X;
+			rawBuffer[i+1] = cur.m_Y;
+			rawBuffer[i+2] = cur.m_Z;
+		}
+
+		normals = rawBuffer;
+	}
+
+	
+
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
+	{
+		numIndsOut = 0;
+		CheckPtr(terr,)
+
+		//uint16_t *indicies;
+		uint32_t numInds;
+		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+		numIndsOut = numInds;
+
+		/*
+		indexBuffer = new int[numInds];
+
+		for (int i = 0; i < (int) numInds; i++)
+		{
+			indexBuffer[i] = (int) indicies[i];
+		}
+		*/
+	}
+
 
 	const char* Model_GetName(const Model* model)
 	{
@@ -700,36 +781,9 @@ namespace LibSWBF2
 		return &(segment -> GetMaterial());
 	}
 
-	
-	const char* Segment_GetMaterialTexName(const Segment* segment)
-	{
-		static String nameString;
-		
-		//static const char *missing = "TEXTURE_MISSING";
-		const Material& segmentMat = segment -> GetMaterial();
-		const Texture* segmentTex = segmentMat.GetTexture(0);
-
-		if (segmentTex == nullptr)
-		{
-			nameString = "";
-		}
-		else 
-		{
-			nameString = segmentTex -> GetName();
-		}
-		//LOG_WARN("\t\tName String: {}", nameString);
-
-		return nameString.Buffer();
-	}
-
 	const int32_t Segment_GetTopology(const Segment* segment)
 	{
 		return (int32_t) segment -> GetTopology();
-	}
-
-	const uint32_t Segment_GetMaterialFlags(const Segment* segment)
-	{
-		return segment == nullptr ? 0 : (uint32_t) segment->GetMaterial().GetFlags();
 	}
 
 	const char* Segment_GetBone(const Segment* segment)

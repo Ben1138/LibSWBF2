@@ -82,10 +82,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--Due some strange mono bug, xbuild only differentiates between Windows and Unix, so we detect Mac by checking for libc.dylib-->
   <PropertyGroup Condition="'$(OS)' == 'Unix' and  $([System.IO.File]::Exists('/usr/lib/libc.dylib'))">
-    <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.dylib" "$(TargetDir)libSWBF2.dylib"</PostBuildEvent>
+    <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.dylib" "$(TargetDir)libLibSWBF2.dylib"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(OS)' == 'Unix' and  !$([System.IO.File]::Exists('/usr/lib/libc.dylib'))">
-    <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.so" "$(TargetDir)libSWBF2.so"</PostBuildEvent>
+    <PostBuildEvent>cp "$LIBSWBF2_LIB/libSWBF2.so" "$(TargetDir)libLibSWBF2.so"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <PostBuildEvent>copy "$(SolutionDir)x64\$(ConfigurationName)\LibSWBF2.dll" "$(TargetDir)LibSWBF2.dll" /y</PostBuildEvent>

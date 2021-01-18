@@ -5,11 +5,7 @@ namespace LibSWBF2
 {
     internal static class APIWrapper
     {
-#if WIN32
         const string LIB_NAME = "LibSWBF2";
-#else
-        const string LIB_NAME = "SWBF2";
-#endif
 
         // Memory //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -136,6 +132,16 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetHeightBounds(IntPtr terrain, out float floor, out float ceiling);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetVertexBuffer(IntPtr terPtr, out IntPtr buf, out int numVerts);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetNormalsBuffer(IntPtr terPtr, out IntPtr buf, out int numNormals);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetIndexBuffer(IntPtr terPtr, out IntPtr buf, out int numInds);
+
+
 
         // Model //
 
@@ -174,6 +180,7 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]    
         public static extern void Bone_FetchAllFields(IntPtr NativeInstance, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
 
+
         // Segment //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -196,12 +203,6 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int Segment_GetTopology(IntPtr segment);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Segment_GetMaterialTexName(IntPtr seg);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint Segment_GetMaterialFlags(IntPtr seg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Segment_GetBone(IntPtr seg);
@@ -230,8 +231,8 @@ namespace LibSWBF2
         public static extern bool World_GetLights(IntPtr world, out IntPtr lightArr, out int count, out int inc);
 
 
-
         // Instance //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetName(IntPtr instance);
 
@@ -245,7 +246,7 @@ namespace LibSWBF2
         public static extern IntPtr Instance_GetEntityClassName(IntPtr instance);
 
 
-        // Light - All-getter method called on class construction w/valid ptr //
+        // Light //
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Light_GetAllFields(
