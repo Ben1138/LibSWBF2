@@ -1114,6 +1114,9 @@ namespace LibSWBF2
     {
     	static List<uint32_t> crcs;
 
+    	numCRCs = 0;
+    	CheckPtr(setPtr, nullptr);
+
     	crcs = setPtr -> GetAnimHashes();
     	
     	numCRCs = crcs.Size();
