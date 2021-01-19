@@ -187,6 +187,15 @@ namespace LibSWBF2
 	}
 
 
+	void Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc)
+	{
+		const List<EntityClass>& classes = level->GetEntityClasses();
+		classArr = (void *) classes.GetArrayPtr();
+		classCount = (int32_t) classes.Size();
+		inc = sizeof(EntityClass);
+	}
+
+
 	const Texture* Level_GetTexture(const Level* level, const char* texName)
 	{
 		CheckPtr(level, nullptr);
@@ -951,6 +960,16 @@ namespace LibSWBF2
 		}
 
 		return "";
+    }
+
+
+    const char *EntityClass_GetName(const EntityClass *ec)
+    {
+    	CheckPtr(ec,"")
+    	static String typeName;
+
+    	typeName = ec -> GetTypeName();
+    	return typeName.Buffer();     	
     }
 
 
