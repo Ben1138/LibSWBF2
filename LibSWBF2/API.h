@@ -70,6 +70,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void    Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
 		LIBSWBF2_API void 	 Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc);
+		LIBSWBF2_API void    Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc);
 		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
 		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
@@ -100,6 +101,7 @@ namespace LibSWBF2
 		// Wrappers - EntityClass
 		LIBSWBF2_API const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
 		LIBSWBF2_API const char *EntityClass_GetBaseName(const EntityClass *ec);
+		LIBSWBF2_API const char *EntityClass_GetName(const EntityClass *ec); 
 		LIBSWBF2_API uint8_t     EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t &count);
 
 		// Wrappers - Bone
@@ -141,7 +143,6 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
 		LIBSWBF2_API const void Terrain_GetVertexBuffer(const Terrain *ter, float_t*& positions, int32_t& numVerts);
 		LIBSWBF2_API const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals);
-
 		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numInds);
 
 		// Wrappers - World

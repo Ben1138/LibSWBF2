@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestBench.cs" />
-    <Compile Include="testModelSegments.cs"/>
+    <Compile Include="testClasses.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

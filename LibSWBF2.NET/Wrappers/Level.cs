@@ -102,6 +102,7 @@ namespace LibSWBF2.Wrappers
 
         public Model[] GetModels()
         {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount, out int inc);
             Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount, inc);
 
@@ -111,6 +112,15 @@ namespace LibSWBF2.Wrappers
             }
 
             return models;
+        }
+
+
+        public EntityClass[] GetEntityClasses()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetEntityClasses(NativeInstance, out IntPtr classArr, out int classCount, out int inc);
+            EntityClass[] classes = MemUtils.IntPtrToWrapperArray<EntityClass>(classArr, classCount, inc);
+            return classes;
         }
 
 

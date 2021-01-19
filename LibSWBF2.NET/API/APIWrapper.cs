@@ -82,6 +82,9 @@ namespace LibSWBF2
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount, out int inc);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetEntityClasses(IntPtr level, out IntPtr classArr, out int classCount, out int inc);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
@@ -318,8 +321,12 @@ namespace LibSWBF2
         public static extern IntPtr EntityClass_GetBaseName(IntPtr ecPtr);    
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr EntityClass_GetName(IntPtr ecPtr); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool EntityClass_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
 
 
         // Material //
