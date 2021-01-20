@@ -145,6 +145,16 @@ namespace LibSWBF2
 	}
 
 
+	const bool Container_Delete(Container* container)
+	{
+		CheckPtr(container,false);
+
+		Container::Delete(container);
+		return true;
+	}
+
+
+
 	// Wrappers
 	Level* Level_FromFile(const char* path)
 	{
