@@ -42,6 +42,8 @@ namespace LibSWBF2::Chunks
 
 	void BaseChunk::ReadFromStream(FileReader& stream)
 	{
+		beginTime = std::chrono::steady_clock::now();
+
 		m_ChunkPosition = stream.GetPosition();
 		m_Header = stream.ReadChunkHeader(false);
 		m_Size = stream.ReadChunkSize();
@@ -199,6 +201,8 @@ namespace LibSWBF2::Chunks
 			LOG_WARN("[{}] Ended up outside of current chunk (end is at: {:#x}, we are at: {:#x}! Too many bytes read: {}", m_Header, endPos, currPos, currPos - endPos);
 			ForwardToNextHeader(stream);
 		}
+
+		endTime = std::chrono::steady_clock::now();
 	}
 
 	void BaseChunk::ForwardToNextHeader(FileReader& stream)
@@ -222,5 +226,11 @@ namespace LibSWBF2::Chunks
 		}
 
 		return (float_t)m_ThreadHandling->m_CurrentReader->GetLatestChunkPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
+	}
+
+
+	int BaseChunk::GetReadTime()
+	{
+		return std::chrono::duration_cast<std::chrono::milliseconds>(endTime - beginTime).count();
 	}
 }

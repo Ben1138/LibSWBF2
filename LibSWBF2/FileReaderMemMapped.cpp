@@ -1,11 +1,28 @@
 #define MEMORY_MAPPED_READER
-#ifndef MEMORY_MAPPED_READER
+
+#ifdef MEMORY_MAPPED_READER
 
 
 #include "stdafx.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
+
+#include <limits>
+#include <memory>
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/mman.h>
+#include <errno.h>
+
+
+#include <iostream>
+
+namespace fs = std::filesystem;
+
 
 namespace LibSWBF2
 {
@@ -14,6 +31,8 @@ namespace LibSWBF2
 	FileReader::FileReader()
 	{
 		m_LatestChunkPos = 0;
+	    m_Reader = nullptr;
+	    m_MMapStart = nullptr;
 	}
 
 	FileReader::~FileReader()
@@ -23,19 +42,38 @@ namespace LibSWBF2
 
 	bool FileReader::Open(const Types::String& File)
 	{
-		m_Reader.open(File.Buffer(), std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
-		bool success = m_Reader.good() && m_Reader.is_open();
-
-		if (!success)
+		std::filesystem::path path = File.Buffer();
+		if (!fs::exists(path) || fs::is_directory(path))
 		{
 			LOG_WARN("File '{}' could not be found / opened!", File);
-			m_Reader.close();
+			return false;
+		}
+		   
+		const auto file_size = fs::file_size(path);
+
+
+		const char *fname = path.string().c_str(); 
+		m_FileSize = static_cast<std::uint32_t>(file_size);
+		   
+		int fd = open(fname, O_RDONLY);
+
+		if (fd < 0)
+		{
+			LOG_WARN("File '{}': failed to open file descriptor!", File);
 			return false;
 		}
 
+	    m_MMapStart = (uint8_t *) mmap(0,m_FileSize,PROT_READ,MAP_FILE|MAP_PRIVATE,fd,0);
+	  
+	    if (m_MMapStart == MAP_FAILED){
+			LOG_WARN("File '{}': memory map failed!", File);
+			return false;
+	    }
+	  
+	    close(fd);
+
 		m_FileName = File;
-		m_FileSize = (size_t)m_Reader.tellg();
-		m_Reader.seekg(0);
+		m_Reader = m_MMapStart;
 
 		LOG_INFO("File '{}' ({} bytes) successfully opened.", m_FileName, m_FileSize);
 		return true;
@@ -46,13 +84,17 @@ namespace LibSWBF2
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
-			auto pos = m_Reader.tellg();
-			m_Reader.read((char*)&value, sizeof(value));
+			auto pos = m_Reader - m_MMapStart;
+
+			memcpy(&value, m_Reader, sizeof(value));
+			m_Reader += sizeof(value);
+
+			//m_Reader.read((char*)&value, sizeof(value));
 
 			// do not advance our reading position when peeking
 			if (peek)
 			{
-				m_Reader.seekg(pos);
+				m_Reader = m_MMapStart + pos;
 			}
 
 			m_LatestChunkPos = pos;
@@ -65,7 +107,11 @@ namespace LibSWBF2
 		ChunkSize value = 0;
 		if (CheckGood(sizeof(ChunkSize)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			//memcpy(value, m_Reader, sizeof(value));
+
+			value = *((uint32_t) m_Reader);
+			m_Reader += sizeof(value);
 		}
 		return value;
 	}
@@ -75,7 +121,7 @@ namespace LibSWBF2
 		uint8_t value = 0;
 		if (CheckGood(sizeof(uint8_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			value = *(m_Reader++);//m_Reader.read((char*)&value, sizeof(value));
 		}
 		return value;
 	}
@@ -84,7 +130,10 @@ namespace LibSWBF2
 	{
 		if (CheckGood(length))
 		{
-			m_Reader.read((char*)data, length);
+			//m_Reader.read((char*)data, length);
+			memcpy(data, m_Reader, length);
+			m_Reader += length;
+
 			return true;
 		}
 		return false;
@@ -95,7 +144,9 @@ namespace LibSWBF2
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			value = *((int32_t *) m_Reader);
+			m_Reader+=4;
 		}
 		return value;
 	}
@@ -105,7 +156,9 @@ namespace LibSWBF2
 		int16_t value = 0;
 		if (CheckGood(sizeof(int16_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			value = *((int16_t *) m_Reader);
+			m_Reader+=2;
 		}
 		return value;
 	}
@@ -115,7 +168,9 @@ namespace LibSWBF2
 		uint32_t value = 0;
 		if (CheckGood(sizeof(uint32_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			value = *((uint32_t *) m_Reader);
+			m_Reader+=4;
 		}
 		return value;
 	}
@@ -125,7 +180,9 @@ namespace LibSWBF2
 		uint16_t value = 0;
 		if (CheckGood(sizeof(uint16_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			value = *((uint16_t *) m_Reader);
+			m_Reader+=2;
 		}
 		return value;
 	}
@@ -135,7 +192,9 @@ namespace LibSWBF2
 		float_t value = 0.0f;
 		if (CheckGood(sizeof(float_t)))
 		{
-			m_Reader.read((char*)&value, sizeof(value));
+			//m_Reader.read((char*)&value, sizeof(value));
+			value = *((float_t *) m_Reader);
+			m_Reader+=4;
 		}
 		return value;
 	}
@@ -146,7 +205,9 @@ namespace LibSWBF2
 		if (CheckGood(length))
 		{
 			char* str = new char[length+1];
-			m_Reader.read(str, length);
+			//m_Reader.read(str, length);
+			memcpy((void *) str, (void *) m_Reader, length);
+
 			str[length] = 0;
 			value = str;
 			delete[] str;
@@ -173,6 +234,7 @@ namespace LibSWBF2
 
 	void FileReader::Close()
 	{
+		/*
 		if (!m_Reader.is_open())
 		{
 			THROW("Nothing has been opened yet!");
@@ -180,11 +242,12 @@ namespace LibSWBF2
 
 		m_FileName = "";
 		m_Reader.close();
+		*/
 	}
 
 	size_t FileReader::GetPosition()
 	{
-		return (size_t)m_Reader.tellg();
+		return (size_t) (m_Reader - m_MMapStart);
 	}
 
 	void FileReader::SetPosition(size_t NewPosition)
@@ -195,7 +258,7 @@ namespace LibSWBF2
 			return;
 		}
 
-		m_Reader.seekg(NewPosition);
+		m_Reader = m_MMapStart + NewPosition;
 	}
 
 	size_t FileReader::GetFileSize()
@@ -205,30 +268,7 @@ namespace LibSWBF2
 
 	bool FileReader::CheckGood(size_t ReadSize)
 	{
-		if (!m_Reader.is_open())
-		{
-			THROW("Error during read process! File '{}' is not open!", m_FileName);
-		}
-
-		if (!m_Reader.good())
-		{
-			std::string reason = "";
-			if (m_Reader.eof())
-			{
-				reason += " End of File reached!";
-			}
-			if (m_Reader.fail())
-			{
-				reason += " Logical Error on I/O operation!";
-			}
-			if (m_Reader.bad())
-			{
-				reason += " Reading Error on I/O operation!";
-			}
-			THROW("Error during read process in '{}'! Reason: {}", m_FileName, reason);
-		}
-
-		size_t current = (size_t)m_Reader.tellg();
+		size_t current = (size_t) (m_Reader - m_MMapStart);
 		if (current + ReadSize > m_FileSize)
 		{
 			THROW("Reading {:#x} bytes will end up out of file!  Current position: {:#x}  FileSize: {:#x}", ReadSize, current, m_FileSize);
@@ -241,7 +281,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood(Amount))
 		{
-			m_Reader.seekg(GetPosition() + Amount);
+			m_Reader += Amount;
 			return true;
 		}
 		return false;
@@ -253,7 +293,5 @@ namespace LibSWBF2
 		return m_LatestChunkPos;
 	}
 }
-
-
 
 #endif
