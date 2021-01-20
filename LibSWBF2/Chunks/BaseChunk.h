@@ -6,6 +6,8 @@
 #include "Types/List.h"
 #include "Types/LibString.h"
 
+#include <chrono>
+
 namespace LibSWBF2 
 { 
 	class FileReader;
@@ -51,12 +53,18 @@ namespace LibSWBF2::Chunks
 		// thread safe call
 		float_t GetReadingProgress();
 
+		int GetReadTime();
+
 	protected:
 		// since these variables are critical
 		// we should keep them protected
 		ChunkHeader m_Header;
 		ChunkSize m_Size = 0; // Data Size, no header, no trailling bytes
 		size_t m_ChunkPosition = 0;	// pointing to the chunks header
+
+		std::chrono::steady_clock::time_point beginTime, endTime;
+
+
 
 	private:
 		class MultiThreadHandling* m_ThreadHandling = nullptr;

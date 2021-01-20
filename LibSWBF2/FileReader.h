@@ -4,6 +4,9 @@
 #include <fstream>
 #include <atomic>
 
+#define MEMORY_MAPPED_READER
+
+
 namespace LibSWBF2
 {
 	class FileReader
@@ -37,7 +40,13 @@ namespace LibSWBF2
 
 		size_t m_FileSize = 0;
 		Types::String m_FileName;
+
+	#ifndef MEMORY_MAPPED_READER
 		std::ifstream m_Reader;
+	#else
+		uint8_t* m_Reader = nullptr;
+		uint8_t* m_MMapStart = nullptr;
+	#endif
 		
 		std::atomic_size_t m_LatestChunkPos;
 	};
