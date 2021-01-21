@@ -41,7 +41,9 @@ namespace LibSWBF2
 
 	FileReader::~FileReader()
 	{
-
+		static int counter = 0;
+		LOG_WARN("Unmapping file: {} for the {} time", m_FileName, ++counter);
+		munmap(m_MMapStart, m_FileSize);
 	}
 
 	bool FileReader::Open(const Types::String& File)

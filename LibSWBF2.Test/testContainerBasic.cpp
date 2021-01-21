@@ -12,13 +12,16 @@ int main(int ac, char** av)
 		pathsInput.Add(av[i]);
 	}
 
-	auto lvlPtrs = LoadAndTrackLVLs(pathsInput);
+	Container *container;
+	auto lvlPtrs = LoadAndTrackLVLs(pathsInput, container);
 
 	for (int i = 0; i < lvlPtrs.size(); i++)
 	{
 		const Level *lvl = lvlPtrs[i];
 		COUT(lvl -> GetLevelName().Buffer() << " contains " << lvl -> GetModels().Size() << " models.");
 	}
+
+	Container::Delete(container);
 
 	return 0;
 }
