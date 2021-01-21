@@ -1,10 +1,13 @@
-#define MEMORY_MAPPED_READER
-
-#ifdef MEMORY_MAPPED_READER
 
 
 #include "stdafx.h"
 #include "FileReader.h"
+
+#ifdef MEMORY_MAPPED_READER
+
+
+
+
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
 
@@ -18,6 +21,7 @@
 #include <sys/mman.h>
 #include <errno.h>
 
+#include <filesystem>
 
 #include <iostream>
 
@@ -42,24 +46,31 @@ namespace LibSWBF2
 
 	bool FileReader::Open(const Types::String& File)
 	{
-		std::filesystem::path path = File.Buffer();
+		fs::path path = File.Buffer();
 		if (!fs::exists(path) || fs::is_directory(path))
 		{
-			LOG_WARN("File '{}' could not be found / opened!", File);
+			LOG_WARN("File '{}' could not be found!", File);
 			return false;
 		}
 		   
 		const auto file_size = fs::file_size(path);
 
 
-		const char *fname = path.string().c_str(); 
+		const String fname = path.string().c_str(); 
 		m_FileSize = static_cast<std::uint32_t>(file_size);
 		   
-		int fd = open(fname, O_RDONLY);
+		int fd = open(fname.Buffer(), O_RDONLY);
 
 		if (fd < 0)
 		{
-			LOG_WARN("File '{}': failed to open file descriptor!", File);
+			char buffer[ 256 ];
+   	 		//strerror_r( errno, buffer, 256 ); // get string message from errno, XSI-compliant version
+    		//printf("Error %s", buffer);
+     		// or
+    		char * errorMsg = strerror_r( errno, buffer, 256 ); // GNU-specific version, Linux default
+    		//printf("Error %s", errorMsg); //r
+
+			LOG_WARN("File '{}': failed to open file! Errno: {}", File, errorMsg);
 			return false;
 		}
 
@@ -110,7 +121,7 @@ namespace LibSWBF2
 			//m_Reader.read((char*)&value, sizeof(value));
 			//memcpy(value, m_Reader, sizeof(value));
 
-			value = *((uint32_t) m_Reader);
+			value = *((uint32_t *) m_Reader);
 			m_Reader += sizeof(value);
 		}
 		return value;
@@ -206,7 +217,8 @@ namespace LibSWBF2
 		{
 			char* str = new char[length+1];
 			//m_Reader.read(str, length);
-			memcpy((void *) str, (void *) m_Reader, length);
+			memcpy((char *) str, (char *) m_Reader, length);
+			m_Reader += length;
 
 			str[length] = 0;
 			value = str;
