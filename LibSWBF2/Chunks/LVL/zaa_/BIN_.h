@@ -1,6 +1,5 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-//#include "SMNA.h"
 #include "TADA.h"
 #include "MINA.h"
 #include "TNJA.h"
@@ -10,8 +9,6 @@ namespace LibSWBF2::Chunks::LVL::animation
 	struct LIBSWBF2_API BIN_ : public GenericChunk<"BIN_"_m>
 	{
 	public:
-		//SMNA* p_SMNA;
-
 
 		//Always 8 for SWBF2 lvls, will abort read if a
 		//diferent one is encountered.  Confirmed by 

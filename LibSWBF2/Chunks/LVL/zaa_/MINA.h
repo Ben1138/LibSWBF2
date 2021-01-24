@@ -3,12 +3,6 @@
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
-
-	/*
-	ANIM lists each animation with their hashes, and numbers of bones/frames.
-	ANIM chunk contains two subchunks, TNJA and TADA.
-	*/
-
 	struct LIBSWBF2_API MINA : public GenericChunk<"MINA"_m> //ANIM
 	{
 	public:

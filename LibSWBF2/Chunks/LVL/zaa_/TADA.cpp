@@ -21,13 +21,13 @@ namespace LibSWBF2::Chunks::LVL::animation
 	{
 		BaseChunk::ReadFromStream(stream);
 
+		//TADA size is usually incorrect, but correctly listed in BIN_
 		m_Size = dynamic_cast<BIN_*>(GetParent()) -> m_DataBufferLength;
 
 		Check(stream);
 
-		//Temp solution, size would explode if this chunk
-		//stored proper frame structs
-		m_DataBufferLength = m_Size;//GetDataSize();
+		//Keep quantized untill needed
+		m_DataBufferLength = m_Size;
 		p_DataBuffer = new uint8_t[m_DataBufferLength];
 		stream.ReadBytes(p_DataBuffer, m_DataBufferLength);
 
