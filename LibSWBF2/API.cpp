@@ -284,8 +284,7 @@ namespace LibSWBF2
 		static int* tempBuffer = nullptr;
 		delete tempBuffer;
 
-		uint32_t* meshBuffer;
-
+		uint16_t* meshBuffer;
 		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
 
 		tempBuffer = new int[count];

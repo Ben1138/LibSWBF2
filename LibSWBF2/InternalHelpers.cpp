@@ -39,9 +39,9 @@ namespace LibSWBF2
 	}
 
 
-	List<uint32_t> TriangleStripToTriangleList(List<uint16_t>& indexBuffer, uint32_t offset)
+	List<uint16_t> TriangleStripToTriangleList(List<uint16_t>& indexBuffer, uint32_t offset)
 	{
-		List<uint32_t> result;
+		List<uint16_t> result;
 		uint16_t a,b,c;
 
 		for (int i = 0; i < indexBuffer.Size() - 2; i++)

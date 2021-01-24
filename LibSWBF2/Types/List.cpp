@@ -421,7 +421,7 @@ namespace LibSWBF2::Types
 
 #include "Vector4.h"
 #include "Vector3u8.h"
-#include "Color.h"
+#include "Color4u8.h"
 #include "Animation.h"
 #include "BoneFrames.h"
 #include "Polygon.h"
@@ -459,7 +459,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Vector3>;
 	template class LIBSWBF2_API Types::List<Vector3u8>;
 	template class LIBSWBF2_API Types::List<Matrix3x3>;
-	template class LIBSWBF2_API Types::List<Color>;
+	template class LIBSWBF2_API Types::List<Color4u8>;
 	template class LIBSWBF2_API Types::List<String>;
 	template class LIBSWBF2_API Types::List<Animation>;
 	template class LIBSWBF2_API Types::List<BoneFrames>;
