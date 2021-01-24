@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	void DATA::RefreshSize()
 	{
-		m_Size = Color::SIZE + Color::SIZE + Color::SIZE + sizeof(float_t);
+		m_Size = Color4u8::SIZE + Color4u8::SIZE + Color4u8::SIZE + sizeof(float_t);
 	}
 
 	void DATA::WriteToStream(FileWriter& stream)

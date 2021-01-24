@@ -1,7 +1,7 @@
 #pragma once
 #include "LibString.h"
 #include "Vector3.h"
-#include "Color.h"
+#include "Color4u8.h"
 
 namespace LibSWBF2
 {
@@ -20,6 +20,6 @@ namespace LibSWBF2::Types
 
 		Vector3 m_Position;
 		Vector3 m_Normal;
-		Color m_Color;
+		Color4u8 m_Color;
 	};
 }

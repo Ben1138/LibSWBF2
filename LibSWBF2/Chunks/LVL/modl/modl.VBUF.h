@@ -16,7 +16,7 @@ namespace LibSWBF2::Chunks::LVL::modl
 		List<Vector3> m_Normals;
 		List<Vector3> m_Tangents;
 		List<Vector3> m_BiTangents;
-		List<Color> m_Colors;
+		List<Color4u8> m_Colors;
 		List<Vector2> m_TexCoords;
 
 	public:

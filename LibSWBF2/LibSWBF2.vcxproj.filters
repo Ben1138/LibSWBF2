@@ -351,12 +351,6 @@
     <ClInclude Include="Chunks\LVL\modl\MTRL.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
-    <ClInclude Include="Types\Colorf.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Types\Color.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\modl\TNAM.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
@@ -612,6 +606,12 @@
     <ClInclude Include="Chunks\LVL\tern\PTCH.INFO.h">
       <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
+    <ClInclude Include="Types\Color4u8.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Color4.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -799,12 +799,6 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\modl\MTRL.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\Colorf.cpp">
-      <Filter>Source Files\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\Color.cpp">
-      <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
@@ -1057,6 +1051,12 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\tern\PTCH.INFO.cpp">
       <Filter>Source Files\Chunks\LVL\tern</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Color4u8.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Color4.cpp">
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

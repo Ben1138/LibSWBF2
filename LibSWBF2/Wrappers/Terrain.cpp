@@ -136,14 +136,14 @@ namespace LibSWBF2::Wrappers
 		{
 			uint16_t numVertsPerPatchEdge = info->m_PatchEdgeSize;
 			uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
-			uint16_t numPatchesPerRow = dim / numVertsPerPatchEdge;
+			uint32_t numPatchesPerRow = dim / numVertsPerPatchEdge;
 
-			int dataLength = dim * dim * numTexLayers;
+			uint32_t dataLength = dim * dim * numTexLayers;
 	        p_BlendMap = new uint8_t[dataLength]();
 
 			List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
-			for (size_t i = 0; i < patches.Size(); i++)
+			for (uint32_t i = 0; i < (uint32_t)patches.Size(); i++)
 			{	
 				auto *curPatch = patches[i];
 				auto *patchInfo = curPatch -> p_PatchInfo;
@@ -151,32 +151,32 @@ namespace LibSWBF2::Wrappers
 				const List<uint8_t>& curPatchBlendMap = patchSplatChunk -> m_BlendMapData;
 
 	            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
-	            int numSlotsInPatch = slotsList.Size();
+				uint32_t numSlotsInPatch = (uint32_t)slotsList.Size();
 
-				int globalPatchY = i / (int) numPatchesPerRow;
-				int globalPatchX = i % (int) numPatchesPerRow;
+				uint32_t globalPatchY = i / numPatchesPerRow;
+				uint32_t globalPatchX = i % numPatchesPerRow;
 
-				int patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
+				uint32_t patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
 
-				for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
+				for (uint32_t j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 				{
-					int localPatchY = j / dataEdgeSize; 
-					int localPatchX = j % dataEdgeSize;
+					uint32_t localPatchY = j / dataEdgeSize;
+					uint32_t localPatchX = j % dataEdgeSize;
 
 					//Starting index into final array (finalBlendMapData)
-					int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
+					uint32_t globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
 					
 					//Index into current patch's VBUF's blend data (curPatchBlendMap)
-					int localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
+					uint32_t localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
 
-					for (int k = 0; k < numSlotsInPatch; k++)
+					for (uint32_t k = 0; k < numSlotsInPatch; k++)
 					{
-						int slot = (int) slotsList[k];
-						int finalDataIndex = globalDataIndex + slot;
+						uint32_t slot = (uint32_t)slotsList[k];
+						uint32_t finalDataIndex = globalDataIndex + slot;
 
 						if (finalDataIndex < dataLength)
 						{	
-							p_BlendMap[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
+							p_BlendMap[finalDataIndex] = (uint8_t)curPatchBlendMap[localPatchIndex + k];
 						}
 					}
 				}
@@ -187,9 +187,9 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
+	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
 	{
-		static List<uint32_t> indices;
+		static List<uint16_t> indices;
 		static ETopology lastRequestedTopology;
 
 		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
@@ -224,7 +224,7 @@ namespace LibSWBF2::Wrappers
 					VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
 					if (indexBuffer != nullptr)
 					{
-						List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
+						List<uint16_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
 
 						indices.Append(triangleList);
 						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
@@ -289,7 +289,7 @@ namespace LibSWBF2::Wrappers
 		normalBuffer = m_Normals.GetArrayPtr();
 	}
 
-	void Terrain::GetColorBuffer(uint32_t& count, Color*& colorBuffer) const
+	void Terrain::GetColorBuffer(uint32_t& count, Color4u8*& colorBuffer) const
 	{
 		count = (uint32_t)m_Colors.Size();
 		colorBuffer = m_Colors.GetArrayPtr();
@@ -331,7 +331,7 @@ namespace LibSWBF2::Wrappers
 			p_HeightMap = new float_t[heightDataLength]();
 
 			uint32_t ibufLength;
-			uint32_t *ibufData;
+			uint16_t*ibufData;
 			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
 			//Inits to -5.96541e+29

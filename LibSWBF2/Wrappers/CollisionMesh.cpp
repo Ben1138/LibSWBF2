@@ -32,7 +32,7 @@ namespace LibSWBF2::Wrappers
         return maskChunk == nullptr ? ECollisionMaskFlags::All : maskChunk -> m_MaskFlags;
     }
 
-    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
+    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
     {
         if (requestedTopology != ETopology::TriangleList || p_CollisionChunk == nullptr)
         {

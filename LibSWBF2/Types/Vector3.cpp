@@ -7,14 +7,18 @@
 
 namespace LibSWBF2::Types
 {
-	Vector3::Vector3() : Vector2(), m_Z(0)
+	Vector3::Vector3()
 	{
-		
+		m_X = 0.0;
+		m_Y = 0.0;
+		m_Z = 0.0;
 	}
 
-	Vector3::Vector3(const float_t x, const float_t y, const float_t z) : Vector2(x, y), m_Z(z)
+	Vector3::Vector3(const float_t x, const float_t y, const float_t z)
 	{
-		
+		m_X = x;
+		m_Y = y;
+		m_Z = z;
 	}
 
 	Vector3::~Vector3()
