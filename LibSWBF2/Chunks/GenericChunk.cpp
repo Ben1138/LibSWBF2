@@ -284,9 +284,6 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"IBUF"_m>;
 	template struct LIBSWBF2_API GenericChunk<"LTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"scr_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"SMNA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
@@ -332,6 +329,13 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"LEAF"_m>;
 	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
+
+	//animation
+	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
 
 }
 
