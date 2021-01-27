@@ -157,6 +157,8 @@ namespace LibSWBF2
         LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);
         LIBSWBF2_API const Vector3* Instance_GetPosition(const Instance* instance);
    		LIBSWBF2_API const char *   Instance_GetEntityClassName(const Instance* instance);
+   		LIBSWBF2_API const uint8_t  Instance_GetOverriddenProperties(const Instance *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
+
 
 		// Wrappers - Light
 		LIBSWBF2_API const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,

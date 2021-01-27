@@ -53,6 +53,10 @@ namespace LibSWBF2::Wrappers
 		// will fallback to entity class property, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
 
+
+		bool GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const;
+
+
 		const EntityClass* GetEntityClass() const;
 	};
 }
