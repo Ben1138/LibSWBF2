@@ -120,6 +120,10 @@ namespace LibSWBF2
         public static extern bool Level_GetGlobalLighting(IntPtr level, out IntPtr topColor, out IntPtr bottomColor, 
                                                         out IntPtr light1Name, out IntPtr light2Name);        
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetName(IntPtr level);
+
+
 
         //Terrain
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
