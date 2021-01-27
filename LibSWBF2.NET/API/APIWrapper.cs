@@ -5,11 +5,7 @@ namespace LibSWBF2
 {
     internal static class APIWrapper
     {
-#if WIN32
         const string LIB_NAME = "LibSWBF2";
-#else
-        const string LIB_NAME = "SWBF2";
-#endif
 
         // Logging //
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -55,6 +51,9 @@ namespace LibSWBF2
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetAnimationBank(IntPtr level, string bankName);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
@@ -105,6 +104,22 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
                                                             out int numPrims, out IntPtr ptr);
+
+
+        // AnimationBank // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AnimationBank_GetCurve(IntPtr setPtr, uint animCRC, uint boneCRC, uint comp, 
+                                                        out IntPtr indicesBuffer, out IntPtr valuesBuffer, out int numKeys);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr AnimationBank_GetAnimationCRCs(IntPtr setPtr, out int numCRCs);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AnimationBank_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
+                                                        out int numFrames, out int numBones);
 
 
 

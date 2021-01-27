@@ -13,6 +13,8 @@
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
 #include "CollisionMesh.h"
+#include "AnimationBank.h"
+
 
 
 namespace LibSWBF2
@@ -53,6 +55,7 @@ namespace LibSWBF2::Wrappers
 		List<Light> m_Lights;
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
+		List<AnimationBank> m_AnimationBanks;
 
 		bool m_bHasGlobalLighting;
 		GlobalLightingConfig m_GlobalLightingConfig;
@@ -82,6 +85,7 @@ namespace LibSWBF2::Wrappers
 		const List<Script>& GetScripts() const;
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
+		const List<AnimationBank>& GetAnimationBanks() const;
 
 		const Light* GetLight(String lightName) const;
 		const GlobalLightingConfig* GetGlobalLighting() const;
@@ -92,6 +96,8 @@ namespace LibSWBF2::Wrappers
 		const Script* GetScript(String scriptName) const;
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
+		const AnimationBank* GetAnimationBank(String setName) const; 
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);
