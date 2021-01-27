@@ -10,14 +10,14 @@ namespace LibSWBF2
 
 namespace LibSWBF2::Types
 {
-	struct LIBSWBF2_API Colorf
+	struct LIBSWBF2_API Color4
 	{
 		static const ChunkSize SIZE = sizeof(float_t) * 4;
 
-		Colorf();
-		Colorf(const float_t Red, const float_t Green, const float_t Blue);
-		Colorf(const float_t Red, const float_t Green, const float_t Blue, const float_t Alpha);
-		~Colorf();
+		Color4();
+		Color4(const float_t Red, const float_t Green, const float_t Blue);
+		Color4(const float_t Red, const float_t Green, const float_t Blue, const float_t Alpha);
+		~Color4();
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);

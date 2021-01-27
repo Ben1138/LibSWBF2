@@ -1,6 +1,6 @@
 #pragma once
 #include "req.h"
-#include "Types/Color.h"
+#include "Types/Color4u8.h"
 #include "Types/LibString.h"
 #include "Chunks/LVL/tern/tern.h"
 
@@ -10,7 +10,7 @@ namespace LibSWBF2::Wrappers
 	using Types::String;
 	using Types::Vector2;
 	using Types::Vector3;
-	using Types::Color;
+	using Types::Color4u8;
 	using Chunks::LVL::terrain::tern;
 	
 	class Level;
@@ -31,10 +31,9 @@ namespace LibSWBF2::Wrappers
 		List<Vector3> m_Positions;
 		List<Vector3> m_Normals;
 		List<Vector2> m_TexCoords;
-		List<Color> m_Colors;
+		List<Color4u8> m_Colors;
 
-		mutable List<uint32_t> indices;
-		mutable ETopology lastRequestedTopology;
+		mutable List<uint32_t> m_Indices;
 
 		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
 		mutable uint8_t* p_BlendMap;  //
@@ -56,7 +55,7 @@ namespace LibSWBF2::Wrappers
 		void GetNormalBuffer(uint32_t& count, Vector3*& normalBuffer) const;
 
 		// count is number of colors, NOT number of bytes!
-		void GetColorBuffer(uint32_t& count, Color*& colorBuffer) const;
+		void GetColorBuffer(uint32_t& count, Color4u8*& colorBuffer) const;
 
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;

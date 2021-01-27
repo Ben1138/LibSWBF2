@@ -9,9 +9,145 @@
 #include "Chunks/LVL/zaa_/MINA.h"
 
 
+using LibSWBF2::Types::List;
+
 
 namespace LibSWBF2::Wrappers
 {
+	inline bool AnimationBank::AnimDecompressor::ReadInt16(int16_t &val) const
+	{
+		if (read_head < length - 1)
+		{
+			val = *((int16_t *) (read_head + buffer));
+			read_head += 2;
+			return true;
+		}
+		return false;
+	}
+
+	inline bool AnimationBank::AnimDecompressor::ReadInt8(int8_t &val) const
+	{
+		if (read_head < length)
+		{
+			val = *(read_head + buffer);
+			read_head++;
+			return true;
+		}
+		return false;
+	}
+
+	inline bool AnimationBank::AnimDecompressor::ReadUInt8(uint8_t &val) const
+	{
+		if (read_head < length)
+		{
+			val = *((uint8_t *) (read_head + buffer));
+			read_head++;
+			return true;
+		}
+		return false;
+	}
+
+	AnimationBank::AnimDecompressor::AnimDecompressor(void *_buffer, size_t _length)
+	{
+		buffer = (int8_t *) _buffer;
+		length = _length;
+	}
+
+	AnimationBank::AnimDecompressor::AnimDecompressor()
+	{
+		buffer = nullptr;
+		length = 0;
+	}
+
+	void AnimationBank::AnimDecompressor::SetDecompressionParams(float_t mult, float_t offset) const
+	{
+		bias = offset;
+		multiplier = mult;
+	}
+
+	bool AnimationBank::AnimDecompressor::DecompressFromOffset(size_t offset, uint16_t num_frames, 
+							List<uint16_t> &frame_indicies, 
+							List<float_t> &frame_values) const
+	{
+		List<uint16_t> indicies;
+		List<float_t> values;
+
+		read_head = offset;
+
+		uint16_t frame_counter = 0;
+
+		int16_t shortVal;
+		int8_t byteVal;
+		uint8_t holdDuration;
+
+		float accum = 0.0f;
+		
+		while (frame_counter < num_frames)
+		{
+			if (!ReadInt16(shortVal)) return false;
+
+			accum = bias + multiplier * (float) shortVal;
+
+			indicies.Add(frame_counter);
+			values.Add(accum);
+
+			frame_counter++;
+
+
+			while (frame_counter < num_frames)
+			{
+				if (!ReadInt8(byteVal)) return false;
+
+				// Signals to hold accumulator for x frames,
+				// x specified by the next (unsigned) byte.
+				if (byteVal == -0x80)
+				{
+					if (!ReadUInt8(holdDuration)) return false;
+
+				#ifndef _ANIM_DEBUG
+					frame_counter += holdDuration;
+				#else
+					for (int i = 0; i < holdDuration; i++)
+					{
+						indicies.Add(frame_counter);
+						values.Add(accum);
+
+						frame_counter++;
+					}
+				#endif
+				}
+
+				// Signals to reset the accumulator to the value
+				// of the next decompressed short.
+				else if (byteVal == -0x7f)
+				{
+					break;
+				}
+
+				// Increment the accumulator by the value
+				// of the next decompressed byte.  Decomp here
+				// does not apply the offset, only the multiplier.
+				else 
+				{
+					accum += multiplier * (float) byteVal;
+
+					indicies.Add(frame_counter);
+					values.Add(accum);
+
+					frame_counter++;
+				}
+			}
+		}
+
+		frame_indicies = std::move(indicies);
+		frame_values   = std::move(values); 
+
+		return true;
+	}
+
+
+
+
 	using namespace Chunks::LVL::animation;
 
 	bool AnimationBank::FromChunk(zaa_ *chunk, AnimationBank &setOut)
@@ -43,30 +179,30 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	bool AnimationBank::ContainsAnim(uint32_t animHash) const
+	bool AnimationBank::ContainsAnimation(CRCChecksum animName) const
 	{
-		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes.Contains(animHash);
+		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes.Contains(animName);
 	}
 
 
-	List<uint32_t> AnimationBank::GetAnimHashes() const
+	List<CRCChecksum> AnimationBank::GetAnimationNames() const
 	{
 		return animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes;
 	}
 
 
-	bool AnimationBank::GetAnimationMetadata(uint32_t animCRC, int &numFrames, int &numBones) const
+	bool AnimationBank::GetAnimationMetadata(CRCChecksum animCRC, uint32_t &numFrames, uint32_t &numBones) const
 	{
 		MINA *metadata = animChunk -> p_Bin -> p_AnimsMetadata;	
 
-		List<uint32_t> &animHashes = metadata -> m_AnimNameHashes;	
+		List<CRCChecksum> &animCRCs = metadata -> m_AnimNameHashes;	
 
-		for (int i = 0; i < animHashes.Size(); i++)
+		for (int i = 0; i < animCRCs.Size(); i++)
 		{
-			if (animHashes[i] == animCRC)
+			if (animCRCs[i] == animCRC)
 			{
-				numBones  = (int) metadata -> m_AnimBoneCounts[i];
-				numFrames = (int) metadata -> m_AnimFrameCounts[i];	
+				numBones  = (uint32_t) metadata -> m_AnimBoneCounts[i];
+				numFrames = (uint32_t) metadata -> m_AnimFrameCounts[i];	
 				return true;
 			}
 		}
@@ -75,11 +211,11 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<uint32_t> AnimationBank::GetBoneHashes() const
+	List<CRCChecksum> AnimationBank::GetBoneNames() const
 	{
 		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
 
-		List<uint32_t> boneHashes;
+		List<CRCChecksum> boneHashes;
 
 		int num_bones = animChunk -> p_Bin -> p_AnimsMetadata -> m_AnimBoneCounts[0];
 
@@ -92,7 +228,7 @@ namespace LibSWBF2::Wrappers
 	}
 	
 
-	bool AnimationBank::GetCurve(uint32_t animHash, uint32_t boneHash, uint16_t component,
+	bool AnimationBank::GetCurve(CRCChecksum animName, CRCChecksum boneName, uint16_t component,
 										List<uint16_t> &frame_indices, List<float_t> &frame_values) const
 	{
 		TNJA *index = animChunk -> p_Bin -> p_JointAddresses;
@@ -104,13 +240,13 @@ namespace LibSWBF2::Wrappers
 		List<float_t> values;
 		List<uint16_t> indicies;
 
-		List<uint32_t> &animHashes = metadata -> m_AnimNameHashes;	
+		List<CRCChecksum> &animCRCs = metadata -> m_AnimNameHashes;	
 
 		int TNJAOffset = 0;	
 
-		for (int i = 0; i < animHashes.Size(); i++)
+		for (int i = 0; i < animCRCs.Size(); i++)
 		{
-			if (animHashes[i] == animHash)
+			if (animCRCs[i] == animName)
 			{
 				int num_bones = metadata -> m_AnimBoneCounts[i];
 				uint16_t num_frames = metadata -> m_AnimFrameCounts[i];	
@@ -122,7 +258,7 @@ namespace LibSWBF2::Wrappers
 				bool foundBone = false;
 				for (int j = 0; j < num_bones; j++)
 				{
-					if (index -> m_BoneCRCs[tempOffset] == boneHash)
+					if (index -> m_BoneCRCs[tempOffset] == boneName)
 					{
 						foundBone = true;
 						TNJAOffset = tempOffset;

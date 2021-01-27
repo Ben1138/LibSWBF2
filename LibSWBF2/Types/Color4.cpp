@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Colorf.h"
+#include "Color4.h"
 #include "InternalHelpers.h"
 #include "FileWriter.h"
 #include "FileReader.h"
@@ -7,10 +7,10 @@
 
 namespace LibSWBF2::Types
 {
-	Colorf::Colorf() : Colorf(0, 0, 0, 1) { }
-	Colorf::Colorf(const float_t Red, const float_t Green, const float_t Blue) : Colorf(Red, Green, Blue, 1) { }
+	Color4::Color4() : Color4(0, 0, 0, 1) { }
+	Color4::Color4(const float_t Red, const float_t Green, const float_t Blue) : Color4(Red, Green, Blue, 1) { }
 
-	Colorf::Colorf(const float_t Red, const float_t Green, const float_t Blue, const float_t Alpha) : 
+	Color4::Color4(const float_t Red, const float_t Green, const float_t Blue, const float_t Alpha) : 
 		m_Red(std::clamp(m_Red, 0.0f, 1.0f)),
 		m_Green(std::clamp(m_Green, 0.0f, 1.0f)),
 		m_Blue(std::clamp(m_Blue, 0.0f, 1.0f)),
@@ -19,12 +19,12 @@ namespace LibSWBF2::Types
 		
 	}
 
-	Colorf::~Colorf()
+	Color4::~Color4()
 	{
 		
 	}
 
-	void Colorf::WriteToStream(FileWriter& stream)
+	void Color4::WriteToStream(FileWriter& stream)
 	{
 		stream.WriteFloat(m_Blue);
 		stream.WriteFloat(m_Green);
@@ -32,7 +32,7 @@ namespace LibSWBF2::Types
 		stream.WriteFloat(m_Alpha);
 	}
 
-	void Colorf::ReadFromStream(FileReader& stream)
+	void Color4::ReadFromStream(FileReader& stream)
 	{
 		m_Blue = stream.ReadFloat();
 		m_Green = stream.ReadFloat();
@@ -40,7 +40,7 @@ namespace LibSWBF2::Types
 		m_Alpha = stream.ReadFloat();
 	}
 
-	String Colorf::ToString()
+	String Color4::ToString()
 	{
 		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
 	}

@@ -351,12 +351,6 @@
     <ClInclude Include="Chunks\LVL\modl\MTRL.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
-    <ClInclude Include="Types\Colorf.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Types\Color.h">
-      <Filter>Header Files\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\modl\TNAM.h">
       <Filter>Header Files\Chunks\LVL\modl</Filter>
     </ClInclude>
@@ -570,11 +564,6 @@
     <ClInclude Include="Wrappers\EntityClass.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Chunks\LVL\tern\PTCH.INFO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-=======
     <ClInclude Include="Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -617,7 +606,12 @@
     <ClInclude Include="Chunks\LVL\tern\PTCH.INFO.h">
       <Filter>Header Files\Chunks\LVL\tern</Filter>
     </ClInclude>
->>>>>>> a9e1bdb2f5dc62bc007c76ec1296c13b7ef5d9f9
+    <ClInclude Include="Types\Color4u8.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Color4.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -805,12 +799,6 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\modl\MTRL.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\Colorf.cpp">
-      <Filter>Source Files\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\Color.cpp">
-      <Filter>Source Files\Types</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\LVL\modl\TNAM.cpp">
       <Filter>Source Files\Chunks\LVL\modl</Filter>
@@ -1022,11 +1010,6 @@
     <ClCompile Include="Wrappers\EntityClass.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Chunks\LVL\tern\PTCH.INFO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-=======
     <ClCompile Include="Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1069,7 +1052,12 @@
     <ClCompile Include="Chunks\LVL\tern\PTCH.INFO.cpp">
       <Filter>Source Files\Chunks\LVL\tern</Filter>
     </ClCompile>
->>>>>>> a9e1bdb2f5dc62bc007c76ec1296c13b7ef5d9f9
+    <ClCompile Include="Types\Color4u8.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Color4.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

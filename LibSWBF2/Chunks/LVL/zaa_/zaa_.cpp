@@ -23,9 +23,6 @@ namespace LibSWBF2::Chunks::LVL::animation
 
 		READ_CHILD(stream, p_Name);
 
-		// TODO: handle SMNA chunks correctly, before continue reading!
-		// Apparently, their chunk size is always 0 ?
-
 		try 
 		{
 			READ_CHILD(stream, p_Bin);
@@ -34,16 +31,8 @@ namespace LibSWBF2::Chunks::LVL::animation
 		{
 
 			LOG_ERROR(le.what());
-
 			p_Bin = nullptr;
 		}
-
-		/*
-		while (ThereIsAnother(stream))
-		{
-			READ_CHILD_GENERIC(stream);
-		}
-		*/
 
 		BaseChunk::EnsureEnd(stream);
 	}

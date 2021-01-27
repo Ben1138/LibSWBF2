@@ -10,9 +10,9 @@ namespace LibSWBF2::Chunks::MSH
 		DATA() = default;
 		~DATA() = default;
 
-		Color m_Diffuse;
-		Color m_Specular;
-		Color m_Ambient;
+		Color4u8 m_Diffuse;
+		Color4u8 m_Specular;
+		Color4u8 m_Ambient;
 		float_t m_SpecularSharpness = 0.0f;
 
 	protected:
