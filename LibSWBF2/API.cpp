@@ -312,6 +312,16 @@ namespace LibSWBF2
 	}
 
 
+	char *  Level_GetName(const Level* level)
+	{
+		static String cache;
+		CheckPtr(level, nullptr);
+		cache = level -> GetLevelName();
+		return const_cast<char *>(cache.Buffer());
+	}
+
+
+
 	// Texture
 
 	const bool Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name)
@@ -494,14 +504,14 @@ namespace LibSWBF2
 
 	
 
-	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint16_t*& indicies, int32_t& numIndsOut)
 	{
 		numIndsOut = 0;
 		CheckPtr(terr,)
 
-		//uint16_t *indicies;
-		uint32_t numInds;
-		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+		indicies = nullptr;
+		uint32_t numInds = 0;
+		//terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
 		numIndsOut = numInds;
 
 		/*
@@ -630,7 +640,7 @@ namespace LibSWBF2
 
 
 
-	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& outBuffer)
+	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& outBuffer)
 	{
 		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, outBuffer);
 	}
@@ -766,16 +776,17 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
+	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int32_t*& indexBuffer)
 	{
+		static int32_t* = nullptr;
 		uint16_t *indicies;
 		segment -> GetIndexBuffer(numInds, indicies, ETopology::TriangleList);
 
-		indexBuffer = new int[numInds];
+		indexBuffer = new int32_t[numInds];
 
 		for (int i = 0; i < (int) numInds; i++)
 		{
-			indexBuffer[i] = (int) indicies[i];
+			indexBuffer[i] = (int32_t) indicies[i];
 		}
 	}
 
@@ -844,8 +855,8 @@ namespace LibSWBF2
     	specExp = matPtr -> GetSpecularExponent();
     	matFlags = (uint32_t) matPtr -> GetFlags();  
 
-    	Color d = matPtr -> GetDiffuseColor();
-    	Color s = matPtr -> GetSpecularColor();
+    	Color4u8 d = matPtr -> GetDiffuseColor();
+    	Color4u8 s = matPtr -> GetSpecularColor();
 
     	diffCache = Vector3(d.m_Red,d.m_Green,d.m_Blue); 
     	specCache = Vector3(s.m_Red,s.m_Green,s.m_Blue);
@@ -1162,7 +1173,7 @@ namespace LibSWBF2
     	numCRCs = 0;
     	CheckPtr(setPtr, nullptr);
 
-    	crcs = setPtr -> GetAnimHashes();
+    	crcs = setPtr -> GetAnimationNames();
     	
     	numCRCs = crcs.Size();
     	return crcs.GetArrayPtr();
@@ -1170,10 +1181,15 @@ namespace LibSWBF2
     
 
     const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
-                                                    int& numFrames, int& numBones)
+                                                    int32_t& numFrames, int32_t& numBones)
     {
 		CheckPtr(setPtr, false);
-		return setPtr -> GetAnimationMetadata(animCRC, numFrames, numBones);
+		uint32_t frames, bones;
+		bool status = setPtr -> GetAnimationMetadata(animCRC, frames, bones);
+		
+		numFrames = frames;
+		numBones = bones;
+		return status;
     }
 
 

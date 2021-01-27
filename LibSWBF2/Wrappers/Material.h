@@ -2,7 +2,7 @@
 #include "req.h"
 #include "Chunks/LVL/modl/MTRL.h"
 #include "Types/List.h"
-#include "Types/Color.h"
+#include "Types/Color4u8.h"
 #include "Types/LibString.h"
 #include "Texture.h"
 
@@ -15,7 +15,7 @@ namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::modl::MTRL;
 	using Types::List;
-	using Types::Color;
+	using Types::Color4u8;
 	using Types::String;
 
 	class Level;
@@ -39,8 +39,8 @@ namespace LibSWBF2::Wrappers
 		static bool FromChunk(Level* mainContainer, MTRL* materialChunk, Material& out);
 
 		EMaterialFlags GetFlags() const;
-		const Color& GetDiffuseColor() const;
-		const Color& GetSpecularColor() const;
+		const Color4u8& GetDiffuseColor() const;
+		const Color4u8& GetSpecularColor() const;
 		uint32_t GetSpecularExponent() const;
 		const String& GetAttachedLight() const;
 		bool GetTextureName(uint8_t index, String& outName) const;

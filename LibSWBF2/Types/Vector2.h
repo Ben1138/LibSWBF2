@@ -17,14 +17,14 @@ namespace LibSWBF2::Types
 
 		Vector2();
 		Vector2(const float_t x, const float_t y);
-		virtual ~Vector2();
+		~Vector2();
 
-		virtual void WriteToStream(FileWriter& stream);
-		virtual void ReadFromStream(FileReader& stream);
+		void WriteToStream(FileWriter& stream);
+		void ReadFromStream(FileReader& stream);
 
 		float_t m_X = 0.0f;
 		float_t m_Y = 0.0f;
 
-		virtual Types::String ToString();
+		Types::String ToString();
 	};
 }

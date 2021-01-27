@@ -136,14 +136,14 @@ namespace LibSWBF2::Wrappers
 		{
 			uint16_t numVertsPerPatchEdge = info->m_PatchEdgeSize;
 			uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
-			uint16_t numPatchesPerRow = dim / numVertsPerPatchEdge;
+			uint32_t numPatchesPerRow = dim / numVertsPerPatchEdge;
 
-			int dataLength = dim * dim * numTexLayers;
+			uint32_t dataLength = dim * dim * numTexLayers;
 	        p_BlendMap = new uint8_t[dataLength]();
 
 			List<PTCH*>& patches = p_Terrain->p_Patches->m_Patches;
 
-			for (size_t i = 0; i < patches.Size(); i++)
+			for (uint32_t i = 0; i < (uint32_t)patches.Size(); i++)
 			{	
 				auto *curPatch = patches[i];
 				auto *patchInfo = curPatch -> p_PatchInfo;
@@ -151,32 +151,32 @@ namespace LibSWBF2::Wrappers
 				const List<uint8_t>& curPatchBlendMap = patchSplatChunk -> m_BlendMapData;
 
 	            List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
-	            int numSlotsInPatch = slotsList.Size();
+				uint32_t numSlotsInPatch = (uint32_t)slotsList.Size();
 
-				int globalPatchY = i / (int) numPatchesPerRow;
-				int globalPatchX = i % (int) numPatchesPerRow;
+				uint32_t globalPatchY = i / numPatchesPerRow;
+				uint32_t globalPatchX = i % numPatchesPerRow;
 
-				int patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
+				uint32_t patchStartIndex = globalPatchY * numVertsPerPatchEdge * numPatchesPerRow * numVertsPerPatchEdge + globalPatchX * numVertsPerPatchEdge;
 
-				for (int j = 0; j < patchSplatChunk -> m_ElementCount; j++)
+				for (uint32_t j = 0; j < patchSplatChunk -> m_ElementCount; j++)
 				{
-					int localPatchY = j / dataEdgeSize; 
-					int localPatchX = j % dataEdgeSize;
+					uint32_t localPatchY = j / dataEdgeSize;
+					uint32_t localPatchX = j % dataEdgeSize;
 
 					//Starting index into final array (finalBlendMapData)
-					int globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
+					uint32_t globalDataIndex = numTexLayers * (patchStartIndex + localPatchY * numVertsPerPatchEdge * numPatchesPerRow + localPatchX);
 					
 					//Index into current patch's VBUF's blend data (curPatchBlendMap)
-					int localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
+					uint32_t localPatchIndex = numSlotsInPatch * (localPatchY * dataEdgeSize + localPatchX);
 
-					for (int k = 0; k < numSlotsInPatch; k++)
+					for (uint32_t k = 0; k < numSlotsInPatch; k++)
 					{
-						int slot = (int) slotsList[k];
-						int finalDataIndex = globalDataIndex + slot;
+						uint32_t slot = (uint32_t)slotsList[k];
+						uint32_t finalDataIndex = globalDataIndex + slot;
 
 						if (finalDataIndex < dataLength)
 						{	
-							p_BlendMap[finalDataIndex] = (uint8_t) curPatchBlendMap[localPatchIndex + k];
+							p_BlendMap[finalDataIndex] = (uint8_t)curPatchBlendMap[localPatchIndex + k];
 						}
 					}
 				}
@@ -189,89 +189,83 @@ namespace LibSWBF2::Wrappers
 
 	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
-		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
-		//if (true)
+		m_Indices.Clear();
+
+		if (requestedTopology == ETopology::TriangleList)
 		{
-			indices.Clear();
+			uint16_t& gridSize = p_Terrain->p_Info->m_GridSize;
+			uint16_t& patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
 
-			if (requestedTopology == ETopology::TriangleList)
+			// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
+			uint16_t dataEdgeSize = patchEdgeSize + 1;
+
+			uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
+			uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
+
+			size_t numStoredPatches = p_Terrain->p_Patches->m_Patches.Size();
+			if (numStoredPatches != numPatches)
 			{
-				uint16_t& gridSize = p_Terrain->p_Info->m_GridSize;
-				uint16_t& patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
-
-				// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
-				uint16_t dataEdgeSize = patchEdgeSize + 1;
-
-				uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
-				uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
-
-				size_t numStoredPatches = p_Terrain->p_Patches->m_Patches.Size();
-				if (numStoredPatches != numPatches)
-				{
-					LOG_ERROR("Expected {} patches according to info data, but found {}!", numPatches, numStoredPatches);
-					return false;
-				}
-
-				uint32_t vertexOffset = 0;
-				for (uint16_t i = 0; i < numPatches; ++i)
-				{
-					// geometry index buffer is optional, most patches don't have them.
-					// this is most likely only for patches with baked in terrain cuts.
-					// if no custom index buffer is specified, we build the index buffer ourselfs
-					IBUF* indexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryIndexBuffer;
-					VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
-					if (indexBuffer != nullptr)
-					{
-						List<uint32_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
-
-						indices.Append(triangleList);
-						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
-					}
-					else
-					{
-						// actually z in world space (y is height), but whatever...
-						for (uint16_t y = 0; y < patchEdgeSize; ++y)
-						{
-							for (uint16_t x = 0; x < patchEdgeSize; ++x)
-							{
-								uint32_t globalX = x + vertexOffset;
-								uint32_t globalY = y + vertexOffset;
-
-								uint32_t a, b, c, d;
-
-								// get 4 points for quad
-								a = globalX + (y * dataEdgeSize);
-								b = globalX + ((y + 1) * dataEdgeSize);
-								c = (globalX + 1) + (y * dataEdgeSize);
-								d = (globalX + 1) + ((y + 1) * dataEdgeSize);
-
-								// triangle 1 clockwise
-								indices.Add(a);
-								indices.Add(b);
-								indices.Add(c);
-
-								// triangle 2 clockwise
-								indices.Add(c);
-								indices.Add(b);
-								indices.Add(d);
-							}
-						}
-
-						vertexOffset += verticesPerPatch;
-					}
-				}
-			}
-			else
-			{
-				LOG_WARN("Requested terrain index buffer as (yet) unsupported topology '{}'!", TopologyToString(requestedTopology));
+				LOG_ERROR("Expected {} patches according to info data, but found {}!", numPatches, numStoredPatches);
 				return false;
 			}
 
-			lastRequestedTopology = requestedTopology;
+			uint32_t vertexOffset = 0;
+			for (uint16_t i = 0; i < numPatches; ++i)
+			{
+				// geometry index buffer is optional, most patches don't have them.
+				// this is most likely only for patches with baked in terrain cuts.
+				// if no custom index buffer is specified, we build the index buffer ourselfs
+				IBUF* indexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryIndexBuffer;
+				VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
+				if (indexBuffer != nullptr)
+				{
+					List<uint32_t> triangleList = TriangleStripToTriangleList<uint32_t>(indexBuffer->m_IndexBuffer, vertexOffset);
+
+					m_Indices.Append(triangleList);
+					vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
+				}
+				else
+				{
+					// actually z in world space (y is height), but whatever...
+					for (uint16_t y = 0; y < patchEdgeSize; ++y)
+					{
+						for (uint16_t x = 0; x < patchEdgeSize; ++x)
+						{
+							uint32_t globalX = x + vertexOffset;
+							uint32_t globalY = y + vertexOffset;
+
+							uint32_t a, b, c, d;
+
+							// get 4 points for quad
+							a = globalX + (y * dataEdgeSize);
+							b = globalX + ((y + 1) * dataEdgeSize);
+							c = (globalX + 1) + (y * dataEdgeSize);
+							d = (globalX + 1) + ((y + 1) * dataEdgeSize);
+
+							// triangle 1 clockwise
+							m_Indices.Add(a);
+							m_Indices.Add(b);
+							m_Indices.Add(c);
+
+							// triangle 2 clockwise
+							m_Indices.Add(c);
+							m_Indices.Add(b);
+							m_Indices.Add(d);
+						}
+					}
+
+					vertexOffset += verticesPerPatch;
+				}
+			}
+		}
+		else
+		{
+			LOG_WARN("Requested terrain index buffer as (yet) unsupported topology '{}'!", TopologyToString(requestedTopology));
+			return false;
 		}
 
-		count = (uint32_t)indices.Size();
-		indexBuffer = indices.GetArrayPtr();
+		count = (uint32_t)m_Indices.Size();
+		indexBuffer = m_Indices.GetArrayPtr();
 		return true;
 	}
 
@@ -287,7 +281,7 @@ namespace LibSWBF2::Wrappers
 		normalBuffer = m_Normals.GetArrayPtr();
 	}
 
-	void Terrain::GetColorBuffer(uint32_t& count, Color*& colorBuffer) const
+	void Terrain::GetColorBuffer(uint32_t& count, Color4u8*& colorBuffer) const
 	{
 		count = (uint32_t)m_Colors.Size();
 		colorBuffer = m_Colors.GetArrayPtr();
@@ -313,6 +307,8 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
+    		LOG_WARN("Initializing heightmap");
+
 	        float_t gridSize     = (float_t) dim;
 			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
@@ -327,7 +323,7 @@ namespace LibSWBF2::Wrappers
 			p_HeightMap = new float_t[heightDataLength]();
 
 			uint32_t ibufLength;
-			uint32_t *ibufData;
+			uint32_t*ibufData;
 			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
 			//Inits to -5.96541e+29
@@ -335,13 +331,6 @@ namespace LibSWBF2::Wrappers
 
 			for (int i = 0; i < (int) ibufLength; i++)
 			{
-				/*
-				if (ibufData[i] >= m_Positions.Size())
-				{
-					continue;
-				}
-				*/
-
 				const Vector3& curVert = m_Positions[ibufData[i]];
 
 				if (fmod(curVert.m_X, gridUnitSize) > .1 || //omit irregularities

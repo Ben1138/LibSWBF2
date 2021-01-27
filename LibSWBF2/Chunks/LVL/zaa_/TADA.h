@@ -5,14 +5,6 @@
 namespace LibSWBF2::Chunks::LVL::animation
 {
 
-	/*
-	TADA (ADAT == animation data?)
-
-	Contains compressed animation data for each component of each
-	rotation and location of each bone in each animation.
-
-	*/
-
 	struct LIBSWBF2_API TADA : public GenericChunk<"TADA"_m>
 	{
 

@@ -5,13 +5,6 @@ using LibSWBF2::FNV;
 
 int main(int ac, char **av)
 {
-	uint32_t t = (uint32_t) FNV::Hash("mus1");
-	COUT(fmt::format("mus1 crc: 0x{0:x}", t).c_str());
-
-	//uint32_t t = (uint32_t) CRC::CalcLowerCRC("mus1");
-	//COUT(fmt::format("mus1 crc: 0x{0:x}", t).c_str());
-
-
 	if (ac < 4) return -1;
 
 	List<String> paths;
@@ -20,8 +13,6 @@ int main(int ac, char **av)
 	{
 		paths.Add(av[i]);
 	}
-
-
 
 	String animSetName = av[ac - 2];
 	String animName = av[ac - 1];
@@ -41,11 +32,11 @@ int main(int ac, char **av)
 	}
 
 
-	if (!animSet -> ContainsAnim(animNameCRC))
+	if (!animSet -> ContainsAnimation(animNameCRC))
 	{
 		COUT(std::hex << animName.Buffer() << " doesn't belong to queried bank! This set contains: ");
 
-		List<uint32_t> hashes = animSet -> GetAnimHashes();
+		List<uint32_t> hashes = animSet -> GetAnimationNames();
 
 		for (int i = 0; i < hashes.Size(); i++)
 		{
@@ -59,9 +50,8 @@ int main(int ac, char **av)
 
 	//List<Bone> bones;
 
-	COUT(fmt::format("\n\nPrinting curves for anim {}", animName.Buffer()).c_str());
 
-	auto bones = animSet -> GetBoneHashes();
+	auto bones = animSet -> GetBoneNames();
 	std::vector<uint32_t> bonesSorted;
 	for (int i = 0; i < bones.Size(); i++)
 	{
@@ -71,10 +61,11 @@ int main(int ac, char **av)
 	std::sort(bonesSorted.begin(), bonesSorted.end()); 
 
 
-	int numFrames, numBones;
+	uint32_t numFrames, numBones;
 
 	animSet -> GetAnimationMetadata(animNameCRC, numFrames, numBones);
 
+	COUT(fmt::format("\n\nPrinting curves for anim {} with {} frames", animName.Buffer(), numFrames).c_str());
 
 
 	//if (model -> GetSkeleton(bones))
@@ -89,8 +80,8 @@ int main(int ac, char **av)
 			//uint32_t boneCRC = (uint32_t) CRC::CalcLowerCRC(cur_bone.m_BoneName.Buffer());
 			uint32_t boneCRC = bonesSorted[i];
 
-			//COUT(fmt::format("\tBone #{0}, 0x{1:x}\n", i, boneCRC));
-			COUT(fmt::format("0x{0:x}", boneCRC).c_str());
+			COUT(fmt::format("\tBone #{0}, 0x{1:x}\n", i, boneCRC).c_str());
+			//COUT(fmt::format("0x{0:x}", boneCRC).c_str());
 
 
 			
@@ -98,7 +89,7 @@ int main(int ac, char **av)
 			animSet -> GetCurve(animNameCRC, boneCRC, 5, indices1, values1);
 			animSet -> GetCurve(animNameCRC, boneCRC, 6, indices2, values2);
 
-			for (int j = 0; j < numFrames; j++)
+			for (int j = 0; j < numFrames && j < indices.Size() && j < indices1.Size() && j < indices2.Size(); j++)
 			{
 	        	COUT(fmt::format("\t{}: ({}, {}, {})", j, values[j], values1[j], values2[j]));
 			}

@@ -380,3 +380,9 @@ xcuserdata
 
 # Shell scripts
 *.sh
+
+# explicitly allow 7zip binary
+!7za.exe
+
+# ignore release zip
+LibSWBF2.zip
