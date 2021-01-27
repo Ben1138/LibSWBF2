@@ -28,19 +28,22 @@ namespace LibSWBF2.NET.Test
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
                 {
+                    if (!model.Name.Contains("ceptor")) continue;
+
+
                     Console.WriteLine("\n\tModel: " + model.Name);
                     CollisionMesh mesh = model.GetCollisionMesh();
 
                     Console.WriteLine("\t\tNum collision indices:   {0}", mesh.GetIndices().Length);
                     Console.WriteLine("\t\tNum collision verticies: {0}", mesh.GetVertices().Length);
                 
-                    CollisionPrimitive[] prims = model.GetPrimitivesMasked();
+                    CollisionPrimitive[] prims = model.GetPrimitivesMasked(16);
 
                     Console.WriteLine("\t\t{0} Primitives: ", prims.Length);
 
                     foreach (var prim in prims)
                     {
-                        Console.WriteLine("\t\t\t{0}", prim.name);
+                        Console.WriteLine("\t\t\tName: {0} Parent: {1}", prim.name, prim.parentName);
                     }
                 }
             }

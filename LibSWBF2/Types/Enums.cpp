@@ -284,7 +284,7 @@ namespace LibSWBF2
 	{
 		std::string result = "[";
 
-        if ((type & ECollisionMaskFlags::Ordnance) != 0)
+        if ((type & ECollisionMaskFlags::Ordinance) != 0)
         {
             result += "Ordnance, ";
         }

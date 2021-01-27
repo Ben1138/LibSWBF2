@@ -957,6 +957,41 @@ namespace LibSWBF2
 		return ecName.Buffer();
     }
 
+
+    const uint8_t Instance_GetOverriddenProperties(const Instance *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
+    {
+    	CheckPtr(ec, false)
+    	char **ptrsBuffer = nullptr;
+    	static List<String> values;
+    	static List<uint32_t> hashes;
+
+    	delete ptrsBuffer;
+
+    	if (ec -> GetOverriddenProperties(hashes, values))
+    	{
+    		hashesBuffer = hashes.GetArrayPtr();
+    		count = values.Size();
+
+    		ptrsBuffer = new char *[count];
+    		for (int i = 0; i < count; i++)
+    		{
+    			ptrsBuffer[i] = const_cast<char *>(values[i].Buffer());
+    		}
+
+    		valuesBuffer = ptrsBuffer;
+    		return true;
+    	}
+    	else 
+    	{
+    		ptrsBuffer = nullptr;
+    		count = 0;
+    		return false;
+    	}
+    }
+
+
+
+
     // EntityClass
 
     const char * EntityClass_GetProperty(const EntityClass *ec, const char *propName)

@@ -93,8 +93,8 @@ namespace LibSWBF2.NET.Test
         }
 
 
-        /*
-        public static Container LoadAndTrackContainer(List<string> paths, out List<>)
+        
+        public static Container LoadAndTrackContainer(List<string> paths, out List<Level> levelsOut)
         {
             Container container = new Container();
 
@@ -120,9 +120,22 @@ namespace LibSWBF2.NET.Test
             }
             Console.WriteLine("");
 
+            List<Level> lvls = new List<Level>();
+            foreach (var handle in handles)
+            {
+                Level lvl = container.GetLevel(handle);
+
+                if (lvl != null)
+                {
+                    lvls.Add(lvl);
+                }
+            }
+
+            levelsOut = lvls;
+
             return container;
         }
-        */
+        
 
 
 
