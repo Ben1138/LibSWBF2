@@ -16,6 +16,7 @@ namespace LibSWBF2
 		class CollisionMesh;
 		struct Bone;
 		class CollisionPrimitive;
+		class AnimationBank;
 		//class Texture;
 		//class World;
 		//class Script;
@@ -59,6 +60,7 @@ namespace LibSWBF2
 		//LIBSWBF2_API void GetTerrains(const Level* level, Terrain*& modelArr, uint32_t& modelCount);
 		//LIBSWBF2_API void GetScripts(const Level* level, Script*& modelArr, uint32_t& modelCount);
 					 
+		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		//LIBSWBF2_API const Texture* GetTexture(String textureName) const;
 		//LIBSWBF2_API const World* GetWorld(String worldName) const;
@@ -98,6 +100,14 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
 		LIBSWBF2_API const char* ENUM_MaterialFlagsToString(EMaterialFlags flags);
 		LIBSWBF2_API const char* ENUM_VBUFFlagsToString(EVBUFFlags flags);
+
+
+		// Wrappers - AnimationBank
+		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int32_t& numKeys);
+        LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
+        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
+                                                        			int32_t& numFrames, int32_t& numBones);
 
 
 		// Wrappers - Vectors
