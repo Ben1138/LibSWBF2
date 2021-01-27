@@ -41,6 +41,15 @@ namespace LibSWBF2.NET.Test
             
             terrain.GetHeightMap(out uint dim, out uint dimScale, out float[] heightMapData);
             terrain.GetBlendMap(out dim, out uint numLayers, out byte[] blendMapData);
+
+            uint[] indexBuffer = terrain.GetIndexBuffer();
+
+
+            for (int i = 0; i < indexBuffer.Length; i+=192)
+            {
+                Console.WriteLine("[{0}, {1}, {2}]", indexBuffer[i], indexBuffer[i + 1], indexBuffer[i + 2]);
+            }
+
             
             TestBench.StopLogging();
             return 1;

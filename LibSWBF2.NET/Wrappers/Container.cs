@@ -27,7 +27,15 @@ namespace LibSWBF2.Wrappers
             wrapperMap[typeof(World)]        = 3;
             wrapperMap[typeof(EntityClass)]  = 4;
             wrapperMap[typeof(AnimationBank)] = 5;
-        }        
+        }    
+
+
+
+        public bool Delete()
+        {
+            return APIWrapper.Container_Delete(NativeInstance);
+        }
+
 
         public uint AddLevel(string path)
         {

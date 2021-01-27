@@ -67,6 +67,11 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Container_IsDone(IntPtr container);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Container_Delete(IntPtr container);
+
+
 
         // Level //
 
@@ -247,6 +252,10 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Instance_GetEntityClassName(IntPtr instance);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Instance_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
 
 
         // Light //
