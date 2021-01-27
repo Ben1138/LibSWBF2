@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+
+using LibSWBF2.Utils;
 using LibSWBF2.Logging;
 using LibSWBF2.Types;
+
+
 
 namespace LibSWBF2.Wrappers
 {
@@ -41,6 +45,24 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             return Marshal.PtrToStringAnsi(APIWrapper.Instance_GetEntityClassName(NativeInstance));   
+        }
+
+        public bool GetOverriddenProperties(out uint[] properties, out string[] values)
+        {
+            bool status = APIWrapper.Instance_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+
+            if (status)
+            {
+                properties = MemUtils.IntPtrToArray<uint>(props, count);
+                values = MemUtils.IntPtrToStringList(vals, count).ToArray();
+            }
+            else 
+            {
+                properties = new uint[0];
+                values = new string[0];
+            }
+
+            return status;
         }
     }
 }
