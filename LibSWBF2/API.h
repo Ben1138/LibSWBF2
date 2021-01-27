@@ -77,6 +77,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
 		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
 													const char*& light1Name, const char*& light2Name);
+		LIBSWBF2_API char *  Level_GetName(const Level* level);
 		
 		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);

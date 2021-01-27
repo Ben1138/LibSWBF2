@@ -312,6 +312,16 @@ namespace LibSWBF2
 	}
 
 
+	char *  Level_GetName(const Level* level)
+	{
+		static String cache;
+		CheckPtr(level, nullptr);
+		cache = level -> GetLevelName();
+		return const_cast<char *>(cache.Buffer());
+	}
+
+
+
 	// Texture
 
 	const bool Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name)

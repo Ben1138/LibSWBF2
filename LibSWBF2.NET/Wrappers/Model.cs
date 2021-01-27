@@ -73,7 +73,16 @@ namespace LibSWBF2.Wrappers
         public CollisionMesh GetCollisionMesh()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
+            IntPtr collPtr = APIWrapper.Model_GetCollisionMesh(NativeInstance);  
+
+            if (collPtr == IntPtr.Zero)
+            {
+                return null;
+            }   
+            else
+            {
+                return new CollisionMesh(collPtr);
+            }       
         }
 
         public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
