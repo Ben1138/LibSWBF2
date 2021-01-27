@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Color.h"
+#include "Color4u8.h"
 #include "InternalHelpers.h"
 #include "FileWriter.h"
 #include "FileReader.h"
@@ -8,10 +8,10 @@
 
 namespace LibSWBF2::Types
 {
-	Color::Color() : Color(0, 0, 0, 1) { }
-	Color::Color(const uint8_t Red, const uint8_t Green, const uint8_t Blue) : Color(Red, Green, Blue, 1) { }
+	Color4u8::Color4u8() : Color4u8(0, 0, 0, 1) { }
+	Color4u8::Color4u8(const uint8_t Red, const uint8_t Green, const uint8_t Blue) : Color4u8(Red, Green, Blue, 1) { }
 
-	Color::Color(const uint8_t Red, const uint8_t Green, const uint8_t Blue, const uint8_t Alpha) :
+	Color4u8::Color4u8(const uint8_t Red, const uint8_t Green, const uint8_t Blue, const uint8_t Alpha) :
 		m_Red(std::clamp(m_Red, (uint8_t)0, (uint8_t)255)),
 		m_Green(std::clamp(m_Green, (uint8_t)0, (uint8_t)255)),
 		m_Blue(std::clamp(m_Blue, (uint8_t)0, (uint8_t)255)),
@@ -20,12 +20,12 @@ namespace LibSWBF2::Types
 		
 	}
 
-	Color::~Color()
+	Color4u8::~Color4u8()
 	{
 		
 	}
 
-	void Color::WriteToStream(FileWriter& stream)
+	void Color4u8::WriteToStream(FileWriter& stream)
 	{
 		// in LVL -> MTRL, color order is BGRA
 		stream.WriteByte(m_Blue);
@@ -34,7 +34,7 @@ namespace LibSWBF2::Types
 		stream.WriteByte(m_Alpha);
 	}
 
-	void Color::ReadFromStream(FileReader& stream)
+	void Color4u8::ReadFromStream(FileReader& stream)
 	{
 		// in LVL -> MTRL, color order is BGRA
 		m_Blue = stream.ReadByte();
@@ -43,7 +43,7 @@ namespace LibSWBF2::Types
 		m_Alpha = stream.ReadByte();
 	}
 
-	String Color::ToString()
+	String Color4u8::ToString()
 	{
 		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
 	}

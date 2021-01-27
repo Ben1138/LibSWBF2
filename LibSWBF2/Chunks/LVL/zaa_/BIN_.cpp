@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
-		//Skip SMNA
+		//Skip SMNA header and size
 		stream.SkipBytes(8);
 
 		m_Version = stream.ReadUInt32();

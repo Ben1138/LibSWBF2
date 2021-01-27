@@ -43,11 +43,11 @@ namespace LibSWBF2
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
 		std::unordered_map<std::string, const Light*> m_LightDB;
 		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
+		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
 
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
 		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
 
-		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
 
 		List<const World*> m_Worlds;
 	};
@@ -589,6 +589,20 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+	const AnimationBank* Container::FindAnimationBank(String setName) const
+	{
+		if (setName.IsEmpty()) return nullptr;
+
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(ToLower(setName));
+		if (it != m_ThreadSafeMembers->m_AnimationBankDB.end())
+		{
+			return it->second;
+		}
+
+		return nullptr;
+	}
+
 	const List<const Localization*>* Container::FindLocalizations(String languageName) const
 	{
 		if (languageName.IsEmpty())
@@ -640,20 +654,6 @@ namespace LibSWBF2
 		{
 			return it->second;
 		}
-		return nullptr;
-	}
-
-	const AnimationBank* Container::FindAnimationBank(String setName) const
-	{
-		if (setName.IsEmpty()) return nullptr;
-
-		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(ToLower(setName));
-		if (it != m_ThreadSafeMembers->m_AnimationBankDB.end())
-		{
-			return it->second;
-		}
-
 		return nullptr;
 	}
 

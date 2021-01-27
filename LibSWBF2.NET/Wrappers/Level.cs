@@ -85,6 +85,13 @@ namespace LibSWBF2.Wrappers
             get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
 
+
+        public string name
+        {
+            get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
+        }
+
+
         
         public Terrain[] GetTerrains()
         {   

@@ -1,6 +1,6 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Types/Color.h"
+#include "Types/Color4u8.h"
 #include "Types/Enums.h"
 
 namespace LibSWBF2::Chunks::LVL::modl
@@ -9,8 +9,8 @@ namespace LibSWBF2::Chunks::LVL::modl
 	{
 	public:
 		EMaterialFlags m_Flags;
-		Color m_DiffuseColor;
-		Color m_SpecularColor;
+		Color4u8 m_DiffuseColor;
+		Color4u8 m_SpecularColor;
 		uint32_t m_SpecularExponent;
 		uint32_t m_Unknown[2];
 		String m_AttachedLight;

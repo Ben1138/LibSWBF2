@@ -42,7 +42,7 @@ int main(int ac, char **av)
 		COUT("\tMesh: ");
 
 		uint32_t numIndices, numVertices;
-		uint32_t *indices;
+		uint16_t *indices;
 		Vector3* verts;
 
 		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);

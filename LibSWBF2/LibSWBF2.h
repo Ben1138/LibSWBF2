@@ -3,7 +3,7 @@
 #include "Hashing.h"
 #include "API.h"
 #include "Container.h"
-#include "Types/Color.h"
+#include "Types/Color4u8.h"
 #include "Types/Vector2.h"
 #include "Types/Vector3.h"
 #include "Types/Vector4.h"

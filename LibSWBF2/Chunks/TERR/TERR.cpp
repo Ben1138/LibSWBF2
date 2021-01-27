@@ -234,17 +234,17 @@ namespace LibSWBF2::Chunks::Terrain
 		///*
 		//	Type: byte [4]
 		//	Size: MapSize * MapSize * 4
-		//	Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
+		//	Color4u8 values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
 		//*/
 		//for (uint32_t x = 0; x < MapSize; x++)
 		//	for (uint32_t y = 0; y < MapSize; y++)
 		//		for (int i = 0; i < 4; i++)
-		//			Color[x][y][i] = stream.ReadByte();
+		//			Color4u8[x][y][i] = stream.ReadByte();
 
 		///*
 		//	Type: byte [4]
 		//	Size: MapSize * MapSize * 4
-		//	Color values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
+		//	Color4u8 values for every point on the grid. 4 bytes (from 0 to 255) corresponding to the RGBA channels
 		//*/
 		//for (uint32_t x = 0; x < MapSize; x++)
 		//	for (uint32_t y = 0; y < MapSize; y++)

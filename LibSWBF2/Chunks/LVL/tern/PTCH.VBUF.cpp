@@ -59,20 +59,20 @@ namespace LibSWBF2::Chunks::LVL::terrain
             PTCH_INFO *patchInfo = parentPatch -> p_PatchInfo;
 
             List<uint32_t>& slotsList = patchInfo -> m_TextureSlotsUsed;
-            int numSlotsUsed = (int) slotsList.Size();
+            uint32_t numSlotsUsed = (uint32_t)slotsList.Size();
             
             //Temp buffer for storing each raw (usually 16 byte long)
             //VBUF element
             uint8_t *elementBuffer = new uint8_t[m_ElementSize]();
 
-            for (int i = 0; i < m_ElementCount * numSlotsUsed; i += numSlotsUsed)
+            for (uint32_t i = 0; i < m_ElementCount * numSlotsUsed; i += numSlotsUsed)
             {
                 stream.ReadBytes(elementBuffer, m_ElementSize);
 
-                for (int j = 0; j < numSlotsUsed; j++)
+                for (uint32_t j = 0; j < numSlotsUsed; j++)
                 {                 
                     //Don't know how > 3 strengths are stored per VBUF element just yet
-                    int newElement = j < 3 ? elementBuffer[KNOWN_STRENGTH_OFFSETS[j]] : 0;
+                    uint32_t newElement = j < 3 ? elementBuffer[KNOWN_STRENGTH_OFFSETS[j]] : 0;
                     m_BlendMapData.Add(newElement);
                 }
             }

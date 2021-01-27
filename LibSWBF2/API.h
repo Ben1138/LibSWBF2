@@ -16,7 +16,6 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
-
 		class Light;
 
 		class Terrain;
@@ -77,6 +76,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
 		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
 													const char*& light1Name, const char*& light2Name);
+		LIBSWBF2_API char *  Level_GetName(const Level* level);
 		
 		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
@@ -111,7 +111,7 @@ namespace LibSWBF2
 		// Wrappers - Segment
 		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
 		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
+		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int32_t*& indexBuffer);
 		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
 		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
 		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
@@ -120,17 +120,17 @@ namespace LibSWBF2
 		LIBSWBF2_API const uint8_t   Segment_IsPretransformed(const Segment* segment);
 		LIBSWBF2_API const Material* Segment_GetMaterial(const Segment* segment); 
 
-		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint32_t*& buffer);
-        LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
-
-
         // Wrappers - CollisionPrimitive
         LIBSWBF2_API const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
                                                     float_t& f1, float_t& f2, float_t& f3,
                                                     const char *& name, const char *& parentName,
                                                     uint32_t& maskFlags, uint32_t& primitiveType,
                                                     Vector3*& pos, Vector4*& rot);
+
+		// Wrappers - CollisionMesh
+		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& buffer);
+        LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
+
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
@@ -144,7 +144,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
 		LIBSWBF2_API const void Terrain_GetVertexBuffer(const Terrain *ter, float_t*& positions, int32_t& numVerts);
 		LIBSWBF2_API const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals);
-		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numInds);
+		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint16_t*& indicies, int32_t& numInds);
 
 		// Wrappers - World
         LIBSWBF2_API const char* World_GetName(const World* world);
@@ -166,19 +166,17 @@ namespace LibSWBF2
 				                                    Vector3*& colPtr, float_t& range,
 				                                    Vector2*& conePtr);
 
-		// Wrappers - AnimationBank
-		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
-                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys);
-        LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs);
-        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
-                                                        			int& numFrames, int& numBones);
-
-
         // Wrappers - Material
         LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                                 Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
                                 char* attachedLightName, uint32_t& matFlags, uint32_t& specExp);
 
+		// Wrappers - AnimationBank
+		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int32_t& numKeys);
+        LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
+        LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
+                                                        			int32_t& numFrames, int32_t& numBones);
 
 		// Wrappers - Vectors
 		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float_t& x, float_t& y, float_t& z, float_t &w);        

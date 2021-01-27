@@ -32,12 +32,12 @@ namespace LibSWBF2::Wrappers
 		return p_Material->m_Flags;
 	}
 
-	const Color& Material::GetDiffuseColor() const
+	const Color4u8& Material::GetDiffuseColor() const
 	{
 		return p_Material->m_DiffuseColor;
 	}
 
-	const Color& Material::GetSpecularColor() const
+	const Color4u8& Material::GetSpecularColor() const
 	{
 		return p_Material->m_SpecularColor;
 	}

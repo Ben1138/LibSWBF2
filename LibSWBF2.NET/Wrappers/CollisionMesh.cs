@@ -21,11 +21,11 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToArray<float>(buffer, (int) count * 3);
         }
 
-        public uint[] GetIndices()
+        public ushort[] GetIndices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-            return MemUtils.IntPtrToArray<uint>(buffer, (int) count);
+            return MemUtils.IntPtrToArray<ushort>(buffer, (int) count);
         }
     }
 }
