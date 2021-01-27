@@ -1,6 +1,6 @@
 #pragma once
 #include "HeaderNames.h"
-#include "Types/Color.h"
+#include "Types/Color4u8.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3u8.h"
 #include "Types/List.h"
@@ -14,7 +14,7 @@ namespace LibSWBF2
 
 namespace LibSWBF2::Chunks
 {
-	using Types::Color;
+	using Types::Color4u8;
 	using Types::Vector2;
 	using Types::Vector3;
 	using Types::Vector3u8;

@@ -28,9 +28,6 @@ namespace LibSWBF2.NET.Test
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
                 {
-                    if (!model.Name.Contains("ceptor")) continue;
-
-
                     Console.WriteLine("\n\tModel: " + model.Name);
                     CollisionMesh mesh = model.GetCollisionMesh();
 

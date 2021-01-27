@@ -9,12 +9,14 @@ namespace LibSWBF2::Types
 {
 	Vector2::Vector2() : m_X(m_X), m_Y(m_Y) 
 	{
-	
+		m_X = 0.0;
+		m_Y = 0.0;
 	}
 
-	Vector2::Vector2(const float_t x, const float_t y) : m_X(x), m_Y(y) 
+	Vector2::Vector2(const float_t x, const float_t y)
 	{
-	
+		m_X = x;
+		m_Y = y;
 	}
 
 	Vector2::~Vector2()

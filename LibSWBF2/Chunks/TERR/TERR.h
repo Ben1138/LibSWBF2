@@ -64,7 +64,7 @@ namespace LibSWBF2::Chunks::Terrain
 
 #pragma region Blocks
 		//List<List<uint16_t>> Heights;
-		//List<List<uint8_t[4]>> Color;
+		//List<List<uint8_t[4]>> Color4u8;
 		//List<List<uint8_t[4]>> Color2;
 		//List<List<uint8_t[16]>> Texture;
 

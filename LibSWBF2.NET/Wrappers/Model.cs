@@ -15,7 +15,6 @@ namespace LibSWBF2.Wrappers
         public Model(IntPtr modelPtr) : base(modelPtr) {}
         public Model() : base(IntPtr.Zero){}
 
-
         public string Name
         {
             get 
@@ -53,8 +52,6 @@ namespace LibSWBF2.Wrappers
                 return APIWrapper.Model_IsSkeletonBroken(NativeInstance);
             }
         }
-
-
 
         public Bone[] GetSkeleton()
         {

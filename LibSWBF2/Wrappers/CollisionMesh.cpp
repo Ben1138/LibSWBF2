@@ -23,11 +23,6 @@ namespace LibSWBF2::Wrappers
 
     String CollisionMesh::GetName() const
     {
-        if (p_CollisionChunk -> p_ChunkName == nullptr){
-            LOG_ERROR("CollisionMesh chunk at 0x{0:x} missing name.", p_CollisionChunk -> GetPosition());
-            return "";
-        }
-
         return p_CollisionChunk -> p_ChunkName -> ToString();
     }
 
@@ -37,7 +32,7 @@ namespace LibSWBF2::Wrappers
         return maskChunk == nullptr ? ECollisionMaskFlags::All : maskChunk -> m_MaskFlags;
     }
 
-    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
+    void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
     {
         if (requestedTopology != ETopology::TriangleList || p_CollisionChunk == nullptr)
         {
@@ -52,7 +47,7 @@ namespace LibSWBF2::Wrappers
             
             for (int i = 0; i < leaves.Size(); i++)
             {
-                m_Indicies.Append(TriangleStripToTriangleList(leaves[i] -> m_Indicies));
+                m_Indicies.Append(TriangleStripToTriangleList<uint16_t, uint16_t>(leaves[i] -> m_Indicies));
             }
         }
 
