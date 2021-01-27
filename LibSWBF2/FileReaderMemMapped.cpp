@@ -110,7 +110,7 @@ namespace LibSWBF2
 			//m_Reader.read((char*)&value, sizeof(value));
 			//memcpy(value, m_Reader, sizeof(value));
 
-			value = *((uint32_t) m_Reader);
+			value = *((uint32_t *) m_Reader);
 			m_Reader += sizeof(value);
 		}
 		return value;
@@ -207,6 +207,7 @@ namespace LibSWBF2
 			char* str = new char[length+1];
 			//m_Reader.read(str, length);
 			memcpy((void *) str, (void *) m_Reader, length);
+			m_Reader += length;
 
 			str[length] = 0;
 			value = str;
@@ -243,6 +244,8 @@ namespace LibSWBF2
 		m_FileName = "";
 		m_Reader.close();
 		*/
+
+		munmap(m_MMapStart, m_FileSize);
 	}
 
 	size_t FileReader::GetPosition()
