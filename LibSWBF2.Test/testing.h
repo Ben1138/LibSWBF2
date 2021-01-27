@@ -60,11 +60,9 @@ Container * LoadAndTrackContainer(List<String> paths)
 
 
 
-
-
-std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
+std::vector<const Level *> LoadAndTrackLVLs(List<String> paths, Container*& container)
 {
-	Container *container = Container::Create();
+	container = Container::Create();
 	List<SWBF2Handle> handles;
 
 	for (int i = 0; i < paths.Size(); i++)
@@ -101,6 +99,14 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 }
 
 
+
+
+
+std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
+{
+	Container* container;
+	return LoadAndTrackLVLs(paths, container);	
+}
 
 
 
