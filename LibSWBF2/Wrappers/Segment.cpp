@@ -243,6 +243,7 @@ namespace LibSWBF2::Wrappers
 		return count > 0;
 	}
 
+
 	String Segment::GetBone() const
 	{
 		if (p_Segment -> p_Parent != nullptr)

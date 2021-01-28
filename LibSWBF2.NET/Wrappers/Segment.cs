@@ -19,16 +19,14 @@ namespace LibSWBF2.Wrappers
         public byte index;
     }
 
-
     public class Segment : NativeWrapper
     {
-        public Segment(IntPtr segmentPtr) : base(segmentPtr){}
+        public Segment(IntPtr segmentPtr) : base(segmentPtr) {}
         public Segment() : base(IntPtr.Zero) {}
 
         public uint GetVertexBufferLength()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             return APIWrapper.Segment_GetVertexBufferLength(NativeInstance);
         }
 
@@ -36,36 +34,26 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Segment_GetVertexBuffer(NativeInstance, out uint numVerts, out IntPtr vertsArr);
-            float[] verts = new float[(int)numVerts*3];
-            Marshal.Copy(vertsArr, verts, 0, (int)numVerts*3);
-            return verts;
+            return MemUtils.IntPtrToArray<float>(vertsArr, (int) numVerts * 3);
         }
 
         public float[] GetNormalsBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.Segment_GetNormalBuffer(NativeInstance, out uint numNormals, out IntPtr normalsArr);
-            float[] normals = new float[(int)numNormals*3];
-            Marshal.Copy(normalsArr, normals, 0, (int)numNormals*3);
-            return normals;
+            return MemUtils.IntPtrToArray<float>(normalsArr, (int) numNormals * 3);
         }
 
-        public int[] GetIndexBuffer()
+        public ushort[] GetIndexBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.Segment_GetIndexBuffer(NativeInstance, out uint numInds, out IntPtr indsArr);
-            int indsLength = (int) numInds;
-            int[] indicies = new int[indsLength];
-            Marshal.Copy(indsArr, indicies, 0, indsLength);
-            return indicies;
+            return MemUtils.IntPtrToArray<ushort>(indsArr, (int) numInds);
         }
 
         public float[] GetUVBuffer()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
             APIWrapper.Segment_GetUVBuffer(NativeInstance, out uint numUVs, out IntPtr UVsArr);
             return MemUtils.IntPtrToArray<float>(UVsArr, 2 * (int) numUVs);
         }

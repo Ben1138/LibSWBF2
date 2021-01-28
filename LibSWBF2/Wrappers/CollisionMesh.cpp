@@ -23,6 +23,10 @@ namespace LibSWBF2::Wrappers
 
     String CollisionMesh::GetName() const
     {
+        if (p_CollisionChunk -> p_ChunkName == nullptr)
+        {
+            return "";
+        }
         return p_CollisionChunk -> p_ChunkName -> ToString();
     }
 
@@ -51,7 +55,7 @@ namespace LibSWBF2::Wrappers
             }
         }
 
-        count       = (uint32_t)m_Indicies.Size();
+        count = (uint32_t)m_Indicies.Size();
         indexBuffer = m_Indicies.GetArrayPtr();
     }
 
@@ -80,5 +84,3 @@ namespace LibSWBF2::Wrappers
                p_CollisionChunk -> p_Info -> ToString();
     }
 }
-
-

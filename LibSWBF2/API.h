@@ -109,11 +109,11 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
 		// Wrappers - Segment
-		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
-		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int*& indexBuffer);
+		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer);
+		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer);
+		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer);
 		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
-		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
+		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float_t*& normalsBuffer);
 		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
 		LIBSWBF2_API const void      Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
 		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);
@@ -144,7 +144,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
 		LIBSWBF2_API const void Terrain_GetVertexBuffer(const Terrain *ter, float_t*& positions, int32_t& numVerts);
 		LIBSWBF2_API const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals);
-		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint16_t*& indicies, int32_t& numInds);
+		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numInds);
 
 		// Wrappers - World
         LIBSWBF2_API const char* World_GetName(const World* world);
