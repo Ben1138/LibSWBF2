@@ -504,14 +504,14 @@ namespace LibSWBF2
 
 	
 
-	const void Terrain_GetIndexBuffer(const Terrain *terr, uint16_t*& indicies, int32_t& numIndsOut)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
 	{
 		numIndsOut = 0;
 		CheckPtr(terr,)
 
 		indicies = nullptr;
 		uint32_t numInds = 0;
-		//terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
 		numIndsOut = numInds;
 
 		/*
@@ -778,16 +778,20 @@ namespace LibSWBF2
 
 	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int32_t*& indexBuffer)
 	{
-		static int32_t* = nullptr;
+		static int32_t* cache = nullptr;
+		delete cache;
+
 		uint16_t *indicies;
 		segment -> GetIndexBuffer(numInds, indicies, ETopology::TriangleList);
 
-		indexBuffer = new int32_t[numInds];
+		cache = new int32_t[numInds];
 
 		for (int i = 0; i < (int) numInds; i++)
 		{
-			indexBuffer[i] = (int32_t) indicies[i];
+			cache[i] = (int32_t) indicies[i];
 		}
+
+		indexBuffer = cache;
 	}
 
 
