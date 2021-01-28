@@ -504,24 +504,16 @@ namespace LibSWBF2
 
 	
 
-	const void Terrain_GetIndexBuffer(const Terrain *terr, uint16_t*& indicies, int32_t& numIndsOut)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
 	{
 		numIndsOut = 0;
 		CheckPtr(terr,)
 
 		indicies = nullptr;
 		uint32_t numInds = 0;
-		//terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
+
+		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
 		numIndsOut = numInds;
-
-		/*
-		indexBuffer = new int[numInds];
-
-		for (int i = 0; i < (int) numInds; i++)
-		{
-			indexBuffer[i] = (int) indicies[i];
-		}
-		*/
 	}
 
 
@@ -726,7 +718,7 @@ namespace LibSWBF2
     }
 
 
-	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
+	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer)
 	{
 		Vector3 *verts;
 		segment -> GetVertexBuffer(numVerts, verts);
@@ -743,7 +735,7 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)	
+	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float_t*& normalsBuffer)	
 	{
 		Vector3 *normals;
 		segment -> GetNormalBuffer(numNormals, normals);
@@ -760,7 +752,7 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
+	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer)
 	{
 		Vector2 *UVs;
 		segment -> GetUVBuffer(numUVs, UVs);
@@ -776,17 +768,12 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int*& indexBuffer)
+	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer)
 	{
-		uint16_t *indicies;
-		segment -> GetIndexBuffer(numInds, indicies, ETopology::TriangleList);
-
-		indexBuffer = new int[numInds];
-
-		for (int i = 0; i < (int) numInds; i++)
-		{
-			indexBuffer[i] = (int) indicies[i];
-		}
+		uint16_t *indicies = nullptr;
+		numInds = 0;
+		CheckPtr(segment,);
+		segment -> GetIndexBuffer(numInds, indexBuffer, ETopology::TriangleList);
 	}
 
 

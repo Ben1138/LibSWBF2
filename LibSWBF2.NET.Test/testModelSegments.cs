@@ -58,6 +58,12 @@ namespace LibSWBF2.NET.Test
                     float[] buffer = seg.GetNormalsBuffer();
                     Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
 
+                    Console.WriteLine("\t\tPositions sample: ");
+                    for (int l = 0; l < vBuf.Length && l < 15; l+=3)
+                    {
+                        Console.WriteLine("\t\t\t({0},{1},{2})", vBuf[l], vBuf[l+1], vBuf[l+2]);
+                    }
+
                     if (model.IsSkeletalMesh)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
