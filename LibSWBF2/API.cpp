@@ -550,7 +550,7 @@ namespace LibSWBF2
 	}
 
 
-	uint8_t Model_IsSkeletalMesh(const Model* model)
+	uint8_t Model_IsSkinnedMesh(const Model* model)
 	{
 		CheckPtr(model, false);
 		return model->IsSkeletalMesh();
@@ -573,16 +573,7 @@ namespace LibSWBF2
 	}
 
 
-	uint8_t Model_HasNonTrivialHierarchy(const Model* model)
-	{
-		CheckPtr(model, false);
-		return model -> HasNonTrivialHierarchy();
-	}
-
-
-
 	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
-
 	{
 		const CollisionMesh& mesh = model -> GetCollisionMesh();
 		return &mesh;
