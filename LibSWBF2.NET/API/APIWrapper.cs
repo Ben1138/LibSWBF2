@@ -165,15 +165,11 @@ namespace LibSWBF2
 		
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Model_IsSkeletalMesh(IntPtr model);
+        public static extern bool Model_IsSkinnedMesh(IntPtr model);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount, out int inc);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Model_HasNonTrivialHierarchy(IntPtr model);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Model_GetCollisionMesh(IntPtr model);

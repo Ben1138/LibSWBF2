@@ -511,17 +511,9 @@ namespace LibSWBF2
 
 		indicies = nullptr;
 		uint32_t numInds = 0;
+
 		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
 		numIndsOut = numInds;
-
-		/*
-		indexBuffer = new int[numInds];
-
-		for (int i = 0; i < (int) numInds; i++)
-		{
-			indexBuffer[i] = (int) indicies[i];
-		}
-		*/
 	}
 
 
@@ -558,7 +550,7 @@ namespace LibSWBF2
 	}
 
 
-	uint8_t Model_IsSkeletalMesh(const Model* model)
+	uint8_t Model_IsSkinnedMesh(const Model* model)
 	{
 		CheckPtr(model, false);
 		return model->IsSkeletalMesh();
@@ -581,16 +573,7 @@ namespace LibSWBF2
 	}
 
 
-	uint8_t Model_HasNonTrivialHierarchy(const Model* model)
-	{
-		CheckPtr(model, false);
-		return model -> HasNonTrivialHierarchy();
-	}
-
-
-
 	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
-
 	{
 		const CollisionMesh& mesh = model -> GetCollisionMesh();
 		return &mesh;
@@ -726,7 +709,7 @@ namespace LibSWBF2
     }
 
 
-	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer)
+	const void Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer)
 	{
 		Vector3 *verts;
 		segment -> GetVertexBuffer(numVerts, verts);
@@ -743,7 +726,7 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer)	
+	const void Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float_t*& normalsBuffer)	
 	{
 		Vector3 *normals;
 		segment -> GetNormalBuffer(numNormals, normals);
@@ -760,7 +743,7 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer)
+	const void Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer)
 	{
 		Vector2 *UVs;
 		segment -> GetUVBuffer(numUVs, UVs);
@@ -776,22 +759,12 @@ namespace LibSWBF2
 	}
 
 
-	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, int32_t*& indexBuffer)
+	const void Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer)
 	{
-		static int32_t* cache = nullptr;
-		delete cache;
-
-		uint16_t *indicies;
-		segment -> GetIndexBuffer(numInds, indicies, ETopology::TriangleList);
-
-		cache = new int32_t[numInds];
-
-		for (int i = 0; i < (int) numInds; i++)
-		{
-			cache[i] = (int32_t) indicies[i];
-		}
-
-		indexBuffer = cache;
+		uint16_t *indicies = nullptr;
+		numInds = 0;
+		CheckPtr(segment,);
+		segment -> GetIndexBuffer(numInds, indexBuffer, ETopology::TriangleList);
 	}
 
 
