@@ -75,14 +75,14 @@ namespace LibSWBF2
 		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
 		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
-													const char*& light1Name, const char*& light2Name);
-		LIBSWBF2_API char *  Level_GetName(const Level* level);
-		
+													const char*& light1Name, const char*& light2Name);		
 		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
+		LIBSWBF2_API char *  Level_GetName(const Level* level);
+
 
 		LIBSWBF2_API const bool    Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer);
 		LIBSWBF2_API const bool    Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name);
@@ -91,8 +91,7 @@ namespace LibSWBF2
 		// Wrappers - Model
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
 		LIBSWBF2_API const void  Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount);
-		LIBSWBF2_API uint8_t 	 Model_IsSkeletalMesh(const Model* model);
-		LIBSWBF2_API uint8_t     Model_HasNonTrivialHierarchy(const Model* model);
+		LIBSWBF2_API uint8_t 	 Model_IsSkinnedMesh(const Model* model);
 		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
 		LIBSWBF2_API uint8_t 	 Model_IsSkeletonBroken(const Model* model);
 		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
@@ -109,11 +108,11 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
 		// Wrappers - Segment
-		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float*& vertBuffer);
-		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float*& UVBuffer);
-		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numUVs, int32_t*& indexBuffer);
+		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer);
+		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer);
+		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer);
 		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
-		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float*& normalsBuffer);
+		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float_t*& normalsBuffer);
 		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
 		LIBSWBF2_API const void      Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
 		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);

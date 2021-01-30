@@ -24,22 +24,12 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public bool IsSkeletalMesh
+        public bool IsSkinnedMesh
         {
             get 
             {
                 if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
-            }
-        }
-
-
-        public bool HasNonTrivialHierarchy
-        {
-            get
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_HasNonTrivialHierarchy(NativeInstance);
+                return APIWrapper.Model_IsSkinnedMesh(NativeInstance); 
             }
         }
 
