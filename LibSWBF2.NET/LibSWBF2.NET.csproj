@@ -90,6 +90,7 @@
     <Compile Include="Wrappers\AnimationBank.cs" />
     <Compile Include="Wrappers\Container.cs" />
     <Compile Include="Wrappers\EntityClass.cs" />
+    <Compile Include="Wrappers\Config.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MarshalingUtils.cs" />
     <Compile Include="Utils\Hashing.cs" />

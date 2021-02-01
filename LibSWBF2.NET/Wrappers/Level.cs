@@ -208,6 +208,26 @@ namespace LibSWBF2.Wrappers
             return ec;   
         }
 
+        public Config GetConfig(string name)
+        {
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, HashUtils.GetFNV(name));
+            if (ptr == null)
+            {
+                return null;
+            }
+            return new Config(ptr);
+        }
+
+        public List<Config> GetConfigs()
+        {
+            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, out int count, out int inc);
+            if (ptr == null)
+            {
+                return null;
+            }
+            return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count, inc));
+        }
+
 
         public bool GetGlobalLightingConfig(out Vector3 topColor, 
                                             out Vector3 bottomColor, 

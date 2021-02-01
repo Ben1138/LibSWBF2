@@ -113,6 +113,14 @@ namespace LibSWBF2
         public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetConfig(IntPtr level, uint hash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetConfigs(IntPtr level, out int numConfigs, out int inc);
+    
+
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetTexture(IntPtr level, string texName);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -346,5 +354,32 @@ namespace LibSWBF2
                                 out IntPtr diffuse, out IntPtr texNames, out int numTexes,
                                 out IntPtr attachedLightName, out uint matFlags, out uint specExp);
 
+
+        // Config //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Config_IsPropertySet(IntPtr cfg, uint hash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern float  Config_GetFloat(IntPtr cfg, uint hash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetVec2(IntPtr cfg, uint hash); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetVec3(IntPtr cfg, uint hash); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetVec4(IntPtr cfg, uint hash); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetString(IntPtr cfg, uint hash); 
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetStrings(IntPtr cfg, uint hash, out int count);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Config_GetChildConfigs(IntPtr cfg, uint hash, out int numConfigs, out int inc); 
     }
 }

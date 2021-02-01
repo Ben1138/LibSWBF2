@@ -87,5 +87,17 @@ namespace LibSWBF2.Utils
 
             return strings;
         }
+
+
+        public static List<string> IntPtrToStringList(IntPtr nativePtr, int count, int elSize)
+        {
+            List<string> strings = new List<string>();
+
+            for (int i = 0; i < count; i++){
+                strings.Add(Marshal.PtrToStringAnsi(IntPtr.Add(nativePtr, elSize * i)));
+            }
+
+            return strings;
+        }
     }
 }

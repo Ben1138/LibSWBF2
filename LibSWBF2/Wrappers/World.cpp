@@ -60,11 +60,12 @@ namespace LibSWBF2::Wrappers
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
 
-
+	/*
 	const List<Light>& World::GetLights() const
 	{
 		return m_Lights;
 	}
+	*/
 
 
 }

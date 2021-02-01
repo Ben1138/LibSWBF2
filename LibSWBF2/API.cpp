@@ -9,6 +9,7 @@
 #include "Container.h"
 #include "Wrappers/Terrain.h"
 #include "Wrappers/Segment.h"
+#include "Wrappers/ConfigWrapper.h"
 
 #include <iostream>
 #include <string>
@@ -128,7 +129,7 @@ namespace LibSWBF2
 		switch (type)
 		{
 			case 0:
-				return static_cast<const void *>(container -> FindLight(name));
+				//return static_cast<const void *>(container -> FindLight(name));
 			case 1:
 				return static_cast<const void *>(container -> FindModel(name));
 			case 2:
@@ -254,6 +255,7 @@ namespace LibSWBF2
 	}
 
 
+	/*
 	void Level_GetLights(const Level* level, const Light**& LightArr, uint32_t& LightCount)
 	{
 		CheckPtr(level, );
@@ -276,13 +278,15 @@ namespace LibSWBF2
 	}
 
 
+
 	const Light* Level_GetLight(const Level* level, const char* lightName)
 	{
 		CheckPtr(level, nullptr);
 		return level->GetLight(lightName);
 	}
+	
 
-
+	
 	bool Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
 								const char*& light1Name, const char*& light2Name)
 	{
@@ -303,6 +307,7 @@ namespace LibSWBF2
 
 		return false;
 	}
+	*/
 
 
 	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
@@ -385,6 +390,18 @@ namespace LibSWBF2
 	}
 
 
+	const Config* Level_GetConfig(const Level* level, uint32_t hash)
+	{
+		return level -> GetEffect(hash);
+	}
+
+	const Config* Level_GetConfigs(const Level* level, int32_t& numConfigs, int32_t& inc)
+	{
+		const List<Config>& configs = level -> GetEffects();
+		numConfigs = configs.Size();
+		inc = sizeof(Config);
+		return configs.GetArrayPtr();
+	}
 
 	const char* ENUM_TopologyToString(ETopology topology)
 	{
@@ -894,7 +911,7 @@ namespace LibSWBF2
     	return (void *) world -> GetTerrain();
     }
 
-
+    /*
     const uint8_t World_GetLights(const World* world, Light*& lightArr, int32_t& count, int32_t& inc)
     {
     	CheckPtr(world, false);
@@ -907,6 +924,7 @@ namespace LibSWBF2
 
     	return true;
     }
+    */
 
 
     
@@ -1089,6 +1107,7 @@ namespace LibSWBF2
     } 
 
 
+    /*
     const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
                                     Vector3*& posPtr, uint32_t& lightType, 
                                     Vector3*& colPtr, float_t& range,
@@ -1119,6 +1138,7 @@ namespace LibSWBF2
     	const String& name = lightPtr -> GetName();
     	return name.Buffer();
     }
+    */
 
 
 
@@ -1170,6 +1190,71 @@ namespace LibSWBF2
     }
 
 
+    const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash)
+    {
+    	return cfg -> IsPropertySet(hash);
+    }
+
+	const float_t Config_GetFloat(const Config* cfg, uint32_t hash)
+	{
+		return cfg -> GetFloat(hash);
+	}
+
+	const Vector2* Config_GetVec2(const Config* cfg, uint32_t hash)
+	{
+		static Vector2 cache;
+		cache = cfg -> GetVector2(hash);
+		return &cache; 
+	}
+
+	const Vector3* Config_GetVec3(const Config* cfg, uint32_t hash)
+	{
+		static Vector3 cache;
+		cache = cfg -> GetVector3(hash);
+		return &cache; 
+	}
+
+	const Vector4* Config_GetVec4(const Config* cfg, uint32_t hash)
+	{
+		static Vector4 cache;
+		cache = cfg -> GetVector4(hash);
+		return &cache; 
+	}
+
+	const char* Config_GetString(const Config* cfg, uint32_t hash)
+	{
+		static String cache;
+		cache = cfg -> GetString(hash);
+		return cache.Buffer(); 
+	}
+
+	const char** Config_GetStrings(const Config* cfg, uint32_t hash, int32_t& count)
+	{
+		static List<String> cache;
+		static char** cachePtrs = nullptr;
+		delete cachePtrs;
+
+		cache = cfg -> GetStrings(hash);
+
+		count = cache.Size();
+
+		cachePtrs = new char*[count];
+		for (int i = 0; i < count; i++)
+		{
+			cachePtrs[i] = const_cast<char *>(cache[i].Buffer());
+		}
+
+		return const_cast<const char **>(cachePtrs);
+	}
 
 
+    const Config* Config_GetChildConfigs(const Config* cfg, uint32_t hash, int32_t& numConfigs, int32_t& inc)
+    {
+    	static List<Config> cache;
+    	cache = cfg -> GetChildConfigs(hash);
+
+    	inc = sizeof(Config);
+    	numConfigs = cache.Size();
+    	return cache.GetArrayPtr();
+    }
 }
