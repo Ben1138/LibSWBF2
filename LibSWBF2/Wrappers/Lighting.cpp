@@ -1,3 +1,6 @@
+/*
+
+
 #include "stdafx.h"
 #include "Light.h"
 #include "InternalHelpers.h"
@@ -87,3 +90,6 @@ namespace LibSWBF2::Wrappers
         return true;
     }
 }
+
+
+*/

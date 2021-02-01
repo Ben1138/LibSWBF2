@@ -5,9 +5,10 @@
 #include "World.h"
 #include "Terrain.h"
 #include "Script.h"
-#include "Light.h"
+//#include "Light.h"
+#include "ConfigWrapper.h"
 #include "AnimationBank.h"
-#include "GlobalLighting.h"
+//#include "GlobalLighting.h"
 #include "Localization.h"
 #include "EntityClass.h"
 #include "Types/LibString.h"
@@ -52,13 +53,17 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
-		List<Light> m_Lights;
+		//List<Light> m_Lights;
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
+		List<Config> m_Effects;
+		List<Config> m_Lightings;
+		List<Config> m_SkyDomes;
+
 
 		bool m_bHasGlobalLighting;
-		GlobalLightingConfig m_GlobalLightingConfig;
+		//GlobalLightingConfig m_GlobalLightingConfig;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -79,7 +84,7 @@ namespace LibSWBF2::Wrappers
 		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
-		const List<Light>& GetLights() const;
+		//const List<Light>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
@@ -88,9 +93,13 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
+		
+		const List<Config>& GetEffects() const;
+		const List<Config>& GetLightings() const;
+		const List<Config>& GetSkydomes() const;
 
-		const Light* GetLight(String lightName) const;
-		const GlobalLightingConfig* GetGlobalLighting() const;
+		//const Light* GetLight(String lightName) const;
+		//const GlobalLightingConfig* GetGlobalLighting() const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
@@ -99,6 +108,10 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
+
+		const Config* GetEffect(FNVHash hash) const;
+		const Config* GetLighting(FNVHash hash) const;
+		const Config* GetSkydome(FNVHash hash) const;
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

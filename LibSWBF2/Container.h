@@ -17,7 +17,7 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::World;
 	using LibSWBF2::Wrappers::Terrain;
 	using LibSWBF2::Wrappers::Script;
-	using LibSWBF2::Wrappers::Light;
+	//using LibSWBF2::Wrappers::Light;
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
 	using LibSWBF2::Wrappers::AnimationBank;
@@ -67,7 +67,7 @@ namespace LibSWBF2
 
 		const List<const World*>& GetWorlds();
 
-		const Light* FindLight(String lightName) const;
+		//const Light* FindLight(String lightName) const;
 		const Model* FindModel(String modelName) const;
 		const Texture* FindTexture(String textureName) const;
 		const World* FindWorld(String worldName) const;

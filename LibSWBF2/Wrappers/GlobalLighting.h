@@ -1,3 +1,5 @@
+/*
+
 #pragma once
 #include "Chunks/LVL/lght/lght.h"
 #include "Types/Color4.h"
@@ -31,3 +33,5 @@ namespace LibSWBF2::Wrappers
 		String ToString() const;
 	};
 }
+
+*/

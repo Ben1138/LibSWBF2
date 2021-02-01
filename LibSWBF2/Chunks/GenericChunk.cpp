@@ -22,8 +22,8 @@
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 #include "LVL/common/GenericClass.h"
+#include "LVL/config/ConfigChunk.h"
 
-#include "LVL/lght/lght.h"
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
 
@@ -157,9 +157,33 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "lght"_h)
 					{
-						LVL::lght::lght* unknown;
-						READ_CHILD(stream, unknown);
-						chunk = unknown;
+						LVL::config::lght* lighting;
+						READ_CHILD(stream, lighting);
+						chunk = lighting;
+					}
+					else if (nextHead == "sky_"_h)
+					{
+						LVL::config::sky_* skyDome;
+						READ_CHILD(stream, skyDome);
+						chunk = skyDome;	
+					}
+					else if (nextHead == "fx__"_h)
+					{
+						LVL::config::fx__* fx;
+						READ_CHILD(stream, fx);
+						chunk = fx;	
+					}
+					else if (nextHead == "bnd_"_h)
+					{
+						LVL::config::bnd_* boundary;
+						READ_CHILD(stream, boundary);
+						chunk = boundary;	
+					}
+					else if (nextHead == "prp_"_h)
+					{
+						LVL::config::prp_* idk;
+						READ_CHILD(stream, idk);
+						chunk = idk;	
 					}
 					else if (nextHead == "Locl"_h)
 					{
@@ -296,7 +320,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
-	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	//template struct LIBSWBF2_API GenericChunk<"lght"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;

@@ -25,6 +25,7 @@ namespace LibSWBF2
 		class CollisionPrimitive;
 		class AnimationBank;
 		class EntityClass;
+		class Config;
 		//class Script;
 	}
 
@@ -82,6 +83,10 @@ namespace LibSWBF2
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
+
+		LIBSWBF2_API const Config* Level_GetConfig(const Level* level, uint32_t hash);
+		LIBSWBF2_API const Config* Level_GetConfigs(const Level* level, int32_t& numConfigs, int32_t& inc);
+	
 
 
 		LIBSWBF2_API const bool    Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer);
@@ -160,10 +165,12 @@ namespace LibSWBF2
 
 
 		// Wrappers - Light
+		/*
 		LIBSWBF2_API const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
 				                                    Vector3*& posPtr, uint32_t& lightType, 
 				                                    Vector3*& colPtr, float_t& range,
 				                                    Vector2*& conePtr);
+		*/
 
         // Wrappers - Material
         LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
@@ -176,6 +183,18 @@ namespace LibSWBF2
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
+
+        LIBSWBF2_API const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash);
+        LIBSWBF2_API const float_t Config_GetFloat(const Config* cfg, uint32_t hash);
+        LIBSWBF2_API const Vector2* Config_GetVec2(const Config* cfg, uint32_t hash); 
+        LIBSWBF2_API const Vector3* Config_GetVec3(const Config* cfg, uint32_t hash); 
+        LIBSWBF2_API const Vector4* Config_GetVec4(const Config* cfg, uint32_t hash); 
+        LIBSWBF2_API const char* Config_GetString(const Config* cfg, uint32_t hash); 
+        LIBSWBF2_API const char** Config_GetStrings(const Config* cfg, uint32_t hash, int32_t& count); 
+        LIBSWBF2_API const Config* Config_GetChildConfigs(const Config* cfg, uint32_t hash, int32_t& numConfigs, int32_t& inc); 
+
+
+
 
 		// Wrappers - Vectors
 		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float_t& x, float_t& y, float_t& z, float_t &w);        

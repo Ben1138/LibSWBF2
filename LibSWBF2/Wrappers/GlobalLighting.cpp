@@ -1,3 +1,5 @@
+/*
+
 #include "stdafx.h"
 #include "GlobalLighting.h"
 #include "InternalHelpers.h"
@@ -92,3 +94,5 @@ namespace LibSWBF2::Wrappers
         return stringRep;
     }
 }
+
+*/
