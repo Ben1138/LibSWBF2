@@ -3,7 +3,7 @@
 #include "Chunks/STR.h"
 #include "XFRM.h"
 
-namespace LibSWBF2::Chunks::LVL::wrld::instance
+namespace LibSWBF2::Chunks::LVL::wrld
 {
 	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
@@ -16,5 +16,7 @@ namespace LibSWBF2::Chunks::LVL::wrld::instance
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
+
+		//String ToString() ov;
 	};
 }

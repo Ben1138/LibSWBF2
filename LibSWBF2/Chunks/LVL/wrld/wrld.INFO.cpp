@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "inst.INFO.h"
+#include "wrld.INFO.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-namespace LibSWBF2::Chunks::LVL::wrld::instance
+namespace LibSWBF2::Chunks::LVL::wrld
 {
     void INFO::RefreshSize()
     {
@@ -26,4 +26,12 @@ namespace LibSWBF2::Chunks::LVL::wrld::instance
 
         BaseChunk::EnsureEnd(stream);
     }
+
+    /*
+    String INFO::ToString()
+    {
+        return "YEA LOL DUDE";
+    }
+    */
+
 }
