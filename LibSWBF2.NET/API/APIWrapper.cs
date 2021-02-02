@@ -246,6 +246,15 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool World_GetLights(IntPtr world, out IntPtr lightArr, out int count, out int inc);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void World_GetRegions(IntPtr world, out IntPtr regArr, out uint regCount);
+
+
+        // Region // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Region_FetchAllFields(IntPtr reg, out IntPtr size, out IntPtr pos, out IntPtr rot, out IntPtr name, out IntPtr type);       
+        
 
         // Instance //
 

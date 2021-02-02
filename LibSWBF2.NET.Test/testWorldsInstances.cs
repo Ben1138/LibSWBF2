@@ -33,14 +33,12 @@ namespace LibSWBF2.NET.Test
                 int k = 0;
                 foreach (World world in worlds)
                 {
-                    if (!world.Name.Contains("con")) continue;
-
                     Console.WriteLine("\n" + world.Name);
 
                     Instance[] instances = world.GetInstances(); 
                     
                     int i = 0;
-                    
+                    /*
                     foreach (Instance instance in instances)
                     {
                         var ec = container.FindWrapper<EntityClass>(instance.GetEntityClassName());
@@ -73,6 +71,17 @@ namespace LibSWBF2.NET.Test
                             }
                         }                  
                     }
+                    */
+
+
+                    Console.WriteLine("\tRegions: ");
+                    
+                    Region[] regions = world.GetRegions();
+                    foreach (var reg in regions)
+                    {
+                        Console.WriteLine("\t  Name: {0}, \n\t\tPosition: {1}, \n\t\tType: {2}, \n\t\tSize: {3}", reg.name, reg.position, reg.type, reg.size);
+                    }
+                    
                 } 
 
                 TestBench.StopLogging();

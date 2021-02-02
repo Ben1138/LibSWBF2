@@ -11,6 +11,7 @@
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
 #include "LVL/wrld/wrld.h"
+#include "LVL/wrld/SIZE.h"
 #include "LVL/wrld/XFRM.h"
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
@@ -324,8 +325,9 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
 	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SIZE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
 	//template struct LIBSWBF2_API GenericChunk<"lght"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;

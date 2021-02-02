@@ -30,7 +30,7 @@ namespace LibSWBF2.NET.Test
             {   
                 Console.WriteLine("\n" + model.Name + ": ");
 
-                if (model.IsSkeletalMesh || model.HasNonTrivialHierarchy)
+                if (true)//model.IsSkinnedMesh)
                 {
                     Console.WriteLine("\tSkeleton: ");
                     
@@ -64,17 +64,14 @@ namespace LibSWBF2.NET.Test
                         Console.WriteLine("\t\t\t({0},{1},{2})", vBuf[l], vBuf[l+1], vBuf[l+2]);
                     }
 
-                    if (model.IsSkeletalMesh)
+                    if (model.IsSkinnedMesh)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
                         Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
                     }
                     else
                     {
-                        if (model.HasNonTrivialHierarchy)
-                        {
-                            Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
-                        }
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
                     }
 
                     Material mat = seg.GetMaterial();

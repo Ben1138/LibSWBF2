@@ -24,14 +24,11 @@ namespace LibSWBF2::Chunks::LVL::wrld
         READ_CHILD(stream, p_Name);
         READ_CHILD(stream, p_XFRM);
 
+        if (ThereIsAnother(stream))
+        {
+            READ_CHILD(stream, p_SIZE);
+        }
+
         BaseChunk::EnsureEnd(stream);
     }
-
-    /*
-    String INFO::ToString()
-    {
-        return "YEA LOL DUDE";
-    }
-    */
-
 }

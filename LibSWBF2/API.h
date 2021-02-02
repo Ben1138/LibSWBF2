@@ -155,6 +155,9 @@ namespace LibSWBF2
         LIBSWBF2_API const void  World_GetInstances(const World* world, const Instance**& instanceArr, uint32_t& instCount);
         LIBSWBF2_API const void* World_GetTerrain(const World* world);
         LIBSWBF2_API const uint8_t World_GetLights(const World* world, Light*& lightArr, int32_t& count, int32_t& inc);
+        LIBSWBF2_API const void  World_GetRegions(const World* world, const void*& regArr, uint32_t& count);
+
+        LIBSWBF2_API const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut);
 
         // Wrappers - Instance
         LIBSWBF2_API const char* 	Instance_GetName(const Instance* instance);
