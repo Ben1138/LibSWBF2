@@ -7,9 +7,34 @@ using System.Runtime.InteropServices;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Utils;
+using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
+    public class Region : NativeWrapper
+    {
+        //public Region(IntPtr RegionPtr) : base(RegionPtr){}
+        public Region() : base(IntPtr.Zero){} 
+
+        internal override void SetPtr(IntPtr ptr)
+        {
+            APIWrapper.Region_FetchAllFields(ptr, out IntPtr sizePtr, out IntPtr posPtr, out IntPtr rotPtr, out IntPtr namePtr, out IntPtr typePtr);
+            size = new Vector3(sizePtr);
+            position = new Vector3(posPtr);
+            rotation = new Vector4(rotPtr);
+            name = Marshal.PtrToStringAnsi(namePtr);
+            type = Marshal.PtrToStringAnsi(typePtr);
+        }
+
+        public Vector3 position, size;
+        public Vector4 rotation;
+        public string name, type;
+    }
+
+
+
+
+
     public class World : NativeWrapper
     {
         public World(IntPtr worldPtr) : base(worldPtr){}
@@ -44,6 +69,14 @@ namespace LibSWBF2.Wrappers
             }
 
             return new Terrain(terPtr);
+        }
+
+
+        public Region[] GetRegions()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.World_GetRegions(NativeInstance, out IntPtr regArr, out uint regCount);
+            return MemUtils.IntPtrToWrapperArray<Region>(regArr, (int) regCount);
         }
 
 

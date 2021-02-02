@@ -955,12 +955,37 @@ namespace LibSWBF2
 		instCount = (uint32_t)segmentPtrs.Size();
     }
 
-
     const void* World_GetTerrain(const World* world)
     {
     	CheckPtr(world, nullptr);
     	return (void *) world -> GetTerrain();
     }
+
+	const void World_GetRegions(const World* world, const void*& regArr, uint32_t& count)
+	{
+		List<regn *>& regionChunks = world -> p_World -> m_Regions;
+		regArr = (void *) regionChunks.GetArrayPtr();
+		count = regionChunks.Size();
+	}
+
+
+	const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut)
+	{
+		static Vector4 rotCache;
+		regn *regPtr = (regn *) reg;
+
+		sizeOut = &(regPtr -> p_Info -> p_SIZE -> m_Dimensions);
+
+		posOut = &(regPtr -> p_Info -> p_XFRM -> m_Position);
+		
+		rotCache = MatrixToQuaternion(regPtr -> p_Info -> p_XFRM -> m_RotationMatrix);
+		rotOut = &rotCache;
+
+		nameOut = const_cast<char *>(regPtr -> p_Info -> p_Name -> m_Text.Buffer());
+		typeOut = const_cast<char *>(regPtr -> p_Info -> p_Type -> m_Text.Buffer());
+	}
+
+
 
     /*
     const uint8_t World_GetLights(const World* world, Light*& lightArr, int32_t& count, int32_t& inc)
