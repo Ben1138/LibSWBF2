@@ -57,9 +57,8 @@ namespace LibSWBF2::Wrappers
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
-		List<Config> m_Effects;
-		List<Config> m_Lightings;
-		List<Config> m_SkyDomes;
+		List<Config> m_Configs;
+
 
 
 		bool m_bHasGlobalLighting;
@@ -93,10 +92,24 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
-		
-		const List<Config>& GetEffects() const;
-		const List<Config>& GetLightings() const;
-		const List<Config>& GetSkydomes() const;
+
+
+		template<uint32_t Header = 0>
+		List<Config *> GetConfigs() const
+		{
+			List<Config *> matchedConfigs;
+			for (int i = 0; i < m_Configs.Size(); i++)
+			{
+				const Config& cfg = m_Configs[i];
+
+				if (cfg.WrapsConfigType<Header>())
+				{
+					matchedConfigs.Add(const_cast<Config *>(&cfg));
+				}
+			}
+
+			return matchedConfigs;
+		}
 
 		//const Light* GetLight(String lightName) const;
 		//const GlobalLightingConfig* GetGlobalLighting() const;
@@ -109,9 +122,23 @@ namespace LibSWBF2::Wrappers
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
 
-		const Config* GetEffect(FNVHash hash) const;
-		const Config* GetLighting(FNVHash hash) const;
-		const Config* GetSkydome(FNVHash hash) const;
+
+		template<uint32_t Header = 0>
+		const Config* GetConfig(FNVHash hash) const
+		{
+			for (int i = 0; i < m_Configs.Size(); i++)
+			{
+				const Config& cfg = m_Configs[i];
+
+				if (cfg.m_Name == hash && cfg.WrapsConfigType<Header>())
+				{
+					return &cfg;
+				}
+			}
+
+			return nullptr;
+		}
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

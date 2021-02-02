@@ -75,25 +75,43 @@ namespace LibSWBF2::Wrappers
 			}	
 		}
 
-		/*
 		fx__* fxChunk = dynamic_cast<fx__*>(root);
 		if (fxChunk != nullptr)
 		{
 			Config effect;
 			if (Config::FromChunk(fxChunk, effect))
 			{
-				m_Effects.Add(effect);
+				m_Configs.Add(effect);
 			}
 		}
-		*/
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr)
 		{
-			Config effect;
-			if (Config::FromChunk(lightListChunk, effect))
+			Config lighting;
+			if (Config::FromChunk(lightListChunk, lighting))
 			{
-				m_Effects.Add(effect);
+				m_Configs.Add(lighting);
+			}
+		}
+
+		sky_* skydomeChunk = dynamic_cast<sky_*>(root);
+		if (skydomeChunk != nullptr)
+		{
+			Config skydome;
+			if (Config::FromChunk(skydomeChunk, skydome))
+			{
+				m_Configs.Add(skydome);
+			}
+		}
+
+		path* pathChunk = dynamic_cast<path*>(root);
+		if (pathChunk != nullptr)
+		{
+			Config path;
+			if (Config::FromChunk(pathChunk, path))
+			{
+				m_Configs.Add(path);
 			}
 		}
 		
@@ -424,10 +442,12 @@ namespace LibSWBF2::Wrappers
 		return m_EntityClasses;
 	}
 
+	/*
 	const List<Config>& Level::GetEffects() const
 	{
 		return m_Effects;
 	}
+	*/
 
 
 	const Model* Level::GetModel(String modelName) const
@@ -577,7 +597,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-
+	/*
 	const Config *Level::GetEffect(FNVHash hash) const
 	{
 		for (int i = 0; i < m_Effects.Size(); i++)
@@ -590,4 +610,5 @@ namespace LibSWBF2::Wrappers
 
 		return nullptr;
 	}
+	*/
 }

@@ -23,6 +23,16 @@ namespace LibSWBF2.Wrappers
             return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(configs, numConfigs, inc));
         }
 
+        public List<Config> GetChildConfigs(string str)
+        {
+            return GetChildConfigs(HashUtils.GetFNV(str));
+        }
+
+        public uint name 
+        {
+            get { return APIWrapper.Config_GetName(NativeInstance); }
+        }
+
         public bool IsPropertySet(uint hash)
         {
             return APIWrapper.Config_IsPropertySet(NativeInstance, hash);

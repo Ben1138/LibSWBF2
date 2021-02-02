@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace LibSWBF2.Enums
 {
+
+    public enum ConfigType : uint
+    {
+        LIGHTING = 0x7468676c,
+        EFFECT = 0x5f5f7866,
+        BOUNDARY = 0x5f646e62,
+        SKYDOME = 0x5f796b73,
+        PATH = 0x68746170,
+    }
+
     public enum LightType : uint
     {
         Dir = 1,   

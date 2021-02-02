@@ -11,6 +11,8 @@
 #include "Wrappers/Segment.h"
 #include "Wrappers/ConfigWrapper.h"
 
+#include "Chunks/HeaderNames.h"
+
 #include <iostream>
 #include <string>
 
@@ -390,16 +392,65 @@ namespace LibSWBF2
 	}
 
 
-	const Config* Level_GetConfig(const Level* level, uint32_t hash)
+	const Config* Level_GetConfig(const Level* level, uint32_t header, uint32_t hash)
 	{
-		return level -> GetEffect(hash);
+		const Config *ptr = nullptr;
+
+		switch (header)
+		{
+			case "lght"_m:
+				ptr = level -> GetConfig<"lght"_m>(hash);
+				break;
+			case "fx__"_m:
+				ptr = level -> GetConfig<"fx__"_m>(hash);
+				break;
+			case "sky_"_m:
+				ptr = level -> GetConfig<"sky_"_m>(hash);
+				break;
+			case "bnd_"_m:
+				ptr = level -> GetConfig<"bnd_"_m>(hash);
+				break;
+			case "prp_"_m:
+				ptr = level -> GetConfig<"prp_"_m>(hash);
+				break;
+			case "path"_m:
+				ptr = level -> GetConfig<"path"_m>(hash);
+				break;
+			default:
+				break;
+		}
+
+		return ptr;
 	}
 
-	const Config* Level_GetConfigs(const Level* level, int32_t& numConfigs, int32_t& inc)
+	Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs)
 	{
-		const List<Config>& configs = level -> GetEffects();
+		static List<Config *> configs;
+		switch (header)
+		{
+			case "lght"_m:
+				configs = level -> GetConfigs<"lght"_m>();
+				break;
+			case "fx__"_m:
+				configs = level -> GetConfigs<"fx__"_m>();
+				break;
+			case "sky_"_m:
+				configs = level -> GetConfigs<"sky_"_m>();
+				break;
+			case "bnd_"_m:
+				configs = level -> GetConfigs<"bnd_"_m>();
+				break;
+			case "prp_"_m:
+				configs = level -> GetConfigs<"prp_"_m>();
+				break;
+			case "path"_m:
+				configs = level -> GetConfigs<"path"_m>();
+				break;
+			default:
+				break;
+		}
+
 		numConfigs = configs.Size();
-		inc = sizeof(Config);
 		return configs.GetArrayPtr();
 	}
 
@@ -1189,6 +1240,11 @@ namespace LibSWBF2
 		return status;
     }
 
+
+    const uint32_t Config_GetName(const Config* cfg)
+    {
+    	return cfg -> m_Name;
+    }
 
     const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash)
     {

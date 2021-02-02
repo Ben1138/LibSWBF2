@@ -198,7 +198,7 @@ namespace LibSWBF2::Wrappers
 
 			if (childSCOP != nullptr)
 			{
- 				foundSCOPs.Add(Config(childSCOP));
+ 				foundSCOPs.Add(Config(data, childSCOP));
 			}
 		}
 
@@ -227,8 +227,9 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	Config::Config(SCOP *scop)
+	Config::Config(DATA_CONFIG *data, SCOP *scop)
 	{
+		m_Name = data -> m_NameHash;
 		p_Chunk = scop;
 	}
 

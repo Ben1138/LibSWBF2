@@ -185,6 +185,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, idk);
 						chunk = idk;	
 					}
+					else if (nextHead == "path"_h)
+					{
+						LVL::config::path* path;
+						READ_CHILD(stream, path);
+						chunk = path;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;

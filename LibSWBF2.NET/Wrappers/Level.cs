@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using LibSWBF2.Utils;
 using LibSWBF2.Types;
+using LibSWBF2.Enums;
 
 
 
@@ -208,9 +209,9 @@ namespace LibSWBF2.Wrappers
             return ec;   
         }
 
-        public Config GetConfig(string name)
+        public Config GetConfig(string name, ConfigType cfgType)
         {
-            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, HashUtils.GetFNV(name));
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, HashUtils.GetFNV(name));
             if (ptr == null)
             {
                 return null;
@@ -218,14 +219,14 @@ namespace LibSWBF2.Wrappers
             return new Config(ptr);
         }
 
-        public List<Config> GetConfigs()
+        public List<Config> GetConfigs(ConfigType cfgType)
         {
-            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, out int count, out int inc);
+            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, (uint) cfgType, out int count);
             if (ptr == null)
             {
                 return null;
             }
-            return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count, inc));
+            return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
         }
 
 
