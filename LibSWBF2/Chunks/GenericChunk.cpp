@@ -325,6 +325,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
 	//template struct LIBSWBF2_API GenericChunk<"lght"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;

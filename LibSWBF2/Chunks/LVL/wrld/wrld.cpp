@@ -41,6 +41,12 @@ namespace LibSWBF2::Chunks::LVL::wrld
 				READ_CHILD(stream, instance);
 				m_Instances.Add(instance);
 			}
+			else if (nextHead == "regn"_h)
+			{
+				regn* region;
+				READ_CHILD(stream, region);
+				m_Regions.Add(region);
+			}
 			else
 			{
 				READ_CHILD_GENERIC(stream);

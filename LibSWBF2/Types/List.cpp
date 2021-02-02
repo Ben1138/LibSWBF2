@@ -487,6 +487,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::modl::VBUF*>;
 	template class LIBSWBF2_API Types::List<LVL::modl::TNAM*>;
 	template class LIBSWBF2_API Types::List<LVL::wrld::inst*>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::regn*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 

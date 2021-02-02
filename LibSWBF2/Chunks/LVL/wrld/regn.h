@@ -9,11 +9,11 @@ namespace LibSWBF2::Chunks::LVL::wrld
 	using LibSWBF2::Chunks::LVL::wrld::INFO;
 	using common::PROP;
 
-	struct LIBSWBF2_API inst : public GenericChunk<"inst"_m>
+	struct LIBSWBF2_API regn : public GenericChunk<"regn"_m>
 	{
 	public:
 		INFO* p_Info;
-		List<PROP*> m_OverrideProperties;
+		PROP* p_Prop;
 
 	public:
 		void RefreshSize() override;
