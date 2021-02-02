@@ -84,8 +84,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
 
-		LIBSWBF2_API const Config* Level_GetConfig(const Level* level, uint32_t hash);
-		LIBSWBF2_API const Config* Level_GetConfigs(const Level* level, int32_t& numConfigs, int32_t& inc);
+		LIBSWBF2_API const Config*  Level_GetConfig(const Level* level, uint32_t header, uint32_t hash);
+		LIBSWBF2_API Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs);
 	
 
 
@@ -184,6 +184,7 @@ namespace LibSWBF2
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
 
+        LIBSWBF2_API const uint32_t Config_GetName(const Config* cfg);
         LIBSWBF2_API const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash);
         LIBSWBF2_API const float_t Config_GetFloat(const Config* cfg, uint32_t hash);
         LIBSWBF2_API const Vector2* Config_GetVec2(const Config* cfg, uint32_t hash); 

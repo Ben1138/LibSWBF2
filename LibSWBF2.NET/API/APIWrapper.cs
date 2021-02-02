@@ -113,10 +113,10 @@ namespace LibSWBF2
         public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetConfig(IntPtr level, uint hash);
+        public static extern IntPtr Level_GetConfig(IntPtr level, uint cfgType, uint hash);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetConfigs(IntPtr level, out int numConfigs, out int inc);
+        public static extern IntPtr Level_GetConfigs(IntPtr level, uint cfgType, out int numConfigs);
     
 
 
@@ -356,6 +356,9 @@ namespace LibSWBF2
 
 
         // Config //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern uint Config_GetName(IntPtr cfg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         [return: MarshalAs(UnmanagedType.U1)]

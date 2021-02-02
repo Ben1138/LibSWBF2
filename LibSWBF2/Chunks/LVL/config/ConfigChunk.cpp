@@ -46,6 +46,8 @@ namespace LibSWBF2::Chunks::LVL::config
 			}
 			else 
 			{
+				LOG_WARN("Irregular config chunk child found ({0:x})!", Header);
+				BaseChunk::EnsureEnd(stream);
 				//GenericChunk<Header>::READ_CHILD_GENERIC(stream);
 			}
         }
@@ -57,7 +59,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	String ConfigChunk<Header>::ToString()
 	{
 		return fmt::format(
-			"Hash: 0x{0:x}\n\n",
+			"Hash: 0x{0:x}\n",
 			p_Hash != nullptr ? p_Hash -> m_PropertyName : 0
 		).c_str();
 	}
@@ -68,4 +70,5 @@ namespace LibSWBF2::Chunks::LVL::config
 	template struct LIBSWBF2_API ConfigChunk<"sky_"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"bnd_"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"prp_"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"path"_m>;
 }

@@ -517,6 +517,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<Wrappers::Config*>;
 
 
 	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;

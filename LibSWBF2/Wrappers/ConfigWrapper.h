@@ -22,7 +22,6 @@ namespace LibSWBF2::Wrappers
 
 	public:
 
-
 		FNVHash m_Name;
 
 		bool IsPropertySet(FNVHash hash) const;
@@ -39,15 +38,15 @@ namespace LibSWBF2::Wrappers
 		static bool FromChunk(GenericBaseChunk *cfg, Config& wrapperOut);
 
 		template<uint32_t Header>
-		bool WrapsConfigType()
+		bool WrapsConfigType() const
 		{
-			return dynamic_cast<ConfigChunk<Header>>(p_Chunk) != nullptr;
+			return Header == 0 || dynamic_cast<ConfigChunk<Header> *>(p_Chunk) != nullptr;
 		}
 
 	private:
 
 		Config() = default;
-		Config(SCOP *scop);
+		Config(DATA_CONFIG *data, SCOP *scop);
 		GenericBaseChunk *p_Chunk;
 
 		DATA_CONFIG *SearchProperty(FNVHash hash) const;
