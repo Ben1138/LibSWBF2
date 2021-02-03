@@ -41,26 +41,39 @@ namespace LibSWBF2.NET.Test
             Level level = TestBench.LoadAndTrackLVL(args[0]);
             if (level == null) return -1;
 
-            Config lighting = level.GetConfig(args[1], ConfigType.LIGHTING);
-
-            uint lightHash = HashUtils.GetFNV("Light");
-            List<string> lightNames = lighting.GetStrings(lightHash);
-            List<Config> lights = lighting.GetChildConfigs(lightHash);
-
-            Console.WriteLine("\nLights: ");
-            int i = 0;
-            foreach (Config light in lights)
+            World[] worlds = level.GetWorlds();
+            foreach (World world in worlds)
             {
-                Console.WriteLine("\n\tName: " + lightNames[i++]);
-                Console.WriteLine("\tColor: " + light.GetVec3(HashUtils.GetFNV("Color")).ToString());
-                Console.WriteLine("\tRegion: " + (light.IsPropertySet("Region") ?  light.GetString("Region") : "No region set!"));
-                Console.WriteLine("\tType: " + light.GetFloat(HashUtils.GetFNV("Type")).ToString());
-            }
+                Console.WriteLine("World: {0}", world.Name);
+                //uint worldNameHash = HashUtils.GetFNV(world.Name);
+                Config lighting = level.GetConfig(world.Name, ConfigType.LIGHTING);
+                //Config lighting = level.GetConfig(0xc9827964, ConfigType.LIGHTING);
 
-            Config globalLighting = lighting.GetChildConfigs(HashUtils.GetFNV("GlobalLights"))[0];
-            Console.WriteLine("\nGlobal lighting config: ");
-            Console.WriteLine("\tLight 1: " + globalLighting.GetString("Light1"));
-            Console.WriteLine("\tLight 2: " + globalLighting.GetString("Light2"));
+                if (lighting == null) continue;
+
+                uint lightHash = HashUtils.GetFNV("Light");
+                List<string> lightNames = lighting.GetStrings(lightHash);
+                List<Config> lights = lighting.GetChildConfigs(lightHash);
+
+                Console.WriteLine("\n\tLights: ");
+                int i = 0;
+                foreach (Config light in lights)
+                {
+                    Console.WriteLine("\n\t\tName: " + lightNames[i++]);
+                    Console.WriteLine("\t\tColor: " + light.GetVec3(HashUtils.GetFNV("Color")).ToString());
+                    Console.WriteLine("\t\tRegion: " + (light.IsPropertySet("Region") ?  light.GetString("Region") : "No region set!"));
+                    Console.WriteLine("\t\tType: " + light.GetFloat(HashUtils.GetFNV("Type")).ToString());
+                }
+
+                Config globalLighting = lighting.GetChildConfig("GlobalLights");
+                if (globalLighting == null) continue;
+                
+                Console.WriteLine("\n\tGlobal lighting config: ");
+                Console.WriteLine("\t\tLight 1: " + globalLighting.GetString("Light1"));
+                Console.WriteLine("\t\tLight 2: " + globalLighting.GetString("Light2"));
+                Console.WriteLine("\t\tTop Ambient Color: " + globalLighting.GetVec3("Top").ToString());
+                Console.WriteLine("\t\tBottom Ambient Color: " + globalLighting.GetVec3("Bottom").ToString());
+            }
 
 
             List<Config> effects = level.GetConfigs(ConfigType.EFFECT);
@@ -78,7 +91,7 @@ namespace LibSWBF2.NET.Test
             foreach (Config path in paths)
             {
                 Console.WriteLine("\tPath config: 0x{0:x}", path.name);
-                i = 0;
+                int i = 0;
     
                 List<string> pathNames = path.GetStrings("Path");
                 List<Config> childPaths = path.GetChildConfigs("Path");
@@ -88,7 +101,6 @@ namespace LibSWBF2.NET.Test
                     Console.WriteLine("\t\tPath {0} has {1} nodes.", pathName, childPaths[i++].GetFloat("Nodes"));
                 }
             }            
-
 
 
             TestBench.StopLogging();

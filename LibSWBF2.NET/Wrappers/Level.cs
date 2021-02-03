@@ -200,7 +200,7 @@ namespace LibSWBF2.Wrappers
         public EntityClass GetEntityClass(string name)
         {
             IntPtr ptr = APIWrapper.Level_GetEntityClass(NativeInstance, name);
-            if (ptr == null)
+            if (ptr == IntPtr.Zero)
             {
                 return null;
             }
@@ -209,22 +209,28 @@ namespace LibSWBF2.Wrappers
             return ec;   
         }
 
-        public Config GetConfig(string name, ConfigType cfgType)
+
+        public Config GetConfig(uint hash, ConfigType cfgType)
         {
-            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, HashUtils.GetFNV(name));
-            if (ptr == null)
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, hash);
+            if (ptr == IntPtr.Zero)
             {
                 return null;
             }
-            return new Config(ptr);
+            return new Config(ptr);            
+        }
+
+        public Config GetConfig(string name, ConfigType cfgType)
+        {
+            return GetConfig(HashUtils.GetFNV(name), cfgType);
         }
 
         public List<Config> GetConfigs(ConfigType cfgType)
         {
             IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, (uint) cfgType, out int count);
-            if (ptr == null)
+            if (ptr == IntPtr.Zero)
             {
-                return null;
+                return new List<Config>();
             }
             return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
         }
