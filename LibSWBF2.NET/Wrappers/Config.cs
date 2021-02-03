@@ -28,6 +28,19 @@ namespace LibSWBF2.Wrappers
             return GetChildConfigs(HashUtils.GetFNV(str));
         }
 
+
+        public Config GetChildConfig(uint hash)
+        {
+            var configs = GetChildConfigs(hash);
+            if (configs.Count == 0) return null;
+            return configs[0];
+        }
+
+        public Config GetChildConfig(string str)
+        {
+            return GetChildConfig(HashUtils.GetFNV(str));
+        }
+
         public uint name 
         {
             get { return APIWrapper.Config_GetName(NativeInstance); }
