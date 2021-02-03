@@ -114,6 +114,16 @@ namespace LibSWBF2::Wrappers
 				m_Configs.Add(path);
 			}
 		}
+
+		comb* comboChunk = dynamic_cast<comb*>(root);
+		if (comboChunk != nullptr)
+		{
+			Config combo;
+			if (Config::FromChunk(comboChunk, combo))
+			{
+				m_Configs.Add(combo);
+			}
+		}
 		
 		/*
 		lght* lightListChunk = dynamic_cast<lght*>(root);
