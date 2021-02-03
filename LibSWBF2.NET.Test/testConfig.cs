@@ -31,10 +31,22 @@ namespace LibSWBF2.NET.Test
         }
 
 
+        public static void PrintUIntChars(uint enc)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                char c = (char) ((0x000000ff) & (enc >> (i * 8)));
+                Console.Write("{0}", c);
+            }
+            Console.Write("\n");
+        }
+
+
         public static int Main(string[] args)
         {   
-            Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
-            return 0;
+            //PrintUIntChars(1752457584);
+            //Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
+            //return 0;
 
             TestBench.StartLogging(ELogType.Warning);
 
