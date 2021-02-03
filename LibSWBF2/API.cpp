@@ -9,7 +9,7 @@
 #include "Container.h"
 #include "Wrappers/Terrain.h"
 #include "Wrappers/Segment.h"
-#include "Wrappers/ConfigWrapper.h"
+#include "Wrappers/Config.h"
 
 #include "Chunks/HeaderNames.h"
 

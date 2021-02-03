@@ -6,7 +6,7 @@
 #include "Terrain.h"
 #include "Script.h"
 //#include "Light.h"
-#include "ConfigWrapper.h"
+#include "Config.h"
 #include "AnimationBank.h"
 //#include "GlobalLighting.h"
 #include "Localization.h"

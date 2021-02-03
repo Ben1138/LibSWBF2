@@ -1,6 +1,6 @@
 #include "req.h"
 #include "stdafx.h"
-#include "ConfigWrapper.h"
+#include "Config.h"
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Types/Color4.h"
 #include "Types/Vector4.h"
