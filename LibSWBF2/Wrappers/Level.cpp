@@ -118,10 +118,10 @@ namespace LibSWBF2::Wrappers
 		comb* comboChunk = dynamic_cast<comb*>(root);
 		if (comboChunk != nullptr)
 		{
-			Config path;
-			if (Config::FromChunk(comboChunk, path))
+			Config combo;
+			if (Config::FromChunk(comboChunk, combo))
 			{
-				m_Configs.Add(path);
+				m_Configs.Add(combo);
 			}
 		}
 		

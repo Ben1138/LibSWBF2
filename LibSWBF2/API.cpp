@@ -13,10 +13,6 @@
 
 #include "Chunks/HeaderNames.h"
 
-#include <iostream>
-#include <string>
-
-
 
 namespace LibSWBF2
 {
