@@ -192,6 +192,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, path);
 						chunk = path;	
 					}
+					else if (nextHead == "comb"_h)
+					{
+						LVL::config::comb* combo;
+						READ_CHILD(stream, combo);
+						chunk = combo;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;

@@ -15,6 +15,7 @@ namespace LibSWBF2.Enums
         BOUNDARY = 0x5f646e62,
         SKYDOME = 0x5f796b73,
         PATH = 0x68746170,
+        COMBO = 0x626d6f63,
     }
 
     public enum LightType : uint
@@ -82,17 +83,15 @@ namespace LibSWBF2.Enums
         D3DFMT_V16U16 = 64,
         D3DFMT_A2W10V10U10 = 67,
 
-        /*
-        D3DFMT_UYVY = uint_from_chars({'U', 'Y', 'V', 'Y'}),
-        D3DFMT_R8G8_B8G8 = uint_from_chars({'R', 'G', 'B', 'G'}),
-        D3DFMT_YUY2 = uint_from_chars({'Y', 'U', 'Y', '2'}),
-        D3DFMT_G8R8_G8B8 = uint_from_chars({'G', 'R', 'G', 'B'}),
-        D3DFMT_DXT1 = uint_from_chars({'D', 'X', 'T', '1'}),
-        D3DFMT_DXT2 = uint_from_chars({'D', 'X', 'T', '2'}),
-        D3DFMT_DXT3 = uint_from_chars({'D', 'X', 'T', '3'}),
-        D3DFMT_DXT4 = uint_from_chars({'D', 'X', 'T', '4'}),
-        D3DFMT_DXT5 = uint_from_chars({'D', 'X', 'T', '5'}),
-        */
+        D3DFMT_UYVY = 0x59565955, 
+        D3DFMT_R8G8_B8G8 = 0x47424752,
+        D3DFMT_YUY2 = 0x32595559,
+        D3DFMT_G8R8_G8B8 = 0x42475247,
+        D3DFMT_DXT1 = 0x31545844,
+        D3DFMT_DXT2 = 0x32545844,
+        D3DFMT_DXT3 = 0x33545844,
+        D3DFMT_DXT4 = 0x34545844,
+        D3DFMT_DXT5 = 0x35545844,       
 
         D3DFMT_D16_LOCKABLE = 70,
         D3DFMT_D32 = 71,
