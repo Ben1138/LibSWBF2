@@ -33,8 +33,8 @@ namespace LibSWBF2.NET.Test
 
         public static int Main(string[] args)
         {   
-            //Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
-            //return 0;
+            Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
+            return 0;
 
             TestBench.StartLogging(ELogType.Warning);
 

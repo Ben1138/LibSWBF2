@@ -416,6 +416,9 @@ namespace LibSWBF2
 			case "path"_m:
 				ptr = level -> GetConfig<"path"_m>(hash);
 				break;
+			case "comb"_m:
+				ptr = level -> GetConfig<"comb"_m>(hash);
+				break;
 			default:
 				break;
 		}
@@ -445,6 +448,9 @@ namespace LibSWBF2
 				break;
 			case "path"_m:
 				configs = level -> GetConfigs<"path"_m>();
+				break;
+			case "comb"_m:
+				configs = level -> GetConfigs<"comb"_m>();
 				break;
 			default:
 				break;
