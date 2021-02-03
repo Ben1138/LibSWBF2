@@ -9,7 +9,7 @@
 #include "Chunks/LVL/coll/TREE.NODE.h"
 #include "Chunks/LVL/coll/TREE.LEAF.h"
 #include "Chunks/LVL/prim/prim.h"
-#include "Wrappers/ConfigWrapper.h"
+#include "Wrappers/Config.h"
 
 
 namespace LibSWBF2::Types

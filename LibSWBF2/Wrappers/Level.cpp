@@ -63,7 +63,6 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
 		}
-
 		
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
@@ -74,6 +73,8 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
 			}	
 		}
+
+
 
 		fx__* fxChunk = dynamic_cast<fx__*>(root);
 		if (fxChunk != nullptr)

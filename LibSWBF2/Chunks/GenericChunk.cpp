@@ -361,6 +361,15 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
 	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
 
+	// configs
+	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	template struct LIBSWBF2_API GenericChunk<"fx__"_m>;
+	template struct LIBSWBF2_API GenericChunk<"sky_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"bnd_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prp_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"path"_m>;
+	template struct LIBSWBF2_API GenericChunk<"comb"_m>;
+
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
 	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
