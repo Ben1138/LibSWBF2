@@ -52,7 +52,6 @@ namespace LibSWBF2::Wrappers
 		out.p_MainContainer = mainContainer;
 		out.p_Instance = instanceChunk;
 
-		//instanceChunk->m_OverrideProperties.Clear();
 		for (size_t i = 0; i < instanceChunk->m_OverrideProperties.Size(); ++i)
 		{
 			FNVHash hashedName = instanceChunk->m_OverrideProperties[i]->m_PropertyName;
@@ -110,7 +109,6 @@ namespace LibSWBF2::Wrappers
 
 		return entityClass->GetProperty(hashedPropertyName, outValue);
 	}
-
 
 	bool Instance::GetProperty(const String& propertyName, String& outValue) const
 	{

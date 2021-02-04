@@ -84,9 +84,14 @@ namespace LibSWBF2
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
 
 
+		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
+
+
+		/*
 		LIBSWBF2_API const bool    Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer);
 		LIBSWBF2_API const bool    Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name);
 		LIBSWBF2_API const uint8_t Texture_GetBytesRGBA(const Texture* tex, const uint8_t*& buffer);
+		*/
 
 		// Wrappers - Model
 		LIBSWBF2_API const char* Model_GetName(const Model* model);
@@ -108,6 +113,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
 		// Wrappers - Segment
+		/*
 		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer);
 		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer);
 		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer);
@@ -118,6 +124,13 @@ namespace LibSWBF2
 		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);
 		LIBSWBF2_API const uint8_t   Segment_IsPretransformed(const Segment* segment);
 		LIBSWBF2_API const Material* Segment_GetMaterial(const Segment* segment); 
+		*/
+		
+		LIBSWBF2_API const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
+														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
+														uint32_t& numVWs, VertexWeight*& vwBuf,
+														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf,
+														const Material*& mat);
 
         // Wrappers - CollisionPrimitive
         LIBSWBF2_API const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,

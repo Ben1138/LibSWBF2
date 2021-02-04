@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Types
 {
+    [StructLayout(LayoutKind.Sequential, Pack=4)]
     public struct Vector3
     {
         public float X;

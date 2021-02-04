@@ -47,8 +47,7 @@ namespace LibSWBF2::Wrappers
 		const Material& GetMaterial() const;
 
 		// count is number of indices, NOT number of bytes!
-		void GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer,
-							ETopology requestedTopology = ETopology::TriangleStrip) const;
+		void GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer) const;
 
 		// count is number of vectors, NOT number of bytes!
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;
