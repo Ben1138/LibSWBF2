@@ -312,7 +312,7 @@ namespace LibSWBF2
 	}
 
 
-	char *  Level_GetName(const Level* level)
+	char* Level_GetName(const Level* level)
 	{
 		static String cache;
 		CheckPtr(level, nullptr);
@@ -324,66 +324,34 @@ namespace LibSWBF2
 
 	// Texture
 
-	const bool Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name)
+	const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut)
 	{
-		static String texName;
-		CheckPtr(tex, false);
-
-		texName = tex -> GetName();
-
-		uint16_t w, h;
-		ETextureFormat fmt;
-		bool status = tex -> GetImageMetadata(w, h, fmt);
-
-		width = (int32_t) w;
-		height = (int32_t) h;
-
-		name = texName.Buffer();
-
-		return status;
-	}
-
-	const bool Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer)
-	{
-		static const uint8_t* imageData = nullptr;
-    	delete imageData;
-    	imageData = nullptr;
-
-		if (tex == nullptr)
-		{
-			return false;
-		}
-
-		uint16_t w,h;
-	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
-
-	    width = (int32_t) w;
-	    height = (int32_t) h;
-    	
-    	if (conversionStatus)
-    		buffer = imageData;
-
-    	return conversionStatus;
-	}
-
-
-	const uint8_t Texture_GetBytesRGBA(const Texture* tex, const uint8_t*& buffer)
-	{
-	   	static const uint8_t* imageData = nullptr;
-    	delete imageData;
-    	imageData = nullptr;
+		static String nameCache;
+		static const uint8_t* imageDataCache = nullptr;
+    	delete imageDataCache;
 
 		CheckPtr(tex,false);
 
+		nameCache = tex -> GetName();
+		nameOut = nameCache.Buffer();
+
 		uint16_t w,h;
-	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
+	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageDataCache);
+
+	    widthOut = w;
+	    heightOut = h;
     	
     	if (conversionStatus)
-    		buffer = imageData;
+    	{
+    		bufOut = imageDataCache;
+    	}
+    	else
+    	{
+    		imageDataCache = nullptr;
+    	}
 
     	return conversionStatus;
 	}
-
 
 
 	const char* ENUM_TopologyToString(ETopology topology)
@@ -700,6 +668,48 @@ namespace LibSWBF2
     
     //Segment
 
+    const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
+														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
+														uint32_t& numVWs, VertexWeight*& vwBuf,
+														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf,
+														const Material*& mat)
+    {
+    	static String boneNameCache;
+    	CheckPtr(seg, false);
+
+    	pretx = seg -> IsPretransformed();
+    	
+    	boneNameCache = seg -> GetBone();
+    	boneName = boneNameCache.Buffer();
+
+    	//Handle vertex buffers
+    	uint32_t numNormals, numUVs;
+    	seg -> GetVertexBuffer(numVerts, pBuf);
+    	seg -> GetNormalBuffer(numNormals, nBuf);
+    	seg -> GetUVBuffer(numUVs, uvBuf);
+
+    	if (numUVs != numNormals || numNormals != numVerts)
+    	{
+    		LOG_ERROR("Buffer length mismatch!");
+    		return false;
+    	}
+
+    	//Handle index buffer
+    	topo = (int32_t) seg -> GetTopology();
+    	seg -> GetIndexBuffer(numInds, iBuf);
+
+    	//Handle weights
+    	numVWs = seg -> GetVertexWeights(numVWs, vwBuf) ? numVWs : 0;
+
+    	//Material
+    	mat = &(seg -> GetMaterial());
+    	return true;
+    }
+
+
+
+
+    /*
     const uint32_t Segment_GetVertexBufferLength(const Segment* segment)
     {
     	Vector3 *verts;
@@ -807,6 +817,7 @@ namespace LibSWBF2
 		CheckPtr(segment, false);
 		return segment -> IsPretransformed();
 	}
+	*/
 
 
     uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,

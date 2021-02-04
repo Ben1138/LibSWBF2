@@ -192,6 +192,15 @@ namespace LibSWBF2
         // Segment //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Segment_FetchAllFields(IntPtr seg, [MarshalAs(UnmanagedType.U1)] out bool pretx, out IntPtr boneName,
+                                                        out uint numVerts, out IntPtr pBuf, out IntPtr nBuf, out IntPtr uvBuf,
+                                                        out uint numVWs, out IntPtr vwBuf,
+                                                        out int topo, out uint numInds, out IntPtr iBuf,
+                                                        out IntPtr mat);
+
+        /*
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint Segment_GetVertexBufferLength(IntPtr seg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -221,6 +230,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Segment_GetMaterial(IntPtr segPtr);
+        */
 
 
          // World //
@@ -273,16 +283,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Texture_GetMetadata(IntPtr texture, out int width, 
-                                                        out int height, out IntPtr namePtr);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Texture_GetData(IntPtr texture, out int width, out int height, out IntPtr bufferPtr);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Texture_GetBytesRGBA(IntPtr texture, out IntPtr buffer);         
+        public static extern bool Texture_FetchAllFields(IntPtr tex, out int width, out int height, out IntPtr bufOut, out IntPtr nameOut);      
 
 
         // CollisionMesh //

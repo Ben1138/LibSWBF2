@@ -25,12 +25,11 @@ namespace LibSWBF2.NET.Test
             Model[] models = level.GetModels();
 
 
-            int j = 0;
             foreach (Model model in models)
             {   
                 Console.WriteLine("\n" + model.Name + ": ");
 
-                if (model.IsSkeletalMesh || model.HasNonTrivialHierarchy)
+                if (model.IsSkinnedMesh)
                 {
                     Console.WriteLine("\tSkeleton: ");
                     
@@ -59,22 +58,19 @@ namespace LibSWBF2.NET.Test
                     Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
 
                     Console.WriteLine("\t\tPositions sample: ");
-                    for (int l = 0; l < vBuf.Length && l < 15; l+=3)
+                    for (int l = 0; l < vBuf.Length && l < 150; l+=3)
                     {
                         Console.WriteLine("\t\t\t({0},{1},{2})", vBuf[l], vBuf[l+1], vBuf[l+2]);
                     }
 
-                    if (model.IsSkeletalMesh)
+                    if (model.IsSkinnedMesh)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
                         Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
                     }
                     else
                     {
-                        if (model.HasNonTrivialHierarchy)
-                        {
-                            Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
-                        }
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
                     }
 
                     Material mat = seg.GetMaterial();
