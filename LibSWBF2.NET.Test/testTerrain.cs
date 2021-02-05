@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
+using LibSWBF2.Types;
 
 
 
@@ -23,7 +24,7 @@ namespace LibSWBF2.NET.Test
 
             Terrain terrain = level.GetTerrains()[0];
 
-            foreach (var str in terrain.GetTextureNames()){
+            foreach (var str in terrain.layerTextures){
                 
                 if (str == ""){
                     continue;
@@ -42,13 +43,12 @@ namespace LibSWBF2.NET.Test
             terrain.GetHeightMap(out uint dim, out uint dimScale, out float[] heightMapData);
             terrain.GetBlendMap(out dim, out uint numLayers, out byte[] blendMapData);
 
-            uint[] indexBuffer = terrain.GetIndexBuffer();
+            uint[] iBuf = terrain.GetIndexBuffer();
+            Vector2[] uvBuf = terrain.GetUVBuffer<Vector2>();
+            Vector3[] vertBuf = terrain.GetPositionsBuffer<Vector3>();
+            Vector3[] normsBuf = terrain.GetNormalsBuffer<Vector3>();
 
-
-            for (int i = 0; i < indexBuffer.Length; i+=192)
-            {
-                Console.WriteLine("[{0}, {1}, {2}]", indexBuffer[i], indexBuffer[i + 1], indexBuffer[i + 2]);
-            }
+            Console.WriteLine("Num uvs: {0}, num normals: {1}, num verts: {2}, num indices: {3}", uvBuf.Length, normsBuf.Length, vertBuf.Length, iBuf.Length);
 
             
             TestBench.StopLogging();

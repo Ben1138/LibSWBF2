@@ -37,7 +37,7 @@ namespace LibSWBF2.Wrappers
 
     public class World : NativeWrapper
     {
-        public World(IntPtr worldPtr) : base(worldPtr){ SetPtr(worldPtr); }
+        public World(IntPtr worldPtr) : base(IntPtr.Zero){ SetPtr(worldPtr); }
         public World() : base(IntPtr.Zero){}
 
         public string name = "";
@@ -45,22 +45,15 @@ namespace LibSWBF2.Wrappers
 
         private IntPtr terrainPtr;
 
-        private IntPtr lightArray;
-        private int lightCount, lightIncrement;
-
         private IntPtr instanceArray;
         private int instanceCount, instanceIncrement;
 
 
         internal override void SetPtr(IntPtr worldPtr)
         {
-            NativeInstance = IntPtr.Zero;
-            bool status = APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
-                                        out lightArray, out lightCount, out lightIncrement,
+            if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out instanceArray, out instanceCount, out instanceIncrement,
-                                        out terrainPtr);
-
-            if (status)
+                                        out terrainPtr))
             {
                 NativeInstance = worldPtr;
                 name = Marshal.PtrToStringAnsi(nameOut);
@@ -89,13 +82,6 @@ namespace LibSWBF2.Wrappers
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.World_GetRegions(NativeInstance, out IntPtr regArr, out uint regCount);
             return MemUtils.IntPtrToWrapperArray<Region>(regArr, (int) regCount);
-        }
-
-
-        public Light[] GetLights()
-        {            
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToWrapperArray<Light>(lightArray, lightCount, lightIncrement);
         }
     }
 }

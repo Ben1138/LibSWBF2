@@ -132,14 +132,6 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public Light[] GetLights()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetLights(NativeInstance, out IntPtr LightArr, out uint LightCount);
-            return MemUtils.IntPtrToWrapperArray<Light>(LightArr, (int) LightCount);
-        }    
-
-
         public World[] GetWorlds()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
@@ -160,20 +152,6 @@ namespace LibSWBF2.Wrappers
             Children.Add(new WeakReference<NativeWrapper>(model));
             return model;
         }
-
-
-        public Light GetLight(string lightName)
-        {
-            IntPtr LightPtr = APIWrapper.Level_GetLight(NativeInstance, lightName);
-            if (LightPtr == null)
-            {
-                return null;
-            }
-
-            Light Light = new Light(LightPtr);
-            return Light;
-        }
-
 
         public Texture GetTexture(string name)
         {
@@ -233,38 +211,6 @@ namespace LibSWBF2.Wrappers
                 return new List<Config>();
             }
             return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
-        }
-
-
-        public bool GetGlobalLightingConfig(out Vector3 topColor, 
-                                            out Vector3 bottomColor, 
-                                            out Light Light1, 
-                                            out Light Light2)
-        {
-            bool result = APIWrapper.Level_GetGlobalLighting(NativeInstance, out IntPtr topCol, 
-                                                out IntPtr bottomCol, out IntPtr light1Name, 
-                                                out IntPtr light2Name);
-
-            //Console.WriteLine("Exited native get global lighting...");
-
-            Light1 = null;
-            Light2 = null;
-
-            topColor = new Vector3(topCol);
-            bottomColor = new Vector3(bottomCol);
-
-            if (result)
-            {
-                string lightOneName = Marshal.PtrToStringAnsi(light1Name);
-                string lightTwoName = Marshal.PtrToStringAnsi(light2Name);
-                GetLight( lightOneName );
-                GetLight( lightTwoName );
-
-                //Light1 = light1Name == IntPtr.Zero ? null : GetLight( lightOneName );
-                //Light2 = light2Name == IntPtr.Zero ? null : GetLight( lightTwoName );
-            }
-
-            return result;
         }
     }
 }

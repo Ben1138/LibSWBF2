@@ -115,12 +115,15 @@ namespace LibSWBF2
 
 
         //Terrain
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetTexNames(IntPtr terrain, out uint numTextures, out IntPtr names);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetVerts(IntPtr terrain, out uint numVertices, out IntPtr vertices);
-        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Terrain_FetchSimpleFields(IntPtr ter, out int numTexes, out IntPtr texNames,
+                                                            out float heightUpper, out float heightLower, 
+                                                            out uint numVerts, out IntPtr vBuf,
+                                                            out uint numNormals, out IntPtr nBuf,
+                                                            out uint numUVs, out IntPtr uvBuf);
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetIndicies(IntPtr terrain, out uint numIndicies, out IntPtr indices);
 
@@ -131,16 +134,7 @@ namespace LibSWBF2
         public static extern void Terrain_GetBlendMap(IntPtr terrain, out uint edgeLength, out uint numLayers, out IntPtr data);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetHeightBounds(IntPtr terrain, out float floor, out float ceiling);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetVertexBuffer(IntPtr terPtr, out IntPtr buf, out int numVerts);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetNormalsBuffer(IntPtr terPtr, out IntPtr buf, out int numNormals);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetIndexBuffer(IntPtr terPtr, out IntPtr buf, out int numInds);
+        public static extern void Terrain_GetIndexBuffer(IntPtr terPtr, out IntPtr buf, out uint numInds);
 
 
 
@@ -183,7 +177,6 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
-                                        out IntPtr lightArr, out int lightCount, out int lightInc,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
                                         out IntPtr terrPtr);
         // Region // 
