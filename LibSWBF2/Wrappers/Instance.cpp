@@ -61,12 +61,12 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String Instance::GetType() const
+	const String& Instance::GetType() const
 	{
 		return p_Instance->p_Info->p_Type->m_Text;
 	}
 
-	String Instance::GetName() const
+	const String& Instance::GetName() const
 	{
 		return p_Instance->p_Info->p_Name->m_Text;
 	}

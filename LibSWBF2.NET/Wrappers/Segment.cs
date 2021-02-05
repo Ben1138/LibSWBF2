@@ -98,25 +98,25 @@ namespace LibSWBF2.Wrappers
         public uint GetVertexBufferLength()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return (uint) numVertices * 3;
+            return (uint) numVertices;
         }
 
-        public float[] GetVertexBuffer()
+        public unsafe T[] GetVertexBuffer<T>() where T : unmanaged
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<float>(vertexBufferPtr, numVertices * 3);
+            return MemUtils.IntPtrToArray<T>(vertexBufferPtr, (numVertices * 3 * 4) / sizeof(T));
         }
 
-        public float[] GetNormalsBuffer()
+        public unsafe T[] GetNormalsBuffer<T>() where T : unmanaged
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<float>(normalsBufferPtr, numVertices * 3);
+            return MemUtils.IntPtrToArray<T>(normalsBufferPtr, (numVertices * 3 * 4) / sizeof(T));
         }
 
-        public float[] GetUVBuffer()
+        public unsafe T[] GetUVBuffer<T>() where T : unmanaged
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<float>(uvBufferPtr, numVertices * 2);
+            return MemUtils.IntPtrToArray<T>(uvBufferPtr, (numVertices * 2 * 4) / sizeof(T));
         }
 
         public VertexWeight[] GetVertexWeights()
@@ -157,71 +157,6 @@ namespace LibSWBF2.Wrappers
             {
                 return ToTriList(indices);
             }
-        }
-
-
-        /*
-        public float[] GetVertexBuffer()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Segment_GetVertexBuffer(NativeInstance, out uint numVerts, out IntPtr vertsArr);
-            return MemUtils.IntPtrToArray<float>(vertsArr, (int) numVerts * 3);
-        }
-
-        public float[] GetNormalsBuffer()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Segment_GetNormalBuffer(NativeInstance, out uint numNormals, out IntPtr normalsArr);
-            return MemUtils.IntPtrToArray<float>(normalsArr, (int) numNormals * 3);
-        }
-
-        public ushort[] GetIndexBuffer()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Segment_GetIndexBuffer(NativeInstance, out uint numInds, out IntPtr indsArr);
-            return MemUtils.IntPtrToArray<ushort>(indsArr, (int) numInds);
-        }
-
-        public float[] GetUVBuffer()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Segment_GetUVBuffer(NativeInstance, out uint numUVs, out IntPtr UVsArr);
-            return MemUtils.IntPtrToArray<float>(UVsArr, 2 * (int) numUVs);
-        }
-
-        public VertexWeight[] GetVertexWeights()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Segment_GetVertexWeightsBuffer(NativeInstance, out int numVWs, out IntPtr vwBuffer);
-            return MemUtils.IntPtrToArray<VertexWeight>(vwBuffer, numVWs);            
-        }
-        */
-
-        public int GetTopology()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return (int) topology;
-            //return APIWrapper.Segment_GetTopology(NativeInstance);            
-        }
-
-        public string GetBone()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return boneName;
-            //return Marshal.PtrToStringAnsi(APIWrapper.Segment_GetBone(NativeInstance));
-        }
-
-        public Material GetMaterial()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return material;
-            //return new Material(APIWrapper.Segment_GetMaterial(NativeInstance));            
-        }
-
-        public bool IsPretransformed()
-        {   
-            return isPretransformed;
-            //return APIWrapper.Segment_IsPretransformed(NativeInstance);           
         }
     }
 }
