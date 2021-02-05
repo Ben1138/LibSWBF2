@@ -60,15 +60,5 @@ namespace LibSWBF2.Wrappers
         public Vector2 spotAngles;
         public Vector3 position, color;
         public Vector4 rotation;
-
-        /*
-        public string GetName() { return name; }
-        public Vector4 GetRotation() { return rotation; }
-        public Vector3 GetPosition() { return position; }
-        public LightType GetType() { return lightType; }
-        public Vector3 GetColor() { return color; }
-        public float GetRange() { return range; } 
-        public Vector2 GetSpotAngles() { return spotAngles; }
-        */
     }
 }

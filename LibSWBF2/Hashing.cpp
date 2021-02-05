@@ -43,7 +43,6 @@ namespace LibSWBF2
 		return hash;
 	}
 
-
 	bool FNV::Lookup(FNVHash hash, Types::String& result)
 	{
 		if (p_LookupTable == nullptr)
