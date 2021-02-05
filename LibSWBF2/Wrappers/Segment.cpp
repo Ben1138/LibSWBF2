@@ -4,9 +4,6 @@
 #include "Types/List.h"
 #include "InternalHelpers.h"
 
-#include <iostream>
-#define COUT(x) std::cout << x << std::endl;
-
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
@@ -136,75 +133,10 @@ namespace LibSWBF2::Wrappers
 		return m_Material;
 	}
 
-	void Segment::GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer,
-								ETopology requestedTopology) const
+	void Segment::GetIndexBuffer(uint32_t& count, uint16_t*& indexBuffer) const
 	{
 		count = p_Segment->p_IndexBuffer->m_IndicesCount;
 		indexBuffer = p_Segment->p_IndexBuffer->m_Indices.GetArrayPtr();
-
-		ETopology bufferTopology = GetTopology();
-
-		if ((requestedTopology != ETopology::TriangleStrip &&
-			requestedTopology != ETopology::TriangleList)  ||
-			(bufferTopology != ETopology::TriangleStrip    &&
-			requestedTopology != ETopology::TriangleList))
-		{
-			LOG_ERROR("Cannot convert from {} to {}", 
-						TopologyToString(bufferTopology), 
-						TopologyToString(requestedTopology));
-		}
-
-		if (bufferTopology == ETopology::TriangleStrip)
-		{
-			if (requestedTopology == ETopology::TriangleList)
-			{
-				uint16_t *trianglesBuffer = new uint16_t[count * 3];
-				int numDegenerates = 0;
-				int j = 0; //index into non-degenerate triangles list
-				for (int i = 0; i < (int) (count - 2); i++)
-				{
-					if (indexBuffer[i]   == indexBuffer[i+1] ||
-						indexBuffer[i+1] == indexBuffer[i+2] ||
-						indexBuffer[i]   == indexBuffer[i+2])
-					{
-						numDegenerates++;
-					} 
-					else 
-					{
-						if (i % 2 == 0)
-						{
-							trianglesBuffer[j]   = indexBuffer[i];
-							trianglesBuffer[j+1] = indexBuffer[i+1];
-							trianglesBuffer[j+2] = indexBuffer[i+2];
-						} 
-						else 
-						{
-							trianglesBuffer[j]   = indexBuffer[i+1];
-							trianglesBuffer[j+1] = indexBuffer[i];
-							trianglesBuffer[j+2] = indexBuffer[i+2];
-						}
-						j+=3;
-					}
-				}
-
-				count = j;
-
-				uint16_t *finalTriangleBuffer = new uint16_t[count];
-				memcpy(finalTriangleBuffer, trianglesBuffer, 2 * count);
-				indexBuffer = finalTriangleBuffer;
-
-				delete[] trianglesBuffer;
-			}
-		}
-		else
-		{
-			if (requestedTopology == ETopology::TriangleStrip)
-			{
-				LOG_ERROR("Cannot convert from {} to {}", 
-							TopologyToString(bufferTopology), 
-							TopologyToString(requestedTopology));
-			}
-		}	
 	}
 
 	void Segment::GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const

@@ -10,9 +10,16 @@ namespace LibSWBF2.Types
         public float Z;
         public float W;
 
-        public Vector4(IntPtr nativePtr)
+        public unsafe Vector4(IntPtr nativePtr) : this()
         {
-        	APIWrapper.Vector4_FromPtr(nativePtr, out X, out Y, out Z, out W);
+            if (nativePtr != IntPtr.Zero && nativePtr != null)
+            {
+                float* fPtr = (float*) nativePtr.ToPointer();
+                X = *fPtr;
+                Y = *(fPtr + 1);                
+                Z = *(fPtr + 2);                
+                W = *(fPtr + 3);                
+            }
         }
 
         public override String ToString()

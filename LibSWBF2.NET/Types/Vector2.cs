@@ -3,20 +3,26 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Types
 {
+    [StructLayout(LayoutKind.Sequential, Pack=4)]
     public struct Vector2
     {
         public float X;
         public float Y;
 
-        public Vector2(IntPtr nativePtr)
+        public unsafe Vector2(IntPtr nativePtr) : this()
         {
-        	APIWrapper.Vector2_FromPtr(nativePtr, out X, out Y);
+            if (nativePtr != IntPtr.Zero && nativePtr != null)
+            {
+                float* fPtr = (float*) nativePtr.ToPointer();
+                X = *fPtr;
+                Y = *(fPtr + 1);                
+            }
         }
 
-        public Vector2(float val = 0)
+        public Vector2(float val = 0.0f)
         {
-            X = 0.0f;
-            Y = 0.0f;
+            X = val;
+            Y = val;
         }
 
         public override String ToString()
