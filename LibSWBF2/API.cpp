@@ -17,6 +17,9 @@
 
 namespace LibSWBF2
 {
+
+#define PurgePtr(ptr) delete[] ptr; ptr = nullptr
+
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 	// Helpers
@@ -376,22 +379,26 @@ namespace LibSWBF2
 
 	
 	//Wrappers - Terrain
-
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, char**& namesOut)
+	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, char**& texNamesOut,
+											float_t& hU, float_t& hL, uint32_t& numVerts, Vector3*& vBuf,
+											uint32_t& numNormals, Vector3*& nBuf, uint32_t& numUVs, Vector2*& uvBuf)
 	{
-		static char** nameStrings = nullptr;
-		delete[] nameStrings; 
-		nameStrings = nullptr;
+		static char** texNamesPtrs = nullptr;
+		PurgePtr(texNamesPtrs);
+		CheckPtr(ter,false);
 
-		numTextures = 0;
-		CheckPtr(tern, );
+		const List<String>& texNames = ter -> GetLayerTextures();
+        numTexes = texNames.Size();
+        texNamesPtrs = GetStringListPtrs(texNames);
+        texNamesOut = texNamesPtrs;
 
-        const List<String>& texNames = tern -> GetLayerTextures();
-        numTextures = (uint32_t) texNames.Size();
-        nameStrings = GetStringListPtrs(texNames);
-        namesOut = nameStrings;
+		ter -> GetHeightBounds(hL, hU);
+		ter -> GetVertexBuffer(numVerts, vBuf);
+		ter -> GetNormalBuffer(numNormals, nBuf);
+		ter -> GetUVBuffer(numUVs, uvBuf);
+
+		return true;
 	}
-
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
@@ -400,7 +407,6 @@ namespace LibSWBF2
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
-
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{	
 		dim = 0;
@@ -408,84 +414,15 @@ namespace LibSWBF2
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
 
-
-	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds)
 	{
-    	CheckPtr(ter, );
-		ter -> GetHeightBounds(floor, ceiling);
-	}
-
-
-	const void Terrain_GetVertexBuffer(const Terrain *terr, float_t*& positions, int32_t& numVerts)
-	{
-		static float_t *rawBuffer = nullptr;
-
-		numVerts = 0;
-		CheckPtr(terr,)
-
-		delete rawBuffer;
-
-		Vector3 *positionsBuf;
-		uint32_t numBufVerts;
-
-		terr -> GetVertexBuffer(numBufVerts, positionsBuf);
-
-		rawBuffer = new float_t[numBufVerts * 3];
-
-		numVerts = (int32_t) numBufVerts;
-
-		for (int32_t i = 0; i < numVerts * 3; i+=3)
+		if (terr == nullptr || !terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies))
 		{
-			Vector3& cur = positionsBuf[i / 3];
-			rawBuffer[i] = cur.m_X;
-			rawBuffer[i+1] = cur.m_Y;
-			rawBuffer[i+2] = cur.m_Z;
+			numInds = 0;
 		}
-
-		positions = rawBuffer;
 	}
 
 
-	const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals)
-	{
-		static float_t *rawBuffer = nullptr;
-
-		numNormals = 0;
-		CheckPtr(ter,)
-
-		delete rawBuffer;
-
-		Vector3 *normalsBuf;
-		uint32_t numBufVerts;
-
-		ter -> GetNormalBuffer(numBufVerts, normalsBuf);
-
-		rawBuffer = new float_t[numBufVerts * 3];
-
-		numNormals = (int32_t) numBufVerts;
-
-		for (int32_t i = 0; i < numNormals * 3; i+=3)
-		{
-			Vector3& cur = normalsBuf[i / 3];
-			rawBuffer[i] = cur.m_X;
-			rawBuffer[i+1] = cur.m_Y;
-			rawBuffer[i+2] = cur.m_Z;
-		}
-
-		normals = rawBuffer;
-	}
-
-	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
-	{
-		numIndsOut = 0;
-		CheckPtr(terr,)
-
-		indicies = nullptr;
-		uint32_t numInds = 0;
-
-		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
-		numIndsOut = numInds;
-	}
 
 
 	// Wrappers - Model 
@@ -707,7 +644,7 @@ namespace LibSWBF2
 
 
 	//Wrappers - World
-	const uint8_t World_FetchAllFields(const World* world, const char*nameOut, const char*skyNameOut,
+	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Terrain*& terrPtr)

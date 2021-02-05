@@ -12,7 +12,7 @@ namespace LibSWBF2.Wrappers
 {
     public class World : NativeWrapper
     {
-        public World(IntPtr worldPtr) : base(worldPtr){ SetPtr(worldPtr); }
+        public World(IntPtr worldPtr) : base(IntPtr.Zero){ SetPtr(worldPtr); }
         public World() : base(IntPtr.Zero){}
 
         public string name = "";
@@ -29,16 +29,10 @@ namespace LibSWBF2.Wrappers
 
         internal override void SetPtr(IntPtr worldPtr)
         {
-            bool status = APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
+            if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out lightArray, out lightCount, out lightIncrement,
                                         out instanceArray, out instanceCount, out instanceIncrement,
-                                        out terrainPtr);
-
-            if (!status)
-            {
-                NativeInstance = IntPtr.Zero;
-            }
-            else 
+                                        out terrainPtr))
             {
                 NativeInstance = worldPtr;
                 name = Marshal.PtrToStringAnsi(nameOut);

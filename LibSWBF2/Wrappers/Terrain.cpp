@@ -307,8 +307,6 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
-    		LOG_WARN("Initializing heightmap");
-
 	        float_t gridSize     = (float_t) dim;
 			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
