@@ -25,7 +25,7 @@ namespace LibSWBF2.Wrappers
 
         ~Level()
         {
-            //Delete();
+            Delete();
         }
 
         /// <summary>
