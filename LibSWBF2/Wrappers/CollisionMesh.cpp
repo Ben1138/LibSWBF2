@@ -69,7 +69,7 @@ namespace LibSWBF2::Wrappers
     	}
 
     	List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
-        count = (uint32_t)verts.Size();
+        count = (uint32_t) verts.Size();
         vertexBuffer = verts.GetArrayPtr();
     }
         

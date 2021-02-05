@@ -83,23 +83,15 @@ namespace LibSWBF2
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
 
-
+		//Wrappers - Texture
 		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
 
-
-		/*
-		LIBSWBF2_API const bool    Texture_GetData(const Texture* tex, int32_t& width, int32_t& height, const uint8_t*& buffer);
-		LIBSWBF2_API const bool    Texture_GetMetadata(const Texture* tex, int32_t& width, int32_t& height, const char *name);
-		LIBSWBF2_API const uint8_t Texture_GetBytesRGBA(const Texture* tex, const uint8_t*& buffer);
-		*/
-
 		// Wrappers - Model
-		LIBSWBF2_API const char* Model_GetName(const Model* model);
-		LIBSWBF2_API const void  Model_GetSegments(const Model* model, const Segment**& segmentArr, uint32_t& segmentCount);
-		LIBSWBF2_API uint8_t 	 Model_IsSkinnedMesh(const Model* model);
-		LIBSWBF2_API uint8_t 	 Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount, int32_t& inc);
-		LIBSWBF2_API uint8_t 	 Model_IsSkeletonBroken(const Model* model);
-		LIBSWBF2_API const CollisionMesh* Model_GetCollisionMesh(const Model *model);
+		LIBSWBF2_API const uint8_t Model_FetchSimpleFields(const Model* model,  const char*&name, uint8_t& skinned, uint8_t& skelBroken,
+															const Segment*& segArr, int32_t& segCount, int32_t& segInc,
+															const Bone*& boneArr, int32_t& boneCount, int32_t& boneInc,
+														    const CollisionMesh*& collMeshPtr);
+
 		LIBSWBF2_API const void  Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 														CollisionPrimitive**& primArrayPtr);
 
@@ -112,20 +104,7 @@ namespace LibSWBF2
 		// Wrappers - Bone
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
-		// Wrappers - Segment
-		/*
-		LIBSWBF2_API const void      Segment_GetVertexBuffer(const Segment* segment, uint32_t& numVerts, float_t*& vertBuffer);
-		LIBSWBF2_API const void      Segment_GetUVBuffer(const Segment* segment, uint32_t& numUVs, float_t*& UVBuffer);
-		LIBSWBF2_API const void      Segment_GetIndexBuffer(const Segment* segment, uint32_t& numInds, uint16_t*& indexBuffer);
-		LIBSWBF2_API const uint32_t  Segment_GetVertexBufferLength(const Segment* segment);
-		LIBSWBF2_API const void      Segment_GetNormalBuffer(const Segment* segment, uint32_t& numNormals, float_t*& normalsBuffer);
-		LIBSWBF2_API const int32_t   Segment_GetTopology(const Segment* segment);
-		LIBSWBF2_API const void      Segment_GetVertexWeightsBuffer(const Segment* segment, int32_t& numVWs, VertexWeight*& vwBuffer);
-		LIBSWBF2_API const char*     Segment_GetBone(const Segment* segment);
-		LIBSWBF2_API const uint8_t   Segment_IsPretransformed(const Segment* segment);
-		LIBSWBF2_API const Material* Segment_GetMaterial(const Segment* segment); 
-		*/
-		
+		// Wrappers - Segment		
 		LIBSWBF2_API const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
 														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
 														uint32_t& numVWs, VertexWeight*& vwBuf,
@@ -140,9 +119,8 @@ namespace LibSWBF2
                                                     Vector3*& pos, Vector4*& rot);
 
 		// Wrappers - CollisionMesh
-		LIBSWBF2_API const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, uint16_t*& buffer);
-        LIBSWBF2_API const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer);
-
+        LIBSWBF2_API const uint8_t CollisionMesh_FetchAllFields(const CollisionMesh *cmPtr, uint32_t& iCount, uint16_t*& iBuf,
+        														uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);
@@ -150,7 +128,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
 
 		// Wrappers - Terrain
-		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, const char**& result);
+		LIBSWBF2_API const void Terrain_GetTexNames(const Terrain *ter, uint32_t& numTexes, char**& result);
 		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetHeightBounds(const Terrain *ter, float_t& floor, float_t& ceiling);
@@ -159,17 +137,14 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numInds);
 
 		// Wrappers - World
-        LIBSWBF2_API const char* World_GetName(const World* world);
-        LIBSWBF2_API const void  World_GetInstances(const World* world, const Instance**& instanceArr, uint32_t& instCount);
-        LIBSWBF2_API const void* World_GetTerrain(const World* world);
-        LIBSWBF2_API const uint8_t World_GetLights(const World* world, Light*& lightArr, int32_t& count, int32_t& inc);
+		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*nameOut, const char*skyNameOut,
+														const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
+														const Instance*& instanceArr, int32_t& instCount, int32_t& instInc, 
+														const Terrain*& terrPtr);
 
         // Wrappers - Instance
-        LIBSWBF2_API const char* 	Instance_GetName(const Instance* instance);
-        LIBSWBF2_API const Vector4* Instance_GetRotation(const Instance* instance);
-        LIBSWBF2_API const Vector3* Instance_GetPosition(const Instance* instance);
-   		LIBSWBF2_API const char *   Instance_GetEntityClassName(const Instance* instance);
-   		LIBSWBF2_API const uint8_t  Instance_GetOverriddenProperties(const Instance *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
+   		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
+   		LIBSWBF2_API const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
 
 
 		// Wrappers - Light
@@ -189,10 +164,5 @@ namespace LibSWBF2
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
-
-		// Wrappers - Vectors
-		LIBSWBF2_API const void Vector4_FromPtr(const Vector4* vec, float_t& x, float_t& y, float_t& z, float_t &w);        
-		LIBSWBF2_API const void Vector3_FromPtr(const Vector3* vec, float_t& x, float_t& y, float_t& z); 
-		LIBSWBF2_API const void Vector2_FromPtr(const Vector2* vec, float_t& x, float_t& y); 
 	}
 }
