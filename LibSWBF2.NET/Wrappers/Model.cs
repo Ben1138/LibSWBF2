@@ -29,15 +29,12 @@ namespace LibSWBF2.Wrappers
 
         internal override void SetPtr(IntPtr modelPtr)
         {
+            NativeInstance = IntPtr.Zero;
             bool status = APIWrapper.Model_FetchSimpleFields(modelPtr, out IntPtr namePtr, out isSkinned, out isSkeletonBroken,
                                                             out segmentArray, out segmentCount, out segmentIncrement,
                                                             out IntPtr boneArr, out int boneCount, out int boneInc,
                                                             out collisionMeshPtr);
-            if (!status)
-            {
-                NativeInstance = IntPtr.Zero;
-            }
-            else 
+            if (status)
             {
                 NativeInstance = modelPtr;
                 name = Marshal.PtrToStringAnsi(namePtr);

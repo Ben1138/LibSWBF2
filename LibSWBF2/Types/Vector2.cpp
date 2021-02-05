@@ -38,6 +38,8 @@ namespace LibSWBF2::Types
 
 	Types::String Vector2::ToString()
 	{
-		return fmt::format("[{}, {}]", m_X, m_Y).c_str();
+		float_t xTemp = m_X;
+		float_t yTemp = m_Y;
+		return fmt::format("[{}, {}]", xTemp, yTemp).c_str();
 	}
 }
