@@ -3,24 +3,21 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Types
 {
+    [StructLayout(LayoutKind.Sequential, Pack=4)]
     public struct Vector3
     {
         public float X;
         public float Y;
         public float Z;
 
-        public Vector3(IntPtr nativePtr)
+        public unsafe Vector3(IntPtr nativePtr) : this()
         {
-
             if (nativePtr != IntPtr.Zero && nativePtr != null)
             {
-                APIWrapper.Vector3_FromPtr(nativePtr, out X, out Y, out Z);
-            }
-            else 
-            {
-                X = 0.0f;
-                Y = 0.0f;
-                Z = 0.0f;
+                float* fPtr = (float*) nativePtr.ToPointer();
+                X = *fPtr;
+                Y = *(fPtr + 1);                
+                Z = *(fPtr + 2);                
             }
         }
 

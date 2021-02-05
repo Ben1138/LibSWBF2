@@ -33,8 +33,8 @@ namespace LibSWBF2.NET.Test
 
         public static int Main(string[] args)
         {   
-            Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
-            return 0;
+            //Console.WriteLine("0x{0:x}", GetUIntRep(args[0]));
+            //return 0;
 
             TestBench.StartLogging(ELogType.Warning);
 
@@ -44,11 +44,12 @@ namespace LibSWBF2.NET.Test
             World[] worlds = level.GetWorlds();
             foreach (World world in worlds)
             {
-                Console.WriteLine("World: {0}", world.Name);
-                //uint worldNameHash = HashUtils.GetFNV(world.Name);
-                Config lighting = level.GetConfig(world.Name, ConfigType.LIGHTING);
-                //Config lighting = level.GetConfig(0xc9827964, ConfigType.LIGHTING);
+                Console.WriteLine("World: {0}", world.name);
 
+                //uint worldNameHash = HashUtils.GetFNV(world.Name);
+                Config lighting = level.GetConfig(world.name, ConfigType.LIGHTING);
+                //Config lighting = level.GetConfig(0xc9827964, ConfigType.LIGHTING);
+                Console.WriteLine("Got lighting...");
                 if (lighting == null) continue;
 
                 uint lightHash = HashUtils.GetFNV("Light");

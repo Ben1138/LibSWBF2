@@ -25,56 +25,58 @@ namespace LibSWBF2.NET.Test
             Model[] models = level.GetModels();
 
 
-            int j = 0;
             foreach (Model model in models)
             {   
-                Console.WriteLine("\n" + model.Name + ": ");
+                Console.WriteLine("\n" + model.name + ": ");
 
-                if (true)//model.IsSkinnedMesh)
+
+                if (model.isSkeletonBroken)
                 {
-                    Console.WriteLine("\tSkeleton: ");
-                    
-                    Bone[] bones = model.GetSkeleton();
-
-                    for (int k = 0; k < bones.Length; k++)
-                    {
-                        Console.WriteLine("\t\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
-                    }
+                    Console.WriteLine("\tSkeleton is broken!!");
                 }
 
+                Console.WriteLine("\tSkeleton: ");
+                
+                Bone[] bones = model.skeleton;
+
+                for (int k = 0; k < bones.Length; k++)
+                {
+                    Console.WriteLine("\t\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
+                }
+                
                 Segment[] segments = model.GetSegments(); 
                 int i = 0;
                 foreach (Segment seg in segments)
                 {
                     Console.WriteLine("\tSegment " + i++ + ": ");
-                    float[] vBuf = seg.GetVertexBuffer();                        
+                    float[] vBuf = seg.GetVertexBuffer<float>();                        
                     //string texName = seg.GetMaterialTexName();
 
                     VertexWeight[] weights = seg.GetVertexWeights();
 
-                    Console.WriteLine("\t\tTopology: {0}", seg.GetTopology());
+                    Console.WriteLine("\t\tTopology: {0}", seg.topology);
 
 
-                    float[] buffer = seg.GetNormalsBuffer();
+                    float[] buffer = seg.GetNormalsBuffer<float>();
                     Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
 
                     Console.WriteLine("\t\tPositions sample: ");
-                    for (int l = 0; l < vBuf.Length && l < 15; l+=3)
+                    for (int l = 0; l < vBuf.Length && l < 150; l+=3)
                     {
                         Console.WriteLine("\t\t\t({0},{1},{2})", vBuf[l], vBuf[l+1], vBuf[l+2]);
                     }
 
-                    if (model.IsSkinnedMesh)
+                    if (model.isSkinned)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
-                        Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed());
+                        Console.WriteLine("\t\tIs pretransformed: {0}", seg.isPretransformed);
                     }
                     else
                     {
-                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.GetBone());
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.boneName);
                     }
 
-                    Material mat = seg.GetMaterial();
+                    Material mat = seg.material;
 
                     Console.WriteLine("\n\t\tMaterial textures used: ");
 
