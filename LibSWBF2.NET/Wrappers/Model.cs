@@ -12,7 +12,7 @@ namespace LibSWBF2.Wrappers
 {
     public class Model : NativeWrapper
     {
-        public Model(IntPtr modelPtr) : base(modelPtr) { SetPtr(modelPtr); }
+        public Model(IntPtr modelPtr) : base(IntPtr.Zero) { SetPtr(modelPtr); }
         public Model() : base(IntPtr.Zero){}
 
         public string name="";
@@ -27,17 +27,13 @@ namespace LibSWBF2.Wrappers
         private IntPtr segmentArray;
         private int segmentCount, segmentIncrement;
 
+
         internal override void SetPtr(IntPtr modelPtr)
         {
-            bool status = APIWrapper.Model_FetchSimpleFields(modelPtr, out IntPtr namePtr, out isSkinned, out isSkeletonBroken,
+            if (APIWrapper.Model_FetchSimpleFields(modelPtr, out IntPtr namePtr, out isSkinned, out isSkeletonBroken,
                                                             out segmentArray, out segmentCount, out segmentIncrement,
                                                             out IntPtr boneArr, out int boneCount, out int boneInc,
-                                                            out collisionMeshPtr);
-            if (!status)
-            {
-                NativeInstance = IntPtr.Zero;
-            }
-            else 
+                                                            out collisionMeshPtr))
             {
                 NativeInstance = modelPtr;
                 name = Marshal.PtrToStringAnsi(namePtr);

@@ -20,7 +20,7 @@ namespace LibSWBF2::Logging
 		}
 		else
 		{
-			return "[" + LogTypeToString(m_Level) + "] " + m_Message + " - IN " + std::to_string(m_Line).c_str() + " " + m_File;
+			return "[" + LogTypeToString(m_Level) + "] " + m_Message + " - IN " + m_File + ":" + std::to_string(m_Line).c_str();
 		}
 	}
 }

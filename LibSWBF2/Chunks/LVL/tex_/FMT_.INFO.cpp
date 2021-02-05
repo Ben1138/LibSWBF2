@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks::LVL::FMT
 		m_Width = stream.ReadUInt16();
 		m_Height = stream.ReadUInt16();
 		m_Depth = stream.ReadUInt16();
-		m_MipmapCount = 1;// stream.ReadUInt16();
+		m_MipmapCount = stream.ReadUInt16();
 		m_Type = stream.ReadUInt32();
 
 		BaseChunk::EnsureEnd(stream);
