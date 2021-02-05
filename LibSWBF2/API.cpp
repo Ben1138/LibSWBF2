@@ -16,6 +16,9 @@
 
 namespace LibSWBF2
 {
+
+#define PurgePtr(ptr) delete[] ptr; ptr = nullptr;
+
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 	// Helpers
@@ -342,8 +345,7 @@ namespace LibSWBF2
 	{
 		static String nameCache;
 		static const uint8_t* imageDataCache = nullptr;
-    	delete[] imageDataCache;
-    	imageDataCache = nullptr;
+    	PurgePtr(imageDataCache);
 
 		CheckPtr(tex,false);
 
@@ -447,22 +449,26 @@ namespace LibSWBF2
 
 	
 	//Wrappers - Terrain
-
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, char**& namesOut)
+	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, char**& texNamesOut,
+											float_t& hU, float_t& hL, uint32_t& numVerts, Vector3*& vBuf,
+											uint32_t& numNormals, Vector3*& nBuf, uint32_t& numUVs, Vector2*& uvBuf)
 	{
-		static char** nameStrings = nullptr;
-		delete[] nameStrings; 
-		nameStrings = nullptr;
+		static char** texNamesPtrs = nullptr;
+		PurgePtr(texNamesPtrs);
+		CheckPtr(ter,false);
 
-		numTextures = 0;
-		CheckPtr(tern, );
+		const List<String>& texNames = ter -> GetLayerTextures();
+        numTexes = texNames.Size();
+        texNamesPtrs = GetStringListPtrs(texNames);
+        texNamesOut = texNamesPtrs;
 
-        const List<String>& texNames = tern -> GetLayerTextures();
-        numTextures = (uint32_t) texNames.Size();
-        nameStrings = GetStringListPtrs(texNames);
-        namesOut = nameStrings;
+		ter -> GetHeightBounds(hL, hU);
+		ter -> GetVertexBuffer(numVerts, vBuf);
+		ter -> GetNormalBuffer(numNormals, nBuf);
+		ter -> GetUVBuffer(numUVs, uvBuf);
+
+		return true;
 	}
-
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
@@ -471,7 +477,6 @@ namespace LibSWBF2
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
-
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{	
 		dim = 0;
@@ -479,84 +484,15 @@ namespace LibSWBF2
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
 
-
-	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds)
 	{
-    	CheckPtr(ter, );
-		ter -> GetHeightBounds(floor, ceiling);
-	}
-
-
-	const void Terrain_GetVertexBuffer(const Terrain *terr, float_t*& positions, int32_t& numVerts)
-	{
-		static float_t *rawBuffer = nullptr;
-
-		numVerts = 0;
-		CheckPtr(terr,)
-
-		delete rawBuffer;
-
-		Vector3 *positionsBuf;
-		uint32_t numBufVerts;
-
-		terr -> GetVertexBuffer(numBufVerts, positionsBuf);
-
-		rawBuffer = new float_t[numBufVerts * 3];
-
-		numVerts = (int32_t) numBufVerts;
-
-		for (int32_t i = 0; i < numVerts * 3; i+=3)
+		if (terr == nullptr || !terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies))
 		{
-			Vector3& cur = positionsBuf[i / 3];
-			rawBuffer[i] = cur.m_X;
-			rawBuffer[i+1] = cur.m_Y;
-			rawBuffer[i+2] = cur.m_Z;
+			numInds = 0;
 		}
-
-		positions = rawBuffer;
 	}
 
 
-	const void Terrain_GetNormalsBuffer(const Terrain *ter, float_t*& normals, int32_t& numNormals)
-	{
-		static float_t *rawBuffer = nullptr;
-
-		numNormals = 0;
-		CheckPtr(ter,)
-
-		delete rawBuffer;
-
-		Vector3 *normalsBuf;
-		uint32_t numBufVerts;
-
-		ter -> GetNormalBuffer(numBufVerts, normalsBuf);
-
-		rawBuffer = new float_t[numBufVerts * 3];
-
-		numNormals = (int32_t) numBufVerts;
-
-		for (int32_t i = 0; i < numNormals * 3; i+=3)
-		{
-			Vector3& cur = normalsBuf[i / 3];
-			rawBuffer[i] = cur.m_X;
-			rawBuffer[i+1] = cur.m_Y;
-			rawBuffer[i+2] = cur.m_Z;
-		}
-
-		normals = rawBuffer;
-	}
-
-	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, int32_t& numIndsOut)
-	{
-		numIndsOut = 0;
-		CheckPtr(terr,)
-
-		indicies = nullptr;
-		uint32_t numInds = 0;
-
-		terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies);
-		numIndsOut = numInds;
-	}
 
 
 	// Wrappers - Model 
@@ -725,7 +661,7 @@ namespace LibSWBF2
     // Wrappers - Material
     uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                     Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
-                    char* attachedLightName, uint32_t& matFlags, uint32_t& specExp)
+                    char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp)
     {	
     	static Vector3 specCache, diffCache;
     	static char** texNamePtrsCache = new char*[4];
@@ -734,13 +670,13 @@ namespace LibSWBF2
 
     	CheckPtr(matPtr, false);
 
-    	uint8_t count = 0;
-    	while (count < 4 && matPtr -> GetTextureName(count, namesCache[count]))
+    	numTexes = 0;
+    	while (numTexes < 4 && matPtr -> GetTextureName(numTexes, namesCache[numTexes]))
     	{
-    		texNamePtrsCache[count] = const_cast<char *>(namesCache[count].Buffer());
-    		count++;
+    		texNamePtrsCache[numTexes] = const_cast<char *>(namesCache[numTexes].Buffer());
+    		numTexes++;
     	}
-    	numTexes = count;
+
     	texPtrs = texNamePtrsCache;
 
     	specExp = matPtr -> GetSpecularExponent();
@@ -777,7 +713,6 @@ namespace LibSWBF2
 
 
 	//Wrappers - World
-
 	const void World_GetRegions(const World* world, const void*& regArr, uint32_t& count)
 	{
 		List<regn *>& regionChunks = world -> p_World -> m_Regions;
@@ -802,7 +737,6 @@ namespace LibSWBF2
 	}
 
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-										const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Terrain*& terrPtr)
 	{
@@ -813,11 +747,6 @@ namespace LibSWBF2
 
 		skyNameCache = world -> GetSkyName();
 		skyNameOut = skyNameCache.Buffer();
-
-		//const List<Light>& lights = world -> GetLights();
-    	lightArr = nullptr;// lights.GetArrayPtr();
-    	lightCount = 0;// lights.Size();
-    	lightInc = 0;// sizeof(Light);
 
     	const List<Instance>& instances = world -> GetInstances();
 		instanceArr = instances.GetArrayPtr();
@@ -857,7 +786,7 @@ namespace LibSWBF2
     	static List<uint32_t> hashes;
     	static char** ptrsBuffer = nullptr;
 
-    	delete[] ptrsBuffer;
+    	PurgePtr(ptrsBuffer);
 
     	if (instPtr -> GetOverriddenProperties(hashes, values))
     	{
@@ -914,7 +843,7 @@ namespace LibSWBF2
     	static List<String> values;
     	static List<uint32_t> hashes;
 
-    	delete[] ptrsBuffer;
+    	PurgePtr(ptrsBuffer);
 
     	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
     	
@@ -924,44 +853,10 @@ namespace LibSWBF2
 		valuesBuffer = ptrsBuffer;
 		return true;
     }
-
-    /*
-    const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
-                                    Vector3*& posPtr, uint32_t& lightType, 
-                                    Vector3*& colPtr, float_t& range,
-                                    Vector2*& conePtr)
-    {
-    	CheckPtr(lightPtr, nullptr);
-
-    	static Vector3 lastPos, lastCol;
-    	static Vector4 lastRot; 
-    	static Vector2 lastCone(0,0);	
-    	float_t inner=0,outer=0;
-
-    	lastRot  = lightPtr -> GetRotation();
-    	lastPos  = lightPtr -> GetPosition();
-    	lastCol  = lightPtr -> GetColor();
-
-    	lightPtr -> GetSpotAngles(inner,outer);
-    	lastCone = Vector2(inner,outer);
-
-    	lightType = (uint32_t) lightPtr -> GetType();
-    	lightPtr -> GetRange(range);
-
-    	rotPtr  = &lastRot;
-    	colPtr  = &lastCol;
-    	posPtr  = &lastPos;
-    	conePtr = &lastCone;
-
-    	const String& name = lightPtr -> GetName();
-    	return name.Buffer();
-    }
-    */
-    
+   
 
 
     // Wrappers - AnimationBank
-
 	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
                                                     const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
 	{
@@ -1057,17 +952,11 @@ namespace LibSWBF2
 	{
 		static List<String> cache;
 		static char** cachePtrs = nullptr;
-		delete cachePtrs;
+		PurgePtr(cachePtrs);
 
 		cache = cfg -> GetStrings(hash);
-
 		count = cache.Size();
-
-		cachePtrs = new char*[count];
-		for (int i = 0; i < count; i++)
-		{
-			cachePtrs[i] = const_cast<char *>(cache[i].Buffer());
-		}
+		cachePtrs = GetStringListPtrs(cache);
 
 		return const_cast<const char **>(cachePtrs);
 	}

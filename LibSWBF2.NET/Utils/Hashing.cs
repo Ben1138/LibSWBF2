@@ -27,13 +27,6 @@ namespace LibSWBF2.Utils
             return ~crc;
         }
 
-        /*
-        public static uint[] GetFNV(string[] str)
-        {
-
-        }
-        */
-
         public static uint GetFNV(string str)
         {
             uint FNV_prime = 16777619;
@@ -41,8 +34,6 @@ namespace LibSWBF2.Utils
 
             uint hash = offset_basis;
 
-            //const char* buffer = str.Buffer();
-            //for (size_t i = 0; i < str.Length(); ++i)
             foreach (char c in str)
             {
                 hash ^= (uint) (c | 0x20);
@@ -51,7 +42,6 @@ namespace LibSWBF2.Utils
 
             return hash;
         }
-
 
         // CRC table
         private static uint[] m_Table32 =

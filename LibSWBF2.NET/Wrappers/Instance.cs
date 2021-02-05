@@ -15,7 +15,7 @@ namespace LibSWBF2.Wrappers
 {
     public class Instance : NativeWrapper
     {
-        public Instance(IntPtr instancePtr) : base(instancePtr){ SetPtr(instancePtr); }
+        public Instance(IntPtr instancePtr) : base(IntPtr.Zero){ SetPtr(instancePtr); }
         public Instance() : base(IntPtr.Zero) {}
 
         public string name = "";
@@ -24,16 +24,9 @@ namespace LibSWBF2.Wrappers
         public string entityClassName = "";
 
 
-
         internal override void SetPtr(IntPtr instancePtr)
         {
-            bool status = APIWrapper.Instance_FetchSimpleFields(instancePtr, out IntPtr namePtr, out IntPtr rot, out IntPtr pos, out IntPtr ecNamePtr);
-
-            if (!status)
-            {
-                NativeInstance = IntPtr.Zero;
-            }
-            else 
+            if (APIWrapper.Instance_FetchSimpleFields(instancePtr, out IntPtr namePtr, out IntPtr rot, out IntPtr pos, out IntPtr ecNamePtr))
             {
                 NativeInstance = instancePtr;
                 name = Marshal.PtrToStringAnsi(namePtr);
