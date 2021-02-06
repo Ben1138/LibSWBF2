@@ -3,7 +3,6 @@
 #include "req.h"
 #include "LibString.h"
 
-
 namespace LibSWBF2
 {
 	enum class ELogType : uint8_t
@@ -96,7 +95,7 @@ namespace LibSWBF2
 	enum class ECollisionMaskFlags : uint32_t
 	{
 		All = 0xffffffff,
-		Ordinance = 1,
+		Ordnance = 1,
         Vehicle = 2,
         Building = 4,
         Terrain = 8,
@@ -153,18 +152,6 @@ namespace LibSWBF2
 		Spot = 3,
 		Unknown = 0,
 	};
-
-
-	enum class EAnimationDecompressionStatus : uint32_t
-	{
-		Omitted = 0,
-		Error = 1,
-		Success = 2,
-		InvalidBone = 3,
-		InvalidAnimation = 4,
-	};
-
-
   
 	enum class ELVLType
 	{
@@ -188,11 +175,6 @@ namespace LibSWBF2
 		Loaded,
 		Failed
 	};
-
-
-
-
-
 
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);

@@ -66,9 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestBench.cs" />
-    <Compile Include="testConfig.cs"/>
+    <Compile Include="testTerrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBench.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

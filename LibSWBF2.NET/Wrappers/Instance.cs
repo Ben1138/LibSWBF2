@@ -15,52 +15,34 @@ namespace LibSWBF2.Wrappers
 {
     public class Instance : NativeWrapper
     {
-        public Instance(IntPtr modelPtr) : base(modelPtr){}
-
+        public Instance(IntPtr instancePtr) : base(IntPtr.Zero){ SetPtr(instancePtr); }
         public Instance() : base(IntPtr.Zero) {}
 
+        public string name = "";
+        public Vector4 rotation;
+        public Vector3 position;
+        public string entityClassName = "";
 
-        public string Name
+
+        internal override void SetPtr(IntPtr instancePtr)
         {
-            get 
+            if (APIWrapper.Instance_FetchSimpleFields(instancePtr, out IntPtr namePtr, out IntPtr rot, out IntPtr pos, out IntPtr ecNamePtr))
             {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return Marshal.PtrToStringAnsi( APIWrapper.Instance_GetName(NativeInstance) ); 
+                NativeInstance = instancePtr;
+                name = Marshal.PtrToStringAnsi(namePtr);
+                entityClassName = Marshal.PtrToStringAnsi(ecNamePtr);
+                rotation = new Vector4(rot);
+                position = new Vector3(pos);
             }
         }
 
-        public Vector4 GetRotation()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return new Vector4(APIWrapper.Instance_GetRotation(NativeInstance)); 
-        }
-
-        public Vector3 GetPosition()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return new Vector3(APIWrapper.Instance_GetPosition(NativeInstance));
-        }
-
-        public string GetEntityClassName()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return Marshal.PtrToStringAnsi(APIWrapper.Instance_GetEntityClassName(NativeInstance));   
-        }
 
         public bool GetOverriddenProperties(out uint[] properties, out string[] values)
         {
             bool status = APIWrapper.Instance_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
-
-            if (status)
-            {
-                properties = MemUtils.IntPtrToArray<uint>(props, count);
-                values = MemUtils.IntPtrToStringList(vals, count).ToArray();
-            }
-            else 
-            {
-                properties = new uint[0];
-                values = new string[0];
-            }
+            count = status ? count : 0;
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
 
             return status;
         }

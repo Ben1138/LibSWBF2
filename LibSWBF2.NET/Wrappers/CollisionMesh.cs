@@ -12,20 +12,35 @@ namespace LibSWBF2.Wrappers
 {
     public class CollisionMesh : NativeWrapper
     {
-        internal CollisionMesh(IntPtr CollisionMeshPtr) : base(CollisionMeshPtr){}
+        internal CollisionMesh(IntPtr CollisionMeshPtr) : base(IntPtr.Zero){ SetPtr(CollisionMeshPtr); }
 
-        public float[] GetVertices()
+        public uint maskFlags;
+
+        private IntPtr indexBufferPtr;
+        public uint indexCount;
+
+        private IntPtr vertexBufferPtr;
+        public uint vertexCount;
+
+        internal override void SetPtr(IntPtr cmPtr)
+        {   
+            if (APIWrapper.CollisionMesh_FetchAllFields(cmPtr, out indexCount, out indexBufferPtr,
+                                                    out vertexCount, out vertexBufferPtr, out maskFlags))
+            {
+                NativeInstance = cmPtr;
+            }
+        }
+
+        public unsafe T[] GetVertices<T>() where T : unmanaged
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.CollisionMesh_GetVertexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-            return MemUtils.IntPtrToArray<float>(buffer, (int) count * 3);
+            return MemUtils.IntPtrToArray<T>(vertexBufferPtr, ((int) vertexCount * 3 * 4) / sizeof(T));
         }
 
         public ushort[] GetIndices()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.CollisionMesh_GetIndexBuffer(NativeInstance, out uint count, out IntPtr buffer);
-            return MemUtils.IntPtrToArray<ushort>(buffer, (int) count);
+            return MemUtils.IntPtrToArray<ushort>(indexBufferPtr, (int) indexCount);
         }
     }
 }

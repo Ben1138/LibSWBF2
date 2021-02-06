@@ -23,17 +23,20 @@ namespace LibSWBF2::Wrappers
 
     String CollisionMesh::GetName() const
     {
-        if (p_CollisionChunk -> p_ChunkName == nullptr)
+        if (p_CollisionChunk == nullptr || p_CollisionChunk -> p_ChunkName == nullptr)
         {
             return "";
         }
-        return p_CollisionChunk -> p_ChunkName -> ToString();
+        return p_CollisionChunk -> p_ChunkName -> m_Text;
     }
 
     ECollisionMaskFlags CollisionMesh::GetMaskFlags() const
     {
-        auto *maskChunk = p_CollisionChunk -> p_Mask;
-        return maskChunk == nullptr ? ECollisionMaskFlags::All : maskChunk -> m_MaskFlags;
+        if (p_CollisionChunk == nullptr || p_CollisionChunk -> p_Mask == nullptr)
+        {
+            return ECollisionMaskFlags::All;
+        }
+        return p_CollisionChunk -> p_Mask -> m_MaskFlags;
     }
 
     void CollisionMesh::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
@@ -69,7 +72,7 @@ namespace LibSWBF2::Wrappers
     	}
 
     	List<Vector3>& verts = p_CollisionChunk -> p_Verts -> m_Verts;
-        count = (uint32_t)verts.Size();
+        count = (uint32_t) verts.Size();
         vertexBuffer = verts.GetArrayPtr();
     }
         

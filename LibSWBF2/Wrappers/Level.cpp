@@ -30,7 +30,6 @@ namespace LibSWBF2::Wrappers
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
-		m_bHasGlobalLighting = false;
 		p_MainContainer = mainContainer;
 	}
 
@@ -38,7 +37,7 @@ namespace LibSWBF2::Wrappers
 	{
 		m_Models.Clear();
 		m_Textures.Clear();
-		//m_Lights.Clear();
+		m_EntityClasses.Clear();
 
 		if (p_lvl == nullptr)
 		{
@@ -74,8 +73,7 @@ namespace LibSWBF2::Wrappers
 			}	
 		}
 
-
-
+		//Config chunks
 		fx__* fxChunk = dynamic_cast<fx__*>(root);
 		if (fxChunk != nullptr)
 		{
@@ -125,34 +123,7 @@ namespace LibSWBF2::Wrappers
 				m_Configs.Add(combo);
 			}
 		}
-		
-		/*
-		lght* lightListChunk = dynamic_cast<lght*>(root);
-		if (lightListChunk != nullptr)
-		{
-            for (int i = 0; i < lightListChunk->p_LightTags.Size(); i++)
-			{
-                Light newLight;
-                if (Light::FromChunks(lightListChunk -> p_LightTags[i], 
-                					  lightListChunk ->	p_LightBodies[i], 
-                					  newLight))
-                {
-                	newLight.m_WorldName = lightListChunk -> p_Marker -> m_WorldName;
-                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
-                }
-			}
 
-			if (lightListChunk -> p_GlobalLightingBody)
-			{
-				if (m_bHasGlobalLighting)
-				{
-					LOG_WARN("Encountered another Global Lighting setting! Loaded more than one world LVL at once?");
-				}
-
-				m_bHasGlobalLighting = GlobalLightingConfig::FromChunk(lightListChunk -> p_GlobalLightingBody, m_GlobalLightingConfig);
-			}
-		}
-		*/
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
@@ -231,19 +202,7 @@ namespace LibSWBF2::Wrappers
 		{
 			World world;
 			if (World::FromChunk(p_MainContainer, worldChunk, world))
-			{	/*
-				FNVHash worldName = FNV::Hash(world.GetName());
-				for (int i = 0; i < m_Lights.Size(); i++)
-				{
-					auto& light = m_Lights[i];
-
-					if (light.m_WorldName == worldName)
-					{
-						world.m_Lights.Add(light);
-					}
-				}
-				*/
-
+			{	
 				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
 			}
 		}
@@ -381,13 +340,6 @@ namespace LibSWBF2::Wrappers
 		return m_Worlds.Size() > 0;
 	}
 
-	/*
-	const List<Light>& Level::GetLights() const
-	{
-		return m_Lights;
-	}
-	*/
-
 	const List<Model>& Level::GetModels() const
 	{
 		return m_Models;
@@ -412,54 +364,16 @@ namespace LibSWBF2::Wrappers
 	{
 		return m_Scripts;
 	}
-
-	/*
-	const Light* Level::GetLight(String lightName) const
-	{
-		if (lightName.IsEmpty())
-		{
-			return nullptr;
-		}
-
-		auto it = m_NameToIndexMaps->LightNameToIndex.find(ToLower(lightName));
-		if (it != m_NameToIndexMaps->LightNameToIndex.end())
-		{
-			return &m_Lights[it->second];
-		}
-
-		//LOG_WARN("Could not find Light '{}'!", lightName);
-		return nullptr;
-	}
-	*/
   
 	const List<Localization>& Level::GetLocalizations() const
 	{
 		return m_Localizations;
 	}
 
-	/*
-	const GlobalLightingConfig* Level::GetGlobalLighting() const
-	{
-		if (!m_bHasGlobalLighting)
-		{
-			return nullptr;
-		}
-		return &m_GlobalLightingConfig;
-	}
-	*/
-
 	const List<EntityClass>& Level::GetEntityClasses() const
 	{
 		return m_EntityClasses;
 	}
-
-	/*
-	const List<Config>& Level::GetEffects() const
-	{
-		return m_Effects;
-	}
-	*/
-
 
 	const Model* Level::GetModel(String modelName) const
 	{
@@ -607,19 +521,4 @@ namespace LibSWBF2::Wrappers
 
 		return nullptr;
 	}
-
-	/*
-	const Config *Level::GetEffect(FNVHash hash) const
-	{
-		for (int i = 0; i < m_Effects.Size(); i++)
-		{
-			if (m_Effects[i].m_Name == hash)
-			{
-				return &m_Effects[i];
-			}
-		}
-
-		return nullptr;
-	}
-	*/
 }
