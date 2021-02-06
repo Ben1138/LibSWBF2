@@ -22,7 +22,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 
 		while (ThereIsAnother(stream))
 		{
-			LVL_* lvl = new LVL_();
+			LVL_* lvl;
 			READ_CHILD(stream, lvl);
 			m_LVLs.Add(lvl);
 		}
