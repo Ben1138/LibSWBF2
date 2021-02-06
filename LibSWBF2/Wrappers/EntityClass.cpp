@@ -45,8 +45,9 @@ namespace LibSWBF2::Wrappers
 	EntityClass& EntityClass::operator=(EntityClass&& other)
 	{
 		p_classChunk = other.p_classChunk;
+		delete m_PropertyMapping;
 		m_PropertyMapping = other.m_PropertyMapping;
-		other.m_PropertyMapping = new PropertyMap();
+		other.m_PropertyMapping = nullptr;
 		return *this;
 	}
 

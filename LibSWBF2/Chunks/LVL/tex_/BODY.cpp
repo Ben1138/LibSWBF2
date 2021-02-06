@@ -163,4 +163,10 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
         return data != nullptr;    
     }
+
+    BODY::~BODY()
+    {
+        delete p_Image;
+    }
+
 }

@@ -19,13 +19,13 @@ public:
 
 	uint8_t* DumpRGBA();
 	uint8_t* DumpRaw();
-	//~CrossPlatImage();
+	~CrossPlatImage();
 
 	uint16_t width,height,unitSize;
 
 private:
 	size_t dataLength;
-	std::shared_ptr<uint8_t> data;
+	uint8_t* data = nullptr;
 	D3DFORMAT format;
 	bool valid = true;
 };
