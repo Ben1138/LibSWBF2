@@ -53,16 +53,10 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
-		//List<Light> m_Lights;
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
 		List<Config> m_Configs;
-
-
-
-		bool m_bHasGlobalLighting;
-		//GlobalLightingConfig m_GlobalLightingConfig;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -70,8 +64,6 @@ namespace LibSWBF2::Wrappers
 	public:
 		friend class Model;
 		friend class Segment;
-
-		void testCall();
 
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
@@ -83,7 +75,6 @@ namespace LibSWBF2::Wrappers
 		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
-		//const List<Light>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
@@ -93,26 +84,23 @@ namespace LibSWBF2::Wrappers
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
 
-
 		template<uint32_t Header = 0>
-		List<Config *> GetConfigs() const
+		List<const Config *> GetConfigs() const
 		{
-			List<Config *> matchedConfigs;
+			List<const Config *> matchedConfigs;
 			for (int i = 0; i < m_Configs.Size(); i++)
 			{
 				const Config& cfg = m_Configs[i];
 
 				if (cfg.WrapsConfigType<Header>())
 				{
-					matchedConfigs.Add(const_cast<Config *>(&cfg));
+					matchedConfigs.Add(&cfg);
 				}
 			}
 
 			return matchedConfigs;
 		}
 
-		//const Light* GetLight(String lightName) const;
-		//const GlobalLightingConfig* GetGlobalLighting() const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
@@ -121,7 +109,6 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
-
 
 		template<uint32_t Header = 0>
 		const Config* GetConfig(FNVHash hash) const

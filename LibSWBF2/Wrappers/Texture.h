@@ -31,12 +31,6 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 		uint32_t GetNumMipMaps() const;
 
-		// Gets metadata for base mip level
-		bool GetImageMetadata(uint16_t& width, uint16_t& height, ETextureFormat& format) const;
-
-		// Fills preallocated buffer with RGBA bytes, returns false if the format conversion isn't possible
-		bool FillRGBABuffer(void *buffer) const;
-
 		bool GetImageData(ETextureFormat format, uint8_t mipLevel, uint16_t& width, uint16_t& height, const uint8_t*& data) const;
 	};
 }

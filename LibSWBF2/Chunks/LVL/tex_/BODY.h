@@ -2,6 +2,7 @@
 #include "Chunks/GenericChunk.h"
 #include "Types/Enums.h"
 #include "FMT_.INFO.h"
+#include <memory.h>
 
 #ifdef _WIN32
 namespace DirectX { class ScratchImage; }
@@ -17,9 +18,9 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 	private:
 
 #ifdef _WIN32
-		DirectX::ScratchImage* p_Image = nullptr;
+		std::shared_ptr<DirectX::ScratchImage> p_Image;
 #else
-		DXTexCrossPlat::CrossPlatImage* p_Image = nullptr;		
+		std::shared_ptr<DXTexCrossPlat::CrossPlatImage> p_Image;		
 #endif
 
 	public:

@@ -43,11 +43,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             return;
         }
 
-        if (p_Image != nullptr)
-        {
-            delete p_Image;
-            p_Image = nullptr;
-        }
+        if (p_Image) p_Image.reset();
 
         size_t width = fmt->p_Info->m_Width;
         size_t height = fmt->p_Info->m_Height;
@@ -84,14 +80,12 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         }
 
 #ifdef _WIN32
-        p_Image = new DirectX::ScratchImage();
+        p_Image = std::make_shared<DirectX::ScratchImage>();
         p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
         const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
         memcpy(img->pixels, bytes, dataSize);
 #else
-        p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
-                                                    d3dFormat, bytes,
-                                                    dataSize);
+        p_Image = std::make_shared<DXTexCrossPlat::CrossPlatImage>(width, height,  d3dFormat, bytes, dataSize);
 #endif
         delete[] bytes;
         BaseChunk::EnsureEnd(stream);       
@@ -100,7 +94,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 
     bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data)
     {
-        if (p_Image == nullptr)
+        if (!p_Image)
         {
             LOG_WARN("No image!");
             width = 0;
@@ -130,8 +124,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
                 delete result;
                 return false;
             }
-            delete p_Image;
-            p_Image = result;
+            p_Image.reset(result);
             img = p_Image->GetImage(0, 0, 0);
         }
 
@@ -144,9 +137,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
                 delete result;
                 return false;
             }
-            
-            delete p_Image;
-            p_Image = result;
+            p_Image.reset(result);
             img = p_Image->GetImage(0, 0, 0);
         }
 

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace LibSWBF2.Enums
 {
-
     public enum ConfigType : uint
     {
         LIGHTING = 0x7468676c,
@@ -16,6 +15,16 @@ namespace LibSWBF2.Enums
         SKYDOME = 0x5f796b73,
         PATH = 0x68746170,
         COMBO = 0x626d6f63,
+    }
+
+    public enum Topology : int
+    {
+        PointList = 1,
+        LineList = 2,
+        LineStrip = 3,
+        TriangleList = 4,
+        TriangleStrip = 5,
+        TriangleFan = 6,
     }
 
     public enum LightType : uint

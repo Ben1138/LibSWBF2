@@ -491,11 +491,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
-
     template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::LVL::config::DATA_CONFIG*>;
-	//template class LIBSWBF2_API Types::List<LVL::lght::lght*>;
-	//template class LIBSWBF2_API Types::List<LVL::lght::SCOP_LGHT*>;
-	//template class LIBSWBF2_API Types::List<LVL::lght::DATA_STRING*>;
 
     template class LIBSWBF2_API Types::List<LVL::common::DATA*>;
     template class LIBSWBF2_API Types::List<LVL::common::SCOP*>;
@@ -510,7 +506,6 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
 
-	//template class LIBSWBF2_API Types::List<Wrappers::Light>;
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment *>;
@@ -527,10 +522,10 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Terrain*>;
-	//template class LIBSWBF2_API Types::List<const Wrappers::Light*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Config*>;
 
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;

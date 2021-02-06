@@ -29,7 +29,7 @@ using LibSWBF2::Logging::LoggerEntry;
 #define COUT(x) std::cout << x << std::endl
 
 
-Container * LoadAndTrackContainer(List<String> paths)
+Container * LoadAndTrackContainer(const List<String>& paths)
 {
 	Container *container = Container::Create();
 	List<SWBF2Handle> handles;
@@ -84,6 +84,7 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths, Container*& cont
 		}
 
 		std::cout << std::flush;
+
 	}
 
 	std::cout << std::endl;

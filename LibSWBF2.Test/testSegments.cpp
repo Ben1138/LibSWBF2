@@ -11,7 +11,8 @@ int main(int ac, char** av)
 		pathsInput.Add(av[i]);
 	}
 
-	auto lvlPtrs = LoadAndTrackLVLs(pathsInput);
+	Container* container;
+	auto lvlPtrs = LoadAndTrackLVLs(pathsInput, container);
 
 	for (int i = 0; i < lvlPtrs.size(); i++)
 	{
@@ -34,7 +35,7 @@ int main(int ac, char** av)
 				uint16_t *indexBuffer;
 
 				segments[j].GetVertexBuffer(vBufSize, vertexBuffer);
-				segments[j].GetIndexBuffer(indexBufSize, indexBuffer, LibSWBF2::ETopology::TriangleList);
+				segments[j].GetIndexBuffer(indexBufSize, indexBuffer);
 
 				const Material& segmentMat = segments[j].GetMaterial();
 				const Texture* segmentTex = segmentMat.GetTexture(0);
@@ -52,6 +53,8 @@ int main(int ac, char** av)
 		}
 
 	}
+
+	Container::Delete(container);
 
 
 	return 0;

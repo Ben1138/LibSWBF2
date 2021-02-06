@@ -8,6 +8,7 @@ using System.Threading;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
+using LibSWBF2.Types;
 
 namespace LibSWBF2.NET.Test
 {
@@ -28,11 +29,14 @@ namespace LibSWBF2.NET.Test
                 Model[] models = level.GetModels();
                 foreach (Model model in models)
                 {
-                    Console.WriteLine("\n\tModel: " + model.Name);
+                    Console.WriteLine("\n\tModel: " + model.name);
                     CollisionMesh mesh = model.GetCollisionMesh();
 
+                    if (mesh == null) continue;
+
+                    Console.WriteLine("\t\tCollision mask flags: {0}", mesh.maskFlags);
                     Console.WriteLine("\t\tNum collision indices:   {0}", mesh.GetIndices().Length);
-                    Console.WriteLine("\t\tNum collision verticies: {0}", mesh.GetVertices().Length);
+                    Console.WriteLine("\t\tNum collision verticies: {0}", mesh.GetVertices<Vector3>().Length);
                 
                     CollisionPrimitive[] prims = model.GetPrimitivesMasked(16);
 
