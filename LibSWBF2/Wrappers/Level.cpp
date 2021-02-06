@@ -162,10 +162,16 @@ namespace LibSWBF2::Wrappers
 		wrld* worldChunk = dynamic_cast<wrld*>(root);
 		if (worldChunk != nullptr)
 		{
-			World world;
-			if (World::FromChunk(p_MainContainer, worldChunk, world))
+			// LVLs potentially contain the SAME wrld chunk more than once...
+			// Check for wrld name to prevent duplicates!
+			std::string name = ToLower(worldChunk->p_Name->m_Text);
+			if (m_NameToIndexMaps->WorldNameToIndex.find(name) == m_NameToIndexMaps->WorldNameToIndex.end())
 			{
-				m_NameToIndexMaps->WorldNameToIndex.emplace(ToLower(world.GetName()), m_Worlds.Add(std::move(world)));
+				World world;
+				if (World::FromChunk(p_MainContainer, worldChunk, world))
+				{
+					m_NameToIndexMaps->WorldNameToIndex.emplace(name, m_Worlds.Add(std::move(world)));
+				}
 			}
 		}
 
