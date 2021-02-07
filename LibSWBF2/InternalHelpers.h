@@ -59,6 +59,7 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
 			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
+			std::unordered_map<std::string, size_t> AnimationBankNameToIndex;
 		};
 
 		class SoundMapsWrapper

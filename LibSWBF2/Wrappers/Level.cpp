@@ -7,6 +7,7 @@
 #include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
+#include "Chunks/LVL/zaa_/zaa_.h"
 #include <unordered_map>
 #include <filesystem>
 
@@ -59,6 +60,16 @@ namespace LibSWBF2::Wrappers
 			{
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
+		}
+
+		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
+		if (animationChunk != nullptr)
+		{
+			AnimationBank animBank;
+			if (AnimationBank::FromChunk(animationChunk, animBank))
+			{
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
+			}	
 		}
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
@@ -369,6 +380,11 @@ namespace LibSWBF2::Wrappers
 		return &m_GlobalLightingConfig;
 	}
 
+	const List<AnimationBank>& Level::GetAnimationBanks() const
+	{
+		return m_AnimationBanks;
+	}
+
 	const List<EntityClass>& Level::GetEntityClasses() const
 	{
 		return m_EntityClasses;
@@ -481,6 +497,22 @@ namespace LibSWBF2::Wrappers
 		if (it != m_NameToIndexMaps->EntityClassTypeToIndex.end())
 		{
 			return &m_EntityClasses[it->second];
+		}
+
+		return nullptr;
+	}
+
+	const AnimationBank* Level::GetAnimationBank(String setName) const
+	{
+		if (setName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->AnimationBankNameToIndex.find(ToLower(setName));
+		if (it != m_NameToIndexMaps->AnimationBankNameToIndex.end())
+		{
+			return &m_AnimationBanks[it->second];
 		}
 
 		return nullptr;

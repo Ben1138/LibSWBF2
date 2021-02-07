@@ -5,6 +5,7 @@
 #include "Chunks/MSH/MSH.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/Terrain.h"
+#include "Wrappers/AnimationBank.h"
 
 
 namespace LibSWBF2
@@ -105,6 +106,12 @@ namespace LibSWBF2
 
 		modelArr = modelPtrs.GetArrayPtr();
 		modelCount = (uint32_t)modelPtrs.Size();
+	}
+
+	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
+	{
+		CheckPtr(level, nullptr);
+		return level -> GetAnimationBank(setName);
 	}
 
 	//TEMPORARY: Basic texture handling until I push the other wrappers...
@@ -367,7 +374,6 @@ namespace LibSWBF2
     }
 
 
-
     const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
     {
     	x = vec -> m_X;
@@ -390,6 +396,52 @@ namespace LibSWBF2
     } 
 
 
+	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
+                                                    const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int32_t& numKeys)
+	{
+		static List<uint16_t> indices;
+		static List<float_t>  values;
+
+		CheckPtr(setPtr, false);
+
+		bool status = setPtr -> GetCurve(animCRC, boneCRC, comp, indices, values);
+
+		if (status)
+		{
+			numKeys = (int32_t) values.Size();
+			indicesBuffer = indices.GetArrayPtr();
+			valuesBuffer  = values.GetArrayPtr();
+		}
+
+		return status;
+	}
+
+
+    const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int& numCRCs)
+    {
+    	static List<uint32_t> crcs;
+
+    	numCRCs = 0;
+    	CheckPtr(setPtr, nullptr);
+
+    	crcs = setPtr -> GetAnimationNames();
+    	
+    	numCRCs = crcs.Size();
+    	return crcs.GetArrayPtr();
+    }
+    
+
+    const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
+                                                    int32_t& numFrames, int32_t& numBones)
+    {
+		CheckPtr(setPtr, false);
+		uint32_t frames,bones;
+		bool status = setPtr -> GetAnimationMetadata(animCRC, frames, bones);
+
+		numFrames = frames;
+		numBones = bones;
+		return status;
+    }
 
 
 
