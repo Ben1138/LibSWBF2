@@ -17,33 +17,29 @@ painless.
 ]]
 
 
-
 #SETTINGS
 
-add_library(SWBF2)
-
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-
-#Setting a GLOBAL property seems to never work...
-set_property(TARGET SWBF2 PROPERTY CXX_STANDARD 20)
-set_property(TARGET SWBF2 PROPERTY CXX_STANDARD_REQUIRED ON)
 
 if (NOT ${CMAKE_BUILD_TYPE} EQUAL "Debug")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
-target_compile_options(SWBF2 PUBLIC -Wno-attributes)
+add_library(SWBF2 SHARED)
+add_library(SWBF2_Static STATIC)
 
 
 
-#SOURCES
+######## Compile objects shared by static and shared librs
 
-if(APPLE)
-	include_directories(/usr/local/include)
-endif()
+add_library(SWBF2_Objects OBJECT)
 
-target_include_directories(SWBF2 PUBLIC .)
-target_include_directories(SWBF2 PUBLIC DirectX)
+target_compile_options(SWBF2_Objects PUBLIC -Wno-attributes)
+target_include_directories(SWBF2_Objects PRIVATE . DirectX)
+target_compile_options(SWBF2_Objects PUBLIC -Wno-deprecated-volatile)
+
 
 add_subdirectory(Chunks)
 
@@ -54,13 +50,17 @@ file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
 file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp DirectX/*.c)
 
-target_sources(SWBF2 PRIVATE ${CORE_FILES} 
-							${DIRECTX_FILES}
-							${WRAPPERS_FILES} 
-							${LOGGING_FILES}
-							${TYPES_FILES})
+target_sources(SWBF2_Objects PRIVATE ${CORE_FILES} 
+									 ${DIRECTX_FILES}
+									 ${WRAPPERS_FILES} 
+									 ${LOGGING_FILES}
+									 ${TYPES_FILES}
+									 ${CHUNKS_SOURCES})
 
-#For XCodeProj generation
+
+
+
+######### For XCodeProj generation
 
 file(GLOB_RECURSE SWBF2_SOURCES *.cpp)
 file(GLOB_RECURSE SWBF2_HEADERS *.h)
@@ -70,7 +70,21 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SWBF2_FILES})
 
 #Needed for correct XCodeProj generation, ALL_HEADERS
 #defined in root lists
-target_sources(SWBF2 PUBLIC ${SWBF2_HEADERS})
+target_sources(SWBF2 PRIVATE ${SWBF2_HEADERS})
+
+######### End XCodeProj stuff
+
+
+
+target_include_directories(
+  SWBF2
+  INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+            $<INSTALL_INTERFACE:include/LibSWBF2>)
+
+target_include_directories(
+  SWBF2_Static
+  INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+            $<INSTALL_INTERFACE:include/LibSWBF2>)
 
 
 
@@ -80,16 +94,55 @@ target_sources(SWBF2 PUBLIC ${SWBF2_HEADERS})
 #slightly underconfigured system
 
 if (APPLE)
+	target_include_directories(SWBF2 PUBLIC /usr/local/include)
 	target_link_options(SWBF2 PUBLIC -undefined dynamic_lookup)
 	target_link_directories(SWBF2 PUBLIC /usr/local/lib/)
+	target_include_directories(SWBF2_Static PUBLIC /usr/local/include)
+	target_link_directories(SWBF2_Static PUBLIC /usr/local/lib/)
 else()
 	target_link_libraries(SWBF2 PUBLIC -ldl)
 	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
-target_sources(SWBF2 PRIVATE ${CHUNKS_SOURCES})
+
+
+target_sources(SWBF2 PRIVATE $<TARGET_OBJECTS:SWBF2_Objects>)
+target_sources(SWBF2_Static PRIVATE $<TARGET_OBJECTS:SWBF2_Objects>)
+
 
 find_library(FMTLIB fmt)
 find_library(GLMLIB glm_static)
 
+
 target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB} pthread)
+target_link_libraries(SWBF2_Static PUBLIC ${FMTLIB} ${GLMLIB} pthread)
+
+
+install(DIRECTORY . DESTINATION include/LibSWBF2 FILES_MATCHING PATTERN "*.h")
+install(TARGETS SWBF2 SWBF2_Static DESTINATION lib EXPORT LibSWBF2)
+
+
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    "${PROJECT_BINARY_DIR}/LibSWBF2ConfigVersion.cmake"
+    VERSION 0.1
+    COMPATIBILITY AnyNewerVersion
+)
+
+
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/LibSWBF2Config.cmake.in
+  "${PROJECT_BINARY_DIR}/LibSWBF2Config.cmake"
+  INSTALL_DESTINATION lib/cmake/LibSWBF2
+)
+
+install(EXPORT LibSWBF2
+        FILE LibSWBF2.cmake
+        NAMESPACE LibSWBF2::
+        DESTINATION lib/cmake/LibSWBF2
+)
+
+install(FILES "${PROJECT_BINARY_DIR}/LibSWBF2ConfigVersion.cmake"
+              "${PROJECT_BINARY_DIR}/LibSWBF2Config.cmake"
+        DESTINATION lib/cmake/LibSWBF2)
+
