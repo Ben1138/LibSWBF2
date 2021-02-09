@@ -17,7 +17,6 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::World;
 	using LibSWBF2::Wrappers::Terrain;
 	using LibSWBF2::Wrappers::Script;
-	//using LibSWBF2::Wrappers::Light;
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
 	using LibSWBF2::Wrappers::AnimationBank;

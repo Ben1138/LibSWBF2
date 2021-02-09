@@ -4,7 +4,6 @@
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
-//#include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include "Chunks/LVL/zaa_/zaa_.h"
@@ -19,9 +18,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	//using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
-    //using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
 
     using namespace Chunks::LVL::animation;
