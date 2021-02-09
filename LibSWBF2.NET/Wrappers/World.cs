@@ -17,12 +17,16 @@ namespace LibSWBF2.Wrappers
 
         internal override void SetPtr(IntPtr ptr)
         {
-            APIWrapper.Region_FetchAllFields(ptr, out IntPtr sizePtr, out IntPtr posPtr, out IntPtr rotPtr, out IntPtr namePtr, out IntPtr typePtr);
-            size = new Vector3(sizePtr);
-            position = new Vector3(posPtr);
-            rotation = new Vector4(rotPtr);
-            name = Marshal.PtrToStringAnsi(namePtr);
-            type = Marshal.PtrToStringAnsi(typePtr);
+            if (APIWrapper.Region_FetchAllFields(ptr, out IntPtr sizePtr, out IntPtr posPtr, 
+                                                out IntPtr rotPtr, out IntPtr namePtr, 
+                                                out IntPtr typePtr))
+            {
+                size = new Vector3(sizePtr);
+                position = new Vector3(posPtr);
+                rotation = new Vector4(rotPtr);
+                name = Marshal.PtrToStringAnsi(namePtr);
+                type = Marshal.PtrToStringAnsi(typePtr);
+            }
         }
 
         public Vector3 position, size;
@@ -47,11 +51,14 @@ namespace LibSWBF2.Wrappers
         private IntPtr instanceArray;
         private int instanceCount, instanceIncrement;
 
+        private IntPtr regionArray;
+        private int regionCount, regionIncrement;
 
         internal override void SetPtr(IntPtr worldPtr)
         {
             if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out instanceArray, out instanceCount, out instanceIncrement,
+                                        out regionArray, out regionCount, out regionIncrement,
                                         out terrainPtr))
             {
                 NativeInstance = worldPtr;
@@ -78,8 +85,7 @@ namespace LibSWBF2.Wrappers
         public Region[] GetRegions()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.World_GetRegions(NativeInstance, out IntPtr regArr, out uint regCount);
-            return MemUtils.IntPtrToWrapperArray<Region>(regArr, (int) regCount);
+            return MemUtils.IntPtrToWrapperArray<Region>(regionArray, regionCount, regionIncrement);            
         }
     }
 }

@@ -545,6 +545,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::World>;
 	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
+	template class LIBSWBF2_API Types::List<Wrappers::Region>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;

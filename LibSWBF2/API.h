@@ -28,6 +28,7 @@ namespace LibSWBF2
 		class Config;
 		class Material;
 		class Instance;
+		class Region;
 		class Script;
 		struct Field;
 		struct Scope;
@@ -147,13 +148,15 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds);
 
-		// Wrappers - World
-        LIBSWBF2_API const void  World_GetRegions(const World* world, const void*& regArr, uint32_t& count);
-        LIBSWBF2_API const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut);
-
+		// Wrappers - Region
+        LIBSWBF2_API const uint8_t Region_FetchAllFields(const Region* reg, const Vector3*& sizeOut, 
+        											const Vector3*& posOut, const Vector4*& rotOut, 
+        											const char *&nameOut, const char*& typeOut);
+        // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-														const Instance*& instanceArr, int32_t& instCount, int32_t& instInc, 
-														const Terrain*& terrPtr);
+										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
+										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
+										const Terrain*& terrPtr);
 
 		// Wrappers - Script
 		LIBSWBF2_API const char* Script_GetName(const Script* script);
