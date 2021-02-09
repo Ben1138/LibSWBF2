@@ -159,17 +159,18 @@ namespace LibSWBF2
          // World //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void World_GetRegions(IntPtr world, out IntPtr regArr, out uint regCount);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
+                                        out IntPtr regionArr, out int regCount, out int regInc,
                                         out IntPtr terrPtr);
         // Region // 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Region_FetchAllFields(IntPtr reg, out IntPtr size, out IntPtr pos, out IntPtr rot, out IntPtr name, out IntPtr type);       
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Region_FetchAllFields(IntPtr reg, out IntPtr size, 
+                                                        out IntPtr pos, out IntPtr rot,
+                                                        out IntPtr name, out IntPtr type);       
         
 
         // Script //

@@ -664,32 +664,33 @@ namespace LibSWBF2
 	}
 
 
-	//Wrappers - World
-	const void World_GetRegions(const World* world, const void*& regArr, uint32_t& count)
-	{
-		List<regn *>& regionChunks = world -> p_World -> m_Regions;
-		regArr = (void *) regionChunks.GetArrayPtr();
-		count = regionChunks.Size();
-	}
+	//Wrappers - Region
 
-	const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut)
+	const uint8_t Region_FetchAllFields(const Region* regPtr, const Vector3*& sizeOut, 
+									 const Vector3*& posOut, const Vector4*& rotOut,
+									 const char *&nameOut, const char*& typeOut)
 	{
+		CheckPtr(regPtr,false);
 		static Vector4 rotCache;
-		regn *regPtr = (regn *) reg;
 
-		sizeOut = &(regPtr -> p_Info -> p_SIZE -> m_Dimensions);
-
-		posOut = &(regPtr -> p_Info -> p_XFRM -> m_Position);
+		sizeOut = &(regPtr -> GetSize());
+		posOut = &(regPtr -> GetPosition());
 		
-		rotCache = MatrixToQuaternion(regPtr -> p_Info -> p_XFRM -> m_RotationMatrix);
+		rotCache = regPtr -> GetRotation();
 		rotOut = &rotCache;
 
-		nameOut = const_cast<char *>(regPtr -> p_Info -> p_Name -> m_Text.Buffer());
-		typeOut = const_cast<char *>(regPtr -> p_Info -> p_Type -> m_Text.Buffer());
+		nameOut = regPtr -> GetName().Buffer();
+		typeOut = regPtr -> GetType().Buffer();
+
+		return true;
 	}
+
+
+	//Wrappers - World
 
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
+										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -704,6 +705,11 @@ namespace LibSWBF2
 		instanceArr = instances.GetArrayPtr();
 		instCount = (int32_t)instances.Size();
 		instInc = sizeof(Instance);
+
+    	const List<Region>& regions = world -> GetRegions();
+		regionArr = regions.GetArrayPtr();
+		regCount = (int32_t)regions.Size();
+		regInc = sizeof(Region);
 
 		terrPtr = world -> GetTerrain();
 
