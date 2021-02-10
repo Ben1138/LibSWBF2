@@ -9,11 +9,6 @@ Globbing source files is bad practice in general, but the project is small and
 contributors are few, so the use is justified.  Just remember to 'touch' the two
 build files if you add new source to trigger a reconfiguration.
 
-Set an environment var "LIBSWBF2DIR" to the directory containing this file.
-Be sure to run your builds in a subdir of this one called "build" to make
-linking to the other libSWBF2 projects (lvlExplorer, msh2fbx, SWBF2-unity-import)
-painless.  
-
 ]]
 
 
@@ -27,18 +22,18 @@ if (NOT ${CMAKE_BUILD_TYPE} EQUAL "Debug")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
-add_library(SWBF2 SHARED)
-add_library(SWBF2_Static STATIC)
+add_library(LibSWBF2 SHARED)
+add_library(LibSWBF2_Static STATIC)
 
 
 
-######## Compile objects shared by static and shared librs
+######## Compile objects shared by static and shared libs
 
-add_library(SWBF2_Objects OBJECT)
+add_library(LibSWBF2_Objects OBJECT)
 
-target_compile_options(SWBF2_Objects PUBLIC -Wno-attributes)
-target_include_directories(SWBF2_Objects PRIVATE . DirectX)
-target_compile_options(SWBF2_Objects PUBLIC -Wno-deprecated-volatile)
+target_compile_options(LibSWBF2_Objects PUBLIC -Wno-attributes)
+target_include_directories(LibSWBF2_Objects PRIVATE . DirectX)
+target_compile_options(LibSWBF2_Objects PUBLIC -Wno-deprecated-volatile)
 
 
 add_subdirectory(Chunks)
@@ -50,7 +45,7 @@ file(GLOB TYPES_FILES Types/*.cpp)
 file(GLOB WRAPPERS_FILES Wrappers/*.cpp)
 file(GLOB_RECURSE DIRECTX_FILES DirectX/*.cpp DirectX/*.c)
 
-target_sources(SWBF2_Objects PRIVATE ${CORE_FILES} 
+target_sources(LibSWBF2_Objects PRIVATE ${CORE_FILES} 
 									 ${DIRECTX_FILES}
 									 ${WRAPPERS_FILES} 
 									 ${LOGGING_FILES}
@@ -62,27 +57,27 @@ target_sources(SWBF2_Objects PRIVATE ${CORE_FILES}
 
 ######### For XCodeProj generation
 
-file(GLOB_RECURSE SWBF2_SOURCES *.cpp)
-file(GLOB_RECURSE SWBF2_HEADERS *.h)
-set(SWBF2_FILES "${SWBF2_SOURCES}")
-list(APPEND SWBF2_FILES "${SWBF2_HEADERS}")
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SWBF2_FILES})
+file(GLOB_RECURSE LIBSWBF2_SOURCES *.cpp)
+file(GLOB_RECURSE LIBSWBF2_HEADERS *.h)
+set(LIBSWBF2_FILES "${LIBSWBF2_SOURCES}")
+list(APPEND LIBSWBF2_FILES "${LIBSWBF2_HEADERS}")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${LIBSWBF2_FILES})
 
 #Needed for correct XCodeProj generation, ALL_HEADERS
 #defined in root lists
-target_sources(SWBF2 PRIVATE ${SWBF2_HEADERS})
+target_sources(LibSWBF2 PRIVATE ${LIBSWBF2_HEADERS})
 
 ######### End XCodeProj stuff
 
 
 
 target_include_directories(
-  SWBF2
+  LibSWBF2
   INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
             $<INSTALL_INTERFACE:include/LibSWBF2>)
 
 target_include_directories(
-  SWBF2_Static
+  LibSWBF2_Static
   INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
             $<INSTALL_INTERFACE:include/LibSWBF2>)
 
@@ -94,32 +89,32 @@ target_include_directories(
 #slightly underconfigured system
 
 if (APPLE)
-	target_include_directories(SWBF2 PUBLIC /usr/local/include)
-	target_link_options(SWBF2 PUBLIC -undefined dynamic_lookup)
-	target_link_directories(SWBF2 PUBLIC /usr/local/lib/)
-	target_include_directories(SWBF2_Static PUBLIC /usr/local/include)
-	target_link_directories(SWBF2_Static PUBLIC /usr/local/lib/)
+	target_include_directories(LibSWBF2 PUBLIC /usr/local/include)
+	target_link_options(LibSWBF2 PUBLIC -undefined dynamic_lookup)
+	target_link_directories(LibSWBF2 PUBLIC /usr/local/lib/)
+	target_include_directories(LibSWBF2_Static PUBLIC /usr/local/include)
+	target_link_directories(LibSWBF2_Static PUBLIC /usr/local/lib/)
 else()
-	target_link_libraries(SWBF2 PUBLIC -ldl)
-	target_link_directories(SWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
+	target_link_libraries(LibSWBF2 PUBLIC -ldl)
+	target_link_directories(LibSWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
 
 
-target_sources(SWBF2 PRIVATE $<TARGET_OBJECTS:SWBF2_Objects>)
-target_sources(SWBF2_Static PRIVATE $<TARGET_OBJECTS:SWBF2_Objects>)
+target_sources(LibSWBF2 PRIVATE $<TARGET_OBJECTS:LibSWBF2_Objects>)
+target_sources(LibSWBF2_Static PRIVATE $<TARGET_OBJECTS:LibSWBF2_Objects>)
 
 
 find_library(FMTLIB fmt)
 find_library(GLMLIB glm_static)
 
 
-target_link_libraries(SWBF2 PUBLIC ${FMTLIB} ${GLMLIB} pthread)
-target_link_libraries(SWBF2_Static PUBLIC ${FMTLIB} ${GLMLIB} pthread)
+target_link_libraries(LibSWBF2 PUBLIC ${FMTLIB} ${GLMLIB} pthread)
+target_link_libraries(LibSWBF2_Static PUBLIC ${FMTLIB} ${GLMLIB} pthread)
 
 
 install(DIRECTORY . DESTINATION include/LibSWBF2 FILES_MATCHING PATTERN "*.h")
-install(TARGETS SWBF2 SWBF2_Static DESTINATION lib EXPORT LibSWBF2)
+install(TARGETS LibSWBF2 LibSWBF2_Static DESTINATION lib EXPORT LibSWBF2)
 
 
 
