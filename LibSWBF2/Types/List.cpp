@@ -1,16 +1,6 @@
 #include "stdafx.h"
 #include "List.h"
 #include "InternalHelpers.h"
-#include "InternalHelpers.h"
-#include "Chunks/LVL/common/SCOP.h"
-#include "Chunks/LVL/common/DATA.h"
-#include "Chunks/LVL/common/PROP.h"
-//#include "Chunks/LVL/lght/lght.h"
-#include "Chunks/LVL/coll/TREE.NODE.h"
-#include "Chunks/LVL/coll/TREE.LEAF.h"
-#include "Chunks/LVL/prim/prim.h"
-#include "Wrappers/Config.h"
-
 
 namespace LibSWBF2::Types
 {
@@ -433,6 +423,15 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
 
+#include "Chunks/LVL/common/SCOP.h"
+#include "Chunks/LVL/common/DATA.h"
+#include "Chunks/LVL/common/PROP.h"
+#include "Chunks/LVL/coll/TREE.NODE.h"
+#include "Chunks/LVL/coll/TREE.LEAF.h"
+#include "Chunks/LVL/prim/prim.h"
+#include "Wrappers/Config.h"
+
+
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
@@ -442,6 +441,8 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/inst.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
+
+#include "Chunks/RawData.h"
 
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
@@ -488,6 +489,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::modl::TNAM*>;
 	template class LIBSWBF2_API Types::List<LVL::wrld::inst*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::regn*>;
+   	template class LIBSWBF2_API Types::List<LVL::wrld::anmg*>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::anim*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
@@ -503,8 +506,14 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::prim::MASK *>;
     template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
     template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
+    
     template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
+
+    template class LIBSWBF2_API Types::List<STRMULT<"ANIM"_m> *>;
+
+    template class LIBSWBF2_API Types::List<RawData<"POSK"_m> *>;
+    template class LIBSWBF2_API Types::List<RawData<"ROTK"_m> *>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;

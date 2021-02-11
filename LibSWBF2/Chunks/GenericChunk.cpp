@@ -331,11 +331,16 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
-	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
+	
 	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anmg"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ROTK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ANIM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SIZE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
-	//template struct LIBSWBF2_API GenericChunk<"lght"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
