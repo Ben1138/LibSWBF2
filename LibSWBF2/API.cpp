@@ -267,61 +267,6 @@ namespace LibSWBF2
 	}
 
 
-	/*
-	void Level_GetLights(const Level* level, const Light**& LightArr, uint32_t& LightCount)
-	{
-		CheckPtr(level, );
-		const List<Light>& Lights = level->GetLights();
-
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer.
-		// The inquirer of course is not allowed to alter the data!
-		static List<const Light*> LightPtrs;
-		LightPtrs.Clear();
-
-		for (size_t i = 0; i < Lights.Size(); ++i)
-		{
-			LightPtrs.Add(&Lights[i]);
-		}
-
-		LightArr = LightPtrs.GetArrayPtr();
-		LightCount = (uint32_t) LightPtrs.Size();
-	}
-
-
-
-	const Light* Level_GetLight(const Level* level, const char* lightName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetLight(lightName);
-	}
-	
-
-	
-	bool Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
-								const char*& light1Name, const char*& light2Name)
-	{
-		const auto* config = level -> GetGlobalLighting();
-		static Vector3 topCol, bottomCol;
-		static String name1, name2;
-
-		if (config != nullptr)
-		{	
-			topColor    = config -> GetTopColor(topCol) ? &topCol : nullptr;
-			bottomColor = config -> GetBottomColor(bottomCol) ? &bottomCol : nullptr;
-
-			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : "";
-			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : "";
-
-			return true;
-		}
-
-		return false;
-	}
-	*/
-
-
 	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
 	{
 		CheckPtr(level, nullptr);
@@ -336,6 +281,7 @@ namespace LibSWBF2
 		cache = level -> GetLevelName();
 		return const_cast<char *>(cache.Buffer());
 	}
+
 
 
 

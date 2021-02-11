@@ -3,11 +3,6 @@
 #include "FileReader.h"
 #include "InternalHelpers.h"
 
-//#include "float.DATA.h"
-//#include "string.DATA.h"
-
-//#include <iostream>
-// /#define COUT(x) std::cout << x << std::endl
 
 namespace LibSWBF2::Chunks::LVL::config
 {
@@ -31,8 +26,8 @@ namespace LibSWBF2::Chunks::LVL::config
 
         m_ContentSize = m_Size >= 5 ? m_Size - 5 : 0;
 
-        p_Content = new uint8_t[m_ContentSize];
-        stream.ReadBytes(p_Content, m_ContentSize);
+        p_Data = new uint8_t[m_ContentSize];
+        stream.ReadBytes(p_Data, m_ContentSize);
 
         BaseChunk::EnsureEnd(stream);
 	}
@@ -42,7 +37,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumElements > index)
 		{
-			floatMember = *(((float_t *) p_Content) + index);
+			floatMember = *(((float_t *) p_Data) + index);
 			return true;
 		}
 
@@ -54,7 +49,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumElements >= 2)
 		{
-			float_t *floatsPtr = (float_t *) p_Content;
+			float_t *floatsPtr = (float_t *) p_Data;
 			vec2Out = Vector2(floatsPtr[0], floatsPtr[1]);
 			return true;
 		}
@@ -67,7 +62,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumElements >= 3)
 		{
-			float_t *floatsPtr = (float_t *) p_Content;
+			float_t *floatsPtr = (float_t *) p_Data;
 			vec3Out = Vector3(floatsPtr[0], floatsPtr[1], floatsPtr[2]);
 			return true;
 		}
@@ -80,7 +75,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumElements >= 4)
 		{
-			float_t *floatsPtr = (float_t *) p_Content;
+			float_t *floatsPtr = (float_t *) p_Data;
 			vec4Out = Vector4(floatsPtr[0], floatsPtr[1], floatsPtr[2], floatsPtr[3]);
 			return true;
 		}
@@ -93,7 +88,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumElements > index)
 		{
-			//uint32_t *intPtr = (uint32_t *) p_Content;
+			//uint32_t *intPtr = (uint32_t *) p_Data;
 			//uint32_t numStrings = *(intPtr++);
 
 			//LOG_WARN("Num strings = {0}", numStrings);
@@ -109,12 +104,12 @@ namespace LibSWBF2::Chunks::LVL::config
 
 			//size_t stringLength = stringLengths[0]; //*(intPtr + 1 + numStrings);
 
-			uint32_t stringLength = *((uint32_t *) (p_Content + 4 * m_NumElements));
+			uint32_t stringLength = *((uint32_t *) (p_Data + 4 * m_NumElements));
 
 			//LOG_WARN("\tFinal string length = {0}", stringLength);
 
 			char *strBuffer = new char[stringLength + 1]();
-			memcpy(strBuffer, (char *) (p_Content + 4 * m_NumElements + 4), stringLength);
+			memcpy(strBuffer, (char *) (p_Data + 4 * m_NumElements + 4), stringLength);
 			
 			//LOG_WARN("\tFinal string = {0}", strBuffer);
 
@@ -139,7 +134,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		if (IsFloatData())
 		{	
 			rep = rep + (m_NumElements > 0 ? "Floats: " : "");
-			float_t *floatData = (float_t *) p_Content;
+			float_t *floatData = (float_t *) p_Data;
 			for (uint8_t i = 0; i < m_NumElements; i++)
 			{
 				rep = rep + fmt::format("{}{} ",floatData[i], i == m_NumElements - 1 ? "" : ",").c_str();
@@ -153,7 +148,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		{
 			for (int i = 0; i < 4 && i < m_ContentSize; i++)
 			{
-				rep = rep + fmt::format("\nByte {0}: 0x{1:x}", i, *(p_Content + i)).c_str();
+				rep = rep + fmt::format("\nByte {0}: 0x{1:x}", i, *(p_Data + i)).c_str();
 			}
 
 			rep = rep + fmt::format("\nContent size: {0}", m_ContentSize).c_str();	
@@ -171,7 +166,7 @@ namespace LibSWBF2::Chunks::LVL::config
 
 	DATA_CONFIG::~DATA_CONFIG()
 	{
-		delete p_Content;
+		delete p_Data;
 	}
 
 
