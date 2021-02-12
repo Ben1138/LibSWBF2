@@ -10,6 +10,7 @@
 
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
+#include "LVL/gmod/gmod.h"
 #include "LVL/wrld/wrld.h"
 #include "LVL/wrld/SIZE.h"
 #include "LVL/wrld/XFRM.h"
@@ -89,6 +90,14 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, subLVL);
 						chunk = subLVL;
 					}
+
+					else if (nextHead == "gmod"_h)
+					{
+						LVL::gmod::gmod* lodInfo;
+						READ_CHILD(stream, lodInfo);
+						chunk = lodInfo;
+					}
+
 					else if (nextHead == "NAME"_h)
 					{
 						STR<"NAME"_m>* name;
@@ -312,6 +321,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"FMT_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tex_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"modl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"gmod"_m>;
 	template struct LIBSWBF2_API GenericChunk<"segm"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MTRL"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tern"_m>;

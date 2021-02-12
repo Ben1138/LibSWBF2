@@ -5,6 +5,7 @@
 #include "Types/Color4.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -248,6 +249,36 @@ namespace LibSWBF2::Wrappers
 
 		cfg.m_Name = nameChunk -> m_PropertyName;
 		cfg.p_Chunk = cfgPtr;
+
+		if (dynamic_cast<comb*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Combo;
+		}
+		else if (dynamic_cast<lght*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Lighting;
+		}
+		else if (dynamic_cast<path*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Path;
+		}
+		else if (dynamic_cast<bnd_*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Boundary;
+		}
+		else if (dynamic_cast<fx__*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Effect;
+		}
+		else if (dynamic_cast<sky_*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Skydome;
+		}
+		else 
+		{
+			LOG_ERROR("Couldn't wrap unhandled config chunk...");
+			return false;
+		}
 
 		wrapperOut = cfg;
 

@@ -164,12 +164,6 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 
-	DATA_CONFIG::~DATA_CONFIG()
-	{
-		delete p_Data;
-	}
-
-
 	FNVHash DATA_CONFIG::PeekDATAHash(FileReader& stream)
 	{
 		stream.SkipBytes(8);

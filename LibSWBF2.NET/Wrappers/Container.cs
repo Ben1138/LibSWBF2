@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Threading; 
 
 using LibSWBF2.Logging;
+using LibSWBF2.Enums;
+using LibSWBF2.Utils;
 
 
 namespace LibSWBF2.Wrappers
@@ -86,6 +88,24 @@ namespace LibSWBF2.Wrappers
             }
 
             return null;
+        }
+
+
+        public Config FindConfig(ConfigType type, uint nameHash=0)
+        {
+            IntPtr cfgPtr = APIWrapper.Container_GetConfig(NativeInstance, (uint) type, nameHash);
+            if (cfgPtr == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            return new Config(cfgPtr);
+        }
+
+
+        public Config FindConfig(ConfigType type, string name)
+        {
+            return FindConfig(type, HashUtils.GetFNV(name));
         }
 
 

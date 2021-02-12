@@ -9,12 +9,12 @@ namespace LibSWBF2.Enums
 {
     public enum ConfigType : uint
     {
-        LIGHTING = 0x7468676c,
-        EFFECT = 0x5f5f7866,
-        BOUNDARY = 0x5f646e62,
-        SKYDOME = 0x5f796b73,
-        PATH = 0x68746170,
-        COMBO = 0x626d6f63,
+        Lighting = 0x7468676c,
+        Effect = 0x5f5f7866,
+        Boundary = 0x5f646e62,
+        Skydome = 0x5f796b73,
+        Path = 0x68746170,
+        Combo = 0x626d6f63,
     }
 
     public enum Topology : int
