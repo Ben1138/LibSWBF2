@@ -13,8 +13,6 @@ namespace LibSWBF2::Chunks::LVL::config
 		void ReadFromStream(FileReader& stream) override;
 	
 		String ToString() override;
-
-		~DATA_CONFIG();
 		
 		bool GetFloat(float_t& floatMember, uint32_t index=0);
 		bool GetVec2(Vector2 &vec2Out);
