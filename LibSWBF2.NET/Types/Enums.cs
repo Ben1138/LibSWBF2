@@ -34,6 +34,7 @@ namespace LibSWBF2.Enums
         Spot = 3, 
     }
 
+    [Flags]
     public enum MaterialFlags : uint
     {
     	Normal = 1,
