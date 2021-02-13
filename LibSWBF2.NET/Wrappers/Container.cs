@@ -13,24 +13,10 @@ using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Container : NativeWrapper
-    {
-        private static Dictionary<Type, uint> wrapperMap;
-        
-
+    public class Container : NativeWrapperManager
+    {    
         public Container() : base(APIWrapper.Container_Initialize()){}
         
-        static Container()
-        {
-            wrapperMap = new Dictionary<Type, uint>();
-            wrapperMap[typeof(Model)]        = 1;
-            wrapperMap[typeof(Texture)]      = 2;
-            wrapperMap[typeof(World)]        = 3;
-            wrapperMap[typeof(EntityClass)]  = 4;
-            wrapperMap[typeof(AnimationBank)] = 5;
-        }
-
-
         ~Container()
         {
             Delete();
@@ -70,7 +56,10 @@ namespace LibSWBF2.Wrappers
                 } 
             }
 
-            return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
+            Level level = Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
+            Children.Add(new WeakReference<NativeWrapper>(level));
+
+            return level;
         }
 
         public void LoadLevels()
@@ -91,6 +80,7 @@ namespace LibSWBF2.Wrappers
                 }
 
                 newObj.SetPtr(ptr);
+                Children.Add(new WeakReference<NativeWrapper>(newObj));
 
                 return newObj;
             }

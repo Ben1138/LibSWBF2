@@ -14,19 +14,15 @@ using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Level : NativeWrapper
+    public class Level : NativeWrapperManager
     {
-        private HashSet<WeakReference<NativeWrapper>> Children;
 
         // Make constructor private, so instantiation is only possible via FromFile
-        private Level() : base(IntPtr.Zero)
-        {
-            Children = new HashSet<WeakReference<NativeWrapper>>();
-        }
+        private Level() : base(){}
 
         ~Level()
         {
-            //Delete();
+            Delete();
         }
 
         /// <summary>
@@ -45,21 +41,12 @@ namespace LibSWBF2.Wrappers
 
             APIWrapper.Level_Destroy(NativeInstance);
             NativeInstance = IntPtr.Zero;
-
-            foreach (WeakReference<NativeWrapper> childRef in Children)
-            {
-                if (childRef.TryGetTarget(out NativeWrapper child))
-                {
-                    child.Invalidate();
-                }
-            }
-            Children.Clear();
         }
 
         public static Level FromFile(string path)
         {
             IntPtr native = APIWrapper.Level_FromFile(path);
-            if (native == null)
+            if (native == IntPtr.Zero)
             {
                 return null;
             }
@@ -71,7 +58,7 @@ namespace LibSWBF2.Wrappers
 
         internal static Level FromNative(IntPtr native)
         {
-            if (native == null)
+            if (native == IntPtr.Zero)
             {
                 return null;
             }
@@ -86,116 +73,55 @@ namespace LibSWBF2.Wrappers
             get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
 
-
         public string name
         {
             get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
         }
 
 
-        
-        public Terrain[] GetTerrains()
-        {   
-            APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);
-            Terrain[] terrains = MemUtils.IntPtrToWrapperArray<Terrain>(terrainsArr, (int) numTerrains);
-
-            for (int i = 0; i < numTerrains; i++)
+        public T GetWrapper<T>(string name) where T : NativeWrapper, new()
+        {
+            if (wrapperMap.ContainsKey(typeof(T)))
             {
-                Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
+                T newObj = new T();
+                IntPtr ptr = APIWrapper.Level_GetWrapper(NativeInstance, wrapperMap[typeof(T)], name);
+
+                if (ptr == IntPtr.Zero)
+                {
+                    return null;
+                }
+
+                newObj.SetPtr(ptr);
+                Children.Add(new WeakReference<NativeWrapper>(newObj));
+
+                return newObj;
             }
 
-            return terrains;
+            return null;
         }
 
 
-        public Model[] GetModels()
+        public T[] GetWrappers<T>() where T : NativeWrapper, new()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount, out int inc);
-            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount, inc);
-
-            for (int i = 0; i < modelCount; i++)
+            T[] wrappers = new T[0];
+            if (wrapperMap.ContainsKey(typeof(T)))
             {
-                Children.Add(new WeakReference<NativeWrapper>(models[i]));
+                IntPtr ptr = APIWrapper.Level_GetWrappers(NativeInstance, wrapperMap[typeof(T)], out uint num, out uint inc);
+
+                wrappers = MemUtils.IntPtrToWrapperArray<T>(ptr, (int) num, (int) inc);
+                for (int i = 0; i < wrappers.Length; i++)
+                {
+                    Children.Add(new WeakReference<NativeWrapper>(wrappers[i]));
+                }
             }
-
-            return models;
-        }
-
-
-        public EntityClass[] GetEntityClasses()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetEntityClasses(NativeInstance, out IntPtr classArr, out int classCount, out int inc);
-            EntityClass[] classes = MemUtils.IntPtrToWrapperArray<EntityClass>(classArr, classCount, inc);
-            return classes;
-        }
-
-
-        public World[] GetWorlds()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetWorlds(NativeInstance, out IntPtr worldArr, out uint worldCount);
-            return MemUtils.IntPtrToWrapperArray<World>(worldArr, (int) worldCount);
-        }
-
-
-        public Model GetModel(string modelName)
-        {
-            IntPtr modelPtr = APIWrapper.Level_GetModel(NativeInstance, modelName);
-            if (modelPtr == null)
-            {
-                return null;
-            }
-
-            Model model = new Model(modelPtr);
-            Children.Add(new WeakReference<NativeWrapper>(model));
-            return model;
-        }
-
-        public Texture GetTexture(string name)
-        {
-            IntPtr texPtr = APIWrapper.Level_GetTexture(NativeInstance, name);
-            if (texPtr == null)
-            {
-                return null;
-            }
-            return new Texture(texPtr);
-        }
-
-        public AnimationBank GetAnimationBank(string setName)
-        {
-            IntPtr SetPtr = APIWrapper.Level_GetAnimationBank(NativeInstance, setName);
-            if (SetPtr == null)
-            {
-                return null;
-            }
-
-            AnimationBank animSet = new AnimationBank(SetPtr);
-            return animSet;
-        }
-
-        public EntityClass GetEntityClass(string name)
-        {
-            IntPtr ptr = APIWrapper.Level_GetEntityClass(NativeInstance, name);
-            if (ptr == IntPtr.Zero)
-            {
-                return null;
-            }
-
-            EntityClass ec = new EntityClass(ptr);
-            return ec;   
+            return wrappers;
         }
 
 
         public Config GetConfig(uint hash, ConfigType cfgType)
         {
             IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, hash);
-            if (ptr == IntPtr.Zero)
-            {
-                return null;
-            }
-            return new Config(ptr);            
+            return ptr == IntPtr.Zero ? null : new Config(ptr);           
         }
 
         public Config GetConfig(string name, ConfigType cfgType)

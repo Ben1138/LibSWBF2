@@ -51,7 +51,7 @@ namespace LibSWBF2.NET.Test
             Level level = levels[0];
             if (level == null) return -1;
 
-            World[] worlds = level.GetWorlds();
+            World[] worlds = level.GetWrappers<World>();
             foreach (World world in worlds)
             {
                 Console.WriteLine("\nWorld: {0}", world.name);

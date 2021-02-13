@@ -141,8 +141,6 @@ namespace LibSWBF2
 	{
 		switch (type)
 		{
-			case 0:
-				//return static_cast<const void *>(container -> FindLight(name));
 			case 1:
 				return static_cast<const void *>(container -> FindModel(name));
 			case 2:
@@ -195,92 +193,85 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
-	const EntityClass* Level_GetEntityClass(const Level* level, const char* name)
+
+	const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name)
 	{
 		CheckPtr(level, nullptr);
-		return level->GetEntityClass(name);		
-	}
 
-
-	const Model* Level_GetModel(const Level* level, const char* modelName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetModel(modelName);
-	}
-
-
-	void Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc)
-	{
-		const List<Model>& models = level->GetModels();
-		modelArr = (void *) models.GetArrayPtr();
-		modelCount = (uint32_t) models.Size();
-		inc = sizeof(Model);
-	}
-
-
-	void Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc)
-	{
-		const List<EntityClass>& classes = level->GetEntityClasses();
-		classArr = (void *) classes.GetArrayPtr();
-		classCount = (int32_t) classes.Size();
-		inc = sizeof(EntityClass);
-	}
-
-
-	const Texture* Level_GetTexture(const Level* level, const char* texName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetTexture(texName);
-	}
-
-
-
-	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
-	{
-		CheckPtr(level, );
-		const List<Terrain>& terrains = level->GetTerrains();
-
-		static List<const Terrain*> terrainPtrs;
-		terrainPtrs.Clear();
-
-		for (size_t i = 0; i < terrains.Size(); ++i)
+		switch (type)
 		{
-			terrainPtrs.Add(&terrains[i]);
+		case 0:
+			return static_cast<const void*>(level->GetTerrain(name));
+		case 1:
+			return static_cast<const void*>(level->GetModel(name));
+		case 2:
+			return static_cast<const void*>(level->GetTexture(name));
+		case 3:
+			return static_cast<const void*>(level->GetWorld(name));
+		case 4:
+			return static_cast<const void*>(level->GetEntityClass(name));
+		case 5:
+			return static_cast<const void*>(level->GetAnimationBank(name));
+		default:
+			return nullptr;
 		}
-
-		terrainArr = terrainPtrs.GetArrayPtr();
-		terrainCount = (uint32_t)terrainPtrs.Size();
 	}
 
 
-	void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount)
+	const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize)
 	{
-		CheckPtr(level, );
-		const List<World>& worlds = level->GetWorlds();
-
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer.
-		// The inquirer of course is not allowed to alter the data!
-		static List<const World*> worldPtrs;
-		worldPtrs.Clear();
-
-		for (size_t i = 0; i < worlds.Size(); ++i)
-		{
-			worldPtrs.Add(&worlds[i]);
-		}
-
-		worldArr = worldPtrs.GetArrayPtr();
-		worldCount = (uint32_t) worldPtrs.Size();
-	}
-
-
-	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
-	{
+		numWrappers = 0;
+		wrapperSize = 0;
 		CheckPtr(level, nullptr);
-		return level -> GetAnimationBank(setName);
-	}
 
+		switch (type)
+		{
+		case 0:
+		{
+			const List<Terrain>& terrains = level->GetTerrains();
+			numWrappers = terrains.Size();
+			wrapperSize = sizeof(Terrain);
+			return static_cast<const void*>(terrains.GetArrayPtr());
+		}
+		case 1:
+		{
+			const List<Model>& models = level->GetModels();
+			numWrappers = models.Size();
+			wrapperSize = sizeof(Model);
+			return static_cast<const void*>(models.GetArrayPtr());
+		}
+		case 2:
+		{
+			const List<Texture>& textures = level->GetTextures();
+			numWrappers = textures.Size();
+			wrapperSize = sizeof(Texture);
+			return static_cast<const void*>(textures.GetArrayPtr());
+		}
+		case 3:
+		{
+			const List<World>& worlds = level->GetWorlds();
+			numWrappers = worlds.Size();
+			wrapperSize = sizeof(World);
+			return static_cast<const void*>(worlds.GetArrayPtr());
+		}
+		case 4:
+		{
+			const List<EntityClass>& entityClasses = level->GetEntityClasses();
+			numWrappers = entityClasses.Size();
+			wrapperSize = sizeof(EntityClass);
+			return static_cast<const void*>(entityClasses.GetArrayPtr());
+		}
+		case 5:
+		{
+			const List<AnimationBank>& animationBanks = level->GetAnimationBanks();
+			numWrappers = animationBanks.Size();
+			wrapperSize = sizeof(AnimationBank);
+			return static_cast<const void*>(animationBanks.GetArrayPtr());
+		}
+		default:
+			return nullptr;
+		}
+	}
 
 	char* Level_GetName(const Level* level)
 	{
