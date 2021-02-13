@@ -56,7 +56,6 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> WorldNameToIndex;
 			std::unordered_map<std::string, size_t> TerrainNameToIndex;
 			std::unordered_map<std::string, size_t> ScriptNameToIndex;
-			std::unordered_map<std::string, size_t> LightNameToIndex;
 			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
 			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;

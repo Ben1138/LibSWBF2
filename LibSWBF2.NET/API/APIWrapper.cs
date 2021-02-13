@@ -43,6 +43,9 @@ namespace LibSWBF2
         public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetConfig(IntPtr container, uint type, uint nameHash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_LoadLevels(IntPtr container);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

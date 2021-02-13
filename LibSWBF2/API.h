@@ -1,7 +1,6 @@
 #pragma once
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
-#include "Wrappers/Level.h"
 
 
 namespace LibSWBF2
@@ -16,8 +15,6 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
-		class Light;
-
 		class Terrain;
 		class CollisionMesh;
 		struct Bone;
@@ -25,14 +22,19 @@ namespace LibSWBF2
 		class CollisionPrimitive;
 		class AnimationBank;
 		class EntityClass;
+		class World;
+		class Texture;
 		class Config;
-		//class Script;
+		class Material;
+		class Instance;
+		class Script;
 	}
 
 	namespace Types
 	{
 		struct Vector4;
 		struct Vector3;
+		struct Vector2;
 	}
 
 	using namespace Wrappers;
@@ -62,6 +64,7 @@ namespace LibSWBF2
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
         LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+        LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
         LIBSWBF2_API const void Container_LoadLevels(Container* container);
 		LIBSWBF2_API const bool Container_IsDone(Container* container);
 		LIBSWBF2_API const bool Container_Delete(Container* container);
@@ -74,12 +77,8 @@ namespace LibSWBF2
 		LIBSWBF2_API void    Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc);
 		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
 		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
-		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
-		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
-													const char*& light1Name, const char*& light2Name);		
 		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
-		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);

@@ -62,4 +62,6 @@ namespace LibSWBF2::Chunks
 {
 	template LIBSWBF2_API struct RawData<"BODY"_m>;
     template LIBSWBF2_API struct RawData<"DATA"_m>;
+    template LIBSWBF2_API struct RawData<"POSK"_m>;
+    template LIBSWBF2_API struct RawData<"ROTK"_m>;
 }

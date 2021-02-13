@@ -5,6 +5,7 @@
 #include "Types/Color4.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -16,8 +17,13 @@ namespace LibSWBF2::Wrappers
 	List<DATA_CONFIG *> Config::SearchPropertyAll(FNVHash hash) const
 	{
 		List<DATA_CONFIG *> matches;
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
 
+		if (p_Chunk == nullptr) 
+		{
+			return matches;
+		}
+
+		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
 		for (int i = 0; i < children.Size(); i++)
 		{
 			DATA_CONFIG *childDATA = dynamic_cast<DATA_CONFIG *>(children[i]);
@@ -34,8 +40,12 @@ namespace LibSWBF2::Wrappers
 
 	DATA_CONFIG *Config::SearchProperty(FNVHash hash) const
 	{
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
+		if (p_Chunk == nullptr)
+		{ 
+			return nullptr;
+		}
 
+		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
 		for (int i = 0; i < children.Size(); i++)
 		{
 			DATA_CONFIG *childDATA = dynamic_cast<DATA_CONFIG *>(children[i]);
@@ -173,10 +183,14 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-
 	List<Config> Config::GetChildConfigs(FNVHash hash) const
 	{
 		List<Config> foundSCOPs;
+
+		if (p_Chunk == nullptr)
+		{
+			return foundSCOPs; 
+		}
 
 		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
 
@@ -194,16 +208,31 @@ namespace LibSWBF2::Wrappers
 				continue;
 			}
 
-			SCOP *childSCOP = dynamic_cast<SCOP *>(children[i+1]);
-
-			if (childSCOP != nullptr)
-			{
- 				foundSCOPs.Add(Config(data, childSCOP));
-			}
+			//The dynamic cast CAN return null, the getters
+			//for the resulting child config will just return default values
+ 			foundSCOPs.Add(Config(data, dynamic_cast<SCOP *>(children[i+1])));
 		}
 
 		return foundSCOPs;		
 	}
+
+
+	Config::Config(DATA_CONFIG *data, SCOP *scop)
+	{
+		m_Name = data -> m_NameHash;
+
+		/*
+		scop CAN be null.  This is needed because some properties
+		have optional children, and the results of GetChildConfigs(hash) 
+		needs to line up with the results of property getters for said hash. 
+		If scop is null, then property getters will return default values.
+		*/
+		
+		p_Chunk = scop;
+	}
+
+
+
 
 
 	bool Config::FromChunk(GenericBaseChunk *cfgPtr, Config& wrapperOut)
@@ -221,18 +250,40 @@ namespace LibSWBF2::Wrappers
 		cfg.m_Name = nameChunk -> m_PropertyName;
 		cfg.p_Chunk = cfgPtr;
 
+		if (dynamic_cast<comb*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Combo;
+		}
+		else if (dynamic_cast<lght*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Lighting;
+		}
+		else if (dynamic_cast<path*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Path;
+		}
+		else if (dynamic_cast<bnd_*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Boundary;
+		}
+		else if (dynamic_cast<fx__*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Effect;
+		}
+		else if (dynamic_cast<sky_*>(cfgPtr) != nullptr)
+		{
+			cfg.m_ConfigType = EConfigType::Skydome;
+		}
+		else 
+		{
+			LOG_ERROR("Couldn't wrap unhandled config chunk...");
+			return false;
+		}
+
 		wrapperOut = cfg;
 
 		return true;
 	}
-
-
-	Config::Config(DATA_CONFIG *data, SCOP *scop)
-	{
-		m_Name = data -> m_NameHash;
-		p_Chunk = scop;
-	}
-
 }
 
 

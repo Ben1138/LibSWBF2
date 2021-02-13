@@ -92,6 +92,17 @@ namespace LibSWBF2
 		AttachedLight = 134217728,
 	};
 
+	enum class EConfigType : uint32_t
+	{
+		All = 0xffffffff,
+        Lighting = 0x7468676c,
+        Effect = 0x5f5f7866,
+        Boundary = 0x5f646e62,
+        Skydome = 0x5f796b73,
+        Path = 0x68746170,
+        Combo = 0x626d6f63,
+	};
+
 	enum class ECollisionMaskFlags : uint32_t
 	{
 		All = 0xffffffff,
@@ -205,4 +216,7 @@ namespace LibSWBF2
 	ECollisionMaskFlags LIBSWBF2_API operator &(ECollisionMaskFlags lhs, ECollisionMaskFlags rhs);
 	bool LIBSWBF2_API operator ==(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
 	bool LIBSWBF2_API operator !=(ECollisionMaskFlags lhs, std::underlying_type<ECollisionMaskFlags>::type rhs);
+
+	bool LIBSWBF2_API operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs);
+
 }

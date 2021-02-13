@@ -20,10 +20,10 @@ add_executable(animBankTest 	  testAnimationBank.cpp)
 
 #LINKING
 
-target_link_libraries(segmentsTest  	  PUBLIC LibSWBF2)
+target_link_libraries(segmentsTest  	  PUBLIC LibSWBF2_Static)
 target_link_libraries(blendmapTest  	  PUBLIC LibSWBF2)
 target_link_libraries(heightmapTest 	  PUBLIC LibSWBF2)
-target_link_libraries(entitiesTest  	  PUBLIC LibSWBF2)
+target_link_libraries(entitiesTest  	  PUBLIC LibSWBF2_Static)
 target_link_libraries(collisionTest 	  PUBLIC LibSWBF2)
 target_link_libraries(basicContainerTest  PUBLIC LibSWBF2)
 target_link_libraries(animBankTest  	  PUBLIC LibSWBF2)
