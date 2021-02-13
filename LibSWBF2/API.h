@@ -63,27 +63,27 @@ namespace LibSWBF2
         LIBSWBF2_API uint32_t Container_AddLevel(Container* container, const char *path);
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
-        LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
-        LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
-        LIBSWBF2_API const void Container_LoadLevels(Container* container);
+
+		LIBSWBF2_API const void Container_LoadLevels(Container* container);
 		LIBSWBF2_API const bool Container_IsDone(Container* container);
 		LIBSWBF2_API const bool Container_Delete(Container* container);
+		
+		LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+        LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
+
 
 		// Wrappers - Level
 		LIBSWBF2_API Level*  Level_FromFile(const char* path);
 		LIBSWBF2_API void    Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
-		LIBSWBF2_API void 	 Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc);
-		LIBSWBF2_API void    Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc);
-		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
-		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
-		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
-		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
-		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
-		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
+
 		LIBSWBF2_API const Config*  Level_GetConfig(const Level* level, uint32_t header, uint32_t hash);
 		LIBSWBF2_API const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs);
+
+		LIBSWBF2_API const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name);
+		LIBSWBF2_API const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize);
+
 
 		//Wrappers - Texture
 		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);

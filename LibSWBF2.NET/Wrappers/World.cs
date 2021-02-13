@@ -13,7 +13,6 @@ namespace LibSWBF2.Wrappers
 {
     public class Region : NativeWrapper
     {
-        //public Region(IntPtr RegionPtr) : base(RegionPtr){}
         public Region() : base(IntPtr.Zero){} 
 
         internal override void SetPtr(IntPtr ptr)
@@ -72,8 +71,7 @@ namespace LibSWBF2.Wrappers
         public Terrain GetTerrain()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            if (terrainPtr == IntPtr.Zero) return null;
-            return new Terrain(terrainPtr);
+            return terrainPtr == IntPtr.Zero ? null : new Terrain(terrainPtr);
         }
 
 
