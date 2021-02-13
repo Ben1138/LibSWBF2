@@ -47,6 +47,14 @@ namespace LibSWBF2::Chunks::LVL::wrld
 				READ_CHILD(stream, region);
 				m_Regions.Add(region);
 			}
+			else if (nextHead == "anim"_h)
+			{
+				READ_CHILD(stream, m_Animations.Emplace());
+			}
+			else if (nextHead == "anmg"_h)
+			{
+				READ_CHILD(stream, m_AnimationGroups.Emplace());
+			}
 			else
 			{
 				READ_CHILD_GENERIC(stream);

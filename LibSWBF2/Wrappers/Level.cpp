@@ -372,6 +372,23 @@ namespace LibSWBF2::Wrappers
 		return m_EntityClasses;
 	}
 
+	const List<const Config *> Level::GetConfigs(EConfigType cfgType) const
+	{
+		List<const Config *> matchedConfigs;
+		for (int i = 0; i < m_Configs.Size(); i++)
+		{
+			const Config& cfg = m_Configs[i];
+
+			if (cfg.m_ConfigType == cfgType ||
+				cfgType == EConfigType::All)
+			{
+				matchedConfigs.Add(&cfg);
+			}
+		}
+
+		return matchedConfigs;
+	}
+
 	const Model* Level::GetModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
@@ -514,6 +531,22 @@ namespace LibSWBF2::Wrappers
 		if (it != m_NameToIndexMaps->SkeletonNameToSkel.end())
 		{
 			return it->second;
+		}
+
+		return nullptr;
+	}
+
+
+	const Config* Level::GetConfig(EConfigType cfgType, FNVHash hash) const
+	{
+		for (int i = 0; i < m_Configs.Size(); i++)
+		{
+			const Config& cfg = m_Configs[i];
+
+			if (cfg.m_Name == hash && cfg.m_ConfigType == cfgType)
+			{
+				return &cfg;
+			}
 		}
 
 		return nullptr;

@@ -96,7 +96,8 @@ if (APPLE)
 	target_link_directories(LibSWBF2_Static PUBLIC /usr/local/lib/)
 else()
 	target_link_libraries(LibSWBF2 PUBLIC -ldl)
-	target_link_directories(LibSWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
+  target_link_directories(LibSWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
+	target_link_directories(LibSWBF2_Static PUBLIC /usr/lib/x86_64-linux-gnu/)
 endif()
 
 
@@ -112,7 +113,7 @@ find_library(GLMLIB glm_static)
 target_link_libraries(LibSWBF2 PUBLIC ${FMTLIB} ${GLMLIB} pthread)
 target_link_libraries(LibSWBF2_Static PUBLIC ${FMTLIB} ${GLMLIB} pthread)
 
-
+# For now, install all headers
 install(DIRECTORY . DESTINATION include/LibSWBF2 FILES_MATCHING PATTERN "*.h")
 install(TARGETS LibSWBF2 LibSWBF2_Static DESTINATION lib EXPORT LibSWBF2)
 

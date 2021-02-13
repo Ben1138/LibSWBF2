@@ -5,10 +5,8 @@
 #include "World.h"
 #include "Terrain.h"
 #include "Script.h"
-//#include "Light.h"
 #include "Config.h"
 #include "AnimationBank.h"
-//#include "GlobalLighting.h"
 #include "Localization.h"
 #include "EntityClass.h"
 #include "Types/LibString.h"
@@ -83,23 +81,7 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
-
-		template<uint32_t Header = 0>
-		List<const Config *> GetConfigs() const
-		{
-			List<const Config *> matchedConfigs;
-			for (int i = 0; i < m_Configs.Size(); i++)
-			{
-				const Config& cfg = m_Configs[i];
-
-				if (cfg.WrapsConfigType<Header>())
-				{
-					matchedConfigs.Add(&cfg);
-				}
-			}
-
-			return matchedConfigs;
-		}
+		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
 
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
@@ -109,22 +91,7 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
-
-		template<uint32_t Header = 0>
-		const Config* GetConfig(FNVHash hash) const
-		{
-			for (int i = 0; i < m_Configs.Size(); i++)
-			{
-				const Config& cfg = m_Configs[i];
-
-				if (cfg.m_Name == hash && cfg.WrapsConfigType<Header>())
-				{
-					return &cfg;
-				}
-			}
-
-			return nullptr;
-		}
+		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
 
 
 	private:

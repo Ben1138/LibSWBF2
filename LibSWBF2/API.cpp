@@ -159,6 +159,14 @@ namespace LibSWBF2
 	}
 
 
+	const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash)
+	{
+		CheckPtr(container,nullptr);
+		return container -> FindConfig((EConfigType) type, nameHash);
+	}
+
+
+
 	const bool Container_Delete(Container* container)
 	{
 		CheckPtr(container,false);
@@ -284,6 +292,7 @@ namespace LibSWBF2
 
 
 
+
 	//Wrappers - Texture
 
 	const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut)
@@ -319,33 +328,9 @@ namespace LibSWBF2
 	const Config* Level_GetConfig(const Level* level, uint32_t header, uint32_t hash)
 	{
 		const Config *ptr = nullptr;
+		EConfigType cfgType = static_cast<EConfigType>(header);
 
-		switch (header)
-		{
-			case "lght"_m:
-				ptr = level -> GetConfig<"lght"_m>(hash);
-				break;
-			case "fx__"_m:
-				ptr = level -> GetConfig<"fx__"_m>(hash);
-				break;
-			case "sky_"_m:
-				ptr = level -> GetConfig<"sky_"_m>(hash);
-				break;
-			case "bnd_"_m:
-				ptr = level -> GetConfig<"bnd_"_m>(hash);
-				break;
-			case "prp_"_m:
-				ptr = level -> GetConfig<"prp_"_m>(hash);
-				break;
-			case "path"_m:
-				ptr = level -> GetConfig<"path"_m>(hash);
-				break;
-			case "comb"_m:
-				ptr = level -> GetConfig<"comb"_m>(hash);
-				break;
-			default:
-				break;
-		}
+		ptr = level -> GetConfig(cfgType, hash);
 
 		return ptr;
 	}
@@ -353,33 +338,10 @@ namespace LibSWBF2
 	const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs)
 	{
 		static List<const Config *> configs;
-		switch (header)
-		{
-			case "lght"_m:
-				configs = level -> GetConfigs<"lght"_m>();
-				break;
-			case "fx__"_m:
-				configs = level -> GetConfigs<"fx__"_m>();
-				break;
-			case "sky_"_m:
-				configs = level -> GetConfigs<"sky_"_m>();
-				break;
-			case "bnd_"_m:
-				configs = level -> GetConfigs<"bnd_"_m>();
-				break;
-			case "prp_"_m:
-				configs = level -> GetConfigs<"prp_"_m>();
-				break;
-			case "path"_m:
-				configs = level -> GetConfigs<"path"_m>();
-				break;
-			case "comb"_m:
-				configs = level -> GetConfigs<"comb"_m>();
-				break;
-			default:
-				break;
-		}
+		EConfigType cfgType = static_cast<EConfigType>(header);
 
+		configs = level -> GetConfigs(cfgType);
+		
 		numConfigs = configs.Size();
 		return configs.GetArrayPtr();
 	}
