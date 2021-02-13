@@ -208,6 +208,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\LVL\config\float.DATA.h" />
     <ClInclude Include="Chunks\LVL\config\SCOP.h" />
     <ClInclude Include="Chunks\LVL\config\string.DATA.h" />
+    <ClInclude Include="Chunks\LVL\gmod\gmod.h" />
     <ClInclude Include="Chunks\LVL\Locl\Locl.BODY.h" />
     <ClInclude Include="Chunks\LVL\Locl\Locl.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
@@ -241,11 +242,11 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\LVL\tern\PTCH.VBUF.h" />
     <ClInclude Include="Chunks\LVL\tern\tern.h" />
     <ClInclude Include="Chunks\LVL\tern\tern.INFO.h" />
+    <ClInclude Include="Chunks\LVL\wrld\anim.h" />
+    <ClInclude Include="Chunks\LVL\wrld\anmg.h" />
+    <ClInclude Include="Chunks\LVL\wrld\INFO_STR.h" />
     <ClInclude Include="Chunks\LVL\wrld\inst.h" />
-    <ClInclude Include="Chunks\LVL\wrld\regn.h" />
-    <ClInclude Include="Chunks\LVL\wrld\SIZE.h" />
     <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
-    <ClInclude Include="Chunks\LVL\wrld\wrld.INFO.h" />
     <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
     <ClInclude Include="Chunks\LVL\zaa_\BIN_.h" />
     <ClInclude Include="Chunks\LVL\zaa_\MINA.h" />
@@ -366,6 +367,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\LVL\config\float.DATA.cpp" />
     <ClCompile Include="Chunks\LVL\config\SCOP.cpp" />
     <ClCompile Include="Chunks\LVL\config\string.DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\gmod\gmod.cpp" />
     <ClCompile Include="Chunks\LVL\Locl\Locl.BODY.cpp" />
     <ClCompile Include="Chunks\LVL\Locl\Locl.cpp" />
     <ClCompile Include="Chunks\LVL\LVL.cpp" />
@@ -400,6 +402,9 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\LVL\tern\PTCH.VBUF.cpp" />
     <ClCompile Include="Chunks\LVL\tern\tern.cpp" />
     <ClCompile Include="Chunks\LVL\tern\tern.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\anim.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\anmg.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\INFO_STR.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\inst.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\regn.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\SIZE.cpp" />
