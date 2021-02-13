@@ -145,6 +145,12 @@
     <Filter Include="Header Files\Chunks\LVL\config">
       <UniqueIdentifier>{3564db8a-ce49-48fc-a6d0-ac388f490b13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Chunks\LVL\gmod">
+      <UniqueIdentifier>{447a552e-fa77-471f-9674-67ec6bb642ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\gmod">
+      <UniqueIdentifier>{96396eec-d67d-4caa-b31c-3258849279ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -570,15 +576,6 @@
     <ClInclude Include="Wrappers\Config.h">
       <Filter>Source Files\Wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\regn.h">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\SIZE.h">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\wrld.INFO.h">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\zaa_\BIN_.h">
       <Filter>Header Files\Chunks\LVL\zaa_</Filter>
     </ClInclude>
@@ -593,15 +590,6 @@
     </ClInclude>
     <ClInclude Include="Chunks\LVL\zaa_\zaa_.h">
       <Filter>Header Files\Chunks\LVL\zaa_</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\inst.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
     </ClInclude>
     <ClInclude Include="Chunks\LVL\config\config.NAME.h">
       <Filter>Header Files\Chunks\LVL\config</Filter>
@@ -620,6 +608,27 @@
     </ClInclude>
     <ClInclude Include="Chunks\LVL\config\string.DATA.h">
       <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\gmod\gmod.h">
+      <Filter>Header Files\Chunks\LVL\gmod</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\anim.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\anmg.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\INFO_STR.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1055,6 +1064,21 @@
     <ClCompile Include="Chunks\LVL\config\string.DATA.cpp">
       <Filter>Source Files\Chunks\LVL\config</Filter>
     </ClCompile>
+    <ClCompile Include="FileReaderMemMapped.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\gmod\gmod.cpp">
+      <Filter>Source Files\Chunks\LVL\gmod</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\anim.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\anmg.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\INFO_STR.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
     <ClCompile Include="Chunks\LVL\wrld\inst.cpp">
       <Filter>Source Files\Chunks\LVL\wrld</Filter>
     </ClCompile>
@@ -1072,9 +1096,6 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp">
       <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReaderMemMapped.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
