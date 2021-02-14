@@ -17,7 +17,7 @@ namespace LibSWBF2.NET.Test
 {
     class ConfigTest
     {
-
+        /*
         public static uint GetUIntRep(string name)
         {
             uint result = 0;
@@ -40,13 +40,14 @@ namespace LibSWBF2.NET.Test
             }
             Console.Write("\n");
         }
+        */
 
 
         public static int Main(string[] args)
         {   
-            TestBench.StartLogging(ELogType.Warning);
+            TestBench testBench = new TestBench();
 
-            Container container = TestBench.LoadAndTrackContainer(new List<string>(args), out List<Level> levels);
+            Container container = testBench.LoadAndTrackContainer(new List<string>(args), out List<Level> levels);
             
             Level level = levels[0];
             if (level == null) return -1;
@@ -126,11 +127,7 @@ namespace LibSWBF2.NET.Test
                 {
                     Console.WriteLine("\tPath {0} has {1} nodes.", pathName, childPaths[i++].GetFloat("Nodes"));
                 }
-            }            
-
-            container.Delete();
-
-            TestBench.StopLogging();
+            }
 
             return 1;
         }

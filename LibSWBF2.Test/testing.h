@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LibSWBF2/LibSWBF2.h"
+#include "LibSWBF2.h"
 #include "FileWriter.h"
 #include "Chunks/LVL/LVL.h"
 #include "Types/Enums.h"
