@@ -96,7 +96,7 @@ namespace LibSWBF2
 
 
 		//Wrappers - Texture
-		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
+		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, uint16_t& widthOut, uint16_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
 
 		// Wrappers - Model
 		LIBSWBF2_API const uint8_t Model_FetchSimpleFields(const Model* model,  const char*&name, uint8_t& skinned, uint8_t& skelBroken,

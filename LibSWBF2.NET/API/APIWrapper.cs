@@ -206,7 +206,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Texture_FetchAllFields(IntPtr tex, out int width, out int height, out IntPtr bufOut, out IntPtr nameOut);      
+        public static extern bool Texture_FetchAllFields(IntPtr tex, out ushort width, out ushort height, out IntPtr bufOut, out IntPtr nameOut);      
 
 
         // CollisionMesh //
