@@ -621,6 +621,12 @@
     <ClInclude Include="Chunks\LVL\zaa_\TNJA.h">
       <Filter>Header Files\Chunks\LVL\zaa_</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\lght\config.NAME.h">
+      <Filter>Header Files\Chunks\LVL\lght</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\AnimationBank.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1072,6 +1078,12 @@
     </ClCompile>
     <ClCompile Include="Chunks\LVL\zaa_\TNJA.cpp">
       <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lght\config.NAME.cpp">
+      <Filter>Source Files\Chunks\LVL\lght</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\AnimationBank.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

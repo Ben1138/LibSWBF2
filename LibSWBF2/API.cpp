@@ -388,7 +388,7 @@ namespace LibSWBF2
 		CheckPtr(ter,false);
 
 		const List<String>& texNames = ter -> GetLayerTextures();
-        numTexes = texNames.Size();
+        numTexes = (int32_t)texNames.Size();
         texNamesPtrs = GetStringListPtrs(texNames);
         texNamesOut = texNamesPtrs;
 
@@ -442,11 +442,11 @@ namespace LibSWBF2
 		
 		const List<Segment>& segs = model -> GetSegments();
 		segArr = segs.GetArrayPtr();
-		segCount = segs.Size();
+		segCount = (int32_t)segs.Size();
 		segInc = sizeof(Segment);
 
 		boneCount = 0;
-		if (model -> GetSkeleton(boneCache)){ boneCount = boneCache.Size(); }
+		if (model -> GetSkeleton(boneCache)){ boneCount = (int32_t)boneCache.Size(); }
 		boneArr = boneCache.GetArrayPtr();
 		boneInc = sizeof(Bone);
 
@@ -659,12 +659,12 @@ namespace LibSWBF2
 
 		const List<Light>& lights = world -> GetLights();
     	lightArr = lights.GetArrayPtr();
-    	lightCount = lights.Size();
+    	lightCount = (int32_t)lights.Size();
     	lightInc = sizeof(Light);
 
     	const List<Instance>& instances = world -> GetInstances();
 		instanceArr = instances.GetArrayPtr();
-		instCount = instances.Size();
+		instCount = (int32_t)instances.Size();
 		instInc = sizeof(Instance);
 
 		terrPtr = world -> GetTerrain();
@@ -705,7 +705,7 @@ namespace LibSWBF2
     	if (instPtr -> GetOverriddenProperties(hashes, values))
     	{
     		hashesBuffer = hashes.GetArrayPtr();
-    		count = values.Size();
+    		count = (int32_t)values.Size();
 			ptrsBuffer = GetStringListPtrs(values);
     		valuesBuffer = ptrsBuffer;
     		return true;
@@ -762,7 +762,7 @@ namespace LibSWBF2
     	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
     	
 		hashesBuffer = hashes.GetArrayPtr();
-		count = values.Size();
+		count = (int32_t)values.Size();
 		ptrsBuffer = GetStringListPtrs(values);
 		valuesBuffer = ptrsBuffer;
 		return true;
@@ -815,7 +815,7 @@ namespace LibSWBF2
 
 		if (status)
 		{
-			numKeys = values.Size();
+			numKeys = (int32_t)values.Size();
 			indicesBuffer = indices.GetArrayPtr();
 			valuesBuffer  = values.GetArrayPtr();
 		}
@@ -833,7 +833,7 @@ namespace LibSWBF2
 
     	crcs = setPtr -> GetAnimationNames();
     	
-    	numCRCs = crcs.Size();
+    	numCRCs = (int32_t)crcs.Size();
     	return crcs.GetArrayPtr();
     }
     

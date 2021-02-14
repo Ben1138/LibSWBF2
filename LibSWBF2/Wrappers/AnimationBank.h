@@ -34,7 +34,6 @@ namespace LibSWBF2::Wrappers
 
 		zaa_ *animChunk = nullptr;
 
-
 		class AnimDecompressor
 		{
 		public:
@@ -56,6 +55,8 @@ namespace LibSWBF2::Wrappers
 			inline bool ReadUInt8(uint8_t &val) const;
 		};
 
+		#pragma warning(disable:4251)
 		AnimDecompressor decompressor;
+		#pragma warning(default:4251)
 	};
 }

@@ -182,21 +182,21 @@ namespace LibSWBF2::Wrappers
 			std::string name = ToLower(worldChunk->p_Name->m_Text);
 			if (m_NameToIndexMaps->WorldNameToIndex.find(name) == m_NameToIndexMaps->WorldNameToIndex.end())
 			{
-				FNVHash worldName = FNV::Hash(world.GetName());
-				for (int i = 0; i < m_Lights.Size(); i++)
-				{
-					auto& light = m_Lights[i];
-
-					if (light.m_WorldName == worldName)
-					{
-						world.m_Lights.Add(light);
-					}
-				}
-
 				World world;
 				if (World::FromChunk(p_MainContainer, worldChunk, world))
 				{
 					m_NameToIndexMaps->WorldNameToIndex.emplace(name, m_Worlds.Add(std::move(world)));
+
+					FNVHash worldName = FNV::Hash(world.GetName());
+					for (int i = 0; i < m_Lights.Size(); i++)
+					{
+						auto& light = m_Lights[i];
+
+						if (light.m_WorldName == worldName)
+						{
+							world.m_Lights.Add(light);
+						}
+					}
 				}
 			}
 		}
