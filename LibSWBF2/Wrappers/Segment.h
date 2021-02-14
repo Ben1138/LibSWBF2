@@ -15,12 +15,14 @@ namespace LibSWBF2::Wrappers
 	class Level;
 	class Model;
 
+
+	#pragma pack(push,1)
 	struct LIBSWBF2_API VertexWeight
 	{
 		float_t m_WeightValue;
 		uint8_t m_BoneIndex;
-	} __attribute__((aligned(1), packed));
-
+	};// __attribute__((aligned(1), packed));
+	#pragma pack(pop)
 
 	class LIBSWBF2_API Segment
 	{

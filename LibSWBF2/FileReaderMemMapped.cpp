@@ -1,18 +1,14 @@
-
-
 #include "stdafx.h"
 #include "FileReader.h"
 
 #ifdef MEMORY_MAPPED_READER
 
-
-
-
-#include "InternalHelpers.h"
 #include "InternalHelpers.h"
 
 #include <limits>
 #include <memory>
+
+#ifndef WIN32
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -21,8 +17,10 @@
 #include <sys/mman.h>
 #include <errno.h>
 
-#include <filesystem>
+#endif
 
+
+#include <filesystem>
 #include <iostream>
 
 namespace fs = std::filesystem;
@@ -35,79 +33,106 @@ namespace LibSWBF2
 	FileReader::FileReader()
 	{
 		m_LatestChunkPos = 0;
-	    m_Reader = nullptr;
-	    m_MMapStart = nullptr;
+	    p_ReaderHead = nullptr;
+	    p_ReaderBase = nullptr;
 	}
 
 	FileReader::~FileReader()
 	{
-		//static int counter = 0;
-		//LOG_WARN("Unmapping file: {} for the {} time", m_FileName, ++counter);
-		munmap(m_MMapStart, m_FileSize);
+		try { Close(); } catch (...) {/*Do nothing if no mapping is set...*/}
 	}
 
 	bool FileReader::Open(const Types::String& File)
 	{
+		if (p_ReaderBase != nullptr)
+		{
+			LOG_ERROR("Already reading file: {}!", m_FileName);
+			return false;
+		}
+
 		fs::path path = File.Buffer();
 		if (!fs::exists(path) || fs::is_directory(path))
 		{
-			LOG_WARN("File '{}' could not be found!", File);
+			LOG_ERROR("File '{}' could not be found!", File);
 			return false;
 		}
 		   
-		const auto file_size = fs::file_size(path);
+		m_FileSize = fs::file_size(path);
+		m_FileName = path.string().c_str();
 
-
-		const String fname = path.string().c_str(); 
-		m_FileSize = static_cast<std::uint32_t>(file_size);
-		   
-		int fd = open(fname.Buffer(), O_RDONLY);
-
+#ifndef WIN32
+		int fd = open(m_FileName.Buffer(), O_RDONLY);
 		if (fd < 0)
 		{
-			//char buffer[ 256 ];
-   	 		//strerror_r( errno, buffer, 256 ); // get string message from errno, XSI-compliant version
-    		//printf("Error %s", buffer);
-     		// or
-    		//char * errorMsg = strerror_r( errno, buffer, 256 ); // GNU-specific version, Linux default
-    		//printf("Error %s", errorMsg); //r
-
-			LOG_WARN("File '{}': failed to open file!", File);
+			LOG_ERROR("Failed to open file: {}!", m_FileName);
 			return false;
 		}
 
-	    m_MMapStart = (uint8_t *) mmap(0,m_FileSize,PROT_READ,MAP_FILE|MAP_PRIVATE,fd,0);
-	  
-	    if (m_MMapStart == MAP_FAILED){
-			LOG_WARN("File '{}': memory map failed!", File);
-			return false;
-	    }
-	  
-	    close(fd);
+		p_ReaderBase = (uint8_t *) mmap(0,m_FileSize,PROT_READ,MAP_FILE|MAP_PRIVATE,fd,0);
+		close(fd);
 
-		m_FileName = File;
-		m_Reader = m_MMapStart;
+	    if (p_ReaderBase == MAP_FAILED)
+		{
+			LOG_ERROR("Memory map failed for file: {}!", m_FileName);
+			return false;
+	    }	  
+#else
+		HANDLE fileHandle = INVALID_HANDLE_VALUE, fileMappingHandle = NULL;
+
+		try {
+			fileHandle = CreateFileA(m_FileName.Buffer(), GENERIC_READ, FILE_SHARE_READ,
+				NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			if (fileHandle == INVALID_HANDLE_VALUE)
+			{
+				THROW("Failed to open file: {}!", m_FileName);
+			}
+
+			fileMappingHandle = CreateFileMapping(fileHandle, NULL, PAGE_READONLY, 0, 0, NULL);
+			if (fileMappingHandle == NULL)
+			{
+				THROW("Failed to create file mapping object for file: {}!", m_FileName);
+			}
+
+			p_ReaderBase = static_cast<uint8_t*>(MapViewOfFile(fileMappingHandle, FILE_MAP_READ, 0, 0, 0));
+			if (p_ReaderBase == nullptr)
+			{
+				THROW("Memory map failed for file: {}!", m_FileName);
+			}
+		}
+		catch (LibException e)
+		{
+			LOG_ERROR(e.what());
+			if (fileMappingHandle != NULL) CloseHandle(fileMappingHandle);
+			if (fileHandle != INVALID_HANDLE_VALUE) CloseHandle(fileHandle);
+			
+			return false;
+		}
+
+		CloseHandle(fileMappingHandle);
+		CloseHandle(fileHandle);
+#endif
+
+		p_ReaderHead = p_ReaderBase;
 
 		LOG_INFO("File '{}' ({} bytes) successfully opened.", m_FileName, m_FileSize);
 		return true;
 	}
+
 
 	ChunkHeader FileReader::ReadChunkHeader(bool peek)
 	{
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
-			auto pos = m_Reader - m_MMapStart;
+			auto pos = p_ReaderHead - p_ReaderBase;
 
-			memcpy(&value, m_Reader, sizeof(value));
-			m_Reader += sizeof(value);
-
-			//m_Reader.read((char*)&value, sizeof(value));
+			memcpy(&value, p_ReaderHead, sizeof(value));
+			p_ReaderHead += sizeof(value);
 
 			// do not advance our reading position when peeking
 			if (peek)
 			{
-				m_Reader = m_MMapStart + pos;
+				p_ReaderHead = p_ReaderBase + pos;
 			}
 
 			m_LatestChunkPos = pos;
@@ -120,11 +145,8 @@ namespace LibSWBF2
 		ChunkSize value = 0;
 		if (CheckGood(sizeof(ChunkSize)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			//memcpy(value, m_Reader, sizeof(value));
-
-			value = *((uint32_t *) m_Reader);
-			m_Reader += sizeof(value);
+			value = *((uint32_t *) p_ReaderHead);
+			p_ReaderHead += sizeof(value);
 		}
 		return value;
 	}
@@ -134,7 +156,7 @@ namespace LibSWBF2
 		uint8_t value = 0;
 		if (CheckGood(sizeof(uint8_t)))
 		{
-			value = *(m_Reader++);//m_Reader.read((char*)&value, sizeof(value));
+			value = *(p_ReaderHead++);
 		}
 		return value;
 	}
@@ -143,9 +165,8 @@ namespace LibSWBF2
 	{
 		if (CheckGood(length))
 		{
-			//m_Reader.read((char*)data, length);
-			memcpy(data, m_Reader, length);
-			m_Reader += length;
+			memcpy(data, p_ReaderHead, length);
+			p_ReaderHead += length;
 
 			return true;
 		}
@@ -157,9 +178,8 @@ namespace LibSWBF2
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			value = *((int32_t *) m_Reader);
-			m_Reader+=4;
+			value = *((int32_t *) p_ReaderHead);
+			p_ReaderHead+=sizeof(int32_t);
 		}
 		return value;
 	}
@@ -169,9 +189,8 @@ namespace LibSWBF2
 		int16_t value = 0;
 		if (CheckGood(sizeof(int16_t)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			value = *((int16_t *) m_Reader);
-			m_Reader+=2;
+			value = *((int16_t *) p_ReaderHead);
+			p_ReaderHead+=sizeof(int16_t);
 		}
 		return value;
 	}
@@ -181,9 +200,8 @@ namespace LibSWBF2
 		uint32_t value = 0;
 		if (CheckGood(sizeof(uint32_t)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			value = *((uint32_t *) m_Reader);
-			m_Reader+=4;
+			value = *((uint32_t *) p_ReaderHead);
+			p_ReaderHead+=sizeof(uint32_t);
 		}
 		return value;
 	}
@@ -193,9 +211,8 @@ namespace LibSWBF2
 		uint16_t value = 0;
 		if (CheckGood(sizeof(uint16_t)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			value = *((uint16_t *) m_Reader);
-			m_Reader+=2;
+			value = *((uint16_t *) p_ReaderHead);
+			p_ReaderHead+=sizeof(uint16_t);
 		}
 		return value;
 	}
@@ -205,9 +222,8 @@ namespace LibSWBF2
 		float_t value = 0.0f;
 		if (CheckGood(sizeof(float_t)))
 		{
-			//m_Reader.read((char*)&value, sizeof(value));
-			value = *((float_t *) m_Reader);
-			m_Reader+=4;
+			value = *((float_t *) p_ReaderHead);
+			p_ReaderHead+=sizeof(float_t);
 		}
 		return value;
 	}
@@ -218,9 +234,8 @@ namespace LibSWBF2
 		if (CheckGood(length))
 		{
 			char* str = new char[length+1];
-			//m_Reader.read(str, length);
-			memcpy((char *) str, (char *) m_Reader, length);
-			m_Reader += length;
+			memcpy((char *) str, (char *) p_ReaderHead, length);
+			p_ReaderHead += length;
 
 			str[length] = 0;
 			value = str;
@@ -248,20 +263,26 @@ namespace LibSWBF2
 
 	void FileReader::Close()
 	{
-		/*
-		if (!m_Reader.is_open())
+		if (p_ReaderBase == nullptr)
 		{
 			THROW("Nothing has been opened yet!");
 		}
 
+#ifndef WIN32
+		munmap(p_ReaderBase, m_FileSize);
+#else
+		UnmapViewOfFile(p_ReaderBase);
+#endif
+
 		m_FileName = "";
-		m_Reader.close();
-		*/
+		m_FileSize = 0;
+		p_ReaderBase = nullptr;
+		p_ReaderHead = nullptr;
 	}
 
 	size_t FileReader::GetPosition()
 	{
-		return (size_t) (m_Reader - m_MMapStart);
+		return (size_t) (p_ReaderHead - p_ReaderBase);
 	}
 
 	void FileReader::SetPosition(size_t NewPosition)
@@ -272,7 +293,7 @@ namespace LibSWBF2
 			return;
 		}
 
-		m_Reader = m_MMapStart + NewPosition;
+		p_ReaderHead = p_ReaderBase + NewPosition;
 	}
 
 	size_t FileReader::GetFileSize()
@@ -282,7 +303,12 @@ namespace LibSWBF2
 
 	bool FileReader::CheckGood(size_t ReadSize)
 	{
-		size_t current = (size_t) (m_Reader - m_MMapStart);
+		if (p_ReaderBase == nullptr) 
+		{
+			THROW("Cant read {:#x} bytes, memory mapping uninitialized!", ReadSize);
+		}
+
+		size_t current = (size_t) (p_ReaderHead - p_ReaderBase);
 		if (current + ReadSize > m_FileSize)
 		{
 			THROW("Reading {:#x} bytes will end up out of file!  Current position: {:#x}  FileSize: {:#x}", ReadSize, current, m_FileSize);
@@ -295,7 +321,7 @@ namespace LibSWBF2
 	{
 		if (CheckGood(Amount))
 		{
-			m_Reader += Amount;
+			p_ReaderHead += Amount;
 			return true;
 		}
 		return false;

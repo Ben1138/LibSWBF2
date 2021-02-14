@@ -44,8 +44,8 @@ namespace LibSWBF2
 	#ifndef MEMORY_MAPPED_READER
 		std::ifstream m_Reader;
 	#else
-		uint8_t* m_Reader = nullptr;
-		uint8_t* m_MMapStart = nullptr;
+		uint8_t* p_ReaderHead = nullptr;
+		uint8_t* p_ReaderBase = nullptr;
 	#endif
 		
 		std::atomic_size_t m_LatestChunkPos;

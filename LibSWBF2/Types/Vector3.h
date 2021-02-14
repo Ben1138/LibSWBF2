@@ -19,5 +19,5 @@ namespace LibSWBF2::Types
 		float_t m_Z = 0.0f;
 
 		String ToString();
-	}__attribute__((aligned(4), packed));
+	};// __attribute__((aligned(4), packed));
 }

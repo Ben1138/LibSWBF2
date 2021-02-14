@@ -26,13 +26,21 @@ namespace LibSWBF2.Wrappers
             wrapperMap[typeof(World)]        = 3;
             wrapperMap[typeof(EntityClass)]  = 4;
             wrapperMap[typeof(AnimationBank)] = 5;
-        }    
+        }
 
 
-
-        public bool Delete()
+        ~Container()
         {
-            return APIWrapper.Container_Delete(NativeInstance);
+            Delete();
+        }
+
+        public void Delete()
+        {
+            if (IsValid())
+            { 
+                APIWrapper.Container_Delete(NativeInstance);
+                Invalidate();
+            }
         }
 
 
