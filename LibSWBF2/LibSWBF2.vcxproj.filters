@@ -612,6 +612,15 @@
     <ClInclude Include="Types\Color4.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\MINA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\TADA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\TNJA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -908,9 +917,6 @@
     <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp">
       <Filter>Source Files\Chunks\LVL\zaa_</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\zaa_\SMNA.cpp">
-      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
-    </ClCompile>
     <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp">
       <Filter>Source Files\Chunks\LVL\zaa_</Filter>
     </ClCompile>
@@ -1057,6 +1063,15 @@
     </ClCompile>
     <ClCompile Include="Types\Color4.cpp">
       <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\MINA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\TADA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\TNJA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
