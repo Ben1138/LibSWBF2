@@ -29,8 +29,14 @@ CrossPlatImage::CrossPlatImage(uint16_t w, uint16_t h,
     if (dataPtr != nullptr)
       memcpy(bytes, dataPtr, dataSize);
 
-    data.reset(bytes);
+    data = bytes;
   }
+}
+
+
+CrossPlatImage::~CrossPlatImage()
+{
+  delete[] data;
 }
 
 
@@ -38,10 +44,8 @@ uint8_t* CrossPlatImage::DumpRaw(){
 
   if (!valid) return nullptr;
 
-  //size_t dataLength = unitSize * width * height;
-
   uint8_t* sink = new uint8_t[dataLength];
-  memcpy(sink, data.get(), dataLength);
+  memcpy(sink, data, dataLength);
 
   return sink;
 }
@@ -52,7 +56,7 @@ uint8_t* CrossPlatImage::DumpRGBA(){
   if (!valid) return nullptr;
 
   uint32_t* sink = new uint32_t[width * height]();
-  uint8_t* source = data.get();
+  uint8_t* source = data;
 
   switch (format){
     case D3DFMT_R5G6B5:
