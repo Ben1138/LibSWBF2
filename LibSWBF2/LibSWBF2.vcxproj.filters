@@ -121,12 +121,6 @@
     <Filter Include="Source Files\Chunks\LVL\Locl">
       <UniqueIdentifier>{13fbc170-4e3e-4ab6-8606-e03ccd30ba40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Chunks\LVL\lght">
-      <UniqueIdentifier>{84857e2d-80b2-4cad-a065-3608bbb61240}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Chunks\LVL\lght">
-      <UniqueIdentifier>{852d61c7-dc1c-462d-90ab-474c0ee47e21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Chunks\LVL\common">
       <UniqueIdentifier>{b1bac627-95c2-44c3-a226-817677625021}</UniqueIdentifier>
     </Filter>
@@ -144,6 +138,12 @@
     </Filter>
     <Filter Include="Source Files\Chunks\LVL\coll">
       <UniqueIdentifier>{7a65403c-beb6-49bd-86ae-fd730c4f7105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chunks\LVL\config">
+      <UniqueIdentifier>{ef1171f2-d150-4129-82f5-a206a71861db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chunks\LVL\config">
+      <UniqueIdentifier>{3564db8a-ce49-48fc-a6d0-ac388f490b13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -381,18 +381,6 @@
     <ClInclude Include="Chunks\LVL\lvl_.h">
       <Filter>Header Files\Chunks\LVL</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\inst.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
-      <Filter>Header Files\Chunks\LVL\wrld</Filter>
-    </ClInclude>
     <ClInclude Include="Types\Matrix3x3.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
@@ -456,15 +444,6 @@
     <ClInclude Include="Wrappers\Script.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\zaa_\zaa_.h">
-      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\zaa_\SMNA.h">
-      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\zaa_\BIN_.h">
-      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\skel\skel.h">
       <Filter>Header Files\Chunks\LVL\skel</Filter>
     </ClInclude>
@@ -519,41 +498,14 @@
     <ClInclude Include="Wrappers\Localization.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\float.DATA.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\lght.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\lght.SCOP.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\string.DATA.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\vec2.DATA.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\vec3.DATA.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
-    </ClInclude>
     <ClInclude Include="Chunks\LVL\common\DATA.h">
       <Filter>Header Files\Chunks\LVL\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Wrappers\Light.h">
-      <Filter>Header Files\Wrappers</Filter>
-    </ClInclude>
-    <ClInclude Include="Wrappers\GlobalLighting.h">
-      <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
     <ClInclude Include="Chunks\LVL\common\SCOP.h">
       <Filter>Header Files\Chunks\LVL\common</Filter>
     </ClInclude>
     <ClInclude Include="Chunks\MSH\MSH.DATA.h">
       <Filter>Header Files\Chunks\MSH</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunks\LVL\lght\vec4.DATA.h">
-      <Filter>Header Files\Chunks\LVL\lght</Filter>
     </ClInclude>
     <ClInclude Include="Chunks\LVL\common\PROP.h">
       <Filter>Header Files\Chunks\LVL\common</Filter>
@@ -611,6 +563,63 @@
     </ClInclude>
     <ClInclude Include="Types\Color4.h">
       <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\AnimationBank.h">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrappers\Config.h">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\regn.h">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\SIZE.h">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\wrld.INFO.h">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\BIN_.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\MINA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\TADA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\TNJA.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\zaa_\zaa_.h">
+      <Filter>Header Files\Chunks\LVL\zaa_</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\inst.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\wrld.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\wrld\XFRM.h">
+      <Filter>Header Files\Chunks\LVL\wrld</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\config.NAME.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\ConfigChunk.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\DATA.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\float.DATA.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\SCOP.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunks\LVL\config\string.DATA.h">
+      <Filter>Header Files\Chunks\LVL\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -746,9 +755,6 @@
     <ClCompile Include="Chunks\TERR\TERR.cpp">
       <Filter>Source Files\Chunks\TERR</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\LVL.cpp">
-      <Filter>Source Files\Chunks\LVL</Filter>
-    </ClCompile>
     <ClCompile Include="Chunks\HeaderNames.cpp">
       <Filter>Source Files\Chunks</Filter>
     </ClCompile>
@@ -827,21 +833,6 @@
     <ClCompile Include="Chunks\LVL\tex_\tex_.LVL_.cpp">
       <Filter>Source Files\Chunks\LVL\tex_</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\lvl_.cpp">
-      <Filter>Source Files\Chunks\LVL</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\wrld\wrld.cpp">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\wrld\inst.cpp">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp">
-      <Filter>Source Files\Chunks\LVL\wrld</Filter>
-    </ClCompile>
     <ClCompile Include="Types\Matrix3x3.cpp">
       <Filter>Source Files\Types</Filter>
     </ClCompile>
@@ -905,15 +896,6 @@
     <ClCompile Include="Wrappers\Script.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp">
-      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\zaa_\SMNA.cpp">
-      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp">
-      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
-    </ClCompile>
     <ClCompile Include="Chunks\LVL\skel\skel.INFO.cpp">
       <Filter>Source Files\Chunks\LVL\skel</Filter>
     </ClCompile>
@@ -967,36 +949,6 @@
     </ClCompile>
     <ClCompile Include="Wrappers\Localization.cpp">
       <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\float.DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\lght.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\lght.SCOP.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\string.DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\vec2.DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\vec3.DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\lght\vec4.DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\lght</Filter>
-    </ClCompile>
-    <ClCompile Include="Wrappers\Light.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="Wrappers\GlobalLighting.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunks\LVL\common\DATA.cpp">
-      <Filter>Source Files\Chunks\LVL\common</Filter>
     </ClCompile>
     <ClCompile Include="Chunks\MSH\MSH.DATA.cpp">
       <Filter>Source Files\Chunks\MSH</Filter>
@@ -1057,6 +1009,72 @@
     </ClCompile>
     <ClCompile Include="Types\Color4.cpp">
       <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\AnimationBank.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrappers\Config.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\LVL.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\lvl_.cpp">
+      <Filter>Source Files\Chunks\LVL</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\MINA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\TADA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\TNJA.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\zaa_\zaa_.cpp">
+      <Filter>Source Files\Chunks\LVL\zaa_</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\config.NAME.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\ConfigChunk.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\float.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\SCOP.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\config\string.DATA.cpp">
+      <Filter>Source Files\Chunks\LVL\config</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\inst.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\regn.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\SIZE.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\wrld.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\wrld.INFO.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp">
+      <Filter>Source Files\Chunks\LVL\wrld</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReaderMemMapped.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
