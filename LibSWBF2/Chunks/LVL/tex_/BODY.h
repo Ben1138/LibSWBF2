@@ -28,5 +28,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 		void ReadFromStream(FileReader& stream) override;
 
 		bool GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data);
+
+		~BODY();
 	};
 }
