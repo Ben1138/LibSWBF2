@@ -26,5 +26,5 @@ namespace LibSWBF2::Types
 		float_t m_Y = 0.0f;
 
 		Types::String ToString();
-	} __attribute__((aligned(4), packed));
+	};
 }
