@@ -20,10 +20,6 @@ namespace LibSWBF2.Wrappers
         // Make constructor private, so instantiation is only possible via FromFile
         private Level() : base(){}
 
-        ~Level()
-        {
-            Delete();
-        }
 
         /// <summary>
         /// Don't use this method unless you know exactly what you're doing!
@@ -31,7 +27,7 @@ namespace LibSWBF2.Wrappers
         /// Level wrapper instance, as well as all its children of whom references might
         /// still float around somewhere.
         /// </summary>
-        public void Delete()
+        public override void Delete()
         {
             if (!IsValid())
             {
@@ -39,8 +35,14 @@ namespace LibSWBF2.Wrappers
                 return;
             }
 
+            if (IsOwned)
+            {
+                Logger.Log("Cannot delete a level which is maintained by a Container!", ELogType.Warning);
+                return;
+            }
+
             APIWrapper.Level_Destroy(NativeInstance);
-            NativeInstance = IntPtr.Zero;
+            Invalidate();
         }
 
         public static Level FromFile(string path)

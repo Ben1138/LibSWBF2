@@ -17,12 +17,8 @@ namespace LibSWBF2.Wrappers
     {    
         public Container() : base(APIWrapper.Container_Initialize()){}
         
-        ~Container()
-        {
-            Delete();
-        }
 
-        public void Delete()
+        public override void Delete()
         {
             if (IsValid())
             { 
@@ -30,7 +26,6 @@ namespace LibSWBF2.Wrappers
                 Invalidate();
             }
         }
-
 
         public uint AddLevel(string path)
         {
@@ -57,7 +52,7 @@ namespace LibSWBF2.Wrappers
             }
 
             Level level = Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
-            Children.Add(new WeakReference<NativeWrapper>(level));
+            SetOwnedChild(level);
 
             return level;
         }

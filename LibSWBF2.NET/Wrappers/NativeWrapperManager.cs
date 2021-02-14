@@ -10,6 +10,12 @@ namespace LibSWBF2.Wrappers
     {
         protected HashSet<WeakReference<NativeWrapper>> Children;
 
+        protected bool IsOwned = false;
+        protected void SetOwnedChild(NativeWrapperManager manager)
+        {
+            manager.IsOwned = true;
+        }
+
         protected static Dictionary<Type, uint> wrapperMap;
         static NativeWrapperManager()
         {
@@ -43,6 +49,15 @@ namespace LibSWBF2.Wrappers
                 }
             }
             Children.Clear();
+
+            if (IsValid() && !IsOwned)
+            {
+                Delete();
+                Invalidate();
+            }
         }
+
+
+        public virtual void Delete(){}
     }
 }
