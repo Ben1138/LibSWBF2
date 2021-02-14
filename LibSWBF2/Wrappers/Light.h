@@ -24,7 +24,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunks(DATA_STRING *tag, SCOP_LGHT* body, Light& out);
 
-		String GetName() const;
+		const String& GetName() const;
 
 		Vector4 GetRotation() const;
 		Vector3 GetPosition() const;
@@ -35,5 +35,7 @@ namespace LibSWBF2::Wrappers
 		bool GetSpotAngles(float_t& innerAngleOut, float_t& outerAngleOut) const;
 
 		String ToString() const;
+
+		FNVHash m_WorldName;
 	};
 }

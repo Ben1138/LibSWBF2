@@ -23,6 +23,7 @@ namespace LibSWBF2::Wrappers
 
 		out.m_MainContainer = mainContainer;
 		out.p_Material = materialChunk;
+
 		return true;
 	}
 

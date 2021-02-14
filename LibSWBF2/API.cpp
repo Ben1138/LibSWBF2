@@ -3,15 +3,42 @@
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
 #include "Chunks/MSH/MSH.h"
+
+#include <string.h>
 #include "Wrappers/Level.h"
+#include "Container.h"
 #include "Wrappers/Terrain.h"
-#include "Wrappers/AnimationBank.h"
+#include "Wrappers/Segment.h"
+
+#include <iostream>
+#include <string>
+
 
 
 namespace LibSWBF2
 {
+
+#define PurgePtr(ptr) delete[] ptr; ptr = nullptr
+
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
+	// Helpers
+	char ** GetStringListPtrs(const List<String>& strings)
+	{
+		char** ptrs = new char*[strings.Size()];
+		for (int i = 0; i < strings.Size(); i++)
+		{
+			ptrs[i] = const_cast<char *>(strings[i].Buffer());
+		}
+		return ptrs;
+	}
+
+
+	// Memory //
+	void Memory_Blit(void *dest, void *src, int numBytes)
+	{
+		memcpy(dest, src, numBytes);
+	}
 
 	// Logging //
 	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
@@ -68,6 +95,80 @@ namespace LibSWBF2
 		return modl->GetPurpose();
 	}
 
+	const Container* Container_Initialize()
+	{
+		return Container::Create();
+	}
+
+	uint32_t Container_AddLevel(Container* container, const char *path)
+	{
+		return (uint32_t) container -> AddLevel(path);
+	}
+
+	float_t Container_GetProgress(Container* container, uint32_t handleNum)
+	{
+		CheckPtr(container, -1.0f)
+		return container -> GetLevelProgress((uint16_t) handleNum);
+	}  
+
+	const bool Container_IsDone(Container* container)
+	{
+		CheckPtr(container, false);
+		return container -> IsDone();
+	}
+
+	const Level* Container_GetLevel(Container* container, uint32_t handleNum)
+	{
+		CheckPtr(container,nullptr);
+		return container -> GetLevel((uint16_t) handleNum);
+	}
+
+	const void Container_LoadLevels(Container* container)
+	{
+		CheckPtr(container,);
+		container -> StartLoading();
+	}
+
+	/*
+	wrapperMap[typeof(Light)]         = 0;
+    wrapperMap[typeof(Model)]         = 1;
+    wrapperMap[typeof(Texture)]       = 2;
+    wrapperMap[typeof(World)]         = 3;
+    wrapperMap[typeof(EntityClass)]   = 4;
+    wrapperMap[typeof(AnimationBank)] = 5;
+	*/
+
+	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
+	{
+		switch (type)
+		{
+			case 0:
+				return static_cast<const void *>(container -> FindLight(name));
+			case 1:
+				return static_cast<const void *>(container -> FindModel(name));
+			case 2:
+				return static_cast<const void *>(container -> FindTexture(name));
+			case 3:
+				return static_cast<const void *>(container -> FindWorld(name));
+			case 4:
+				return static_cast<const void *>(container -> FindEntityClass(name));
+			case 5:
+				return static_cast<const void *>(container -> FindAnimationBank(name));
+			default:
+				return nullptr;
+		}
+	}
+
+
+	const bool Container_Delete(Container* container)
+	{
+		CheckPtr(container,false);
+		Container::Delete(container);
+		return true;
+	}
+
+
+
 	// Wrappers
 	Level* Level_FromFile(const char* path)
 	{
@@ -87,55 +188,44 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
-	void Level_GetModels(const Level* level, const Model**& modelArr, uint32_t& modelCount)
-	{
-		CheckPtr(level, );
-		const List<Model>& models = level->GetModels();
-
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer. 
-		// The inquirer of course is not allowed to alter the data!
-		static List<const Model*> modelPtrs;
-		modelPtrs.Clear();
-
-		for (size_t i = 0; i < models.Size(); ++i)
-		{
-			modelPtrs.Add(&models[i]);
-		}
-
-		modelArr = modelPtrs.GetArrayPtr();
-		modelCount = (uint32_t)modelPtrs.Size();
-	}
-
-	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
+	const EntityClass* Level_GetEntityClass(const Level* level, const char* name)
 	{
 		CheckPtr(level, nullptr);
-		return level -> GetAnimationBank(setName);
+		return level->GetEntityClass(name);		
 	}
 
-	//TEMPORARY: Basic texture handling until I push the other wrappers...
-    const bool Level_GetTextureData(const Level* level, const char *texName, const uint8_t*& imageDataOut, int& width, int& height)
-    {
-    	static const uint8_t *imageData = nullptr;
-    	delete imageData;
 
-    	width = height = 0;
-    	CheckPtr(level, false);
+	const Model* Level_GetModel(const Level* level, const char* modelName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetModel(modelName);
+	}
 
-    	const Texture *tex = level -> GetTexture(texName);
-    	if (tex == nullptr)
-    	{
-    		return false;
-    	}
 
-    	uint16_t w,h;
-    	tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageData);
-    	height = h;
-    	width = w;
-    	imageDataOut = imageData;
-    	return true;
-    }
+	void Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc)
+	{
+		const List<Model>& models = level->GetModels();
+		modelArr = (void *) models.GetArrayPtr();
+		modelCount = (uint32_t) models.Size();
+		inc = sizeof(Model);
+	}
+
+
+	void Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc)
+	{
+		const List<EntityClass>& classes = level->GetEntityClasses();
+		classArr = (void *) classes.GetArrayPtr();
+		classCount = (int32_t) classes.Size();
+		inc = sizeof(EntityClass);
+	}
+
+
+	const Texture* Level_GetTexture(const Level* level, const char* texName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetTexture(texName);
+	}
+
 
 
 	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
@@ -156,31 +246,159 @@ namespace LibSWBF2
 	}
 
 
-	/*
-		Terrain
-	*/
-	
-	//Will eventually return pointers to Texture wrappers...
-	const void Terrain_GetTexNames(const Terrain *tern, uint32_t& numTextures, const char**& namesOut)
+	void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount)
 	{
-		static const char** nameStrings = nullptr;
-		delete nameStrings; 
+		CheckPtr(level, );
+		const List<World>& worlds = level->GetWorlds();
 
-		numTextures = 0;
-		CheckPtr(tern, );
+		// since level->GetModels() just returns a reference to the actual list
+		// member of level, which will persist even after this call ended, we can safely
+		// provide the model addresses of the underlying buffer to the inquirer.
+		// The inquirer of course is not allowed to alter the data!
+		static List<const World*> worldPtrs;
+		worldPtrs.Clear();
 
-        const List<String>& texNames = tern -> GetLayerTextures();
-        numTextures = (uint32_t) texNames.Size();
+		for (size_t i = 0; i < worlds.Size(); ++i)
+		{
+			worldPtrs.Add(&worlds[i]);
+		}
 
-    	nameStrings = new const char *[numTextures]; 
-    	for (uint32_t i = 0; i < numTextures; i++)
-        {
-        	nameStrings[i] = texNames[i].Buffer(); 
-        }
-
-        namesOut = nameStrings;
+		worldArr = worldPtrs.GetArrayPtr();
+		worldCount = (uint32_t) worldPtrs.Size();
 	}
 
+
+	void Level_GetLights(const Level* level, const Light**& LightArr, uint32_t& LightCount)
+	{
+		CheckPtr(level, );
+		const List<Light>& Lights = level->GetLights();
+
+		// since level->GetModels() just returns a reference to the actual list
+		// member of level, which will persist even after this call ended, we can safely
+		// provide the model addresses of the underlying buffer to the inquirer.
+		// The inquirer of course is not allowed to alter the data!
+		static List<const Light*> LightPtrs;
+		LightPtrs.Clear();
+
+		for (size_t i = 0; i < Lights.Size(); ++i)
+		{
+			LightPtrs.Add(&Lights[i]);
+		}
+
+		LightArr = LightPtrs.GetArrayPtr();
+		LightCount = (uint32_t) LightPtrs.Size();
+	}
+
+
+	const Light* Level_GetLight(const Level* level, const char* lightName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetLight(lightName);
+	}
+
+
+	bool Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
+								const char*& light1Name, const char*& light2Name)
+	{
+		const auto* config = level -> GetGlobalLighting();
+		static Vector3 topCol, bottomCol;
+		static String name1, name2;
+
+		if (config != nullptr)
+		{	
+			topColor    = config -> GetTopColor(topCol) ? &topCol : nullptr;
+			bottomColor = config -> GetBottomColor(bottomCol) ? &bottomCol : nullptr;
+
+			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : "";
+			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : "";
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
+	{
+		CheckPtr(level, nullptr);
+		return level -> GetAnimationBank(setName);
+	}
+
+
+	char* Level_GetName(const Level* level)
+	{
+		static String cache;
+		CheckPtr(level, nullptr);
+		cache = level -> GetLevelName();
+		return const_cast<char *>(cache.Buffer());
+	}
+
+
+
+	//Wrappers - Texture
+
+	const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut)
+	{
+		static String nameCache;
+		static const uint8_t* imageDataCache = nullptr;
+    	delete[] imageDataCache;
+    	imageDataCache = nullptr;
+
+		CheckPtr(tex,false);
+
+		nameCache = tex -> GetName();
+		nameOut = nameCache.Buffer();
+
+		uint16_t w,h;
+	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageDataCache);
+
+	    widthOut = w;
+	    heightOut = h;
+    	
+    	if (conversionStatus)
+    	{
+    		bufOut = imageDataCache;
+    	}
+    	else
+    	{
+    		imageDataCache = nullptr;
+    	}
+
+    	return conversionStatus;
+	}
+
+
+	const char* ENUM_TopologyToString(ETopology topology)
+	{
+		static Types::String lastToString;
+		lastToString = TopologyToString(topology);
+		return lastToString.Buffer();
+	}
+
+
+	
+	//Wrappers - Terrain
+	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, char**& texNamesOut,
+											float_t& hU, float_t& hL, uint32_t& numVerts, Vector3*& vBuf,
+											uint32_t& numNormals, Vector3*& nBuf, uint32_t& numUVs, Vector2*& uvBuf)
+	{
+		static char** texNamesPtrs = nullptr;
+		PurgePtr(texNamesPtrs);
+		CheckPtr(ter,false);
+
+		const List<String>& texNames = ter -> GetLayerTextures();
+        numTexes = texNames.Size();
+        texNamesPtrs = GetStringListPtrs(texNames);
+        texNamesOut = texNamesPtrs;
+
+		ter -> GetHeightBounds(hL, hU);
+		ter -> GetVertexBuffer(numVerts, vBuf);
+		ter -> GetNormalBuffer(numNormals, nBuf);
+		ter -> GetUVBuffer(numUVs, uvBuf);
+
+		return true;
+	}
 
     const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
     {
@@ -189,7 +407,6 @@ namespace LibSWBF2
     	ter -> GetHeightMap(dim, dimScale, heightData);
     }
 
-
 	const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& dim, uint32_t& numLayers, uint8_t*& data)
 	{	
 		dim = 0;
@@ -197,72 +414,46 @@ namespace LibSWBF2
 		ter -> GetBlendMap(dim, numLayers, data);
 	}
 
-
-	const void Terrain_GetHeightBounds(const Terrain *ter, float& floor, float& ceiling)
+	const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds)
 	{
-    	CheckPtr(ter, );
-		ter -> GetHeightBounds(floor, ceiling);
-	}
-
-
-
-	const char* Model_GetName(const Model* model)
-	{
-		CheckPtr(model, nullptr);
-
-		// model->GetName() returns a ref to the persistent member,
-		// char buffers of String's are always null terminated, so we
-		// can just return the buffer pointer.
-		const String& name = model->GetName();
-		return name.Buffer();
-	}
-
-	const void Model_GetSegments(const Model* model, Segment*& segmentArr, uint32_t& segmentCount)
-	{
-		CheckPtr(model,);
-		const List<Segment>& segments = model->GetSegments();
-		segmentArr = segments.GetArrayPtr();
-		segmentCount = (uint32_t)segments.Size();
-	}
-
-	uint8_t Model_IsSkeletalMesh(const Model* model)
-	{
-		CheckPtr(model, false);
-		return model->IsSkeletalMesh();
-	}
-
-	uint8_t Model_GetSkeleton(const Model* model, Bone*& boneArr, uint32_t& boneCount)
-	{
-		CheckPtr(model, false);
-
-		// keep this static, so the buffer is valid after the call ends.
-		// this of course results in holding a permanent copy of the last queried
-		// bone list in memory, and will overwrite the buffer in the next query...
-		// TODO: maybe make the bone list a member of Model?
-		static List<Bone> bones;
-		if (!model->GetSkeleton(bones))
+		if (terr == nullptr || !terr -> GetIndexBuffer(ETopology::TriangleList, numInds, indicies))
 		{
-			return false;
+			numInds = 0;
 		}
-		boneArr = bones.GetArrayPtr();
-		boneCount = (uint32_t)bones.Size();
-		return true;
 	}
 
 
-	const CollisionMesh* Model_GetCollisionMesh(const Model *model)
+
+
+	// Wrappers - Model 
+	const uint8_t Model_FetchSimpleFields(const Model* model, const char*& name, uint8_t& skinned, uint8_t& skelBroken,
+										const Segment*& segArr, int32_t& segCount, int32_t& segInc,
+										const Bone*& boneArr, int32_t& boneCount, int32_t& boneInc,
+									    const CollisionMesh*& collMeshPtr)
 	{
-		const CollisionMesh& mesh = model -> GetCollisionMesh();
-		return &mesh;
+		static List<Bone> boneCache;
+
+		CheckPtr(model,false);
+
+		name = model -> GetName().Buffer();
+
+		skinned = model -> IsSkeletalMesh();
+		skelBroken = model -> IsSkeletonBroken();
+		
+		const List<Segment>& segs = model -> GetSegments();
+		segArr = segs.GetArrayPtr();
+		segCount = segs.Size();
+		segInc = sizeof(Segment);
+
+		boneCount = 0;
+		if (model -> GetSkeleton(boneCache)){ boneCount = boneCache.Size(); }
+		boneArr = boneCache.GetArrayPtr();
+		boneInc = sizeof(Bone);
+
+		collMeshPtr = &(model -> GetCollisionMesh());
+
+		return true; 
 	}
-
-
-	const Model* Level_GetModel(const Level* level, const char* modelName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetModel(modelName);
-	}
-
 
 	const void Model_GetPrimitivesMasked(const Model* model, uint32_t mask, int& numPrims,
 										CollisionPrimitive**& primArrayPtr)
@@ -286,50 +477,31 @@ namespace LibSWBF2
 	}
 
 
-	const void CollisionMesh_GetIndexBuffer(const CollisionMesh *collMesh, uint32_t& count, int*& outBuffer)
+	// Wrappers - Bone
+	const void Bone_FetchAllFields(const Bone* bone, const char *&name,
+									const char *& parentName, const Vector3*& loc,
+									const Vector4*& rot)
 	{
-		static int* tempBuffer = nullptr;
-		delete tempBuffer;
-
-		uint16_t* meshBuffer;
-		collMesh -> GetIndexBuffer(ETopology::TriangleList, count, meshBuffer);
-
-		tempBuffer = new int[count];
-
-		for (int i = 0; i < (int)count; i++)
-		{
-			tempBuffer[i] = (int) meshBuffer[i];
-		}
-
-		outBuffer = tempBuffer;
+	    name = (bone -> m_BoneName).Buffer();
+	    loc = &(bone -> m_Position);
+		rot = &(bone -> m_Rotation);
+		parentName = (bone -> m_Parent).Buffer();
 	}
-    
 
-    const void CollisionMesh_GetVertexBuffer(const CollisionMesh *collMesh, uint32_t& count, float_t*& buffer)
+
+	// Wrappers - CollisionMesh
+    const uint8_t CollisionMesh_FetchAllFields(const CollisionMesh *cmPtr, uint32_t& iCount, uint16_t*& iBuf,
+        										uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags)
     {
-    	static float_t *tempBuffer = nullptr;
-    	delete tempBuffer;
-
-    	Vector3 *verts;
-    	collMesh -> GetVertexBuffer(count, verts);
-
-    	tempBuffer = new float_t[count * 3];
-
-    	for (int i = 0; i < (int)count; i++)
-    	{
-    		Vector3& curVec = verts[i];
-
-    		tempBuffer[3*i]     = curVec.m_X; 
-    		tempBuffer[3*i + 1] = curVec.m_Y; 
-    		tempBuffer[3*i + 2] = curVec.m_Z; 
-    	}
-
-    	buffer = tempBuffer;
+    	CheckPtr(cmPtr, false);
+    	cmPtr -> GetIndexBuffer(ETopology::TriangleList, iCount, iBuf);
+    	cmPtr -> GetVertexBuffer(vCount, vBuf);
+    	maskFlags = (uint32_t) cmPtr -> GetMaskFlags();
+    	return true;
     }
 
 
-    //CollisionPrimitive
-
+    //Wrappers - CollisionPrimitive
     const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
                                             float_t& f1, float_t& f2, float_t& f3,
                                             const char *& namePtr, const char *& parentNamePtr,
@@ -373,31 +545,266 @@ namespace LibSWBF2
     	}
     }
 
+    
 
-    const void Vector4_FromPtr(const Vector4* vec, float& x, float& y, float& z, float &w)
+    //Wrappers - Segment
+    const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
+														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
+														uint32_t& numVWs, VertexWeight*& vwBuf,
+														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf,
+														const Material*& mat)
     {
-    	x = vec -> m_X;
-    	y = vec -> m_Y;
-    	z = vec -> m_Z;
-       	w = vec -> m_W;
-    } 
+    	static String boneNameCache;
+    	CheckPtr(seg, false);
 
-    const void Vector3_FromPtr(const Vector3* vec, float& x, float& y, float& z)
+    	pretx = seg -> IsPretransformed();
+    	
+    	boneNameCache = seg -> GetBone();
+    	boneName = boneNameCache.Buffer();
+
+    	//Handle vertex buffers
+    	uint32_t numNormals, numUVs;
+    	seg -> GetVertexBuffer(numVerts, pBuf);
+    	seg -> GetNormalBuffer(numNormals, nBuf);
+    	seg -> GetUVBuffer(numUVs, uvBuf);
+
+    	if (numUVs != numNormals || numNormals != numVerts)
+    	{
+    		LOG_ERROR("Buffer length mismatch!");
+    		return false;
+    	}
+
+    	//Handle index buffer
+    	topo = (int32_t) seg -> GetTopology();
+    	seg -> GetIndexBuffer(numInds, iBuf);
+
+    	//Handle weights
+    	numVWs = seg -> GetVertexWeights(numVWs, vwBuf) ? numVWs : 0;
+
+    	//Material
+    	mat = &(seg -> GetMaterial());
+    	return true;
+    }
+
+
+
+    // Wrappers - Material
+    uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
+                    Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
+                    char* attachedLightName, uint32_t& matFlags, uint32_t& specExp)
+    {	
+    	static Vector3 specCache, diffCache;
+    	static char** texNamePtrsCache = new char*[4];
+    	static String namesCache[4];
+    	static char* attachedLightNameCache = nullptr;
+
+    	CheckPtr(matPtr, false);
+
+    	uint8_t count = 0;
+    	while (count < 4 && matPtr -> GetTextureName(count, namesCache[count]))
+    	{
+    		texNamePtrsCache[count] = const_cast<char *>(namesCache[count].Buffer());
+    		count++;
+    	}
+    	numTexes = count;
+    	texPtrs = texNamePtrsCache;
+
+    	specExp = matPtr -> GetSpecularExponent();
+    	matFlags = (uint32_t) matPtr -> GetFlags();  
+
+    	Color4u8 d = matPtr -> GetDiffuseColor();
+    	Color4u8 s = matPtr -> GetSpecularColor();
+
+    	diffCache = Vector3(d.m_Red,d.m_Green,d.m_Blue); 
+    	specCache = Vector3(s.m_Red,s.m_Green,s.m_Blue);
+
+    	diffuse = &diffCache;
+    	specular = &specCache; 
+
+    	attachedLightName = const_cast<char *>(matPtr -> GetAttachedLight().Buffer());
+
+    	return true;
+    }
+
+
+	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)
+	{
+		static Types::String lastToString;
+		lastToString = MaterialFlagsToString(flags);
+		return lastToString.Buffer();
+	}
+
+	const char* ENUM_VBUFFlagsToString(EVBUFFlags flags)
+	{
+		static String lastToString;
+		lastToString = VBUFFlagsToString(flags);
+		return lastToString.Buffer();
+	}
+
+
+
+	//Wrappers - World
+	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
+										const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
+										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
+										const Terrain*& terrPtr)
+	{
+		CheckPtr(world,false);
+		static String skyNameCache;
+
+		nameOut = world -> GetName().Buffer();
+
+		skyNameCache = world -> GetSkyName();
+		skyNameOut = skyNameCache.Buffer();
+
+		const List<Light>& lights = world -> GetLights();
+    	lightArr = lights.GetArrayPtr();
+    	lightCount = lights.Size();
+    	lightInc = sizeof(Light);
+
+    	const List<Instance>& instances = world -> GetInstances();
+		instanceArr = instances.GetArrayPtr();
+		instCount = instances.Size();
+		instInc = sizeof(Instance);
+
+		terrPtr = world -> GetTerrain();
+
+		return true;
+	}
+
+    
+
+    // Wrappers - Instance
+    const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName)
     {
-    	x = vec -> m_X;
-    	y = vec -> m_Y;
-    	z = vec -> m_Z;
-    } 
+    	static Vector4 rotCache;
+    	static Vector3 posCache;
+    	CheckPtr(instPtr,false);
 
-    const void Vector2_FromPtr(const Vector2* vec, float& x, float& y)
+    	name = instPtr -> GetName().Buffer();
+    	ecName = instPtr -> GetType().Buffer();
+
+    	rotCache = instPtr -> GetRotation();
+    	posCache = instPtr -> GetPosition();
+
+    	rot = &rotCache;
+    	pos = &posCache;
+
+    	return true;
+    }
+
+    const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
     {
-    	x = vec -> m_X;
-    	y = vec -> m_Y;
-    } 
+    	CheckPtr(instPtr, false)
+    	static List<String> values;
+    	static List<uint32_t> hashes;
+    	static char** ptrsBuffer = nullptr;
 
+    	delete[] ptrsBuffer;
+
+    	if (instPtr -> GetOverriddenProperties(hashes, values))
+    	{
+    		hashesBuffer = hashes.GetArrayPtr();
+    		count = values.Size();
+			ptrsBuffer = GetStringListPtrs(values);
+    		valuesBuffer = ptrsBuffer;
+    		return true;
+    	}
+
+    	return false;
+    }
+
+
+    //Wrappers - EntityClass
+    const char * EntityClass_GetProperty(const EntityClass *ec, const char *propName)
+    {
+    	CheckPtr(ec,"")
+    	static String value; 
+
+		if (ec -> GetProperty(propName, value))
+		{
+			return value.Buffer();
+		}
+
+		return "";
+    }
+
+
+    const char *EntityClass_GetName(const EntityClass *ec)
+    {
+    	CheckPtr(ec,"")
+    	static String typeName;
+
+    	typeName = ec -> GetTypeName();
+    	return typeName.Buffer();     	
+    }
+
+
+    const char *EntityClass_GetBaseName(const EntityClass *ec)
+    {
+    	CheckPtr(ec,"")
+    	static String baseName;
+
+    	baseName = ec -> GetBaseName();
+    	return baseName.Buffer(); 
+    }
+
+
+    uint8_t EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
+    {
+    	CheckPtr(ec, false)
+    	char **ptrsBuffer = nullptr;
+    	static List<String> values;
+    	static List<uint32_t> hashes;
+
+    	delete[] ptrsBuffer;
+
+    	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
+    	
+		hashesBuffer = hashes.GetArrayPtr();
+		count = values.Size();
+		ptrsBuffer = GetStringListPtrs(values);
+		valuesBuffer = ptrsBuffer;
+		return true;
+    }
+
+
+    const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
+                                    Vector3*& posPtr, uint32_t& lightType, 
+                                    Vector3*& colPtr, float_t& range,
+                                    Vector2*& conePtr)
+    {
+    	CheckPtr(lightPtr, nullptr);
+
+    	static Vector3 lastPos, lastCol;
+    	static Vector4 lastRot; 
+    	static Vector2 lastCone(0,0);	
+    	float_t inner=0,outer=0;
+
+    	lastRot  = lightPtr -> GetRotation();
+    	lastPos  = lightPtr -> GetPosition();
+    	lastCol  = lightPtr -> GetColor();
+
+    	lightPtr -> GetSpotAngles(inner,outer);
+    	lastCone = Vector2(inner,outer);
+
+    	lightType = (uint32_t) lightPtr -> GetType();
+    	lightPtr -> GetRange(range);
+
+    	rotPtr  = &lastRot;
+    	colPtr  = &lastCol;
+    	posPtr  = &lastPos;
+    	conePtr = &lastCone;
+
+    	const String& name = lightPtr -> GetName();
+    	return name.Buffer();
+    }
+
+
+    // Wrappers - AnimationBank
 
 	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
-                                                    const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int32_t& numKeys)
+                                                    const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
 	{
 		static List<uint16_t> indices;
 		static List<float_t>  values;
@@ -408,7 +815,7 @@ namespace LibSWBF2
 
 		if (status)
 		{
-			numKeys = (int32_t) values.Size();
+			numKeys = values.Size();
 			indicesBuffer = indices.GetArrayPtr();
 			valuesBuffer  = values.GetArrayPtr();
 		}
@@ -435,34 +842,11 @@ namespace LibSWBF2
                                                     int32_t& numFrames, int32_t& numBones)
     {
 		CheckPtr(setPtr, false);
-		uint32_t frames,bones;
+		uint32_t frames, bones;
 		bool status = setPtr -> GetAnimationMetadata(animCRC, frames, bones);
-
+		
 		numFrames = frames;
 		numBones = bones;
 		return status;
     }
-
-
-
-	const char* ENUM_TopologyToString(ETopology topology)
-	{
-		static Types::String lastToString;
-		lastToString = TopologyToString(topology);
-		return lastToString.Buffer();
-	}
-
-	const char* ENUM_MaterialFlagsToString(EMaterialFlags flags)
-	{
-		static Types::String lastToString;
-		lastToString = MaterialFlagsToString(flags);
-		return lastToString.Buffer();
-	}
-
-	const char* ENUM_VBUFFlagsToString(EVBUFFlags flags)
-	{
-		static Types::String lastToString;
-		lastToString = VBUFFlagsToString(flags);
-		return lastToString.Buffer();
-	}
 }

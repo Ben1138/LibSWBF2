@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "InternalHelpers.h"
 
+static LibSWBF2::String empty = "";
+
 namespace LibSWBF2::Wrappers
 {
 	bool Model::FromChunk(Level* mainContainer, modl* modelChunk, Model& out)
@@ -57,10 +59,11 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
-	bool Model::GetSkeleton(List<Bone>& bones) const
+
+	bool Model::IsSkeletonBroken() const
 	{
 		if (p_Skeleton == nullptr)
-			return false;
+			return true;
 
 		uint32_t count = p_Skeleton->p_Info->m_BoneCount;
 		List<String>& names = p_Skeleton->p_BoneNames->m_Texts;
@@ -85,14 +88,36 @@ namespace LibSWBF2::Wrappers
 				rotations.Size(),
 				positions.Size()
 			);
-			return false;
+
+			return true;
 		}
 
+		return false;
+	}
+
+
+
+
+	bool Model::GetSkeleton(List<Bone>& bones) const
+	{
+		if (p_Skeleton == nullptr)
+			return false;
+
+		uint32_t count = p_Skeleton->p_Info->m_BoneCount;
+		List<String>& names = p_Skeleton->p_BoneNames->m_Texts;
+		List<String>& parents = p_Skeleton->p_BoneParents->m_Texts;
+		List<Matrix3x3>& rotations = p_Skeleton->p_BoneTransforms->m_BoneRotations;
+		List<Vector3>& positions = p_Skeleton->p_BoneTransforms->m_BonePositions;
+
+
 		bones.Clear();
-		for (size_t i = 0; i < p_Skeleton->p_Info->m_BoneCount; ++i)
+		int offset = IsSkeletonBroken() ? 1 : 0;
+
+		//for (size_t i = 0; i < p_Skeleton->p_Info->m_BoneCount; ++i)
+		for (size_t i = 0; i < p_Skeleton->p_BoneNames->m_Texts.Size(); ++i)
 		{
 			// first entry (root) doesn't have a parent
-			bones.Add({ names[i], i > 0 ? parents[i - 1] : "", positions[i], MatrixToQuaternion(rotations[i]) });
+			bones.Add({ names[i], i > 0 ? parents[i - 1] : empty, positions[i + offset], MatrixToQuaternion(rotations[i + offset]) });
 		}
 		return true;
 	}

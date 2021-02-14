@@ -2,6 +2,7 @@
 #include "req.h"
 #include "Instance.h"
 #include "Terrain.h"
+#include "Light.h"
 #include "Chunks/LVL/wrld/wrld.h"
 
 namespace LibSWBF2
@@ -30,14 +31,17 @@ namespace LibSWBF2::Wrappers
 	private:
 		wrld* p_World;
 		List<Instance> m_Instances;	// a.k.a. world objects
+		List<Light> m_Lights;
 
 	public:
 		static bool FromChunk(Container* mainContainer, wrld* worldChunk, World& out);
 
-		Types::String GetName() const;
+		const String& GetName() const;
 		const List<Instance>& GetInstances() const;
 		Types::String GetTerrainName() const;
 		const Terrain* GetTerrain() const;
 		Types::String GetSkyName() const;
+
+		const List<Light>& GetLights() const;
 	};
 }

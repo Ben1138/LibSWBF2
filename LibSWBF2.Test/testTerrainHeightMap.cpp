@@ -1,29 +1,12 @@
-#include "../LibSWBF2/LibSWBF2.h"
-#include "../LibSWBF2/FileWriter.h"
-#include "../LibSWBF2/Chunks/LVL/LVL.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <unistd.h>
+#include "testing.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stbi/stb_image_write.h"
 
-using LibSWBF2::Types::String;
-using LibSWBF2::Types::List;
-using LibSWBF2::Container;
 
-using namespace LibSWBF2::Chunks::LVL;
-using namespace LibSWBF2::Wrappers;
-
-using LibSWBF2::Logging::Logger;
-using LibSWBF2::Logging::LoggerEntry;
-
-
-#define COUT(x) std::cout << x << std::endl
-
-
+/*
+Visualizes terrain heightmaps w/png files, for quick sanity testing.
+*/
 
 
 uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
@@ -56,34 +39,31 @@ uint8_t* GetHeightMapWithHolesRGBA(float *heightMapData, int dim)
 
 
 
-int main()
+int main(int ac, char** av)
 {
-	const char *path;
+	List<String> pathsInput;
 
-#ifdef __APPLE__
-	path = "/Users/will/Desktop/geo1.lvl";
-#else
-	path = "/home/will/Desktop/geo1.lvl";
-#endif
-
-	Container *container = Container::Create();
-	auto handle = container -> AddLevel(path);
-	container -> StartLoading();
-
-	while (!container -> IsDone())
+	for (int i = 1; i < ac; i++)
 	{
-		usleep(100000);
+		pathsInput.Add(av[i]);
 	}
 
-	Level *testLVL = container -> GetLevel(handle);
+	auto lvlPtrs = LoadAndTrackLVLs(pathsInput);
 
 	uint32_t dim, scale;
 	float *heightMapData;
 
-	const LibSWBF2::Wrappers::Terrain& terr = testLVL -> GetTerrains()[0];
-	terr.GetHeightMap(dim,scale,heightMapData); //segfault here
-	
-	stbi_write_png("height_test.png", dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
+	for (int i = 0; i < lvlPtrs.size(); i++)
+	{
+		const Level *lvl = lvlPtrs[i];
+		std::string name = lvl -> GetLevelName().Buffer();
+		name.replace(name.end() - 4, name.end(), ".png");
+
+		const LibSWBF2::Wrappers::Terrain& terr = lvl -> GetTerrains()[0];
+		terr.GetHeightMap(dim,scale,heightMapData);
+		
+		stbi_write_png(name.c_str(), dim, dim, 4, reinterpret_cast<void *>(GetHeightMapWithHolesRGBA(heightMapData,dim)), dim*4);
+	}
 
 	return 0;
 }

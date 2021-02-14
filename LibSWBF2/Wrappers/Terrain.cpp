@@ -187,93 +187,85 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const
+	bool Terrain::GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const
 	{
-		static List<uint16_t> indices;
-		static ETopology lastRequestedTopology;
+		m_Indices.Clear();
 
-		if (indices.Size() == 0 || requestedTopology != lastRequestedTopology)
+		if (requestedTopology == ETopology::TriangleList)
 		{
-			indices.Clear();
+			uint16_t& gridSize = p_Terrain->p_Info->m_GridSize;
+			uint16_t& patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
 
-			if (requestedTopology == ETopology::TriangleList)
+			// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
+			uint16_t dataEdgeSize = patchEdgeSize + 1;
+
+			uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
+			uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
+
+			size_t numStoredPatches = p_Terrain->p_Patches->m_Patches.Size();
+			if (numStoredPatches != numPatches)
 			{
-				uint16_t& gridSize = p_Terrain->p_Info->m_GridSize;
-				uint16_t& patchEdgeSize = p_Terrain->p_Info->m_PatchEdgeSize;
-
-				// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
-				uint16_t dataEdgeSize = patchEdgeSize + 1;
-
-				uint32_t numPatches = (gridSize * gridSize) / (patchEdgeSize * patchEdgeSize);
-				uint32_t verticesPerPatch = dataEdgeSize * dataEdgeSize;
-
-				size_t numStoredPatches = p_Terrain->p_Patches->m_Patches.Size();
-				if (numStoredPatches != numPatches)
-				{
-					LOG_ERROR("Expected {} patches according to info data, but found {}!", numPatches, numStoredPatches);
-					return false;
-				}
-
-				uint32_t vertexOffset = 0;
-				for (uint16_t i = 0; i < numPatches; ++i)
-				{
-					// geometry index buffer is optional, most patches don't have them.
-					// this is most likely only for patches with baked in terrain cuts.
-					// if no custom index buffer is specified, we build the index buffer ourselfs
-					IBUF* indexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryIndexBuffer;
-					VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
-					if (indexBuffer != nullptr)
-					{
-						List<uint16_t> triangleList = TriangleStripToTriangleList(indexBuffer->m_IndexBuffer, vertexOffset);
-
-						indices.Append(triangleList);
-						vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
-					}
-					else
-					{
-						// actually z in world space (y is height), but whatever...
-						for (uint16_t y = 0; y < patchEdgeSize; ++y)
-						{
-							for (uint16_t x = 0; x < patchEdgeSize; ++x)
-							{
-								uint32_t globalX = x + vertexOffset;
-								uint32_t globalY = y + vertexOffset;
-
-								uint32_t a, b, c, d;
-
-								// get 4 points for quad
-								a = globalX + (y * dataEdgeSize);
-								b = globalX + ((y + 1) * dataEdgeSize);
-								c = (globalX + 1) + (y * dataEdgeSize);
-								d = (globalX + 1) + ((y + 1) * dataEdgeSize);
-
-								// triangle 1 clockwise
-								indices.Add(a);
-								indices.Add(b);
-								indices.Add(c);
-
-								// triangle 2 clockwise
-								indices.Add(c);
-								indices.Add(b);
-								indices.Add(d);
-							}
-						}
-
-						vertexOffset += verticesPerPatch;
-					}
-				}
-			}
-			else
-			{
-				LOG_WARN("Requested terrain index buffer as (yet) unsupported topology '{}'!", TopologyToString(requestedTopology));
+				LOG_ERROR("Expected {} patches according to info data, but found {}!", numPatches, numStoredPatches);
 				return false;
 			}
 
-			lastRequestedTopology = requestedTopology;
+			uint32_t vertexOffset = 0;
+			for (uint16_t i = 0; i < numPatches; ++i)
+			{
+				// geometry index buffer is optional, most patches don't have them.
+				// this is most likely only for patches with baked in terrain cuts.
+				// if no custom index buffer is specified, we build the index buffer ourselfs
+				IBUF* indexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryIndexBuffer;
+				VBUF* vertexBuffer = p_Terrain->p_Patches->m_Patches[i]->m_GeometryBuffer;
+				if (indexBuffer != nullptr)
+				{
+					List<uint32_t> triangleList = TriangleStripToTriangleList<uint32_t>(indexBuffer->m_IndexBuffer, vertexOffset);
+
+					m_Indices.Append(triangleList);
+					vertexOffset += (uint32_t)vertexBuffer->m_TerrainBuffer.Size();
+				}
+				else
+				{
+					// actually z in world space (y is height), but whatever...
+					for (uint16_t y = 0; y < patchEdgeSize; ++y)
+					{
+						for (uint16_t x = 0; x < patchEdgeSize; ++x)
+						{
+							uint32_t globalX = x + vertexOffset;
+							uint32_t globalY = y + vertexOffset;
+
+							uint32_t a, b, c, d;
+
+							// get 4 points for quad
+							a = globalX + (y * dataEdgeSize);
+							b = globalX + ((y + 1) * dataEdgeSize);
+							c = (globalX + 1) + (y * dataEdgeSize);
+							d = (globalX + 1) + ((y + 1) * dataEdgeSize);
+
+							// triangle 1 clockwise
+							m_Indices.Add(a);
+							m_Indices.Add(b);
+							m_Indices.Add(c);
+
+							// triangle 2 clockwise
+							m_Indices.Add(c);
+							m_Indices.Add(b);
+							m_Indices.Add(d);
+						}
+					}
+
+					vertexOffset += verticesPerPatch;
+				}
+			}
+		}
+		else
+		{
+			LOG_WARN("Requested terrain index buffer as (yet) unsupported topology '{}'!", TopologyToString(requestedTopology));
+			return false;
 		}
 
-		count = (uint32_t)indices.Size();
-		indexBuffer = indices.GetArrayPtr();
+		count = (uint32_t)m_Indices.Size();
+		indexBuffer = m_Indices.GetArrayPtr();
 		return true;
 	}
 
@@ -315,8 +307,6 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
-    		LOG_WARN("Initializing heightmap");
-
 	        float_t gridSize     = (float_t) dim;
 			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
 
@@ -331,7 +321,7 @@ namespace LibSWBF2::Wrappers
 			p_HeightMap = new float_t[heightDataLength]();
 
 			uint32_t ibufLength;
-			uint16_t*ibufData;
+			uint32_t*ibufData;
 			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
 			//Inits to -5.96541e+29

@@ -1,49 +1,24 @@
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Types/Enums.h"
-#include "../LibSWBF2/Wrappers/Model.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <unistd.h>
-
-using LibSWBF2::Types::String;
-using LibSWBF2::Types::List;
-
-using namespace LibSWBF2::Wrappers;
-using LibSWBF2::Wrappers::Model;
-using LibSWBF2::Wrappers::CollisionMesh;
-
-using LibSWBF2::Container;
-using LibSWBF2::Logging::Logger;
-using LibSWBF2::Logging::LoggerEntry;
-
-
-#define COUT(x) std::cout << x << std::endl
+#include "testing.h"
 
 
 
-int main()
+int main(int ac, char **av)
 {
-	const char *path;
+	List<String> pathsInput;
 
-#ifdef __APPLE__
-	path = "/Users/will/Desktop/geo1.lvl";
-#else
-	path = "/home/will/Desktop/geo1.lvl";
-#endif
-
-	Container *container = Container::Create();
-	auto handle = container -> AddLevel(path);
-	container -> StartLoading();
-
-	while (!container -> IsDone())
+	for (int i = 1; i < ac; i++)
 	{
-		usleep(100000);
+		pathsInput.Add(av[i]);
 	}
 
-	Level *testLVL = container -> GetLevel(handle);
+	auto lvlPtrs = LoadAndTrackLVLs(pathsInput);
+
+	if (lvlPtrs.size() == 0)
+	{
+		return -1;
+	}
+
+	auto testLVL = lvlPtrs[0];
 
 
 	const List<Model>& models = testLVL -> GetModels();
@@ -67,7 +42,7 @@ int main()
 		COUT("\tMesh: ");
 
 		uint32_t numIndices, numVertices;
-		uint32_t *indices;
+		uint16_t *indices;
 		Vector3* verts;
 
 		mesh.GetIndexBuffer(LibSWBF2::ETopology::TriangleList, numIndices, indices);

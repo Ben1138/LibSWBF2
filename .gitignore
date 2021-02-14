@@ -372,6 +372,15 @@ xcuserdata
 !xcshareddata
 *.moved-aside
 
+
+# Mono crash files
+*mono_crash.*.json
+*.blob
+
+
+# Shell scripts
+*.sh
+
 # explicitly allow 7zip binary
 !7za.exe
 

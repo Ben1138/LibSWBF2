@@ -7,27 +7,15 @@ namespace LibSWBF2
     {
         const string LIB_NAME = "LibSWBF2";
 
+        // Memory //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void Memory_Blit(void *dest, void *src, int numBytes);
+
+
         // Logging //
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LogCallback(IntPtr LoggerEntryPtr);
-
-
-        // Vectors 
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Vector4_FromPtr(IntPtr ptr, out float x,
-                                                    out float y, out float z,
-                                                                 out float w);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Vector3_FromPtr(IntPtr ptr, out float x,
-                                                    out float y, out float z);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Vector2_FromPtr(IntPtr ptr, out float x,
-                                                              out float y);
-
-
-        // Logging //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -35,6 +23,35 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void LOG_SetLogfileLevel(Logging.ELogType LogfileLevel);
+
+
+        // Container //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_Initialize();  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint Container_AddLevel(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float Container_GetProgress(IntPtr container, uint handle);  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetLevel(IntPtr container, uint handle); 
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Container_LoadLevels(IntPtr container);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Container_IsDone(IntPtr container);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Container_Delete(IntPtr container);
 
 
         // Level //
@@ -50,10 +67,10 @@ namespace LibSWBF2
         public static extern bool Level_IsWorldLevel(IntPtr level);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount);
-
+        public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount, out int inc);
+        
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetAnimationBank(IntPtr level, string bankName);
+        public static extern void Level_GetEntityClasses(IntPtr level, out IntPtr classArr, out int classCount, out int inc);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
@@ -61,17 +78,47 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetTerrains(IntPtr level, out IntPtr terrainArr, out uint terrainCount);
 
-        //Basic texture handling
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetLight(IntPtr level, string lightName);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetAnimationBank(IntPtr level, string setName);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetTexture(IntPtr level, string texName);
+        
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Level_GetTextureData(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string texName, 
-                                                        out IntPtr imgData, out int width, out int height);
+        public static extern bool Level_GetGlobalLighting(IntPtr level, out IntPtr topColor, out IntPtr bottomColor, 
+                                                        out IntPtr light1Name, out IntPtr light2Name);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetName(IntPtr level);
+
 
 
         //Terrain
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetTexNames(IntPtr terrain, out uint numTextures, out IntPtr names);
-        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Terrain_FetchSimpleFields(IntPtr ter, out int numTexes, out IntPtr texNames,
+                                                            out float heightUpper, out float heightLower, 
+                                                            out uint numVerts, out IntPtr vBuf,
+                                                            out uint numNormals, out IntPtr nBuf,
+                                                            out uint numUVs, out IntPtr uvBuf);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Terrain_GetIndicies(IntPtr terrain, out uint numIndicies, out IntPtr indices);
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Terrain_GetHeightMap(IntPtr terrain, out uint dim, out uint dimScale, out IntPtr heightData);
 
@@ -79,32 +126,94 @@ namespace LibSWBF2
         public static extern void Terrain_GetBlendMap(IntPtr terrain, out uint edgeLength, out uint numLayers, out IntPtr data);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Terrain_GetHeightBounds(IntPtr terrain, out float floor, out float ceiling);
+        public static extern void Terrain_GetIndexBuffer(IntPtr terPtr, out IntPtr buf, out uint numInds);
+
 
 
         // Model //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Model_GetName(IntPtr model);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Model_GetSegments(IntPtr model, out IntPtr segmentArr, out uint segmentCount);
-		
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Model_IsSkeletalMesh(IntPtr model);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Model_GetSkeleton(IntPtr model, out IntPtr boneArr, out uint boneCount);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Model_GetCollisionMesh(IntPtr model);
+        public static extern bool Model_FetchSimpleFields(IntPtr model, out IntPtr name,
+                                                            [MarshalAs(UnmanagedType.U1)] out bool skinned,
+                                                            [MarshalAs(UnmanagedType.U1)] out bool skelBroken,
+                                                            out IntPtr segArr, out int segCount, out int segInc,
+                                                            out IntPtr boneArr, out int boneCount, out int boneInc,
+                                                            out IntPtr collMeshPtr);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
                                                             out int numPrims, out IntPtr ptr);
 
+
+        // Bone //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]    
+        public static extern void Bone_FetchAllFields(IntPtr NativeInstance, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
+
+
+        // Segment //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Segment_FetchAllFields(IntPtr seg, [MarshalAs(UnmanagedType.U1)] out bool pretx, out IntPtr boneName,
+                                                        out uint numVerts, out IntPtr pBuf, out IntPtr nBuf, out IntPtr uvBuf,
+                                                        out uint numVWs, out IntPtr vwBuf,
+                                                        out int topo, out uint numInds, out IntPtr iBuf,
+                                                        out IntPtr mat);
+
+         // World //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
+                                        out IntPtr lightArr, out int lightCount, out int lightInc,
+                                        out IntPtr instanceArr, out int instCount, out int instInc,
+                                        out IntPtr terrPtr);
+
+        // Instance //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Instance_FetchSimpleFields(IntPtr inst, out IntPtr name, out IntPtr rot, out IntPtr pos, out IntPtr ecName);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Instance_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
+
+        // Light //
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Light_GetAllFields(IntPtr lightPtr,   out IntPtr rotPtr,
+                                                    out IntPtr posPtr, out uint lightType, 
+                                                    out IntPtr colPtr, out float range,
+                                                    out IntPtr conePtr);
+
+
+        // Texture //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Texture_FetchAllFields(IntPtr tex, out int width, out int height, out IntPtr bufOut, out IntPtr nameOut);      
+
+
+        // CollisionMesh //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool CollisionMesh_FetchAllFields(IntPtr cmPtr, out uint iCount, out IntPtr iBuf,
+                                                                out uint vCount, out IntPtr vBuf, out uint maskFlags);
+
+
+        // CollisionPrimitive //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CollisionPrimitive_FetchAllFields(IntPtr nativePtr,
+                                                    out float f1, out float f2, out float f3,
+                                                    out IntPtr name, out IntPtr parentName,
+                                                    out uint maskFlags, out uint primitiveType,
+                                                    out IntPtr pos, out IntPtr rot);
+   
 
         // AnimationBank // 
 
@@ -122,24 +231,29 @@ namespace LibSWBF2
                                                         out int numFrames, out int numBones);
 
 
-
-        // CollisionMesh //
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CollisionMesh_GetIndexBuffer(IntPtr collMesh, out uint count, out IntPtr buffer);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CollisionMesh_GetVertexBuffer(IntPtr collMesh, out uint count, out IntPtr buffer);
-
-
-
-        // CollisionPrimitive //
+        // EntityClass //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CollisionPrimitive_FetchAllFields(IntPtr nativePtr,
-                                                    out float f1, out float f2, out float f3,
-                                                    out IntPtr name, out IntPtr parentName,
-                                                    out uint maskFlags, out uint primitiveType,
-                                                    out IntPtr pos, out IntPtr rot);
+        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, string propName);  
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr EntityClass_GetBaseName(IntPtr ecPtr);    
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr EntityClass_GetName(IntPtr ecPtr); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool EntityClass_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
+
+        // Material //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Material_FetchAllFields(IntPtr matPtr, out IntPtr specular,
+                                out IntPtr diffuse, out IntPtr texNames, out int numTexes,
+                                out IntPtr attachedLightName, out uint matFlags, out uint specExp);
+
     }
 }

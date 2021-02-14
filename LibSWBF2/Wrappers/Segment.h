@@ -18,8 +18,9 @@ namespace LibSWBF2::Wrappers
 	struct LIBSWBF2_API VertexWeight
 	{
 		float_t m_WeightValue;
-		String m_BoneName;
-	};
+		uint8_t m_BoneIndex;
+	} __attribute__((aligned(1), packed));
+
 
 	class LIBSWBF2_API Segment
 	{
@@ -60,5 +61,10 @@ namespace LibSWBF2::Wrappers
 		// count corresponmds to number of vertices, NOT number of bytes!
 		// returns false if there are no vertex weights present
 		bool GetVertexWeights(uint32_t& count, VertexWeight*& weightBuffer) const;
+
+		// returns the skeleton bone this segment belongs to
+		String GetBone() const;
+
+		bool IsPretransformed() const;
 	};
 }

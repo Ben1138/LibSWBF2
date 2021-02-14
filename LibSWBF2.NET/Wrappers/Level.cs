@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using LibSWBF2.Utils;
+using LibSWBF2.Types;
+
 
 
 namespace LibSWBF2.Wrappers
@@ -66,10 +68,29 @@ namespace LibSWBF2.Wrappers
             return level;
         }
 
+        internal static Level FromNative(IntPtr native)
+        {
+            if (native == null)
+            {
+                return null;
+            }
+
+            Level level = new Level();
+            level.NativeInstance = native;
+            return level;
+        }
+
         public bool IsWorldLevel
         {
             get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
+
+
+        public string name
+        {
+            get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
+        }
+
 
         
         public Terrain[] GetTerrains()
@@ -88,8 +109,9 @@ namespace LibSWBF2.Wrappers
 
         public Model[] GetModels()
         {
-            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount);
-            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount);
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount, out int inc);
+            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount, inc);
 
             for (int i = 0; i < modelCount; i++)
             {
@@ -97,6 +119,31 @@ namespace LibSWBF2.Wrappers
             }
 
             return models;
+        }
+
+
+        public EntityClass[] GetEntityClasses()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetEntityClasses(NativeInstance, out IntPtr classArr, out int classCount, out int inc);
+            EntityClass[] classes = MemUtils.IntPtrToWrapperArray<EntityClass>(classArr, classCount, inc);
+            return classes;
+        }
+
+
+        public Light[] GetLights()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetLights(NativeInstance, out IntPtr LightArr, out uint LightCount);
+            return MemUtils.IntPtrToWrapperArray<Light>(LightArr, (int) LightCount);
+        }    
+
+
+        public World[] GetWorlds()
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            APIWrapper.Level_GetWorlds(NativeInstance, out IntPtr worldArr, out uint worldCount);
+            return MemUtils.IntPtrToWrapperArray<World>(worldArr, (int) worldCount);
         }
 
 
@@ -113,6 +160,30 @@ namespace LibSWBF2.Wrappers
             return model;
         }
 
+
+        public Light GetLight(string lightName)
+        {
+            IntPtr LightPtr = APIWrapper.Level_GetLight(NativeInstance, lightName);
+            if (LightPtr == null)
+            {
+                return null;
+            }
+
+            Light Light = new Light(LightPtr);
+            return Light;
+        }
+
+
+        public Texture GetTexture(string name)
+        {
+            IntPtr texPtr = APIWrapper.Level_GetTexture(NativeInstance, name);
+            if (texPtr == null)
+            {
+                return null;
+            }
+            return new Texture(texPtr);
+        }
+
         public AnimationBank GetAnimationBank(string setName)
         {
             IntPtr SetPtr = APIWrapper.Level_GetAnimationBank(NativeInstance, setName);
@@ -125,15 +196,45 @@ namespace LibSWBF2.Wrappers
             return animSet;
         }
 
-
-        public bool GetTexture(string name, out int width, out int height, out byte[] texBytes)
+        public EntityClass GetEntityClass(string name)
         {
-            texBytes = null;
-            bool result = APIWrapper.Level_GetTextureData(NativeInstance, name, out IntPtr bytesRaw, out width, out height);
+            IntPtr ptr = APIWrapper.Level_GetEntityClass(NativeInstance, name);
+            if (ptr == null)
+            {
+                return null;
+            }
+
+            EntityClass ec = new EntityClass(ptr);
+            return ec;   
+        }
+
+
+        public bool GetGlobalLightingConfig(out Vector3 topColor, 
+                                            out Vector3 bottomColor, 
+                                            out Light Light1, 
+                                            out Light Light2)
+        {
+            bool result = APIWrapper.Level_GetGlobalLighting(NativeInstance, out IntPtr topCol, 
+                                                out IntPtr bottomCol, out IntPtr light1Name, 
+                                                out IntPtr light2Name);
+
+            //Console.WriteLine("Exited native get global lighting...");
+
+            Light1 = null;
+            Light2 = null;
+
+            topColor = new Vector3(topCol);
+            bottomColor = new Vector3(bottomCol);
+
             if (result)
             {
-                texBytes = new byte[width * height * 4];
-                Marshal.Copy(bytesRaw, texBytes, 0, width * height * 4);
+                string lightOneName = Marshal.PtrToStringAnsi(light1Name);
+                string lightTwoName = Marshal.PtrToStringAnsi(light2Name);
+                GetLight( lightOneName );
+                GetLight( lightTwoName );
+
+                //Light1 = light1Name == IntPtr.Zero ? null : GetLight( lightOneName );
+                //Light2 = light2Name == IntPtr.Zero ? null : GetLight( lightTwoName );
             }
 
             return result;

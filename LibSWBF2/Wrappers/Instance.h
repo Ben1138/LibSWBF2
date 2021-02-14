@@ -42,8 +42,8 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Container* mainContainer, inst* instanceChunk, Instance& out);
 
-		String GetType() const;
-		String GetName() const;
+		const String& GetType() const;
+		const String& GetName() const;
 		Vector3 GetPosition() const;
 		Vector4 GetRotation() const;
 
@@ -52,6 +52,10 @@ namespace LibSWBF2::Wrappers
 
 		// will fallback to entity class property, if existent
 		bool GetProperty(const String& propertyName, String& outValue) const;
+
+
+		bool GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const;
+
 
 		const EntityClass* GetEntityClass() const;
 	};

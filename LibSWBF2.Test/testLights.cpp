@@ -1,41 +1,33 @@
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-
-using LibSWBF2::Types::String;
-using LibSWBF2::Types::List;
-
-using namespace LibSWBF2::Chunks::LVL;
-using namespace LibSWBF2::Wrappers;
-
-using LibSWBF2::Logging::Logger;
-using LibSWBF2::Logging::LoggerEntry;
+#include "testing.h"
 
 
-#define COUT(x) std::cout << x << std::endl
-
-
-int main()
+int main(int ac, char** av)
 {
-#ifdef __APPLE__
-	Level *testLVL = Level::FromFile("/Users/will/Desktop/MLC.lvl");
-	//Level *testLVL = Level::FromFile("/Users/will/Desktop/lght_layers/TST_L1Lyr2_globalchanges.lvl");
-#else
-	Level *testLVL = Level::FromFile("/home/will/Desktop/light_types/TST_spot_white.lvl");
-#endif
+	List<String> pathsInput;
 
-	COUT(testLVL -> GetGlobalLighting() -> ToString().Buffer());
-
-	const List<Light>& lights = testLVL -> GetLights();
-
-	for (int i = 0; i < lights.Size(); i++)
+	for (int i = 1; i < ac; i++)
 	{
-		Light lighti = lights[i];
-		COUT(lighti.ToString().Buffer());
+		pathsInput.Add(av[i]);
+	}
+
+	auto testLVLs = LoadAndTrackLVLs(pathsInput);
+
+
+	for (int i = 0; i < testLVLs.size(); i++)
+	{
+		auto testLVL = testLVLs[i];
+
+		COUT("Results for " << testLVL -> GetLevelName().Buffer());
+		COUT("\t" << testLVL -> GetGlobalLighting() -> ToString().Buffer());
+
+		const List<Light>& lights = testLVL -> GetLights();
+
+		for (int j = 0; j < lights.Size(); j++)
+		{
+			Light lighti = lights[j];
+			COUT("\t" << lighti.ToString().Buffer());
+		}
+
 	}
 
 	return 0;

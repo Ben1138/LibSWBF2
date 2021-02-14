@@ -72,44 +72,59 @@ namespace LibSWBF2::Chunks::LVL::modl
             {
                 if ((m_Flags & EVBUFFlags::BlendWeightCompressed) != 0)
                 {
-                    // TODO: generalize Vectors
                     int8_t data[4];
                     data[0] = stream.ReadByte();
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    //m_Weights.Add({ (float_t)data[2], (float_t)data[1], 1.0f - data[2] - data[1] });
+
+                    float_t one = (float) data[1];
+                    float_t two = (float) data[2];
+                    m_Weights.Add({ two, one, 1.0f - two - one});
                 }
                 else
                 {
-                    float_t x, y;
-                    x = stream.ReadFloat();
-                    y = stream.ReadFloat();
-                   ///m_Weights.Add({ x, y, 1.0f - x - y});
+                    float_t x = stream.ReadFloat();
+                    float_t y = stream.ReadFloat();
+                    m_Weights.Add({ x, y, 1.0f - x - y});
                 }
             }
 
             if ((m_Flags & EVBUFFlags::Unknown1) != 0)
             {
+
+                uint32_t inds = stream.ReadUInt32();
+
+                uint8_t x = (uint8_t) (inds & 0xffu);
+                uint8_t y = (uint8_t) ((inds >> 8u) & 0xffu);
+                uint8_t z = (uint8_t) ((inds >> 16u) & 0xffu);
+
+
+                m_BoneIndicies.Add({x, y, z});
+
+
+                /*
                 uint8_t data[4];
                 data[0] = stream.ReadByte();
                 data[1] = stream.ReadByte();
                 data[2] = stream.ReadByte();
                 data[3] = stream.ReadByte();
+
                 if ((m_Flags & EVBUFFlags::PositionCompressed) != 0)
                 {
-                    //m_Bones.Emplace().ReadFromStream(stream);
-                    //LOG_WARN("Weight?: {}", stream.ReadFloat());
+                    m_Bones.Emplace().ReadFromStream(stream);
+                    LOG_WARN("Weight?: {}", stream.ReadFloat());
 
-                    //uint16_t data2[2];
-                    //data2[0] = *(uint16_t*)&data[0];
-                    //data2[1] = *(uint16_t*)&data[2];
-                    //uint32_t data3 = *(uint32_t*)&data[0];
-                    //LOG_WARN("[{}] = {}-{}-{}-{} / {} - {} / {}", i, data[0], data[1], data[2], data[3], data2[0], data2[1], data3);
+                    uint16_t data2[2];
+                    data2[0] = *(uint16_t*)&data[0];
+                    data2[1] = *(uint16_t*)&data[2];
+                    uint32_t data3 = *(uint32_t*)&data[0];
+                    LOG_WARN("[{}] = {}-{}-{}-{} / {} - {} / {}", i, data[0], data[1], data[2], data[3], data2[0], data2[1], data3);
 
-                    //std::string hash = lookup_fnv_hash(data3);
-                    //LOG_WARN("Hash: {}", hash);
+                    std::string hash = lookup_fnv_hash(data3);
+                    LOG_WARN("Hash: {}", hash);
                 }
+                */
             }
 
             if ((m_Flags & EVBUFFlags::Normal) != 0)
