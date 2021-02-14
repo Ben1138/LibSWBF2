@@ -1,7 +1,12 @@
 #pragma once
-#include "Chunks/LVL/tex_/tex_.h"
 #include "Types/Enums.h"
 #include "Types/List.h"
+
+namespace LibSWBF2::Chunks::LVL::texture
+{
+	struct tex_;
+	struct FMT_;
+}
 
 namespace LibSWBF2::Wrappers
 {
@@ -21,12 +26,11 @@ namespace LibSWBF2::Wrappers
 		Texture() = default;
 		~Texture() = default;
 
-	private:
 		tex_* p_Texture;
 		FMT_* p_FMT;
 
 	public:
-		static bool FromChunk(tex_* textureCHunk, Texture& out);
+		static bool FromChunk(tex_* textureChunk, Texture& out);
 
 		String GetName() const;
 		uint32_t GetNumMipMaps() const;

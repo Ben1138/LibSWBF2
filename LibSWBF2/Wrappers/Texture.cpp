@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Texture.h"
 #include "InternalHelpers.h"
+
+#include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
 
 namespace LibSWBF2::Wrappers

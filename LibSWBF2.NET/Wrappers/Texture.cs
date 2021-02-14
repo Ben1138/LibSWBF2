@@ -27,7 +27,7 @@ namespace LibSWBF2.Wrappers
             NativeInstance = ptr;
 
             IsConvertibleFormat = APIWrapper.Texture_FetchAllFields(NativeInstance,
-                                                        out int w, out int h,
+                                                        out ushort w, out ushort h,
                                                         out IntPtr bufferPtr,
                                                         out IntPtr namePtr);
             

@@ -31,7 +31,6 @@ void a1r5g5b5(int w, int h, uint8_t *src, uint32_t *sink)
 
         sink[i] = outPixel;     
     }
-
 }
 
 

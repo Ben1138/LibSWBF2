@@ -337,33 +337,15 @@ namespace LibSWBF2
 
 	//Wrappers - Texture
 
-	const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut)
+	const uint8_t Texture_FetchAllFields(const Texture* tex, uint16_t& w, uint16_t& h, const uint8_t*& bufOut, const char*& nameOut)
 	{
 		static String nameCache;
-		static const uint8_t* imageDataCache = nullptr;
-    	//PurgePtr(imageDataCache);
 
 		CheckPtr(tex,false);
 
 		nameCache = tex -> GetName();
 		nameOut = nameCache.Buffer();
-
-		uint16_t w,h;
-	    bool conversionStatus = tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, imageDataCache);
-
-	    widthOut = w;
-	    heightOut = h;
-    	
-    	if (conversionStatus)
-    	{
-    		bufOut = imageDataCache;
-    	}
-    	else
-    	{
-    		imageDataCache = nullptr;
-    	}
-
-    	return conversionStatus;
+	    return tex -> GetImageData(ETextureFormat::R8_G8_B8_A8, 0, w, h, bufOut);    
 	}
 
 
