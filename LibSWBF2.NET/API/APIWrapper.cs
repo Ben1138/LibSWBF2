@@ -77,6 +77,8 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetTerrains(IntPtr level, out IntPtr terrainArr, out uint terrainCount);
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Level_GetScripts(IntPtr level, out IntPtr scriptArr, out uint scriptCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
@@ -95,7 +97,10 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetTexture(IntPtr level, string texName);
-        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetScript(IntPtr level, string scriptName);
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Level_GetGlobalLighting(IntPtr level, out IntPtr topColor, out IntPtr bottomColor, 
@@ -165,10 +170,20 @@ namespace LibSWBF2
          // World //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out IntPtr lightArr, out int lightCount, out int lightInc,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
                                         out IntPtr terrPtr);
+
+        // Script //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Script_GetName(IntPtr script);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Script_GetData(IntPtr script, out IntPtr data, out uint size);
 
         // Instance //
 

@@ -147,6 +147,18 @@ namespace LibSWBF2.Wrappers
         }
 
 
+        public Script[] GetScripts()
+        {
+            APIWrapper.Level_GetScripts(NativeInstance, out IntPtr scriptsArr, out uint numScripts);
+            Script[] scripts = MemUtils.IntPtrToWrapperArray<Script>(scriptsArr, (int)numScripts);
+            for (int i = 0; i < numScripts; i++)
+            {
+                Children.Add(new WeakReference<NativeWrapper>(scripts[i]));
+            }
+            return scripts;
+        }
+
+
         public Model GetModel(string modelName)
         {
             IntPtr modelPtr = APIWrapper.Level_GetModel(NativeInstance, modelName);
@@ -206,6 +218,16 @@ namespace LibSWBF2.Wrappers
 
             EntityClass ec = new EntityClass(ptr);
             return ec;   
+        }
+
+        public Script GetScript(string name)
+        {
+            IntPtr scriptPtr = APIWrapper.Level_GetScript(NativeInstance, name);
+            if (scriptPtr == null)
+            {
+                return null;
+            }
+            return new Script(scriptPtr);
         }
 
 

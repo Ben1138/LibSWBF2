@@ -528,6 +528,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Script*>;
 
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
