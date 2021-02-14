@@ -36,7 +36,7 @@ namespace LibSWBF2.Logging
             }
             else
             {
-                return "[" + Level + "] " + Message + " - IN " + Line + " " + File;
+                return "[" + Level + "] " + Message + " - IN " + File + ":" + Line;
             }
         }
     }

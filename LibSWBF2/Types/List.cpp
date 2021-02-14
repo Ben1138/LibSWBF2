@@ -421,6 +421,7 @@ namespace LibSWBF2::Types
 
 #include "Vector4.h"
 #include "Vector3u8.h"
+#include "Color4.h"
 #include "Color4u8.h"
 #include "Animation.h"
 #include "BoneFrames.h"
@@ -445,6 +446,7 @@ namespace LibSWBF2::Types
 #include "Chunks/GenericChunk.h"
 #include "Wrappers/Level.h"
 #include "Wrappers/SoundBank.h"
+#include "Wrappers/AnimationBank.h"
 #include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2
@@ -460,6 +462,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Vector3>;
 	template class LIBSWBF2_API Types::List<Vector3u8>;
 	template class LIBSWBF2_API Types::List<Matrix3x3>;
+	template class LIBSWBF2_API Types::List<Color4>;
 	template class LIBSWBF2_API Types::List<Color4u8>;
 	template class LIBSWBF2_API Types::List<String>;
 	template class LIBSWBF2_API Types::List<Animation>;
@@ -514,15 +517,18 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank*>;
 
+
 	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::World*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Segment*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Texture*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Model*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Terrain*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Light*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationBank*>;
+
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
@@ -538,3 +544,4 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank>;
 }
+

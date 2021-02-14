@@ -8,67 +8,50 @@ using System.Threading;
 
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
+using LibSWBF2.Types;
 
 namespace LibSWBF2.NET.Test
 {
-    class Program
+    class CollisionTest
     {
-        static ReaderWriterLockSlim m_Lock = new ReaderWriterLockSlim();
-        static bool m_bCatchLogs = true;
-
-        static void CatchLogs()
+        static int Main(string[] args)
         {
-            bool bRun;
-            do
+            TestBench.StartLogging(ELogType.Warning);
+
+            var lvls = TestBench.LoadAndTrackLVLs(new List<string>(args));
+
+            for (int i = 0; i < lvls.Count; i++)
             {
-                while(Logger.GetNextLog(out LoggerEntry next))
+                Console.WriteLine("Level {0}'s collision meshes: ", i);
+
+                var level = lvls[i];
+
+                Model[] models = level.GetModels();
+                foreach (Model model in models)
                 {
-                    Console.WriteLine(next.ToString());
-                }
+                    Console.WriteLine("\n\tModel: " + model.name);
+                    CollisionMesh mesh = model.GetCollisionMesh();
 
-                m_Lock.EnterReadLock();
-                bRun = m_bCatchLogs;
-                m_Lock.ExitReadLock();
-            }
-            while (bRun);
-        }
+                    if (mesh == null) continue;
 
-        static void Main(string[] args)
-        {
-            Logger.SetLogLevel(ELogType.Warning);
-            Thread logThread = new Thread(new ThreadStart(CatchLogs));
-            logThread.Start();
+                    Console.WriteLine("\t\tCollision mask flags: {0}", mesh.maskFlags);
+                    Console.WriteLine("\t\tNum collision indices:   {0}", mesh.GetIndices().Length);
+                    Console.WriteLine("\t\tNum collision verticies: {0}", mesh.GetVertices<Vector3>().Length);
+                
+                    CollisionPrimitive[] prims = model.GetPrimitivesMasked(16);
 
-            Console.WriteLine("Loading... This might take a while...");
-            Level level = Level.FromFile(@"/home/will/Desktop/geo1.lvl");
-            //Level level = Level.FromFile("F:/SteamLibrary/steamapps/common/Star Wars Battlefront II/GameData/data/_lvl_pc/geo/geo1.lvl");
+                    Console.WriteLine("\t\t{0} Primitives: ", prims.Length);
 
-            Model[] models = level.GetModels();
-            foreach (Model model in models)
-            {
-                Console.WriteLine("\nModel: " + model.Name);
-                CollisionMesh mesh = model.GetCollisionMesh();
-
-                Console.WriteLine("\tNum collision indices:   {0}", mesh.GetIndices().Length);
-                Console.WriteLine("\tNum collision verticies: {0}", mesh.GetVertices().Length);
-            
-                CollisionPrimitive[] prims = model.GetPrimitivesMasked();
-
-                Console.WriteLine("\t{0} Primitives: ", prims.Length);
-
-                foreach (var prim in prims)
-                {
-                    Console.WriteLine("\t\t{0}", prim.name);
+                    foreach (var prim in prims)
+                    {
+                        Console.WriteLine("\t\t\tName: {0} Parent: {1}", prim.name, prim.parentName);
+                    }
                 }
             }
 
-            Console.WriteLine("Done!");
+            TestBench.StopLogging();
 
-            m_Lock.EnterWriteLock();
-            m_bCatchLogs = false;
-            m_Lock.ExitWriteLock();
-            logThread.Join();
-            Console.ReadKey();
+            return 0;
         }
     }
 }

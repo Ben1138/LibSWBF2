@@ -6,6 +6,7 @@
 #include "Terrain.h"
 #include "Script.h"
 #include "Light.h"
+#include "AnimationBank.h"
 #include "GlobalLighting.h"
 #include "Localization.h"
 #include "EntityClass.h"
@@ -13,14 +14,13 @@
 #include "Types/List.h"
 #include "Chunks/LVL/LVL.h"
 #include "CollisionMesh.h"
-#include "AnimationBank.h"
-
 
 
 namespace LibSWBF2
 {
 	class Container;
 }
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -97,7 +97,6 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
-
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

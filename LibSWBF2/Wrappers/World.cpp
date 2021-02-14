@@ -31,7 +31,7 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	Types::String World::GetName() const
+	const String& World::GetName() const
 	{
 		return p_World->p_Name->m_Text;
 	}
@@ -59,4 +59,12 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
+
+
+	const List<Light>& World::GetLights() const
+	{
+		return m_Lights;
+	}
+
+
 }

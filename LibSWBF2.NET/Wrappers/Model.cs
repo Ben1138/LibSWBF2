@@ -12,65 +12,53 @@ namespace LibSWBF2.Wrappers
 {
     public class Model : NativeWrapper
     {
-        internal Model(IntPtr modelPtr) : base(modelPtr)
-        {
-
-        }
-
+        public Model(IntPtr modelPtr) : base(IntPtr.Zero) { SetPtr(modelPtr); }
         public Model() : base(IntPtr.Zero){}
 
-        public string Name
+        public string name="";
+
+        public bool isSkeletonBroken;
+        public bool isSkinned;
+
+        public Bone[] skeleton;
+
+        private IntPtr collisionMeshPtr;
+
+        private IntPtr segmentArray;
+        private int segmentCount, segmentIncrement;
+
+
+        internal override void SetPtr(IntPtr modelPtr)
         {
-            get 
+            if (APIWrapper.Model_FetchSimpleFields(modelPtr, out IntPtr namePtr, out isSkinned, out isSkeletonBroken,
+                                                            out segmentArray, out segmentCount, out segmentIncrement,
+                                                            out IntPtr boneArr, out int boneCount, out int boneInc,
+                                                            out collisionMeshPtr))
             {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return Marshal.PtrToStringAnsi(APIWrapper.Model_GetName(NativeInstance)); 
+                NativeInstance = modelPtr;
+                name = Marshal.PtrToStringAnsi(namePtr);
+                skeleton = MemUtils.IntPtrToWrapperArray<Bone>(boneArr, boneCount, boneInc);
             }
         }
 
-        public bool IsSkeletalMesh
-        {
-            get 
-            {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-                return APIWrapper.Model_IsSkeletalMesh(NativeInstance); 
-            }
-        }
 
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSegments()
+        public Segment[] GetSegments()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
-            APIWrapper.Model_GetSegments(NativeInstance, out IntPtr segmentArr, out uint segmentCount);
-            IntPtr[] segments = new IntPtr[segmentCount];
-            Marshal.Copy(segmentArr, segments, 0, (int)segmentCount);
-            return segments;
-        }
-
-        // TODO: swap IntPtr with actualy wrapper class
-        public IntPtr[] GetSkeleton()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-
-            APIWrapper.Model_GetSkeleton(NativeInstance, out IntPtr boneArr, out uint boneCount);
-            IntPtr[] bones = new IntPtr[boneCount];
-            Marshal.Copy(boneArr, bones, 0, (int)boneCount);
-            return bones;
+            return MemUtils.IntPtrToWrapperArray<Segment>(segmentArray, segmentCount, segmentIncrement);
         }
 
         public CollisionMesh GetCollisionMesh()
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return new CollisionMesh(APIWrapper.Model_GetCollisionMesh(NativeInstance));            
+            return collisionMeshPtr == IntPtr.Zero ? null : new CollisionMesh(collisionMeshPtr);     
         }
 
         public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);
-            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr,numPrims);
+            return MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr, numPrims);
         }
-
     }
 }

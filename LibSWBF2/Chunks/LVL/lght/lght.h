@@ -8,6 +8,8 @@
 #include "Chunks/LVL/lght/vec4.DATA.h"
 #include "Chunks/LVL/lght/vec3.DATA.h"
 
+#include "config.NAME.h"
+
 
 using namespace LibSWBF2::Chunks::LVL::common;
 
@@ -26,6 +28,6 @@ namespace LibSWBF2::Chunks::LVL::lght
         DATA_STRING *p_GlobalLightingTag = nullptr;
         SCOP_LGHT *p_GlobalLightingBody = nullptr;
 
-        STR<"NAME"_m> *p_Marker; //unknown purpose, hashed layer name?
+        config_NAME *p_Marker; //unknown purpose, hashed layer name?
     };
 }

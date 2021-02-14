@@ -33,6 +33,8 @@ namespace LibSWBF2::Wrappers
 		List<Vector2> m_TexCoords;
 		List<Color4u8> m_Colors;
 
+		mutable List<uint32_t> m_Indices;
+
 		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
 		mutable uint8_t* p_BlendMap;  //
 
@@ -42,7 +44,7 @@ namespace LibSWBF2::Wrappers
 		String GetName() const;
 
 		// count is number of indices, NOT number of bytes!
-		bool GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint16_t*& indexBuffer) const;
+		bool GetIndexBuffer(ETopology requestedTopology, uint32_t& count, uint32_t*& indexBuffer) const;
 
 		// count is number of vectors, NOT number of bytes!
 		void GetVertexBuffer(uint32_t& count, Vector3*& vertexBuffer) const;

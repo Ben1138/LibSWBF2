@@ -52,7 +52,6 @@ namespace LibSWBF2::Wrappers
 		out.p_MainContainer = mainContainer;
 		out.p_Instance = instanceChunk;
 
-		instanceChunk->m_OverrideProperties.Clear();
 		for (size_t i = 0; i < instanceChunk->m_OverrideProperties.Size(); ++i)
 		{
 			FNVHash hashedName = instanceChunk->m_OverrideProperties[i]->m_PropertyName;
@@ -62,12 +61,12 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String Instance::GetType() const
+	const String& Instance::GetType() const
 	{
 		return p_Instance->p_Info->p_Type->m_Text;
 	}
 
-	String Instance::GetName() const
+	const String& Instance::GetName() const
 	{
 		return p_Instance->p_Info->p_Name->m_Text;
 	}
@@ -118,5 +117,25 @@ namespace LibSWBF2::Wrappers
 			return false;
 		}
 		return GetProperty(FNV::Hash(propertyName), outValue);
+	}
+
+
+	bool Instance::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
+	{
+		List<FNVHash> hashes;
+		List<String> values;
+
+		List<PROP*>& properties = p_Instance -> m_OverrideProperties;
+
+		for (int i = 0; i < properties.Size(); i++)
+		{
+			hashes.Add(properties[i] -> m_PropertyName);
+			values.Add(properties[i] -> m_Value);
+		}
+
+		hashesOut = std::move(hashes);
+		valuesOut = std::move(values);
+
+		return true;
 	}
 }

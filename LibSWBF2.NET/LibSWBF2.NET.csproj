@@ -73,13 +73,26 @@
     <Compile Include="Types\Vector2.cs" />
     <Compile Include="Types\Vector3.cs" />
     <Compile Include="Types\Vector4.cs" />
+    <Compile Include="Types\Enums.cs" />
     <Compile Include="Wrappers\Level.cs" />
     <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
     <Compile Include="Wrappers\Terrain.cs" />
+    <Compile Include="Wrappers\Segment.cs" />
+    <Compile Include="Wrappers\World.cs" />
+    <Compile Include="Wrappers\Light.cs" />
+    <Compile Include="Wrappers\Instance.cs" />
+    <Compile Include="Wrappers\Bone.cs" />
     <Compile Include="Wrappers\CollisionMesh.cs" />
+    <Compile Include="Wrappers\Texture.cs" />
+    <Compile Include="Wrappers\Material.cs" />
     <Compile Include="Wrappers\CollisionPrimitive.cs" />
-    <Compile Include="Utils\MarshalingUtils.cs" />    
+    <Compile Include="Wrappers\AnimationBank.cs" />
+    <Compile Include="Wrappers\Container.cs" />
+    <Compile Include="Wrappers\EntityClass.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
+    <Compile Include="Utils\MarshalingUtils.cs" />
+    <Compile Include="Utils\Hashing.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,6 +24,8 @@ namespace LibSWBF2::Wrappers
     using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
 
+    using namespace Chunks::LVL::animation;
+
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
@@ -62,6 +64,7 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
 		{
@@ -71,6 +74,7 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
 			}	
 		}
+		
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr)
@@ -82,6 +86,7 @@ namespace LibSWBF2::Wrappers
                 					  lightListChunk ->	p_LightBodies[i], 
                 					  newLight))
                 {
+                	newLight.m_WorldName = lightListChunk -> p_Marker -> m_WorldName;
                     m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
                 }
 			}
@@ -115,7 +120,6 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		
 		coll* collisionChunk = dynamic_cast<coll*>(root);
 		if (collisionChunk != nullptr)
 		{
@@ -178,6 +182,17 @@ namespace LibSWBF2::Wrappers
 			std::string name = ToLower(worldChunk->p_Name->m_Text);
 			if (m_NameToIndexMaps->WorldNameToIndex.find(name) == m_NameToIndexMaps->WorldNameToIndex.end())
 			{
+				FNVHash worldName = FNV::Hash(world.GetName());
+				for (int i = 0; i < m_Lights.Size(); i++)
+				{
+					auto& light = m_Lights[i];
+
+					if (light.m_WorldName == worldName)
+					{
+						world.m_Lights.Add(light);
+					}
+				}
+
 				World world;
 				if (World::FromChunk(p_MainContainer, worldChunk, world))
 				{
@@ -380,11 +395,6 @@ namespace LibSWBF2::Wrappers
 		return &m_GlobalLightingConfig;
 	}
 
-	const List<AnimationBank>& Level::GetAnimationBanks() const
-	{
-		return m_AnimationBanks;
-	}
-
 	const List<EntityClass>& Level::GetEntityClasses() const
 	{
 		return m_EntityClasses;
@@ -502,6 +512,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
 	const AnimationBank* Level::GetAnimationBank(String setName) const
 	{
 		if (setName.IsEmpty())
@@ -516,7 +527,9 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return nullptr;
+
 	}
+
 
 	skel* Level::FindSkeleton(String skeletonName) const
 	{
