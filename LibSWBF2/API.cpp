@@ -136,6 +136,7 @@ namespace LibSWBF2
     wrapperMap[typeof(World)]         = 3;
     wrapperMap[typeof(EntityClass)]   = 4;
     wrapperMap[typeof(AnimationBank)] = 5;
+    wrapperMap[typeof(Script)]        = 6;
 	*/
 
 	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
@@ -154,6 +155,8 @@ namespace LibSWBF2
 				return static_cast<const void *>(container -> FindEntityClass(name));
 			case 5:
 				return static_cast<const void *>(container -> FindAnimationBank(name));
+			case 6:
+				return static_cast<const void*>(container->FindScript(name));
 			default:
 				return nullptr;
 		}
@@ -227,6 +230,12 @@ namespace LibSWBF2
 	}
 
 
+	const Script* Level_GetScript(const Level* level, const char* scriptName)
+	{
+		CheckPtr(level, nullptr);
+		return level->GetScript(scriptName);
+	}
+
 
 	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
 	{
@@ -243,6 +252,24 @@ namespace LibSWBF2
 
 		terrainArr = terrainPtrs.GetArrayPtr();
 		terrainCount = (uint32_t)terrainPtrs.Size();
+	}
+
+
+	void Level_GetScripts(const Level* level, const Script**& scriptArr, uint32_t& scriptCount)
+	{
+		CheckPtr(level, );
+		const List<Script>& scripts = level->GetScripts();
+
+		static List<const Script*> scriptPtrs;
+		scriptPtrs.Clear();
+
+		for (size_t i = 0; i < scripts.Size(); ++i)
+		{
+			scriptPtrs.Add(&scripts[i]);
+		}
+
+		scriptArr = scriptPtrs.GetArrayPtr();
+		scriptCount = (uint32_t)scriptPtrs.Size();
 	}
 
 
@@ -673,6 +700,24 @@ namespace LibSWBF2
 	}
 
     
+	// Wrappers - Script
+	LIBSWBF2_API const char* Script_GetName(const Script* script)
+	{
+		CheckPtr(script, nullptr);
+		static String nameCache;
+		nameCache = script->GetName();
+		return nameCache.Buffer();
+	}
+
+	LIBSWBF2_API uint8_t Script_GetData(const Script* script, const uint8_t*& data, uint32_t& size)
+	{
+		CheckPtr(script, false);
+		size_t sz;
+		uint8_t res = (uint8_t)script->GetData(data, sz);
+		size = (uint32_t)sz;
+		return res;
+	}
+
 
     // Wrappers - Instance
     const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName)

@@ -25,13 +25,13 @@ namespace LibSWBF2
 		class CollisionPrimitive;
 		class AnimationBank;
 		class EntityClass;
-		//class Script;
+		class Script;
 	}
 
 	namespace Types
 	{
-		struct Vector4;
 		struct Vector3;
+		struct Vector4;
 	}
 
 	using namespace Wrappers;
@@ -73,6 +73,7 @@ namespace LibSWBF2
 		LIBSWBF2_API void    Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc);
 		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
 		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
+		LIBSWBF2_API void 	 Level_GetScripts(const Level* level, const Script**& scriptArr, uint32_t& scriptCount);
 		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
 		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
 													const char*& light1Name, const char*& light2Name);		
@@ -80,6 +81,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
 		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
+		LIBSWBF2_API const Script* Level_GetScript(const Level* level, const char* scriptName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
 		LIBSWBF2_API char *  Level_GetName(const Level* level);
 
@@ -142,6 +144,10 @@ namespace LibSWBF2
 														const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
 														const Instance*& instanceArr, int32_t& instCount, int32_t& instInc, 
 														const Terrain*& terrPtr);
+
+		// Wrappers - Script
+		LIBSWBF2_API const char* Script_GetName(const Script* script);
+		LIBSWBF2_API uint8_t Script_GetData(const Script* script, const uint8_t*& data, uint32_t& size);
 
         // Wrappers - Instance
    		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
