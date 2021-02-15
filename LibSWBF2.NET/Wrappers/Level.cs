@@ -23,10 +23,12 @@ namespace LibSWBF2.Wrappers
             Children = new HashSet<WeakReference<NativeWrapper>>();
         }
 
-        ~Level()
-        {
-            Delete();
-        }
+
+        // TODO: Deleting a wrapper instance is dangerous!
+        //~Level()
+        //{
+        //    Delete();
+        //}
 
         /// <summary>
         /// Don't use this method unless you know exactly what you're doing!
@@ -86,13 +88,17 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public string name
+        public string Name
         {
             get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
         }
 
+        public string Path
+        {
+            get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetPath(NativeInstance)); }
+        }
 
-        
+
         public Terrain[] GetTerrains()
         {   
             APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);

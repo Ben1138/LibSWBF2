@@ -87,7 +87,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
 		LIBSWBF2_API const Script* Level_GetScript(const Level* level, const char* scriptName);
 		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
-		LIBSWBF2_API char *  Level_GetName(const Level* level);
+		LIBSWBF2_API const char*  Level_GetName(const Level* level);
+		LIBSWBF2_API const char*  Level_GetPath(const Level* level);
 
 		//Wrappers - Texture
 		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
