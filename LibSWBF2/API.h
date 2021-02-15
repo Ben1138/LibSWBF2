@@ -58,7 +58,11 @@ namespace LibSWBF2
 		// Wrappers - Container
         LIBSWBF2_API const Container* Container_Initialize();  
         LIBSWBF2_API uint32_t Container_AddLevel(Container* container, const char *path);
+		LIBSWBF2_API uint32_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount);
+		LIBSWBF2_API uint32_t Container_AddSoundBank(Container* container, const char* path);
+		LIBSWBF2_API void Container_FreeAll(Container* container, uint8_t force);
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
+        LIBSWBF2_API float_t Container_GetOverallProgress(Container* container);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
         LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
         LIBSWBF2_API const void Container_LoadLevels(Container* container);

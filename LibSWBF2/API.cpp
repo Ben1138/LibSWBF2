@@ -102,7 +102,34 @@ namespace LibSWBF2
 
 	uint32_t Container_AddLevel(Container* container, const char *path)
 	{
+		CheckPtr(container, UINT32_MAX)
 		return (uint32_t) container -> AddLevel(path);
+	}
+
+	uint32_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount)
+	{
+		CheckPtr(container, UINT32_MAX)
+		CheckPtr(subLVLs, UINT32_MAX)
+
+		List<String> filter;
+		for (uint32_t i = 0; i < subLVLCount; ++i)
+		{
+			filter.Add(subLVLs[i]);
+		}
+
+		return (uint32_t)container->AddLevel(path, &filter);
+	}
+
+	uint32_t Container_AddSoundBank(Container* container, const char* path)
+	{
+		CheckPtr(container, UINT32_MAX)
+		return container->AddSoundBank(path);
+	}
+
+	void Container_FreeAll(Container* container, uint8_t force)
+	{
+		CheckPtr(container,)
+		container->FreeAll((bool)force);
 	}
 
 	float_t Container_GetProgress(Container* container, uint32_t handleNum)
@@ -110,6 +137,12 @@ namespace LibSWBF2
 		CheckPtr(container, -1.0f)
 		return container -> GetLevelProgress((uint16_t) handleNum);
 	}  
+
+	float_t Container_GetOverallProgress(Container* container)
+	{
+		CheckPtr(container, -1.0f)
+		return container->GetOverallProgress();
+	}
 
 	const bool Container_IsDone(Container* container)
 	{

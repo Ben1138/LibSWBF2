@@ -43,9 +43,31 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Container_AddLevel(NativeInstance, path);
         }
 
+        public uint AddLevel(string path, string[] subLVLs)
+        {
+            if (subLVLs == null) subLVLs = new string[0];
+            IntPtr[] ptrs = Utils.MemUtils.StringToIntPtrList(subLVLs);
+            return APIWrapper.Container_AddLevelFiltered(NativeInstance, path, ptrs, (uint)ptrs.Length);
+        }
+
+        public uint AddSoundBank(string path)
+        {
+            return APIWrapper.Container_AddSoundBank(NativeInstance, path);
+        }
+
+        public void FreeAll(bool force)
+        {
+            APIWrapper.Container_FreeAll(NativeInstance, force);
+        }
+
         public float GetProgress(uint handle)
         {
             return APIWrapper.Container_GetProgress(NativeInstance, handle);
+        }
+
+        public float GetOverallProgress()
+        {
+            return APIWrapper.Container_GetOverallProgress(NativeInstance);
         }
 
         public Level GetLevel(uint handle, bool block = false)
