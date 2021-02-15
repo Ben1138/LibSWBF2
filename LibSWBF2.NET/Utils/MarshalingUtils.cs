@@ -87,5 +87,26 @@ namespace LibSWBF2.Utils
 
             return strings;
         }
+
+        // copies given strings into unmanaged memory and returns their addresses
+        // CAUTION: you need to free the allocated memory afterwards (e.g. via FreeStrings)
+        public static IntPtr[] StringToIntPtrList(string[] strings)
+        {
+            IntPtr[] stringPtrs = new IntPtr[strings.Length];
+            for (int i = 0; i < strings.Length; i++)
+            {
+                stringPtrs[i] = Marshal.StringToHGlobalAnsi(strings[i]);
+            }
+
+            return stringPtrs;
+        }
+
+        public static void FreeStrings(IntPtr[] stringPtrs)
+        {
+            for (int i = 0; i < stringPtrs.Length; ++i)
+            {
+                Marshal.FreeHGlobal(stringPtrs[i]);
+            }
+        }
     }
 }

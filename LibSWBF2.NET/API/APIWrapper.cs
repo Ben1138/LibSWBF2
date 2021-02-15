@@ -34,7 +34,19 @@ namespace LibSWBF2
         public static extern uint Container_AddLevel(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern float Container_GetProgress(IntPtr container, uint handle);  
+        public static extern uint Container_AddLevelFiltered(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path, IntPtr[] subLVLs, uint subLVLCount);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint Container_AddSoundBank(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Container_FreeAll(IntPtr container, [MarshalAs(UnmanagedType.U1)] bool force);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float Container_GetProgress(IntPtr container, uint handle);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float Container_GetOverallProgress(IntPtr container);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Container_GetLevel(IntPtr container, uint handle); 
