@@ -386,12 +386,21 @@ namespace LibSWBF2
 	}
 
 
-	char* Level_GetName(const Level* level)
+	const char* Level_GetName(const Level* level)
 	{
 		static String cache;
 		CheckPtr(level, nullptr);
 		cache = level -> GetLevelName();
-		return const_cast<char *>(cache.Buffer());
+		return cache.Buffer();
+	}
+
+
+	const char* Level_GetPath(const Level* level)
+	{
+		static String cache;
+		CheckPtr(level, nullptr);
+		cache = level->GetLevelPath();
+		return cache.Buffer();
 	}
 
 
