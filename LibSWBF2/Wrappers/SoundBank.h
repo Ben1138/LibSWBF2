@@ -1,8 +1,12 @@
 #pragma once
 #include "req.h"
-#include "Chunks/BNK/BNK.h"
 #include "Types/LibString.h"
 #include "Sound.h"
+
+namespace LibSWBF2::Chunks::BNK
+{
+	struct BNK; 
+}
 
 
 namespace LibSWBF2
@@ -14,8 +18,6 @@ namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Types::String;
-	using Chunks::GenericBaseChunk;
-	using Chunks::BNK::BNK;
 
 	/*
 	 * This and the other wrapper classes just serve as abstraction Layers
@@ -28,18 +30,18 @@ namespace LibSWBF2::Wrappers
 	private:
 		friend Container;
 
-		SoundBank(BNK* soundBank);
+		SoundBank(LibSWBF2::Chunks::BNK::BNK* soundBank);
 		~SoundBank();
 
 	private:
-		BNK* p_soundBank;
+		LibSWBF2::Chunks::BNK::BNK* p_soundBank;
 		List<Sound> m_Sounds;
 		class SoundMapsWrapper* m_NameToIndexMaps;
 
 	public:
 
 		static SoundBank* FromFile(String path);
-		static SoundBank* FromChunk(BNK* soundChunk);
+		static SoundBank* FromChunk(LibSWBF2::Chunks::BNK::BNK* soundChunk);
 		static void Destroy(SoundBank* soundBank);
 
 		const List<Sound>& GetSounds() const;

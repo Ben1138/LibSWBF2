@@ -23,13 +23,13 @@ namespace LibSWBF2::Chunks::LVL::config
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_PropertyName = stream.ReadUInt32();
+        m_Name = stream.ReadUInt32();
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
     String config_NAME::ToString() 
     {
-        return fmt::format("0x{0:x}", m_PropertyName).c_str();
+        return fmt::format("0x{0:x}", m_Name).c_str();
     }
 }

@@ -11,8 +11,13 @@
 #include "EntityClass.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
-#include "Chunks/LVL/LVL.h"
 #include "CollisionMesh.h"
+
+
+namespace LibSWBF2::Chunks::LVL
+{
+	struct LVL;
+}
 
 
 namespace LibSWBF2
@@ -25,7 +30,6 @@ namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Chunks::GenericBaseChunk;
-	using Chunks::LVL::LVL;
 
 	/*
 	 * This and the other wrapper classes just serve as abstraction Layers
@@ -35,6 +39,9 @@ namespace LibSWBF2::Wrappers
 	 */
 	class LIBSWBF2_API Level
 	{
+
+	typedef LibSWBF2::Chunks::LVL::LVL LVL;
+
 	private:
 		friend Container;
 

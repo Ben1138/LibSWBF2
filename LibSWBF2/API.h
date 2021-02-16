@@ -28,6 +28,8 @@ namespace LibSWBF2
 		class Material;
 		class Instance;
 		class Script;
+		struct Field;
+		struct Scope;
 	}
 
 	namespace Types
@@ -163,14 +165,17 @@ namespace LibSWBF2
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
 
-        LIBSWBF2_API const uint32_t Config_GetName(const Config* cfg);
-        LIBSWBF2_API const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash);
-        LIBSWBF2_API const float_t Config_GetFloat(const Config* cfg, uint32_t hash);
-        LIBSWBF2_API const Vector2* Config_GetVec2(const Config* cfg, uint32_t hash); 
-        LIBSWBF2_API const Vector3* Config_GetVec3(const Config* cfg, uint32_t hash); 
-        LIBSWBF2_API const Vector4* Config_GetVec4(const Config* cfg, uint32_t hash); 
-        LIBSWBF2_API const char* Config_GetString(const Config* cfg, uint32_t hash); 
-        LIBSWBF2_API const char** Config_GetStrings(const Config* cfg, uint32_t hash, int32_t& count); 
-        LIBSWBF2_API const Config* Config_GetChildConfigs(const Config* cfg, uint32_t hash, int32_t& numConfigs, int32_t& inc); 
+
+        // Config
+        LIBSWBF2_API const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash);
+        LIBSWBF2_API const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count);
+
+        LIBSWBF2_API const uint8_t Config_FetchSimpleFields(const Config* cfg, uint32_t& name);
+
+        LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg);
+        LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 
+        LIBSWBF2_API const Vector3* Field_GetVec3(const Field* cfg); 
+        LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 
+        LIBSWBF2_API const char* Field_GetString(const Field* cfg); 
 	}
 }

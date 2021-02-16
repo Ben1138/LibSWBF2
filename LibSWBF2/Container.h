@@ -1,5 +1,7 @@
 #pragma once
 #include "Wrappers/Level.h"
+#include "Wrappers/Terrain.h"
+#include "Wrappers/Localization.h"
 #include "Wrappers/SoundBank.h"
 #include "Types/LibString.h"
 #include "Types/List.h"

@@ -803,70 +803,72 @@ namespace LibSWBF2
     }
 
 
-    const uint32_t Config_GetName(const Config* cfg)
+
+    // Config stuff
+
+    const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash)
     {
-    	return cfg -> m_Name;
+    	CheckPtr(cfg,false);
+    	scop = const_cast<Scope *>(&(cfg -> scope));
+    	hash = cfg -> name;
+    	return true;
     }
 
-    const uint8_t Config_IsPropertySet(const Config* cfg, uint32_t hash)
+    const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count)
     {
-    	return cfg -> IsPropertySet(hash);
+    	static List<const Field *> cache;
+    	if (isScope)
+    	{
+    		cache = ((Scope *) ptr) -> GetFields(hash);
+    	}
+    	else 
+    	{
+    		cache = ((Config *) ptr) -> GetFields(hash);    		
+    	}
+
+    	count = cache.Size();
+    	return cache.GetArrayPtr();
     }
 
-	const float_t Config_GetFloat(const Config* cfg, uint32_t hash)
+
+    const uint8_t Config_FetchSimpleFields(const Config* cfg, uint32_t& name)
+    {
+    	CheckPtr(cfg,false);
+    	name = cfg -> m_Name;
+    	return true;
+    }
+
+
+	const float_t Field_GetFloat(const Field* cfg)
 	{
-		return cfg -> GetFloat(hash);
+		return cfg -> GetFloat();
 	}
 
-	const Vector2* Config_GetVec2(const Config* cfg, uint32_t hash)
+	const Vector2* Field_GetVec2(const Field* cfg)
 	{
 		static Vector2 cache;
-		cache = cfg -> GetVector2(hash);
+		cache = cfg -> GetVector2();
 		return &cache; 
 	}
 
-	const Vector3* Config_GetVec3(const Config* cfg, uint32_t hash)
+	const Vector3* Field_GetVec3(const Field* cfg)
 	{
 		static Vector3 cache;
-		cache = cfg -> GetVector3(hash);
+		cache = cfg -> GetVector3();
 		return &cache; 
 	}
 
-	const Vector4* Config_GetVec4(const Config* cfg, uint32_t hash)
+	const Vector4* Field_GetVec4(const Field* cfg)
 	{
 		static Vector4 cache;
-		cache = cfg -> GetVector4(hash);
+		cache = cfg -> GetVector4();
 		return &cache; 
 	}
 
-	const char* Config_GetString(const Config* cfg, uint32_t hash)
+	const char* Field_GetString(const Field* cfg)
 	{
 		static String cache;
-		cache = cfg -> GetString(hash);
+		cache = cfg -> GetString();
 		return cache.Buffer(); 
-	}
-
-	const char** Config_GetStrings(const Config* cfg, uint32_t hash, int32_t& count)
-	{
-		static List<String> cache;
-		static char** cachePtrs = nullptr;
-		PurgePtr(cachePtrs);
-
-		cache = cfg -> GetStrings(hash);
-		count = cache.Size();
-		cachePtrs = GetStringListPtrs(cache);
-
-		return const_cast<const char **>(cachePtrs);
-	}
-
-
-    const Config* Config_GetChildConfigs(const Config* cfg, uint32_t hash, int32_t& numConfigs, int32_t& inc)
-    {
-    	static List<Config> cache;
-    	cache = cfg -> GetChildConfigs(hash);
-
-    	inc = sizeof(Config);
-    	numConfigs = cache.Size();
-    	return cache.GetArrayPtr();
 	}
 }

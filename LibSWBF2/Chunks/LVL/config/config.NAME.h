@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        FNVHash m_PropertyName;
+        FNVHash m_Name;
 
         String ToString() override;
     };

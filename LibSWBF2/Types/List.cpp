@@ -481,8 +481,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<GenericBaseChunk*>;
 	template class LIBSWBF2_API Types::List<D3DFORMAT>;
 
-	template class LIBSWBF2_API Types::List<LVL::texture::FMT_*>;
-	template class LIBSWBF2_API Types::List<LVL::LVL_texture::LVL_*>;
+	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::LVL::texture::FMT_*>;
+	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::LVL::LVL_texture::LVL_*>;
 	template class LIBSWBF2_API Types::List<LVL::modl::modl*>;
 	template class LIBSWBF2_API Types::List<LVL::modl::segm*>;
 	template class LIBSWBF2_API Types::List<LVL::modl::VBUF*>;
@@ -551,5 +551,9 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
+
+	template class LIBSWBF2_API Types::List<Wrappers::Field>;
+	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;
+
 }
 

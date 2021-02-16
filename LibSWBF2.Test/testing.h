@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LibSWBF2.h"
+#include "Hashing.h"
 #include "FileWriter.h"
 #include "Chunks/LVL/LVL.h"
 #include "Types/Enums.h"
@@ -18,6 +19,7 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
+using namespace LibSWBF2;
 using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 

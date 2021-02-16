@@ -3,8 +3,8 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-#include "DATA.h"
 #include "SCOP.h"
+#include "DATA.h"
 
 namespace LibSWBF2::Chunks::LVL::config
 {
@@ -36,12 +36,12 @@ namespace LibSWBF2::Chunks::LVL::config
 			}
 			else if (next == "DATA"_h)
 			{
-				DATA_CONFIG* data;
+				DATA_CONFIG *data;
 				GenericChunk<Header>::READ_CHILD(stream, data);
 			}
 			else if (next == "SCOP"_h)
 			{
-				SCOP* scop;
+				SCOP *scop;
 				GenericChunk<Header>::READ_CHILD(stream, scop);
 			}
 			else 
@@ -60,11 +60,12 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		return fmt::format(
 			"Hash: 0x{0:x}\n",
-			p_Hash != nullptr ? p_Hash -> m_PropertyName : 0
+			p_Hash != nullptr ? p_Hash -> m_Name : 0
 		).c_str();
 	}
 
 
+	template struct LIBSWBF2_API ConfigChunk<0>;
 	template struct LIBSWBF2_API ConfigChunk<"lght"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"fx__"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"sky_"_m>;
