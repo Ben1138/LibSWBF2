@@ -22,7 +22,7 @@ namespace LibSWBF2::Wrappers
 		float_t m_WeightValue;
 		uint8_t m_BoneIndex;
 	};
-
+	#pragma pack(pop)
 
 	class LIBSWBF2_API Segment
 	{
