@@ -3,6 +3,14 @@
 #include "Chunks/STR.h"
 #include "config.NAME.h"
 
+#include "DATA.h"
+
+
+namespace LibSWBF2::Chunks::LVL::config
+{
+	struct SCOP;
+}
+
 namespace LibSWBF2::Chunks::LVL::config
 {
 	template<uint32_t Header>
@@ -10,6 +18,9 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 	public:
 		config_NAME *p_Hash = nullptr;
+
+		//List<SCOP *> m_ChildConfigs;
+		//List<DATA_CONFIG *> m_Fields;
 
 	public:
 		void RefreshSize() override;
@@ -19,6 +30,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		String ToString() override;
 	};
 
+	struct LIBSWBF2_API ConfigChunkNC : public ConfigChunk<0> {};
 	struct LIBSWBF2_API lght : public ConfigChunk<"lght"_m> {};
 	struct LIBSWBF2_API fx__ : public ConfigChunk<"fx__"_m> {};
 	struct LIBSWBF2_API sky_ : public ConfigChunk<"sky_"_m> {};

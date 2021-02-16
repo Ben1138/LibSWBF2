@@ -1,52 +1,114 @@
 #pragma once
-#include "Chunks/LVL/config/ConfigChunk.h"
-#include "Chunks/LVL/config/SCOP.h"
-
 #include "Types/Color4.h"
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
 
+#include <unordered_map>
+
+
+
+namespace LibSWBF2::Chunks
+{
+	struct GenericBaseChunk;
+
+	namespace LVL::config
+	{
+		struct SCOP;
+		struct ConfigChunkNC;
+		struct DATA_CONFIG;
+	}
+}
+
 
 namespace LibSWBF2::Wrappers
 {
-	using LibSWBF2::Chunks::GenericBaseChunk;
-	using namespace LibSWBF2::Chunks::LVL::config;
 	using namespace LibSWBF2::Types;
+
+	struct Field;
+
+
+	struct Scope
+	{
+
+	typedef LibSWBF2::Chunks::LVL::config::SCOP SCOP;
+
+
+	friend Field;
+
+	public:
+		List<const Field *> GetFields(FNVHash name = 0) const;
+		const Field& GetField(FNVHash name = 0) const;
+
+		bool IsEmpty() const;
+
+		Scope() = default;
+	
+	private:
+		Scope(SCOP *scopePtr);
+		SCOP *p_Scope;
+
+		// These are lazily initialized, since we may not
+		// use many Config types
+		mutable List<Field> m_Fields;
+		mutable bool m_IsValid;
+
+		const void Cache() const;
+	};
+
+
+
+
+	struct Field
+	{
+	typedef LibSWBF2::Chunks::GenericBaseChunk GenericBaseChunk;
+	typedef LibSWBF2::Chunks::LVL::config::DATA_CONFIG DATA_CONFIG;
+	typedef LibSWBF2::Chunks::LVL::config::SCOP SCOP;
+
+	public:
+		Field(DATA_CONFIG* data, SCOP* scope);
+		Field() = default;
+
+		static List<Field> FieldsFromChunkChildren(GenericBaseChunk *chunk);
+
+		float_t GetFloat(uint32_t index = 0) const;
+		Vector2 GetVector2() const;
+		Vector3 GetVector3() const;
+		Vector4 GetVector4() const;
+		String GetString() const;
+
+		FNVHash name;
+		Scope scope;
+
+	private:
+		DATA_CONFIG* p_Data;
+	};
+
+
+
 
 
 	class LIBSWBF2_API Config
 	{
 
-		friend class Level;
-		friend List<Config>;
+	typedef LibSWBF2::Chunks::LVL::config::ConfigChunkNC ConfigChunkNC;
+	typedef LibSWBF2::Chunks::GenericBaseChunk GenericBaseChunk;
+
+	friend class Level;
+	friend List<Config>;
 
 	public:
 
-		FNVHash m_Name;
 		EConfigType m_ConfigType;
-
-		bool IsPropertySet(FNVHash hash) const;
-		float_t GetFloat(FNVHash hash, uint32_t index = 0) const;
-		
-		Vector2 GetVector2(FNVHash hash) const;
-		Vector3 GetVector3(FNVHash hash) const;
-		Vector4 GetVector4(FNVHash hash) const;
-		String GetString(FNVHash hash) const;
-		List<String> GetStrings(FNVHash hash) const;
-
-		List<Config> GetChildConfigs(FNVHash hash) const;
+		FNVHash m_Name;
+				
+		const Field& GetField(FNVHash hash = 0) const;
+		List<const Field *> GetFields(FNVHash hash = 0) const;
 
 		static bool FromChunk(GenericBaseChunk *cfg, Config& wrapperOut);
 
-
 	private:
 
-		Config() = default;
-		Config(DATA_CONFIG *data, SCOP *scop);
-		GenericBaseChunk *p_Chunk;
-
-		DATA_CONFIG *SearchProperty(FNVHash hash) const;
-		List<DATA_CONFIG *> SearchPropertyAll(FNVHash hash) const;
-
+		ConfigChunkNC *p_Chunk;
+		List<Field> m_Fields;
 	};
 }

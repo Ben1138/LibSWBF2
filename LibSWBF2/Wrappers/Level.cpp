@@ -1,12 +1,18 @@
 #include "stdafx.h"
 #include "Level.h"
 #include "InternalHelpers.h"
+
+#include "Chunks/LVL/LVL.h"
+
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include "Chunks/LVL/zaa_/zaa_.h"
+#include "Chunks/LVL/tern/tern.h"
+#include "Chunks/LVL/config/ConfigChunk.h"
+
 #include <unordered_map>
 #include <filesystem>
 
@@ -20,8 +26,8 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::terrain::tern;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
-
     using namespace Chunks::LVL::animation;
+    using namespace Chunks::LVL::config;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
@@ -66,7 +72,7 @@ namespace LibSWBF2::Wrappers
 			AnimationBank animBank;
 			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
-				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(std::move(animBank)));
 			}	
 		}
 

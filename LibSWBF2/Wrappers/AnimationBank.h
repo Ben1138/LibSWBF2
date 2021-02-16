@@ -27,12 +27,12 @@ namespace LibSWBF2::Wrappers
 		
 		bool GetAnimationMetadata(CRCChecksum anim, uint32_t &numFrames, uint32_t &numBones) const;
 
-		String name;
+		const String& GetName() const;
 
 
 	private:
 
-		zaa_ *animChunk = nullptr;
+		zaa_ *p_AnimChunk = nullptr;
 
 
 		class AnimDecompressor
@@ -45,17 +45,17 @@ namespace LibSWBF2::Wrappers
 									List<uint16_t> &frame_indicies, 
 									List<float_t> &frame_values) const;
 		private:
-			int8_t *buffer;
-			size_t length;
+			int8_t *p_Buffer;
+			size_t m_Length;
 
-			mutable size_t read_head;
-			mutable float_t bias, multiplier;
+			mutable size_t m_ReadHead;
+			mutable float_t m_Bias, m_Multiplier;
 
 			inline bool ReadInt16(int16_t &val) const;
 			inline bool ReadInt8(int8_t &val) const;
 			inline bool ReadUInt8(uint8_t &val) const;
 		};
 
-		AnimDecompressor decompressor;
+		AnimDecompressor m_Decompressor;
 	};
 }

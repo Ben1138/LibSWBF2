@@ -2,9 +2,7 @@
 #include "stdafx.h"
 #include "Config.h"
 #include "Chunks/LVL/config/ConfigChunk.h"
-#include "Types/Color4.h"
-#include "Types/Vector4.h"
-#include "Types/Vector3.h"
+#include "Chunks/LVL/config/SCOP.h"
 #include "InternalHelpers.h"
 
 
@@ -14,225 +12,213 @@ namespace LibSWBF2::Wrappers
 	using namespace LibSWBF2::Types;
 
 
-	List<DATA_CONFIG *> Config::SearchPropertyAll(FNVHash hash) const
-	{
-		List<DATA_CONFIG *> matches;
-
-		if (p_Chunk == nullptr) 
-		{
-			return matches;
-		}
-
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
-		for (int i = 0; i < children.Size(); i++)
-		{
-			DATA_CONFIG *childDATA = dynamic_cast<DATA_CONFIG *>(children[i]);
-
-			if (childDATA != nullptr && childDATA -> m_NameHash == hash)
-			{
- 				matches.Add(childDATA);	
-			}
-		}
-
-		return matches;
-	}
-
-
-	DATA_CONFIG *Config::SearchProperty(FNVHash hash) const
-	{
-		if (p_Chunk == nullptr)
-		{ 
-			return nullptr;
-		}
-
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
-		for (int i = 0; i < children.Size(); i++)
-		{
-			DATA_CONFIG *childDATA = dynamic_cast<DATA_CONFIG *>(children[i]);
-
-			if (childDATA != nullptr && childDATA -> m_NameHash == hash)
-			{
- 				return childDATA;
-			}
-		}
-
-		return nullptr;
-	}
-
-
 	/*
-	FNVHash Config::GetName()
-	{
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
 
-		if (children.Size() > 0)
-		{
-			config_NAME *nameChunk = dynamic_cast<config_NAME *>(children[0]); 
+	Field
 
-			if (config_NAME != nullptr)
-			{
-				return config_NAME -> m_PropertyName;
-			}
-		}
-
-		return 0;
-	}
 	*/
 
-
-	bool Config::IsPropertySet(FNVHash hash) const
+	List<Field> Field::FieldsFromChunkChildren(GenericBaseChunk *chunk)
 	{
-		return SearchProperty(hash) != nullptr;
+		List<Field> fields;
+		const List<GenericBaseChunk *>& children = chunk -> GetChildren();
+		
+		for (uint16_t i = 0; i < children.Size(); i++)
+		{
+			DATA_CONFIG *child = dynamic_cast<DATA_CONFIG *>(children[i]);
+			
+			if (child == nullptr) continue;
+			
+			SCOP *scope;
+			if (i == children.Size() - 1)
+			{
+				scope = nullptr;
+			}
+			else
+			{
+				scope = dynamic_cast<SCOP *>(children[i+1]);
+			}
+				
+			fields.Add(Field(child, scope));
+		}
+
+		return fields;
 	}
 
 
-	float_t Config::GetFloat(FNVHash hash, uint32_t index) const
+	Field::Field(DATA_CONFIG *data, SCOP* scop) : scope(scop)
 	{
-		DATA_CONFIG *propertyChunk = SearchProperty(hash);
-		if (propertyChunk != nullptr)
-		{
-			float_t out;
-			if (propertyChunk -> GetFloat(out,index))
-			{
-				return out;
-			}
-		}
+		p_Data = data;
+		name = data -> m_NameHash;
+		//m_Scope = Scope(scop);
+	}
 
+
+	float_t Field::GetFloat(uint32_t index) const
+	{	
+		float_t out;
+		if (p_Data -> GetFloat(out,index))
+		{
+			return out;
+		}
+		
 		return 0.0f;
 	}
 		
-	Vector2 Config::GetVector2(FNVHash hash) const
+
+	Vector2 Field::GetVector2() const
 	{
-		DATA_CONFIG *propertyChunk = SearchProperty(hash);
-		if (propertyChunk != nullptr)
+		Vector2 out;
+		if (p_Data -> GetVec2(out))
 		{
-			Vector2 out;
-			if (propertyChunk -> GetVec2(out))
-			{
-				return out;
-			}
+			return out;
 		}
 
 		return Vector2();
 	}
 
 
-	Vector3 Config::GetVector3(FNVHash hash) const
+	Vector3 Field::GetVector3() const
 	{
-		DATA_CONFIG *propertyChunk = SearchProperty(hash);
-		if (propertyChunk != nullptr)
+		Vector3 out;
+		if (p_Data -> GetVec3(out))
 		{
-			Vector3 out;
-			if (propertyChunk -> GetVec3(out))
-			{
-				return out;
-			}
+			return out;
 		}
 
 		return Vector3();
 	}
 
 
-	Vector4 Config::GetVector4(FNVHash hash) const
+	Vector4 Field::GetVector4() const
 	{
-		DATA_CONFIG *propertyChunk = SearchProperty(hash);
-		if (propertyChunk != nullptr)
+		Vector4 out;
+		if (p_Data -> GetVec4(out))
 		{
-			Vector4 out;
-			if (propertyChunk -> GetVec4(out))
-			{
-				return out;
-			}
+			return out;
 		}
 
 		return Vector4();
 	}
 
 
-	String Config::GetString(FNVHash hash) const
+	String Field::GetString() const
 	{
-		DATA_CONFIG *propertyChunk = SearchProperty(hash);
-		if (propertyChunk != nullptr)
+		String strOut;
+		if (p_Data -> GetString(strOut))
 		{
-			String strOut;
-			if (propertyChunk -> GetString(strOut))
-			{
-				return strOut;
-			}
+			return strOut;
 		}
-
+	
 		return "";
 	}
 
 
-	List<String> Config::GetStrings(FNVHash hash) const
+
+
+	/*
+
+	Scope
+
+	*/
+
+	const void Scope::Cache() const
 	{
-		List<String> stringsOut;
-		List<DATA_CONFIG *> propertyChunks = SearchPropertyAll(hash);
-		for (int i = 0; i < propertyChunks.Size(); i++)
+		m_Fields = std::move(Field::FieldsFromChunkChildren(p_Scope));
+		m_IsValid = true;
+	}
+
+	bool Scope::IsEmpty() const
+	{
+		if (!m_IsValid)
 		{
-			DATA_CONFIG *propertyChunk = propertyChunks[i];
-			String strOut;
-			if (propertyChunk -> GetString(strOut))
+			Cache();
+		}
+		return m_Fields.Size() == 0;
+	}
+
+
+	const Field& Scope::GetField(FNVHash name) const
+	{
+		if (!m_IsValid)
+		{
+			Cache();
+		}
+
+		for (uint16_t i = 0; i < m_Fields.Size(); i++)
+		{
+			const Field& cur = m_Fields[i];
+			if (name == 0 || cur.name == name)
 			{
-				stringsOut.Add(strOut);
+				return cur;
 			}
 		}
-
-		return stringsOut;
+		THROW("Field not found!");
 	}
 
 
-	List<Config> Config::GetChildConfigs(FNVHash hash) const
+	List<const Field *> Scope::GetFields(FNVHash name) const
 	{
-		List<Config> foundSCOPs;
-
-		if (p_Chunk == nullptr)
+		if (!m_IsValid)
 		{
-			return foundSCOPs; 
+			Cache();
 		}
 
-		const List<GenericBaseChunk*>& children = p_Chunk -> GetChildren();
-
-		if (children.Size() < 2)
+		List<const Field *> matchedFields;
+		for (uint16_t i = 0; i < m_Fields.Size(); i++)
 		{
-			return foundSCOPs;
-		}
-
-		for (int i = 0; i < children.Size() - 1; i++)
-		{
-			DATA_CONFIG *data = dynamic_cast<DATA_CONFIG *>(children[i]);
-
-			if (data == nullptr || data -> m_NameHash != hash)
+			const Field& cur = m_Fields[i];
+			if (name == 0 || cur.name == name)
 			{
-				continue;
+				matchedFields.Add(&cur);
 			}
-
-			//The dynamic cast CAN return null, the getters
-			//for the resulting child config will just return default values
- 			foundSCOPs.Add(Config(data, dynamic_cast<SCOP *>(children[i+1])));
 		}
-
-		return foundSCOPs;		
+		return matchedFields;
 	}
 
 
-	Config::Config(DATA_CONFIG *data, SCOP *scop)
+	Scope::Scope(SCOP *scopePtr)
 	{
-		m_Name = data -> m_NameHash;
-
-		/*
-		scop CAN be null.  This is needed because some properties
-		have optional children, and the results of GetChildConfigs(hash) 
-		needs to line up with the results of property getters for said hash. 
-		If scop is null, then property getters will return default values.
-		*/
-		
-		p_Chunk = scop;
+		p_Scope = scopePtr;
+		m_IsValid = false;
 	}
 
 
 
+
+	/*
+
+	Config
+
+	*/
+
+	const Field& Config::GetField(FNVHash name) const
+	{
+		for (uint16_t i = 0; i < m_Fields.Size(); i++)
+		{
+			const Field& cur = m_Fields[i];
+			if (name == 0 || cur.name == name)
+			{
+				return cur;
+			}
+		}
+		THROW("Field not found!");
+	}
+
+
+	List<const Field *> Config::GetFields(FNVHash name) const
+	{
+		List<const Field *> matchedFields;
+		for (uint16_t i = 0; i < m_Fields.Size(); i++)
+		{
+			const Field& cur = m_Fields[i];
+			if (name == 0 || cur.name == name)
+			{
+				matchedFields.Add(&cur);
+			}
+		}
+		return matchedFields;
+	}
 
 
 	bool Config::FromChunk(GenericBaseChunk *cfgPtr, Config& wrapperOut)
@@ -245,34 +231,31 @@ namespace LibSWBF2::Wrappers
 		
 		if (nameChunk == nullptr) return false;
 
-		Config cfg;
-
-		cfg.m_Name = nameChunk -> m_PropertyName;
-		cfg.p_Chunk = cfgPtr;
+		EConfigType type;
 
 		if (dynamic_cast<comb*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Combo;
+			type = EConfigType::Combo;
 		}
 		else if (dynamic_cast<lght*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Lighting;
+			type = EConfigType::Lighting;
 		}
 		else if (dynamic_cast<path*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Path;
+			type = EConfigType::Path;
 		}
 		else if (dynamic_cast<bnd_*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Boundary;
+			type = EConfigType::Boundary;
 		}
 		else if (dynamic_cast<fx__*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Effect;
+			type = EConfigType::Effect;
 		}
 		else if (dynamic_cast<sky_*>(cfgPtr) != nullptr)
 		{
-			cfg.m_ConfigType = EConfigType::Skydome;
+			type = EConfigType::Skydome;
 		}
 		else 
 		{
@@ -280,10 +263,11 @@ namespace LibSWBF2::Wrappers
 			return false;
 		}
 
-		wrapperOut = cfg;
+		wrapperOut.m_ConfigType = type; 
+		wrapperOut.p_Chunk = (ConfigChunkNC *) cfgPtr;
+		wrapperOut.m_Fields = Field::FieldsFromChunkChildren(cfgPtr);
+		wrapperOut.m_Name = nameChunk -> m_Name;
 
 		return true;
 	}
 }
-
-

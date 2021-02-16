@@ -16,6 +16,7 @@ add_executable(entitiesTest  	  testInstancesEntities.cpp)
 add_executable(collisionTest 	  testCollision.cpp)
 add_executable(basicContainerTest testContainerBasic.cpp)
 add_executable(animBankTest 	  testAnimationBank.cpp)
+add_executable(configTest	 	  testConfig.cpp)
 
 
 #LINKING
@@ -27,3 +28,4 @@ target_link_libraries(entitiesTest  	  PUBLIC LibSWBF2_Static)
 target_link_libraries(collisionTest 	  PUBLIC LibSWBF2)
 target_link_libraries(basicContainerTest  PUBLIC LibSWBF2)
 target_link_libraries(animBankTest  	  PUBLIC LibSWBF2)
+target_link_libraries(configTest	  	  PUBLIC LibSWBF2)

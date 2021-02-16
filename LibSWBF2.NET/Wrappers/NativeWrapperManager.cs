@@ -38,7 +38,7 @@ namespace LibSWBF2.Wrappers
             Children = new HashSet<WeakReference<NativeWrapper>>();
         }
 
-
+        
         ~NativeWrapperManager()
         {
             foreach (WeakReference<NativeWrapper> childRef in Children)
@@ -49,12 +49,6 @@ namespace LibSWBF2.Wrappers
                 }
             }
             Children.Clear();
-
-            if (IsValid() && !IsOwned)
-            {
-                Delete();
-                Invalidate();
-            }
         }
 
 

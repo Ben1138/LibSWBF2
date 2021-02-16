@@ -22,6 +22,7 @@ namespace LibSWBF2.Wrappers
         {
             if (IsValid())
             { 
+                Console.WriteLine("\n\n\nFreeing container!!\n\n\n");
                 APIWrapper.Container_Delete(NativeInstance);
                 Invalidate();
             }

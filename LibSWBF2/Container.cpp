@@ -3,16 +3,20 @@
 #include "InternalHelpers.h"
 #include "Hashing.h"
 #include "FileReader.h"
+
+#include "Chunks/LVL/LVL.h"
 #include "Chunks/BNK/BNK.h"
+
 #include <vector>
 #include <future>
 #include <map>
 
+
+
+
 namespace LibSWBF2
 {
 	using LibSWBF2::Chunks::GenericBaseChunk;
-	using LibSWBF2::Chunks::LVL::LVL;
-	using LibSWBF2::Chunks::BNK::BNK;
 
 	struct LoadStatus
 	{
@@ -86,6 +90,8 @@ namespace LibSWBF2
 	{
 		// do not globally lock in order to not block
 		// while performing ReadFromFile!
+		using LibSWBF2::Chunks::LVL::LVL;
+
 
 		LVL* lvl = nullptr;
 		{
@@ -176,6 +182,7 @@ namespace LibSWBF2
 	{
 		// do not globally lock in order to not block
 		// while performing ReadFromFile!
+		using LibSWBF2::Chunks::BNK::BNK;
 
 		BNK* bnk = nullptr;
 		{

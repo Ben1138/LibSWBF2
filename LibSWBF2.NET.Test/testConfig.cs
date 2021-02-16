@@ -48,6 +48,33 @@ namespace LibSWBF2.NET.Test
             TestBench testBench = new TestBench();
 
             Container container = testBench.LoadAndTrackContainer(new List<string>(args), out List<Level> levels);
+            /*
+            string tstFX = "com_sfx_ord_flame";
+            var fxConfig = container.FindConfig(ConfigType.Effect, tstFX);
+
+            Field lEmitter = fxConfig.GetField("ParticleEmitter");
+        
+
+            Console.WriteLine("Num particles: {0}", (int) lEmitter.scope.GetField("MaxParticles").GetVec2().Y);
+
+            Field lTransformer = lEmitter.scope.GetField("Transformer");
+            Field lSpawner = lEmitter.scope.GetField("Spawner");
+
+            if (lTransformer == null)
+            {
+                Console.WriteLine("Transformer is null!"); //return 0;
+            }
+
+            if (lSpawner == null)
+            {
+                Console.WriteLine("Spawner is null!"); //return 0;
+            }
+
+            Console.WriteLine("Start size: {0}", lSpawner.scope.GetField("Size").GetVec3().Z);
+            //Console.WriteLine("Lifetime: {0}", lTransformer.GetChildConfig("Position").GetFloat("LifeTime"));
+
+            //return 1;
+            */
             
             Level level = levels[0];
             if (level == null) return -1;
@@ -62,13 +89,13 @@ namespace LibSWBF2.NET.Test
                 if (skydome != null)
                 {
                     Console.WriteLine("Skydome: {0} (0x{1:x})", world.skydomeName, HashUtils.GetFNV(world.name));
-                    Config domeInfo = skydome.GetChildConfig("DomeInfo");
+                    Field domeInfo = skydome.GetField("DomeInfo");
                     if (domeInfo != null)
                     {
-                        List<Config> domeModelConfigs = domeInfo.GetChildConfigs("DomeModel");
-                        foreach (Config domeModelConfig in domeModelConfigs)
+                        List<Field> domeModelConfigs = domeInfo.scope.GetFields("DomeModel");
+                        foreach (Field domeModelConfig in domeModelConfigs)
                         {
-                            string geometryName = domeModelConfig.GetString("Geometry");
+                            string geometryName = domeModelConfig.scope.GetField("Geometry").GetString();
                             Console.WriteLine("  Dome geometry: " + geometryName);
                         }
                     }
@@ -79,27 +106,25 @@ namespace LibSWBF2.NET.Test
                 Console.WriteLine("Lighting: ");
 
                 uint lightHash = HashUtils.GetFNV("Light");
-                List<string> lightNames = lighting.GetStrings(lightHash);
-                List<Config> lights = lighting.GetChildConfigs(lightHash);
+                List<Field> lights = lighting.GetFields(lightHash);
 
                 Console.WriteLine("\n  Lights: ");
                 int i = 0;
-                foreach (Config light in lights)
+                foreach (Field light in lights)
                 {
-                    Console.WriteLine("\n\tName: " + lightNames[i++]);
-                    Console.WriteLine("\tColor: " + light.GetVec3(HashUtils.GetFNV("Color")).ToString());
-                    Console.WriteLine("\tRegion: " + (light.IsPropertySet("Region") ?  light.GetString("Region") : "No region set!"));
-                    Console.WriteLine("\tType: " + light.GetFloat(HashUtils.GetFNV("Type")).ToString());
+                    Console.WriteLine("\n\tName: " + light.GetString());
+                    Console.WriteLine("\tColor: " + light.scope.GetField("Color").GetVec3().ToString());
+                    Console.WriteLine("\tType: " + light.scope.GetField("Type").GetFloat().ToString());
                 }
 
-                Config globalLighting = lighting.GetChildConfig("GlobalLights");
+                Field globalLighting = lighting.GetField("GlobalLights");
                 if (globalLighting == null) continue;
                 
                 Console.WriteLine("\n  Global lighting config: ");
-                Console.WriteLine("\tLight 1: " + globalLighting.GetString("Light1"));
-                Console.WriteLine("\tLight 2: " + globalLighting.GetString("Light2"));
-                Console.WriteLine("\tTop Ambient Color: " + globalLighting.GetVec3("Top").ToString());
-                Console.WriteLine("\tBottom Ambient Color: " + globalLighting.GetVec3("Bottom").ToString());
+                Console.WriteLine("\tLight 1: " + globalLighting.scope.GetField("Light1").GetString());
+                Console.WriteLine("\tLight 2: " + globalLighting.scope.GetField("Light2").GetString());
+                Console.WriteLine("\tTop Ambient Color: " + globalLighting.scope.GetField("Top").GetVec3().ToString());
+                Console.WriteLine("\tBottom Ambient Color: " + globalLighting.scope.GetField("Bottom").GetVec3().ToString());
             }
 
 
@@ -109,7 +134,7 @@ namespace LibSWBF2.NET.Test
             foreach (Config effect in effects)
             {
                 Console.WriteLine("  Effect name hash: 0x{0:x}", effect.name);
-                Console.WriteLine("\tEmitter name: {0}", (effect.IsPropertySet("ParticleEmitter") ? effect.GetString("ParticleEmitter") : "No emitter set!"));
+                //Console.WriteLine("\tEmitter name: {0}", (effect.IsPropertySet("ParticleEmitter") ? effect.GetString("ParticleEmitter") : "No emitter set!"));
             }
 
 
@@ -120,14 +145,15 @@ namespace LibSWBF2.NET.Test
                 Console.WriteLine("  Path config: 0x{0:x}", path.name);
                 int i = 0;
     
-                List<string> pathNames = path.GetStrings("Path");
-                List<Config> childPaths = path.GetChildConfigs("Path");
+                List<Field> pathNames = path.GetFields("Path");
 
-                foreach (string pathName in pathNames)
+                foreach (Field pathName in pathNames)
                 {
-                    Console.WriteLine("\tPath {0} has {1} nodes.", pathName, childPaths[i++].GetFloat("Nodes"));
+                    Console.WriteLine("\tPath {0} has {1} nodes.", pathName.GetString(), pathName.scope.GetField("Node").GetFloat());
                 }
             }
+
+            container.Delete();
 
             return 1;
         }

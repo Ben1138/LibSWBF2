@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "SoundBank.h"
+#include "Chunks/BNK/BNK.h"
+
 #include "InternalHelpers.h"
 #include "Types/SoundClip.h"
 #include "Hashing.h"
@@ -8,6 +10,7 @@
 namespace LibSWBF2::Wrappers
 {
 	using Types::SoundClip;
+	using LibSWBF2::Chunks::BNK::BNK;
 
 
 	SoundBank::SoundBank(BNK* soundBank)

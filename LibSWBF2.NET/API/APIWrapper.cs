@@ -244,34 +244,42 @@ namespace LibSWBF2
                                 out IntPtr attachedLightName, out uint matFlags, out uint specExp);
 
 
+
+
+
         // Config //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern uint Config_GetName(IntPtr cfg);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Config_FetchSimpleFields(IntPtr cfg, out uint name);
+
+
+        // Config / Scope // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr ConfigScope_GetFields(IntPtr ptr, uint hash, bool isScope, out uint count);
+
+
+        // Field //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Config_IsPropertySet(IntPtr cfg, uint hash);
+        public static extern bool Field_FetchAllFields(IntPtr cfg, out IntPtr scop, out uint hash);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern float  Config_GetFloat(IntPtr cfg, uint hash);
+        public static extern float  Field_GetFloat(IntPtr cfg);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetVec2(IntPtr cfg, uint hash); 
+        public static extern IntPtr Field_GetVec2(IntPtr cfg); 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetVec3(IntPtr cfg, uint hash); 
+        public static extern IntPtr Field_GetVec3(IntPtr cfg); 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetVec4(IntPtr cfg, uint hash); 
+        public static extern IntPtr Field_GetVec4(IntPtr cfg); 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetString(IntPtr cfg, uint hash); 
+        public static extern IntPtr Field_GetString(IntPtr cfg); 
         
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetStrings(IntPtr cfg, uint hash, out int count);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Config_GetChildConfigs(IntPtr cfg, uint hash, out int numConfigs, out int inc); 
     }
 }
