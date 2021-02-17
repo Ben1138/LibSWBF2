@@ -29,9 +29,10 @@ int main(int ac, char **av)
 
 	for (int i = 0; i < entities.Size(); i++)
 	{
-		COUT("\nFound entity type: " << entities[i].GetTypeName().Buffer() 
-			<< " which is subclass of " << entities[i].GetBaseName().Buffer()
+		COUT("\nType: " << entities[i].GetTypeName().Buffer() 
+			<< "\nBase: " << entities[i].GetBaseName().Buffer()
 		);
+
 
 		continue;
 

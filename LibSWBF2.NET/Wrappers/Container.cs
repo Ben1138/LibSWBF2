@@ -70,7 +70,7 @@ namespace LibSWBF2.Wrappers
                 T newObj = new T();
                 IntPtr ptr = APIWrapper.Container_GetWrapper(NativeInstance, wrapperMap[typeof(T)], name);
 
-                if (ptr == null)
+                if (ptr == IntPtr.Zero)
                 {
                     return null;
                 }
