@@ -9,16 +9,15 @@
 #include "Container.h"
 #include "Wrappers/Terrain.h"
 #include "Wrappers/Segment.h"
+#include "Wrappers/Config.h"
 
-#include <iostream>
-#include <string>
-
+#include "Chunks/HeaderNames.h"
 
 
 namespace LibSWBF2
 {
 
-#define PurgePtr(ptr) delete[] ptr; ptr = nullptr
+#define PurgePtr(ptr) delete[] ptr; ptr = nullptr;
 
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
@@ -176,8 +175,6 @@ namespace LibSWBF2
 	{
 		switch (type)
 		{
-			case 0:
-				return static_cast<const void *>(container -> FindLight(name));
 			case 1:
 				return static_cast<const void *>(container -> FindModel(name));
 			case 2:
@@ -194,6 +191,14 @@ namespace LibSWBF2
 				return nullptr;
 		}
 	}
+
+
+	const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash)
+	{
+		CheckPtr(container,nullptr);
+		return container -> FindConfig((EConfigType) type, nameHash);
+	}
+
 
 
 	const bool Container_Delete(Container* container)
@@ -224,165 +229,92 @@ namespace LibSWBF2
 		return level->IsWorldLevel();
 	}
 
-	const EntityClass* Level_GetEntityClass(const Level* level, const char* name)
+
+	const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name)
 	{
 		CheckPtr(level, nullptr);
-		return level->GetEntityClass(name);		
-	}
 
-
-	const Model* Level_GetModel(const Level* level, const char* modelName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetModel(modelName);
-	}
-
-
-	void Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc)
-	{
-		const List<Model>& models = level->GetModels();
-		modelArr = (void *) models.GetArrayPtr();
-		modelCount = (uint32_t) models.Size();
-		inc = sizeof(Model);
-	}
-
-
-	void Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc)
-	{
-		const List<EntityClass>& classes = level->GetEntityClasses();
-		classArr = (void *) classes.GetArrayPtr();
-		classCount = (int32_t) classes.Size();
-		inc = sizeof(EntityClass);
-	}
-
-
-	const Texture* Level_GetTexture(const Level* level, const char* texName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetTexture(texName);
-	}
-
-
-	const Script* Level_GetScript(const Level* level, const char* scriptName)
-	{
-		CheckPtr(level, nullptr);
-		return level->GetScript(scriptName);
-	}
-
-
-	void Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount)
-	{
-		CheckPtr(level, );
-		const List<Terrain>& terrains = level->GetTerrains();
-
-		static List<const Terrain*> terrainPtrs;
-		terrainPtrs.Clear();
-
-		for (size_t i = 0; i < terrains.Size(); ++i)
+		switch (type)
 		{
-			terrainPtrs.Add(&terrains[i]);
+		case 0:
+			return static_cast<const void*>(level->GetTerrain(name));
+		case 1:
+			return static_cast<const void*>(level->GetModel(name));
+		case 2:
+			return static_cast<const void*>(level->GetTexture(name));
+		case 3:
+			return static_cast<const void*>(level->GetWorld(name));
+		case 4:
+			return static_cast<const void*>(level->GetEntityClass(name));
+		case 5:
+			return static_cast<const void*>(level->GetAnimationBank(name));
+		case 6:
+			return static_cast<const void*>(level->GetScript(name));
+		default:
+			return nullptr;
 		}
-
-		terrainArr = terrainPtrs.GetArrayPtr();
-		terrainCount = (uint32_t)terrainPtrs.Size();
 	}
 
-
-	void Level_GetScripts(const Level* level, const Script**& scriptArr, uint32_t& scriptCount)
+	const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize)
 	{
-		CheckPtr(level, );
-		const List<Script>& scripts = level->GetScripts();
-
-		static List<const Script*> scriptPtrs;
-		scriptPtrs.Clear();
-
-		for (size_t i = 0; i < scripts.Size(); ++i)
-		{
-			scriptPtrs.Add(&scripts[i]);
-		}
-
-		scriptArr = scriptPtrs.GetArrayPtr();
-		scriptCount = (uint32_t)scriptPtrs.Size();
-	}
-
-
-	void Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount)
-	{
-		CheckPtr(level, );
-		const List<World>& worlds = level->GetWorlds();
-
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer.
-		// The inquirer of course is not allowed to alter the data!
-		static List<const World*> worldPtrs;
-		worldPtrs.Clear();
-
-		for (size_t i = 0; i < worlds.Size(); ++i)
-		{
-			worldPtrs.Add(&worlds[i]);
-		}
-
-		worldArr = worldPtrs.GetArrayPtr();
-		worldCount = (uint32_t) worldPtrs.Size();
-	}
-
-
-	void Level_GetLights(const Level* level, const Light**& LightArr, uint32_t& LightCount)
-	{
-		CheckPtr(level, );
-		const List<Light>& Lights = level->GetLights();
-
-		// since level->GetModels() just returns a reference to the actual list
-		// member of level, which will persist even after this call ended, we can safely
-		// provide the model addresses of the underlying buffer to the inquirer.
-		// The inquirer of course is not allowed to alter the data!
-		static List<const Light*> LightPtrs;
-		LightPtrs.Clear();
-
-		for (size_t i = 0; i < Lights.Size(); ++i)
-		{
-			LightPtrs.Add(&Lights[i]);
-		}
-
-		LightArr = LightPtrs.GetArrayPtr();
-		LightCount = (uint32_t) LightPtrs.Size();
-	}
-
-
-	const Light* Level_GetLight(const Level* level, const char* lightName)
-	{
+		numWrappers = 0;
+		wrapperSize = 0;
 		CheckPtr(level, nullptr);
-		return level->GetLight(lightName);
-	}
 
-
-	bool Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
-								const char*& light1Name, const char*& light2Name)
-	{
-		const auto* config = level -> GetGlobalLighting();
-		static Vector3 topCol, bottomCol;
-		static String name1, name2;
-
-		if (config != nullptr)
-		{	
-			topColor    = config -> GetTopColor(topCol) ? &topCol : nullptr;
-			bottomColor = config -> GetBottomColor(bottomCol) ? &bottomCol : nullptr;
-
-			light1Name  = config -> GetLight1(name1) ? name1.Buffer() : "";
-			light2Name  = config -> GetLight2(name2) ? name2.Buffer() : "";
-
-			return true;
+		switch (type)
+		{
+		case 0:
+		{
+			const List<Terrain>& terrains = level->GetTerrains();
+			numWrappers = terrains.Size();
+			wrapperSize = sizeof(Terrain);
+			return static_cast<const void*>(terrains.GetArrayPtr());
 		}
-
-		return false;
-	}
-
-
-	const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName)
-	{
-		CheckPtr(level, nullptr);
-		return level -> GetAnimationBank(setName);
+		case 1:
+		{
+			const List<Model>& models = level->GetModels();
+			numWrappers = models.Size();
+			wrapperSize = sizeof(Model);
+			return static_cast<const void*>(models.GetArrayPtr());
+		}
+		case 2:
+		{
+			const List<Texture>& textures = level->GetTextures();
+			numWrappers = textures.Size();
+			wrapperSize = sizeof(Texture);
+			return static_cast<const void*>(textures.GetArrayPtr());
+		}
+		case 3:
+		{
+			const List<World>& worlds = level->GetWorlds();
+			numWrappers = worlds.Size();
+			wrapperSize = sizeof(World);
+			return static_cast<const void*>(worlds.GetArrayPtr());
+		}
+		case 4:
+		{
+			const List<EntityClass>& entityClasses = level->GetEntityClasses();
+			numWrappers = entityClasses.Size();
+			wrapperSize = sizeof(EntityClass);
+			return static_cast<const void*>(entityClasses.GetArrayPtr());
+		}
+		case 5:
+		{
+			const List<AnimationBank>& animationBanks = level->GetAnimationBanks();
+			numWrappers = animationBanks.Size();
+			wrapperSize = sizeof(AnimationBank);
+			return static_cast<const void*>(animationBanks.GetArrayPtr());
+		}
+		case 6:
+		{
+			const List<Script>& scripts = level->GetScripts();
+			numWrappers = scripts.Size();
+			wrapperSize = sizeof(Script);
+			return static_cast<const void*>(scripts.GetArrayPtr());			
+		}
+		default:
+			return nullptr;
+		}
 	}
 
 
@@ -405,14 +337,14 @@ namespace LibSWBF2
 
 
 
+
 	//Wrappers - Texture
 
 	const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut)
 	{
 		static String nameCache;
 		static const uint8_t* imageDataCache = nullptr;
-    	delete[] imageDataCache;
-    	imageDataCache = nullptr;
+    	//PurgePtr(imageDataCache);
 
 		CheckPtr(tex,false);
 
@@ -437,6 +369,27 @@ namespace LibSWBF2
     	return conversionStatus;
 	}
 
+
+	const Config* Level_GetConfig(const Level* level, uint32_t header, uint32_t hash)
+	{
+		const Config *ptr = nullptr;
+		EConfigType cfgType = static_cast<EConfigType>(header);
+
+		ptr = level -> GetConfig(cfgType, hash);
+
+		return ptr;
+	}
+
+	const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs)
+	{
+		static List<const Config *> configs;
+		EConfigType cfgType = static_cast<EConfigType>(header);
+
+		configs = level -> GetConfigs(cfgType);
+		
+		numConfigs = configs.Size();
+		return configs.GetArrayPtr();
+	}
 
 	const char* ENUM_TopologyToString(ETopology topology)
 	{
@@ -660,7 +613,7 @@ namespace LibSWBF2
     // Wrappers - Material
     uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                     Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
-                    char* attachedLightName, uint32_t& matFlags, uint32_t& specExp)
+                    char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp)
     {	
     	static Vector3 specCache, diffCache;
     	static char** texNamePtrsCache = new char*[4];
@@ -669,13 +622,13 @@ namespace LibSWBF2
 
     	CheckPtr(matPtr, false);
 
-    	uint8_t count = 0;
-    	while (count < 4 && matPtr -> GetTextureName(count, namesCache[count]))
+    	numTexes = 0;
+    	while (numTexes < 4 && matPtr -> GetTextureName(numTexes, namesCache[numTexes]))
     	{
-    		texNamePtrsCache[count] = const_cast<char *>(namesCache[count].Buffer());
-    		count++;
+    		texNamePtrsCache[numTexes] = const_cast<char *>(namesCache[numTexes].Buffer());
+    		numTexes++;
     	}
-    	numTexes = count;
+
     	texPtrs = texNamePtrsCache;
 
     	specExp = matPtr -> GetSpecularExponent();
@@ -711,10 +664,31 @@ namespace LibSWBF2
 	}
 
 
-
 	//Wrappers - World
+	const void World_GetRegions(const World* world, const void*& regArr, uint32_t& count)
+	{
+		List<regn *>& regionChunks = world -> p_World -> m_Regions;
+		regArr = (void *) regionChunks.GetArrayPtr();
+		count = regionChunks.Size();
+	}
+
+	const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut)
+	{
+		static Vector4 rotCache;
+		regn *regPtr = (regn *) reg;
+
+		sizeOut = &(regPtr -> p_Info -> p_SIZE -> m_Dimensions);
+
+		posOut = &(regPtr -> p_Info -> p_XFRM -> m_Position);
+		
+		rotCache = MatrixToQuaternion(regPtr -> p_Info -> p_XFRM -> m_RotationMatrix);
+		rotOut = &rotCache;
+
+		nameOut = const_cast<char *>(regPtr -> p_Info -> p_Name -> m_Text.Buffer());
+		typeOut = const_cast<char *>(regPtr -> p_Info -> p_Type -> m_Text.Buffer());
+	}
+
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-										const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Terrain*& terrPtr)
 	{
@@ -725,11 +699,6 @@ namespace LibSWBF2
 
 		skyNameCache = world -> GetSkyName();
 		skyNameOut = skyNameCache.Buffer();
-
-		const List<Light>& lights = world -> GetLights();
-    	lightArr = lights.GetArrayPtr();
-    	lightCount = (int32_t)lights.Size();
-    	lightInc = sizeof(Light);
 
     	const List<Instance>& instances = world -> GetInstances();
 		instanceArr = instances.GetArrayPtr();
@@ -787,7 +756,7 @@ namespace LibSWBF2
     	static List<uint32_t> hashes;
     	static char** ptrsBuffer = nullptr;
 
-    	delete[] ptrsBuffer;
+    	PurgePtr(ptrsBuffer);
 
     	if (instPtr -> GetOverriddenProperties(hashes, values))
     	{
@@ -844,7 +813,7 @@ namespace LibSWBF2
     	static List<String> values;
     	static List<uint32_t> hashes;
 
-    	delete[] ptrsBuffer;
+    	PurgePtr(ptrsBuffer);
 
     	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
     	
@@ -854,42 +823,10 @@ namespace LibSWBF2
 		valuesBuffer = ptrsBuffer;
 		return true;
     }
-
-
-    const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
-                                    Vector3*& posPtr, uint32_t& lightType, 
-                                    Vector3*& colPtr, float_t& range,
-                                    Vector2*& conePtr)
-    {
-    	CheckPtr(lightPtr, nullptr);
-
-    	static Vector3 lastPos, lastCol;
-    	static Vector4 lastRot; 
-    	static Vector2 lastCone(0,0);	
-    	float_t inner=0,outer=0;
-
-    	lastRot  = lightPtr -> GetRotation();
-    	lastPos  = lightPtr -> GetPosition();
-    	lastCol  = lightPtr -> GetColor();
-
-    	lightPtr -> GetSpotAngles(inner,outer);
-    	lastCone = Vector2(inner,outer);
-
-    	lightType = (uint32_t) lightPtr -> GetType();
-    	lightPtr -> GetRange(range);
-
-    	rotPtr  = &lastRot;
-    	colPtr  = &lastCol;
-    	posPtr  = &lastPos;
-    	conePtr = &lastCone;
-
-    	const String& name = lightPtr -> GetName();
-    	return name.Buffer();
-    }
+   
 
 
     // Wrappers - AnimationBank
-
 	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
                                                     const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
 	{
@@ -936,4 +873,74 @@ namespace LibSWBF2
 		numBones = bones;
 		return status;
     }
+
+
+
+    // Config stuff
+
+    const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash)
+    {
+    	CheckPtr(cfg,false);
+    	scop = const_cast<Scope *>(&(cfg -> scope));
+    	hash = cfg -> name;
+    	return true;
+    }
+
+    const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count)
+    {
+    	static List<const Field *> cache;
+    	if (isScope)
+    	{
+    		cache = ((Scope *) ptr) -> GetFields(hash);
+    	}
+    	else 
+    	{
+    		cache = ((Config *) ptr) -> GetFields(hash);    		
+    	}
+
+    	count = cache.Size();
+    	return cache.GetArrayPtr();
+    }
+
+
+    const uint8_t Config_FetchSimpleFields(const Config* cfg, uint32_t& name)
+    {
+    	CheckPtr(cfg,false);
+    	name = cfg -> m_Name;
+    	return true;
+    }
+
+
+	const float_t Field_GetFloat(const Field* cfg)
+	{
+		return cfg -> GetFloat();
+	}
+
+	const Vector2* Field_GetVec2(const Field* cfg)
+	{
+		static Vector2 cache;
+		cache = cfg -> GetVector2();
+		return &cache; 
+	}
+
+	const Vector3* Field_GetVec3(const Field* cfg)
+	{
+		static Vector3 cache;
+		cache = cfg -> GetVector3();
+		return &cache; 
+	}
+
+	const Vector4* Field_GetVec4(const Field* cfg)
+	{
+		static Vector4 cache;
+		cache = cfg -> GetVector4();
+		return &cache; 
+	}
+
+	const char* Field_GetString(const Field* cfg)
+	{
+		static String cache;
+		cache = cfg -> GetString();
+		return cache.Buffer(); 
+	}
 }

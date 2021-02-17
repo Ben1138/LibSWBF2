@@ -1,7 +1,12 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
+#include "Chunks/STRMULT.h"
 #include "inst.h"
+#include "regn.h"
+#include "anmg.h"
+#include "anim.h"
+
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
@@ -14,6 +19,11 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
 		// a.k.a. objects placed into the world
 		List<inst*> m_Instances;
+
+		List<regn*> m_Regions;
+
+		List<anim*> m_Animations;
+		List<anmg*> m_AnimationGroups;
 
 	public:
 		void RefreshSize() override;

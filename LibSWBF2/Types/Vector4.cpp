@@ -46,6 +46,6 @@ namespace LibSWBF2::Types
 
 	String Vector4::ToString()
 	{
-		return fmt::format("[{}, {}, {}, {}]", m_X, m_Y, m_Z, m_W).c_str();
+		return fmt::format("[{}, {}, {}, {}]",(float_t) m_X, (float_t) m_Y,(float_t) m_Z,(float_t) m_W).c_str();
 	}
 }

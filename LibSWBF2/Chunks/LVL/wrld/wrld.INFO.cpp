@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "inst.INFO.h"
+#include "wrld.INFO.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-namespace LibSWBF2::Chunks::LVL::wrld::instance
+namespace LibSWBF2::Chunks::LVL::wrld
 {
     void INFO::RefreshSize()
     {
@@ -23,6 +23,11 @@ namespace LibSWBF2::Chunks::LVL::wrld::instance
         READ_CHILD(stream, p_Type);
         READ_CHILD(stream, p_Name);
         READ_CHILD(stream, p_XFRM);
+
+        if (ThereIsAnother(stream))
+        {
+            READ_CHILD(stream, p_SIZE);
+        }
 
         BaseChunk::EnsureEnd(stream);
     }

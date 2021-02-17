@@ -19,4 +19,5 @@ def Hash(str):
 
     return hash
 
-print(Hash(sys.argv[1]))
+hashval = Hash(sys.argv[1])
+print(hashval, "({})".format(hex(hashval)))
