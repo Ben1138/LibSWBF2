@@ -23,7 +23,7 @@ namespace LibSWBF2::Wrappers
 
     String CollisionMesh::GetName() const
     {
-        if (p_CollisionChunk -> p_ChunkName == nullptr)
+        if (p_CollisionChunk == nullptr || p_CollisionChunk -> p_ChunkName == nullptr)
         {
             return "";
         }

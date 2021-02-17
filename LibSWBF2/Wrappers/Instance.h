@@ -12,7 +12,7 @@ namespace LibSWBF2
 
 namespace LibSWBF2::Wrappers
 {
-	using LibSWBF2::Chunks::LVL::wrld::inst;
+	using namespace LibSWBF2::Chunks::LVL::wrld;
 	using Types::Vector3;
 	using Types::Vector4;
 	using Types::List;

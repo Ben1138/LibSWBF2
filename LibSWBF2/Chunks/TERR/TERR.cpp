@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace LibSWBF2::Chunks::Terrain
+namespace LibSWBF2::Chunks::LVL::terrain
 {
 	TERR* TERR::Create()
 	{

@@ -451,4 +451,11 @@ namespace LibSWBF2
 	{
 		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) != rhs;
 	}
+
+
+
+	bool operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs)
+	{
+		return static_cast<std::underlying_type<EConfigType>::type>(lhs) == rhs;
+	}
 }

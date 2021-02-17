@@ -6,7 +6,7 @@
 #include "Logging/Logger.h"
 
 
-namespace LibSWBF2::Chunks::LVL::lght
+namespace LibSWBF2::Chunks::LVL::config
 {
 	void DATA_STRING::RefreshSize()
 	{
@@ -25,11 +25,14 @@ namespace LibSWBF2::Chunks::LVL::lght
 
         m_Tag = stream.ReadUInt32();
 
+        
+
         uint32_t numInts = (uint32_t) stream.ReadByte();
         stream.ReadString(numInts * 4); 
 
         uint32_t stringLength = stream.ReadUInt32();
-        m_String = stream.ReadString(stringLength);        	
+        m_String = stream.ReadString(stringLength);   
+            	
 
         BaseChunk::EnsureEnd(stream);
 	}

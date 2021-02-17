@@ -10,7 +10,9 @@
 
 #include "LVL/tex_/tex_.h"
 #include "LVL/modl/LVL.modl.h"
+#include "LVL/gmod/gmod.h"
 #include "LVL/wrld/wrld.h"
+#include "LVL/wrld/SIZE.h"
 #include "LVL/wrld/XFRM.h"
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
@@ -22,8 +24,8 @@
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
 #include "LVL/common/GenericClass.h"
+#include "LVL/config/ConfigChunk.h"
 
-#include "LVL/lght/lght.h"
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
 
@@ -88,6 +90,14 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, subLVL);
 						chunk = subLVL;
 					}
+
+					else if (nextHead == "gmod"_h)
+					{
+						LVL::gmod::gmod* lodInfo;
+						READ_CHILD(stream, lodInfo);
+						chunk = lodInfo;
+					}
+
 					else if (nextHead == "NAME"_h)
 					{
 						STR<"NAME"_m>* name;
@@ -157,9 +167,45 @@ namespace LibSWBF2::Chunks
 					}
 					else if (nextHead == "lght"_h)
 					{
-						LVL::lght::lght* unknown;
-						READ_CHILD(stream, unknown);
-						chunk = unknown;
+						LVL::config::lght* lighting;
+						READ_CHILD(stream, lighting);
+						chunk = lighting;
+					}
+					else if (nextHead == "sky_"_h)
+					{
+						LVL::config::sky_* skyDome;
+						READ_CHILD(stream, skyDome);
+						chunk = skyDome;	
+					}
+					else if (nextHead == "fx__"_h)
+					{
+						LVL::config::fx__* fx;
+						READ_CHILD(stream, fx);
+						chunk = fx;	
+					}
+					else if (nextHead == "bnd_"_h)
+					{
+						LVL::config::bnd_* boundary;
+						READ_CHILD(stream, boundary);
+						chunk = boundary;	
+					}
+					else if (nextHead == "prp_"_h)
+					{
+						LVL::config::prp_* idk;
+						READ_CHILD(stream, idk);
+						chunk = idk;	
+					}
+					else if (nextHead == "path"_h)
+					{
+						LVL::config::path* path;
+						READ_CHILD(stream, path);
+						chunk = path;	
+					}
+					else if (nextHead == "comb"_h)
+					{
+						LVL::config::comb* combo;
+						READ_CHILD(stream, combo);
+						chunk = combo;	
 					}
 					else if (nextHead == "Locl"_h)
 					{
@@ -275,6 +321,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"FMT_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tex_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"modl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"gmod"_m>;
 	template struct LIBSWBF2_API GenericChunk<"segm"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MTRL"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tern"_m>;
@@ -294,9 +341,16 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
 	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	
 	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anmg"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ROTK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ANIM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SIZE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
-	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
@@ -321,6 +375,15 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"ordc"_m>;
 	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
 	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
+
+	// configs
+	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	template struct LIBSWBF2_API GenericChunk<"fx__"_m>;
+	template struct LIBSWBF2_API GenericChunk<"sky_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"bnd_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prp_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"path"_m>;
+	template struct LIBSWBF2_API GenericChunk<"comb"_m>;
 
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;

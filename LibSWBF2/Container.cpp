@@ -3,16 +3,20 @@
 #include "InternalHelpers.h"
 #include "Hashing.h"
 #include "FileReader.h"
+
+#include "Chunks/LVL/LVL.h"
 #include "Chunks/BNK/BNK.h"
+
 #include <vector>
 #include <future>
 #include <map>
 
+
+
+
 namespace LibSWBF2
 {
 	using LibSWBF2::Chunks::GenericBaseChunk;
-	using LibSWBF2::Chunks::LVL::LVL;
-	using LibSWBF2::Chunks::BNK::BNK;
 
 	struct LoadStatus
 	{
@@ -41,9 +45,10 @@ namespace LibSWBF2
 		std::unordered_map<std::string, const World*> m_WorldDB;
 		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
-		std::unordered_map<std::string, const Light*> m_LightDB;
 		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
 		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
+
+		std::vector<const Config *> m_ConfigDB;
 
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
 		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
@@ -85,6 +90,8 @@ namespace LibSWBF2
 	{
 		// do not globally lock in order to not block
 		// while performing ReadFromFile!
+		using LibSWBF2::Chunks::LVL::LVL;
+
 
 		LVL* lvl = nullptr;
 		{
@@ -123,7 +130,6 @@ namespace LibSWBF2
 					CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
 					CopyMap(level->m_NameToIndexMaps->TerrainNameToIndex,		level->m_Terrains,		m_ThreadSafeMembers->m_TerrainDB);
 					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
-					CopyMap(level->m_NameToIndexMaps->LightNameToIndex,			level->m_Lights,		m_ThreadSafeMembers->m_LightDB);
 					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
 					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks, m_ThreadSafeMembers->m_AnimationBankDB);
 
@@ -142,6 +148,12 @@ namespace LibSWBF2
 						{
 							find->second.Add(&level->m_Localizations[it.second]);
 						}
+					}
+
+					List<const Config *> allLevelConfigs = level -> GetConfigs();
+					for (uint32_t i = 0; i < allLevelConfigs.Size(); i++)
+					{
+						m_ThreadSafeMembers -> m_ConfigDB.push_back(allLevelConfigs[i]);
 					}
 				}
 
@@ -170,6 +182,7 @@ namespace LibSWBF2
 	{
 		// do not globally lock in order to not block
 		// while performing ReadFromFile!
+		using LibSWBF2::Chunks::BNK::BNK;
 
 		BNK* bnk = nullptr;
 		{
@@ -487,23 +500,6 @@ namespace LibSWBF2
 		return m_ThreadSafeMembers->m_Worlds;
 	}
 
-	const Light* Container::FindLight(String lightName) const
-	{
-		if (lightName.IsEmpty())
-		{
-			return nullptr;
-		}
-
-		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_LightDB.find(ToLower(lightName));
-		if (it != m_ThreadSafeMembers->m_LightDB.end())
-		{
-			return it->second;
-		}
-
-		return nullptr;
-	}
-
 	const Model* Container::FindModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
@@ -656,6 +652,20 @@ namespace LibSWBF2
 		}
 		return nullptr;
 	}
+
+	const Config* Container::FindConfig(EConfigType type, FNVHash hashedConfigName) const
+	{
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		for (auto it = m_ThreadSafeMembers -> m_ConfigDB.begin(); it != m_ThreadSafeMembers -> m_ConfigDB.end(); ++it)
+		{
+			if ((*it) -> m_ConfigType == type && ((*it) -> m_Name == hashedConfigName) || hashedConfigName == 0)
+			{
+				return *it;
+			}
+		}
+		return nullptr;
+	}
+
 
 	bool Container::GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const
 	{

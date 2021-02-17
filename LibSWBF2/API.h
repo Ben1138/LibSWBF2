@@ -1,7 +1,6 @@
 #pragma once
 #include "Types/Enums.h"
 #include "Logging/Logger.h"
-#include "Wrappers/Level.h"
 
 
 namespace LibSWBF2
@@ -16,8 +15,6 @@ namespace LibSWBF2
 		class Level; 
 		class Model;
 		class Segment;
-		class Light;
-
 		class Terrain;
 		class CollisionMesh;
 		struct Bone;
@@ -26,12 +23,21 @@ namespace LibSWBF2
 		class AnimationBank;
 		class EntityClass;
 		class Script;
+		class World;
+		class Texture;
+		class Config;
+		class Material;
+		class Instance;
+		class Script;
+		struct Field;
+		struct Scope;
 	}
 
 	namespace Types
 	{
 		struct Vector3;
 		struct Vector4;
+		struct Vector2;
 	}
 
 	using namespace Wrappers;
@@ -64,31 +70,28 @@ namespace LibSWBF2
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
         LIBSWBF2_API float_t Container_GetOverallProgress(Container* container);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
-        LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
-        LIBSWBF2_API const void Container_LoadLevels(Container* container);
+
+		LIBSWBF2_API const void Container_LoadLevels(Container* container);
 		LIBSWBF2_API const bool Container_IsDone(Container* container);
 		LIBSWBF2_API const bool Container_Delete(Container* container);
+		
+		LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+        LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
+
 
 		// Wrappers - Level
 		LIBSWBF2_API Level*  Level_FromFile(const char* path);
 		LIBSWBF2_API void    Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
-		LIBSWBF2_API void 	 Level_GetModels(const Level* level, const void*& modelArr, uint32_t& modelCount, int32_t& inc);
-		LIBSWBF2_API void    Level_GetEntityClasses(const Level* level, const void*& classArr, int32_t& classCount, int32_t& inc);
-		LIBSWBF2_API void 	 Level_GetWorlds(const Level* level, const World**& worldArr, uint32_t& worldCount);
-		LIBSWBF2_API void 	 Level_GetTerrains(const Level* level, const Terrain**& terrainArr, uint32_t& terrainCount);
-		LIBSWBF2_API void 	 Level_GetScripts(const Level* level, const Script**& scriptArr, uint32_t& scriptCount);
-		LIBSWBF2_API void 	 Level_GetLights(const Level* level, const Light**& lightArr, uint32_t& lightCount);
-		LIBSWBF2_API bool    Level_GetGlobalLighting(const Level* level, Vector3 *& topColor, Vector3 *& bottomColor, 
-													const char*& light1Name, const char*& light2Name);		
-		LIBSWBF2_API const AnimationBank* Level_GetAnimationBank(const Level* level, const char* setName);
-		LIBSWBF2_API const Model* Level_GetModel(const Level* level, const char* modelName);
-		LIBSWBF2_API const Light* Level_GetLight(const Level* level, const char* lightName);
-		LIBSWBF2_API const Texture* Level_GetTexture(const Level* level, const char* texName);
-		LIBSWBF2_API const Script* Level_GetScript(const Level* level, const char* scriptName);
-		LIBSWBF2_API const EntityClass* Level_GetEntityClass(const Level* level, const char* name);
-		LIBSWBF2_API const char*  Level_GetName(const Level* level);
-		LIBSWBF2_API const char*  Level_GetPath(const Level* level);
+
+		LIBSWBF2_API const char *  Level_GetName(const Level* level);
+
+		LIBSWBF2_API const Config*  Level_GetConfig(const Level* level, uint32_t header, uint32_t hash);
+		LIBSWBF2_API const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs);
+
+		LIBSWBF2_API const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name);
+		LIBSWBF2_API const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize);
+
 
 		//Wrappers - Texture
 		LIBSWBF2_API const uint8_t Texture_FetchAllFields(const Texture* tex, int32_t& widthOut, int32_t& heightOut, const uint8_t*& bufOut, const char*& nameOut);
@@ -145,8 +148,10 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds);
 
 		// Wrappers - World
+        LIBSWBF2_API const void  World_GetRegions(const World* world, const void*& regArr, uint32_t& count);
+        LIBSWBF2_API const void Region_FetchAllFields(const void* reg, Vector3*& sizeOut, Vector3*& posOut, Vector4*& rotOut, char *&nameOut, char*& typeOut);
+
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-														const Light*& lightArr, int32_t& lightCount, int32_t& lightInc,
 														const Instance*& instanceArr, int32_t& instCount, int32_t& instInc, 
 														const Terrain*& terrPtr);
 
@@ -158,17 +163,10 @@ namespace LibSWBF2
    		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
    		LIBSWBF2_API const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
 
-
-		// Wrappers - Light
-		LIBSWBF2_API const char* Light_GetAllFields(const Light* lightPtr, Vector4*& rotPtr,
-				                                    Vector3*& posPtr, uint32_t& lightType, 
-				                                    Vector3*& colPtr, float_t& range,
-				                                    Vector2*& conePtr);
-
         // Wrappers - Material
         LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                                 Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
-                                char* attachedLightName, uint32_t& matFlags, uint32_t& specExp);
+                                char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp);
 
 		// Wrappers - AnimationBank
 		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
@@ -176,5 +174,18 @@ namespace LibSWBF2
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
+
+
+        // Config
+        LIBSWBF2_API const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash);
+        LIBSWBF2_API const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count);
+
+        LIBSWBF2_API const uint8_t Config_FetchSimpleFields(const Config* cfg, uint32_t& name);
+
+        LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg);
+        LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 
+        LIBSWBF2_API const Vector3* Field_GetVec3(const Field* cfg); 
+        LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 
+        LIBSWBF2_API const char* Field_GetString(const Field* cfg); 
 	}
 }

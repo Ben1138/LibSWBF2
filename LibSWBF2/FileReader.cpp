@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "FileReader.h"
+
+#ifndef MEMORY_MAPPED_READER
+
+
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
 
@@ -249,3 +253,7 @@ namespace LibSWBF2
 		return m_LatestChunkPos;
 	}
 }
+
+
+
+#endif

@@ -14,6 +14,8 @@ int main(int ac, char **av)
 		paths.Add(av[i]);
 	}
 
+
+
 	String animSetName = av[ac - 2];
 	String animName = av[ac - 1];
 	uint32_t animNameCRC = (uint32_t) CRC::CalcLowerCRC(animName.Buffer());
@@ -95,7 +97,7 @@ int main(int ac, char **av)
 			}
 			
 
-			/*			
+			/*		
 			for (uint16_t j = 0; j < 7; j++)
 			{
 				if (!animSet -> GetCurve(animNameCRC, boneCRC, j, indices, values))
@@ -121,9 +123,11 @@ int main(int ac, char **av)
 			}
 			*/
 			
+			
 		}
 	//}
 
+	Container::Delete(container);
 
 	return 0;
 }

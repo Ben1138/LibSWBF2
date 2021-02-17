@@ -2,6 +2,9 @@
 #include "Localization.h"
 #include "InternalHelpers.h"
 #include "Hashing.h"
+
+#include "Chunks/LVL/Locl/Locl.h"
+
 #include <map>
 
 namespace LibSWBF2::Wrappers

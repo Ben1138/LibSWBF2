@@ -52,4 +52,5 @@ namespace LibSWBF2::Chunks
 {
     template LIBSWBF2_API struct STRMULT<"NAME"_m>;
     template LIBSWBF2_API struct STRMULT<"PRNT"_m>;
+    template LIBSWBF2_API struct STRMULT<"ANIM"_m>;
 }

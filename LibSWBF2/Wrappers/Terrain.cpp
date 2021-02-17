@@ -2,11 +2,15 @@
 #include "Terrain.h"
 #include "InternalHelpers.h"
 
+#include "Chunks/LVL/tern/tern.h"
+
+
 namespace LibSWBF2::Wrappers
 {
 	using Chunks::LVL::terrain::PTCH;
 	using Chunks::LVL::terrain::VBUF;
 	using Chunks::LVL::terrain::IBUF;
+	using Chunks::LVL::terrain::tern;
 
 	bool Terrain::FromChunk(tern* terrainChunk, Terrain& out)
 	{

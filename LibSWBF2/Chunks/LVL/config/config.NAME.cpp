@@ -6,7 +6,7 @@
 #include "Logging/Logger.h"
 
 
-namespace LibSWBF2::Chunks::LVL::lght
+namespace LibSWBF2::Chunks::LVL::config
 {
 	void config_NAME::RefreshSize()
 	{
@@ -23,13 +23,13 @@ namespace LibSWBF2::Chunks::LVL::lght
         BaseChunk::ReadFromStream(stream);
         Check(stream);
 
-        m_WorldName = stream.ReadUInt32();
+        m_Name = stream.ReadUInt32();
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
     String config_NAME::ToString() 
     {
-        return fmt::format("Hashed world name: 0x{0:x}", m_WorldName).c_str();
+        return fmt::format("0x{0:x}", m_Name).c_str();
     }
 }

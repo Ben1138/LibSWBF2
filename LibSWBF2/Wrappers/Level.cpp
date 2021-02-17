@@ -1,13 +1,18 @@
 #include "stdafx.h"
 #include "Level.h"
 #include "InternalHelpers.h"
+
+#include "Chunks/LVL/LVL.h"
+
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
-#include "Chunks/LVL/lght/lght.h"
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include "Chunks/LVL/zaa_/zaa_.h"
+#include "Chunks/LVL/tern/tern.h"
+#include "Chunks/LVL/config/ConfigChunk.h"
+
 #include <unordered_map>
 #include <filesystem>
 
@@ -19,18 +24,15 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	using Chunks::LVL::lght::lght;
     using namespace Chunks::LVL::common;
-    using namespace Chunks::LVL::lght;
     using namespace Chunks::LVL::coll;
-
     using namespace Chunks::LVL::animation;
+    using namespace Chunks::LVL::config;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
 		p_lvl = lvl;
 		m_NameToIndexMaps = new MapsWrapper();
-		m_bHasGlobalLighting = false;
 		p_MainContainer = mainContainer;
 	}
 
@@ -38,7 +40,7 @@ namespace LibSWBF2::Wrappers
 	{
 		m_Models.Clear();
 		m_Textures.Clear();
-		m_Lights.Clear();
+		m_EntityClasses.Clear();
 
 		if (p_lvl == nullptr)
 		{
@@ -63,7 +65,6 @@ namespace LibSWBF2::Wrappers
 				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
 		}
-
 		
 		zaa_* animationChunk = dynamic_cast<zaa_*>(root);
 		if (animationChunk != nullptr)
@@ -71,36 +72,61 @@ namespace LibSWBF2::Wrappers
 			AnimationBank animBank;
 			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
-				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.name), m_AnimationBanks.Add(std::move(animBank)));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(std::move(animBank)));
 			}	
 		}
-		
+
+		//Config chunks
+		fx__* fxChunk = dynamic_cast<fx__*>(root);
+		if (fxChunk != nullptr)
+		{
+			Config effect;
+			if (Config::FromChunk(fxChunk, effect))
+			{
+				m_Configs.Add(effect);
+			}
+		}
 
 		lght* lightListChunk = dynamic_cast<lght*>(root);
 		if (lightListChunk != nullptr)
 		{
-            for (int i = 0; i < lightListChunk->p_LightTags.Size(); i++)
+			Config lighting;
+			if (Config::FromChunk(lightListChunk, lighting))
 			{
-                Light newLight;
-                if (Light::FromChunks(lightListChunk -> p_LightTags[i], 
-                					  lightListChunk ->	p_LightBodies[i], 
-                					  newLight))
-                {
-                	newLight.m_WorldName = lightListChunk -> p_Marker -> m_WorldName;
-                    m_NameToIndexMaps->LightNameToIndex.emplace(ToLower(newLight.GetName()), m_Lights.Add(newLight));
-                }
-			}
-
-			if (lightListChunk -> p_GlobalLightingBody)
-			{
-				if (m_bHasGlobalLighting)
-				{
-					LOG_WARN("Encountered another Global Lighting setting! Loaded more than one world LVL at once?");
-				}
-
-				m_bHasGlobalLighting = GlobalLightingConfig::FromChunk(lightListChunk -> p_GlobalLightingBody, m_GlobalLightingConfig);
+				m_Configs.Add(lighting);
 			}
 		}
+
+		sky_* skydomeChunk = dynamic_cast<sky_*>(root);
+		if (skydomeChunk != nullptr)
+		{
+			Config skydome;
+			if (Config::FromChunk(skydomeChunk, skydome))
+			{
+				m_Configs.Add(skydome);
+			}
+		}
+
+		path* pathChunk = dynamic_cast<path*>(root);
+		if (pathChunk != nullptr)
+		{
+			Config path;
+			if (Config::FromChunk(pathChunk, path))
+			{
+				m_Configs.Add(path);
+			}
+		}
+
+		comb* comboChunk = dynamic_cast<comb*>(root);
+		if (comboChunk != nullptr)
+		{
+			Config combo;
+			if (Config::FromChunk(comboChunk, combo))
+			{
+				m_Configs.Add(combo);
+			}
+		}
+
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
@@ -186,17 +212,6 @@ namespace LibSWBF2::Wrappers
 				if (World::FromChunk(p_MainContainer, worldChunk, world))
 				{
 					m_NameToIndexMaps->WorldNameToIndex.emplace(name, m_Worlds.Add(std::move(world)));
-
-					FNVHash worldName = FNV::Hash(world.GetName());
-					for (int i = 0; i < m_Lights.Size(); i++)
-					{
-						auto& light = m_Lights[i];
-
-						if (light.m_WorldName == worldName)
-						{
-							world.m_Lights.Add(light);
-						}
-					}
 				}
 			}
 		}
@@ -334,11 +349,6 @@ namespace LibSWBF2::Wrappers
 		return m_Worlds.Size() > 0;
 	}
 
-	const List<Light>& Level::GetLights() const
-	{
-		return m_Lights;
-	}
-
 	const List<Model>& Level::GetModels() const
 	{
 		return m_Models;
@@ -363,41 +373,38 @@ namespace LibSWBF2::Wrappers
 	{
 		return m_Scripts;
 	}
-
-	const Light* Level::GetLight(String lightName) const
-	{
-		if (lightName.IsEmpty())
-		{
-			return nullptr;
-		}
-
-		auto it = m_NameToIndexMaps->LightNameToIndex.find(ToLower(lightName));
-		if (it != m_NameToIndexMaps->LightNameToIndex.end())
-		{
-			return &m_Lights[it->second];
-		}
-
-		//LOG_WARN("Could not find Light '{}'!", lightName);
-		return nullptr;
-	}
   
 	const List<Localization>& Level::GetLocalizations() const
 	{
 		return m_Localizations;
 	}
 
-	const GlobalLightingConfig* Level::GetGlobalLighting() const
-	{
-		if (!m_bHasGlobalLighting)
-		{
-			return nullptr;
-		}
-		return &m_GlobalLightingConfig;
-	}
-
 	const List<EntityClass>& Level::GetEntityClasses() const
 	{
 		return m_EntityClasses;
+	}
+
+	const List<AnimationBank>& Level::GetAnimationBanks() const
+	{
+		return m_AnimationBanks;
+	}
+
+
+	const List<const Config *> Level::GetConfigs(EConfigType cfgType) const
+	{
+		List<const Config *> matchedConfigs;
+		for (int i = 0; i < m_Configs.Size(); i++)
+		{
+			const Config& cfg = m_Configs[i];
+
+			if (cfg.m_ConfigType == cfgType ||
+				cfgType == EConfigType::All)
+			{
+				matchedConfigs.Add(&cfg);
+			}
+		}
+
+		return matchedConfigs;
 	}
 
 	const Model* Level::GetModel(String modelName) const
@@ -542,6 +549,22 @@ namespace LibSWBF2::Wrappers
 		if (it != m_NameToIndexMaps->SkeletonNameToSkel.end())
 		{
 			return it->second;
+		}
+
+		return nullptr;
+	}
+
+
+	const Config* Level::GetConfig(EConfigType cfgType, FNVHash hash) const
+	{
+		for (int i = 0; i < m_Configs.Size(); i++)
+		{
+			const Config& cfg = m_Configs[i];
+
+			if (cfg.m_Name == hash && cfg.m_ConfigType == cfgType)
+			{
+				return &cfg;
+			}
 		}
 
 		return nullptr;
