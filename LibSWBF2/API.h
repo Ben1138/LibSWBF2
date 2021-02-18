@@ -30,6 +30,7 @@ namespace LibSWBF2
 		class Instance;
 		class Region;
 		class Script;
+		class Localization;
 		struct Field;
 		struct Scope;
 	}

@@ -49,19 +49,19 @@ namespace LibSWBF2.NET.Test
                     Vector4 rot = instance.rotation;
                     Vector3 pos = instance.position;
 
-                    Console.WriteLine("\n    Instance: " + instName);
+                    Console.WriteLine("\n\tInstance: " + instName);
                     
-                    Console.WriteLine("      Class: " + ec.name);
-                    Console.WriteLine("      Parent: " + baseName);
-                    Console.WriteLine("      Rotation: " + rot.ToString());
-                    Console.WriteLine("      Position: " + pos.ToString());
+                    Console.WriteLine("\t  Class: " + ec.name);
+                    Console.WriteLine("\t  Parent: " + baseName);
+                    Console.WriteLine("\t  Rotation: " + rot.ToString());
+                    Console.WriteLine("\t  Position: " + pos.ToString());
 
-                    Console.WriteLine("\tOverridden properties: ");
+                    Console.WriteLine("\t  Overridden properties: ");
                     if (instance.GetOverriddenProperties(out uint[] props, out string[] values))
                     {
                         for (int j = 0; j < props.Length; j++)
                         {
-                            Console.WriteLine("\t  Hash: {0}, Value: {1}", props[j], values[j]);
+                            Console.WriteLine("\t    Hash: {0}, Value: {1}", props[j], values[j]);
                         }
                     }                  
                 }
@@ -70,11 +70,11 @@ namespace LibSWBF2.NET.Test
                 Console.WriteLine("  Regions:");
                 foreach (Region region in world.GetRegions())
                 {
-                    Console.WriteLine("\n    Region: " + region.name);
+                    Console.WriteLine("\n\tRegion: " + region.name);
                 
-                    Console.WriteLine("      Size: " + region.size.ToString());
-                    Console.WriteLine("      Rotation: " + region.rotation.ToString());
-                    Console.WriteLine("      Type: " + region.type);
+                    Console.WriteLine("\t  Size: " + region.size.ToString());
+                    Console.WriteLine("\t  Rotation: " + region.rotation.ToString());
+                    Console.WriteLine("\t  Type: " + region.type);
                 } 
             }
 

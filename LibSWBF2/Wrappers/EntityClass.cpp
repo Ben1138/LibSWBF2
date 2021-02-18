@@ -3,9 +3,14 @@
 #include "InternalHelpers.h"
 #include "Hashing.h"
 #include "Container.h"
-#include "Chunks/LVL/tex_/tex_.LVL_.h"
+
+#include "Chunks/LVL/common/GenericClass.h"
+
 #include <string>
 #include <map>
+
+
+typedef LibSWBF2::Chunks::LVL::common::PROP PROP;
 
 namespace LibSWBF2::Wrappers
 {

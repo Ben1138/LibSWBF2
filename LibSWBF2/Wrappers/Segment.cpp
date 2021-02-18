@@ -1,14 +1,20 @@
 #include "stdafx.h"
 #include "Segment.h"
 #include "Level.h"
-#include "Types/List.h"
 #include "InternalHelpers.h"
+
+#include "Chunks/LVL/modl/LVL.modl.h"
+#include "Chunks/LVL/modl/modl.segm.h"
+
 
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using LibSWBF2::Chunks::LVL::modl::SKIN;
 	using LibSWBF2::Chunks::LVL::modl::BMAP;
+	using LibSWBF2::Chunks::LVL::modl::modl;
+	using LibSWBF2::Chunks::LVL::skel::skel;
+
 
 	bool Segment::FromChunk(Level* mainContainer, segm* segmentChunk, Segment& out)
 	{

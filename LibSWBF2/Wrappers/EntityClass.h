@@ -1,22 +1,28 @@
 #pragma once
-#include "Chunks/LVL/common/GenericClass.h"
 #include "Types/Enums.h"
 #include "Types/List.h"
 
 namespace LibSWBF2
 {
 	class Container;
+
+	namespace Chunks::LVL::common
+	{
+		struct GenericClassNC;
+	}
 }
 
 namespace LibSWBF2::Wrappers
 {
-	using LibSWBF2::Chunks::LVL::common::GenericClassNC;
 	using LibSWBF2::Types::String;
 	using LibSWBF2::Types::List;
 
 
 	class LIBSWBF2_API EntityClass
 	{
+	typedef LibSWBF2::Chunks::LVL::common::GenericClassNC GenericClassNC;
+
+
 	private:
 		friend class Level;
 		friend List<EntityClass>;

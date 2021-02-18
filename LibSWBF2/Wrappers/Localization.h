@@ -1,7 +1,6 @@
 #pragma once
 #include "Types/List.h"
 
-
 namespace LibSWBF2::Chunks::LVL::Localization
 {
 	struct Locl;

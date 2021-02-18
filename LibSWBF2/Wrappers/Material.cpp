@@ -1,13 +1,21 @@
 #include "stdafx.h"
 #include "Material.h"
-#include "Segment.h"
+#include "Texture.h"
 #include "Level.h"
+
 #include "Container.h"
 #include "InternalHelpers.h"
 
 
+#include "Chunks/LVL/modl/MTRL.h"
+#include "Chunks/LVL/modl/modl.segm.h"
+
+
+
 namespace LibSWBF2::Wrappers
 {
+	using LibSWBF2::Chunks::LVL::modl::segm;
+
 	bool Material::FromChunk(Level* mainContainer, MTRL* materialChunk, Material& out)
 	{
 		if (mainContainer == nullptr)

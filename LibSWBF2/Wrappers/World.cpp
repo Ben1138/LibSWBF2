@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "World.h"
+#include "Instance.h"
+#include "Terrain.h"
 #include "InternalHelpers.h"
 #include "Container.h"
 

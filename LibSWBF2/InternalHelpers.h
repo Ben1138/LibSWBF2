@@ -122,6 +122,7 @@ struct fmt::formatter<LibSWBF2::Chunks::BaseChunk> {
 #define LOG_ERROR(...) LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), LibSWBF2::ELogType::Error, __LINE__, __FILENAME__)
 
 #define THROW(...) throw LibException(fmt::format("{} - IN {} {}", fmt::format(__VA_ARGS__), __LINE__, __FILENAME__))
+#define LOG_THROW(...) throw LibException(fmt::format("{} - IN {} {}", fmt::format(__VA_ARGS__), __LINE__, __FILENAME__)); LibSWBF2::Logging::Logger::GetInstance()->Log(fmt::format(__VA_ARGS__), LibSWBF2::ELogType::Error, __LINE__, __FILENAME__)
 #define LOCK(MutexLock) std::lock_guard<std::mutex> _SomeUnusualLockName(MutexLock)
 
 #ifdef _MSC_VER
