@@ -14,7 +14,31 @@ using LibSWBF2::Types::List;
 
 namespace LibSWBF2::Wrappers
 {
-	inline bool AnimationBank::AnimDecompressor::ReadInt16(int16_t &val) const
+	class AnimDecompressor
+	{
+	public:
+		AnimDecompressor(void *_buffer, size_t _length);
+		AnimDecompressor();
+		void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const;
+		bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
+								List<uint16_t> &frame_indicies, 
+								List<float_t> &frame_values) const;
+
+		AnimDecompressor(const AnimDecompressor &) = default;	
+
+	private:
+		int8_t *p_Buffer;
+		size_t m_Length;
+
+		mutable size_t m_ReadHead;
+		mutable float_t m_Bias, m_Multiplier;
+
+		inline bool ReadInt16(int16_t &val) const;
+		inline bool ReadInt8(int8_t &val) const;
+		inline bool ReadUInt8(uint8_t &val) const;
+	};
+
+	inline bool AnimDecompressor::ReadInt16(int16_t &val) const
 	{
 		if (m_ReadHead < m_Length - 1)
 		{
@@ -25,7 +49,7 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
-	inline bool AnimationBank::AnimDecompressor::ReadInt8(int8_t &val) const
+	inline bool AnimDecompressor::ReadInt8(int8_t &val) const
 	{
 		if (m_ReadHead < m_Length)
 		{
@@ -36,7 +60,7 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
-	inline bool AnimationBank::AnimDecompressor::ReadUInt8(uint8_t &val) const
+	inline bool AnimDecompressor::ReadUInt8(uint8_t &val) const
 	{
 		if (m_ReadHead < m_Length)
 		{
@@ -47,25 +71,25 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
-	AnimationBank::AnimDecompressor::AnimDecompressor(void *_buffer, size_t _length)
+	AnimDecompressor::AnimDecompressor(void *_buffer, size_t _length)
 	{
 		p_Buffer = (int8_t *) _buffer;
 		m_Length = _length;
 	}
 
-	AnimationBank::AnimDecompressor::AnimDecompressor()
+	AnimDecompressor::AnimDecompressor()
 	{
 		p_Buffer = nullptr;
 		m_Length = 0;
 	}
 
-	void AnimationBank::AnimDecompressor::SetDecompressionParams(float_t mult, float_t offset) const
+	void AnimDecompressor::SetDecompressionParams(float_t mult, float_t offset) const
 	{
 		m_Bias = offset;
 		m_Multiplier = mult;
 	}
 
-	bool AnimationBank::AnimDecompressor::DecompressFromOffset(size_t offset, uint16_t num_frames, 
+	bool AnimDecompressor::DecompressFromOffset(size_t offset, uint16_t num_frames, 
 							List<uint16_t> &frame_indicies, 
 							List<float_t> &frame_values) const
 	{
@@ -169,13 +193,28 @@ namespace LibSWBF2::Wrappers
 		}
 
 		setOut.p_AnimChunk = chunk;
-		setOut.m_Decompressor = AnimDecompressor(
+		setOut.p_Decompressor = new AnimDecompressor(
 								(void *) chunk -> p_Bin -> p_CompressedAnimData -> p_DataBuffer,
 								chunk -> p_Bin -> p_CompressedAnimData -> m_DataBufferLength
 							);
 
 		return true;
 	}
+
+
+	AnimationBank& AnimationBank::operator=(const AnimationBank& other)
+	{
+		p_AnimChunk = other.p_AnimChunk;
+		p_Decompressor = new AnimDecompressor(*other.p_Decompressor);		
+		return *this;
+	}
+
+
+	AnimationBank::~AnimationBank()
+	{
+		delete p_Decompressor;
+	}
+
 
 	const String& AnimationBank::GetName() const
 	{
@@ -281,7 +320,7 @@ namespace LibSWBF2::Wrappers
 
 				if (component < 4)
 				{
-					m_Decompressor.SetDecompressionParams();
+					p_Decompressor -> SetDecompressionParams();
 					TADAOffset = index -> m_RotationOffsets[TNJAOffset * 4 + component];
 				}
 				else
@@ -289,11 +328,11 @@ namespace LibSWBF2::Wrappers
 					float bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
 					float mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
 
-					m_Decompressor.SetDecompressionParams(mult, bias);
+					p_Decompressor -> SetDecompressionParams(mult, bias);
 					TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];
 				}
 
-				decompStatus = m_Decompressor.DecompressFromOffset(
+				decompStatus = p_Decompressor -> DecompressFromOffset(
 										TADAOffset, num_frames, 
 										frame_indices, 
 										frame_values

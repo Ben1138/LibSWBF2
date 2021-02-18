@@ -29,7 +29,6 @@ namespace LibSWBF2::Wrappers
 
 	struct Scope
 	{
-
 	typedef LibSWBF2::Chunks::LVL::config::SCOP SCOP;
 
 
@@ -98,7 +97,7 @@ namespace LibSWBF2::Wrappers
 
 	public:
 
-		EConfigType m_ConfigType;
+		EConfigType m_Type;
 		FNVHash m_Name;
 				
 		const Field& GetField(FNVHash hash = 0) const;

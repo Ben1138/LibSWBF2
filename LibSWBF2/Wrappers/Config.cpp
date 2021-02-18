@@ -263,7 +263,7 @@ namespace LibSWBF2::Wrappers
 			return false;
 		}
 
-		wrapperOut.m_ConfigType = type; 
+		wrapperOut.m_Type = type; 
 		wrapperOut.p_Chunk = (ConfigChunkNC *) cfgPtr;
 		wrapperOut.m_Fields = Field::FieldsFromChunkChildren(cfgPtr);
 		wrapperOut.m_Name = nameChunk -> m_Name;
