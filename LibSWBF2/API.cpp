@@ -5,11 +5,8 @@
 #include "Chunks/MSH/MSH.h"
 
 #include <string.h>
-#include "Wrappers/Level.h"
 #include "Container.h"
-#include "Wrappers/Terrain.h"
-#include "Wrappers/Segment.h"
-#include "Wrappers/Config.h"
+#include "Wrappers/Wrappers.h"
 
 #include "Chunks/HeaderNames.h"
 

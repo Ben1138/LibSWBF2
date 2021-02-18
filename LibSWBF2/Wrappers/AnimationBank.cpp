@@ -1,176 +1,159 @@
-#include "stdafx.h"
 #include "req.h"
 
 #include "AnimationBank.h"
+#include "Chunks/LVL/zaa_/zaa_.h"
 
-#include "Chunks/LVL/zaa_/BIN_.h"
-#include "Chunks/LVL/zaa_/TADA.h"
-#include "Chunks/LVL/zaa_/TNJA.h"
-#include "Chunks/LVL/zaa_/MINA.h"
+#include "InternalHelpers.h"
 
-
-using LibSWBF2::Types::List;
 
 
 namespace LibSWBF2::Wrappers
 {
+	// AnimDecompressor
+
 	class AnimDecompressor
 	{
+
 	public:
-		AnimDecompressor(void *_buffer, size_t _length);
-		AnimDecompressor();
-		void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const;
+
+		AnimDecompressor(void * buf, size_t len) : p_Buffer((int8_t *) buf), m_Length(len){}
+		AnimDecompressor() : p_Buffer(nullptr), m_Length(0) {}
+
+		void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const
+		{
+			m_Bias = offset;
+			m_Multiplier = mult;
+		}
+
 		bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
 								List<uint16_t> &frame_indicies, 
-								List<float_t> &frame_values) const;
+								List<float_t> &frame_values) const
+		{
+			List<uint16_t> indicies;
+			List<float_t> values;
+
+			m_ReadHead = offset;
+
+			uint16_t frame_counter = 0;
+
+			int16_t shortVal;
+			int8_t byteVal;
+			uint8_t holdDuration;
+
+			float accum = 0.0f;
+			
+			while (frame_counter < num_frames)
+			{
+				if (!ReadInt16(shortVal)) return false;
+
+				accum = m_Bias + m_Multiplier * (float) shortVal;
+
+				indicies.Add(frame_counter);
+				values.Add(accum);
+
+				frame_counter++;
+
+
+				while (frame_counter < num_frames)
+				{
+					if (!ReadInt8(byteVal)) return false;
+
+					// Signals to hold accumulator for x frames,
+					// x specified by the next (unsigned) byte.
+					if (byteVal == -0x80)
+					{
+						if (!ReadUInt8(holdDuration)) return false;
+
+					#ifndef _ANIM_DEBUG
+						frame_counter += holdDuration;
+					#else
+						for (int i = 0; i < holdDuration; i++)
+						{
+							indicies.Add(frame_counter);
+							values.Add(accum);
+
+							frame_counter++;
+						}
+					#endif
+					}
+
+					// Signals to reset the accumulator to the value
+					// of the next decompressed short.
+					else if (byteVal == -0x7f)
+					{
+						break;
+					}
+
+					// Increment the accumulator by the value
+					// of the next decompressed byte.  Decomp here
+					// does not apply the offset, only the multiplier.
+					else 
+					{
+						accum += m_Multiplier * (float) byteVal;
+
+						indicies.Add(frame_counter);
+						values.Add(accum);
+
+						frame_counter++;
+					}
+				}
+			}
+
+			frame_indicies = std::move(indicies);
+			frame_values   = std::move(values); 
+
+			return true;
+		}
 
 		AnimDecompressor(const AnimDecompressor &) = default;	
 
+
 	private:
+
 		int8_t *p_Buffer;
 		size_t m_Length;
 
 		mutable size_t m_ReadHead;
 		mutable float_t m_Bias, m_Multiplier;
 
-		inline bool ReadInt16(int16_t &val) const;
-		inline bool ReadInt8(int8_t &val) const;
-		inline bool ReadUInt8(uint8_t &val) const;
+		inline bool ReadInt16(int16_t &val) const
+		{
+			if (m_ReadHead < m_Length - 1)
+			{
+				val = *((int16_t *) (m_ReadHead + p_Buffer));
+				m_ReadHead += 2;
+				return true;
+			}
+			return false;
+		}
+
+		inline bool ReadInt8(int8_t &val) const
+		{
+			if (m_ReadHead < m_Length)
+			{
+				val = *(m_ReadHead + p_Buffer);
+				m_ReadHead++;
+				return true;
+			}
+			return false;
+		}
+
+		inline bool ReadUInt8(uint8_t &val) const
+		{
+			if (m_ReadHead < m_Length)
+			{
+				val = *((uint8_t *) (m_ReadHead + p_Buffer));
+				m_ReadHead++;
+				return true;
+			}
+			return false;
+		}
 	};
 
-	inline bool AnimDecompressor::ReadInt16(int16_t &val) const
-	{
-		if (m_ReadHead < m_Length - 1)
-		{
-			val = *((int16_t *) (m_ReadHead + p_Buffer));
-			m_ReadHead += 2;
-			return true;
-		}
-		return false;
-	}
 
-	inline bool AnimDecompressor::ReadInt8(int8_t &val) const
-	{
-		if (m_ReadHead < m_Length)
-		{
-			val = *(m_ReadHead + p_Buffer);
-			m_ReadHead++;
-			return true;
-		}
-		return false;
-	}
-
-	inline bool AnimDecompressor::ReadUInt8(uint8_t &val) const
-	{
-		if (m_ReadHead < m_Length)
-		{
-			val = *((uint8_t *) (m_ReadHead + p_Buffer));
-			m_ReadHead++;
-			return true;
-		}
-		return false;
-	}
-
-	AnimDecompressor::AnimDecompressor(void *_buffer, size_t _length)
-	{
-		p_Buffer = (int8_t *) _buffer;
-		m_Length = _length;
-	}
-
-	AnimDecompressor::AnimDecompressor()
-	{
-		p_Buffer = nullptr;
-		m_Length = 0;
-	}
-
-	void AnimDecompressor::SetDecompressionParams(float_t mult, float_t offset) const
-	{
-		m_Bias = offset;
-		m_Multiplier = mult;
-	}
-
-	bool AnimDecompressor::DecompressFromOffset(size_t offset, uint16_t num_frames, 
-							List<uint16_t> &frame_indicies, 
-							List<float_t> &frame_values) const
-	{
-		List<uint16_t> indicies;
-		List<float_t> values;
-
-		m_ReadHead = offset;
-
-		uint16_t frame_counter = 0;
-
-		int16_t shortVal;
-		int8_t byteVal;
-		uint8_t holdDuration;
-
-		float accum = 0.0f;
 		
-		while (frame_counter < num_frames)
-		{
-			if (!ReadInt16(shortVal)) return false;
 
-			accum = m_Bias + m_Multiplier * (float) shortVal;
-
-			indicies.Add(frame_counter);
-			values.Add(accum);
-
-			frame_counter++;
-
-
-			while (frame_counter < num_frames)
-			{
-				if (!ReadInt8(byteVal)) return false;
-
-				// Signals to hold accumulator for x frames,
-				// x specified by the next (unsigned) byte.
-				if (byteVal == -0x80)
-				{
-					if (!ReadUInt8(holdDuration)) return false;
-
-				#ifndef _ANIM_DEBUG
-					frame_counter += holdDuration;
-				#else
-					for (int i = 0; i < holdDuration; i++)
-					{
-						indicies.Add(frame_counter);
-						values.Add(accum);
-
-						frame_counter++;
-					}
-				#endif
-				}
-
-				// Signals to reset the accumulator to the value
-				// of the next decompressed short.
-				else if (byteVal == -0x7f)
-				{
-					break;
-				}
-
-				// Increment the accumulator by the value
-				// of the next decompressed byte.  Decomp here
-				// does not apply the offset, only the multiplier.
-				else 
-				{
-					accum += m_Multiplier * (float) byteVal;
-
-					indicies.Add(frame_counter);
-					values.Add(accum);
-
-					frame_counter++;
-				}
-			}
-		}
-
-		frame_indicies = std::move(indicies);
-		frame_values   = std::move(values); 
-
-		return true;
-	}
-
-
-
+	// AnimationBank
 
 	using namespace Chunks::LVL::animation;
 
@@ -285,21 +268,21 @@ namespace LibSWBF2::Wrappers
 
 		List<CRCChecksum> &animCRCs = metadata -> m_AnimNameHashes;	
 
-		int TNJAOffset = 0;	
+		uint32_t TNJAOffset = 0;	
 
-		for (int i = 0; i < animCRCs.Size(); i++)
+		for (uint32_t i = 0; i < animCRCs.Size(); i++)
 		{
 			if (animCRCs[i] == animName)
 			{
-				int num_bones = metadata -> m_AnimBoneCounts[i];
+				uint32_t num_bones = metadata -> m_AnimBoneCounts[i];
 				uint16_t num_frames = metadata -> m_AnimFrameCounts[i];	
 
 				//Some zaabin files have duplicate entries for bones in TNJA.
 				//The latter of the two is correct, so we try to find it first...
 
-				int tempOffset = TNJAOffset;
-				bool foundBone = false;
-				for (int j = 0; j < num_bones; j++)
+				uint32_t tempOffset = TNJAOffset;
+				uint32_t foundBone = false;
+				for (uint32_t j = 0; j < num_bones; j++)
 				{
 					if (index -> m_BoneCRCs[tempOffset] == boneName)
 					{
@@ -316,7 +299,7 @@ namespace LibSWBF2::Wrappers
 				}
 
 
-				int TADAOffset;
+				uint32_t TADAOffset;
 
 				if (component < 4)
 				{
@@ -325,8 +308,8 @@ namespace LibSWBF2::Wrappers
 				}
 				else
 				{
-					float bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
-					float mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
+					float_t bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
+					float_t mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
 
 					p_Decompressor -> SetDecompressionParams(mult, bias);
 					TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];
@@ -345,5 +328,21 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return decompStatus;
+	}
+
+
+	Curve<uint16_t> AnimationBank::GetCurve(CRCChecksum anim, CRCChecksum bone, ECurveType comp) const
+	{
+		List<uint16_t> inds;
+		List<float_t> values;
+
+		if (GetCurve(anim, bone, (uint32_t) comp, inds, values))
+		{
+			return Curve<uint16_t>(std::move(inds), std::move(values));
+		}
+		else 
+		{
+			LOG_THROW("AnimationBank {0}: Error decompressing curve for bone: 0x{1:x} of animation 0x{2:x}", GetName().Buffer(), bone, anim);
+		}
 	}
 }

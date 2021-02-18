@@ -188,6 +188,25 @@ namespace LibSWBF2::Types
 		return *this;
 	}
 
+	template<class T>
+	List<T>& List<T>::operator=(List<T>&& other)
+	{
+		NumElements = other.NumElements;
+		MaxElements = other.MaxElements;
+
+		if (ArrayPtr != nullptr)
+			delete[] ArrayPtr;
+
+		ArrayPtr = other.ArrayPtr;
+
+		other.NumElements = 0;
+		other.MaxElements = 0;
+		other.ArrayPtr = nullptr;
+
+		return *this;
+	}
+
+
 //TEMPFIX: see header
 #ifdef __clang__
 	template<class T>
@@ -439,15 +458,18 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/modl/modl.VBUF.h"
 #include "Chunks/LVL/modl/TNAM.h"
 #include "Chunks/LVL/wrld/inst.h"
+#include "Chunks/LVL/wrld/regn.h"
+#include "Chunks/LVL/wrld/anim.h"
+#include "Chunks/LVL/wrld/anmg.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
 
 #include "Chunks/RawData.h"
 
 #include "Chunks/GenericChunk.h"
-#include "Wrappers/Level.h"
-#include "Wrappers/SoundBank.h"
-#include "Wrappers/AnimationBank.h"
+
+#include "Wrappers/Wrappers.h"
+
 #include "DirectX/D3D9FORMAT.h"
 
 namespace LibSWBF2
@@ -467,6 +489,10 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Color4u8>;
 	template class LIBSWBF2_API Types::List<String>;
 	template class LIBSWBF2_API Types::List<Animation>;
+
+	template class LIBSWBF2_API Types::List<Key<uint16_t>>;
+	template class LIBSWBF2_API Types::List<Key<float_t>>;
+
 	template class LIBSWBF2_API Types::List<BoneFrames>;
 	template class LIBSWBF2_API Types::List<Polygon>;
 	template class LIBSWBF2_API Types::List<VertexWeights>;

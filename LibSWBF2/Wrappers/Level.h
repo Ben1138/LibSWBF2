@@ -1,27 +1,26 @@
 #pragma once
 #include "req.h"
-#include "Model.h"
-#include "Texture.h"
-#include "World.h"
-#include "Terrain.h"
-#include "Script.h"
-#include "Config.h"
-#include "AnimationBank.h"
-#include "Localization.h"
-#include "EntityClass.h"
+#include "API.h"
+
 #include "Types/LibString.h"
 #include "Types/List.h"
-#include "CollisionMesh.h"
-
-
-namespace LibSWBF2::Chunks::LVL
-{
-	struct LVL;
-}
 
 
 namespace LibSWBF2
 {
+	namespace Chunks {
+		struct GenericBaseChunk;
+
+		namespace LVL
+		{
+			struct LVL;
+			namespace skel 
+			{
+				struct skel;
+			}
+		}
+	}
+
 	class Container;
 }
 
@@ -29,7 +28,6 @@ namespace LibSWBF2
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
-	using Chunks::GenericBaseChunk;
 
 	/*
 	 * This and the other wrapper classes just serve as abstraction Layers
@@ -41,6 +39,9 @@ namespace LibSWBF2::Wrappers
 	{
 
 	typedef LibSWBF2::Chunks::LVL::LVL LVL;
+	typedef LibSWBF2::Chunks::GenericBaseChunk GenericBaseChunk;
+	typedef LibSWBF2::Chunks::LVL::skel::skel skel;
+
 
 	private:
 		friend Container;

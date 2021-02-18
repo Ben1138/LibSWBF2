@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "Level.h"
+
+#include "Wrappers/Wrappers.h"
+
 #include "InternalHelpers.h"
 
 #include "Chunks/LVL/LVL.h"
 
+#include "Chunks/LVL/skel/skel.h"
 #include "Chunks/LVL/tex_/tex_.h"
 #include "Chunks/LVL/modl/LVL.modl.h"
 #include "Chunks/LVL/scr_/scr_.h"
@@ -12,6 +16,9 @@
 #include "Chunks/LVL/zaa_/zaa_.h"
 #include "Chunks/LVL/tern/tern.h"
 #include "Chunks/LVL/config/ConfigChunk.h"
+#include "Chunks/LVL/common/GenericClass.h"
+#include "Chunks/LVL/wrld/wrld.h"
+
 
 #include <unordered_map>
 #include <filesystem>

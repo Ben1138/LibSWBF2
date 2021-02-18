@@ -1,14 +1,17 @@
 #pragma once
 #include "req.h"
-#include "Chunks/LVL/modl/MTRL.h"
 #include "Types/List.h"
 #include "Types/Color4u8.h"
 #include "Types/LibString.h"
-#include "Texture.h"
 
 namespace LibSWBF2
 {
 	class Container;
+
+	namespace Chunks::LVL::modl
+	{
+		struct MTRL;
+	}
 }
 
 namespace LibSWBF2::Wrappers
@@ -20,6 +23,7 @@ namespace LibSWBF2::Wrappers
 
 	class Level;
 	class Segment;
+	class Texture;
 
 	class LIBSWBF2_API Material
 	{

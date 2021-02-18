@@ -3,9 +3,6 @@
 #include "Types/Vector4.h"
 #include "Types/Vector3.h"
 
-#include <unordered_map>
-
-
 
 namespace LibSWBF2::Chunks
 {
@@ -51,6 +48,7 @@ namespace LibSWBF2::Wrappers
 		mutable List<Field> m_Fields;
 		mutable bool m_IsValid;
 
+		// Inits above members
 		const void Cache() const;
 	};
 

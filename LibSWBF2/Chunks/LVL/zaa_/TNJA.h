@@ -3,8 +3,6 @@
 
 namespace LibSWBF2::Chunks::LVL::animation
 {
-
-
 	struct LIBSWBF2_API TNJA : public GenericChunk<"TNJA"_m>
 	{
 	public:
