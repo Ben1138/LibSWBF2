@@ -48,7 +48,7 @@ namespace LibSWBF2
 		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
 		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
 
-		std::vector<const Config *> m_ConfigDB;
+		std::unordered_map<FNVHash, const Config*> m_ConfigDB;
 
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
 		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
@@ -131,7 +131,8 @@ namespace LibSWBF2
 					CopyMap(level->m_NameToIndexMaps->TerrainNameToIndex,		level->m_Terrains,		m_ThreadSafeMembers->m_TerrainDB);
 					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
 					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
-					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks, m_ThreadSafeMembers->m_AnimationBankDB);
+					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks,m_ThreadSafeMembers->m_AnimationBankDB);
+					CopyMap(level->m_NameToIndexMaps->ConfigHashToIndex,		level->m_Configs, 		m_ThreadSafeMembers->m_ConfigDB);
 
 					CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
 
@@ -148,12 +149,6 @@ namespace LibSWBF2
 						{
 							find->second.Add(&level->m_Localizations[it.second]);
 						}
-					}
-
-					List<const Config *> allLevelConfigs = level -> GetConfigs();
-					for (uint32_t i = 0; i < allLevelConfigs.Size(); i++)
-					{
-						m_ThreadSafeMembers -> m_ConfigDB.push_back(allLevelConfigs[i]);
 					}
 				}
 
@@ -656,12 +651,10 @@ namespace LibSWBF2
 	const Config* Container::FindConfig(EConfigType type, FNVHash hashedConfigName) const
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		for (auto it = m_ThreadSafeMembers -> m_ConfigDB.begin(); it != m_ThreadSafeMembers -> m_ConfigDB.end(); ++it)
+		auto it = m_ThreadSafeMembers->m_ConfigDB.find(hashedConfigName + (uint32_t) type);
+		if (it != m_ThreadSafeMembers->m_ConfigDB.end())
 		{
-			if ((*it) -> m_ConfigType == type && ((*it) -> m_Name == hashedConfigName) || hashedConfigName == 0)
-			{
-				return *it;
-			}
+			return it->second;
 		}
 		return nullptr;
 	}

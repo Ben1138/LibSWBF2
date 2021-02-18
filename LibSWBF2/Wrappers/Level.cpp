@@ -72,7 +72,7 @@ namespace LibSWBF2::Wrappers
 			AnimationBank animBank;
 			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
-				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(std::move(animBank)));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(animBank));
 			}	
 		}
 
@@ -83,7 +83,7 @@ namespace LibSWBF2::Wrappers
 			Config effect;
 			if (Config::FromChunk(fxChunk, effect))
 			{
-				m_Configs.Add(effect);
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(effect.m_Name + (uint32_t) effect.m_Type, m_Configs.Add(std::move(effect)));
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace LibSWBF2::Wrappers
 			Config lighting;
 			if (Config::FromChunk(lightListChunk, lighting))
 			{
-				m_Configs.Add(lighting);
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(lighting.m_Name + (uint32_t) lighting.m_Type, m_Configs.Add(std::move(lighting)));
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace LibSWBF2::Wrappers
 			Config skydome;
 			if (Config::FromChunk(skydomeChunk, skydome))
 			{
-				m_Configs.Add(skydome);
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(skydome.m_Name + (uint32_t) skydome.m_Type, m_Configs.Add(std::move(skydome)));
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace LibSWBF2::Wrappers
 			Config path;
 			if (Config::FromChunk(pathChunk, path))
 			{
-				m_Configs.Add(path);
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(path.m_Name + (uint32_t) path.m_Type, m_Configs.Add(std::move(path)));
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace LibSWBF2::Wrappers
 			Config combo;
 			if (Config::FromChunk(comboChunk, combo))
 			{
-				m_Configs.Add(combo);
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(combo.m_Name + (uint32_t) combo.m_Type, m_Configs.Add(std::move(combo)));
 			}
 		}
 
@@ -397,7 +397,7 @@ namespace LibSWBF2::Wrappers
 		{
 			const Config& cfg = m_Configs[i];
 
-			if (cfg.m_ConfigType == cfgType ||
+			if (cfg.m_Type == cfgType ||
 				cfgType == EConfigType::All)
 			{
 				matchedConfigs.Add(&cfg);
@@ -557,6 +557,14 @@ namespace LibSWBF2::Wrappers
 
 	const Config* Level::GetConfig(EConfigType cfgType, FNVHash hash) const
 	{
+		auto it = m_NameToIndexMaps->ConfigHashToIndex.find(hash + (uint32_t) cfgType);
+		if (it != m_NameToIndexMaps->ConfigHashToIndex.end())
+		{
+			return &m_Configs[it->second];
+		}
+
+		return nullptr;
+		/*
 		for (int i = 0; i < m_Configs.Size(); i++)
 		{
 			const Config& cfg = m_Configs[i];
@@ -568,5 +576,6 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return nullptr;
+		*/
 	}
 }

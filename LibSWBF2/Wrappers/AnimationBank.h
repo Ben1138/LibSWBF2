@@ -12,6 +12,7 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API AnimationBank
 	{
+		friend List<AnimationBank>;
 
 	public:
 
@@ -29,34 +30,14 @@ namespace LibSWBF2::Wrappers
 
 		const String& GetName() const;
 
+		~AnimationBank();
+		
+		AnimationBank& operator=(const AnimationBank& other);
+
 
 	private:
 
 		zaa_ *p_AnimChunk = nullptr;
-
-		class AnimDecompressor
-		{
-		public:
-			AnimDecompressor(void *_buffer, size_t _length);
-			AnimDecompressor();
-			void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const;
-			bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
-									List<uint16_t> &frame_indicies, 
-									List<float_t> &frame_values) const;
-		private:
-			int8_t *p_Buffer;
-			size_t m_Length;
-
-			mutable size_t m_ReadHead;
-			mutable float_t m_Bias, m_Multiplier;
-
-			inline bool ReadInt16(int16_t &val) const;
-			inline bool ReadInt8(int8_t &val) const;
-			inline bool ReadUInt8(uint8_t &val) const;
-		};
-
-		#pragma warning(disable:4251)
-		AnimDecompressor m_Decompressor;
-		#pragma warning(default:4251)
+		class AnimDecompressor *p_Decompressor = nullptr;
 	};
 }

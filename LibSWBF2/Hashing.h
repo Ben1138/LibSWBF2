@@ -53,6 +53,4 @@ namespace LibSWBF2
 	{
 		return FNV::HashConstexpr({ str, length });
 	}
-
-	//constexpr FNVHash operator""_fnv(const char* str, const std::size_t length);
 }
