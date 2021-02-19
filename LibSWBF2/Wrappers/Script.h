@@ -1,7 +1,12 @@
 #pragma once
-#include "Chunks/LVL/scr_/scr_.h"
 #include "Types/Enums.h"
 #include "Types/List.h"
+
+namespace LibSWBF2::Chunks::LVL::script
+{
+	struct scr_;
+}
+
 
 namespace LibSWBF2::Wrappers
 {

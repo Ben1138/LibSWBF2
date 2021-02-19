@@ -1,6 +1,6 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "INFO_STR.h"
+#include "Chunks/STR.h"
 #include "Chunks/STRMULT.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 	{
 	public:
 
-		anim_INFO *p_Info;
+		STR<"INFO"_m> *p_Info;
 
 		List<STRMULT<"ANIM"_m> *> m_AnimObjectPairs;
 

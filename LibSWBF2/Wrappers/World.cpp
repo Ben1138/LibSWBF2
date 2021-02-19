@@ -125,12 +125,65 @@ namespace LibSWBF2::Wrappers
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
 
-	/*
-	const List<Light>& World::GetLights() const
+
+	const List<String> World::GetAnimationNames() const
 	{
-		return m_Lights;
+		List<String> names;
+		const List<anim*>& animPtrs = p_World -> m_Animations;
+		for (uint16_t i = 0; i < animPtrs.Size(); i++)
+		{
+			names.Add(animPtrs[i] -> p_Info -> m_Text);
+		}
+		return names;
 	}
-	*/
 
 
+	const List<String> World::GetAnimationGroups() const
+	{
+		List<String> names;
+		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
+		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
+		{
+			names.Add(animGPtrs[i] -> p_Info -> m_Text);
+		}
+		return names;	
+	}
+
+
+	const bool World::GetAnimationGroupPairs(const String& animGroupName, 
+									List<String>& animNamesOut, 
+									List<String>& instanceNamesOut) const
+	{
+		animNamesOut.Clear();
+		instanceNamesOut.Clear();
+
+		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
+		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
+		{
+			if (animGroupName == animGPtrs[i] -> p_Info -> m_Text)
+			{
+				for (uint16_t j = 0; j < animGPtrs[i] -> m_AnimObjectPairs.Size(); j++)
+				{
+					auto& pair = animGPtrs[i] -> m_AnimObjectPairs[i] -> m_Texts;
+					if (pair.Size() != 2)
+					{
+						continue;
+					}
+
+					animNamesOut.Add(pair[0]);
+					instanceNamesOut.Add(pair[1]);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	//const Curve<float_t> World::GetAnimationCurve(const String& animName, ECurveType cc) const
+	//{
+	//	return Curve<float_t>();
+	//}
 }

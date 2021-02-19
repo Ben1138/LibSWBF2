@@ -3,6 +3,13 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
+#include "MTRL.h"
+#include "TNAM.h"
+#include "IBUF.h"
+#include "SKIN.h"
+#include "BMAP.h"
+#include "modl.VBUF.h"
+
 namespace LibSWBF2::Chunks::LVL::modl
 {
     void segm::RefreshSize()

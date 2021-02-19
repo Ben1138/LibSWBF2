@@ -5,6 +5,8 @@
 #include "Types/List.h"
 #include "Types/Vector3.h"
 #include "Types/Vector4.h"
+#include "Types/Enums.h"
+#include "Types/Curve.h"
 
 
 namespace LibSWBF2
@@ -25,6 +27,7 @@ namespace LibSWBF2::Wrappers
 	using Types::String;
 	using Types::Vector3;
 	using Types::Vector4;
+	using Types::Curve;
 
 	class Level;
 	class Instance;
@@ -65,7 +68,7 @@ namespace LibSWBF2::Wrappers
 
 		Container* m_MainContainer = nullptr;
 
-		List<Instance> m_Instances;	// a.k.a. world objects
+		List<Instance> m_Instances;
 		List<Region> m_Regions;
 
 		wrld* p_World;
@@ -82,8 +85,19 @@ namespace LibSWBF2::Wrappers
 		Types::String GetSkyName() const;
 
 
-		//const List<String>& GetAnimationNames();
-		//const List<String>& GetAnimationGroup(const String& animName);
-		//const bool GetAnimationCurve(const String& animName, ECurveComponent cc, Curve& curveOut);
+		// Returns names of anims present 
+		const List<String> GetAnimationNames() const;
+
+		// Returns names of anim groups present
+		const List<String> GetAnimationGroups() const;
+
+		// Anim groups consist of pairs between instances and animations
+		// Returns false if <animGroup> not present
+		const bool GetAnimationGroupPairs(const String& animGroupName, 
+										List<String>& animNamesOut, 
+										List<String>& instanceNamesOut) const;
+
+		//Throws exception if <animName> is not among the anims present...
+		const Curve<float_t> GetAnimationCurve(const String& animName, ECurveType cc) const;
 	};
 }

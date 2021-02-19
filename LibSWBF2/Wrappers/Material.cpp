@@ -8,6 +8,7 @@
 
 
 #include "Chunks/LVL/modl/MTRL.h"
+#include "Chunks/LVL/modl/TNAM.h"
 #include "Chunks/LVL/modl/modl.segm.h"
 
 

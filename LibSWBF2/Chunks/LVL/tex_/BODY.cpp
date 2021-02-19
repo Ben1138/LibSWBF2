@@ -76,18 +76,19 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         }
 
         uint8_t* bytes = new uint8_t[dataSize];
-        if (!stream.ReadBytes(bytes, dataSize))
-        {
-            LOG_ERROR("Reading image data of size '{}' failed!", dataSize);
-            BaseChunk::EnsureEnd(stream);
-            return;
-        }
+
 
 #ifdef _WIN32
         p_Image = new DirectX::ScratchImage();
         p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
         const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
-        memcpy(img->pixels, bytes, dataSize);
+
+        if (!stream.ReadBytes(img->pixels, dataSize))
+        {
+            LOG_ERROR("Reading image data of size '{}' failed!", dataSize);
+            BaseChunk::EnsureEnd(stream);
+            return;
+        }
 #else
         p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
                                                     d3dFormat, bytes,
