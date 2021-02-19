@@ -415,6 +415,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\RawData.cpp" />
     <ClCompile Include="Chunks\STRMULT.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="FileReaderMemMapped.cpp" />
     <ClCompile Include="InternalHelpers.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Types\LocalizeEntry.cpp" />
