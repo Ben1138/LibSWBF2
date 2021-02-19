@@ -15,11 +15,12 @@ namespace LibSWBF2.Wrappers
         public string name = "";
         public int height, width;
 
-        public byte[] dataRGBA;
         public bool IsConvertibleFormat;
 
+        private IntPtr NativeRawImageData;
+
         internal Texture(IntPtr TexturePtr) : base(TexturePtr) { SetPtr(TexturePtr); }
-        public Texture() : base(IntPtr.Zero){}
+        public Texture() : base(IntPtr.Zero) { }
 
 
         internal override void SetPtr(IntPtr ptr)
@@ -28,13 +29,11 @@ namespace LibSWBF2.Wrappers
 
             IsConvertibleFormat = APIWrapper.Texture_FetchAllFields(NativeInstance,
                                                         out ushort w, out ushort h,
-                                                        out IntPtr bufferPtr,
+                                                        out NativeRawImageData,
                                                         out IntPtr namePtr);
-            
             width = w;
             height = h;
-            dataRGBA = IsConvertibleFormat ? MemUtils.IntPtrToArray<byte>(bufferPtr, width * height * 4) : new byte[0];
-            
+
             name = Marshal.PtrToStringAnsi(namePtr);
         }
 
@@ -43,14 +42,14 @@ namespace LibSWBF2.Wrappers
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
             
-            if (!IsConvertibleFormat)
-            {
-                return new byte[width * height * 4];
-            }
-            else 
-            {
-                return dataRGBA;
-            }
-        } 
+            int length = width * height * 4;
+            return IsConvertibleFormat ? MemUtils.IntPtrToArray<byte>(NativeRawImageData, length) : new byte[length]; 
+        }
+
+
+        IntPtr GetNativeRawImageData()
+        {
+            return NativeRawImageData;
+        }
     }
 }

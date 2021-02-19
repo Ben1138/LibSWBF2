@@ -4,7 +4,6 @@
 #include <fstream>
 #include <atomic>
 
-#define MEMORY_MAPPED_READER
 
 
 namespace LibSWBF2
@@ -45,7 +44,7 @@ namespace LibSWBF2
 		std::ifstream m_Reader;
 	#else
 		uint8_t* p_ReaderHead = nullptr;
-		uint8_t* p_ReaderBase = nullptr;
+		uint8_t* p_MappingBase = nullptr;
 	#endif
 		
 		std::atomic_size_t m_LatestChunkPos;
