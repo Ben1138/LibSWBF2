@@ -1,6 +1,6 @@
+#include "stdafx.h"
 #ifndef MEMORY_MAPPED_READER
 
-#include "stdafx.h"
 #include "FileReader.h"
 
 #include "InternalHelpers.h"
