@@ -4,6 +4,9 @@
 #include "InternalHelpers.h"
 
 #include "Chunks/LVL/modl/LVL.modl.h"
+#include "Chunks/LVL/modl/modl.VBUF.h"
+#include "Chunks/LVL/modl/IBUF.h"
+#include "Chunks/LVL/modl/BMAP.h"
 #include "Chunks/LVL/modl/modl.segm.h"
 
 

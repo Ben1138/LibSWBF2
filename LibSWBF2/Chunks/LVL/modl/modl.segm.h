@@ -2,15 +2,17 @@
 #include "Chunks/GenericChunk.h"
 #include "Chunks/STR.h"
 #include "segm.INFO.h"
-#include "MTRL.h"
-#include "TNAM.h"
-#include "IBUF.h"
-#include "SKIN.h"
-#include "BMAP.h"
-#include "modl.VBUF.h"
+
 
 namespace LibSWBF2::Chunks::LVL::modl
 {
+	struct MTRL;
+	struct SKIN;
+	struct BMAP;
+	struct IBUF;
+	struct TNAM;
+	struct VBUF;
+
 	struct LIBSWBF2_API segm : public GenericChunk<"segm"_m>
 	{
 	public:

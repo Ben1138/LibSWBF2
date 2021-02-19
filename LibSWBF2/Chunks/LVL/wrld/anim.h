@@ -1,7 +1,7 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "INFO_STR.h"
 #include "Chunks/RawData.h"
+#include "Chunks/STR.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 	{
 	public:
 
-		anim_INFO *p_Info;
+		STR<"INFO"_m>* p_Info;
 
 		List<RawData<"POSK"_m> *> m_PositionKeys;
 		List<RawData<"ROTK"_m> *> m_RotationKeys;
