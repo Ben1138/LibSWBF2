@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "FileReader.h"
-
 #ifdef MEMORY_MAPPED_READER
+
+#include "FileReader.h"
 
 #include "InternalHelpers.h"
 
@@ -34,7 +34,7 @@ namespace LibSWBF2
 	{
 		m_LatestChunkPos = 0;
 	    p_ReaderHead = nullptr;
-	    p_ReaderBase = nullptr;
+	    p_MappingBase = nullptr;
 	}
 
 	FileReader::~FileReader()
@@ -44,7 +44,7 @@ namespace LibSWBF2
 
 	bool FileReader::Open(const Types::String& File)
 	{
-		if (p_ReaderBase != nullptr)
+		if (p_MappingBase != nullptr)
 		{
 			LOG_ERROR("Already reading file: {}!", m_FileName);
 			return false;
@@ -68,10 +68,10 @@ namespace LibSWBF2
 			return false;
 		}
 
-		p_ReaderBase = (uint8_t *) mmap(0,m_FileSize,PROT_READ,MAP_FILE|MAP_PRIVATE,fd,0);
+		p_MappingBase = (uint8_t *) mmap(0,m_FileSize,PROT_READ,MAP_FILE|MAP_PRIVATE,fd,0);
 		close(fd);
 
-	    if (p_ReaderBase == MAP_FAILED)
+	    if (p_MappingBase == MAP_FAILED)
 		{
 			LOG_ERROR("Memory map failed for file: {}!", m_FileName);
 			return false;
@@ -93,8 +93,8 @@ namespace LibSWBF2
 				THROW("Failed to create file mapping object for file: {}!", m_FileName);
 			}
 
-			p_ReaderBase = static_cast<uint8_t*>(MapViewOfFile(fileMappingHandle, FILE_MAP_READ, 0, 0, 0));
-			if (p_ReaderBase == nullptr)
+			p_MappingBase = static_cast<uint8_t*>(MapViewOfFile(fileMappingHandle, FILE_MAP_READ, 0, 0, 0));
+			if (p_MappingBase == nullptr)
 			{
 				THROW("Memory map failed for file: {}!", m_FileName);
 			}
@@ -112,7 +112,7 @@ namespace LibSWBF2
 		CloseHandle(fileHandle);
 #endif
 
-		p_ReaderHead = p_ReaderBase;
+		p_ReaderHead = p_MappingBase;
 
 		LOG_INFO("File '{}' ({} bytes) successfully opened.", m_FileName, m_FileSize);
 		return true;
@@ -124,7 +124,7 @@ namespace LibSWBF2
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
 		{
-			auto pos = p_ReaderHead - p_ReaderBase;
+			auto pos = p_ReaderHead - p_MappingBase;
 
 			memcpy(&value, p_ReaderHead, sizeof(value));
 			p_ReaderHead += sizeof(value);
@@ -132,7 +132,7 @@ namespace LibSWBF2
 			// do not advance our reading position when peeking
 			if (peek)
 			{
-				p_ReaderHead = p_ReaderBase + pos;
+				p_ReaderHead = p_MappingBase + pos;
 			}
 
 			m_LatestChunkPos = pos;
@@ -263,26 +263,26 @@ namespace LibSWBF2
 
 	void FileReader::Close()
 	{
-		if (p_ReaderBase == nullptr)
+		if (p_MappingBase == nullptr)
 		{
 			THROW("Nothing has been opened yet!");
 		}
 
 #ifndef WIN32
-		munmap(p_ReaderBase, m_FileSize);
+		munmap(p_MappingBase, m_FileSize);
 #else
-		UnmapViewOfFile(p_ReaderBase);
+		UnmapViewOfFile(p_MappingBase);
 #endif
 
 		m_FileName = "";
 		m_FileSize = 0;
-		p_ReaderBase = nullptr;
+		p_MappingBase = nullptr;
 		p_ReaderHead = nullptr;
 	}
 
 	size_t FileReader::GetPosition()
 	{
-		return (size_t) (p_ReaderHead - p_ReaderBase);
+		return (size_t) (p_ReaderHead - p_MappingBase);
 	}
 
 	void FileReader::SetPosition(size_t NewPosition)
@@ -293,7 +293,7 @@ namespace LibSWBF2
 			return;
 		}
 
-		p_ReaderHead = p_ReaderBase + NewPosition;
+		p_ReaderHead = p_MappingBase + NewPosition;
 	}
 
 	size_t FileReader::GetFileSize()
@@ -303,12 +303,12 @@ namespace LibSWBF2
 
 	bool FileReader::CheckGood(size_t ReadSize)
 	{
-		if (p_ReaderBase == nullptr) 
+		if (p_MappingBase == nullptr) 
 		{
 			THROW("Cant read {:#x} bytes, memory mapping uninitialized!", ReadSize);
 		}
 
-		size_t current = (size_t) (p_ReaderHead - p_ReaderBase);
+		size_t current = (size_t) (p_ReaderHead - p_MappingBase);
 		if (current + ReadSize > m_FileSize)
 		{
 			THROW("Reading {:#x} bytes will end up out of file!  Current position: {:#x}  FileSize: {:#x}", ReadSize, current, m_FileSize);
