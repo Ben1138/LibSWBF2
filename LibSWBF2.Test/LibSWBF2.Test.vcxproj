@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stbi\stb_image_write.h" />
+    <ClInclude Include="testing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testSegments.cpp" />
