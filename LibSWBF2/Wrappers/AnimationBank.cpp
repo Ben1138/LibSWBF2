@@ -1,4 +1,5 @@
 #include "req.h"
+#include "stdafx.h"
 
 #include "AnimationBank.h"
 #include "Chunks/LVL/zaa_/zaa_.h"
@@ -346,3 +347,4 @@ namespace LibSWBF2::Wrappers
 		}
 	}
 }
+
