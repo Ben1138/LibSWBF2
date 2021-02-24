@@ -1,15 +1,18 @@
 #pragma once
 
-#include "LibSWBF2.h"
-#include "FileWriter.h"
-#include "Chunks/LVL/LVL.h"
-#include "Types/Enums.h"
+#include "../LibSWBF2/LibSWBF2.h"
+#include "../LibSWBF2/Hashing.h"
+#include "../LibSWBF2/FileWriter.h"
+#include "../LibSWBF2/Chunks/LVL/LVL.h"
+#include "../LibSWBF2/Types/Enums.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <unistd.h>
 #include <vector>
+
+#include <chrono>
+#include <thread>
 
 #include "fmt/core.h"
 #include "fmt/format.h"
@@ -18,6 +21,7 @@
 using LibSWBF2::Types::String;
 using LibSWBF2::Types::List;
 
+using namespace LibSWBF2;
 using namespace LibSWBF2::Chunks::LVL;
 using namespace LibSWBF2::Wrappers;
 
@@ -29,7 +33,7 @@ using LibSWBF2::Logging::LoggerEntry;
 #define COUT(x) std::cout << x << std::endl
 
 
-Container * LoadAndTrackContainer(List<String> paths)
+Container * LoadAndTrackContainer(const List<String>& paths)
 {
 	Container *container = Container::Create();
 	List<SWBF2Handle> handles;
@@ -43,7 +47,8 @@ Container * LoadAndTrackContainer(List<String> paths)
 
 	while (!container -> IsDone())
 	{
-		usleep(100000);
+		//usleep(100000);
+		std::this_thread::sleep_for(std::chrono::microseconds(100000));
 		
 		std::cout << "\r";
 
@@ -60,11 +65,9 @@ Container * LoadAndTrackContainer(List<String> paths)
 
 
 
-
-
-std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
+std::vector<const Level *> LoadAndTrackLVLs(List<String> paths, Container*& container)
 {
-	Container *container = Container::Create();
+	container = Container::Create();
 	List<SWBF2Handle> handles;
 
 	for (int i = 0; i < paths.Size(); i++)
@@ -76,8 +79,9 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 
 	while (!container -> IsDone())
 	{
-		usleep(100000);
-		
+		//usleep(100000);
+		std::this_thread::sleep_for(std::chrono::microseconds(100000));
+
 		std::cout << "\r";
 
 		for (int i = 0; i < handles.Size(); i++)
@@ -86,6 +90,7 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 		}
 
 		std::cout << std::flush;
+
 	}
 
 	std::cout << std::endl;
@@ -101,6 +106,14 @@ std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
 }
 
 
+
+
+
+std::vector<const Level *> LoadAndTrackLVLs(List<String> paths)
+{
+	Container* container;
+	return LoadAndTrackLVLs(paths, container);	
+}
 
 
 

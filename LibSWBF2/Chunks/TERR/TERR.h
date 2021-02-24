@@ -10,7 +10,7 @@ namespace LibSWBF2
 	class FileWriter;
 }
 
-namespace LibSWBF2::Chunks::Terrain
+namespace LibSWBF2::Chunks::LVL::terrain
 {
 	using LibSWBF2::Types::List;
 	using LibSWBF2::Types::Vector2;

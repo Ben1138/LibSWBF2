@@ -1,17 +1,25 @@
 #pragma once
-#include "Chunks/LVL/zaa_/zaa_.h"
+#include "Types/Enums.h"
+#include "Types/Curve.h"
 
-
+namespace LibSWBF2::Chunks::LVL::animation
+{
+	struct zaa_;
+}
 
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
 	using Types::String;
-	using namespace Chunks::LVL::animation;
+	using Types::Curve;
 
 
 	class LIBSWBF2_API AnimationBank
 	{
+	typedef LibSWBF2::Chunks::LVL::animation::zaa_ zaa_ ;
+
+
+		friend List<AnimationBank>;
 
 	public:
 
@@ -19,6 +27,11 @@ namespace LibSWBF2::Wrappers
 
 		bool GetCurve(CRCChecksum anim, CRCChecksum bone, uint16_t component,
 					List<uint16_t> &frame_indices, List<float_t> &frame_values) const;
+
+		// Throws exception if <anim> isnt in the bank,
+		// or <bone> is not among <anim>'s bones, or if
+		// an error occurs during the decompression process.
+		Curve<uint16_t> GetCurve(CRCChecksum anim, CRCChecksum bone, ECurveType component) const;
 	
 		bool ContainsAnimation(CRCChecksum anim) const;
 
@@ -27,36 +40,16 @@ namespace LibSWBF2::Wrappers
 		
 		bool GetAnimationMetadata(CRCChecksum anim, uint32_t &numFrames, uint32_t &numBones) const;
 
-		String name;
+		const String& GetName() const;
+
+		~AnimationBank();
+
+		AnimationBank& operator=(const AnimationBank& other);
 
 
 	private:
 
-		zaa_ *animChunk = nullptr;
-
-		class AnimDecompressor
-		{
-		public:
-			AnimDecompressor(void *_buffer, size_t _length);
-			AnimDecompressor();
-			void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const;
-			bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
-									List<uint16_t> &frame_indicies, 
-									List<float_t> &frame_values) const;
-		private:
-			int8_t *buffer;
-			size_t length;
-
-			mutable size_t read_head;
-			mutable float_t bias, multiplier;
-
-			inline bool ReadInt16(int16_t &val) const;
-			inline bool ReadInt8(int8_t &val) const;
-			inline bool ReadUInt8(uint8_t &val) const;
-		};
-
-		#pragma warning(disable:4251)
-		AnimDecompressor decompressor;
-		#pragma warning(default:4251)
+		zaa_ *p_AnimChunk = nullptr;
+		class AnimDecompressor *p_Decompressor = nullptr;
 	};
 }

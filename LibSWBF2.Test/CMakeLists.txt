@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #SOURCES
 
-add_executable(lightsTest 	 	  testLights.cpp)
 add_executable(segmentsTest  	  testSegments.cpp)
 add_executable(blendmapTest  	  testTerrainBlendMap.cpp)
 add_executable(heightmapTest 	  testTerrainHeightMap.cpp)
@@ -17,15 +16,16 @@ add_executable(entitiesTest  	  testInstancesEntities.cpp)
 add_executable(collisionTest 	  testCollision.cpp)
 add_executable(basicContainerTest testContainerBasic.cpp)
 add_executable(animBankTest 	  testAnimationBank.cpp)
+add_executable(configTest	 	  testConfig.cpp)
 
 
 #LINKING
 
-target_link_libraries(lightsTest    	  PUBLIC SWBF2)
-target_link_libraries(segmentsTest  	  PUBLIC SWBF2)
-target_link_libraries(blendmapTest  	  PUBLIC SWBF2)
-target_link_libraries(heightmapTest 	  PUBLIC SWBF2)
-target_link_libraries(entitiesTest  	  PUBLIC SWBF2)
-target_link_libraries(collisionTest 	  PUBLIC SWBF2)
-target_link_libraries(basicContainerTest  PUBLIC SWBF2)
-target_link_libraries(animBankTest  	  PUBLIC SWBF2)
+target_link_libraries(segmentsTest  	  PUBLIC LibSWBF2_Static)
+target_link_libraries(blendmapTest  	  PUBLIC LibSWBF2)
+target_link_libraries(heightmapTest 	  PUBLIC LibSWBF2)
+target_link_libraries(entitiesTest  	  PUBLIC LibSWBF2_Static)
+target_link_libraries(collisionTest 	  PUBLIC LibSWBF2)
+target_link_libraries(basicContainerTest  PUBLIC LibSWBF2)
+target_link_libraries(animBankTest  	  PUBLIC LibSWBF2)
+target_link_libraries(configTest	  	  PUBLIC LibSWBF2)

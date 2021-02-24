@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks
 	{
 		virtual ~RawData() override;
 
-	private:
+	protected:
 		uint8_t* p_Data = nullptr;
 
 	public:

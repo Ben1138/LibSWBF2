@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using LibSWBF2.Utils;
 using LibSWBF2.Types;
+using LibSWBF2.Enums;
 
 
 
@@ -60,7 +61,7 @@ namespace LibSWBF2.Wrappers
         public static Level FromFile(string path)
         {
             IntPtr native = APIWrapper.Level_FromFile(path);
-            if (native == null)
+            if (native == IntPtr.Zero)
             {
                 return null;
             }
@@ -72,7 +73,7 @@ namespace LibSWBF2.Wrappers
 
         internal static Level FromNative(IntPtr native)
         {
-            if (native == null)
+            if (native == IntPtr.Zero)
             {
                 return null;
             }
@@ -99,173 +100,64 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public Terrain[] GetTerrains()
-        {   
-            APIWrapper.Level_GetTerrains(NativeInstance, out IntPtr terrainsArr, out uint numTerrains);
-            Terrain[] terrains = MemUtils.IntPtrToWrapperArray<Terrain>(terrainsArr, (int) numTerrains);
-
-            for (int i = 0; i < numTerrains; i++)
+        public T GetWrapper<T>(string name) where T : NativeWrapper, new()
+        {
+            if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
-                Children.Add(new WeakReference<NativeWrapper>(terrains[i]));
+                T newObj = new T();
+                IntPtr ptr = APIWrapper.Level_GetWrapper(NativeInstance, WrapperTypeMapping[typeof(T)], name);
+
+                if (ptr == IntPtr.Zero)
+                {
+                    return null;
+                }
+
+                newObj.SetPtr(ptr);
+                Children.Add(new WeakReference<NativeWrapper>(newObj));
+
+                return newObj;
             }
 
-            return terrains;
+            return null;
         }
 
 
-        public Model[] GetModels()
+        public T[] GetWrappers<T>() where T : NativeWrapper, new()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetModels(NativeInstance, out IntPtr modelArr, out uint modelCount, out int inc);
-            Model[] models = MemUtils.IntPtrToWrapperArray<Model>(modelArr, (int) modelCount, inc);
-
-            for (int i = 0; i < modelCount; i++)
+            T[] wrappers = new T[0];
+            if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
-                Children.Add(new WeakReference<NativeWrapper>(models[i]));
+                IntPtr ptr = APIWrapper.Level_GetWrappers(NativeInstance, WrapperTypeMapping[typeof(T)], out uint num, out uint inc);
+
+                wrappers = MemUtils.IntPtrToWrapperArray<T>(ptr, (int) num, (int) inc);
+                for (int i = 0; i < wrappers.Length; i++)
+                {
+                    Children.Add(new WeakReference<NativeWrapper>(wrappers[i]));
+                }
             }
-
-            return models;
+            return wrappers;
         }
 
 
-        public EntityClass[] GetEntityClasses()
+        public Config GetConfig(uint hash, ConfigType cfgType)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetEntityClasses(NativeInstance, out IntPtr classArr, out int classCount, out int inc);
-            EntityClass[] classes = MemUtils.IntPtrToWrapperArray<EntityClass>(classArr, classCount, inc);
-            return classes;
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, hash);
+            return ptr == IntPtr.Zero ? null : new Config(ptr);           
         }
 
-
-        public Light[] GetLights()
+        public Config GetConfig(string name, ConfigType cfgType)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetLights(NativeInstance, out IntPtr LightArr, out uint LightCount);
-            return MemUtils.IntPtrToWrapperArray<Light>(LightArr, (int) LightCount);
-        }    
-
-
-        public World[] GetWorlds()
-        {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            APIWrapper.Level_GetWorlds(NativeInstance, out IntPtr worldArr, out uint worldCount);
-            return MemUtils.IntPtrToWrapperArray<World>(worldArr, (int) worldCount);
+            return GetConfig(HashUtils.GetFNV(name), cfgType);
         }
 
-
-        public Script[] GetScripts()
+        public List<Config> GetConfigs(ConfigType cfgType)
         {
-            APIWrapper.Level_GetScripts(NativeInstance, out IntPtr scriptsArr, out uint numScripts);
-            Script[] scripts = MemUtils.IntPtrToWrapperArray<Script>(scriptsArr, (int)numScripts);
-            for (int i = 0; i < numScripts; i++)
+            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, (uint) cfgType, out int count);
+            if (ptr == IntPtr.Zero)
             {
-                Children.Add(new WeakReference<NativeWrapper>(scripts[i]));
+                return new List<Config>();
             }
-            return scripts;
-        }
-
-
-        public Model GetModel(string modelName)
-        {
-            IntPtr modelPtr = APIWrapper.Level_GetModel(NativeInstance, modelName);
-            if (modelPtr == null)
-            {
-                return null;
-            }
-
-            Model model = new Model(modelPtr);
-            Children.Add(new WeakReference<NativeWrapper>(model));
-            return model;
-        }
-
-
-        public Light GetLight(string lightName)
-        {
-            IntPtr LightPtr = APIWrapper.Level_GetLight(NativeInstance, lightName);
-            if (LightPtr == null)
-            {
-                return null;
-            }
-
-            Light Light = new Light(LightPtr);
-            return Light;
-        }
-
-
-        public Texture GetTexture(string name)
-        {
-            IntPtr texPtr = APIWrapper.Level_GetTexture(NativeInstance, name);
-            if (texPtr == null)
-            {
-                return null;
-            }
-            return new Texture(texPtr);
-        }
-
-        public AnimationBank GetAnimationBank(string setName)
-        {
-            IntPtr SetPtr = APIWrapper.Level_GetAnimationBank(NativeInstance, setName);
-            if (SetPtr == null)
-            {
-                return null;
-            }
-
-            AnimationBank animSet = new AnimationBank(SetPtr);
-            return animSet;
-        }
-
-        public EntityClass GetEntityClass(string name)
-        {
-            IntPtr ptr = APIWrapper.Level_GetEntityClass(NativeInstance, name);
-            if (ptr == null)
-            {
-                return null;
-            }
-
-            EntityClass ec = new EntityClass(ptr);
-            return ec;   
-        }
-
-        public Script GetScript(string name)
-        {
-            IntPtr scriptPtr = APIWrapper.Level_GetScript(NativeInstance, name);
-            if (scriptPtr == null)
-            {
-                return null;
-            }
-            return new Script(scriptPtr);
-        }
-
-
-        public bool GetGlobalLightingConfig(out Vector3 topColor, 
-                                            out Vector3 bottomColor, 
-                                            out Light Light1, 
-                                            out Light Light2)
-        {
-            bool result = APIWrapper.Level_GetGlobalLighting(NativeInstance, out IntPtr topCol, 
-                                                out IntPtr bottomCol, out IntPtr light1Name, 
-                                                out IntPtr light2Name);
-
-            //Console.WriteLine("Exited native get global lighting...");
-
-            Light1 = null;
-            Light2 = null;
-
-            topColor = new Vector3(topCol);
-            bottomColor = new Vector3(bottomCol);
-
-            if (result)
-            {
-                string lightOneName = Marshal.PtrToStringAnsi(light1Name);
-                string lightTwoName = Marshal.PtrToStringAnsi(light2Name);
-                GetLight( lightOneName );
-                GetLight( lightTwoName );
-
-                //Light1 = light1Name == IntPtr.Zero ? null : GetLight( lightOneName );
-                //Light2 = light2Name == IntPtr.Zero ? null : GetLight( lightTwoName );
-            }
-
-            return result;
+            return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
         }
     }
 }

@@ -17,19 +17,22 @@ namespace LibSWBF2.NET.Test
     {
         static int Main(string[] args)
         {            
-            TestBench.StartLogging(ELogType.Warning);
+            TestBench testBench = new TestBench();
 
-            Level level = TestBench.LoadAndTrackLVL(args[0]);
+            Container container = testBench.LoadAndTrackContainer(new List<string>(args), out List<Level> levels);
+
+
+            Level level = levels[0];
             if (level == null) return -1;
             
-            Model[] models = level.GetModels();
+            Model[] models = level.GetWrappers<Model>();
 
 
             foreach (Model model in models)
             {   
                 Console.WriteLine("\n" + model.name + ": ");
 
-
+                /*
                 if (model.isSkeletonBroken)
                 {
                     Console.WriteLine("\tSkeleton is broken!!");
@@ -43,11 +46,13 @@ namespace LibSWBF2.NET.Test
                 {
                     Console.WriteLine("\t\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
                 }
+                */
                 
                 Segment[] segments = model.GetSegments(); 
                 int i = 0;
                 foreach (Segment seg in segments)
                 {
+                    
                     Console.WriteLine("\tSegment " + i++ + ": ");
                     float[] vBuf = seg.GetVertexBuffer<float>();                        
                     //string texName = seg.GetMaterialTexName();
@@ -59,12 +64,6 @@ namespace LibSWBF2.NET.Test
 
                     float[] buffer = seg.GetNormalsBuffer<float>();
                     Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
-
-                    Console.WriteLine("\t\tPositions sample: ");
-                    for (int l = 0; l < vBuf.Length && l < 150; l+=3)
-                    {
-                        Console.WriteLine("\t\t\t({0},{1},{2})", vBuf[l], vBuf[l+1], vBuf[l+2]);
-                    }
 
                     if (model.isSkinned)
                     {
@@ -85,7 +84,7 @@ namespace LibSWBF2.NET.Test
                         if (texName == "") continue;
 
                         Console.Write("\t\t\t" + texName);
-                        Texture tex = level.GetTexture(texName);
+                        Texture tex = level.GetWrapper<Texture>(texName);
                         if (tex != null)
                         {
                             Console.WriteLine(" Height: {0} Width: {1}", tex.height, tex.width);
@@ -93,11 +92,9 @@ namespace LibSWBF2.NET.Test
                     }
 
                     Console.WriteLine("\t\tMaterial flags: ");
-                    Console.WriteLine("\t\t\t" + EnumUtils.MaterialFlagsToString(mat.materialFlags));
+                    Console.WriteLine("\t\t\t{0}", seg.material.materialFlags);
                 }
-            } 
-
-            TestBench.StopLogging();
+            }
             
             return 0;
         }

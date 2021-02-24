@@ -1,6 +1,10 @@
 #pragma once
-#include "Chunks/LVL/Locl/Locl.h"
 #include "Types/List.h"
+
+namespace LibSWBF2::Chunks::LVL::Localization
+{
+	struct Locl;
+}
 
 namespace LibSWBF2::Wrappers
 {

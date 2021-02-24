@@ -1,21 +1,22 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Chunks/RawData.h"
-#include "Chunks/LVL/common/DATA.h"
+#include "DATA.h"
 #include "Types/Enums.h"
 
-using LibSWBF2::Chunks::LVL::common::DATA;
 
-namespace LibSWBF2::Chunks::LVL::lght
+
+namespace LibSWBF2::Chunks::LVL::config
 {
-	struct LIBSWBF2_API DATA_FLOAT : public DATA
+	struct LIBSWBF2_API DATA_STRING : public DATA_CONFIG
 	{
-		float_t m_Float;
-	
+		uint32_t m_Tag;
+		String m_String;
+
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-	
+
 		String ToString() override;
 	};
 }

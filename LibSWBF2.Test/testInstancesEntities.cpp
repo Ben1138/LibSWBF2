@@ -10,19 +10,16 @@ int main(int ac, char **av)
 		pathsInput.Add(av[i]);
 	}
 
-	auto testLVL = LoadAndTrackLVLs(pathsInput)[0];
+	Container* container;
+	auto testLVLs = LoadAndTrackLVLs(pathsInput, container);
+
+	auto testLVL = testLVLs[0];
 
 
 	const List<World>& worlds = testLVL -> GetWorlds();
 	const List<EntityClass>& entities = testLVL -> GetEntityClasses();
 
 
-	//for 
-
-
-
-
-	/*
 	List<String> values;
 	List<uint32_t> properties;
 
@@ -32,9 +29,12 @@ int main(int ac, char **av)
 
 	for (int i = 0; i < entities.Size(); i++)
 	{
-		COUT("\nFound entity type: " << entities[i].GetTypeName().Buffer() 
-			<< " which is subclass of " << entities[i].GetBaseName().Buffer()
+		COUT("\nType: " << entities[i].GetTypeName().Buffer() 
+			<< "\nBase: " << entities[i].GetBaseName().Buffer()
 		);
+
+
+		continue;
 
 		COUT("  Overridden properties: ");
 
@@ -42,15 +42,17 @@ int main(int ac, char **av)
 		{
 			for (int j = 0; j < properties.Size(); j++)
 			{
-				COUT(fmt::format("\tHash: {}, Value: {}", properties[j], values[j].Buffer()).c_str());
+				COUT(fmt::format("    Hash: {}, Value: {}", properties[j], values[j].Buffer()).c_str());
 			}
 		}
 		else 
 		{
-			COUT("\tFailed to get overridden properties!");
+			COUT("    Failed to get overridden properties!");
 		}
 	}
-	*/
+
+
+	Container::Delete(container);
 
 	return 0;
 }

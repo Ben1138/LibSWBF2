@@ -4,8 +4,25 @@
 #include "CollisionPrimitive.h"
 #include "CollisionMesh.h"
 
-#include "Chunks/LVL/modl/LVL.modl.h"
-#include "Chunks/LVL/skel/skel.h"
+
+namespace LibSWBF2
+{
+	namespace Chunks
+	{
+		namespace LVL::modl
+		{
+			struct modl;
+			struct segm;
+			struct modl;
+		}
+
+		namespace skel
+		{
+			struct skel;
+		}
+	}
+}
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -15,6 +32,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::modl::segm;
 	using Chunks::LVL::skel::skel;
+	
 	class Level;
 
 	struct LIBSWBF2_API Bone
@@ -27,6 +45,7 @@ namespace LibSWBF2::Wrappers
 
 	class LIBSWBF2_API Model
 	{
+
 	private:
 		friend Level;
 		friend List<Model>;

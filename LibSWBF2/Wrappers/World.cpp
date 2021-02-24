@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "World.h"
+#include "Instance.h"
+#include "Terrain.h"
 #include "InternalHelpers.h"
 #include "Container.h"
 
@@ -8,6 +10,53 @@
 
 namespace LibSWBF2::Wrappers
 {
+	// Region
+
+	bool Region::FromChunk(regn* chunk, Region& regOut)
+	{
+		if (chunk -> p_Info == nullptr ||
+			chunk -> p_Info -> p_Name == nullptr ||
+			chunk -> p_Info -> p_Type == nullptr ||
+			chunk -> p_Info -> p_SIZE == nullptr ||
+			chunk -> p_Info -> p_XFRM == nullptr)
+		{
+			return false;
+		}
+
+		regOut.p_Region = chunk;
+		return true;
+	}
+
+	const String& Region::GetName() const
+	{
+		return p_Region -> p_Info -> p_Name -> m_Text;
+	}
+
+	const Vector3& Region::GetPosition() const
+	{
+		return p_Region -> p_Info -> p_XFRM -> m_Position;
+	}
+
+	Vector4 Region::GetRotation() const
+	{
+		return MatrixToQuaternion(p_Region -> p_Info -> p_XFRM -> m_RotationMatrix);
+	}
+
+	const Vector3& Region::GetSize() const
+	{
+		return p_Region -> p_Info -> p_SIZE -> m_Dimensions;
+	}
+
+	const String& Region::GetType() const
+	{
+		return p_Region -> p_Info -> p_Type -> m_Text;
+	}
+	
+
+
+
+	// World
+
 	bool World::FromChunk(Container* mainContainer, wrld* worldChunk, World& out)
 	{
 		if (worldChunk == nullptr)
@@ -28,6 +77,17 @@ namespace LibSWBF2::Wrappers
 				out.m_Instances.Add(instance);
 			}
 		}
+
+		List<regn *>& regions = worldChunk -> m_Regions;
+		for (size_t i = 0; i < regions.Size(); ++i)
+		{
+			Region region;
+			if (Region::FromChunk(regions[i], region))
+			{
+				out.m_Regions.Add(region);
+			}
+		}		
+
 		return true;
 	}
 
@@ -39,6 +99,11 @@ namespace LibSWBF2::Wrappers
 	const List<Instance>& World::GetInstances() const
 	{
 		return m_Instances;
+	}
+
+	const List<Region>& World::GetRegions() const
+	{
+		return m_Regions;
 	}
 
 	Types::String World::GetTerrainName() const
@@ -61,10 +126,64 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const List<Light>& World::GetLights() const
+	const List<String> World::GetAnimationNames() const
 	{
-		return m_Lights;
+		List<String> names;
+		const List<anim*>& animPtrs = p_World -> m_Animations;
+		for (uint16_t i = 0; i < animPtrs.Size(); i++)
+		{
+			names.Add(animPtrs[i] -> p_Info -> m_Text);
+		}
+		return names;
 	}
 
 
+	const List<String> World::GetAnimationGroups() const
+	{
+		List<String> names;
+		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
+		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
+		{
+			names.Add(animGPtrs[i] -> p_Info -> m_Text);
+		}
+		return names;	
+	}
+
+
+	const bool World::GetAnimationGroupPairs(const String& animGroupName, 
+									List<String>& animNamesOut, 
+									List<String>& instanceNamesOut) const
+	{
+		animNamesOut.Clear();
+		instanceNamesOut.Clear();
+
+		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
+		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
+		{
+			if (animGroupName == animGPtrs[i] -> p_Info -> m_Text)
+			{
+				for (uint16_t j = 0; j < animGPtrs[i] -> m_AnimObjectPairs.Size(); j++)
+				{
+					auto& pair = animGPtrs[i] -> m_AnimObjectPairs[i] -> m_Texts;
+					if (pair.Size() != 2)
+					{
+						continue;
+					}
+
+					animNamesOut.Add(pair[0]);
+					instanceNamesOut.Add(pair[1]);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	//const Curve<float_t> World::GetAnimationCurve(const String& animName, ECurveType cc) const
+	//{
+	//	return Curve<float_t>();
+	//}
 }

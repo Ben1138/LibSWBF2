@@ -6,6 +6,8 @@
 #include "Types/List.h"
 #include "Types/LibString.h"
 
+#include <chrono>
+
 namespace LibSWBF2 
 { 
 	class FileReader;
@@ -57,6 +59,7 @@ namespace LibSWBF2::Chunks
 		ChunkHeader m_Header;
 		ChunkSize m_Size = 0; // Data Size, no header, no trailling bytes
 		size_t m_ChunkPosition = 0;	// pointing to the chunks header
+
 
 	private:
 		class MultiThreadHandling* m_ThreadHandling = nullptr;

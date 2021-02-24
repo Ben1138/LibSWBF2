@@ -3,7 +3,7 @@
 #include "Hashing.h"
 
 
-namespace LibSWBF2::Chunks::LVL::lght
+namespace LibSWBF2::Chunks::LVL::config
 {
     struct LIBSWBF2_API config_NAME : public GenericChunk<"NAME"_m>
     {
@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::LVL::lght
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        FNVHash m_WorldName;
+        FNVHash m_Name;
 
         String ToString() override;
     };

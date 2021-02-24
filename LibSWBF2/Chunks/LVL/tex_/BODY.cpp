@@ -75,25 +75,27 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             return;
         }
 
-        uint8_t* bytes = new uint8_t[dataSize];
-        if (!stream.ReadBytes(bytes, dataSize))
+        uint8_t* imageBufferPtr;
+
+#ifdef _WIN32
+        p_Image = new DirectX::ScratchImage();
+        p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
+        const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
+
+        imageBufferPtr = img -> pixels;
+#else
+        p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
+                                                    d3dFormat, dataSize);
+        imageBufferPtr = p_Image -> GetPixelsPtr();
+#endif
+
+        if (imageBufferPtr == nullptr || !stream.ReadBytes(imageBufferPtr, dataSize))
         {
             LOG_ERROR("Reading image data of size '{}' failed!", dataSize);
             BaseChunk::EnsureEnd(stream);
             return;
         }
 
-#ifdef _WIN32
-        p_Image = new DirectX::ScratchImage();
-        p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
-        const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
-        memcpy(img->pixels, bytes, dataSize);
-#else
-        p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
-                                                    d3dFormat, bytes,
-                                                    dataSize);
-#endif
-        delete[] bytes;
         BaseChunk::EnsureEnd(stream);       
     }
 
@@ -153,15 +155,24 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         width = (uint16_t)img->width;
         height = (uint16_t)img->height;
         data = img->pixels;
-
+        
+        return data != nullptr;    
 #else 
+        if (!p_Image -> IsConvertibleTo(D3DFMT_R8G8B8A8))
+        {
+            data = nullptr;
+            return false;
+        }
+
+        p_Image -> ConvertTo(D3DFMT_R8G8B8A8);
+
         width = p_Image->width;
         height = p_Image->height;
-        data = p_Image -> DumpRGBA();
+        data = p_Image -> GetPixelsPtr();
+
+        return true;
 
 #endif //_WIN32
-
-        return data != nullptr;    
     }
 
     BODY::~BODY()
