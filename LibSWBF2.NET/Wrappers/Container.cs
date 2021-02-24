@@ -7,31 +7,17 @@ using System.Threading.Tasks;
 using System.Threading; 
 
 using LibSWBF2.Logging;
+using LibSWBF2.Enums;
+using LibSWBF2.Utils;
 
 
 namespace LibSWBF2.Wrappers
 {
     public class Container : NativeWrapper
-    {
-        private static Dictionary<Type, uint> wrapperMap;
-        
-
+    {        
         public Container() : base(APIWrapper.Container_Initialize()){}
         
-        static Container()
-        {
-            wrapperMap = new Dictionary<Type, uint>();
-            wrapperMap[typeof(Light)]         = 0;
-            wrapperMap[typeof(Model)]         = 1;
-            wrapperMap[typeof(Texture)]       = 2;
-            wrapperMap[typeof(World)]         = 3;
-            wrapperMap[typeof(EntityClass)]   = 4;
-            wrapperMap[typeof(AnimationBank)] = 5;
-            wrapperMap[typeof(Script)]        = 6;
-        }    
-
-
-
+ 
         public bool Delete()
         {
             return APIWrapper.Container_Delete(NativeInstance);
@@ -94,12 +80,12 @@ namespace LibSWBF2.Wrappers
 
         public T FindWrapper<T>(string name) where T : NativeWrapper, new()
         {
-            if (wrapperMap.ContainsKey(typeof(T)))
+            if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
                 T newObj = new T();
-                IntPtr ptr = APIWrapper.Container_GetWrapper(NativeInstance, wrapperMap[typeof(T)], name);
+                IntPtr ptr = APIWrapper.Container_GetWrapper(NativeInstance, WrapperTypeMapping[typeof(T)], name);
 
-                if (ptr == null)
+                if (ptr == IntPtr.Zero)
                 {
                     return null;
                 }
@@ -110,6 +96,24 @@ namespace LibSWBF2.Wrappers
             }
 
             return null;
+        }
+
+
+        public Config FindConfig(ConfigType type, uint nameHash=0)
+        {
+            IntPtr cfgPtr = APIWrapper.Container_GetConfig(NativeInstance, (uint) type, nameHash);
+            if (cfgPtr == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            return new Config(cfgPtr);
+        }
+
+
+        public Config FindConfig(ConfigType type, string name)
+        {
+            return FindConfig(type, HashUtils.GetFNV(name));
         }
 
 

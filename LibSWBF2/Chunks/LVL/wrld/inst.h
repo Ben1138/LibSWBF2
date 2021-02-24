@@ -2,11 +2,11 @@
 #include "Chunks/GenericChunk.h"
 #include "Types/List.h"
 #include "Chunks/LVL/common/PROP.h"
-#include "inst.INFO.h"
+#include "wrld.INFO.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
-	using instance::INFO;
+	using LibSWBF2::Chunks::LVL::wrld::INFO;
 	using common::PROP;
 
 	struct LIBSWBF2_API inst : public GenericChunk<"inst"_m>

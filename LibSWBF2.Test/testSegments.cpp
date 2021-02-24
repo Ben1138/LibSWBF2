@@ -11,7 +11,8 @@ int main(int ac, char** av)
 		pathsInput.Add(av[i]);
 	}
 
-	auto lvlPtrs = LoadAndTrackLVLs(pathsInput);
+	Container* container;
+	auto lvlPtrs = LoadAndTrackLVLs(pathsInput, container);
 
 	for (int i = 0; i < lvlPtrs.size(); i++)
 	{
@@ -52,6 +53,8 @@ int main(int ac, char** av)
 		}
 
 	}
+
+	Container::Delete(container);
 
 
 	return 0;

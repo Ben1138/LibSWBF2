@@ -13,8 +13,8 @@
 #include "Chunks/TERR/TERR.h"
 #include "Chunks/LVL/LVL.h"
 #include "Chunks/BNK/BNK.h"
-#include "Wrappers/Level.h"
-#include "Wrappers/SoundBank.h"
+
+#include "Wrappers/Wrappers.h"
 
 // Include this file when LibSWBF2 externally
 // This header should not be included in its own project

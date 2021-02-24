@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MEMORY_MAPPED_READER;_DEBUG;LIBSWBF2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
@@ -201,14 +201,13 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\LVL\common\GenericClass.h" />
     <ClInclude Include="Chunks\LVL\common\PROP.h" />
     <ClInclude Include="Chunks\LVL\common\SCOP.h" />
-    <ClInclude Include="Chunks\LVL\lght\config.NAME.h" />
-    <ClInclude Include="Chunks\LVL\lght\float.DATA.h" />
-    <ClInclude Include="Chunks\LVL\lght\lght.h" />
-    <ClInclude Include="Chunks\LVL\lght\lght.SCOP.h" />
-    <ClInclude Include="Chunks\LVL\lght\string.DATA.h" />
-    <ClInclude Include="Chunks\LVL\lght\vec2.DATA.h" />
-    <ClInclude Include="Chunks\LVL\lght\vec3.DATA.h" />
-    <ClInclude Include="Chunks\LVL\lght\vec4.DATA.h" />
+    <ClInclude Include="Chunks\LVL\config\config.NAME.h" />
+    <ClInclude Include="Chunks\LVL\config\ConfigChunk.h" />
+    <ClInclude Include="Chunks\LVL\config\DATA.h" />
+    <ClInclude Include="Chunks\LVL\config\float.DATA.h" />
+    <ClInclude Include="Chunks\LVL\config\SCOP.h" />
+    <ClInclude Include="Chunks\LVL\config\string.DATA.h" />
+    <ClInclude Include="Chunks\LVL\gmod\gmod.h" />
     <ClInclude Include="Chunks\LVL\Locl\Locl.BODY.h" />
     <ClInclude Include="Chunks\LVL\Locl\Locl.h" />
     <ClInclude Include="Chunks\LVL\lvl_.h" />
@@ -242,9 +241,13 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\LVL\tern\PTCH.VBUF.h" />
     <ClInclude Include="Chunks\LVL\tern\tern.h" />
     <ClInclude Include="Chunks\LVL\tern\tern.INFO.h" />
+    <ClInclude Include="Chunks\LVL\wrld\anim.h" />
+    <ClInclude Include="Chunks\LVL\wrld\anmg.h" />
     <ClInclude Include="Chunks\LVL\wrld\inst.h" />
-    <ClInclude Include="Chunks\LVL\wrld\inst.INFO.h" />
+    <ClInclude Include="Chunks\LVL\wrld\regn.h" />
+    <ClInclude Include="Chunks\LVL\wrld\SIZE.h" />
     <ClInclude Include="Chunks\LVL\wrld\wrld.h" />
+    <ClInclude Include="Chunks\LVL\wrld\wrld.INFO.h" />
     <ClInclude Include="Chunks\LVL\wrld\XFRM.h" />
     <ClInclude Include="Chunks\LVL\zaa_\BIN_.h" />
     <ClInclude Include="Chunks\LVL\zaa_\MINA.h" />
@@ -256,6 +259,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Chunks\STRMULT.h" />
     <ClInclude Include="InternalHelpers.h" />
     <ClInclude Include="Container.h" />
+    <ClInclude Include="Types\Curve.h" />
     <ClInclude Include="Types\LocalizeEntry.h" />
     <ClInclude Include="Types\SoundBankHeader.h" />
     <ClInclude Include="Types\SoundClip.h" />
@@ -263,11 +267,10 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Wrappers\AnimationBank.h" />
     <ClInclude Include="Wrappers\CollisionMesh.h" />
     <ClInclude Include="Wrappers\CollisionPrimitive.h" />
+    <ClInclude Include="Wrappers\Config.h" />
     <ClInclude Include="Wrappers\EntityClass.h" />
-    <ClInclude Include="Wrappers\GlobalLighting.h" />
     <ClInclude Include="Wrappers\Instance.h" />
     <ClInclude Include="Wrappers\Level.h" />
-    <ClInclude Include="Wrappers\Light.h" />
     <ClInclude Include="Wrappers\Localization.h" />
     <ClInclude Include="Wrappers\Material.h" />
     <ClInclude Include="Wrappers\Model.h" />
@@ -359,17 +362,15 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\LVL\coll\TREE.cpp" />
     <ClCompile Include="Chunks\LVL\coll\TREE.LEAF.cpp" />
     <ClCompile Include="Chunks\LVL\coll\TREE.NODE.cpp" />
-    <ClCompile Include="Chunks\LVL\common\DATA.cpp" />
     <ClCompile Include="Chunks\LVL\common\GenericClass.cpp" />
     <ClCompile Include="Chunks\LVL\common\PROP.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\config.NAME.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\float.DATA.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\lght.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\lght.SCOP.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\string.DATA.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\vec2.DATA.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\vec3.DATA.cpp" />
-    <ClCompile Include="Chunks\LVL\lght\vec4.DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\config\config.NAME.cpp" />
+    <ClCompile Include="Chunks\LVL\config\ConfigChunk.cpp" />
+    <ClCompile Include="Chunks\LVL\config\DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\config\float.DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\config\SCOP.cpp" />
+    <ClCompile Include="Chunks\LVL\config\string.DATA.cpp" />
+    <ClCompile Include="Chunks\LVL\gmod\gmod.cpp" />
     <ClCompile Include="Chunks\LVL\Locl\Locl.BODY.cpp" />
     <ClCompile Include="Chunks\LVL\Locl\Locl.cpp" />
     <ClCompile Include="Chunks\LVL\lvl_.cpp" />
@@ -403,9 +404,13 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Chunks\LVL\tern\PTCH.VBUF.cpp" />
     <ClCompile Include="Chunks\LVL\tern\tern.cpp" />
     <ClCompile Include="Chunks\LVL\tern\tern.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\anim.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\anmg.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\inst.cpp" />
-    <ClCompile Include="Chunks\LVL\wrld\inst.INFO.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\regn.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\SIZE.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\wrld.cpp" />
+    <ClCompile Include="Chunks\LVL\wrld\wrld.INFO.cpp" />
     <ClCompile Include="Chunks\LVL\wrld\XFRM.cpp" />
     <ClCompile Include="Chunks\LVL\zaa_\BIN_.cpp" />
     <ClCompile Include="Chunks\LVL\zaa_\MINA.cpp" />
@@ -425,11 +430,10 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClCompile Include="Wrappers\AnimationBank.cpp" />
     <ClCompile Include="Wrappers\CollisionMesh.cpp" />
     <ClCompile Include="Wrappers\CollisionPrimitive.cpp" />
+    <ClCompile Include="Wrappers\Config.cpp" />
     <ClCompile Include="Wrappers\EntityClass.cpp" />
-    <ClCompile Include="Wrappers\GlobalLighting.cpp" />
     <ClCompile Include="Wrappers\Instance.cpp" />
     <ClCompile Include="Wrappers\Level.cpp" />
-    <ClCompile Include="Wrappers\Light.cpp" />
     <ClCompile Include="Wrappers\Localization.cpp" />
     <ClCompile Include="Wrappers\Material.cpp" />
     <ClCompile Include="Wrappers\Model.cpp" />

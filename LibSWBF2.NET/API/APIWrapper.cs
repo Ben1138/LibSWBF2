@@ -55,6 +55,9 @@ namespace LibSWBF2
         public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetConfig(IntPtr container, uint type, uint nameHash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_LoadLevels(IntPtr container);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -77,54 +80,25 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Level_IsWorldLevel(IntPtr level);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetModels(IntPtr level, out IntPtr modelArr, out uint modelCount, out int inc);
-        
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetEntityClasses(IntPtr level, out IntPtr classArr, out int classCount, out int inc);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetModel(IntPtr level, [MarshalAs(UnmanagedType.LPStr)] string modelName);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetTerrains(IntPtr level, out IntPtr terrainArr, out uint terrainCount);
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetScripts(IntPtr level, out IntPtr scriptArr, out uint scriptCount);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetWorlds(IntPtr level, out IntPtr worldArr, out uint modelCount);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Level_GetLights(IntPtr level, out IntPtr lightArr, out uint lightCount);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetLight(IntPtr level, string lightName);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetAnimationBank(IntPtr level, string setName);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetEntityClass(IntPtr level, string name);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetTexture(IntPtr level, string texName);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetScript(IntPtr level, string scriptName);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Level_GetGlobalLighting(IntPtr level, out IntPtr topColor, out IntPtr bottomColor, 
-                                                        out IntPtr light1Name, out IntPtr light2Name);        
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetName(IntPtr level);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetPath(IntPtr level);
+        
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetConfig(IntPtr level, uint cfgType, uint hash);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetConfigs(IntPtr level, uint cfgType, out int numConfigs);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetWrapper(IntPtr level, uint type, string name);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetWrappers(IntPtr level, uint type, out uint num, out uint inc);
 
         //Terrain
 
@@ -187,9 +161,17 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
-                                        out IntPtr lightArr, out int lightCount, out int lightInc,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
+                                        out IntPtr regionArr, out int regCount, out int regInc,
                                         out IntPtr terrPtr);
+        // Region // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Region_FetchAllFields(IntPtr reg, out IntPtr size, 
+                                                        out IntPtr pos, out IntPtr rot,
+                                                        out IntPtr name, out IntPtr type);       
+        
 
         // Script //
 
@@ -224,7 +206,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Texture_FetchAllFields(IntPtr tex, out int width, out int height, out IntPtr bufOut, out IntPtr nameOut);      
+        public static extern bool Texture_FetchAllFields(IntPtr tex, out ushort width, out ushort height, out IntPtr bufOut, out IntPtr nameOut);      
 
 
         // CollisionMesh //
@@ -285,5 +267,43 @@ namespace LibSWBF2
                                 out IntPtr diffuse, out IntPtr texNames, out int numTexes,
                                 out IntPtr attachedLightName, out uint matFlags, out uint specExp);
 
+
+
+
+
+        // Config //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Config_FetchSimpleFields(IntPtr cfg, out uint name);
+
+
+        // Config / Scope // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr ConfigScope_GetFields(IntPtr ptr, uint hash, bool isScope, out uint count);
+
+
+        // Field //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Field_FetchAllFields(IntPtr cfg, out IntPtr scop, out uint hash);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern float  Field_GetFloat(IntPtr cfg);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Field_GetVec2(IntPtr cfg); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Field_GetVec3(IntPtr cfg); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Field_GetVec4(IntPtr cfg); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Field_GetString(IntPtr cfg); 
+        
     }
 }

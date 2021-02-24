@@ -14,7 +14,6 @@ linking to the other libSWBF2 projects (lvlExplorer, msh2fbx, SWBF2-unity-import
 painless.  
 
 ]]
-add_compile_options(-Wfatal-errors)
 
 project(libSWBF2)
 
@@ -37,8 +36,8 @@ add_subdirectory(LibSWBF2.Test)
 
 
 
-
 #Need this in order for XCode to index header files,
 #doesn't change compilation at all...
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PROJECT_FILES})
+

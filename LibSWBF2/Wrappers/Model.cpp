@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Level.h"
+#include "Model.h"
 #include "InternalHelpers.h"
+
+#include "Chunks/LVL/modl/LVL.modl.h"
+#include "Chunks/LVL/skel/skel.h"
 
 static LibSWBF2::String empty = "";
 

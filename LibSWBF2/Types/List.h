@@ -40,6 +40,7 @@ namespace LibSWBF2::Types
 		T& Emplace();
 
 		List<T>& operator=(const List<T>& other);
+		List<T>& operator=(List<T>&& other);
 
 //TEMPFIX: Clang is very stubborn with this one, 
 #ifdef __clang__

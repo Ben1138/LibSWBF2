@@ -1,23 +1,26 @@
 #pragma once
 #include "req.h"
-#include "Model.h"
-#include "Texture.h"
-#include "World.h"
-#include "Terrain.h"
-#include "Script.h"
-#include "Light.h"
-#include "AnimationBank.h"
-#include "GlobalLighting.h"
-#include "Localization.h"
-#include "EntityClass.h"
+#include "API.h"
+
 #include "Types/LibString.h"
 #include "Types/List.h"
-#include "Chunks/LVL/LVL.h"
-#include "CollisionMesh.h"
 
 
 namespace LibSWBF2
 {
+	namespace Chunks {
+		struct GenericBaseChunk;
+
+		namespace LVL
+		{
+			struct LVL;
+			namespace skel 
+			{
+				struct skel;
+			}
+		}
+	}
+
 	class Container;
 }
 
@@ -25,8 +28,6 @@ namespace LibSWBF2
 namespace LibSWBF2::Wrappers
 {
 	using Types::List;
-	using Chunks::GenericBaseChunk;
-	using Chunks::LVL::LVL;
 
 	/*
 	 * This and the other wrapper classes just serve as abstraction Layers
@@ -36,6 +37,12 @@ namespace LibSWBF2::Wrappers
 	 */
 	class LIBSWBF2_API Level
 	{
+
+	typedef LibSWBF2::Chunks::LVL::LVL LVL;
+	typedef LibSWBF2::Chunks::GenericBaseChunk GenericBaseChunk;
+	typedef LibSWBF2::Chunks::LVL::skel::skel skel;
+
+
 	private:
 		friend Container;
 
@@ -52,13 +59,10 @@ namespace LibSWBF2::Wrappers
 		List<World> m_Worlds;
 		List<Terrain> m_Terrains;	// multiple terrains are possible, in theory. never saw it though
 		List<Script> m_Scripts;
-		List<Light> m_Lights;
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
-
-		bool m_bHasGlobalLighting;
-		GlobalLightingConfig m_GlobalLightingConfig;
+		List<Config> m_Configs;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -77,7 +81,6 @@ namespace LibSWBF2::Wrappers
 		String GetLevelName() const;
 		bool IsWorldLevel() const;
 
-		const List<Light>& GetLights() const;
 		const List<Model>& GetModels() const;
 		const List<Texture>& GetTextures() const;
 		const List<World>& GetWorlds() const;
@@ -86,9 +89,8 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
+		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
 
-		const Light* GetLight(String lightName) const;
-		const GlobalLightingConfig* GetGlobalLighting() const;
 		const Model* GetModel(String modelName) const;
 		const Texture* GetTexture(String textureName) const;
 		const World* GetWorld(String worldName) const;
@@ -97,6 +99,8 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(String loclName) const;
 		const EntityClass* GetEntityClass(String typeName) const;
 		const AnimationBank* GetAnimationBank(String setName) const; 
+		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

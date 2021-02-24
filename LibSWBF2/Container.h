@@ -1,5 +1,7 @@
 #pragma once
 #include "Wrappers/Level.h"
+#include "Wrappers/Terrain.h"
+#include "Wrappers/Localization.h"
 #include "Wrappers/SoundBank.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
@@ -17,10 +19,10 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::World;
 	using LibSWBF2::Wrappers::Terrain;
 	using LibSWBF2::Wrappers::Script;
-	using LibSWBF2::Wrappers::Light;
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
 	using LibSWBF2::Wrappers::AnimationBank;
+	using LibSWBF2::Wrappers::Config;
 
 	struct Schedule
 	{
@@ -67,7 +69,7 @@ namespace LibSWBF2
 
 		const List<const World*>& GetWorlds();
 
-		const Light* FindLight(String lightName) const;
+		//const Light* FindLight(String lightName) const;
 		const Model* FindModel(String modelName) const;
 		const Texture* FindTexture(String textureName) const;
 		const World* FindWorld(String worldName) const;
@@ -77,6 +79,8 @@ namespace LibSWBF2
 		const Sound* FindSound(String soundName) const;
 		const Sound* FindSound(FNVHash hashedSoundName) const;
 		const AnimationBank* FindAnimationBank(String setName) const;
+
+		const Config* FindConfig(EConfigType type, FNVHash hashedConfigName) const;
 
 		const List<const Localization*>* FindLocalizations(String languageName) const;
 		// count is number of wide chars, NOT number of bytes!

@@ -88,6 +88,7 @@ namespace LibSWBF2.Utils
             return strings;
         }
 
+
         // copies given strings into unmanaged memory and returns their addresses
         // CAUTION: you need to free the allocated memory afterwards (e.g. via FreeStrings)
         public static IntPtr[] StringToIntPtrList(string[] strings)
@@ -100,6 +101,7 @@ namespace LibSWBF2.Utils
 
             return stringPtrs;
         }
+
 
         public static void FreeStrings(IntPtr[] stringPtrs)
         {

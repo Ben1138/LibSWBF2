@@ -61,24 +61,6 @@ namespace LibSWBF2
 		return false;
 	}
 
-	constexpr FNVHash FNV::HashConstexpr(const std::string_view str)
-	{
-		constexpr uint32_t FNV_prime = 16777619;
-		constexpr uint32_t offset_basis = 2166136261;
-
-		uint32_t hash = offset_basis;
-
-		for (auto c : str)
-		{
-			c |= 0x20;
-
-			hash ^= c;
-			hash *= FNV_prime;
-		}
-
-		return hash;
-	}
-
 	void FNV::ReadLookupTable()
 	{
 		if (p_LookupTable == nullptr)
@@ -99,10 +81,6 @@ namespace LibSWBF2
 		p_LookupTable = nullptr;
 	}
 
-	constexpr FNVHash operator""_fnv(const char* str, const std::size_t length)
-	{
-		return FNV::HashConstexpr({ str, length });
-	}
 
 	// CRC table
 	uint32_t CRC::m_Table32[256] =

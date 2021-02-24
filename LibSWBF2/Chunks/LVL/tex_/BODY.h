@@ -1,7 +1,6 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Types/Enums.h"
-#include "FMT_.INFO.h"
 
 #ifdef _WIN32
 namespace DirectX { class ScratchImage; }

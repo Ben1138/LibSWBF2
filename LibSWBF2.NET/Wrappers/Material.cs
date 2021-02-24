@@ -22,9 +22,11 @@ namespace LibSWBF2.Wrappers
             if (APIWrapper.Material_FetchAllFields(ptr, out IntPtr specular,
                                                 out IntPtr diffuse, out IntPtr texNames,
                                                 out int numTexes, out IntPtr attachedLightName,
-                                                out materialFlags, out specularExponent))
+                                                out uint matFlags, out specularExponent))
             {
-                NativeInstance = ptr; 
+                NativeInstance = ptr;
+
+                materialFlags = (MaterialFlags) matFlags;
 
                 specularColor = new Vector3(specular);
                 diffuseColor = new Vector3(diffuse);
@@ -34,7 +36,9 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public uint materialFlags, specularExponent;
+        public MaterialFlags materialFlags;
+            
+        public uint specularExponent;
 
         public List<string> textures;
 

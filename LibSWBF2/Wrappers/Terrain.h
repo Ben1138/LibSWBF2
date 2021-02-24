@@ -2,7 +2,13 @@
 #include "req.h"
 #include "Types/Color4u8.h"
 #include "Types/LibString.h"
-#include "Chunks/LVL/tern/tern.h"
+
+
+namespace LibSWBF2::Chunks::LVL::terrain
+{
+	struct tern;
+}
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -11,12 +17,14 @@ namespace LibSWBF2::Wrappers
 	using Types::Vector2;
 	using Types::Vector3;
 	using Types::Color4u8;
-	using Chunks::LVL::terrain::tern;
 	
 	class Level;
 
 	class LIBSWBF2_API Terrain
 	{
+
+	typedef LibSWBF2::Chunks::LVL::terrain::tern tern;
+
 	private:
 		friend Level;
 		friend List<Terrain>;

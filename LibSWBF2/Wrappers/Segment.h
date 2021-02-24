@@ -1,8 +1,16 @@
 #pragma once
-#include "Chunks/LVL/modl/LVL.modl.h"
+#include "Material.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
-#include "Material.h"
+
+
+namespace LibSWBF2::Chunks::LVL::modl
+{
+	struct segm;
+	struct VBUF;
+}
+
+
 
 namespace LibSWBF2::Wrappers
 {
