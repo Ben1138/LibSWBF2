@@ -352,6 +352,7 @@ copy "$(ProjectDir)..\lookup.csv" "$(OutDir)lookup.csv " /y</Command>
     <ClInclude Include="Types\Vector3u8.h" />
     <ClInclude Include="Types\Vector4.h" />
     <ClInclude Include="Chunks\MSH\WGHT.h" />
+    <ClInclude Include="Wrappers\Wrappers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API.cpp" />

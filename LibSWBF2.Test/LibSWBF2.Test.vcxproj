@@ -167,7 +167,15 @@
     <ClInclude Include="testing.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="testAnimationBank.cpp" />
+    <ClCompile Include="testCollision.cpp" />
+    <ClCompile Include="testConfig.cpp" />
+    <ClCompile Include="testContainerBasic.cpp" />
+    <ClCompile Include="testInstancesEntities.cpp" />
     <ClCompile Include="testSegments.cpp" />
+    <ClCompile Include="testTerrainBlendMap.cpp" />
+    <ClCompile Include="testTerrainHeightMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

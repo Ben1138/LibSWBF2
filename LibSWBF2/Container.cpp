@@ -120,7 +120,6 @@ namespace LibSWBF2
 			Level* level = Level::FromChunk(lvl, this);
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
 			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
-			status.m_Level = level;
 			if (level != nullptr)
 			{
 				if (scheduled.bRegisterContents)
@@ -152,6 +151,7 @@ namespace LibSWBF2
 					}
 				}
 
+				status.m_Level = level;
 				level->m_FullPath = scheduled.m_Path;
 				status.m_LoadStatus = ELoadStatus::Loaded;
 			}
@@ -429,7 +429,11 @@ namespace LibSWBF2
 		}
 
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		return m_ThreadSafeMembers->m_Statuses[handle].m_Level;
+		if (m_ThreadSafeMembers->m_Statuses[handle].m_LoadStatus == ELoadStatus::Loaded)
+		{
+			return m_ThreadSafeMembers->m_Statuses[handle].m_Level;
+		}
+		return nullptr;
 	}
 
 	Level* Container::TryGetWorldLevel() const
