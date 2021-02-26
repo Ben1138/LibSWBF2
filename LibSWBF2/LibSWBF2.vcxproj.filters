@@ -642,6 +642,9 @@
     <ClInclude Include="Chunks\LVL\gmod\gmod.h">
       <Filter>Header Files\Chunks\LVL\gmod</Filter>
     </ClInclude>
+    <ClInclude Include="Wrappers\Wrappers.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
