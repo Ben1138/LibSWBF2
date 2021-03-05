@@ -165,6 +165,7 @@ namespace LibSWBF2
 
         // Wrappers - Instance
    		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
+		LIBSWBF2_API const char* Instance_GetProperty(const Instance* instPtr, const char* propName);
    		LIBSWBF2_API const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
 
         // Wrappers - Material

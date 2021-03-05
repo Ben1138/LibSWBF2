@@ -18,10 +18,26 @@ namespace LibSWBF2.Wrappers
         public EntityClass() : base(IntPtr.Zero) {}
 
 
-        public string GetProperty(string propName)
+        /// <summary>
+        /// will fall back to base class, if existent
+        /// </summary>
+        public bool GetProperty(string propName, out string propValue)
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return Marshal.PtrToStringAnsi(APIWrapper.EntityClass_GetProperty(NativeInstance, propName));   
+            IntPtr propNamePtr = Marshal.StringToHGlobalAnsi(propName);
+            IntPtr res = APIWrapper.EntityClass_GetProperty(NativeInstance, propNamePtr);
+            Marshal.FreeHGlobal(propNamePtr);
+
+            if (res != IntPtr.Zero)
+            {
+                propValue = Marshal.PtrToStringAnsi(res);
+                return true;
+            }
+            else
+            {
+                propValue = "";
+                return false;
+            }
         }
 
 

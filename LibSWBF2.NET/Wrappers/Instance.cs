@@ -36,6 +36,27 @@ namespace LibSWBF2.Wrappers
             }
         }
 
+        /// <summary>
+        /// will fallback to entity class property, if existent
+        /// </summary>
+        public bool GetProperty(string propName, out string propValue)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            IntPtr propNamePtr = Marshal.StringToHGlobalAnsi(propName);
+            IntPtr res = APIWrapper.Instance_GetProperty(NativeInstance, propNamePtr);
+            Marshal.FreeHGlobal(propNamePtr);
+
+            if (res != IntPtr.Zero)
+            {
+                propValue = Marshal.PtrToStringAnsi(res);
+                return true;
+            }
+            else
+            {
+                propValue = "";
+                return false;
+            }
+        }
 
         public bool GetOverriddenProperties(out uint[] properties, out string[] values)
         {

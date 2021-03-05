@@ -263,49 +263,49 @@ namespace LibSWBF2
 		case 0:
 		{
 			const List<Terrain>& terrains = level->GetTerrains();
-			numWrappers = terrains.Size();
+			numWrappers = (uint32_t)terrains.Size();
 			wrapperSize = sizeof(Terrain);
 			return static_cast<const void*>(terrains.GetArrayPtr());
 		}
 		case 1:
 		{
 			const List<Model>& models = level->GetModels();
-			numWrappers = models.Size();
+			numWrappers = (uint32_t)models.Size();
 			wrapperSize = sizeof(Model);
 			return static_cast<const void*>(models.GetArrayPtr());
 		}
 		case 2:
 		{
 			const List<Texture>& textures = level->GetTextures();
-			numWrappers = textures.Size();
+			numWrappers = (uint32_t)textures.Size();
 			wrapperSize = sizeof(Texture);
 			return static_cast<const void*>(textures.GetArrayPtr());
 		}
 		case 3:
 		{
 			const List<World>& worlds = level->GetWorlds();
-			numWrappers = worlds.Size();
+			numWrappers = (uint32_t)worlds.Size();
 			wrapperSize = sizeof(World);
 			return static_cast<const void*>(worlds.GetArrayPtr());
 		}
 		case 4:
 		{
 			const List<EntityClass>& entityClasses = level->GetEntityClasses();
-			numWrappers = entityClasses.Size();
+			numWrappers = (uint32_t)entityClasses.Size();
 			wrapperSize = sizeof(EntityClass);
 			return static_cast<const void*>(entityClasses.GetArrayPtr());
 		}
 		case 5:
 		{
 			const List<AnimationBank>& animationBanks = level->GetAnimationBanks();
-			numWrappers = animationBanks.Size();
+			numWrappers = (uint32_t)animationBanks.Size();
 			wrapperSize = sizeof(AnimationBank);
 			return static_cast<const void*>(animationBanks.GetArrayPtr());
 		}
 		case 6:
 		{
 			const List<Script>& scripts = level->GetScripts();
-			numWrappers = scripts.Size();
+			numWrappers = (uint32_t)scripts.Size();
 			wrapperSize = sizeof(Script);
 			return static_cast<const void*>(scripts.GetArrayPtr());			
 		}
@@ -366,7 +366,7 @@ namespace LibSWBF2
 
 		configs = level -> GetConfigs(cfgType);
 		
-		numConfigs = configs.Size();
+		numConfigs = (uint32_t)configs.Size();
 		return configs.GetArrayPtr();
 	}
 
@@ -734,6 +734,17 @@ namespace LibSWBF2
     	return true;
     }
 
+	const char* Instance_GetProperty(const Instance* instPtr, const char* propName)
+	{
+		CheckPtr(instPtr, nullptr);
+		static String propValue;
+		if (instPtr->GetProperty(propName, propValue))
+		{
+			return propValue.Buffer();
+		}
+		return nullptr;
+	}
+
     const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
     {
     	CheckPtr(instPtr, false)
@@ -761,13 +772,11 @@ namespace LibSWBF2
     {
     	CheckPtr(ec,"")
     	static String value; 
-
 		if (ec -> GetProperty(propName, value))
 		{
 			return value.Buffer();
 		}
-
-		return "";
+		return nullptr;
     }
 
 
@@ -883,7 +892,7 @@ namespace LibSWBF2
     		cache = ((Config *) ptr) -> GetFields(hash);    		
     	}
 
-    	count = cache.Size();
+    	count = (uint32_t)cache.Size();
     	return cache.GetArrayPtr();
     }
 

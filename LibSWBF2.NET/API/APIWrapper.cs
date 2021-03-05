@@ -187,6 +187,9 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Instance_FetchSimpleFields(IntPtr inst, out IntPtr name, out IntPtr rot, out IntPtr pos, out IntPtr ecName);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Instance_GetProperty(IntPtr inst, IntPtr propName);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -246,7 +249,7 @@ namespace LibSWBF2
         // EntityClass //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, string propName);  
+        public static extern IntPtr EntityClass_GetProperty(IntPtr ecPtr, IntPtr propName);  
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr EntityClass_GetBaseName(IntPtr ecPtr);    
