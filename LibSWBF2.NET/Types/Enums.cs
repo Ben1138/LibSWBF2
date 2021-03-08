@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace LibSWBF2.Enums
 {
+    public enum ELoadStatus : byte
+    {
+        Uninitialized = 0,
+		Loading = 1,
+		Loaded = 2,
+		Failed = 3
+    }
+
     public enum ConfigType : uint
     {
         Lighting = 0x7468676c,
