@@ -30,6 +30,7 @@ namespace LibSWBF2
 		class Instance;
 		class Region;
 		class Script;
+		class Sound;
 		class Localization;
 		struct Field;
 		struct Scope;
@@ -179,6 +180,10 @@ namespace LibSWBF2
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
+
+		// Wrappers - Sound
+		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);
+		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
 
 
         // Config

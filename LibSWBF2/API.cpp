@@ -184,6 +184,8 @@ namespace LibSWBF2
 				return static_cast<const void *>(container -> FindAnimationBank(name));
 			case 6:
 				return static_cast<const void*>(container->FindScript(name));
+			case 7:
+				return static_cast<const void*>(container->FindSound(name));
 			default:
 				return nullptr;
 		}
@@ -867,6 +869,20 @@ namespace LibSWBF2
 		numBones = bones;
 		return status;
     }
+
+	const char* Sound_GetName(const Sound* sound)
+	{
+		CheckPtr(sound, nullptr);
+		static String name;
+		name = sound->GetName();
+		return name.Buffer();
+	}
+
+	uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data)
+	{
+		CheckPtr(sound, false);
+		return (uint8_t)sound->GetData(sampleRate, sampleCount, blockAlign, data);
+	}
 
 
 
