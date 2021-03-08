@@ -391,7 +391,7 @@ namespace LibSWBF2
 		return handles;
 	}
 
-	ELoadStatus Container::GetLevelStatus(SWBF2Handle handle) const
+	ELoadStatus Container::GetStatus(SWBF2Handle handle) const
 	{
 		if (handle >= m_ThreadSafeMembers->m_Processes.size())
 		{

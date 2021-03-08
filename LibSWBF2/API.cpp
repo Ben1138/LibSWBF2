@@ -2,6 +2,7 @@
 #include "API.h"
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
+#include "Types/Enums.h"
 #include "Chunks/MSH/MSH.h"
 
 #include <string.h>
@@ -150,6 +151,12 @@ namespace LibSWBF2
 	{
 		CheckPtr(container,nullptr);
 		return container -> GetLevel((uint16_t) handleNum);
+	}
+
+	uint8_t Container_GetStatus(Container* container, uint32_t handle)
+	{
+		CheckPtr(container, (uint8_t)ELoadStatus::Uninitialized);
+		return (uint8_t)container->GetStatus(handle);
 	}
 
 	const void Container_LoadLevels(Container* container)

@@ -73,6 +73,7 @@ namespace LibSWBF2
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
         LIBSWBF2_API float_t Container_GetOverallProgress(Container* container);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
+        LIBSWBF2_API uint8_t Container_GetStatus(Container* container, uint32_t handle);
 
 		LIBSWBF2_API const void Container_LoadLevels(Container* container);
 		LIBSWBF2_API const bool Container_IsDone(Container* container);

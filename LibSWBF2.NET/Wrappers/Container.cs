@@ -11,6 +11,22 @@ using LibSWBF2.Enums;
 using LibSWBF2.Utils;
 
 
+namespace LibSWBF2
+{
+    public struct SWBF2Handle
+    {
+        uint NativeHandle;
+
+        public SWBF2Handle(uint nativeHandle)
+        {
+            NativeHandle = nativeHandle;
+        }
+        public uint GetNativeHandle() => NativeHandle;
+
+        public bool IsValid() => NativeHandle != uint.MaxValue;
+    }
+}
+
 namespace LibSWBF2.Wrappers
 {
     public class Container : NativeWrapper
@@ -24,21 +40,21 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public uint AddLevel(string path)
+        public SWBF2Handle AddLevel(string path)
         {
-            return APIWrapper.Container_AddLevel(NativeInstance, path);
+            return new SWBF2Handle(APIWrapper.Container_AddLevel(NativeInstance, path));
         }
 
-        public uint AddLevel(string path, string[] subLVLs)
+        public SWBF2Handle AddLevel(string path, string[] subLVLs)
         {
             if (subLVLs == null) subLVLs = new string[0];
             IntPtr[] ptrs = Utils.MemUtils.StringToIntPtrList(subLVLs);
-            return APIWrapper.Container_AddLevelFiltered(NativeInstance, path, ptrs, (uint)ptrs.Length);
+            return new SWBF2Handle(APIWrapper.Container_AddLevelFiltered(NativeInstance, path, ptrs, (uint)ptrs.Length));
         }
 
-        public uint AddSoundBank(string path)
+        public SWBF2Handle AddSoundBank(string path)
         {
-            return APIWrapper.Container_AddSoundBank(NativeInstance, path);
+            return new SWBF2Handle(APIWrapper.Container_AddSoundBank(NativeInstance, path));
         }
 
         public void FreeAll(bool force)
@@ -46,9 +62,9 @@ namespace LibSWBF2.Wrappers
             APIWrapper.Container_FreeAll(NativeInstance, force);
         }
 
-        public float GetProgress(uint handle)
+        public float GetProgress(SWBF2Handle handle)
         {
-            return APIWrapper.Container_GetProgress(NativeInstance, handle);
+            return APIWrapper.Container_GetProgress(NativeInstance, handle.GetNativeHandle());
         }
 
         public float GetOverallProgress()
@@ -56,7 +72,7 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Container_GetOverallProgress(NativeInstance);
         }
 
-        public Level GetLevel(uint handle, bool block = false)
+        public Level GetLevel(SWBF2Handle handle, bool block = false)
         {
             while (!IsDone())
             {
@@ -70,7 +86,7 @@ namespace LibSWBF2.Wrappers
                 } 
             }
 
-            return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle));
+            return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle.GetNativeHandle()));
         }
 
         public void LoadLevels()
@@ -116,6 +132,11 @@ namespace LibSWBF2.Wrappers
             return FindConfig(type, HashUtils.GetFNV(name));
         }
 
+
+        public Enums.ELoadStatus GetStatus(SWBF2Handle handle)
+        {
+            return (Enums.ELoadStatus)APIWrapper.Container_GetStatus(NativeInstance, handle.GetNativeHandle());
+        }
 
         public bool IsDone()
         {

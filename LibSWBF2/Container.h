@@ -59,7 +59,7 @@ namespace LibSWBF2
 		void FreeAll(bool bForce=false);
 		bool IsDone() const;
 		List<SWBF2Handle> GetLoadedLevels() const;
-		ELoadStatus GetLevelStatus(SWBF2Handle handle) const;
+		ELoadStatus GetStatus(SWBF2Handle handle) const;
 		float_t GetLevelProgress(SWBF2Handle handle) const;
 		Level* GetLevel(SWBF2Handle handle) const;
 		float_t GetOverallProgress();

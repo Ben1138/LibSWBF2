@@ -68,6 +68,9 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Container_Delete(IntPtr container);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte Container_GetStatus(IntPtr container, uint handle);
+
 
         // Level //
 
