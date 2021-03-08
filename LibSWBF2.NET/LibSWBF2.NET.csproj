@@ -78,6 +78,7 @@
     <Compile Include="Wrappers\NativeWrapper.cs" />
     <Compile Include="Wrappers\Model.cs" />
     <Compile Include="Wrappers\Script.cs" />
+    <Compile Include="Wrappers\Sound.cs" />
     <Compile Include="Wrappers\Terrain.cs" />
     <Compile Include="Wrappers\Segment.cs" />
     <Compile Include="Wrappers\World.cs" />

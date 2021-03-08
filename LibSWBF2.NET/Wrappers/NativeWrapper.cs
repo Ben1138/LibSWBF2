@@ -22,6 +22,7 @@ namespace LibSWBF2.Wrappers
             WrapperTypeMapping[typeof(EntityClass)]   = 4;
             WrapperTypeMapping[typeof(AnimationBank)] = 5;
             WrapperTypeMapping[typeof(Script)]        = 6;
+            WrapperTypeMapping[typeof(Sound)]         = 7;
         }   
 
 
