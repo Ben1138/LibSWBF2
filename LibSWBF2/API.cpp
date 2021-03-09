@@ -253,6 +253,8 @@ namespace LibSWBF2
 			return static_cast<const void*>(level->GetAnimationBank(name));
 		case 6:
 			return static_cast<const void*>(level->GetScript(name));
+		case 7:
+			return static_cast<const void*>(level->GetSound(name));
 		default:
 			return nullptr;
 		}
@@ -314,6 +316,13 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)scripts.Size();
 			wrapperSize = sizeof(Script);
 			return static_cast<const void*>(scripts.GetArrayPtr());			
+		}
+		case 7:
+		{
+			const List<Sound>& sounds = level->GetSounds();
+			numWrappers = (uint32_t)sounds.Size();
+			wrapperSize = sizeof(Sound);
+			return static_cast<const void*>(sounds.GetArrayPtr());
 		}
 		default:
 			return nullptr;

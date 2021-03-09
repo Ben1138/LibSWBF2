@@ -43,7 +43,7 @@ namespace LibSWBF2::Wrappers
 		delete m_NameToIndexMaps;
 	}
 
-	SoundBank* SoundBank::FromFile(String path)
+	SoundBank* SoundBank::FromFile(const String& path)
 	{
 		BNK* soundBank = BNK::Create();
 		if (!soundBank->ReadFromFile(path))
@@ -82,7 +82,7 @@ namespace LibSWBF2::Wrappers
 		return m_Sounds;
 	}
 
-	const Sound* SoundBank::GetSound(String soundName) const
+	const Sound* SoundBank::GetSound(const String& soundName) const
 	{
 		if (soundName.IsEmpty())
 		{

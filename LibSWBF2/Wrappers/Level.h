@@ -62,6 +62,7 @@ namespace LibSWBF2::Wrappers
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
+		List<Sound> m_Sounds;
 		List<Config> m_Configs;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
@@ -73,7 +74,7 @@ namespace LibSWBF2::Wrappers
 
 		// subLVLsToLoad doesn't need to be persistent, can be a stack value.
 		// contents will be copied and hashed.
-		static Level* FromFile(String path, const List<String>* subLVLsToLoad = nullptr);
+		static Level* FromFile(const String& path, const List<String>* subLVLsToLoad = nullptr);
 		static Level* FromChunk(LVL* lvl, Container* mainContainer);
 		static void Destroy(Level* level);
 
@@ -89,21 +90,24 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
+		const List<Sound>& GetSounds() const;
 		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
 
-		const Model* GetModel(String modelName) const;
-		const Texture* GetTexture(String textureName) const;
-		const World* GetWorld(String worldName) const;
-		const Terrain* GetTerrain(String terrainName) const;
-		const Script* GetScript(String scriptName) const;
-		const Localization* GetLocalization(String loclName) const;
-		const EntityClass* GetEntityClass(String typeName) const;
-		const AnimationBank* GetAnimationBank(String setName) const; 
+		const Model* GetModel(const String& modelName) const;
+		const Texture* GetTexture(const String& textureName) const;
+		const World* GetWorld(const String& worldName) const;
+		const Terrain* GetTerrain(const String& terrainName) const;
+		const Script* GetScript(const String& scriptName) const;
+		const Localization* GetLocalization(const String& loclName) const;
+		const EntityClass* GetEntityClass(const String& typeName) const;
+		const AnimationBank* GetAnimationBank(const String& setName) const;
+		const Sound* GetSound(const String& soundName) const;
+		const Sound* GetSound(FNVHash soundHashName) const;
 		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
 
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);
-		skel* FindSkeleton(String skeletonName) const;
+		skel* FindSkeleton(const String& skeletonName) const;
 	};
 }

@@ -72,7 +72,7 @@ namespace LibSWBF2::Types
 			float_t blockAlign = (float_t)m_DataLength / (float_t)m_SampleCount;
 			if (blockAlign != 2.0f)
 			{
-				//LOG_WARN("Found sound clip with a block align of {}! Data length: {:#x}, Sample count: {} at pos: {:#x}", blockAlign, m_DataLength, m_SampleCount, m_HeaderPosition);
+				LOG_WARN("Found sound clip with a block align of {}! Data length: {:#x}, Sample count: {} at pos: {:#x}", blockAlign, m_DataLength, m_SampleCount, m_HeaderPosition);
 			}
 		}
 		
