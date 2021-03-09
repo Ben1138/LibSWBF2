@@ -18,6 +18,7 @@
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Chunks/LVL/common/GenericClass.h"
 #include "Chunks/LVL/wrld/wrld.h"
+#include "Chunks/LVL/sound/emo_.h"
 
 
 #include <unordered_map>
@@ -31,6 +32,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
+	using Chunks::LVL::sound::emo_;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
     using namespace Chunks::LVL::animation;
@@ -293,6 +295,20 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		// TODO: uncomment once LVL sounds are working
+		//emo_* soundChunk = dynamic_cast<emo_*>(root);
+		//if (soundChunk != nullptr)
+		//{
+		//	Sound sound;
+		//	for (uint32_t i = 0; i < soundChunk->m_NumClips; ++i)
+		//	{
+		//		if (Sound::FromSoundClip(&soundChunk->m_Clips[i], sound))
+		//		{
+		//			m_NameToIndexMaps->SoundHashToIndex.emplace(sound.GetHashedName(), m_Sounds.Add(std::move(sound)));
+		//		}
+		//	}
+		//}
+
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
 		{
@@ -300,7 +316,7 @@ namespace LibSWBF2::Wrappers
 		}
 	}
 
-	Level* Level::FromFile(String path, const List<String>* subLVLsToLoad)
+	Level* Level::FromFile(const String& path, const List<String>* subLVLsToLoad)
 	{
 		LVL* lvl = LVL::Create();
 		if (!lvl->ReadFromFile(path, subLVLsToLoad))
@@ -396,6 +412,10 @@ namespace LibSWBF2::Wrappers
 		return m_AnimationBanks;
 	}
 
+	const List<Sound>& Level::GetSounds() const
+	{
+		return m_Sounds;
+	}
 
 	const List<const Config *> Level::GetConfigs(EConfigType cfgType) const
 	{
@@ -414,7 +434,7 @@ namespace LibSWBF2::Wrappers
 		return matchedConfigs;
 	}
 
-	const Model* Level::GetModel(String modelName) const
+	const Model* Level::GetModel(const String& modelName) const
 	{
 		if (modelName.IsEmpty())
 		{
@@ -430,7 +450,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const Texture* Level::GetTexture(String textureName) const
+	const Texture* Level::GetTexture(const String& textureName) const
 	{
 		if (textureName.IsEmpty())
 		{
@@ -446,7 +466,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const World* Level::GetWorld(String worldName) const
+	const World* Level::GetWorld(const String& worldName) const
 	{
 		if (worldName.IsEmpty())
 		{
@@ -462,7 +482,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const Terrain* Level::GetTerrain(String terrainName) const
+	const Terrain* Level::GetTerrain(const String& terrainName) const
 	{
 		if (terrainName.IsEmpty())
 		{
@@ -478,7 +498,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const Script* Level::GetScript(String scriptName) const
+	const Script* Level::GetScript(const String& scriptName) const
 	{
 		if (scriptName.IsEmpty())
 		{
@@ -494,7 +514,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const Localization* Level::GetLocalization(String loclName) const
+	const Localization* Level::GetLocalization(const String& loclName) const
 	{
 		if (loclName.IsEmpty())
 		{
@@ -510,7 +530,7 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const EntityClass* Level::GetEntityClass(String typeName) const
+	const EntityClass* Level::GetEntityClass(const String& typeName) const
 	{
 		if (typeName.IsEmpty())
 		{
@@ -527,7 +547,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const AnimationBank* Level::GetAnimationBank(String setName) const
+	const AnimationBank* Level::GetAnimationBank(const String& setName) const
 	{
 		if (setName.IsEmpty())
 		{
@@ -544,8 +564,26 @@ namespace LibSWBF2::Wrappers
 
 	}
 
+	const Sound* Level::GetSound(const String& soundName) const
+	{
+		if (soundName.IsEmpty())
+		{
+			return nullptr;
+		}
+		return GetSound(FNV::Hash(soundName));
+	}
 
-	skel* Level::FindSkeleton(String skeletonName) const
+	const Sound* Level::GetSound(FNVHash soundHashName) const
+	{
+		auto it = m_NameToIndexMaps->SoundHashToIndex.find(soundHashName);
+		if (it != m_NameToIndexMaps->SoundHashToIndex.end())
+		{
+			return &m_Sounds[it->second];
+		}
+		return nullptr;
+	}
+
+	skel* Level::FindSkeleton(const String& skeletonName) const
 	{
 		if (skeletonName.IsEmpty())
 		{

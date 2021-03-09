@@ -132,8 +132,10 @@ namespace LibSWBF2
 					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
 					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks,m_ThreadSafeMembers->m_AnimationBankDB);
 					CopyMap(level->m_NameToIndexMaps->ConfigHashToIndex,		level->m_Configs, 		m_ThreadSafeMembers->m_ConfigDB);
+					CopyMap(level->m_NameToIndexMaps->SoundHashToIndex,         level->m_Sounds,        m_ThreadSafeMembers->m_SoundDB);
 
 					CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
+
 
 					for (auto& it : level->m_NameToIndexMaps->LocalizationNameToIndex)
 					{

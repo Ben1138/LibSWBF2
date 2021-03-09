@@ -40,12 +40,12 @@ namespace LibSWBF2::Wrappers
 
 	public:
 
-		static SoundBank* FromFile(String path);
+		static SoundBank* FromFile(const String& path);
 		static SoundBank* FromChunk(LibSWBF2::Chunks::BNK::BNK* soundChunk);
 		static void Destroy(SoundBank* soundBank);
 
 		const List<Sound>& GetSounds() const;
-		const Sound* GetSound(String soundName) const;
+		const Sound* GetSound(const String& soundName) const;
 		const Sound* GetSound(FNVHash soundHash) const;
 	};
 }
