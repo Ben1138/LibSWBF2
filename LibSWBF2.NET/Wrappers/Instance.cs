@@ -37,16 +37,12 @@ namespace LibSWBF2.Wrappers
         }
 
         /// <summary>
-        /// will fallback to entity class property, if existent
+        /// will return the first encounter. will fall back to base class, if existent
         /// </summary>
         public bool GetProperty(string propName, out string propValue)
         {
             if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            IntPtr propNamePtr = Marshal.StringToHGlobalAnsi(propName);
-            IntPtr res = APIWrapper.Instance_GetProperty(NativeInstance, propNamePtr);
-            Marshal.FreeHGlobal(propNamePtr);
-
-            if (res != IntPtr.Zero)
+            if (APIWrapper.Instance_GetPropertyFromName(NativeInstance, propName, out IntPtr res))
             {
                 propValue = Marshal.PtrToStringAnsi(res);
                 return true;
@@ -54,6 +50,60 @@ namespace LibSWBF2.Wrappers
             else
             {
                 propValue = "";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// will return the first encounter. will fall back to base class, if existent
+        /// </summary>
+        public bool GetProperty(uint hashedPropName, out string propValue)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (APIWrapper.Instance_GetPropertyFromHash(NativeInstance, hashedPropName, out IntPtr res))
+            {
+                propValue = Marshal.PtrToStringAnsi(res);
+                return true;
+            }
+            else
+            {
+                propValue = "";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// will return all encounters. will also recursively search base classes, if existent
+        /// </summary>
+        public bool GetProperty(string propName, out string[] propValues)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (APIWrapper.Instance_GetPropertiesFromName(NativeInstance, propName, out IntPtr res, out uint count))
+            {
+                propValues = MemUtils.IntPtrToStringList(res, (int)count).ToArray();
+                return true;
+            }
+            else
+            {
+                propValues = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// will return all encounters. will also recursively search base classes, if existent
+        /// </summary>
+        public bool GetProperty(uint hashedPropName, out string[] propValues)
+        {
+            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (APIWrapper.Instance_GetPropertiesFromHash(NativeInstance, hashedPropName, out IntPtr res, out uint count))
+            {
+                propValues = MemUtils.IntPtrToStringList(res, (int)count).ToArray();
+                return true;
+            }
+            else
+            {
+                propValues = null;
                 return false;
             }
         }

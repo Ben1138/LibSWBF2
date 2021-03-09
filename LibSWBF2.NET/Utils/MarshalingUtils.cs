@@ -64,7 +64,7 @@ namespace LibSWBF2.Utils
                 T* srcPtr = (T*) dataPtr.ToPointer();
                 fixed (T* destPtr = array)
                 {
-                    APIWrapper.Memory_Blit((void *) destPtr, (void *) srcPtr, numBytes);
+                    APIWrapper.Memory_Blit(destPtr, srcPtr, numBytes);
                 }
             }    
             

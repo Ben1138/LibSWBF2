@@ -477,6 +477,7 @@ namespace LibSWBF2
 	using namespace Chunks;
 	using namespace Types; //Clangfix
 
+	template class LIBSWBF2_API Types::List<const char*>;
 	template class LIBSWBF2_API Types::List<uint8_t>;
 	template class LIBSWBF2_API Types::List<uint16_t>;
 	template class LIBSWBF2_API Types::List<uint32_t>;

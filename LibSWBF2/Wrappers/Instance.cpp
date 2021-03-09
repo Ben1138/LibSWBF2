@@ -11,7 +11,7 @@ namespace LibSWBF2::Wrappers
 	class PropertyMap
 	{
 	public:
-		std::unordered_map<FNVHash, uint32_t> m_HashToIndex;
+		std::unordered_map<FNVHash, std::vector<uint32_t>> m_HashToIndices;
 	};
 
 
@@ -29,7 +29,7 @@ namespace LibSWBF2::Wrappers
 	{
 		p_MainContainer = other.p_MainContainer;
 		p_Instance = other.p_Instance;
-		m_PropertyMapping->m_HashToIndex = other.m_PropertyMapping->m_HashToIndex;
+		m_PropertyMapping->m_HashToIndices = other.m_PropertyMapping->m_HashToIndices;
 		return *this;
 	}
 	
@@ -52,10 +52,20 @@ namespace LibSWBF2::Wrappers
 		out.p_MainContainer = mainContainer;
 		out.p_Instance = instanceChunk;
 
+		out.m_PropertyMapping->m_HashToIndices.clear();
 		for (size_t i = 0; i < instanceChunk->m_OverrideProperties.Size(); ++i)
 		{
 			FNVHash hashedName = instanceChunk->m_OverrideProperties[i]->m_PropertyName;
-			out.m_PropertyMapping->m_HashToIndex.emplace(hashedName, (uint32_t)i);
+
+			auto it = out.m_PropertyMapping->m_HashToIndices.find(hashedName);
+			if (it != out.m_PropertyMapping->m_HashToIndices.end())
+			{
+				out.m_PropertyMapping->m_HashToIndices[hashedName].push_back((uint32_t)i);
+			}
+			else
+			{
+				out.m_PropertyMapping->m_HashToIndices.insert(std::make_pair(hashedName, std::vector<uint32_t>{ (uint32_t)i }));
+			}
 		}
 
 		return true;
@@ -92,10 +102,10 @@ namespace LibSWBF2::Wrappers
 
 	bool Instance::GetProperty(FNVHash hashedPropertyName, String& outValue) const
 	{
-		auto it = m_PropertyMapping->m_HashToIndex.find(hashedPropertyName);
-		if (it != m_PropertyMapping->m_HashToIndex.end())
+		auto it = m_PropertyMapping->m_HashToIndices.find(hashedPropertyName);
+		if (it != m_PropertyMapping->m_HashToIndices.end() && it->second.size() > 0)
 		{
-			outValue = p_Instance->m_OverrideProperties[it->second]->m_Value;
+			outValue = p_Instance->m_OverrideProperties[it->second[0]]->m_Value;
 			return true;
 		}
 		
@@ -119,6 +129,34 @@ namespace LibSWBF2::Wrappers
 		return GetProperty(FNV::Hash(propertyName), outValue);
 	}
 
+	bool Instance::GetProperty(const String& propertyName, List<String>& outValues) const
+	{
+		if (propertyName.IsEmpty())
+		{
+			return false;
+		}
+		return GetProperty(FNV::Hash(propertyName), outValues);
+	}
+
+	bool Instance::GetProperty(FNVHash hashedPropertyName, List<String>& outValues) const
+	{
+		outValues.Clear();
+		auto it = m_PropertyMapping->m_HashToIndices.find(hashedPropertyName);
+		if (it != m_PropertyMapping->m_HashToIndices.end() && it->second.size() > 0)
+		{
+			for (size_t i = 0; i < it->second.size(); ++i)
+			{
+				outValues.Add(p_Instance->m_OverrideProperties[it->second[i]]->m_Value);
+			}
+			return true;
+		}
+		const EntityClass* instanceClass = GetEntityClass();
+		if (instanceClass != nullptr)
+		{
+			return instanceClass->GetProperty(hashedPropertyName, outValues);
+		}
+		return false;
+	}
 
 	bool Instance::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
 	{

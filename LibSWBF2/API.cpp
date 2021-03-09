@@ -15,19 +15,16 @@
 namespace LibSWBF2
 {
 
-#define PurgePtr(ptr) delete[] ptr; ptr = nullptr;
-
 #define CheckPtr(obj, ret) if (obj == nullptr) { LOG_ERROR("[API] Given Pointer was NULL!"); return ret; }
 
 	// Helpers
-	char ** GetStringListPtrs(const List<String>& strings)
+	void GetStringListPtrs(const List<String>& strings, List<const char*>& outPtrs)
 	{
-		char** ptrs = new char*[strings.Size()];
+		outPtrs.Clear();
 		for (int i = 0; i < strings.Size(); i++)
 		{
-			ptrs[i] = const_cast<char *>(strings[i].Buffer());
+			outPtrs.Add(strings[i].Buffer());
 		}
-		return ptrs;
 	}
 
 
@@ -389,18 +386,17 @@ namespace LibSWBF2
 
 	
 	//Wrappers - Terrain
-	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, char**& texNamesOut,
+	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, const char**& texNamesOut,
 											float_t& hU, float_t& hL, uint32_t& numVerts, Vector3*& vBuf,
 											uint32_t& numNormals, Vector3*& nBuf, uint32_t& numUVs, Vector2*& uvBuf)
 	{
-		static char** texNamesPtrs = nullptr;
-		PurgePtr(texNamesPtrs);
+		static List<const char*> texNamesPtrs;
 		CheckPtr(ter,false);
 
 		const List<String>& texNames = ter -> GetLayerTextures();
         numTexes = (int32_t)texNames.Size();
-        texNamesPtrs = GetStringListPtrs(texNames);
-        texNamesOut = texNamesPtrs;
+        GetStringListPtrs(texNames, texNamesPtrs);
+        texNamesOut = texNamesPtrs.GetArrayPtr();
 
 		ter -> GetHeightBounds(hL, hU);
 		ter -> GetVertexBuffer(numVerts, vBuf);
@@ -743,32 +739,73 @@ namespace LibSWBF2
     	return true;
     }
 
-	const char* Instance_GetProperty(const Instance* instPtr, const char* propName)
+	template<class T1, class T2>
+	uint8_t GenericGetProperty(const T1* ptr, T2 prop, const char*& value)
 	{
-		CheckPtr(instPtr, nullptr);
+		CheckPtr(ptr, false);
 		static String propValue;
-		if (instPtr->GetProperty(propName, propValue))
+		if (ptr->GetProperty(prop, propValue))
 		{
-			return propValue.Buffer();
+			value = propValue.Buffer();
+			return true;
 		}
-		return nullptr;
+		value = nullptr;
+		return false;
 	}
 
-    const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
+	template<class T1, class T2>
+	uint8_t GenericGetProperties(const T1* ptr, T2 prop, const char**& values, uint32_t& count)
+	{
+		CheckPtr(ptr, false);
+		static List<String> propValues;
+		static List<const char*> propValuePtrs;
+		propValues.Clear();
+		propValuePtrs.Clear();
+		if (ptr->GetProperty(prop, propValues))
+		{
+			GetStringListPtrs(propValues, propValuePtrs);
+			values = propValuePtrs.GetArrayPtr();
+			count  = (uint32_t)propValuePtrs.Size();
+			return true;
+		}
+		values = nullptr;
+		count = 0;
+		return false;
+	}
+
+	uint8_t Instance_GetPropertyFromName(const Instance* instPtr, const char* propName, const char*& value)
+	{
+		return GenericGetProperty(instPtr, propName, value);
+	}
+
+	uint8_t Instance_GetPropertyFromHash(const Instance* instPtr, uint32_t hashedPropName, const char*& value)
+	{
+		return GenericGetProperty(instPtr, hashedPropName, value);
+	}
+
+	uint8_t Instance_GetPropertiesFromName(const Instance* instPtr, const char* propName, const char**& values, uint32_t& count)
+	{
+		return GenericGetProperties(instPtr, propName, values, count);
+	}
+
+	uint8_t Instance_GetPropertiesFromHash(const Instance* instPtr, uint32_t hashedPropName, const char**& values, uint32_t& count)
+	{
+		return GenericGetProperties(instPtr, hashedPropName, values, count);
+	}
+
+    const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
     	CheckPtr(instPtr, false)
     	static List<String> values;
     	static List<uint32_t> hashes;
-    	static char** ptrsBuffer = nullptr;
-
-    	PurgePtr(ptrsBuffer);
+    	static List<const char*> ptrsBuffer;
 
     	if (instPtr -> GetOverriddenProperties(hashes, values))
     	{
     		hashesBuffer = hashes.GetArrayPtr();
     		count = (int32_t)values.Size();
-			ptrsBuffer = GetStringListPtrs(values);
-    		valuesBuffer = ptrsBuffer;
+			GetStringListPtrs(values, ptrsBuffer);
+    		valuesBuffer = ptrsBuffer.GetArrayPtr();
     		return true;
     	}
 
@@ -777,16 +814,25 @@ namespace LibSWBF2
 
 
     //Wrappers - EntityClass
-    const char * EntityClass_GetProperty(const EntityClass *ec, const char *propName)
-    {
-    	CheckPtr(ec,"")
-    	static String value; 
-		if (ec -> GetProperty(propName, value))
-		{
-			return value.Buffer();
-		}
-		return nullptr;
-    }
+	uint8_t EntityClass_GetPropertyFromName(const EntityClass* ec, const char* propName, const char*& value)
+	{
+		return GenericGetProperty(ec, propName, value);
+	}
+
+	uint8_t EntityClass_GetPropertyFromHash(const EntityClass* ec, uint32_t hashedPropName, const char*& value)
+	{
+		return GenericGetProperty(ec, hashedPropName, value);
+	}
+
+	uint8_t EntityClass_GetPropertiesFromName(const EntityClass* ec, const char* propName, const char**& values, uint32_t& count)
+	{
+		return GenericGetProperties(ec, propName, values, count);
+	}
+
+	uint8_t EntityClass_GetPropertiesFromHash(const EntityClass* ec, uint32_t hashedPropName, const char**& values, uint32_t& count)
+	{
+		return GenericGetProperties(ec, hashedPropName, values, count);
+	}
 
 
     const char *EntityClass_GetName(const EntityClass *ec)
@@ -798,6 +844,11 @@ namespace LibSWBF2
     	return typeName.Buffer();     	
     }
 
+	const EntityClass* EntityClass_GetBase(const EntityClass* ec)
+	{
+		CheckPtr(ec, nullptr)
+		return ec->GetBase();
+	}
 
     const char *EntityClass_GetBaseName(const EntityClass *ec)
     {
@@ -809,21 +860,19 @@ namespace LibSWBF2
     }
 
 
-    uint8_t EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count)
+    uint8_t EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
     	CheckPtr(ec, false)
-    	char **ptrsBuffer = nullptr;
+    	List<const char*> ptrsBuffer;
     	static List<String> values;
     	static List<uint32_t> hashes;
-
-    	PurgePtr(ptrsBuffer);
 
     	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
     	
 		hashesBuffer = hashes.GetArrayPtr();
 		count = (int32_t)values.Size();
-		ptrsBuffer = GetStringListPtrs(values);
-		valuesBuffer = ptrsBuffer;
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
 		return true;
     }
    

@@ -52,13 +52,21 @@ namespace LibSWBF2::Wrappers
 		String GetBaseName() const;
 		const EntityClass* GetBase() const;
 
-		// will fall back to base class, if existent
-		bool GetProperty(FNVHash hashedPropertyName, String& outValue) const;
+		// Note about properties:
+		// Property names are not unique! There's potentially more than one
+		// property under one name. Example from com_bldg_controlzone:
+		//   HoloImageGeometry = "com_icon_alliance alliance"
+		//   HoloImageGeometry = "com_icon_imperial empire"
+		//   HoloImageGeometry = "com_icon_republic republic"
+		//   HoloImageGeometry = "com_icon_CIS CIS"
 
-		// will fall back to base class, if existent
+		// these will return the first encounter. will fall back to base class, if existent
+		bool GetProperty(FNVHash hashedPropertyName, String& outValue) const;
 		bool GetProperty(const String& propertyName, String& outValue) const;
 
-
+		// these will return all encounters. will also recursively search base classes, if existent
+		bool GetProperty(const String& propertyName, List<String>& outValues) const;
+		bool GetProperty(FNVHash hashedPropertyName, List<String>& outValues) const;
 
 		bool GetOverriddenProperties(List<FNVHash>& hashes, List<String>& values) const;
 	};
