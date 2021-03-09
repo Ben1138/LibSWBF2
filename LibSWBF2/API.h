@@ -110,10 +110,14 @@ namespace LibSWBF2
 														CollisionPrimitive**& primArrayPtr);
 
 		// Wrappers - EntityClass
-		LIBSWBF2_API const char *EntityClass_GetProperty(const EntityClass *ec, const char *propName);
-		LIBSWBF2_API const char *EntityClass_GetBaseName(const EntityClass *ec);
-		LIBSWBF2_API const char *EntityClass_GetName(const EntityClass *ec); 
-		LIBSWBF2_API uint8_t     EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t &count);
+		LIBSWBF2_API uint8_t EntityClass_GetPropertyFromName(const EntityClass *ec, const char* propName, const char*& value);
+		LIBSWBF2_API uint8_t EntityClass_GetPropertyFromHash(const EntityClass *ec, uint32_t hashedPropName, const char*& value);
+		LIBSWBF2_API uint8_t EntityClass_GetPropertiesFromName(const EntityClass *ec, const char* propName, const char**& values, uint32_t& count);
+		LIBSWBF2_API uint8_t EntityClass_GetPropertiesFromHash(const EntityClass *ec, uint32_t hashedPropName, const char**& values, uint32_t& count);
+		LIBSWBF2_API const EntityClass* EntityClass_GetBase(const EntityClass* ec);
+		LIBSWBF2_API const char* EntityClass_GetBaseName(const EntityClass *ec);
+		LIBSWBF2_API const char* EntityClass_GetName(const EntityClass *ec); 
+		LIBSWBF2_API uint8_t     EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t &count);
 
 		// Wrappers - Bone
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
@@ -142,7 +146,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const char* ENUM_EVBUFFlagsToString(EVBUFFlags flags);
 
 		// Wrappers - Terrain
-		LIBSWBF2_API const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, char**& texNames,
+		LIBSWBF2_API const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, const char**& texNames,
 															float_t& heightUpper, float_t& heightLower, 
 															uint32_t& numVerts, Vector3*& vBuf,
 															uint32_t& numNormals, Vector3*& nBuf,
@@ -167,8 +171,11 @@ namespace LibSWBF2
 
         // Wrappers - Instance
    		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
-		LIBSWBF2_API const char* Instance_GetProperty(const Instance* instPtr, const char* propName);
-   		LIBSWBF2_API const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, char **& valuesBuffer, int32_t& count);
+		LIBSWBF2_API uint8_t Instance_GetPropertyFromName(const Instance* instPtr, const char* propName, const char*& value);
+		LIBSWBF2_API uint8_t Instance_GetPropertyFromHash(const Instance* instPtr, uint32_t hashedPropName, const char*& value);
+		LIBSWBF2_API uint8_t Instance_GetPropertiesFromName(const Instance* instPtr, const char* propName, const char**& values, uint32_t& count);
+		LIBSWBF2_API uint8_t Instance_GetPropertiesFromHash(const Instance* instPtr, uint32_t hashedPropName, const char**& values, uint32_t& count);
+   		LIBSWBF2_API const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
 
         // Wrappers - Material
         LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
