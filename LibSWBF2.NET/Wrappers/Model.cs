@@ -40,19 +40,19 @@ namespace LibSWBF2.Wrappers
 
         public Segment[] GetSegments()
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<Segment>(segmentArray, segmentCount, segmentIncrement));
         }
 
         public CollisionMesh GetCollisionMesh()
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             return RegisterChild(FromNative<CollisionMesh>(collisionMeshPtr)); 
         }
 
         public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<CollisionPrimitive>(ptr, numPrims));
         }

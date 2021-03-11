@@ -44,7 +44,7 @@ namespace LibSWBF2.Wrappers
 
         public bool GetCubeDims(out float x, out float y, out float z)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             x = f1;
             y = f2;
             z = f3;
@@ -53,7 +53,7 @@ namespace LibSWBF2.Wrappers
 
         public bool GetCylinderDims(out float radius, out float height)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             radius = f1;
             height = f2;
             return PrimitiveType == 2;
@@ -61,7 +61,7 @@ namespace LibSWBF2.Wrappers
 
         public bool GetSphereRadius(out float radius)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             radius = f1;
             return PrimitiveType == 1;
         }

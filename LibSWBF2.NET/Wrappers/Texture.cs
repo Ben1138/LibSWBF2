@@ -35,7 +35,7 @@ namespace LibSWBF2.Wrappers
 
         public byte[] GetBytesRGBA()
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             
             int length = Width * Height * 4;
             return IsConvertibleFormat ? MemUtils.IntPtrToArray<byte>(NativeRawImageData, length) : new byte[length]; 

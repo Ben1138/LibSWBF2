@@ -70,13 +70,11 @@ namespace LibSWBF2.Wrappers
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<Instance>(instanceArray, instanceCount, instanceIncrement));
         }
 
-
         public Terrain GetTerrain()
         {
             CheckValidity();
             return RegisterChild(FromNative<Terrain>(terrainPtr));
         }
-
 
         public Region[] GetRegions()
         {

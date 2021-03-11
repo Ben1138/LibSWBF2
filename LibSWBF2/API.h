@@ -168,7 +168,7 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t Script_GetData(const Script* script, const uint8_t*& data, uint32_t& size);
 
         // Wrappers - Instance
-   		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName);
+   		LIBSWBF2_API const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName, const EntityClass*& ec);
 		LIBSWBF2_API uint8_t Instance_GetPropertyFromName(const Instance* instPtr, const char* propName, const char*& value);
 		LIBSWBF2_API uint8_t Instance_GetPropertyFromHash(const Instance* instPtr, uint32_t hashedPropName, const char*& value);
 		LIBSWBF2_API uint8_t Instance_GetPropertiesFromName(const Instance* instPtr, const char* propName, const char**& values, uint32_t& count);
