@@ -71,7 +71,7 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	const String& Instance::GetType() const
+	const String& Instance::GetEntityClassName() const
 	{
 		return p_Instance->p_Info->p_Type->m_Text;
 	}
@@ -97,7 +97,7 @@ namespace LibSWBF2::Wrappers
 		{
 			return nullptr;
 		}
-		return p_MainContainer->FindEntityClass(GetType());
+		return p_MainContainer->FindEntityClass(GetEntityClassName());
 	}
 
 	bool Instance::GetProperty(FNVHash hashedPropertyName, String& outValue) const

@@ -11,81 +11,77 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Region : NativeWrapper
+    public sealed class Region : NativeWrapper
     {
-        public Region() : base(IntPtr.Zero){} 
+        public Vector3 Position { get; private set; }
+        public Vector3 Size { get; private set; }
+        public Vector4 Rotation { get; private set; }
+        public string  Name { get; private set; }
+        public string  Type { get; private set; }
 
         internal override void SetPtr(IntPtr ptr)
         {
+            base.SetPtr(ptr);
             if (APIWrapper.Region_FetchAllFields(ptr, out IntPtr sizePtr, out IntPtr posPtr, 
                                                 out IntPtr rotPtr, out IntPtr namePtr, 
                                                 out IntPtr typePtr))
             {
-                size = new Vector3(sizePtr);
-                position = new Vector3(posPtr);
-                rotation = new Vector4(rotPtr);
-                name = Marshal.PtrToStringAnsi(namePtr);
-                type = Marshal.PtrToStringAnsi(typePtr);
+                Size = new Vector3(sizePtr);
+                Position = new Vector3(posPtr);
+                Rotation = new Vector4(rotPtr);
+                Name = Marshal.PtrToStringAnsi(namePtr);
+                Type = Marshal.PtrToStringAnsi(typePtr);
             }
         }
-
-        public Vector3 position, size;
-        public Vector4 rotation;
-        public string name, type;
     }
 
-
-
-
-
-    public class World : NativeWrapper
+    public sealed class World : NativeWrapper
     {
-        public World(IntPtr worldPtr) : base(IntPtr.Zero){ SetPtr(worldPtr); }
-        public World() : base(IntPtr.Zero){}
+        public string Name { get; private set; }
+        public string SkydomeName { get; private set; }
 
-        public string name = "";
-        public string skydomeName = "";
 
-        private IntPtr terrainPtr;
+        IntPtr terrainPtr;
 
-        private IntPtr instanceArray;
-        private int instanceCount, instanceIncrement;
+        IntPtr instanceArray;
+        int instanceCount, instanceIncrement;
 
-        private IntPtr regionArray;
-        private int regionCount, regionIncrement;
+        IntPtr regionArray;
+        int regionCount, regionIncrement;
+
 
         internal override void SetPtr(IntPtr worldPtr)
         {
+            base.SetPtr(worldPtr);
             if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out instanceArray, out instanceCount, out instanceIncrement,
                                         out regionArray, out regionCount, out regionIncrement,
                                         out terrainPtr))
             {
-                NativeInstance = worldPtr;
-                name = Marshal.PtrToStringAnsi(nameOut);
-                skydomeName = Marshal.PtrToStringAnsi(skyNameOut);
+                Name = Marshal.PtrToStringAnsi(nameOut);
+                SkydomeName = Marshal.PtrToStringAnsi(skyNameOut);
             }
         }
 
 
         public Instance[] GetInstances()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToWrapperArray<Instance>(instanceArray, instanceCount, instanceIncrement);
+            CheckValidity();
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Instance>(instanceArray, instanceCount, instanceIncrement));
         }
 
 
         public Terrain GetTerrain()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return terrainPtr == IntPtr.Zero ? null : new Terrain(terrainPtr);
+            CheckValidity();
+            return RegisterChild(FromNative<Terrain>(terrainPtr));
         }
 
 
         public Region[] GetRegions()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToWrapperArray<Region>(regionArray, regionCount, regionIncrement);            
+            CheckValidity();
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Region>(regionArray, regionCount, regionIncrement));
         }
     }
 }

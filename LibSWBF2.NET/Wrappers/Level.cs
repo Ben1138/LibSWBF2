@@ -14,22 +14,9 @@ using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Level : NativeWrapper
+    public sealed class Level : NativeWrapper
     {
-        private HashSet<WeakReference<NativeWrapper>> Children;
-
-        // Make constructor private, so instantiation is only possible via FromFile
-        private Level() : base(IntPtr.Zero)
-        {
-            Children = new HashSet<WeakReference<NativeWrapper>>();
-        }
-
-
-        // TODO: Deleting a wrapper instance is dangerous!
-        //~Level()
-        //{
-        //    Delete();
-        //}
+        internal bool bHasOwner = false;
 
         /// <summary>
         /// Don't use this method unless you know exactly what you're doing!
@@ -39,91 +26,53 @@ namespace LibSWBF2.Wrappers
         /// </summary>
         public void Delete()
         {
-            if (!IsValid())
+            CheckValidity();
+            if (bHasOwner)
             {
-                Logger.Log("Cannot delete invalid Level!", ELogType.Warning);
+                Logger.Log("Cannot delete Level that is owned by a Container!", ELogType.Warning);
                 return;
             }
-
+            Invalidate();
             APIWrapper.Level_Destroy(NativeInstance);
-            NativeInstance = IntPtr.Zero;
-
-            foreach (WeakReference<NativeWrapper> childRef in Children)
-            {
-                if (childRef.TryGetTarget(out NativeWrapper child))
-                {
-                    child.Invalidate();
-                }
-            }
-            Children.Clear();
         }
 
         public static Level FromFile(string path)
         {
-            IntPtr native = APIWrapper.Level_FromFile(path);
-            if (native == IntPtr.Zero)
-            {
-                return null;
-            }
-
-            Level level = new Level();
-            level.NativeInstance = native;
-            return level;
-        }
-
-        internal static Level FromNative(IntPtr native)
-        {
-            if (native == IntPtr.Zero)
-            {
-                return null;
-            }
-
-            Level level = new Level();
-            level.NativeInstance = native;
-            return level;
+            return FromNative<Level>(APIWrapper.Level_FromFile(path));
         }
 
         public bool IsWorldLevel
         {
-            get { return APIWrapper.Level_IsWorldLevel(NativeInstance); }
+            get { CheckValidity(); return APIWrapper.Level_IsWorldLevel(NativeInstance); }
         }
 
 
         public string Name
         {
-            get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
+            get { CheckValidity(); return Marshal.PtrToStringAnsi(APIWrapper.Level_GetName(NativeInstance)); }
         }
 
         public string Path
         {
-            get { return Marshal.PtrToStringAnsi(APIWrapper.Level_GetPath(NativeInstance)); }
+            get { CheckValidity(); return Marshal.PtrToStringAnsi(APIWrapper.Level_GetPath(NativeInstance)); }
         }
 
 
-        public T GetWrapper<T>(string name) where T : NativeWrapper, new()
+        public T Get<T>(string name) where T : NativeWrapper, new()
         {
+            CheckValidity();
             if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
-                T newObj = new T();
                 IntPtr ptr = APIWrapper.Level_GetWrapper(NativeInstance, WrapperTypeMapping[typeof(T)], name);
-
-                if (ptr == IntPtr.Zero)
-                {
-                    return null;
-                }
-
-                newObj.SetPtr(ptr);
-                Children.Add(new WeakReference<NativeWrapper>(newObj));
-
-                return newObj;
+                return RegisterChild(FromNative<T>(ptr));
             }
-
             return null;
         }
 
 
-        public T[] GetWrappers<T>() where T : NativeWrapper, new()
+        public T[] Get<T>() where T : NativeWrapper, new()
         {
+            CheckValidity();
             T[] wrappers = new T[0];
             if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
@@ -132,7 +81,7 @@ namespace LibSWBF2.Wrappers
                 wrappers = MemUtils.IntPtrToWrapperArray<T>(ptr, (int) num, (int) inc);
                 for (int i = 0; i < wrappers.Length; i++)
                 {
-                    Children.Add(new WeakReference<NativeWrapper>(wrappers[i]));
+                    RegisterChild(wrappers[i]);
                 }
             }
             return wrappers;
@@ -141,23 +90,26 @@ namespace LibSWBF2.Wrappers
 
         public Config GetConfig(uint hash, ConfigType cfgType)
         {
-            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint) cfgType, hash);
-            return ptr == IntPtr.Zero ? null : new Config(ptr);           
+            CheckValidity();
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint)cfgType, hash);
+            return RegisterChild(FromNative<Config>(ptr));
         }
 
         public Config GetConfig(string name, ConfigType cfgType)
         {
+            CheckValidity();
             return GetConfig(HashUtils.GetFNV(name), cfgType);
         }
 
-        public List<Config> GetConfigs(ConfigType cfgType)
+        public Config[] GetConfigs(ConfigType cfgType)
         {
+            CheckValidity();
             IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, (uint) cfgType, out int count);
             if (ptr == IntPtr.Zero)
             {
-                return new List<Config>();
+                return new Config[0];
             }
-            return new List<Config>(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Config>(ptr, count));
         }
     }
 }

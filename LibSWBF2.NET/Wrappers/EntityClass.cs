@@ -11,19 +11,28 @@ using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
 {
-    public class EntityClass : NativeWrapper
+    public sealed class EntityClass : NativeWrapper, ISWBFProperties
     {
-        public EntityClass(IntPtr ecPtr) : base(ecPtr){}
+        public string      Name { get; private set; }
+        public EntityClass BaseClass { get; private set; }
+        public string      BaseClassName { get; private set; }
 
-        public EntityClass() : base(IntPtr.Zero) {}
 
+        internal override void SetPtr(IntPtr ptr)
+        {
+            base.SetPtr(ptr);
+            APIWrapper.EntityClass_FetchAllFields(ptr, out IntPtr name, out IntPtr baseClass, out IntPtr baseClassName);
+            Name = Marshal.PtrToStringAnsi(name);
+            BaseClass = FromNative<EntityClass>(baseClass);
+            BaseClassName = Marshal.PtrToStringAnsi(baseClassName);
+        }
 
         /// <summary>
         /// will return the first encounter. will fall back to base class, if existent
         /// </summary>
         public bool GetProperty(string propName, out string propValue)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            CheckValidity();
             if (APIWrapper.EntityClass_GetPropertyFromName(NativeInstance, propName, out IntPtr res))
             {
                 propValue = Marshal.PtrToStringAnsi(res);
@@ -38,7 +47,7 @@ namespace LibSWBF2.Wrappers
         /// </summary>
         public bool GetProperty(uint hashedPropName, out string propValue)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            CheckValidity();
             if (APIWrapper.EntityClass_GetPropertyFromHash(NativeInstance, hashedPropName, out IntPtr res))
             {
                 propValue = Marshal.PtrToStringAnsi(res);
@@ -53,7 +62,7 @@ namespace LibSWBF2.Wrappers
         /// </summary>
         public bool GetProperty(string propName, out string[] propValues)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            CheckValidity();
             if (APIWrapper.EntityClass_GetPropertiesFromName(NativeInstance, propName, out IntPtr res, out uint count))
             {
                 propValues = MemUtils.IntPtrToStringList(res, (int)count).ToArray();
@@ -68,7 +77,7 @@ namespace LibSWBF2.Wrappers
         /// </summary>
         public bool GetProperty(uint hashedPropName, out string[] propValues)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            CheckValidity();
             if (APIWrapper.EntityClass_GetPropertiesFromHash(NativeInstance, hashedPropName, out IntPtr res, out uint count))
             {
                 propValues = MemUtils.IntPtrToStringList(res, (int)count).ToArray();
@@ -78,37 +87,9 @@ namespace LibSWBF2.Wrappers
             return false;
         }
 
-
-        public string Name
-        {
-            get
-            {
-                if (!IsValid()) return "";// throw new Exception("Underlying native class is destroyed!");
-                return Marshal.PtrToStringAnsi(APIWrapper.EntityClass_GetName(NativeInstance));               
-            }
-        }
-
-        public string BaseName
-        {
-            get
-            {
-                if (!IsValid()) return "";// throw new Exception("Underlying native class is destroyed!");
-                return Marshal.PtrToStringAnsi(APIWrapper.EntityClass_GetBaseName(NativeInstance));
-            }
-        }
-
-        public EntityClass GetBase()
-        {
-            IntPtr basePtr = APIWrapper.EntityClass_GetBase(NativeInstance);
-            if (basePtr != IntPtr.Zero)
-            {
-                return new EntityClass(basePtr);
-            }
-            return null;
-        }
-
         public bool GetOverriddenProperties(out uint[] properties, out string[] values)
         {
+            CheckValidity();
             bool status = APIWrapper.EntityClass_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
 
             if (status)

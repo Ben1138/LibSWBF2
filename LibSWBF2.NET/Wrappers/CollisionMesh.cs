@@ -10,37 +10,37 @@ using LibSWBF2.Logging;
 
 namespace LibSWBF2.Wrappers
 {
-    public class CollisionMesh : NativeWrapper
+    public sealed class CollisionMesh : NativeWrapper
     {
-        internal CollisionMesh(IntPtr CollisionMeshPtr) : base(IntPtr.Zero){ SetPtr(CollisionMeshPtr); }
+        public uint IndexCount { get; private set; }
+        public uint VertexCount { get; private set; }
+        public uint MaskFlags { get; private set; }
 
-        public uint maskFlags;
-
-        private IntPtr indexBufferPtr;
-        public uint indexCount;
-
-        private IntPtr vertexBufferPtr;
-        public uint vertexCount;
+        IntPtr VertexBufferPtr;
+        IntPtr IndexBufferPtr;
 
         internal override void SetPtr(IntPtr cmPtr)
-        {   
-            if (APIWrapper.CollisionMesh_FetchAllFields(cmPtr, out indexCount, out indexBufferPtr,
-                                                    out vertexCount, out vertexBufferPtr, out maskFlags))
+        {
+            base.SetPtr(cmPtr);
+            if (APIWrapper.CollisionMesh_FetchAllFields(cmPtr, out uint indexCount, out IndexBufferPtr,
+                                                    out uint vertexCount, out VertexBufferPtr, out uint maskFlags))
             {
-                NativeInstance = cmPtr;
+                IndexCount = indexCount;
+                VertexCount = vertexCount;
+                MaskFlags = maskFlags;
             }
         }
 
         public unsafe T[] GetVertices<T>() where T : unmanaged
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<T>(vertexBufferPtr, ((int) vertexCount * 3 * 4) / sizeof(T));
+            if (!IsValid()) CheckValidity();
+            return MemUtils.IntPtrToArray<T>(VertexBufferPtr, ((int) VertexCount * 3 * 4) / sizeof(T));
         }
 
         public ushort[] GetIndices()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<ushort>(indexBufferPtr, (int) indexCount);
+            if (!IsValid()) CheckValidity();
+            return MemUtils.IntPtrToArray<ushort>(IndexBufferPtr, (int) IndexCount);
         }
     }
 }

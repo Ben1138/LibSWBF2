@@ -10,46 +10,35 @@ using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Texture : NativeWrapper
+    public sealed class Texture : NativeWrapper
     {
-        public string name = "";
-        public int height, width;
-
-        public bool IsConvertibleFormat;
-
-        private IntPtr NativeRawImageData;
-
-        internal Texture(IntPtr TexturePtr) : base(TexturePtr) { SetPtr(TexturePtr); }
-        public Texture() : base(IntPtr.Zero) { }
+        public string Name { get; private set; }
+        public int    Height { get; private set; }
+        public int    Width { get; private set; }
+        public bool   IsConvertibleFormat { get; private set; }
+        public IntPtr NativeRawImageData { get; private set; }
 
 
         internal override void SetPtr(IntPtr ptr)
         {
-            NativeInstance = ptr;
-
+            base.SetPtr(ptr);
             IsConvertibleFormat = APIWrapper.Texture_FetchAllFields(NativeInstance,
                                                         out ushort w, out ushort h,
-                                                        out NativeRawImageData,
+                                                        out IntPtr nativeRawImageData,
                                                         out IntPtr namePtr);
-            width = w;
-            height = h;
-
-            name = Marshal.PtrToStringAnsi(namePtr);
+            Width = w;
+            Height = h;
+            Name = Marshal.PtrToStringAnsi(namePtr);
+            NativeRawImageData = nativeRawImageData;
         }
 
 
         public byte[] GetBytesRGBA()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (!IsValid()) CheckValidity();
             
-            int length = width * height * 4;
+            int length = Width * Height * 4;
             return IsConvertibleFormat ? MemUtils.IntPtrToArray<byte>(NativeRawImageData, length) : new byte[length]; 
-        }
-
-
-        IntPtr GetNativeRawImageData()
-        {
-            return NativeRawImageData;
         }
     }
 }

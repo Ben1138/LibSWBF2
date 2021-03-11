@@ -13,19 +13,12 @@ using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
-    public class AnimationBank : NativeWrapper
+    public sealed class AnimationBank : NativeWrapper
     {
-        public AnimationBank(IntPtr AnimationBankPtr) : base(AnimationBankPtr)
-        {
-
-        }
-
-        public AnimationBank() : base(IntPtr.Zero) {}
-
-
         public bool GetCurve(uint animCRC, uint boneCRC, uint component,
                             out ushort[] inds, out float[] values)
         {
+            CheckValidity();
             bool status = APIWrapper.AnimationBank_GetCurve(
                                 NativeInstance, animCRC, boneCRC, component,
                                 out IntPtr indexBuffer, out IntPtr valueBuffer, 
@@ -39,12 +32,14 @@ namespace LibSWBF2.Wrappers
 
         public uint[] GetAnimationCRCs()
         {
+            CheckValidity();
             IntPtr crcs = APIWrapper.AnimationBank_GetAnimationCRCs(NativeInstance, out int numAnims);
             return MemUtils.IntPtrToArray<uint>(crcs, numAnims);
         }
 
         public bool GetAnimationMetadata(uint animCRC, out int numFrames, out int numBones)
         {
+            CheckValidity();
             return APIWrapper.AnimationBank_GetAnimationMetadata(NativeInstance, animCRC, out numFrames, out numBones);
         }
     }

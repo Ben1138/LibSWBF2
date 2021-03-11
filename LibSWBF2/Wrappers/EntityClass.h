@@ -48,8 +48,8 @@ namespace LibSWBF2::Wrappers
 		template<class EntityClassType>
 		static bool FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out);
 
-		String GetTypeName() const;
-		String GetBaseName() const;
+		const String& GetTypeName() const;
+		const String& GetBaseName() const;
 		const EntityClass* GetBase() const;
 
 		// Note about properties:

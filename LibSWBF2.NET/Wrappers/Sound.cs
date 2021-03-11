@@ -3,30 +3,26 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Sound : NativeWrapper
+    public sealed class Sound : NativeWrapper
     {
-        internal Sound(IntPtr scriptPtr) : base(scriptPtr) { }
-
-        public Sound() : base(IntPtr.Zero) { }
-
         public string Name
         {
             get
             {
-                if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+                if (!IsValid()) CheckValidity();
                 return Marshal.PtrToStringAnsi(APIWrapper.Sound_GetName(NativeInstance));
             }
         }
 
         public bool GetData(out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (!IsValid()) CheckValidity();
             return APIWrapper.Sound_GetData(NativeInstance, out sampleRate, out sampleCount, out blockAlign, out data);
         }
 
         public bool GetData(out uint sampleRate, out uint sampleCount, out byte blockAlign, out byte[] data)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            if (!IsValid()) CheckValidity();
             if (APIWrapper.Sound_GetData(NativeInstance, out sampleRate, out sampleCount, out blockAlign, out IntPtr dataPtr))
             {
                 int dataSize = (int)(sampleCount * blockAlign);
