@@ -94,7 +94,10 @@ namespace LibSWBF2.Wrappers
 
             IntPtr ptr = APIWrapper.Container_GetLevel(NativeInstance, handle.GetNativeHandle());
             Level level = RegisterChild(FromNative<Level>(ptr));
-            level.bHasOwner = true;
+            if (level != null)
+            {
+                level.bHasOwner = true;
+            }
             return level;
         }
 

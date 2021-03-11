@@ -9,20 +9,20 @@ namespace LibSWBF2.Wrappers
         {
             get
             {
-                if (!IsValid()) CheckValidity();
+                CheckValidity();
                 return Marshal.PtrToStringAnsi(APIWrapper.Sound_GetName(NativeInstance));
             }
         }
 
         public bool GetData(out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             return APIWrapper.Sound_GetData(NativeInstance, out sampleRate, out sampleCount, out blockAlign, out data);
         }
 
         public bool GetData(out uint sampleRate, out uint sampleCount, out byte blockAlign, out byte[] data)
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             if (APIWrapper.Sound_GetData(NativeInstance, out sampleRate, out sampleCount, out blockAlign, out IntPtr dataPtr))
             {
                 int dataSize = (int)(sampleCount * blockAlign);

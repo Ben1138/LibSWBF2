@@ -33,13 +33,13 @@ namespace LibSWBF2.Wrappers
 
         public unsafe T[] GetVertices<T>() where T : unmanaged
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             return MemUtils.IntPtrToArray<T>(VertexBufferPtr, ((int) VertexCount * 3 * 4) / sizeof(T));
         }
 
         public ushort[] GetIndices()
         {
-            if (!IsValid()) CheckValidity();
+            CheckValidity();
             return MemUtils.IntPtrToArray<ushort>(IndexBufferPtr, (int) IndexCount);
         }
     }
