@@ -25,12 +25,12 @@ namespace LibSWBF2.NET.Test
             Level level = levels[0];
             if (level == null) return -1;
             
-            Model[] models = level.GetWrappers<Model>();
+            Model[] models = level.Get<Model>();
 
 
             foreach (Model model in models)
             {   
-                Console.WriteLine("\n" + model.name + ": ");
+                Console.WriteLine("\n" + model.Name + ": ");
 
                 /*
                 if (model.isSkeletonBroken)
@@ -59,40 +59,40 @@ namespace LibSWBF2.NET.Test
 
                     VertexWeight[] weights = seg.GetVertexWeights();
 
-                    Console.WriteLine("\t\tTopology: {0}", seg.topology);
+                    Console.WriteLine("\t\tTopology: {0}", seg.Topology);
 
 
                     float[] buffer = seg.GetNormalsBuffer<float>();
                     Console.WriteLine("\t\tNum positions: {0}, Num normals: {1}", vBuf.Length/3, buffer.Length/3);
 
-                    if (model.isSkinned)
+                    if (model.IsSkinned)
                     {
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
-                        Console.WriteLine("\t\tIs pretransformed: {0}", seg.isPretransformed);
+                        Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed);
                     }
                     else
                     {
-                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.boneName);
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.BoneName);
                     }
 
-                    Material mat = seg.material;
+                    Material mat = seg.Material;
 
                     Console.WriteLine("\n\t\tMaterial textures used: ");
 
-                    foreach (string texName in mat.textures)
+                    foreach (string texName in mat.Textures)
                     {   
                         if (texName == "") continue;
 
                         Console.Write("\t\t\t" + texName);
-                        Texture tex = level.GetWrapper<Texture>(texName);
+                        Texture tex = level.Get<Texture>(texName);
                         if (tex != null)
                         {
-                            Console.WriteLine(" Height: {0} Width: {1}", tex.height, tex.width);
+                            Console.WriteLine(" Height: {0} Width: {1}", tex.Height, tex.Width);
                         }                        
                     }
 
                     Console.WriteLine("\t\tMaterial flags: ");
-                    Console.WriteLine("\t\t\t{0}", seg.material.materialFlags);
+                    Console.WriteLine("\t\t\t{0}", seg.Material.MaterialFlags);
                 }
             }
             

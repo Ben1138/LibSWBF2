@@ -109,12 +109,12 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String EntityClass::GetTypeName() const
+	const String& EntityClass::GetTypeName() const
 	{
 		return p_classChunk->p_Type->m_Text;
 	}
 
-	String EntityClass::GetBaseName() const
+	const String& EntityClass::GetBaseName() const
 	{
 		return p_classChunk->p_Base->m_Text;
 	}

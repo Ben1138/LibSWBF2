@@ -730,14 +730,15 @@ namespace LibSWBF2
 
 
     // Wrappers - Instance
-    const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName)
+    const uint8_t Instance_FetchSimpleFields(const Instance* instPtr, const char*& name, Vector4*& rot, Vector3*& pos, const char*& ecName, const EntityClass*& ec)
     {
     	static Vector4 rotCache;
     	static Vector3 posCache;
     	CheckPtr(instPtr,false);
 
     	name = instPtr -> GetName().Buffer();
-    	ecName = instPtr -> GetType().Buffer();
+    	ecName = instPtr -> GetEntityClassName().Buffer();
+		ec = instPtr -> GetEntityClass();
 
     	rotCache = instPtr -> GetRotation();
     	posCache = instPtr -> GetPosition();
@@ -823,6 +824,14 @@ namespace LibSWBF2
 
 
     //Wrappers - EntityClass
+	void EntityClass_FetchAllFields(const EntityClass* ec, const char*& name, const EntityClass*& baseClass, const char*& baseClassName)
+	{
+		CheckPtr(ec, );
+		name = ec->GetTypeName().Buffer();
+		baseClass = ec->GetBase();
+		baseClassName = ec->GetBaseName().Buffer();
+	}
+
 	uint8_t EntityClass_GetPropertyFromName(const EntityClass* ec, const char* propName, const char*& value)
 	{
 		return GenericGetProperty(ec, propName, value);

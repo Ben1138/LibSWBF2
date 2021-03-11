@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,40 +11,32 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Material : NativeWrapper
+    public sealed class Material : NativeWrapper
     {
-        internal Material(IntPtr MaterialPtr) : base(MaterialPtr) { SetPtr(MaterialPtr); }
-        public Material() : base(IntPtr.Zero){}
-
+        public MaterialFlags MaterialFlags { get; private set; }
+        public uint          SpecularExponent { get; private set; }
+        public ReadOnlyCollection<string> Textures { get; private set; }
+        public Vector3       SpecularColor { get; private set; }
+        public Vector3       DiffuseColor { get; private set; }
+        public string        AttachedLight { get; private set; }
 
         internal override void SetPtr(IntPtr ptr)
         {
+            base.SetPtr(ptr);
             if (APIWrapper.Material_FetchAllFields(ptr, out IntPtr specular,
                                                 out IntPtr diffuse, out IntPtr texNames,
                                                 out int numTexes, out IntPtr attachedLightName,
-                                                out uint matFlags, out specularExponent))
+                                                out uint matFlags, out uint specularExponent))
             {
-                NativeInstance = ptr;
+                MaterialFlags = (MaterialFlags) matFlags;
 
-                materialFlags = (MaterialFlags) matFlags;
+                SpecularColor = new Vector3(specular);
+                DiffuseColor = new Vector3(diffuse);
+                SpecularExponent = specularExponent;
 
-                specularColor = new Vector3(specular);
-                diffuseColor = new Vector3(diffuse);
-
-                textures = MemUtils.IntPtrToStringList(texNames, numTexes);
-                attachedLight = Marshal.PtrToStringAnsi(attachedLightName);
+                Textures = new ReadOnlyCollection<string>(MemUtils.IntPtrToStringList(texNames, numTexes));
+                AttachedLight = Marshal.PtrToStringAnsi(attachedLightName);
             }
         }
-
-        public MaterialFlags materialFlags;
-            
-        public uint specularExponent;
-
-        public List<string> textures;
-
-        public Vector3 specularColor;
-        public Vector3 diffuseColor;
-
-        public string attachedLight;
     }
 }

@@ -11,29 +11,21 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
-    public class Bone : NativeWrapper
+    public sealed class Bone : NativeWrapper
     {
-        public Bone() : base(IntPtr.Zero){}
+        public string  Name { get; private set; }
+        public string  ParentName { get; private set; }
+        public Vector4 Rotation { get; private set; }
+        public Vector3 Location { get; private set; }
 
         internal override void SetPtr(IntPtr ptr)
         {
+            base.SetPtr(ptr);
         	APIWrapper.Bone_FetchAllFields(ptr, out IntPtr namePtr, out IntPtr parentNamePtr, out IntPtr loc, out IntPtr rot);
-
-        	name = Marshal.PtrToStringAnsi(namePtr);
-
-            if (parentNamePtr != IntPtr.Zero)
-            {
-                parentName = Marshal.PtrToStringAnsi(parentNamePtr);
-            }
-
-        	rotation = new Vector4(rot);
-        	location = new Vector3(loc);
+        	Name = Marshal.PtrToStringAnsi(namePtr);
+            ParentName = Marshal.PtrToStringAnsi(parentNamePtr);
+        	Rotation = new Vector4(rot);
+        	Location = new Vector3(loc);
         }
-
-
-        public string name;
-        public string parentName = "";
-        public Vector4 rotation;
-        public Vector3 location;
     }
 }

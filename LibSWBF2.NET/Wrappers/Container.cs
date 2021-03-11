@@ -29,117 +29,117 @@ namespace LibSWBF2
 
 namespace LibSWBF2.Wrappers
 {
-    public class Container : NativeWrapper
-    {        
-        public Container() : base(APIWrapper.Container_Initialize()){}
-        
- 
+    public sealed class Container : NativeWrapper
+    {
+        public Container()
+        {
+            SetPtr(APIWrapper.Container_Initialize());
+        }
+
         public bool Delete()
         {
+            CheckValidity();
+            Invalidate();
             return APIWrapper.Container_Delete(NativeInstance);
         }
 
-
         public SWBF2Handle AddLevel(string path)
         {
+            CheckValidity();
             return new SWBF2Handle(APIWrapper.Container_AddLevel(NativeInstance, path));
         }
 
         public SWBF2Handle AddLevel(string path, string[] subLVLs)
         {
+            CheckValidity();
             if (subLVLs == null) subLVLs = new string[0];
-            IntPtr[] ptrs = Utils.MemUtils.StringToIntPtrList(subLVLs);
-            return new SWBF2Handle(APIWrapper.Container_AddLevelFiltered(NativeInstance, path, ptrs, (uint)ptrs.Length));
+            IntPtr[] ptrs = MemUtils.StringToIntPtrList(subLVLs);
+            SWBF2Handle h = new SWBF2Handle(APIWrapper.Container_AddLevelFiltered(NativeInstance, path, ptrs, (uint)ptrs.Length));
+            MemUtils.FreeStrings(ptrs);
+            return h;
         }
 
         public SWBF2Handle AddSoundBank(string path)
         {
+            CheckValidity();
             return new SWBF2Handle(APIWrapper.Container_AddSoundBank(NativeInstance, path));
         }
 
         public void FreeAll(bool force)
         {
+            CheckValidity();
+            Invalidate();
             APIWrapper.Container_FreeAll(NativeInstance, force);
         }
 
         public float GetProgress(SWBF2Handle handle)
         {
+            CheckValidity();
             return APIWrapper.Container_GetProgress(NativeInstance, handle.GetNativeHandle());
         }
 
         public float GetOverallProgress()
         {
+            CheckValidity();
             return APIWrapper.Container_GetOverallProgress(NativeInstance);
         }
 
         public Level GetLevel(SWBF2Handle handle, bool block = false)
         {
-            while (!IsDone())
+            CheckValidity();
+            while (block && (GetStatus(handle) == ELoadStatus.Loading || GetStatus(handle) == ELoadStatus.Uninitialized))
             {
-                if (block)
-                {
-                    Thread.Sleep(200);
-                } 
-                else 
-                {
-                    return null;
-                } 
+                Thread.Sleep(200);
             }
 
-            return Level.FromNative(APIWrapper.Container_GetLevel(NativeInstance, handle.GetNativeHandle()));
+            IntPtr ptr = APIWrapper.Container_GetLevel(NativeInstance, handle.GetNativeHandle());
+            Level level = RegisterChild(FromNative<Level>(ptr));
+            level.bHasOwner = true;
+            return level;
         }
 
         public void LoadLevels()
         {
+            CheckValidity();
             APIWrapper.Container_LoadLevels(NativeInstance);
         }
 
-        public T FindWrapper<T>(string name) where T : NativeWrapper, new()
+        public T Get<T>(string name) where T : NativeWrapper, new()
         {
+            CheckValidity();
             if (WrapperTypeMapping.ContainsKey(typeof(T)))
             {
-                T newObj = new T();
                 IntPtr ptr = APIWrapper.Container_GetWrapper(NativeInstance, WrapperTypeMapping[typeof(T)], name);
-
-                if (ptr == IntPtr.Zero)
-                {
-                    return null;
-                }
-
-                newObj.SetPtr(ptr);
-
-                return newObj;
+                return RegisterChild(FromNative<T>(ptr));
             }
-
             return null;
         }
 
 
         public Config FindConfig(ConfigType type, uint nameHash=0)
         {
-            IntPtr cfgPtr = APIWrapper.Container_GetConfig(NativeInstance, (uint) type, nameHash);
-            if (cfgPtr == IntPtr.Zero)
-            {
-                return null;
-            }
-
-            return new Config(cfgPtr);
+            CheckValidity();
+            IntPtr ptr = APIWrapper.Container_GetConfig(NativeInstance, (uint)type, nameHash);
+            return RegisterChild(FromNative<Config>(ptr));
         }
 
 
         public Config FindConfig(ConfigType type, string name)
         {
+            CheckValidity();
             return FindConfig(type, HashUtils.GetFNV(name));
         }
 
 
-        public Enums.ELoadStatus GetStatus(SWBF2Handle handle)
+        public ELoadStatus GetStatus(SWBF2Handle handle)
         {
-            return (Enums.ELoadStatus)APIWrapper.Container_GetStatus(NativeInstance, handle.GetNativeHandle());
+            CheckValidity();
+            return (ELoadStatus)APIWrapper.Container_GetStatus(NativeInstance, handle.GetNativeHandle());
         }
 
         public bool IsDone()
         {
+            CheckValidity();
             return APIWrapper.Container_IsDone(NativeInstance);
         }
     }

@@ -59,7 +59,7 @@ namespace LibSWBF2.NET.Test
         {
             Container container = new Container();
 
-            List<uint> handles = new List<uint>();
+            List<SWBF2Handle> handles = new List<SWBF2Handle>();
 
             foreach (var path in paths)
             {

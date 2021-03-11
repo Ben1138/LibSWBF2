@@ -189,7 +189,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Instance_FetchSimpleFields(IntPtr inst, out IntPtr name, out IntPtr rot, out IntPtr pos, out IntPtr ecName);
+        public static extern bool Instance_FetchSimpleFields(IntPtr inst, out IntPtr name, out IntPtr rot, out IntPtr pos, out IntPtr ecName, out IntPtr ec);
         
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -270,31 +270,23 @@ namespace LibSWBF2
 
 
         // EntityClass //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void EntityClass_FetchAllFields(IntPtr ec, out IntPtr name, out IntPtr baseClass, out IntPtr baseClassName);
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool EntityClass_GetPropertyFromName(IntPtr ec, [MarshalAs(UnmanagedType.LPStr)] string propName, out IntPtr value);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool EntityClass_GetPropertyFromName(IntPtr inst, [MarshalAs(UnmanagedType.LPStr)] string propName, out IntPtr value);
+        public static extern bool EntityClass_GetPropertyFromHash(IntPtr ec, uint hashedPropName, out IntPtr value);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool EntityClass_GetPropertyFromHash(IntPtr inst, uint hashedPropName, out IntPtr value);
+        public static extern bool EntityClass_GetPropertiesFromName(IntPtr ec, [MarshalAs(UnmanagedType.LPStr)] string propName, out IntPtr values, out uint count);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool EntityClass_GetPropertiesFromName(IntPtr inst, [MarshalAs(UnmanagedType.LPStr)] string propName, out IntPtr values, out uint count);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool EntityClass_GetPropertiesFromHash(IntPtr inst, uint hashedPropName, out IntPtr values, out uint count);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr EntityClass_GetBase(IntPtr ecPtr);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr EntityClass_GetBaseName(IntPtr ecPtr);    
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr EntityClass_GetName(IntPtr ecPtr); 
+        public static extern bool EntityClass_GetPropertiesFromHash(IntPtr ec, uint hashedPropName, out IntPtr values, out uint count);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]

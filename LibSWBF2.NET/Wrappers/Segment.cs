@@ -18,55 +18,46 @@ namespace LibSWBF2.Wrappers
         public byte index;
     }
 
-    public class Segment : NativeWrapper
+    public sealed class Segment : NativeWrapper
     {
-        public Segment(IntPtr segmentPtr) : base(segmentPtr) {}
-        public Segment() : base(IntPtr.Zero) {}
+        public Topology Topology { get; private set; }
+        public string   BoneName { get; private set; }
+        public bool     IsPretransformed { get; private set; }
+        public int      NumVertices { get; private set; }
+        public int      NumIndices { get; private set; }
+        public int      NumVertexWeights { get; private set; }
+        public Material Material { get; private set; }
 
-
-        public Topology topology;
-
-        public string boneName;
-
-        public bool isPretransformed;
-
-        public int numVertices;
-        private IntPtr vertexBufferPtr, uvBufferPtr, normalsBufferPtr;
-
-        public int numIndices;
-        private IntPtr indexBufferPtr;
-
-        public int numVertexWeights;
-        private IntPtr vertexWeightsBufferPtr;
-
-        public Material material;
-
+        IntPtr IndexBufferPtr;
+        IntPtr VertexBufferPtr;
+        IntPtr UVBufferPtr;
+        IntPtr NormalsBufferPtr;
+        IntPtr VertexWeightsBufferPtr;
 
         internal override void SetPtr(IntPtr seg)
         {
-            bool status = APIWrapper.Segment_FetchAllFields(seg, out isPretransformed, out IntPtr boneNamePtr,
-                                                        out uint numVertsOut, out vertexBufferPtr, out normalsBufferPtr, out uvBufferPtr,
-                                                        out uint numVWsOut, out vertexWeightsBufferPtr,
-                                                        out int topo, out uint numIndsOut, out indexBufferPtr,
-                                                        out IntPtr matPtr);
-            if (!status) { 
-                NativeInstance = IntPtr.Zero;
-                return;
+            base.SetPtr(seg);
+            if (APIWrapper.Segment_FetchAllFields(seg, out bool isPretransformed, out IntPtr boneNamePtr,
+                                                        out uint numVertsOut, out VertexBufferPtr, out NormalsBufferPtr, out UVBufferPtr,
+                                                        out uint numVWsOut, out VertexWeightsBufferPtr,
+                                                        out int topo, out uint numIndsOut, out IndexBufferPtr,
+                                                        out IntPtr matPtr))
+            {
+                IsPretransformed = isPretransformed;
+                NumIndices = (int) numIndsOut;
+                NumVertices = (int) numVertsOut;
+                NumVertexWeights = (int) numVWsOut;
+                BoneName = Marshal.PtrToStringAnsi(boneNamePtr);
+                Topology = (Topology) topo;
+                Material = FromNative<Material>(matPtr);
             }
 
-            NativeInstance = seg;
-
-            numIndices = (int) numIndsOut;
-            numVertices = (int) numVertsOut;
-            numVertexWeights = (int) numVWsOut;
-            boneName = Marshal.PtrToStringAnsi(boneNamePtr);
-            topology = (Topology) topo;
-            material = new Material(matPtr);
         }
 
 
         private ushort[] ToTriList(ushort[] triStrip)
         {
+            CheckValidity();
             List<ushort> triList = new List<ushort>();
             ushort a,b,c,temp;
 
@@ -97,37 +88,37 @@ namespace LibSWBF2.Wrappers
 
         public uint GetVertexBufferLength()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return (uint) numVertices;
+            CheckValidity();
+            return (uint) NumVertices;
         }
 
         public unsafe T[] GetVertexBuffer<T>() where T : unmanaged
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<T>(vertexBufferPtr, (numVertices * 3 * 4) / sizeof(T));
+            CheckValidity();
+            return MemUtils.IntPtrToArray<T>(VertexBufferPtr, (NumVertices * 3 * 4) / sizeof(T));
         }
 
         public unsafe T[] GetNormalsBuffer<T>() where T : unmanaged
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<T>(normalsBufferPtr, (numVertices * 3 * 4) / sizeof(T));
+            CheckValidity();
+            return MemUtils.IntPtrToArray<T>(NormalsBufferPtr, (NumVertices * 3 * 4) / sizeof(T));
         }
 
         public unsafe T[] GetUVBuffer<T>() where T : unmanaged
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<T>(uvBufferPtr, (numVertices * 2 * 4) / sizeof(T));
+            CheckValidity();
+            return MemUtils.IntPtrToArray<T>(UVBufferPtr, (NumVertices * 2 * 4) / sizeof(T));
         }
 
         public VertexWeight[] GetVertexWeights()
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
-            return MemUtils.IntPtrToArray<VertexWeight>(vertexWeightsBufferPtr, numVertexWeights);            
+            CheckValidity();
+            return MemUtils.IntPtrToArray<VertexWeight>(VertexWeightsBufferPtr, NumVertexWeights);            
         }
 
         public ushort[] GetIndexBuffer(Topology requestedTopology = Topology.TriangleList)
         {
-            if (!IsValid()) throw new Exception("Underlying native class is destroyed!");
+            CheckValidity();
 
             if (requestedTopology != Topology.TriangleList &&
                 requestedTopology != Topology.TriangleStrip)
@@ -135,21 +126,21 @@ namespace LibSWBF2.Wrappers
                 throw new Exception("Only requestable topologies are tri strip and tri list!");
             }
 
-            if (topology != Topology.TriangleList &&
-                topology != Topology.TriangleStrip)
+            if (Topology != Topology.TriangleList &&
+                Topology != Topology.TriangleStrip)
             {
                 return new ushort[0];
             }
 
-            if (topology == Topology.TriangleList &&
+            if (Topology == Topology.TriangleList &&
                 requestedTopology == Topology.TriangleStrip)
             {
                 throw new Exception("Cant convert triangle strip to list yet!");
             }
 
-            ushort[] indices = MemUtils.IntPtrToArray<ushort>(indexBufferPtr, numIndices);
+            ushort[] indices = MemUtils.IntPtrToArray<ushort>(IndexBufferPtr, NumIndices);
 
-            if (requestedTopology == topology)
+            if (requestedTopology == Topology)
             {
                 return indices;
             } 

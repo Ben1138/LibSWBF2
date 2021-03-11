@@ -10,6 +10,11 @@ namespace LibSWBF2.Logging
     {
         static Queue<LoggerEntry> m_ManagedLogs = new Queue<LoggerEntry>();
 
+        public static void SetLogLevel(ELogType level)
+        {
+            APIWrapper.LOG_SetLogfileLevel(level);
+        }
+
         public static bool GetNextLog(out LoggerEntry next)
         {
             if (APIWrapper.LOG_GetNextLog(out IntPtr msg, out Logging.ELogType level, out uint line, out IntPtr file))
@@ -37,9 +42,8 @@ namespace LibSWBF2.Logging
             m_ManagedLogs.Enqueue(new LoggerEntry(msg, level, lineNumber, Path.GetFileName(file)));
         }
 
-        public static void SetLogLevel(ELogType level)
-        {
-            APIWrapper.LOG_SetLogfileLevel(level);
-        }
+        internal static void LogInfo(string msg, [CallerLineNumber] uint lineNumber = 0, [CallerFilePath] string file = "") => Log(msg, ELogType.Info, lineNumber, file);
+        internal static void LogWarn(string msg, [CallerLineNumber] uint lineNumber = 0, [CallerFilePath] string file = "") => Log(msg, ELogType.Warning, lineNumber, file);
+        internal static void LogErr(string msg, [CallerLineNumber] uint lineNumber = 0, [CallerFilePath] string file = "") => Log(msg, ELogType.Error, lineNumber, file);
     }
 }

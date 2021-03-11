@@ -22,8 +22,7 @@ namespace LibSWBF2.Utils
             T[] wrappers = new T[count];
 
             for (int i = 0; i < count; i++){
-                wrappers[i] = new T();
-                wrappers[i].SetPtr(IntPtr.Add(nativePtr, elSize * i));
+                wrappers[i] = NativeWrapper.FromNative<T>(IntPtr.Add(nativePtr, elSize * i));
             }
 
             return wrappers;
@@ -41,8 +40,7 @@ namespace LibSWBF2.Utils
             Marshal.Copy(nativePtr, ptrArr, 0, count);
 
             for (int i = 0; i < count; i++){
-                wrappers[i] = new T();
-                wrappers[i].SetPtr(ptrArr[i]);
+                wrappers[i] = NativeWrapper.FromNative<T>(ptrArr[i]);
             }
 
             return wrappers;
@@ -74,17 +72,15 @@ namespace LibSWBF2.Utils
 
 
         // Extracts managed strings from an unmanaged array of char pointers.
-        public static List<string> IntPtrToStringList(IntPtr nativePtr, int count)
+        public static string[] IntPtrToStringList(IntPtr nativePtr, int count)
         {
-            List<string> strings = new List<string>();
+            string[] strings = new string[count];
             IntPtr[] stringPtrs = new IntPtr[count];
             Marshal.Copy(nativePtr, stringPtrs, 0, count);
-
             for (int i = 0; i < count; i++)
             {
-                strings.Add(Marshal.PtrToStringAnsi(stringPtrs[i]));
+                strings[i] = Marshal.PtrToStringAnsi(stringPtrs[i]);
             }
-
             return strings;
         }
 
