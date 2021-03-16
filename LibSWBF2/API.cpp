@@ -255,6 +255,8 @@ namespace LibSWBF2
 			return static_cast<const void*>(level->GetScript(name));
 		case 7:
 			return static_cast<const void*>(level->GetSound(name));
+		case 8:
+			return static_cast<const void*>(level->GetLocalization(name));
 		default:
 			return nullptr;
 		}
@@ -323,6 +325,13 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)sounds.Size();
 			wrapperSize = sizeof(Sound);
 			return static_cast<const void*>(sounds.GetArrayPtr());
+		}
+		case 8:
+		{
+			const List<Localization>& locals = level->GetLocalizations();
+			numWrappers = (uint32_t)locals.Size();
+			wrapperSize = sizeof(Localization);
+			return static_cast<const void*>(locals.GetArrayPtr());
 		}
 		default:
 			return nullptr;
@@ -958,6 +967,17 @@ namespace LibSWBF2
 		return (uint8_t)sound->GetData(sampleRate, sampleCount, blockAlign, data);
 	}
 
+	const char* Localization_GetName(const Localization* local)
+	{
+		CheckPtr(local, nullptr);
+		return local->GetName().Buffer();
+	}
+
+	uint8_t Localization_GetLocalizedWideString(const Localization* local, const char* path, uint16_t*& chars, uint32_t& count)
+	{
+		CheckPtr(local, false);
+		return (uint8_t)local->GetLocalizedWideString(path, chars, count);
+	}
 
 
     // Config stuff

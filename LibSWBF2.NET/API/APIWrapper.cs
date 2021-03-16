@@ -261,12 +261,22 @@ namespace LibSWBF2
         public static extern bool AnimationBank_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
                                                         out int numFrames, out int numBones);
 
+        // Sound //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Sound_GetName(IntPtr sound);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Sound_GetData(IntPtr sound, out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data);
+
+
+        // Localization //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Localization_GetName(IntPtr local);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Localization_GetLocalizedWideString(IntPtr local, IntPtr path, out IntPtr chars, out uint charCount);
 
 
         // EntityClass //

@@ -31,7 +31,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		static bool FromChunk(Locl* loclChunk, Localization& out);
 
-		String GetName() const;
+		const String& GetName() const;
 
 		// count is number of wide chars, NOT number of bytes!
 		bool GetLocalizedWideString(const String& path, uint16_t*& chars, uint32_t& count) const;

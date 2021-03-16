@@ -192,6 +192,10 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
 
 
+		// Wrappers - Localization
+		LIBSWBF2_API const char* Localization_GetName(const Localization* local);
+		LIBSWBF2_API uint8_t Localization_GetLocalizedWideString(const Localization* local, const char* path, uint16_t*& chars, uint32_t& count);
+
         // Config
         LIBSWBF2_API const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash);
         LIBSWBF2_API const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count);

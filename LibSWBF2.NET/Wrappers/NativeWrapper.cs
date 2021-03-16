@@ -19,7 +19,8 @@ namespace LibSWBF2.Wrappers
             { typeof(EntityClass),   4 },
             { typeof(AnimationBank), 5 },
             { typeof(Script),        6 },
-            { typeof(Sound),         7 }
+            { typeof(Sound),         7 },
+            { typeof(Localization),  8 }
         };
 
         // will be empty in most cases
