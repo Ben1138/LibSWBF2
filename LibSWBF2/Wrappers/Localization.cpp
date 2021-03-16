@@ -61,7 +61,7 @@ namespace LibSWBF2::Wrappers
 		return true;
 	}
 
-	String Localization::GetName() const
+	const String& Localization::GetName() const
 	{
 		return p_Locl->p_Name->m_Text;
 	}
