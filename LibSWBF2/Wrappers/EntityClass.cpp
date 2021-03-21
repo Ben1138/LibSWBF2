@@ -41,6 +41,7 @@ namespace LibSWBF2::Wrappers
 
 	EntityClass& EntityClass::operator=(const EntityClass& other)
 	{
+		p_MainContainer = other.p_MainContainer;
 		p_classChunk = other.p_classChunk;
 		m_EntityClassType = other.m_EntityClassType;
 		m_PropertyMapping->m_HashToIndices = other.m_PropertyMapping->m_HashToIndices;
@@ -49,15 +50,19 @@ namespace LibSWBF2::Wrappers
 
 	EntityClass& EntityClass::operator=(EntityClass&& other)
 	{
+		p_MainContainer = other.p_MainContainer;
 		p_classChunk = other.p_classChunk;
-		delete m_PropertyMapping;
-		m_PropertyMapping = other.m_PropertyMapping;
+		m_EntityClassType = other.m_EntityClassType;
+		m_PropertyMapping->m_HashToIndices = std::move(other.m_PropertyMapping->m_HashToIndices);
+		other.p_MainContainer = nullptr;
+		other.p_classChunk = nullptr;
+		other.m_EntityClassType = EEntityClassType::GameObjectClass;
 		other.m_PropertyMapping = nullptr;
 		return *this;
 	}
 
-	template<class EntityClassType>
-	bool EntityClass::FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out)
+	template<class ChunkType>
+	bool EntityClass::FromChunk(Container* mainContainer, ChunkType* classChunk, EntityClass& out)
 	{
 		if (classChunk == nullptr)
 		{
@@ -68,19 +73,19 @@ namespace LibSWBF2::Wrappers
 		out.p_classChunk = (GenericClassNC*)classChunk;
 		out.p_MainContainer = mainContainer;
 
-		if (typeid(EntityClassType*) == typeid(entc*))
+		if (typeid(ChunkType*) == typeid(entc*))
 		{
 			out.m_EntityClassType = EEntityClassType::GameObjectClass;
 		}
-		else if (typeid(EntityClassType*) == typeid(ordc*))
+		else if (typeid(ChunkType*) == typeid(ordc*))
 		{
 			out.m_EntityClassType = EEntityClassType::OrdnanceClass;
 		}
-		else if (typeid(EntityClassType*) == typeid(wpnc*))
+		else if (typeid(ChunkType*) == typeid(wpnc*))
 		{
 			out.m_EntityClassType = EEntityClassType::WeaponClass;
 		}
-		else if (typeid(EntityClassType*) == typeid(expc*))
+		else if (typeid(ChunkType*) == typeid(expc*))
 		{
 			out.m_EntityClassType = EEntityClassType::ExplosionClass;
 		}
@@ -107,6 +112,11 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return true;
+	}
+
+	EEntityClassType EntityClass::GetClassType() const
+	{
+		return m_EntityClassType;
 	}
 
 	const String& EntityClass::GetTypeName() const

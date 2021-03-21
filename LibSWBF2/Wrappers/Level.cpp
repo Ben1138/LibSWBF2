@@ -261,7 +261,8 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, entityChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+				std::string name = ToLower(entityClass.GetTypeName());
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -271,7 +272,8 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, ordenanceChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+				std::string name = ToLower(entityClass.GetTypeName());
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -281,7 +283,8 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, weaponChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+				std::string name = ToLower(entityClass.GetTypeName());
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
@@ -291,7 +294,8 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, explosionChunk, entityClass))
 			{
-				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(ToLower(entityClass.GetTypeName()), m_EntityClasses.Add(std::move(entityClass)));
+				std::string name = ToLower(entityClass.GetTypeName());
+				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 

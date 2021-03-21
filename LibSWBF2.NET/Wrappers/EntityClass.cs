@@ -8,21 +8,24 @@ using System.Runtime.InteropServices;
 using LibSWBF2.Logging;
 using LibSWBF2.Types;
 using LibSWBF2.Utils;
+using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
     public sealed class EntityClass : NativeWrapper, ISWBFProperties
     {
-        public string      Name { get; private set; }
-        public EntityClass BaseClass { get; private set; }
-        public string      BaseClassName { get; private set; }
+        public string           Name { get; private set; }
+        public EEntityClassType ClassType { get; private set; }
+        public EntityClass      BaseClass { get; private set; }
+        public string           BaseClassName { get; private set; }
 
 
         internal override void SetPtr(IntPtr ptr)
         {
             base.SetPtr(ptr);
-            APIWrapper.EntityClass_FetchAllFields(ptr, out IntPtr name, out IntPtr baseClass, out IntPtr baseClassName);
+            APIWrapper.EntityClass_FetchAllFields(ptr, out IntPtr name, out byte classType, out IntPtr baseClass, out IntPtr baseClassName);
             Name = Marshal.PtrToStringAnsi(name);
+            ClassType = (EEntityClassType)classType;
             BaseClass = FromNative<EntityClass>(baseClass);
             BaseClassName = Marshal.PtrToStringAnsi(baseClassName);
         }

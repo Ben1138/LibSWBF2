@@ -45,9 +45,10 @@ namespace LibSWBF2::Wrappers
 		// - ordc*
 		// - wpnc*
 		// - expc*
-		template<class EntityClassType>
-		static bool FromChunk(Container* mainContainer, EntityClassType* classChunk, EntityClass& out);
+		template<class ChunkType>
+		static bool FromChunk(Container* mainContainer, ChunkType* classChunk, EntityClass& out);
 
+		EEntityClassType GetClassType() const;
 		const String& GetTypeName() const;
 		const String& GetBaseName() const;
 		const EntityClass* GetBase() const;
