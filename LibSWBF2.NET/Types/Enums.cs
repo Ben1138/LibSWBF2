@@ -122,4 +122,12 @@ namespace LibSWBF2.Enums
         D3DFMT_D32F_LOCKABLE = 82,
         D3DFMT_D24FS8 = 83,
     }
+
+    public enum EEntityClassType
+    {
+        GameObjectClass,
+		OrdnanceClass,
+		WeaponClass,
+		ExplosionClass
+    };
 }

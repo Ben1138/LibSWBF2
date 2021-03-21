@@ -833,10 +833,11 @@ namespace LibSWBF2
 
 
     //Wrappers - EntityClass
-	void EntityClass_FetchAllFields(const EntityClass* ec, const char*& name, const EntityClass*& baseClass, const char*& baseClassName)
+	void EntityClass_FetchAllFields(const EntityClass* ec, const char*& name, uint8_t& classType, const EntityClass*& baseClass, const char*& baseClassName)
 	{
 		CheckPtr(ec, );
 		name = ec->GetTypeName().Buffer();
+		classType = (uint8_t)ec->GetClassType();
 		baseClass = ec->GetBase();
 		baseClassName = ec->GetBaseName().Buffer();
 	}

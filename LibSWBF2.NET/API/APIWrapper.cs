@@ -281,7 +281,7 @@ namespace LibSWBF2
 
         // EntityClass //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void EntityClass_FetchAllFields(IntPtr ec, out IntPtr name, out IntPtr baseClass, out IntPtr baseClassName);
+        public static extern void EntityClass_FetchAllFields(IntPtr ec, out IntPtr name, out byte classType, out IntPtr baseClass, out IntPtr baseClassName);
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool EntityClass_GetPropertyFromName(IntPtr ec, [MarshalAs(UnmanagedType.LPStr)] string propName, out IntPtr value);
