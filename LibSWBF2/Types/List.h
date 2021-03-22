@@ -23,7 +23,7 @@ namespace LibSWBF2::Types
 		virtual ~List();
 
 		size_t Size() const;
-		void Resize(size_t NewMaxSize);
+		void Resize(size_t NewSize);
 
 		// returns index of added element
 		size_t Add(const T& Element);
