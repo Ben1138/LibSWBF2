@@ -76,21 +76,16 @@ namespace LibSWBF2::Types
 	}
 
 	template<class T>
-	void List<T>::Resize(size_t NewMaxSize)
+	void List<T>::Resize(size_t NewSize)
 	{
 		if (ArrayPtr == nullptr)
 		{
-			Init(NewMaxSize);
+			Init(NewSize);
 			return;
 		}
 
-		if (NewMaxSize <= NumElements)
-		{
-			LOG_WARN("New size is too small! Nothing to Resize!");
-			return;
-		}
-
-		T* newArray = new T[NewMaxSize];
+		NumElements = glm::min(NewSize, NumElements);
+		T* newArray = new T[NewSize];
 		for (size_t i = 0; i < NumElements; ++i)
 		{
 			newArray[i] = ArrayPtr[i];
@@ -98,7 +93,7 @@ namespace LibSWBF2::Types
 		delete[] ArrayPtr;
 		ArrayPtr = newArray;
 
-		MaxElements = NewMaxSize;
+		MaxElements = NewSize;
 	}
 
 	template<class T>
