@@ -174,7 +174,6 @@ namespace LibSWBF2::Wrappers
 
 	bool EntityClass::GetProperty(FNVHash hashedPropertyName, List<String>& outValues) const
 	{
-		outValues.Clear();
 		auto it = m_PropertyMapping->m_HashToIndices.find(hashedPropertyName);
 		if (it != m_PropertyMapping->m_HashToIndices.end() && it->second.size() > 0)
 		{
@@ -182,14 +181,18 @@ namespace LibSWBF2::Wrappers
 			{
 				outValues.Add(p_classChunk->m_Properties[it->second[i]]->m_Value);
 			}
-			return true;
+
+			// For multi properties (e.g. ControlSpeed) also crawl down
+			// all the base classes for that same property name.
+			// So we actually do NOT return here.
 		}
+
 		const EntityClass* base = GetBase();
 		if (base != nullptr)
 		{
-			return base->GetProperty(hashedPropertyName, outValues);
+			base->GetProperty(hashedPropertyName, outValues);
 		}
-		return false;
+		return outValues.Size() > 0;
 	}
 
 	bool EntityClass::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
