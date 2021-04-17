@@ -935,11 +935,24 @@ namespace LibSWBF2
     	numCRCs = 0;
     	CheckPtr(setPtr, nullptr);
 
-    	crcs = setPtr -> GetAnimationNames();
+    	crcs = setPtr -> GetAnimations();
     	
     	numCRCs = (int32_t)crcs.Size();
     	return crcs.GetArrayPtr();
     }
+
+	const uint32_t* AnimationBank_GetBoneCRCs(const AnimationBank* setPtr, int& numCRCs)
+	{
+		static List<uint32_t> crcs;
+
+		numCRCs = 0;
+		CheckPtr(setPtr, nullptr);
+
+		crcs = setPtr->GetBones();
+
+		numCRCs = (int32_t)crcs.Size();
+		return crcs.GetArrayPtr();
+	}
     
 
     const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
