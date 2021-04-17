@@ -35,8 +35,8 @@ namespace LibSWBF2::Wrappers
 	
 		bool ContainsAnimation(CRCChecksum anim) const;
 
-		List<CRCChecksum> GetAnimationNames() const;
-		List<CRCChecksum> GetBoneNames() const;
+		List<CRCChecksum> GetAnimations() const;
+		List<CRCChecksum> GetBones() const;
 		
 		bool GetAnimationMetadata(CRCChecksum anim, uint32_t &numFrames, uint32_t &numBones) const;
 

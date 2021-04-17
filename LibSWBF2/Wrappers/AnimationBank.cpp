@@ -212,7 +212,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<CRCChecksum> AnimationBank::GetAnimationNames() const
+	List<CRCChecksum> AnimationBank::GetAnimations() const
 	{
 		return p_AnimChunk -> p_Bin -> p_AnimsMetadata -> m_AnimNameHashes;
 	}
@@ -238,7 +238,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<CRCChecksum> AnimationBank::GetBoneNames() const
+	List<CRCChecksum> AnimationBank::GetBones() const
 	{
 		TNJA *index = p_AnimChunk -> p_Bin -> p_JointAddresses;
 
