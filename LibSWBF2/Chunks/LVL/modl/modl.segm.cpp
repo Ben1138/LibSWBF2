@@ -72,7 +72,7 @@ namespace LibSWBF2::Chunks::LVL::modl
             }
             else if (next == "MNAM"_h)
             {
-                READ_CHILD(stream, p_MNAM);
+                READ_CHILD(stream, p_Tag);
             }
             else
             {

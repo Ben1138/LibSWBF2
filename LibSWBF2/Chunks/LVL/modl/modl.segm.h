@@ -21,7 +21,7 @@ namespace LibSWBF2::Chunks::LVL::modl
 		STR<"RTYP"_m>* p_RenderType;	// string seems to represent an enum
 		IBUF* p_IndexBuffer;
 		STR<"BNAM"_m>* p_Parent;
-		STR<"MNAM"_m>* p_MNAM; 			// Still don't know MNAM this means, ModelName???
+		STR<"MNAM"_m>* p_Tag; 			// Still don't know MNAM this means, ModelName???
 		SKIN* p_Skin;					// OPTIONAL
 		BMAP* p_BoneMap;				// OPTIONAL. This mapper seems unnecessary to me...
 
