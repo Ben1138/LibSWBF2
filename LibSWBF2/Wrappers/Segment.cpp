@@ -196,6 +196,17 @@ namespace LibSWBF2::Wrappers
 	}
 
 
+	String Segment::GetMNAM() const
+	{
+		if (p_Segment -> p_MNAM != nullptr)
+		{
+			return p_Segment -> p_MNAM -> m_Text;			
+		}
+
+		return "";
+	}
+
+
 	bool Segment::IsPretransformed() const
 	{
 		auto flags = p_VertexBuffer -> m_Flags;

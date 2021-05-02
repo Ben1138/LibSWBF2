@@ -75,6 +75,12 @@ namespace LibSWBF2::Wrappers
 		// returns the skeleton bone this segment belongs to
 		String GetBone() const;
 
+		// still not sure what the MNAM chunk refers to, seems pretty similar
+		// to p_Parent in that it connects a segment to a node/bone; however
+		// it does so with skinned segments, which is unusual...
+		String GetMNAM() const;
+
+		// Some weighted VBUF data is pre-transformed to zeroed bone transforms
 		bool IsPretransformed() const;
 	};
 }

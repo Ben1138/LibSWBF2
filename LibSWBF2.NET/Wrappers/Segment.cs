@@ -22,6 +22,7 @@ namespace LibSWBF2.Wrappers
     {
         public ETopology Topology { get; private set; }
         public string   BoneName { get; private set; }
+        public string   MNAM { get; private set; }
         public bool     IsPretransformed { get; private set; }
         public int      NumVertices { get; private set; }
         public int      NumIndices { get; private set; }
@@ -37,7 +38,7 @@ namespace LibSWBF2.Wrappers
         internal override void SetPtr(IntPtr seg)
         {
             base.SetPtr(seg);
-            if (APIWrapper.Segment_FetchAllFields(seg, out bool isPretransformed, out IntPtr boneNamePtr,
+            if (APIWrapper.Segment_FetchAllFields(seg, out bool isPretransformed, out IntPtr boneNamePtr, out IntPtr MNAMPtr,
                                                         out uint numVertsOut, out VertexBufferPtr, out NormalsBufferPtr, out UVBufferPtr,
                                                         out uint numVWsOut, out VertexWeightsBufferPtr,
                                                         out int topo, out uint numIndsOut, out IndexBufferPtr,
@@ -48,6 +49,8 @@ namespace LibSWBF2.Wrappers
                 NumVertices = (int) numVertsOut;
                 NumVertexWeights = (int) numVWsOut;
                 BoneName = Marshal.PtrToStringAnsi(boneNamePtr);
+                MNAM = Marshal.PtrToStringAnsi(MNAMPtr);
+
                 Topology = (ETopology) topo;
                 Material = FromNative<Material>(matPtr);
             }

@@ -369,6 +369,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"RTYP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MNAM"_m>;
 
 	// odf class types (see common/GenericCLass.cpp)
 	template struct LIBSWBF2_API GenericChunk<"entc"_m>;

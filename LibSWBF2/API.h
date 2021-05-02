@@ -123,10 +123,10 @@ namespace LibSWBF2
 		LIBSWBF2_API const void Bone_FetchAllFields(const Bone* bone, const char *&name, const char *& parentName, const Vector3*& loc, const Vector4*& rot);
 
 		// Wrappers - Segment		
-		LIBSWBF2_API const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
+		LIBSWBF2_API const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName, const char *&MNAM,
 														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
 														uint32_t& numVWs, VertexWeight*& vwBuf,
-														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf,
+														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf, 
 														const Material*& mat);
 
         // Wrappers - CollisionPrimitive
