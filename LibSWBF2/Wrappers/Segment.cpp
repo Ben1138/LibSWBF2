@@ -196,11 +196,11 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	String Segment::GetMNAM() const
+	String Segment::GetTag() const
 	{
-		if (p_Segment -> p_MNAM != nullptr)
+		if (p_Segment -> p_Tag != nullptr)
 		{
-			return p_Segment -> p_MNAM -> m_Text;			
+			return p_Segment -> p_Tag -> m_Text;			
 		}
 
 		return "";
