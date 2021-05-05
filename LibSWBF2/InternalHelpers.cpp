@@ -71,6 +71,39 @@ namespace LibSWBF2
 	template List<uint16_t> TriangleStripToTriangleList<uint16_t,uint16_t>(List<uint16_t>& indexBuffer, uint32_t offset);
 
 
+	template <typename V, typename T>
+	List<V> TriangleFanToTriangleList(List<T>& indexBuffer, uint32_t offset)
+	{
+		List<V> result;
+		V a,b,c;
+
+		if (indexBuffer.Size() < 3)
+		{
+			return result;
+		}
+
+		for (int i = 2; i < indexBuffer.Size(); i++)
+		{
+			a = indexBuffer[i-1] + (V) offset;
+			b = indexBuffer[i]   + (V) offset;
+			c = indexBuffer[0]   + (V) offset; 
+
+			if (a != b && b != c && a != c)	//Catch degenerate 
+			{
+				result.Add(a);
+				result.Add(b);
+				result.Add(c);
+			}
+		}
+
+		return result;
+	}
+
+	template List<uint32_t> TriangleFanToTriangleList<uint32_t,uint32_t>(List<uint32_t>& indexBuffer, uint32_t offset);
+	template List<uint32_t> TriangleFanToTriangleList<uint32_t,uint16_t>(List<uint16_t>& indexBuffer, uint32_t offset);
+	template List<uint16_t> TriangleFanToTriangleList<uint16_t,uint16_t>(List<uint16_t>& indexBuffer, uint32_t offset);
+
+
 
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix)
 	{

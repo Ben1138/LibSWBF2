@@ -9,6 +9,7 @@ using System.Threading;
 using LibSWBF2.Logging;
 using LibSWBF2.Wrappers;
 using LibSWBF2.Types;
+using LibSWBF2.Enums;
 
 namespace LibSWBF2.NET.Test
 {
@@ -16,9 +17,12 @@ namespace LibSWBF2.NET.Test
     {
         static int Main(string[] args)
         {
-            TestBench.StartLogging(ELogType.Warning);
+            TestBench testBench = new TestBench();
 
-            var lvls = TestBench.LoadAndTrackLVLs(new List<string>(args));
+            Container container = testBench.LoadAndTrackContainer(new List<string>(args), out List<Level> lvls);
+
+
+            //var lvls = testBench.LoadAndTrackLVLs(new List<string>(args));
 
             for (int i = 0; i < lvls.Count; i++)
             {
@@ -26,30 +30,28 @@ namespace LibSWBF2.NET.Test
 
                 var level = lvls[i];
 
-                Model[] models = level.GetModels();
+                Model[] models = level.Get<Model>();
                 foreach (Model model in models)
                 {
-                    Console.WriteLine("\n\tModel: " + model.name);
+                    Console.WriteLine("\n\tModel: " + model.Name);
                     CollisionMesh mesh = model.GetCollisionMesh();
 
                     if (mesh == null) continue;
 
-                    Console.WriteLine("\t\tCollision mask flags: {0}", mesh.maskFlags);
+                    Console.WriteLine("\t\tCollision mask flags: {0}", mesh.MaskFlags);
                     Console.WriteLine("\t\tNum collision indices:   {0}", mesh.GetIndices().Length);
                     Console.WriteLine("\t\tNum collision verticies: {0}", mesh.GetVertices<Vector3>().Length);
                 
-                    CollisionPrimitive[] prims = model.GetPrimitivesMasked(16);
+                    CollisionPrimitive[] prims = model.GetPrimitivesMasked((ECollisionMaskFlags) 16);
 
                     Console.WriteLine("\t\t{0} Primitives: ", prims.Length);
 
                     foreach (var prim in prims)
                     {
-                        Console.WriteLine("\t\t\tName: {0} Parent: {1}", prim.name, prim.parentName);
+                        Console.WriteLine("\t\t\tName: {0} Parent: {1}", prim.Name, prim.ParentName);
                     }
                 }
             }
-
-            TestBench.StopLogging();
 
             return 0;
         }
