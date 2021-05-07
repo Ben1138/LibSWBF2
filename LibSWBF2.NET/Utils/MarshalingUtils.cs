@@ -74,6 +74,11 @@ namespace LibSWBF2.Utils
         // Extracts managed strings from an unmanaged array of char pointers.
         public static string[] IntPtrToStringList(IntPtr nativePtr, int count)
         {
+            if (nativePtr == IntPtr.Zero)
+            {
+                return new string[0];
+            }
+
             string[] strings = new string[count];
             IntPtr[] stringPtrs = new IntPtr[count];
             Marshal.Copy(nativePtr, stringPtrs, 0, count);

@@ -143,4 +143,19 @@ namespace LibSWBF2::Types
 	{
 		return buffer == nullptr || buffer[0] == 0;
 	}
+
+	void String::Clean() 
+	{
+		if (buffer == nullptr) return;
+
+		for (int i = 0; i < length; i++)
+		{
+			// Replaces a non-breaking space (&nbsp) with a normal space.
+			// PtrToStringAnsi will crash if it encounters &nbsp... 
+			if (((unsigned char) buffer[i]) == 0xa0) // cast to uchar to avoid sign ambiguity
+			{
+				buffer[i] = 0x20;
+			}
+		}
+	}
 }
