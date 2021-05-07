@@ -25,6 +25,8 @@ namespace LibSWBF2::Types
 
 		bool IsEmpty() const;
 
+		void Clean();
+
 		inline const static size_t MAX_LENGTH = 0xffffffff; //Clangfix
 
 	private:
