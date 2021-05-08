@@ -23,7 +23,7 @@ namespace LibSWBF2::Chunks::LVL::common
 
         m_PropertyName = stream.ReadUInt32();
         m_Value = stream.ReadString();
-        m_Value.Clean();
+        m_Value.Replace((char)'\xa0', '0x20');
 
         BaseChunk::EnsureEnd(stream);
     }
