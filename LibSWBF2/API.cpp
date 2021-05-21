@@ -629,7 +629,8 @@ namespace LibSWBF2
     // Wrappers - Material
     uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                     Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
-                    char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp)
+                    char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp,
+                    uint32_t& param1, uint32_t&param2)
     {	
     	static Vector3 specCache, diffCache;
     	static char** texNamePtrsCache = new char*[4];
@@ -658,6 +659,9 @@ namespace LibSWBF2
 
     	diffuse = &diffCache;
     	specular = &specCache; 
+
+    	param1 = matPtr -> GetFirstParameter();
+    	param2 = matPtr -> GetSecondParameter();
 
     	attachedLightName = const_cast<char *>(matPtr -> GetAttachedLight().Buffer());
 
