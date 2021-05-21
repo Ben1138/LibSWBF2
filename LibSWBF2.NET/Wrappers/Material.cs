@@ -20,13 +20,18 @@ namespace LibSWBF2.Wrappers
         public Vector3       DiffuseColor { get; private set; }
         public string        AttachedLight { get; private set; }
 
+        public uint          Param1 { get; private set; }
+        public uint          Param2 { get; private set; }
+
+
         internal override void SetPtr(IntPtr ptr)
         {
             base.SetPtr(ptr);
             if (APIWrapper.Material_FetchAllFields(ptr, out IntPtr specular,
                                                 out IntPtr diffuse, out IntPtr texNames,
                                                 out int numTexes, out IntPtr attachedLightName,
-                                                out uint matFlags, out uint specularExponent))
+                                                out uint matFlags, out uint specularExponent,
+                                                out uint param1, out uint param2))
             {
                 MaterialFlags = (EMaterialFlags) matFlags;
 
@@ -36,6 +41,9 @@ namespace LibSWBF2.Wrappers
 
                 Textures = new ReadOnlyCollection<string>(MemUtils.IntPtrToStringList(texNames, numTexes));
                 AttachedLight = Marshal.PtrToStringAnsi(attachedLightName);
+
+                Param1 = param1;
+                Param2 = param2;
             }
         }
     }
