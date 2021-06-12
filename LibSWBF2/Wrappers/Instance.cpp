@@ -158,22 +158,16 @@ namespace LibSWBF2::Wrappers
 		return false;
 	}
 
-	bool Instance::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
+	void Instance::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
 	{
-		List<FNVHash> hashes;
-		List<String> values;
+		hashesOut.Clear();
+		valuesOut.Clear();
 
 		List<PROP*>& properties = p_Instance -> m_OverrideProperties;
-
 		for (int i = 0; i < properties.Size(); i++)
 		{
-			hashes.Add(properties[i] -> m_PropertyName);
-			values.Add(properties[i] -> m_Value);
+			hashesOut.Add(properties[i] -> m_PropertyName);
+			valuesOut.Add(properties[i] -> m_Value);
 		}
-
-		hashesOut = std::move(hashes);
-		valuesOut = std::move(values);
-
-		return true;
 	}
 }

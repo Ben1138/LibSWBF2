@@ -107,15 +107,12 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public bool GetOverriddenProperties(out uint[] properties, out string[] values)
+        public void GetOverriddenProperties(out uint[] properties, out string[] values)
         {
             CheckValidity();
-            bool status = APIWrapper.Instance_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
-            count = status ? count : 0;
+            APIWrapper.Instance_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
             properties = MemUtils.IntPtrToArray<uint>(props, count);
             values = MemUtils.IntPtrToStringList(vals, count).ToArray();
-
-            return status;
         }
     }
 }

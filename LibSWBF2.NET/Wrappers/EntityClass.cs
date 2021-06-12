@@ -90,23 +90,27 @@ namespace LibSWBF2.Wrappers
             return false;
         }
 
-        public bool GetOverriddenProperties(out uint[] properties, out string[] values)
+        /// <summary>
+        /// Will return just the properties specified within exactly this class, parent classes excluded
+        /// </summary>
+        public void GetOverriddenProperties(out uint[] properties, out string[] values)
         {
             CheckValidity();
-            bool status = APIWrapper.EntityClass_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            APIWrapper.EntityClass_GetOverriddenProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
+        }
 
-            if (status)
-            {
-                properties = MemUtils.IntPtrToArray<uint>(props, count);
-                values = MemUtils.IntPtrToStringList(vals, count).ToArray();
-            }
-            else 
-            {
-                properties = new uint[0];
-                values = new string[0];
-            }
-
-            return status;
+        /// <summary>
+        /// Will return ALL properties specified within this class and all parent classes.
+        /// Will start with the greatest parent and move up the inheritance hierarchy to this class
+        /// </summary>
+        public void GetAllProperties(out uint[] properties, out string[] values)
+        {
+            CheckValidity();
+            APIWrapper.EntityClass_GetAllProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
         }
     }
 }

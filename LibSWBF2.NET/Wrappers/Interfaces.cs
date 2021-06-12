@@ -12,6 +12,6 @@ namespace LibSWBF2.Wrappers
         bool GetProperty(uint hashedPropName, out string propValue);
         bool GetProperty(string propName, out string[] propValues);
         bool GetProperty(uint hashedPropName, out string[] propValues);
-        bool GetOverriddenProperties(out uint[] properties, out string[] values);
+        void GetOverriddenProperties(out uint[] properties, out string[] values);
     }
 }

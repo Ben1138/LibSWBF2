@@ -195,27 +195,37 @@ namespace LibSWBF2::Wrappers
 		return outValues.Size() > 0;
 	}
 
-	bool EntityClass::GetOverriddenProperties(List<FNVHash>& hashesOut, List<String>& valuesOut) const
+	void EntityClass::GetOverriddenProperties(List<FNVHash>& outHashes, List<String>& outValues) const
 	{
-		List<FNVHash> hashes;
-		List<String> values;
+		outHashes.Clear();
+		outValues.Clear();
 
 		List<PROP*>& properties = p_classChunk -> m_Properties;
-
 		for (int i = 0; i < properties.Size(); i++)
 		{
-			hashes.Add(properties[i] -> m_PropertyName);
-			values.Add(properties[i] -> m_Value);
+			outHashes.Add(properties[i] -> m_PropertyName);
+			outValues.Add(properties[i] -> m_Value);
 		}
-
-		hashesOut = std::move(hashes);
-		valuesOut = std::move(values);
-
-		return true;
 	}
 
+	void EntityClass::GetAllProperties(List<FNVHash>& outHashes, List<String>& outValues) const
+	{
+		outHashes.Clear();
+		outValues.Clear();
 
+		const EntityClass* base = GetBase();
+		if (base != nullptr)
+		{
+			base->GetAllProperties(outHashes, outValues);
+		}
 
+		List<PROP*>& properties = p_classChunk->m_Properties;
+		for (int i = 0; i < properties.Size(); i++)
+		{
+			outHashes.Add(properties[i]->m_PropertyName);
+			outValues.Add(properties[i]->m_Value);
+		}
+	}
 	
 
 	template LIBSWBF2_API bool EntityClass::FromChunk(Container* mainContainer, entc* classChunk, EntityClass& out);

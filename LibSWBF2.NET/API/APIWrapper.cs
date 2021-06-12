@@ -208,12 +208,14 @@ namespace LibSWBF2
         public static extern bool Instance_GetPropertiesFromHash(IntPtr inst, uint hashedPropName, out IntPtr values, out uint count);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Instance_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+        public static extern void Instance_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void EntityClass_GetAllProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
 
 
         // Light //
-        
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Light_GetAllFields(IntPtr lightPtr,   out IntPtr rotPtr,
                                                     out IntPtr posPtr, out uint lightType, 
@@ -301,8 +303,7 @@ namespace LibSWBF2
         public static extern bool EntityClass_GetPropertiesFromHash(IntPtr ec, uint hashedPropName, out IntPtr values, out uint count);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool EntityClass_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+        public static extern void EntityClass_GetOverriddenProperties(IntPtr ec, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
 
 
         // Material //
