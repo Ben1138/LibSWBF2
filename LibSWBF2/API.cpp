@@ -812,23 +812,18 @@ namespace LibSWBF2
 		return GenericGetProperties(instPtr, hashedPropName, values, count);
 	}
 
-    const uint8_t Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+    void Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(instPtr, false)
+    	CheckPtr(instPtr)
     	static List<String> values;
     	static List<uint32_t> hashes;
     	static List<const char*> ptrsBuffer;
 
-    	if (instPtr -> GetOverriddenProperties(hashes, values))
-    	{
-    		hashesBuffer = hashes.GetArrayPtr();
-    		count = (int32_t)values.Size();
-			GetStringListPtrs(values, ptrsBuffer);
-    		valuesBuffer = ptrsBuffer.GetArrayPtr();
-    		return true;
-    	}
-
-    	return false;
+		instPtr->GetOverriddenProperties(hashes, values);
+    	hashesBuffer = hashes.GetArrayPtr();
+    	count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+    	valuesBuffer = ptrsBuffer.GetArrayPtr();
     }
 
 
@@ -888,23 +883,35 @@ namespace LibSWBF2
     }
 
 
-    uint8_t EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+    void EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(ec, false)
-    	List<const char*> ptrsBuffer;
+    	CheckPtr(ec)
+    	static List<const char*> ptrsBuffer;
     	static List<String> values;
     	static List<uint32_t> hashes;
 
-    	if (!ec -> GetOverriddenProperties(hashes, values)){ return false; }
+		ec->GetOverriddenProperties(hashes, values);
     	
 		hashesBuffer = hashes.GetArrayPtr();
 		count = (int32_t)values.Size();
 		GetStringListPtrs(values, ptrsBuffer);
 		valuesBuffer = ptrsBuffer.GetArrayPtr();
-		return true;
     }
    
+	void EntityClass_GetAllProperties(const EntityClass* ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	{
+		CheckPtr(ec)
+		static List<const char*> ptrsBuffer;
+		static List<String> values;
+		static List<uint32_t> hashes;
 
+		ec->GetAllProperties(hashes, values);
+
+		hashesBuffer = hashes.GetArrayPtr();
+		count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
+	}
 
     // Wrappers - AnimationBank
 	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 

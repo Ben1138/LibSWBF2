@@ -69,6 +69,7 @@ namespace LibSWBF2::Wrappers
 		bool GetProperty(const String& propertyName, List<String>& outValues) const;
 		bool GetProperty(FNVHash hashedPropertyName, List<String>& outValues) const;
 
-		bool GetOverriddenProperties(List<FNVHash>& hashes, List<String>& values) const;
+		void GetOverriddenProperties(List<FNVHash>& outHashes, List<String>& outValues) const;
+		void GetAllProperties(List<FNVHash>& outHashes, List<String>& outValues) const;
 	};
 }
