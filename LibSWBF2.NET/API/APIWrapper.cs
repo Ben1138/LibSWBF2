@@ -31,13 +31,13 @@ namespace LibSWBF2
         public static extern IntPtr Container_Initialize();  
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint Container_AddLevel(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
+        public static extern ushort Container_AddLevel(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint Container_AddLevelFiltered(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path, IntPtr[] subLVLs, uint subLVLCount);
+        public static extern ushort Container_AddLevelFiltered(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path, IntPtr[] subLVLs, uint subLVLCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint Container_AddSoundBank(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
+        public static extern ushort Container_AddSoundBank(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_FreeAll(IntPtr container, [MarshalAs(UnmanagedType.U1)] bool force);
@@ -49,8 +49,11 @@ namespace LibSWBF2
         public static extern float Container_GetOverallProgress(IntPtr container);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Container_GetLevel(IntPtr container, uint handle); 
-        
+        public static extern IntPtr Container_GetLevel(IntPtr container, uint handle);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Container_GetLoadedLevels(IntPtr container, out IntPtr handles, out ushort handleCount);
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
 

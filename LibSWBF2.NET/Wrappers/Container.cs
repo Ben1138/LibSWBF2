@@ -15,15 +15,15 @@ namespace LibSWBF2
 {
     public struct SWBF2Handle
     {
-        uint NativeHandle;
+        ushort NativeHandle;
 
-        public SWBF2Handle(uint nativeHandle)
+        public SWBF2Handle(ushort nativeHandle)
         {
             NativeHandle = nativeHandle;
         }
         public uint GetNativeHandle() => NativeHandle;
 
-        public bool IsValid() => NativeHandle != uint.MaxValue;
+        public bool IsValid() => NativeHandle != ushort.MaxValue;
     }
 }
 
@@ -99,6 +99,18 @@ namespace LibSWBF2.Wrappers
                 level.bHasOwner = true;
             }
             return level;
+        }
+
+        public SWBF2Handle[] GetLoadedLevels()
+        {
+            APIWrapper.Container_GetLoadedLevels(NativeInstance, out IntPtr handles, out ushort count);
+            ushort[] arr = MemUtils.IntPtrToArray<ushort>(handles, count);
+            SWBF2Handle[] res = new SWBF2Handle[arr.Length];
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                res[i] = new SWBF2Handle(arr[i]);
+            }
+            return res;
         }
 
         public void LoadLevels()

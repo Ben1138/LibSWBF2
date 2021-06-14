@@ -94,16 +94,16 @@ namespace LibSWBF2
 		return Container::Create();
 	}
 
-	uint32_t Container_AddLevel(Container* container, const char *path)
+	uint16_t Container_AddLevel(Container* container, const char *path)
 	{
-		CheckPtr(container, UINT32_MAX)
+		CheckPtr(container, UINT16_MAX)
 		return (uint32_t) container -> AddLevel(path);
 	}
 
-	uint32_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount)
+	uint16_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount)
 	{
-		CheckPtr(container, UINT32_MAX)
-		CheckPtr(subLVLs, UINT32_MAX)
+		CheckPtr(container, UINT16_MAX)
+		CheckPtr(subLVLs, UINT16_MAX)
 
 		List<String> filter;
 		for (uint32_t i = 0; i < subLVLCount; ++i)
@@ -114,9 +114,9 @@ namespace LibSWBF2
 		return (uint32_t)container->AddLevel(path, &filter);
 	}
 
-	uint32_t Container_AddSoundBank(Container* container, const char* path)
+	uint16_t Container_AddSoundBank(Container* container, const char* path)
 	{
-		CheckPtr(container, UINT32_MAX)
+		CheckPtr(container, UINT16_MAX)
 		return container->AddSoundBank(path);
 	}
 
@@ -148,6 +148,15 @@ namespace LibSWBF2
 	{
 		CheckPtr(container,nullptr);
 		return container -> GetLevel((uint16_t) handleNum);
+	}
+
+	void Container_GetLoadedLevels(Container* container, uint16_t*& handles, uint16_t handleCount)
+	{
+		CheckPtr(container);
+		static List<uint16_t> HANDLES;
+		HANDLES = container->GetLoadedLevels();
+		handles = HANDLES.GetArrayPtr();
+		handleCount = (uint16_t)HANDLES.Size();
 	}
 
 	uint8_t Container_GetStatus(Container* container, uint32_t handle)
