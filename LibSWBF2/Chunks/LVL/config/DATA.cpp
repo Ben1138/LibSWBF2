@@ -2,6 +2,7 @@
 #include "DATA.h"
 #include "FileReader.h"
 #include "InternalHelpers.h"
+#include "Hashing.h"
 
 
 namespace LibSWBF2::Chunks::LVL::config
@@ -33,7 +34,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 	
-	bool DATA_CONFIG::GetFloat(float_t& floatMember, uint32_t index)
+	bool DATA_CONFIG::GetFloat(float_t& floatMember, uint32_t index) const
 	{
 		if (m_NumElements > index)
 		{
@@ -45,7 +46,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 	
-	bool DATA_CONFIG::GetVec2(Vector2 &vec2Out)
+	bool DATA_CONFIG::GetVec2(Vector2 &vec2Out) const
 	{
 		if (m_NumElements >= 2)
 		{
@@ -58,7 +59,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 
-	bool DATA_CONFIG::GetVec3(Vector3 &vec3Out)
+	bool DATA_CONFIG::GetVec3(Vector3 &vec3Out) const
 	{
 		if (m_NumElements >= 3)
 		{
@@ -71,7 +72,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 
-	bool DATA_CONFIG::GetVec4(Vector4 &vec4Out)
+	bool DATA_CONFIG::GetVec4(Vector4 &vec4Out) const
 	{
 		if (m_NumElements >= 4)
 		{
@@ -84,7 +85,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 
-	bool DATA_CONFIG::GetString(String &stringOut, uint32_t index)
+	bool DATA_CONFIG::GetString(String &stringOut, uint32_t index) const
 	{
 		if (m_NumElements > index)
 		{
@@ -126,9 +127,16 @@ namespace LibSWBF2::Chunks::LVL::config
 	
 
 
-	String DATA_CONFIG::ToString()
+	String DATA_CONFIG::ToString() const
 	{
-		String rep = fmt::format("Name hash: 0x{0:x}\nNum elements: {1}\n", m_NameHash, m_NumElements).c_str();
+		String rep = fmt::format("Name hash: 0x{0:x}\n", m_NameHash).c_str();
+
+		String name;
+		if (FNV::Lookup(m_NameHash, name))
+		{
+			rep += fmt::format("Lookup Name: {0}\n", name.Buffer()).c_str();
+		}
+		rep += fmt::format("Num elements: {0}\n", m_NumElements).c_str();
 		String str;
 
 		if (IsFloatData())
@@ -158,7 +166,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	}
 
 
-	bool DATA_CONFIG::IsFloatData()
+	bool DATA_CONFIG::IsFloatData() const
 	{
 		return m_ContentSize == m_NumElements * sizeof(float_t) + 4;
 	}

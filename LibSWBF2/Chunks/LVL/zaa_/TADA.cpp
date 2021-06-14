@@ -34,7 +34,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String TADA::ToString()
+	String TADA::ToString() const
 	{
 		return fmt::format("Buffer length = {}", m_DataBufferLength).c_str();
 	}

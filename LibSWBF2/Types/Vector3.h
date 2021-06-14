@@ -18,6 +18,6 @@ namespace LibSWBF2::Types
 		float_t m_Y = 0.0f;
 		float_t m_Z = 0.0f;
 
-		String ToString();
+		String ToString() const;
 	};
 }

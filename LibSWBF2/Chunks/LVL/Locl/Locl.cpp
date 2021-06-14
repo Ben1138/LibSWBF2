@@ -28,7 +28,7 @@ namespace LibSWBF2::Chunks::LVL::Localization
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String Locl::ToString()
+	String Locl::ToString() const
 	{
 		return fmt::format(
 			"Language: {}\n"

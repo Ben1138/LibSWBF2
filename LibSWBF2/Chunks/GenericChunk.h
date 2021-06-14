@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks
 		GenericBaseChunk* GetParent() const;
 		const List<GenericBaseChunk*>& GetChildren() const;
 
-		virtual String ToString();
+		virtual String ToString() const;
 
 	public:
 		template<class ChildType>

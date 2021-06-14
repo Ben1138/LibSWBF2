@@ -33,7 +33,7 @@ namespace LibSWBF2::Chunks::LVL::FMT
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String INFO::ToString()
+	String INFO::ToString() const
 	{
 		return fmt::format(
 			"Format:\t{}\n"

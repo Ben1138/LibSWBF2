@@ -22,7 +22,7 @@ namespace LibSWBF2::Types
 		m_Color.ReadFromStream(stream);
 	}
 
-	String TerrainBufferEntry::ToString()
+	String TerrainBufferEntry::ToString() const
 	{
 		return fmt::format(
 			"Position: {}\n"

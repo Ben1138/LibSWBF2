@@ -205,7 +205,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String VBUF::ToString()
+    String VBUF::ToString() const
     {
         std::string result = "Count = " + std::to_string(m_Count) + "\n";
         result += "Stride = " + std::to_string(m_Stride) + "\n";

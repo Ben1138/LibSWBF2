@@ -17,7 +17,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        Types::String ToString() override;
+        Types::String ToString() const override;
 
         uint32_t m_FlattenedTreeIndex;
         List<uint16_t> m_Indicies;

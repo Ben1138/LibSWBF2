@@ -43,7 +43,7 @@ namespace LibSWBF2::Chunks::LVL::skel
         BaseChunk::EnsureEnd(stream);
     }
 
-    String XFRM::ToString()
+    String XFRM::ToString() const
     {
         if (m_BoneRotations.Size() != m_BonePositions.Size())
         {

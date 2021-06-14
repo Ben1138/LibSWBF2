@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        Types::String ToString() override;
+        Types::String ToString() const override;
 
         Vector3 m_BBoxMin, m_BBoxMax;
         uint32_t m_NumVerts, m_NumInternalNodes, m_NumLeafNodes, m_NumIndiciesInTree;

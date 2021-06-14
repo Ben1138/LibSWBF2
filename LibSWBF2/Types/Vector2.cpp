@@ -36,7 +36,7 @@ namespace LibSWBF2::Types
 		m_Y = stream.ReadFloat();
 	}
 
-	Types::String Vector2::ToString()
+	Types::String Vector2::ToString() const
 	{
 		return fmt::format("[{}, {}]", (float_t) m_X, (float_t) m_Y).c_str();
 	}

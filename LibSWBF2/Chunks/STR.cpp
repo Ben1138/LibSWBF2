@@ -49,7 +49,7 @@ namespace LibSWBF2::Chunks
 	}
 
 	template<uint32_t Header>
-	String STR<Header>::ToString()
+	String STR<Header>::ToString() const
 	{
 		return m_Text;
 	}

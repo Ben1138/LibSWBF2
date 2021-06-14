@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String TNAM::ToString()
+    String TNAM::ToString() const
     {
         return 
             "Index = " + String(std::to_string(m_Index).c_str()) + "\n" +

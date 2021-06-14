@@ -46,7 +46,7 @@ namespace LibSWBF2::Chunks::LVL::common
 	}
 
 	template<uint32_t Header>
-	String GenericClass<Header>::ToString()
+	String GenericClass<Header>::ToString() const
 	{
 		return fmt::format(
 			"Base: {}\n\n"

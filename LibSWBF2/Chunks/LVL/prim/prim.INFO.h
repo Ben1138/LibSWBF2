@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        Types::String ToString() override;
+        Types::String ToString() const override;
 
         Types::String m_ModelName;
         uint16_t m_NumPrimitives;

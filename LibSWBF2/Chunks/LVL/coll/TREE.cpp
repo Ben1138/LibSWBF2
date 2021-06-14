@@ -56,7 +56,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String TREE::ToString() 
+    Types::String TREE::ToString() const 
     {
         return fmt::format("{} internal nodes, {} leaf nodes",
         				    m_Nodes.Size(),

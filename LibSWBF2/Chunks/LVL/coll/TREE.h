@@ -15,7 +15,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 	    void WriteToStream(FileWriter& stream) override;
 	    void ReadFromStream(FileReader& stream) override;
 
-        Types::String ToString() override;
+        Types::String ToString() const override;
 
         List<TREE_NODE *> m_Nodes;
         List<TREE_LEAF *> m_Leaves;

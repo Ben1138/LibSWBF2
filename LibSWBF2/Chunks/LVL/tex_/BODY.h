@@ -16,9 +16,9 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 	private:
 
 #ifdef _WIN32
-		DirectX::ScratchImage* p_Image = nullptr;
+		mutable DirectX::ScratchImage* p_Image = nullptr;
 #else
-		DXTexCrossPlat::CrossPlatImage* p_Image = nullptr;		
+		mutable DXTexCrossPlat::CrossPlatImage* p_Image = nullptr;
 #endif
 
 	public:
@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		bool GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data);
+		bool GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data) const;
 
 		~BODY();
 	};

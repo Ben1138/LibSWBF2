@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks::LVL::config
         BaseChunk::EnsureEnd(stream);
 	}
 
-	String DATA_FLOAT::ToString()
+	String DATA_FLOAT::ToString() const
 	{
 		String rep = fmt::format("Hash value: {}\nFloats: ", m_NameHash).c_str();
 		for (uint8_t i = 0; i < m_Floats.Size(); i++)

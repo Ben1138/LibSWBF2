@@ -20,6 +20,6 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		//String ToString();
+		//String ToString() const;
 	};
 }

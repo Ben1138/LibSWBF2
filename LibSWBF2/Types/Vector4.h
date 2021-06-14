@@ -19,6 +19,6 @@ namespace LibSWBF2::Types
 		float_t m_Z = 0;
 		float_t m_W = 0;
 
-		String ToString();
+		String ToString() const;
 	};
 }

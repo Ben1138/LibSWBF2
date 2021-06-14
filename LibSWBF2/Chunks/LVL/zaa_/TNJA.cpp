@@ -55,7 +55,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String TNJA::ToString()
+	String TNJA::ToString() const
 	{
 		BIN_ *parent = dynamic_cast<BIN_*>(GetParent());
 

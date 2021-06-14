@@ -22,6 +22,6 @@ namespace LibSWBF2::Chunks::LVL::modl
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		String ToString() override;
+		String ToString() const override;
 	};
 }

@@ -25,6 +25,6 @@ namespace LibSWBF2::Types
 		void ReadFromStream(FileReader& stream);
 
 		bool TryLookupName(String& result);
-		String ToString();
+		String ToString() const;
 	};
 }

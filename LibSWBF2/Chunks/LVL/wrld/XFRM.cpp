@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
         BaseChunk::EnsureEnd(stream);
     }
 
-    String XFRM::ToString()
+    String XFRM::ToString() const
     {
         return
             "Rotation:\n" + m_RotationMatrix.ToString() + "\n\n" +

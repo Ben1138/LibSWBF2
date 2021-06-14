@@ -49,7 +49,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String BIN_::ToString()
+	String BIN_::ToString() const
 	{
 		return fmt::format(
 			"Chunk version: {}\n"

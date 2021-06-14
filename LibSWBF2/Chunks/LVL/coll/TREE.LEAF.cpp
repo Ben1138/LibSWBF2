@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 	}
 
 	
-    Types::String TREE_LEAF::ToString() 
+    Types::String TREE_LEAF::ToString() const 
     {
         std::string stringRep = "{";
 

@@ -65,7 +65,7 @@ namespace LibSWBF2::Chunks::LVL::skel
         BaseChunk::EnsureEnd(stream);
     }
 
-    String skel::ToString()
+    String skel::ToString() const
     {
         return p_Info != nullptr ? p_Info->ToString() : "INFO chunk missing!";
     }

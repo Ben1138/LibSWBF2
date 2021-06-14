@@ -62,7 +62,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String emo_::ToString()
+	String emo_::ToString() const
 	{
 		std::string result = fmt::format(
 			"Clip Count: {}\n",

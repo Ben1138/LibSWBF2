@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL::Localization
         BaseChunk::EnsureEnd(stream);       
     }
 
-    String BODY::ToString()
+    String BODY::ToString() const
     {
         //std::string result;
         //for (size_t i = 0; i < m_LocalizeEntries.Size(); ++i)

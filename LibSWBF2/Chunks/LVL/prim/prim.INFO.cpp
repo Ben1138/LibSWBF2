@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String INFO_prim::ToString() 
+    Types::String INFO_prim::ToString() const 
     {
     	return fmt::format("String member: {}\nNum primitives {}",
     		   m_ModelName.Buffer(), m_NumPrimitives).c_str();

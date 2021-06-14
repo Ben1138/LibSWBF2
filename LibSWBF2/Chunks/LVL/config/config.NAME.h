@@ -14,6 +14,6 @@ namespace LibSWBF2::Chunks::LVL::config
 
         FNVHash m_Name;
 
-        String ToString() override;
+        String ToString() const override;
     };
 }

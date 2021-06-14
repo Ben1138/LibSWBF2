@@ -43,7 +43,7 @@ namespace LibSWBF2::Types
 		m_Alpha = stream.ReadByte();
 	}
 
-	String Color4u8::ToString()
+	String Color4u8::ToString() const
 	{
 		return fmt::format("[R: {}, G: {}, B: {}, A: {}]", m_Red, m_Green, m_Blue, m_Alpha).c_str();
 	}

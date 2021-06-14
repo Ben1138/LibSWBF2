@@ -14,6 +14,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		String ToString() override;
+		String ToString() const override;
 	};
 }

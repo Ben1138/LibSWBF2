@@ -41,7 +41,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String coll::ToString() 
+    Types::String coll::ToString() const
     {
         return p_Tree -> ToString()  +
                " Name: " + p_ChunkName -> ToString() +

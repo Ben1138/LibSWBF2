@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::EnsureEnd(stream);
     }
 
-    Types::String MASK::ToString()
+    Types::String MASK::ToString() const
     {
         return CollisionMaskTypeToString(m_MaskFlags);
     }

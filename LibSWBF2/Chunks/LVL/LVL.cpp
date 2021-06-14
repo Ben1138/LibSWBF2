@@ -120,7 +120,7 @@ namespace LibSWBF2::Chunks::LVL
 		return success;
 	}
 
-	String LVL::ToString()
+	String LVL::ToString() const
 	{
 		std::string result = fmt::format("LVL Type: {}", LVLTypeToString(m_LVLType));
 		if (m_LVLType == ELVLType::Sound)
