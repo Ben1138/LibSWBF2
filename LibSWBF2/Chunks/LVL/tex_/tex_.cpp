@@ -33,7 +33,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String tex_::ToString()
+	String tex_::ToString() const
 	{
 		return fmt::format(
 			"Name: {}\n\n"

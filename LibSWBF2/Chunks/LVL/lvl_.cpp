@@ -82,7 +82,7 @@ namespace LibSWBF2::Chunks::LVL
         //ReadGenerics(stream);
     }
 
-    String lvl_::ToString()
+    String lvl_::ToString() const
     {
         String name;
         if (!FNV::Lookup(m_NameHash, name))

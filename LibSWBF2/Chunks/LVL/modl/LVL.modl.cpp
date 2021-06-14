@@ -50,7 +50,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String modl::ToString()
+    String modl::ToString() const
     {
         return
             "NAME: " + p_Name->m_Text + "\n\n" +

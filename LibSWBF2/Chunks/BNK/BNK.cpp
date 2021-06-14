@@ -44,7 +44,7 @@ namespace LibSWBF2::Chunks::BNK
 		return m_SoundBank.TryLookupName(result);
 	}
 
-	String BNK::ToString()
+	String BNK::ToString() const
 	{
 		return m_SoundBank.ToString();
 	}

@@ -34,7 +34,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String INFO::ToString()
+    String INFO::ToString() const
     {
         return fmt::format(
             "Grid Unit Size: {}\n"

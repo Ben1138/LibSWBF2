@@ -61,7 +61,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 	}
 
 
-	Types::String prim::ToString()
+	Types::String prim::ToString() const
 	{
 		return p_InfoChunk -> ToString();
 	}

@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String _pad::ToString()
+	String _pad::ToString() const
 	{
 		return fmt::format(
 			"Unknown 1: {}\n"

@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks::LVL::script
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String scr_::ToString()
+	String scr_::ToString() const
 	{
 		return fmt::format(
 			"Name: {}\n\n"

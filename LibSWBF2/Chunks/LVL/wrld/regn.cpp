@@ -42,7 +42,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
     }
 
 
-    String regn::ToString()
+    String regn::ToString() const
     {
         String rep = fmt::format("Name: {}\nType: {}\n",
                                 p_Info -> p_Name -> m_Text.Buffer(),

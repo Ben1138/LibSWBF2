@@ -64,7 +64,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
         BaseChunk::EnsureEnd(stream);
     }
 
-	String wrld::ToString()
+	String wrld::ToString() const
 	{
 		return fmt::format(
 			"World Name: {}\n\n"

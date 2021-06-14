@@ -31,7 +31,7 @@ namespace LibSWBF2::Types
 		void ReadDataFromStream(FileReader& stream);
 
 		bool TryLookupName(String& result);
-		String ToString();
+		String ToString() const;
 
 	private:
 		uint8_t* m_Data;

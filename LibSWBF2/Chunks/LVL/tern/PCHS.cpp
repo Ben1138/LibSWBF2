@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String PCHS::ToString()
+    String PCHS::ToString() const
     {
         return fmt::format("Num Patches: {}", m_Patches.Size()).c_str();
     }

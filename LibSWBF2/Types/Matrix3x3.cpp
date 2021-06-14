@@ -37,7 +37,7 @@ namespace LibSWBF2::Types
 		matrix[2][2] = stream.ReadFloat();
 	}
 
-	String Matrix3x3::ToString()
+	String Matrix3x3::ToString() const
 	{
 		return fmt::format(
 			"[{}, {}, {}]\n"

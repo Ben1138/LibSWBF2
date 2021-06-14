@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks::LVL::common
         BaseChunk::EnsureEnd(stream);
     }
 
-    String PROP::ToString()
+    String PROP::ToString() const
     {
         String name;
         if (!FNV::Lookup(m_PropertyName, name))

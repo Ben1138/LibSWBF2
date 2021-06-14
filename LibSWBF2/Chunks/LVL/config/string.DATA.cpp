@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks::LVL::config
         BaseChunk::EnsureEnd(stream);
 	}
 
-	String DATA_STRING::ToString()
+	String DATA_STRING::ToString() const
 	{
 		if (m_String == "")
 		{

@@ -121,7 +121,7 @@ namespace LibSWBF2::Types
 		return FNV::Lookup(m_NameHash, result);
 	}
 
-	String SoundClip::ToString()
+	String SoundClip::ToString() const
 	{
 		String clipName;
 		if (!FNV::Lookup(m_NameHash, clipName))

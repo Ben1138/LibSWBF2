@@ -299,7 +299,7 @@ namespace LibSWBF2::Chunks
 		return m_Children;
 	}
 
-	String GenericBaseChunk::ToString()
+	String GenericBaseChunk::ToString() const
 	{
 		return "No Info";
 	}

@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks
     }
 
     template<uint32_t Header>
-    String STRMULT<Header>::ToString()
+    String STRMULT<Header>::ToString() const
     {
         std::string result;
         for (size_t i = 0; i < m_Texts.Size(); ++i)

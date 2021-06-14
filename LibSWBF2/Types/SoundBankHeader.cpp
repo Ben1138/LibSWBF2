@@ -45,7 +45,7 @@ namespace LibSWBF2::Types
 		return FNV::Lookup(m_NameHash, result);
 	}
 
-	String SoundBankHeader::ToString()
+	String SoundBankHeader::ToString() const
 	{
 		String bankName;
 		if (!FNV::Lookup(m_NameHash, bankName))

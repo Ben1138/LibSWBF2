@@ -24,7 +24,7 @@ namespace LibSWBF2::Chunks::LVL
 		void ReadFromStream(FileReader& stream) override;
 
 		bool TryLookupName(String& result);
-		String ToString() override;
+		String ToString() const override;
 
 	private:
 		inline void ReadContents(FileReader& stream);

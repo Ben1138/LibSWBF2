@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String TREE_NODE::ToString() 
+    Types::String TREE_NODE::ToString() const 
     {
         return fmt::format("Lower vector: {}\nHigher vector: {}",
         				    m_VecLower.ToString().Buffer(),

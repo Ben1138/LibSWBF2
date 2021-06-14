@@ -36,7 +36,7 @@ namespace LibSWBF2::Types
 		m_Z = stream.ReadByte();
 	}
 
-	String Vector3u8::ToString()
+	String Vector3u8::ToString() const
 	{
 		return fmt::format("[{}, {}, {}]", m_X, m_Y, m_Z).c_str();
 	}

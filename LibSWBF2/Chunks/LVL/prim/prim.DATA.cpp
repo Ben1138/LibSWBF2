@@ -34,7 +34,7 @@ namespace LibSWBF2::Chunks::LVL::prim
         BaseChunk::EnsureEnd(stream);
 	}
 
-	Types::String DATA_PRIM::ToString()
+	Types::String DATA_PRIM::ToString() const
 	{
 		switch (m_PrimitiveType)
 		{

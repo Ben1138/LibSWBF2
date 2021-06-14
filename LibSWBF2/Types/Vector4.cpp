@@ -44,7 +44,7 @@ namespace LibSWBF2::Types
 		m_W = stream.ReadFloat();
 	}
 
-	String Vector4::ToString()
+	String Vector4::ToString() const
 	{
 		return fmt::format("[{}, {}, {}, {}]",(float_t) m_X, (float_t) m_Y,(float_t) m_Z,(float_t) m_W).c_str();
 	}

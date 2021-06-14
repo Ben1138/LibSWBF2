@@ -100,7 +100,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
     }
 
 
-    bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data)
+    bool BODY::GetImageData(ETextureFormat format, uint16_t& width, uint16_t& height, const uint8_t*& data) const
     {
         if (p_Image == nullptr)
         {

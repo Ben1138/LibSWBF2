@@ -27,7 +27,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		String ToString() override;
+		String ToString() const override;
 	};
 
 	struct LIBSWBF2_API ConfigChunkNC : public ConfigChunk<0> {};

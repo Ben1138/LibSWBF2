@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::LVL::script
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String INFO::ToString()
+	String INFO::ToString() const
 	{
 		return fmt::format(
 			"Num Bodies: {}",

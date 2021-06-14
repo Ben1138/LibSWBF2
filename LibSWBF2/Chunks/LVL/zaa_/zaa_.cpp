@@ -37,7 +37,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String zaa_::ToString()
+	String zaa_::ToString() const
 	{
 		return fmt::format(
 			"Name: {}\n\n",

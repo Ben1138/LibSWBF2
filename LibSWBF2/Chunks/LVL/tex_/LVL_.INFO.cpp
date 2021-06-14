@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String INFO::ToString()
+	String INFO::ToString() const
 	{
 		return fmt::format(
 			"Mip Level:\t{}\n"

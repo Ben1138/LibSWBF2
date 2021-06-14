@@ -25,7 +25,7 @@ namespace LibSWBF2::Chunks::LVL
 		// All sub LVLs not specified in here won't be loaded!
 		bool ReadFromFile(String Path, const List<String>* subLVLsToLoad = nullptr);
 
-		String ToString() override;
+		String ToString() const override;
 
 	protected:
 		LVL() = default;

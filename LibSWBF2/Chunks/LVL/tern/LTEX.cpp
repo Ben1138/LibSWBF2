@@ -44,7 +44,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String LTEX::ToString()
+    String LTEX::ToString() const
     {
         std::string result;
         for (size_t i = 0; i < m_LayerTextures.Size(); ++i)

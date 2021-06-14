@@ -31,7 +31,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String MTRL::ToString()
+    String MTRL::ToString() const
     {
         return
             "Flags = " + MaterialFlagsToString(m_Flags) + "\n" +

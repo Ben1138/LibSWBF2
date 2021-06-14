@@ -86,7 +86,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String PTCH::ToString()
+    String PTCH::ToString() const
     {
         return fmt::format(
             "Has Texture Vertex Buffer: {}\n"

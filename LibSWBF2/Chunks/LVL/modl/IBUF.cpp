@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String IBUF::ToString()
+    String IBUF::ToString() const
     {
         std::string result = fmt::format("Number of Inidces = {}\nIndices = [", m_IndicesCount);
         for (uint32_t i = 0; i < m_IndicesCount; ++i)

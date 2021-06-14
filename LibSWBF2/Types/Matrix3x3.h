@@ -21,6 +21,6 @@ namespace LibSWBF2::Types
 		// first index = row, second index = column
 		float_t matrix[3][3];
 
-		String ToString();
+		String ToString() const;
 	};
 }

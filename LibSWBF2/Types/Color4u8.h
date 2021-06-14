@@ -21,7 +21,7 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		String ToString();
+		String ToString() const;
 
 		uint8_t m_Red = 0;
 		uint8_t m_Green = 0;

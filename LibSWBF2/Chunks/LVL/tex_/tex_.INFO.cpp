@@ -32,7 +32,7 @@ namespace LibSWBF2::Chunks::LVL::texture
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String INFO::ToString()
+	String INFO::ToString() const
 	{
 		std::string result = fmt::format("Number of formats: {}\n", m_FormatCount);
 		for (size_t i = 0; i < m_Formats.Size(); ++i)

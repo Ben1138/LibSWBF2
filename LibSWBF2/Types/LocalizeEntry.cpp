@@ -48,7 +48,7 @@ namespace LibSWBF2::Types
 		m_WideString.Resize((size_t)i + 1);
 	}
 
-	//String LocalizeEntry::ToString()
+	//String LocalizeEntry::ToString() const
 	//{
 	//	return fmt::format(
 	//		"Localize Path Hash: {}\n"

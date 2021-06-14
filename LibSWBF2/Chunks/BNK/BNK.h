@@ -18,7 +18,7 @@ namespace LibSWBF2::Chunks::BNK
 		void ReadFromStream(FileReader& stream) override;
 
 		bool TryLookupName(String& result);
-		String ToString() override;
+		String ToString() const override;
 
 	protected:
 		BNK() = default;

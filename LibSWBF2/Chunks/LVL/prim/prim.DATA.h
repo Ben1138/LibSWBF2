@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::LVL::prim
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
 
-		Types::String ToString() override;
+		Types::String ToString() const override;
 
 		ECollisionPrimitiveType m_PrimitiveType;
 		float_t m_Field1, m_Field2, m_Field3;

@@ -28,7 +28,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    String config_NAME::ToString() 
+    String config_NAME::ToString() const 
     {
         return fmt::format("0x{0:x}", m_Name).c_str();
     }

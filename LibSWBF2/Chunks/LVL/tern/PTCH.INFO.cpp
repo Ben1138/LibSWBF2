@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String PTCH_INFO::ToString()
+    String PTCH_INFO::ToString() const
     {
         std::string str_TextureSlotsUsed = "";
 

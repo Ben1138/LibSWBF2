@@ -627,4 +627,9 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 		*/
 	}
+
+	const LibSWBF2::Chunks::LVL::LVL* Level::GetChunk() const
+	{
+		return p_lvl;
+	}
 }

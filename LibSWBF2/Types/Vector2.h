@@ -25,6 +25,6 @@ namespace LibSWBF2::Types
 		float_t m_X = 0.0f;
 		float_t m_Y = 0.0f;
 
-		Types::String ToString();
+		Types::String ToString() const;
 	};
 }

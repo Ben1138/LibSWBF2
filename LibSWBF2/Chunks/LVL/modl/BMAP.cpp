@@ -29,7 +29,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String BMAP::ToString()
+    String BMAP::ToString() const
     {
         std::string result = fmt::format("Index Map Count = [", m_IndexCount);
         for (uint32_t i = 0; i < m_IndexCount; ++i)

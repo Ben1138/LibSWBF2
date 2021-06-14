@@ -87,7 +87,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
         BaseChunk::EnsureEnd(stream);
     }
 
-    String VBUF::ToString()
+    String VBUF::ToString() const
     {
         std::string result = fmt::format(
             "Element Count: {}\n"

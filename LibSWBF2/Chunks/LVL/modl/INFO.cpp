@@ -38,7 +38,7 @@ namespace LibSWBF2::Chunks::LVL::modl
         BaseChunk::EnsureEnd(stream);
     }
 
-    String INFO::ToString()
+    String INFO::ToString() const
     {
         return
             "VertexBox[0] = " + m_VertexBox[0].ToString() + "\n" + 

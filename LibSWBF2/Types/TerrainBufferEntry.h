@@ -16,7 +16,7 @@ namespace LibSWBF2::Types
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
-		String ToString();
+		String ToString() const;
 
 		Vector3 m_Position;
 		Vector3 m_Normal;

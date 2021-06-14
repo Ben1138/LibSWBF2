@@ -105,6 +105,8 @@ namespace LibSWBF2::Wrappers
 		const Sound* GetSound(FNVHash soundHashName) const;
 		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
 
+		const LVL* GetChunk() const;
+
 
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);

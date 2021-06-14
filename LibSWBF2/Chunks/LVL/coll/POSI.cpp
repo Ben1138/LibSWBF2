@@ -33,7 +33,7 @@ namespace LibSWBF2::Chunks::LVL::coll
 		BaseChunk::EnsureEnd(stream);
 	}
 
-    Types::String POSI::ToString()
+    Types::String POSI::ToString() const
     {
         String stringRep("");
 
