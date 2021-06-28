@@ -15,37 +15,36 @@ namespace LibSWBF2.NET.Test
     class ClassesTest
     {
         static int Main(string[] args)
-        {
+        {               
+            var tb = new TestBench();
+
+            var c = tb.LoadAndTrackContainer(new List<string>(args), out List<Level> lvls);
+
+
+            Level level = lvls[0];
+            if (level == null)
             {
-                TestBench.StartLogging(ELogType.Warning);
-
-                Level level = TestBench.LoadAndTrackLVL(args[0]);
-                if (level == null)
-                {
-                    TestBench.StopLogging();
-                    return -1;
-                }
-            
-                var classes = level.GetEntityClasses();
-
-                int k = 0;
-                foreach (var ec in classes)
-                {
-                    Console.WriteLine("\n" + ec.name + " of base class: " + ec.GetBaseName());
-
-                    ec.GetOverriddenProperties(out uint[] hashes, out string[] values);
-
-                    Console.WriteLine("Properties: ");
-                    for (int i = 0; i < values.Length; i++)
-                    {
-                        Console.WriteLine("\t0x{0:x}: {1}", hashes[i], values[i]);
-                    }
-                    
-                } 
-
-                TestBench.StopLogging();
-                return 1;
+                return -1;
             }
+        
+            var classes = level.Get<EntityClass>();
+
+            int k = 0;
+            foreach (var ec in classes)
+            {
+                Console.WriteLine("\n" + ec.Name + " of base class: " + ec.BaseClassName);
+
+                ec.GetOverriddenProperties(out uint[] hashes, out string[] values);
+
+                Console.WriteLine("Properties: ");
+                for (int i = 0; i < values.Length; i++)
+                {
+                    Console.WriteLine("\t0x{0:x}: {1}", hashes[i], values[i]);
+                }
+                
+            } 
+
+            return 1;            
         }
     }
 }

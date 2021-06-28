@@ -152,7 +152,7 @@ namespace LibSWBF2
 
 	void Container_GetLoadedLevels(Container* container, uint16_t*& handles, uint16_t handleCount)
 	{
-		CheckPtr(container);
+		CheckPtr(container,);
 		static List<uint16_t> HANDLES;
 		HANDLES = container->GetLoadedLevels();
 		handles = HANDLES.GetArrayPtr();
@@ -823,7 +823,7 @@ namespace LibSWBF2
 
     void Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(instPtr)
+    	CheckPtr(instPtr,)
     	static List<String> values;
     	static List<uint32_t> hashes;
     	static List<const char*> ptrsBuffer;
@@ -894,7 +894,7 @@ namespace LibSWBF2
 
     void EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(ec)
+    	CheckPtr(ec,)
     	static List<const char*> ptrsBuffer;
     	static List<String> values;
     	static List<uint32_t> hashes;
@@ -909,7 +909,7 @@ namespace LibSWBF2
    
 	void EntityClass_GetAllProperties(const EntityClass* ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
 	{
-		CheckPtr(ec)
+		CheckPtr(ec,)
 		static List<const char*> ptrsBuffer;
 		static List<String> values;
 		static List<uint32_t> hashes;
