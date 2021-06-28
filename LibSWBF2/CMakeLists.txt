@@ -52,6 +52,8 @@ target_sources(LibSWBF2_Objects PRIVATE ${CORE_FILES}
 									 ${TYPES_FILES}
 									 ${CHUNKS_SOURCES})
 
+target_compile_definitions(LibSWBF2_Objects PUBLIC MEMORY_MAPPED_READER)
+
 
 
 
@@ -95,6 +97,7 @@ if (APPLE)
 	target_include_directories(LibSWBF2_Static PUBLIC /usr/local/include)
 	target_link_directories(LibSWBF2_Static PUBLIC /usr/local/lib/)
 else()
+  target_compile_options(LibSWBF2_Objects PUBLIC -fPIC)
 	target_link_libraries(LibSWBF2 PUBLIC -ldl)
   target_link_directories(LibSWBF2 PUBLIC /usr/lib/x86_64-linux-gnu/)
 	target_link_directories(LibSWBF2_Static PUBLIC /usr/lib/x86_64-linux-gnu/)
