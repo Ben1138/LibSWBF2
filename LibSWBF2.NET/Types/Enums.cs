@@ -15,7 +15,7 @@ namespace LibSWBF2.Enums
 		Failed = 3
     }
 
-    public enum ConfigType : uint
+    public enum EConfigType : uint
     {
         Lighting = 0x7468676c,
         Effect = 0x5f5f7866,
@@ -25,7 +25,7 @@ namespace LibSWBF2.Enums
         Combo = 0x626d6f63,
     }
 
-    public enum Topology : int
+    public enum ETopology : int
     {
         PointList = 1,
         LineList = 2,
@@ -35,7 +35,7 @@ namespace LibSWBF2.Enums
         TriangleFan = 6,
     }
 
-    public enum LightType : uint
+    public enum ELightType : uint
     {
         Dir = 1,   
         Omni = 2, 
@@ -43,7 +43,7 @@ namespace LibSWBF2.Enums
     }
 
     [Flags]
-    public enum MaterialFlags : uint
+    public enum EMaterialFlags : uint
     {
     	Normal = 1,
     	Hardedged = 2,
@@ -65,7 +65,7 @@ namespace LibSWBF2.Enums
     	AttachedLight = 134217728,
     }
 
-    public enum TextureFormat : uint
+    public enum ETextureFormat : uint
     {
         D3DFMT_UNKNOWN = 0,
 
@@ -130,4 +130,24 @@ namespace LibSWBF2.Enums
 		WeaponClass,
 		ExplosionClass
     };
+
+    [Flags]
+    public enum ECollisionMaskFlags : uint
+    {
+        All = 0xffffffff,
+		Ordnance = 1,
+        Vehicle = 2,
+        Building = 4,
+        Terrain = 8,
+        Soldier = 16,
+        Flag = 32,
+	};
+
+    public enum ECollisionPrimitiveType : uint
+    {
+        Sphere = 1,
+		Cylinder = 2,
+		Empty = 3,
+		Cube = 4,
+	};
 }

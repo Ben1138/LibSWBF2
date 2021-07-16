@@ -12,8 +12,8 @@ namespace LibSWBF2.Wrappers
 {
     public sealed class CollisionPrimitive : NativeWrapper
     {
-        public uint    MaskFlags { get; private set; }
-        public uint    PrimitiveType { get; private set; }
+        public Enums.ECollisionMaskFlags MaskFlags { get; private set; }
+        public Enums.ECollisionPrimitiveType PrimitiveType { get; private set; }
         public Vector4 Rotation { get; private set; }
         public Vector3 Position { get; private set; }
         public string  Name { get; private set; }
@@ -28,7 +28,7 @@ namespace LibSWBF2.Wrappers
             APIWrapper.CollisionPrimitive_FetchAllFields(
                 NativeInstance, out f1, out f2, out f3,
                 out IntPtr namePtr, out IntPtr parentNamePtr,
-                out uint maskFlags, out uint primitiveType,
+                out Enums.ECollisionMaskFlags maskFlags, out Enums.ECollisionPrimitiveType primitiveType,
                 out IntPtr posPtr, out IntPtr rotPtr
             );
 
@@ -48,7 +48,7 @@ namespace LibSWBF2.Wrappers
             x = f1;
             y = f2;
             z = f3;
-            return PrimitiveType == 4;
+            return PrimitiveType == Enums.ECollisionPrimitiveType.Cube;
         }
 
         public bool GetCylinderDims(out float radius, out float height)
@@ -56,14 +56,14 @@ namespace LibSWBF2.Wrappers
             CheckValidity();
             radius = f1;
             height = f2;
-            return PrimitiveType == 2;
+            return PrimitiveType == Enums.ECollisionPrimitiveType.Cylinder;
         }
 
         public bool GetSphereRadius(out float radius)
         {
             CheckValidity();
             radius = f1;
-            return PrimitiveType == 1;
+            return PrimitiveType == Enums.ECollisionPrimitiveType.Sphere;
         }
     }
 }

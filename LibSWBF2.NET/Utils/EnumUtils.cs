@@ -17,67 +17,67 @@ namespace LibSWBF2.Utils
         public static string MaterialFlagsToString(uint flags)
         {
             string result = "[";
-            if ((flags & (uint) MaterialFlags.Normal) != 0)
+            if ((flags & (uint) EMaterialFlags.Normal) != 0)
             {
                 result += "Normal, ";
             }
-            if ((flags & (uint) MaterialFlags.Hardedged) != 0)
+            if ((flags & (uint) EMaterialFlags.Hardedged) != 0)
             {
                 result += "Hardedged, ";
             }
-            if ((flags & (uint) MaterialFlags.Transparent) != 0)
+            if ((flags & (uint) EMaterialFlags.Transparent) != 0)
             {
                 result += "Transparent, ";
             }
-            if ((flags & (uint) MaterialFlags.Glossmap) != 0)
+            if ((flags & (uint) EMaterialFlags.Glossmap) != 0)
             {
                 result += "Glossmap, ";
             }
-            if ((flags & (uint) MaterialFlags.Glow) != 0)
+            if ((flags & (uint) EMaterialFlags.Glow) != 0)
             {
                 result += "Glow, ";
             }
-            if ((flags & (uint) MaterialFlags.BumpMap) != 0)
+            if ((flags & (uint) EMaterialFlags.BumpMap) != 0)
             {
                 result += "BumpMap, ";
             }
-            if ((flags & (uint) MaterialFlags.Additive) != 0)
+            if ((flags & (uint) EMaterialFlags.Additive) != 0)
             {
                 result += "Additive, ";
             }
-            if ((flags & (uint) MaterialFlags.Specular) != 0)
+            if ((flags & (uint) EMaterialFlags.Specular) != 0)
             {
                 result += "Specular, ";
             }
-            if ((flags & (uint) MaterialFlags.EnvMap) != 0)
+            if ((flags & (uint) EMaterialFlags.EnvMap) != 0)
             {
                 result += "EnvMap, ";
             }
-            if ((flags & (uint) MaterialFlags.VertexLighting) != 0)
+            if ((flags & (uint) EMaterialFlags.VertexLighting) != 0)
             {
                 result += "VertexLighting, ";
             }
-            if ((flags & (uint) MaterialFlags.TiledNormalmap) != 0)
+            if ((flags & (uint) EMaterialFlags.TiledNormalmap) != 0)
             {
                 result += "TiledNormalmap, ";
             }
-            if ((flags & (uint) MaterialFlags.Doublesided) != 0)
+            if ((flags & (uint) EMaterialFlags.Doublesided) != 0)
             {
                 result += "Doublesided, ";
             }
-            if ((flags & (uint) MaterialFlags.Scrolling) != 0)
+            if ((flags & (uint) EMaterialFlags.Scrolling) != 0)
             {
                 result += "Scrolling, ";
             }
-            if ((flags & (uint) MaterialFlags.Energy) != 0)
+            if ((flags & (uint) EMaterialFlags.Energy) != 0)
             {
                 result += "Energy, ";
             }
-            if ((flags & (uint) MaterialFlags.Animated) != 0)
+            if ((flags & (uint) EMaterialFlags.Animated) != 0)
             {
                 result += "Animated, ";
             }
-            if ((flags & (uint) MaterialFlags.AttachedLight) != 0)
+            if ((flags & (uint) EMaterialFlags.AttachedLight) != 0)
             {
                 result += "AttachedLight, ";
             }

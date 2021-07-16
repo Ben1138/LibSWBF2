@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace LibSWBF2
 {
+    using Enums;
+
     internal static class APIWrapper
     {
         const string LIB_NAME = "LibSWBF2";
@@ -95,10 +97,10 @@ namespace LibSWBF2
         
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetConfig(IntPtr level, uint cfgType, uint hash);
+        public static extern IntPtr Level_GetConfig(IntPtr level, EConfigType cfgType, uint hash);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Level_GetConfigs(IntPtr level, uint cfgType, out int numConfigs);
+        public static extern IntPtr Level_GetConfigs(IntPtr level, EConfigType cfgType, out int numConfigs);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetWrapper(IntPtr level, uint type, string name);
@@ -142,7 +144,7 @@ namespace LibSWBF2
                                                             out IntPtr collMeshPtr);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, uint mask,
+        public static extern void Model_GetPrimitivesMasked(IntPtr NativeInstance, ECollisionMaskFlags mask,
                                                             out int numPrims, out IntPtr ptr);
 
 
@@ -238,7 +240,7 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool CollisionMesh_FetchAllFields(IntPtr cmPtr, out uint iCount, out IntPtr iBuf,
-                                                                out uint vCount, out IntPtr vBuf, out uint maskFlags);
+                                                                out uint vCount, out IntPtr vBuf, out ECollisionMaskFlags maskFlags);
 
 
         // CollisionPrimitive //
@@ -247,7 +249,7 @@ namespace LibSWBF2
         public static extern void CollisionPrimitive_FetchAllFields(IntPtr nativePtr,
                                                     out float f1, out float f2, out float f3,
                                                     out IntPtr name, out IntPtr parentName,
-                                                    out uint maskFlags, out uint primitiveType,
+                                                    out ECollisionMaskFlags maskFlags, out ECollisionPrimitiveType primitiveType,
                                                     out IntPtr pos, out IntPtr rot);
    
 

@@ -88,23 +88,23 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public Config GetConfig(uint hash, ConfigType cfgType)
+        public Config GetConfig(uint hash, EConfigType cfgType)
         {
             CheckValidity();
-            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, (uint)cfgType, hash);
+            IntPtr ptr = APIWrapper.Level_GetConfig(NativeInstance, cfgType, hash);
             return RegisterChild(FromNative<Config>(ptr));
         }
 
-        public Config GetConfig(string name, ConfigType cfgType)
+        public Config GetConfig(string name, EConfigType cfgType)
         {
             CheckValidity();
             return GetConfig(HashUtils.GetFNV(name), cfgType);
         }
 
-        public Config[] GetConfigs(ConfigType cfgType)
+        public Config[] GetConfigs(EConfigType cfgType)
         {
             CheckValidity();
-            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, (uint) cfgType, out int count);
+            IntPtr ptr = APIWrapper.Level_GetConfigs(NativeInstance, cfgType, out int count);
             if (ptr == IntPtr.Zero)
             {
                 return new Config[0];

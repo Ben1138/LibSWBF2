@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-using LibSWBF2.Logging;
+using LibSWBF2.Enums;
 using LibSWBF2.Utils;
 
 namespace LibSWBF2.Wrappers
@@ -50,7 +50,7 @@ namespace LibSWBF2.Wrappers
             return RegisterChild(FromNative<CollisionMesh>(collisionMeshPtr)); 
         }
 
-        public CollisionPrimitive[] GetPrimitivesMasked(uint mask = 0xffffffff)
+        public CollisionPrimitive[] GetPrimitivesMasked(ECollisionMaskFlags mask = ECollisionMaskFlags.All)
         {
             CheckValidity();
             APIWrapper.Model_GetPrimitivesMasked(NativeInstance, mask, out int numPrims, out IntPtr ptr);

@@ -13,7 +13,7 @@ namespace LibSWBF2.Wrappers
 {
     public sealed class Material : NativeWrapper
     {
-        public MaterialFlags MaterialFlags { get; private set; }
+        public EMaterialFlags MaterialFlags { get; private set; }
         public uint          SpecularExponent { get; private set; }
         public ReadOnlyCollection<string> Textures { get; private set; }
         public Vector3       SpecularColor { get; private set; }
@@ -28,7 +28,7 @@ namespace LibSWBF2.Wrappers
                                                 out int numTexes, out IntPtr attachedLightName,
                                                 out uint matFlags, out uint specularExponent))
             {
-                MaterialFlags = (MaterialFlags) matFlags;
+                MaterialFlags = (EMaterialFlags) matFlags;
 
                 SpecularColor = new Vector3(specular);
                 DiffuseColor = new Vector3(diffuse);
