@@ -131,7 +131,7 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public Config FindConfig(ConfigType type, uint nameHash=0)
+        public Config FindConfig(EConfigType type, uint nameHash=0)
         {
             CheckValidity();
             IntPtr ptr = APIWrapper.Container_GetConfig(NativeInstance, (uint)type, nameHash);
@@ -139,7 +139,7 @@ namespace LibSWBF2.Wrappers
         }
 
 
-        public Config FindConfig(ConfigType type, string name)
+        public Config FindConfig(EConfigType type, string name)
         {
             CheckValidity();
             return FindConfig(type, HashUtils.GetFNV(name));

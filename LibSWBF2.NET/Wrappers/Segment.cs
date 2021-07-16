@@ -20,7 +20,7 @@ namespace LibSWBF2.Wrappers
 
     public sealed class Segment : NativeWrapper
     {
-        public Topology Topology { get; private set; }
+        public ETopology Topology { get; private set; }
         public string   BoneName { get; private set; }
         public bool     IsPretransformed { get; private set; }
         public int      NumVertices { get; private set; }
@@ -48,7 +48,7 @@ namespace LibSWBF2.Wrappers
                 NumVertices = (int) numVertsOut;
                 NumVertexWeights = (int) numVWsOut;
                 BoneName = Marshal.PtrToStringAnsi(boneNamePtr);
-                Topology = (Topology) topo;
+                Topology = (ETopology) topo;
                 Material = FromNative<Material>(matPtr);
             }
 
@@ -116,24 +116,24 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToArray<VertexWeight>(VertexWeightsBufferPtr, NumVertexWeights);            
         }
 
-        public ushort[] GetIndexBuffer(Topology requestedTopology = Topology.TriangleList)
+        public ushort[] GetIndexBuffer(ETopology requestedTopology = ETopology.TriangleList)
         {
             CheckValidity();
 
-            if (requestedTopology != Topology.TriangleList &&
-                requestedTopology != Topology.TriangleStrip)
+            if (requestedTopology != ETopology.TriangleList &&
+                requestedTopology != ETopology.TriangleStrip)
             {
                 throw new Exception("Only requestable topologies are tri strip and tri list!");
             }
 
-            if (Topology != Topology.TriangleList &&
-                Topology != Topology.TriangleStrip)
+            if (Topology != ETopology.TriangleList &&
+                Topology != ETopology.TriangleStrip)
             {
                 return new ushort[0];
             }
 
-            if (Topology == Topology.TriangleList &&
-                requestedTopology == Topology.TriangleStrip)
+            if (Topology == ETopology.TriangleList &&
+                requestedTopology == ETopology.TriangleStrip)
             {
                 throw new Exception("Cant convert triangle strip to list yet!");
             }
