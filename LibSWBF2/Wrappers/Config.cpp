@@ -46,22 +46,42 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	Field::Field(DATA_CONFIG *data, SCOP* scop) : scope(scop)
+	Field::Field(DATA_CONFIG *data, SCOP* scop) : m_Scope(scop)
 	{
 		p_Data = data;
-		name = data -> m_NameHash;
-		//m_Scope = Scope(scop);
 	}
 
+	FNVHash Field::GetNameHash() const
+	{
+		return p_Data->m_NameHash;
+	}
 
-	float_t Field::GetFloat(uint32_t index) const
+	uint8_t Field::GetNumValues() const
+	{
+		return p_Data->m_NumValues;
+	}
+
+	EDataValueType Field::GetValueType(uint8_t index) const
+	{
+		EDataValueType out;
+		if (p_Data->GetValueType(out, index))
+		{
+			return out;
+		}
+
+		LOG_WARN("Could not get field value type at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
+		return EDataValueType::Float;
+	}
+
+	float_t Field::GetFloat(uint8_t index) const
 	{	
 		float_t out;
-		if (p_Data -> GetFloat(out,index))
+		if (p_Data->GetFloat(out, index))
 		{
 			return out;
 		}
 		
+		LOG_WARN("Could not get field float value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
 		return 0.0f;
 	}
 		
@@ -69,11 +89,12 @@ namespace LibSWBF2::Wrappers
 	Vector2 Field::GetVector2() const
 	{
 		Vector2 out;
-		if (p_Data -> GetVec2(out))
+		if (p_Data->GetVec2(out))
 		{
 			return out;
 		}
 
+		LOG_WARN("Could not get field Vector2 value in DATA chunk '{0}'!", GetName().Buffer());
 		return Vector2();
 	}
 
@@ -81,11 +102,12 @@ namespace LibSWBF2::Wrappers
 	Vector3 Field::GetVector3() const
 	{
 		Vector3 out;
-		if (p_Data -> GetVec3(out))
+		if (p_Data->GetVec3(out))
 		{
 			return out;
 		}
 
+		LOG_WARN("Could not get field Vector3 value in DATA chunk '{0}'!", GetName().Buffer());
 		return Vector3();
 	}
 
@@ -93,27 +115,37 @@ namespace LibSWBF2::Wrappers
 	Vector4 Field::GetVector4() const
 	{
 		Vector4 out;
-		if (p_Data -> GetVec4(out))
+		if (p_Data->GetVec4(out))
 		{
 			return out;
 		}
 
+		LOG_WARN("Could not get field Vector4 value in DATA chunk '{0}'!", GetName().Buffer());
 		return Vector4();
 	}
 
 
-	String Field::GetString() const
+	String Field::GetString(uint8_t index) const
 	{
 		String strOut;
-		if (p_Data -> GetString(strOut))
+		if (p_Data->GetString(strOut, index))
 		{
 			return strOut;
 		}
 	
+		LOG_WARN("Could not get field string value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
 		return "";
 	}
 
-
+	String Field::GetName() const
+	{
+		String name;
+		if (!FNV::Lookup(p_Data->m_NameHash, name))
+		{
+			name = fmt::format("0x{0:x}", p_Data->m_NameHash).c_str();
+		}
+		return name;
+	}
 
 
 	/*
@@ -148,7 +180,7 @@ namespace LibSWBF2::Wrappers
 		for (uint16_t i = 0; i < m_Fields.Size(); i++)
 		{
 			const Field& cur = m_Fields[i];
-			if (name == 0 || cur.name == name)
+			if (name == 0 || cur.p_Data->m_NameHash == name)
 			{
 				return cur;
 			}
@@ -168,7 +200,7 @@ namespace LibSWBF2::Wrappers
 		for (uint16_t i = 0; i < m_Fields.Size(); i++)
 		{
 			const Field& cur = m_Fields[i];
-			if (name == 0 || cur.name == name)
+			if (name == 0 || cur.p_Data->m_NameHash == name)
 			{
 				matchedFields.Add(&cur);
 			}
@@ -197,7 +229,7 @@ namespace LibSWBF2::Wrappers
 		for (uint16_t i = 0; i < m_Fields.Size(); i++)
 		{
 			const Field& cur = m_Fields[i];
-			if (name == 0 || cur.name == name)
+			if (name == 0 || cur.p_Data->m_NameHash == name)
 			{
 				return cur;
 			}
@@ -212,7 +244,7 @@ namespace LibSWBF2::Wrappers
 		for (uint16_t i = 0; i < m_Fields.Size(); i++)
 		{
 			const Field& cur = m_Fields[i];
-			if (name == 0 || cur.name == name)
+			if (name == 0 || cur.p_Data->m_NameHash == name)
 			{
 				matchedFields.Add(&cur);
 			}

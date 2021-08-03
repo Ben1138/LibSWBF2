@@ -152,7 +152,7 @@ namespace LibSWBF2
 
 	void Container_GetLoadedLevels(Container* container, uint16_t*& handles, uint16_t handleCount)
 	{
-		CheckPtr(container);
+		CheckPtr(container,);
 		static List<uint16_t> HANDLES;
 		HANDLES = container->GetLoadedLevels();
 		handles = HANDLES.GetArrayPtr();
@@ -823,7 +823,7 @@ namespace LibSWBF2
 
     void Instance_GetOverriddenProperties(const Instance *instPtr, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(instPtr)
+    	CheckPtr(instPtr,)
     	static List<String> values;
     	static List<uint32_t> hashes;
     	static List<const char*> ptrsBuffer;
@@ -894,7 +894,7 @@ namespace LibSWBF2
 
     void EntityClass_GetOverriddenProperties(const EntityClass *ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
     {
-    	CheckPtr(ec)
+    	CheckPtr(ec,)
     	static List<const char*> ptrsBuffer;
     	static List<String> values;
     	static List<uint32_t> hashes;
@@ -909,7 +909,7 @@ namespace LibSWBF2
    
 	void EntityClass_GetAllProperties(const EntityClass* ec, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
 	{
-		CheckPtr(ec)
+		CheckPtr(ec,)
 		static List<const char*> ptrsBuffer;
 		static List<String> values;
 		static List<uint32_t> hashes;
@@ -1012,11 +1012,10 @@ namespace LibSWBF2
 
     // Config stuff
 
-    const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash)
+    const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop)
     {
     	CheckPtr(cfg,false);
-    	scop = const_cast<Scope *>(&(cfg -> scope));
-    	hash = cfg -> name;
+    	scop = const_cast<Scope *>(&(cfg->m_Scope));
     	return true;
     }
 
@@ -1044,10 +1043,24 @@ namespace LibSWBF2
     	return true;
     }
 
-
-	const float_t Field_GetFloat(const Field* cfg)
+	const uint32_t Field_GetNameHash(const Field* cfg)
 	{
-		return cfg -> GetFloat();
+		return cfg->GetNameHash();
+	}
+
+	const uint8_t Field_GetNumValues(const Field* cfg)
+	{
+		return cfg->GetNumValues();
+	}
+
+	const uint8_t Field_GetValueType(const Field* cfg, uint8_t index)
+	{
+		return (uint8_t)cfg->GetValueType(index);
+	}
+
+	const float_t Field_GetFloat(const Field* cfg, uint8_t index)
+	{
+		return cfg->GetFloat(index);
 	}
 
 	const Vector2* Field_GetVec2(const Field* cfg)
@@ -1071,10 +1084,17 @@ namespace LibSWBF2
 		return &cache; 
 	}
 
-	const char* Field_GetString(const Field* cfg)
+	const char* Field_GetString(const Field* cfg, uint8_t index)
 	{
 		static String cache;
-		cache = cfg -> GetString();
+		cache = cfg->GetString(index);
 		return cache.Buffer(); 
+	}
+
+	const char* Field_GetName(const Field* cfg)
+	{
+		static String cache;
+		cache = cfg->GetName();
+		return cache.Buffer();
 	}
 }

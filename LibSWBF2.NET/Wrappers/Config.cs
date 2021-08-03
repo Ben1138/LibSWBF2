@@ -1,41 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-using LibSWBF2.Logging;
 using LibSWBF2.Utils;
 using LibSWBF2.Types;
+using LibSWBF2.Enums;
 
 namespace LibSWBF2.Wrappers
 {
     public sealed class Field : NativeWrapper
     {
-        public uint  Name { get; private set; }
         public Scope Scope { get; private set; }
 
         internal override void SetPtr(IntPtr ptr)
         {
             base.SetPtr(ptr);
-            if (APIWrapper.Field_FetchAllFields(ptr, out IntPtr scopePtr, out uint name))
+            if (APIWrapper.Field_FetchAllFields(ptr, out IntPtr scopePtr))
             {
-                Name = name;
                 Scope = FromNative<Scope>(scopePtr);
             }
         }
 
-        public string GetString()
+        public uint GetNameHash()
         {
             CheckValidity();
-            return Marshal.PtrToStringAnsi(APIWrapper.Field_GetString(NativeInstance));
+            return APIWrapper.Field_GetNameHash(NativeInstance);
         }
 
-        public float GetFloat()
+        public string GetName()
         {
             CheckValidity();
-            return APIWrapper.Field_GetFloat(NativeInstance);
+            return Marshal.PtrToStringAnsi(APIWrapper.Field_GetName(NativeInstance));
+        }
+
+        public byte GetNumValues()
+        {
+            CheckValidity();
+            return APIWrapper.Field_GetNumValues(NativeInstance);
+        }
+
+        public string GetString(byte index=0)
+        {
+            CheckValidity();
+            return Marshal.PtrToStringAnsi(APIWrapper.Field_GetString(NativeInstance, index));
+        }
+
+        public EDataValueType GetValueType(byte index=0)
+        {
+            CheckValidity();
+            return APIWrapper.Field_GetValueType(NativeInstance, index);
+        }
+
+        public float GetFloat(byte index=0)
+        {
+            CheckValidity();
+            return APIWrapper.Field_GetFloat(NativeInstance, index);
         }
 
         public Vector2 GetVec2()

@@ -199,6 +199,12 @@ namespace LibSWBF2
 		Failed
 	};
 
+	enum class EDataValueType : uint8_t
+	{
+		Float,
+		String
+	};
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
