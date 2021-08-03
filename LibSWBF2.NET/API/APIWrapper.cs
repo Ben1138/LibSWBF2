@@ -340,10 +340,19 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Field_FetchAllFields(IntPtr cfg, out IntPtr scop, out uint hash);
+        public static extern bool Field_FetchAllFields(IntPtr cfg, out IntPtr scop);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint Field_GetNameHash(IntPtr cfg);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte Field_GetNumValues(IntPtr cfg);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern EDataValueType Field_GetValueType(IntPtr cfg, byte index);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern float  Field_GetFloat(IntPtr cfg);
+        public static extern float Field_GetFloat(IntPtr cfg, byte index);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         public static extern IntPtr Field_GetVec2(IntPtr cfg); 
@@ -355,7 +364,10 @@ namespace LibSWBF2
         public static extern IntPtr Field_GetVec4(IntPtr cfg); 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
-        public static extern IntPtr Field_GetString(IntPtr cfg); 
-        
+        public static extern IntPtr Field_GetString(IntPtr cfg, byte index);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Field_GetName(IntPtr cfg);
+         
     }
 }

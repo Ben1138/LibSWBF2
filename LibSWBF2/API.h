@@ -200,15 +200,19 @@ namespace LibSWBF2
 		LIBSWBF2_API uint8_t Localization_GetLocalizedWideString(const Localization* local, const char* path, uint16_t*& chars, uint32_t& count);
 
         // Config
-        LIBSWBF2_API const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop, uint32_t& hash);
+        LIBSWBF2_API const uint8_t Field_FetchAllFields(const Field *cfg, Scope*& scop);
         LIBSWBF2_API const Field** ConfigScope_GetFields(void *ptr, uint32_t hash, uint8_t isScope, uint32_t& count);
 
         LIBSWBF2_API const uint8_t Config_FetchSimpleFields(const Config* cfg, uint32_t& name);
 
-        LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg);
+		LIBSWBF2_API const uint32_t Field_GetNameHash(const Field* cfg);
+		LIBSWBF2_API const uint8_t Field_GetNumValues(const Field* cfg);
+		LIBSWBF2_API const uint8_t Field_GetValueType(const Field* cfg, uint8_t index);
+        LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg, uint8_t index);
         LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 
         LIBSWBF2_API const Vector3* Field_GetVec3(const Field* cfg); 
         LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 
-        LIBSWBF2_API const char* Field_GetString(const Field* cfg); 
+        LIBSWBF2_API const char* Field_GetString(const Field* cfg, uint8_t index);
+		LIBSWBF2_API const char* Field_GetName(const Field* cfg);
 	}
 }
