@@ -175,7 +175,7 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		// Count number of string values to our index, in order to obtain the string split index
 		uint8_t splitIdx = 0;
-		for (uint8_t i = 0; i < m_NumValues; ++i)
+		for (uint8_t i = 0; i < index; ++i)
 		{
 			GetValueType(type, i);
 			if (type == EDataValueType::String)
@@ -229,15 +229,20 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		for (uint8_t i = 0; i < m_NumValues; ++i)
 		{
-			static const char* TYPE_NAMES[2] = { "Float", "String" };
-
 			EDataValueType type;
 			GetValueType(type, i);
 
 			String str;
 			GetString(str, i);
 
-			rep += fmt::format("\t[{0}] {1}\t = {2}\n", i, TYPE_NAMES[(int)type], str.Buffer());
+			if (type == EDataValueType::String)
+			{
+				rep += fmt::format("\t[{0}] String\t = \"{1}\"\n", i, str.Buffer());
+			}
+			else
+			{
+				rep += fmt::format("\t[{0}] Float\t = {1}\n", i, str.Buffer());
+			}
 		}
 
 		return rep.c_str();
