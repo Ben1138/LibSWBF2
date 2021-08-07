@@ -39,8 +39,9 @@ namespace LibSWBF2.Wrappers
         public bool Delete()
         {
             CheckValidity();
+            bool success = APIWrapper.Container_Delete(NativeInstance);
             Invalidate();
-            return APIWrapper.Container_Delete(NativeInstance);
+            return success;
         }
 
         public SWBF2Handle AddLevel(string path)
