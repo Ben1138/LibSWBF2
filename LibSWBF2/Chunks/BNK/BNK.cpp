@@ -33,7 +33,7 @@ namespace LibSWBF2::Chunks::BNK
 		}
 		catch (LibException& e)
 		{
-			LOG_ERROR(e.what());
+			LOG_WARN(e.what());
 		}
 
 		BaseChunk::EnsureEnd(stream);

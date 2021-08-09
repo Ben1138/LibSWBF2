@@ -150,4 +150,10 @@ namespace LibSWBF2.Enums
 		Empty = 3,
 		Cube = 4,
 	};
+
+    public enum EDataValueType : byte
+    {
+        Float,
+		String
+    };
 }

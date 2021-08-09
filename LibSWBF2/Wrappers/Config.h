@@ -67,16 +67,23 @@ namespace LibSWBF2::Wrappers
 
 		static List<Field> FieldsFromChunkChildren(GenericBaseChunk *chunk);
 
-		float_t GetFloat(uint32_t index = 0) const;
+		FNVHash GetNameHash() const;
+
+		uint8_t GetNumValues() const;
+		EDataValueType GetValueType(uint8_t index) const;
+		float_t GetFloat(uint8_t index=0) const;
 		Vector2 GetVector2() const;
 		Vector3 GetVector3() const;
 		Vector4 GetVector4() const;
-		String GetString() const;
+		String GetString(uint8_t index=0) const;
+		String GetName() const;
 
-		FNVHash name;
-		Scope scope;
+		Scope m_Scope;
 
 	private:
+		friend Scope;
+		friend class Config;
+
 		DATA_CONFIG* p_Data;
 	};
 
