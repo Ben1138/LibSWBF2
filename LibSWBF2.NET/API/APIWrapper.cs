@@ -158,7 +158,7 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Segment_FetchAllFields(IntPtr seg, [MarshalAs(UnmanagedType.U1)] out bool pretx, out IntPtr boneName,
+        public static extern bool Segment_FetchAllFields(IntPtr seg, [MarshalAs(UnmanagedType.U1)] out bool pretx, out IntPtr boneName, out IntPtr tag,
                                                         out uint numVerts, out IntPtr pBuf, out IntPtr nBuf, out IntPtr uvBuf,
                                                         out uint numVWs, out IntPtr vwBuf,
                                                         out int topo, out uint numInds, out IntPtr iBuf,

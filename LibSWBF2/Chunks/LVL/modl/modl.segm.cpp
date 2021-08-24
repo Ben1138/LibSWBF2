@@ -70,6 +70,10 @@ namespace LibSWBF2::Chunks::LVL::modl
                 READ_CHILD(stream, texture);
                 m_Textures.Add(texture);
             }
+            else if (next == "MNAM"_h)
+            {
+                READ_CHILD(stream, p_Tag);
+            }
             else
             {
                 READ_CHILD_GENERIC(stream);
