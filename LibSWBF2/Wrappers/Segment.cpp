@@ -196,6 +196,17 @@ namespace LibSWBF2::Wrappers
 	}
 
 
+	String Segment::GetTag() const
+	{
+		if (p_Segment -> p_Tag != nullptr)
+		{
+			return p_Segment -> p_Tag -> m_Text;			
+		}
+
+		return "";
+	}
+
+
 	bool Segment::IsPretransformed() const
 	{
 		auto flags = p_VertexBuffer -> m_Flags;

@@ -75,6 +75,12 @@ namespace LibSWBF2::Wrappers
 		// returns the skeleton bone this segment belongs to
 		String GetBone() const;
 
+		// Used to indicate special meaning. Two known uses are for 
+		// indicating override_texture capability and scrolling
+		// wheel textures a la snailtank
+		String GetTag() const;
+
+		// Some weighted VBUF data is pre-transformed to zeroed bone transforms
 		bool IsPretransformed() const;
 	};
 }

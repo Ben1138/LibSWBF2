@@ -581,19 +581,24 @@ namespace LibSWBF2
     
 
     //Wrappers - Segment
-    const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName,
+    const uint8_t Segment_FetchAllFields(const Segment* seg, uint8_t& pretx, const char *&boneName, const char *&tag,
 														uint32_t& numVerts, Vector3*& pBuf, Vector3*& nBuf, Vector2*&uvBuf,
 														uint32_t& numVWs, VertexWeight*& vwBuf,
 														int32_t& topo, uint32_t& numInds, uint16_t*& iBuf,
 														const Material*& mat)
     {
     	static String boneNameCache;
+    	static String tagCache;
+
     	CheckPtr(seg, false);
 
     	pretx = seg -> IsPretransformed();
     	
     	boneNameCache = seg -> GetBone();
     	boneName = boneNameCache.Buffer();
+
+    	tagCache = seg -> GetTag();
+    	tag = tagCache.Buffer();
 
     	//Handle vertex buffers
     	uint32_t numNormals, numUVs;
