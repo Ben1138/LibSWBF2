@@ -19,10 +19,8 @@ namespace LibSWBF2.NET.Test
         {            
             TestBench testBench = new TestBench();
 
-            Container container = testBench.LoadAndTrackContainer(new List<string>(args), out List<Level> levels);
+            Container container = testBench.LoadAndTrackContainer(args[0], out Level level);
 
-
-            Level level = levels[0];
             if (level == null) return -1;
             
             Model[] models = level.Get<Model>();
@@ -32,26 +30,29 @@ namespace LibSWBF2.NET.Test
             {   
                 Console.WriteLine("\n" + model.Name + ": ");
 
-                /*
-                if (model.isSkeletonBroken)
+                //if (model.Name != args[1]) continue;
+
+
+                
+                if (model.IsSkeletonBroken)
                 {
                     Console.WriteLine("\tSkeleton is broken!!");
                 }
 
                 Console.WriteLine("\tSkeleton: ");
-                
-                Bone[] bones = model.skeleton;
-
-                for (int k = 0; k < bones.Length; k++)
+                foreach (Bone bone in model.Skeleton)
                 {
-                    Console.WriteLine("\t\tName: {0} Parent: {1}", bones[k].name, bones[k].parentName);
+                    Console.WriteLine("\t\tName: {0} Parent: {1}", bone.Name, bone.ParentName);
                 }
-                */
+                
                 
                 Segment[] segments = model.GetSegments(); 
                 int i = 0;
                 foreach (Segment seg in segments)
                 {
+                    string MNAM = seg.Tag;
+                    if (MNAM == "") continue;
+
                     
                     Console.WriteLine("\tSegment " + i++ + ": ");
                     float[] vBuf = seg.GetVertexBuffer<float>();                        
@@ -70,9 +71,18 @@ namespace LibSWBF2.NET.Test
                         Console.WriteLine("\t\t{0} weights ---- {1} vertices.", weights.Length, seg.GetVertexBufferLength());
                         Console.WriteLine("\t\tIs pretransformed: {0}", seg.IsPretransformed);
                     }
-                    else
+
+                    string bone = seg.BoneName;
+                    //string MNAM = seg.MNAM;
+
+                    if (bone != "")
                     {
-                        Console.WriteLine("\t\tSegment belongs to bone: {0}", seg.BoneName);
+                        Console.WriteLine("\t\tSegment belongs to bone: {0}", bone);
+                    }
+
+                    if (MNAM != "")
+                    {
+                        Console.WriteLine("\t\tSegment has MNAM: {0}", MNAM);
                     }
 
                     Material mat = seg.Material;

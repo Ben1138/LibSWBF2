@@ -55,6 +55,23 @@ namespace LibSWBF2.NET.Test
         }
 
 
+        public Container LoadAndTrackContainer(string path, out Level levelOut)
+        {
+            Container c = LoadAndTrackContainer(new List<string>() { path }, out List<Level> levelsOut);
+            if (levelsOut.Count == 0)
+            {
+                levelOut = null;
+            }
+            else
+            {
+                levelOut = levelsOut[0];
+            }
+
+            return c;
+        }
+
+
+
         public Container LoadAndTrackContainer(List<string> paths, out List<Level> levelsOut)
         {
             Container container = new Container();

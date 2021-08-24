@@ -54,7 +54,8 @@ namespace LibSWBF2::Wrappers
             
             for (int i = 0; i < leaves.Size(); i++)
             {
-                m_Indicies.Append(TriangleStripToTriangleList<uint16_t, uint16_t>(leaves[i] -> m_Indicies));
+                List<uint16_t>& leaf_fan = leaves[i] -> m_Indicies;
+                m_Indicies.Append(TriangleFanToTriangleList<uint16_t, uint16_t>(leaf_fan, 0));
             }
         }
 

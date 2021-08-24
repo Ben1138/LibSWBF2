@@ -36,6 +36,13 @@ namespace LibSWBF2
 	template <typename V, typename T>
 	List<V> TriangleStripToTriangleList(List<T>& indexBuffer, uint32_t offset=0);
 
+	// Convert an index buffer from Triangle Fan format to Triangle List format
+	// optional: offset is added to each individual index.
+	// (so far only used for collision mesh extraction)
+	template <typename V, typename T>
+	List<V> TriangleFanToTriangleList(List<T>& indexBuffer, uint32_t offset=0);
+
+
 	Vector4 MatrixToQuaternion(const Matrix3x3& matrix);
 
 	std::string ToLower(String name);
