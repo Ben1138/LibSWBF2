@@ -38,5 +38,7 @@ namespace LibSWBF2::Wrappers
 		ECollisionMaskFlags GetMaskFlags() const;
 
 		String ToString() const;
+
+		String GetNodeName() const;
 	};
 }

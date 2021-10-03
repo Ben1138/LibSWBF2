@@ -240,7 +240,8 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool CollisionMesh_FetchAllFields(IntPtr cmPtr, out uint iCount, out IntPtr iBuf,
-                                                                out uint vCount, out IntPtr vBuf, out ECollisionMaskFlags maskFlags);
+                                                                out uint vCount, out IntPtr vBuf, out ECollisionMaskFlags maskFlags,
+                                                                out IntPtr namePtr, out IntPtr nodeNamePtr);
 
 
         // CollisionPrimitive //

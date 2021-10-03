@@ -138,7 +138,8 @@ namespace LibSWBF2
 
 		// Wrappers - CollisionMesh
         LIBSWBF2_API const uint8_t CollisionMesh_FetchAllFields(const CollisionMesh *cmPtr, uint32_t& iCount, uint16_t*& iBuf,
-        														uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags);
+        														uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags, 
+        														const char *& namePtr, const char *& nodeNamePtr);
 
 		// Enums
 		LIBSWBF2_API const char* ENUM_TopologyToString(ETopology topology);

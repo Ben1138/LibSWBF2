@@ -30,6 +30,17 @@ namespace LibSWBF2::Wrappers
         return p_CollisionChunk -> p_ChunkName -> m_Text;
     }
 
+
+    String CollisionMesh::GetNodeName() const
+    {
+        if (p_CollisionChunk == nullptr || p_CollisionChunk -> p_NodeName == nullptr)
+        {
+            return "";
+        }
+        return p_CollisionChunk -> p_NodeName -> m_Text;
+    }
+
+
     ECollisionMaskFlags CollisionMesh::GetMaskFlags() const
     {
         if (p_CollisionChunk == nullptr || p_CollisionChunk -> p_Mask == nullptr)

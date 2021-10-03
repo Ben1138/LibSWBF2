@@ -524,12 +524,24 @@ namespace LibSWBF2
 
 	// Wrappers - CollisionMesh
     const uint8_t CollisionMesh_FetchAllFields(const CollisionMesh *cmPtr, uint32_t& iCount, uint16_t*& iBuf,
-        										uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags)
+        										uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags, 
+        										const char *& namePtr, const char *& nodeNamePtr)
     {
     	CheckPtr(cmPtr, false);
+    	
+    	static String name;
+    	static String nodeName;
+
     	cmPtr -> GetIndexBuffer(ETopology::TriangleList, iCount, iBuf);
     	cmPtr -> GetVertexBuffer(vCount, vBuf);
     	maskFlags = (uint32_t) cmPtr -> GetMaskFlags();
+
+    	name = cmPtr -> GetName();
+    	namePtr = name.Buffer();
+
+    	nodeName = cmPtr -> GetNodeName();
+    	nodeNamePtr = nodeName.Buffer();
+
     	return true;
     }
 
