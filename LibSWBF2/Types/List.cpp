@@ -445,6 +445,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/prim/prim.h"
 #include "Wrappers/Config.h"
 
+#include "Chunks/LVL/zaf_/TNOJ.h"
 
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
@@ -536,6 +537,8 @@ namespace LibSWBF2
 
     template class LIBSWBF2_API Types::List<RawData<"POSK"_m> *>;
     template class LIBSWBF2_API Types::List<RawData<"ROTK"_m> *>;
+
+    template class LIBSWBF2_API Types::List<LVL::animation::TNOJ *>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
