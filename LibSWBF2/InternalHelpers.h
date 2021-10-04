@@ -67,6 +67,7 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
 			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
 			std::unordered_map<std::string, size_t> AnimationBankNameToIndex;
+			std::unordered_map<std::string, size_t> AnimationSkeletonNameToIndex;
 			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
 			std::unordered_map<FNVHash, size_t> ConfigHashToIndex;
 		};

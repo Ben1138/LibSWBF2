@@ -547,6 +547,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config*>;
 
 
@@ -559,12 +560,14 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Script*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Config*>;
 
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
+	template class LIBSWBF2_API Types::List<Wrappers::Joint>;
 	template class LIBSWBF2_API Types::List<Wrappers::Material>;
 	template class LIBSWBF2_API Types::List<Wrappers::Texture>;
 	template class LIBSWBF2_API Types::List<Wrappers::World>;
@@ -577,6 +580,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::EntityClass>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
