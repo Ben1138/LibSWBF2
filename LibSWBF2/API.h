@@ -21,6 +21,8 @@ namespace LibSWBF2
 		struct VertexWeight;
 		class CollisionPrimitive;
 		class AnimationBank;
+		class AnimationSkeleton;
+		struct Joint;
 		class EntityClass;
 		class Script;
 		class World;
@@ -190,6 +192,11 @@ namespace LibSWBF2
         LIBSWBF2_API const uint32_t* AnimationBank_GetBoneCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
                                                         			int32_t& numFrames, int32_t& numBones);
+
+        // Wrappers - AnimationSkeleton
+        LIBSWBF2_API const char* AnimationSkeleton_GetName(const AnimationSkeleton* skelPtr);
+        LIBSWBF2_API const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, uint32_t& numJoints, Joint*& joints);
+
 
 		// Wrappers - Sound
 		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);

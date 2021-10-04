@@ -1000,6 +1000,37 @@ namespace LibSWBF2
 		return status;
     }
 
+
+    // Wrappers - AnimationSkeleton
+    const char* AnimationSkeleton_GetName(const AnimationSkeleton* skelPtr)
+    {
+    	static String nameCache;
+    	CheckPtr(skelPtr, nullptr);
+    	nameCache = skelPtr -> GetName();
+
+    	return nameCache.Buffer();
+    }
+
+    const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, uint32_t& numJoints, Joint*& jointsPtr)
+    {
+    	static List<Joint> jointsCache;
+    	CheckPtr(skelPtr, false);
+
+    	if (skelPtr -> GetJoints(jointsCache))
+    	{
+    		numJoints = (uint32_t) jointsCache.Size();
+    		jointsPtr = jointsCache.GetArrayPtr();
+    		return true;
+    	}
+    	else 
+    	{
+    		numJoints = 0;
+    		return false;
+    	}
+    }
+
+
+
 	const char* Sound_GetName(const Sound* sound)
 	{
 		CheckPtr(sound, nullptr);
