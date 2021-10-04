@@ -271,6 +271,18 @@ namespace LibSWBF2
         public static extern bool AnimationBank_GetAnimationMetadata(IntPtr setPtr, uint animCRC,
                                                         out int numFrames, out int numBones);
 
+
+        // AnimationSkeleton //
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr AnimationSkeleton_GetName(IntPtr skelPtr);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AnimationSkeleton_GetJoints(IntPtr skelPtr, out int numJoints, out IntPtr jointBuffer);
+
+
+
         // Sound //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Sound_GetName(IntPtr sound);
