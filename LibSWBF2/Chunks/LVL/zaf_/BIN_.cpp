@@ -30,7 +30,10 @@ namespace LibSWBF2::Chunks::LVL::animation
 			{
 				stream.SkipBytes(8);
 				m_Version = stream.ReadUInt32();
-				LOG_ERROR("Encountered zaf_(ZAF_BIN_) chunk with unusual (not 8) version ({})...", m_Version);
+				if (m_Version != 8)
+				{
+					LOG_WARN("Encountered zaf_(ZAF_BIN_) chunk with unusual (not 8) version: {}...", m_Version);
+				}
 			}
 			else if (next == "LEKS"_h)
 			{

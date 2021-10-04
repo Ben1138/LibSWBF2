@@ -195,7 +195,7 @@ namespace LibSWBF2
 
         // Wrappers - AnimationSkeleton
         LIBSWBF2_API const char* AnimationSkeleton_GetName(const AnimationSkeleton* skelPtr);
-        LIBSWBF2_API const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, uint32_t& numJoints, Joint*& joints);
+        LIBSWBF2_API const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, int32_t& numJoints, Joint*& joints);
 
 
 		// Wrappers - Sound

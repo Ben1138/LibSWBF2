@@ -266,6 +266,8 @@ namespace LibSWBF2
 			return static_cast<const void*>(level->GetSound(name));
 		case 8:
 			return static_cast<const void*>(level->GetLocalization(name));
+		case 9:
+			return static_cast<const void*>(level->GetAnimationSkeleton(name));
 		default:
 			return nullptr;
 		}
@@ -341,6 +343,13 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)locals.Size();
 			wrapperSize = sizeof(Localization);
 			return static_cast<const void*>(locals.GetArrayPtr());
+		}
+		case 9:
+		{
+			const List<AnimationSkeleton>& skels = level->GetAnimationSkeletons();
+			numWrappers = (uint32_t)skels.Size();
+			wrapperSize = sizeof(AnimationSkeleton);
+			return static_cast<const void*>(skels.GetArrayPtr());
 		}
 		default:
 			return nullptr;
@@ -1011,14 +1020,14 @@ namespace LibSWBF2
     	return nameCache.Buffer();
     }
 
-    const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, uint32_t& numJoints, Joint*& jointsPtr)
+    const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, int32_t& numJoints, Joint*& jointsPtr)
     {
     	static List<Joint> jointsCache;
     	CheckPtr(skelPtr, false);
 
     	if (skelPtr -> GetJoints(jointsCache))
     	{
-    		numJoints = (uint32_t) jointsCache.Size();
+    		numJoints = (int32_t) jointsCache.Size();
     		jointsPtr = jointsCache.GetArrayPtr();
     		return true;
     	}

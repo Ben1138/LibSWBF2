@@ -19,16 +19,32 @@ namespace LibSWBF2.NET.Test
         {
             if (args.Length < 3) return -1;
 
-            TestBench.StartLogging(ELogType.Warning);
+            TestBench testBench = new TestBench();
 
-            Level level = TestBench.LoadAndTrackLVL(args[0]);
+            testBench.LoadAndTrackContainer(args[0], out Level level);
             if (level == null){
-                TestBench.StopLogging();
                 return -1;
             } 
 
             string animSetName = args[1];
             string animationName = args[2];
+
+
+            AnimationSkeleton animSkel = level.Get<AnimationSkeleton>(animSetName);
+            if (animSkel != null)
+            {
+                Console.WriteLine("Found animation skel of name: {0} with bones: ", animSkel.GetName());
+
+                Joint[] animSkelJoints = animSkel.GetJoints();
+                for (int k = 0; k < animSkelJoints.Length; k++)
+                {
+                    Joint j = animSkelJoints[k];
+                    Console.WriteLine("  {0}: Name 0x{1:x} Rot: {2} Pos: {3}", k, j.BoneCRC, j.BaseRotation.ToString(), j.BasePosition.ToString());
+                }
+            }
+
+
+
 
             List<uint> boneCRCs = new List<uint>();
 
@@ -38,11 +54,10 @@ namespace LibSWBF2.NET.Test
             }
 
 
-            AnimationBank bank = level.GetAnimationBank(animSetName);
+            AnimationBank bank = level.Get<AnimationBank>(animSetName);
             if (bank == null)
             {
                 Console.WriteLine("Animation bank not found!");
-                TestBench.StopLogging();
                 return -1;
             }
 
@@ -71,7 +86,6 @@ namespace LibSWBF2.NET.Test
                         if (!status)
                         {
                             Console.WriteLine("\t\tFailed to fetch curve!");
-                            TestBench.StopLogging();
                             return -1;
                         }
 
@@ -83,13 +97,11 @@ namespace LibSWBF2.NET.Test
                         }
                     }
 
-                    TestBench.StopLogging();
                     return 0;                    
                 }
             }
 
             Console.WriteLine("Animation not found!");
-            TestBench.StopLogging();
             return -1;
         }
     }
