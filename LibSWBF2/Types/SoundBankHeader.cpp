@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Types/LibString.h"
 #include "SoundBankHeader.h"
 #include "FileReader.h"

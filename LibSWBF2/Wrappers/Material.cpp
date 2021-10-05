@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Material.h"
 #include "Texture.h"
 #include "Level.h"
@@ -54,6 +54,16 @@ namespace LibSWBF2::Wrappers
 	uint32_t Material::GetSpecularExponent() const
 	{
 		return p_Material->m_SpecularExponent;
+	}
+
+	const uint32_t Material::GetFirstParameter() const
+	{	
+		return p_Material->m_Parameters[0];
+	}
+
+	const uint32_t Material::GetSecondParameter() const
+	{
+		return p_Material->m_Parameters[1];
 	}
 
 	const String& Material::GetAttachedLight() const

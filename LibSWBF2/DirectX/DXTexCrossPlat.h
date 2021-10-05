@@ -1,52 +1,49 @@
 #pragma once
 
-
 #include <memory>
 #include <stdint.h>
 
 #include "D3D9FORMAT.h"
+
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {
 	struct BODY;
 }
 
+namespace DXTexCrossPlat
+{
+	class CrossPlatImage
+	{
+		friend LibSWBF2::Chunks::LVL::LVL_texture::BODY;
 
+	public:
+		CrossPlatImage(uint16_t w, uint16_t h,  
+					   D3DFORMAT f, 
+					   uint8_t *&dataPtr,
+					   size_t dataSize);
 
-namespace DXTexCrossPlat {
+		CrossPlatImage(uint16_t w, uint16_t h, 
+					D3DFORMAT f, size_t dataSize);
 
-class CrossPlatImage {
+		bool ConvertTo(D3DFORMAT f);
 
-friend LibSWBF2::Chunks::LVL::LVL_texture::BODY;
+		uint8_t* GetPixelsPtr();
 
-public:
-	CrossPlatImage(uint16_t w, uint16_t h,  
-				   D3DFORMAT f, 
-				   uint8_t *&dataPtr,
-				   size_t dataSize);
+		bool IsConvertibleTo(D3DFORMAT format);
 
-	CrossPlatImage(uint16_t w, uint16_t h, 
-				D3DFORMAT f, size_t dataSize);
+		uint16_t width,height,cellSize;
 
-	bool ConvertTo(D3DFORMAT f);
+		D3DFORMAT format;
 
-	uint8_t* GetPixelsPtr();
+	private:
+		size_t m_DataLength;
+		uint8_t* p_Data = nullptr;
+		D3DFORMAT m_Format;
+		bool m_IsValid = true;
 
-	bool IsConvertibleTo(D3DFORMAT format);
+		~CrossPlatImage();
+		bool ToRGBA();
 
-	uint16_t width,height,cellSize;
-
-	D3DFORMAT format;
-
-private:
-	size_t m_DataLength;
-	uint8_t* p_Data = nullptr;
-	D3DFORMAT m_Format;
-	bool m_IsValid = true;
-
-	~CrossPlatImage();
-	bool ToRGBA();
-
-};
-
+	};
 }

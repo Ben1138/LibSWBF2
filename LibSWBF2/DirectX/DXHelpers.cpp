@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "DXHelpers.h"
 #include "InternalHelpers.h"
 #include "InternalHelpers.h"
@@ -81,7 +81,7 @@ namespace LibSWBF2
             case D3DFMT_L16:
                 return DXGI_FORMAT_R16_UNORM;
             default:
-                THROW("Unknown D3D Format: {}", d3dFormat);
+                THROW("Unknown D3D Format: {}", (int)d3dFormat);
         }
     }
 
@@ -164,7 +164,7 @@ namespace LibSWBF2
             case D3DFMT_L16:
                 return "D3DFMT_L16";
             default:
-                return fmt::format("Unknown Format: {}", d3dFormat).c_str();
+                return fmt::format("Unknown Format: {}", (int)d3dFormat).c_str();
         }
     }
 
@@ -177,7 +177,7 @@ namespace LibSWBF2
             case ETextureFormat::B8_G8_R8_A8:
                 return DXGI_FORMAT_B8G8R8A8_UNORM;
             default:
-                THROW("Unknown ETextureFormat Format: {}", format);
+                THROW("Unknown ETextureFormat Format: {}", (int)format);
         }
     }
 }

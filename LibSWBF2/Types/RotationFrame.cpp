@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "RotationFrame.h"
 #include "FileWriter.h"
 #include "FileReader.h"

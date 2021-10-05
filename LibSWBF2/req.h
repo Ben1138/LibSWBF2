@@ -4,9 +4,9 @@
 #include <stdint.h>		// for uint32_t, etc. declarations
 #include <math.h>		// for float_t declaration
 
-#ifdef _WIN32
+#ifdef WIN32
 
-#ifdef LIBSWBF2_EXPORTS
+#ifdef LibSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
 #else
 #define LIBSWBF2_API __declspec(dllimport)

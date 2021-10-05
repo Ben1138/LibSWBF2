@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "MINA.h"
 #include "BIN_.h"
 #include "InternalHelpers.h"

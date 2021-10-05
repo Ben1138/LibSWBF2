@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Types/LibString.h"
 #include "Matrix3x3.h"
 #include "FileWriter.h"

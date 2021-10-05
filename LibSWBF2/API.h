@@ -183,7 +183,8 @@ namespace LibSWBF2
         // Wrappers - Material
         LIBSWBF2_API uint8_t Material_FetchAllFields(const Material* matPtr,  Vector3*& specular,
                                 Vector3*& diffuse, char**& texPtrs, int32_t& numTexes,
-                                char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp);
+                                char*& attachedLightName, uint32_t& matFlags, uint32_t& specExp,
+                                uint32_t& param1, uint32_t& param2);
 
 		// Wrappers - AnimationBank
 		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 

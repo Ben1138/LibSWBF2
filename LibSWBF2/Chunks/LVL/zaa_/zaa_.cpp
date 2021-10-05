@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "zaa_.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		catch (LibException le)
 		{
 
-			LOG_ERROR(le.what());
+			LOG_ERROR("{}", le.what());
 			p_Bin = nullptr;
 		}
 

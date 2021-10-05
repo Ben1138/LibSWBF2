@@ -1,5 +1,5 @@
 #include "req.h"
-#include "stdafx.h"
+#include "pch.h"
 #include "Config.h"
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Chunks/LVL/config/SCOP.h"

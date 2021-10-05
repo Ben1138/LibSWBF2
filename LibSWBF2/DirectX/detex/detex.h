@@ -72,7 +72,11 @@ __BEGIN_DECLS
 #include <stdint.h>
 #include <stdbool.h>
 
-#define DETEX_INLINE_ONLY __attribute__((always_inline)) inline
+#if defined(_MSC_VER)
+	#define DETEX_INLINE_ONLY __forceinline
+#elif defined(__GNUC__)
+	#define DETEX_INLINE_ONLY __attribute__((always_inline)) inline
+#endif
 #define DETEX_RESTRICT __restrict
 
 /* Maximum uncompressed block size in bytes. */

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "EntityClass.h"
 #include "InternalHelpers.h"
 #include "Hashing.h"

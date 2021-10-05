@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Types/LibString.h"
 #include "Vector3.h"
 #include "FileReader.h"
