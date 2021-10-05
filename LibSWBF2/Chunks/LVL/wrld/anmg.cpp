@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "anmg.h"
 #include "Logging/Logger.h"
 #include "InternalHelpers.h"

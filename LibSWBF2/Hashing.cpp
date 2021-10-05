@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Hashing.h"
 #include "InternalHelpers.h"
 #include <fstream>

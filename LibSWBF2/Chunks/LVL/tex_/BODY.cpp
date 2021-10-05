@@ -1,16 +1,13 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "BODY.h"
 #include "FMT_.h"
 #include "Logging/Logger.h"
 #include "DirectX/DXHelpers.h"
+#include "DirectX/DXTexCrossPlat.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include <algorithm>
 #include <cstring>
-
-#ifndef _WIN32
-#include "DXTexCrossPlat.h"
-#endif
 
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
@@ -76,18 +73,8 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         }
 
         uint8_t* imageBufferPtr;
-
-#ifdef _WIN32
-        p_Image = new DirectX::ScratchImage();
-        p_Image->Initialize2D(D3DToDXGI(d3dFormat), width, height, 1, 1);
-        const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
-
-        imageBufferPtr = img -> pixels;
-#else
-        p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, 
-                                                    d3dFormat, dataSize);
+        p_Image = new DXTexCrossPlat::CrossPlatImage(width, height, d3dFormat, dataSize);
         imageBufferPtr = p_Image -> GetPixelsPtr();
-#endif
 
         if (imageBufferPtr == nullptr || !stream.ReadBytes(imageBufferPtr, dataSize))
         {
@@ -111,53 +98,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
             return false;
         }
 
-#ifdef _WIN32
-
-        const DirectX::Image* img = p_Image->GetImage(0, 0, 0);
-
-        if (img == nullptr)
-        {
-            LOG_WARN("Called GetImageData before reading!");
-            data = nullptr;
-            return false;
-        }
-        DXGI_FORMAT targetFormat = TextureFormatToDXGI(format);
-
-        if (DirectX::IsCompressed(img->format))
-        {
-            DirectX::ScratchImage* result = new DirectX::ScratchImage();
-            if (FAILED(DirectX::Decompress(*img, targetFormat, *result)))
-            {
-                LOG_WARN("Could not decompress Image");
-                delete result;
-                return false;
-            }
-            delete p_Image;
-            p_Image = result;
-            img = p_Image->GetImage(0, 0, 0);
-        }
-
-        if (img->format != targetFormat)
-        {
-            DirectX::ScratchImage* result = new DirectX::ScratchImage();
-            if (FAILED(DirectX::Convert(*img, targetFormat, DirectX::TEX_FILTER_DEFAULT, DirectX::TEX_THRESHOLD_DEFAULT, *result)))
-            {
-                LOG_WARN("Could not convert Image");
-                delete result;
-                return false;
-            }
-            
-            delete p_Image;
-            p_Image = result;
-            img = p_Image->GetImage(0, 0, 0);
-        }
-
-        width = (uint16_t)img->width;
-        height = (uint16_t)img->height;
-        data = img->pixels;
-        
-        return data != nullptr;    
-#else 
         if (!p_Image -> IsConvertibleTo(D3DFMT_R8G8B8A8))
         {
             data = nullptr;
@@ -171,8 +111,6 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
         data = p_Image -> GetPixelsPtr();
 
         return true;
-
-#endif //_WIN32
     }
 
     BODY::~BODY()

@@ -4,10 +4,6 @@
 #include "DirectX/D3D9FORMAT.h"
 #include "Types/Enums.h"
 
-#ifdef _WIN32
-#include <DirectXTex.h>
-#endif
-
 namespace LibSWBF2
 {
 	DXGI_FORMAT D3DToDXGI(D3DFORMAT d3dFormat);

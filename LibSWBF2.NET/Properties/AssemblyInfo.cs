@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LibSWBF2.NET")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("https://github.com/Ben1138/LibSWBF2")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LibSWBF2.NET")]

@@ -1,8 +1,6 @@
-#include "stdafx.h"
+#include "pch.h"
 
-#ifdef _WIN32
-
-
+#ifdef WIN32
 #include "Hashing.h"
 
 BOOL APIENTRY DllMain( HMODULE hModule,

@@ -166,9 +166,6 @@ typedef enum _D3DFORMAT
 } D3DFORMAT;
 
 
-
-#ifndef _WIN32
-
 typedef enum DXGI_FORMAT
 {
     DXGI_FORMAT_UNKNOWN	                    = 0,
@@ -324,9 +321,5 @@ inline bool IsCompressed(DXGI_FORMAT fmt) {
           return false;
   }
 }
-
-#endif /*NOT _WIN32*/
-
-
 
 #endif //D3D9FORMAT_H

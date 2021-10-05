@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "MATI.h"
 #include "FileReader.h"
 #include "FileWriter.h"

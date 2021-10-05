@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "DXTexCrossPlat.h"
 #include "DXTexCrossPlatConverters.h"
 #include "DXHelpers.h"
@@ -100,6 +101,9 @@ bool CrossPlatImage::ToRGBA(){
 
   if (!m_IsValid) return false;
 
+  if (format == D3DFMT_R8G8B8A8) return true;
+
+
   uint32_t* sink = new uint32_t[width * height]();
 
   switch (format){
@@ -137,6 +141,8 @@ bool CrossPlatImage::ToRGBA(){
 
   delete[] p_Data;
   p_Data = (uint8_t *) sink;
+
+  format = D3DFMT_R8G8B8A8;
 
   return true;
 }

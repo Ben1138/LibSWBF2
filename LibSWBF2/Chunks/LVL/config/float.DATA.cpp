@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 #include "Types/Enums.h"
