@@ -21,6 +21,7 @@
 #include "LVL/skel/skel.h"
 #include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
+#include "LVL/sound/StreamList.h"
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
@@ -29,6 +30,8 @@
 
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
+
+#include <iostream>
 
 
 namespace LibSWBF2::Chunks
@@ -78,7 +81,6 @@ namespace LibSWBF2::Chunks
 		{
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
 			if (IsKnownHeader(nextHead))
-			//if (IsValidHeader(nextHead))
 			{
 				GenericBaseChunk* chunk = nullptr;
 				try
@@ -214,6 +216,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, combo);
 						chunk = combo;	
 					}
+					else if (nextHead == "snd_"_h)
+					{
+						LVL::config::snd_* sound;
+						READ_CHILD(stream, sound);
+						chunk = sound;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -277,7 +285,7 @@ namespace LibSWBF2::Chunks
 			}
 			else
 			{
-				break;
+				stream.SkipBytes(4);
 			}
 		}
 	}
@@ -413,5 +421,8 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
+
+	//sound
+	template struct LIBSWBF2_API GenericChunk<"StreamList"_fnv>;
 }
 
