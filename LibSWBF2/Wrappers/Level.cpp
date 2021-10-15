@@ -33,7 +33,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	using Chunks::LVL::sound::emo_;
+	//using Chunks::LVL::sound::emo_;
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
     using namespace Chunks::LVL::animation;

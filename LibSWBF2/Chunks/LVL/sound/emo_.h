@@ -1,3 +1,4 @@
+/*
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Types/SoundClip.h"
@@ -20,3 +21,4 @@ namespace LibSWBF2::Chunks::LVL::sound
 		String ToString() const override;
 	};
 }
+*/

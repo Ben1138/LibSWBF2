@@ -54,5 +54,6 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	template struct LIBSWBF2_API SoundBaseChunk<0>;
 	template struct LIBSWBF2_API SoundBaseChunk<"StreamList"_fnv>;
-	//template struct LIBSWBF2_API SoundBaseChunk<"Stream"_fnv>;
+	template struct LIBSWBF2_API SoundBaseChunk<"Stream"_fnv>;
+	template struct LIBSWBF2_API SoundBaseChunk<"Info"_fnv>;
 }
