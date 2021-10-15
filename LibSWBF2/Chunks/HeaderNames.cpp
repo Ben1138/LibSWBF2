@@ -11,9 +11,10 @@ namespace LibSWBF2
 {
 	const std::map<ChunkHeader, std::string> KNOWN_SOUND_HEADERS = 
 	{
-		{"StreamList"_fnvh, "StreamList"},
-		{"Stream"_fnvh, 	"Stream"},
-		{"Info"_fnvh, 		"Info"},
+		{"StreamList"_fnvh, 	"StreamList"},
+		{"Stream"_fnvh, 		"Stream"},
+		{"Info"_fnvh, 			"Info"},
+		{"SoundBankList"_fnvh, 	"SoundBankList"},
 	};
 
 	const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =
@@ -69,7 +70,7 @@ namespace LibSWBF2
 		{
 			return soundLookup -> second.c_str();
 		}
-		
+
 		if (!IsValidHeader(*this))
 		{
 			std::string tstResult = fmt::format("0x{0:x}", m_Magic);

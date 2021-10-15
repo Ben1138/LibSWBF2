@@ -23,9 +23,14 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 		while (ThereIsAnother(stream))
 		{
-			if (stream.ReadChunkHeader(true) == "Stream"_fnvh)
+			ChunkHeader next = stream.ReadChunkHeader(true);
+			if (next == "Stream"_fnvh)
 			{
 				READ_CHILD(stream, m_Streams.Emplace())
+			}
+			else 
+			{
+				stream.SkipBytes(4);
 			}		
 		}
 

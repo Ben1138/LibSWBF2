@@ -5,6 +5,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
+
 namespace LibSWBF2::Chunks::LVL::sound
 {
 	void Stream::RefreshSize()
