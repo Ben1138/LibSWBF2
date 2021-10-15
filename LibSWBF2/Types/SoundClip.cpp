@@ -42,6 +42,45 @@ namespace LibSWBF2::Types
 		// Sound clip header are either 48 or 56 bytes in size
 
 		m_HeaderPosition = stream.GetPosition();
+		
+		FNVHash CurrentFieldName = (FNVHash) stream.ReadUInt32();
+
+		while (CurrentFieldName != "SampleEnd"_fnv)
+		{
+			switch (CurrentFieldName)
+			{
+				case "ID"_fnv:
+					m_NameHash = stream.ReadUInt32();
+					break;
+
+				case "Frequency"_fnv:
+					m_SampleRate = stream.ReadUInt32();
+					break;
+
+				case "Size"_fnv:
+					m_DataLength = stream.ReadUInt32();
+					break;				
+
+				case "SizeSamples"_fnv:
+					m_SampleCount = stream.ReadUInt32();
+					break;	
+
+				case "Padding"_fnv:
+					m_Padding = stream.ReadUInt32();
+					break;	
+
+				default:
+					break;
+			}
+
+			CurrentFieldName = (FNVHash) stream.ReadUInt32();
+		}
+
+
+
+
+
+		/*
 		uint16_t magic = stream.ReadUInt16();
 		if (magic != 0x3738)
 		{
@@ -55,6 +94,7 @@ namespace LibSWBF2::Types
 		m_DataLength = stream.ReadUInt32();
 		stream.SkipBytes(4);
 		m_SampleCount = stream.ReadUInt32();
+		*/ 
 
 		// in emo_, it seems like data length and sample count are switched...
 		if (m_SampleCount > m_DataLength)
@@ -80,8 +120,9 @@ namespace LibSWBF2::Types
 		//{
 		//	LOG_WARN("Weird sample rate {} encountered in sound clip header at pos: {:#x}", m_SampleRate, headerPos);
 		//}
-
+		
 		uint8_t headerSize = 48;
+		/*
 		stream.SkipBytes(8);
 
 		// check whether we're in a 48 or 56 sized header, using offset 38
@@ -98,6 +139,7 @@ namespace LibSWBF2::Types
 			}
 		}
 		stream.SkipBytes(6);
+		*/
 		return headerSize;
 	}
 
@@ -133,13 +175,15 @@ namespace LibSWBF2::Types
 			"Sample Count: {}\n"
 			"Data Length: {}\n"
 			"Header Position: {}\n"
-			"Data Position: {}\n",
+			"Data Position: {}\n"
+			"Padding: {}\n",
 			clipName,
 			m_SampleRate,
 			m_SampleCount,
 			m_DataLength,
 			m_HeaderPosition,
-			m_DataPosition
+			m_DataPosition,
+			m_Padding
 		).c_str();
 	}
 }
