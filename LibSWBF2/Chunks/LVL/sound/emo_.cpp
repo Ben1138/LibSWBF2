@@ -1,3 +1,4 @@
+/*
 #include "pch.h"
 #include "emo_.h"
 #include "InternalHelpers.h"
@@ -78,3 +79,4 @@ namespace LibSWBF2::Chunks::LVL::sound
 		return result.c_str();
 	}
 }
+*/

@@ -12,6 +12,8 @@ namespace LibSWBF2
 	const std::map<ChunkHeader, std::string> KNOWN_SOUND_HEADERS = 
 	{
 		{"StreamList"_fnvh, "StreamList"},
+		{"Stream"_fnvh, 	"Stream"},
+		{"Info"_fnvh, 		"Info"},
 	};
 
 	const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =
@@ -62,26 +64,26 @@ namespace LibSWBF2
 
 	Types::String ChunkHeader::ToString() const
 	{
+		auto soundLookup = KNOWN_SOUND_HEADERS.find(*this);
+		if (soundLookup != KNOWN_SOUND_HEADERS.end())
+		{
+			return soundLookup -> second.c_str();
+		}
+		
 		if (!IsValidHeader(*this))
 		{
-			auto soundLookup = KNOWN_SOUND_HEADERS.find(*this);
-			if (soundLookup != KNOWN_SOUND_HEADERS.end())
-			{
-				return soundLookup -> second.c_str();
-			}
-			else 
-			{
-				std::string tstResult = fmt::format("0x{0:x}", m_Magic);
-				return tstResult.c_str();
-			}
+			std::string tstResult = fmt::format("0x{0:x}", m_Magic);
+			return tstResult.c_str();
 		}
-
-		std::string result;
-		result += m_Name[0];
-		result += m_Name[1];
-		result += m_Name[2];
-		result += m_Name[3];
-		return result.c_str();
+		else 
+		{
+			std::string result;
+			result += m_Name[0];
+			result += m_Name[1];
+			result += m_Name[2];
+			result += m_Name[3];
+			return result.c_str();
+		}
 	}
 
 	bool IsValidHeader(const ChunkHeader hedr)
@@ -104,6 +106,6 @@ namespace LibSWBF2
 
 	bool IsKnownHeader(const ChunkHeader hedr)
 	{
-		return KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end() || KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end();
+		return (KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end()) || (KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end());
 	}
 }

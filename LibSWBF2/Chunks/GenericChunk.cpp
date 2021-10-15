@@ -162,6 +162,7 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, zafbin);
 						chunk = zafbin;
 					}
+					/*
 					else if (nextHead == "emo_"_h)
 					{
 						LVL::sound::emo_* unknown;
@@ -174,6 +175,7 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
+					*/
 					else if (nextHead == "lght"_h)
 					{
 						LVL::config::lght* lighting;
@@ -264,6 +266,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, collisionPrimitives);
 						chunk = collisionPrimitives;
 					}
+					else if (nextHead == "StreamList"_fnvh)
+					{
+						LVL::sound::StreamList* streamList;
+						READ_CHILD(stream, streamList);
+						chunk = streamList; 
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -349,7 +357,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
-	template struct LIBSWBF2_API GenericChunk<"emo_"_m>;
+	//template struct LIBSWBF2_API GenericChunk<"emo_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"_pad"_m>;
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
@@ -424,5 +432,7 @@ namespace LibSWBF2::Chunks
 
 	//sound
 	template struct LIBSWBF2_API GenericChunk<"StreamList"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Stream"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Info"_fnv>;
 }
 
