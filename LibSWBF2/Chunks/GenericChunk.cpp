@@ -22,6 +22,7 @@
 #include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
 #include "LVL/sound/StreamList.h"
+#include "LVL/sound/SoundBankList.h"
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
@@ -272,6 +273,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, streamList);
 						chunk = streamList; 
 					}
+					else if (nextHead == "SoundBankList"_fnvh)
+					{
+						LVL::sound::SoundBankList* bankList;
+						READ_CHILD(stream, bankList);
+						chunk = bankList; 
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -434,5 +441,6 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"StreamList"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"Stream"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"Info"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
 }
 
