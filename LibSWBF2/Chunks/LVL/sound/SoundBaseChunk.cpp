@@ -47,7 +47,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template<uint32_t Header>
 	Types::String SoundBaseChunk<Header>::ToString() const
 	{
-		std::string r = fmt::format("Sound chunk with signed size: {0} and unsigned size: {1})", m_SignedSize, BaseChunk::m_Size);
+		std::string r = fmt::format("Sound chunk with size: {0} (would've been mistaken for {1})", m_SignedSize, *((uint32_t *) &m_SignedSize));
 		return r.c_str();
 	}
 
@@ -57,4 +57,5 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template struct LIBSWBF2_API SoundBaseChunk<"Stream"_fnv>;
 	template struct LIBSWBF2_API SoundBaseChunk<"Info"_fnv>;
 	template struct LIBSWBF2_API SoundBaseChunk<"SoundBankList"_fnv>;
+	template struct LIBSWBF2_API SoundBaseChunk<"Data"_fnv>;
 }

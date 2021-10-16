@@ -3,18 +3,10 @@
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	struct StreamInfo;
-	struct StreamData;
-
-	struct LIBSWBF2_API Stream : public SoundBaseChunk<"Stream"_fnv>
+	struct LIBSWBF2_API StreamData : public SoundBaseChunk<"Data"_fnv>
 	{
-		StreamInfo *p_Info;
-		List<StreamData *> m_DataChunks;
-
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
-
-		String ToString() const override;
 	};
 }

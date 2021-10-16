@@ -22,14 +22,18 @@ namespace LibSWBF2::Chunks::LVL::sound
 		SoundBaseChunk::ReadFromStream(stream);
 		Check(stream);
 
+		bool breakOut = false;
+
 		while (ThereIsAnother(stream))
 		{
 			FNVHash next = (FNVHash) stream.ReadUInt32();
 
+			/*
 			if (m_NumSegments == m_SoundHeaders.Size() && m_NumSegments > 0)
 			{
 				break;
 			}
+			*/
 
 			switch (next)
 			{
@@ -54,10 +58,20 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 				case "Sample"_fnv:
 					m_SoundHeaders.Emplace().ReadHeaderFromStream(stream); 
-					break;				
+					break;	
+
+				case "Padding"_fnv:
+					m_Padding = stream.ReadUInt32(); 
+					breakOut = true;
+					break;		
 
 				default:
 					break;
+			}
+
+			if (breakOut)
+			{ 
+				break;
 			}
 		}
 
@@ -79,12 +93,14 @@ namespace LibSWBF2::Chunks::LVL::sound
 			"Num Channels: {2}\n"
 			"Num Segments: {3}\n"
 			"Combined Sound Size: {4}\n"
-			"\n{5} Segments:\n{6}",
+			"Padding: {5}\n"
+			"\n{6} Segments:\n{7}",
 			m_Name,
 			m_Format,
 			m_NumChannels,
 			m_NumSegments,
 			m_CombinedSoundSize,
+			m_Padding,
 			m_SoundHeaders.Size(),
 			soundsStr.Buffer()
 		).c_str();
