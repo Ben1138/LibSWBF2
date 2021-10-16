@@ -231,6 +231,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, music);
 						chunk = music;	
 					}
+					else if (nextHead == "ffx_"_h)
+					{
+						LVL::config::ffx_* foleyFx;
+						READ_CHILD(stream, foleyFx);
+						chunk = foleyFx;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -425,6 +431,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"comb"_m>;
 	template struct LIBSWBF2_API GenericChunk<"snd_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"mus_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ffx_"_m>;
 
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
