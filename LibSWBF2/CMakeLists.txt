@@ -177,6 +177,8 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/StreamInfo.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SoundBankList.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/StreamData.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBank.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBankInfo.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/_pad.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/emo_.cpp"
 

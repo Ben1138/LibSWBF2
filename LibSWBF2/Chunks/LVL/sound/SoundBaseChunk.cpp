@@ -4,6 +4,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
+#include <iostream>
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
@@ -25,8 +26,16 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::m_ChunkPosition = stream.GetPosition();
 		BaseChunk::m_Header = stream.ReadChunkHeader(false);
 
+		//std::cout << "On header: " << BaseChunk::m_Header.ToString().Buffer() << std::endl;
+
+
+		/*
 		m_SignedSize = stream.ReadInt32();
-		BaseChunk::m_Size = (uint32_t) m_SignedSize;
+		stream.SetPosition(stream.GetPosition() - 4);
+		m_BadSize = stream.ReadUInt32();
+		*/
+
+		BaseChunk::m_Size = stream.ReadUInt32(); //(uint32_t) m_SignedSize;
 
 		LOG_INFO("Position: {}", BaseChunk::m_ChunkPosition);
 		LOG_INFO("Header: {}", BaseChunk::m_Header);
@@ -47,7 +56,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template<uint32_t Header>
 	Types::String SoundBaseChunk<Header>::ToString() const
 	{
-		std::string r = fmt::format("Sound chunk with size: {0} (would've been mistaken for {1})", m_SignedSize, *((uint32_t *) &m_SignedSize));
+		std::string r = fmt::format("Sound chunk with size: {0} (would've been mistaken for {1})", m_SignedSize, m_BadSize);
 		return r.c_str();
 	}
 
@@ -58,4 +67,5 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template struct LIBSWBF2_API SoundBaseChunk<"Info"_fnv>;
 	template struct LIBSWBF2_API SoundBaseChunk<"SoundBankList"_fnv>;
 	template struct LIBSWBF2_API SoundBaseChunk<"Data"_fnv>;
+	template struct LIBSWBF2_API SoundBaseChunk<"SampleBank"_fnv>;
 }

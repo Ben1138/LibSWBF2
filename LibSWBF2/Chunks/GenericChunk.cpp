@@ -458,5 +458,6 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"Info"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"Data"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SampleBank"_fnv>;
 }
 
