@@ -16,6 +16,7 @@ namespace LibSWBF2
 		{"Info"_fnvh, 			"Info"},
 		{"SoundBankList"_fnvh, 	"SoundBankList"},
 		{"Data"_fnvh, 			"Data"},
+		{"SampleBank"_fnvh, 	"SampleBank"},
 	};
 
 	const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =

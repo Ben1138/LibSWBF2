@@ -1,19 +1,15 @@
 #pragma once
 #include "SoundBaseChunk.h"
-//#include "Types/SoundBankHeader.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	//using Types::SoundBankHeader;
+	struct SampleBankInfo;
+	struct StreamData;
 
-	struct SampleBank;
-
-	struct LIBSWBF2_API SoundBankList : public SoundBaseChunk<"SoundBankList"_fnv>
+	struct LIBSWBF2_API SampleBank : public SoundBaseChunk<"SampleBank"_fnv>
 	{
-		//SoundBankHeader m_SoundBankHeader;
-
-		List<SampleBank *> m_SampleBanks;
-
+		SampleBankInfo *p_Info;
+		List<StreamData *> m_DataChunks;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

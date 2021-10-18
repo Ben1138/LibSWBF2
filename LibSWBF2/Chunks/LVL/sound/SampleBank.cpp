@@ -1,24 +1,25 @@
 #include "pch.h"
-#include "SoundBankList.h"
 #include "SampleBank.h"
-#include "FileReader.h"
+#include "SampleBankInfo.h"
+#include "StreamData.h"
+#include "SoundBaseChunk.h"
 #include "InternalHelpers.h"
-#include "Hashing.h"
+#include "FileReader.h"
 
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	void SoundBankList::RefreshSize()
+	void SampleBank::RefreshSize()
 	{
 		THROW("Not implemented!");
 	}
 
-	void SoundBankList::WriteToStream(FileWriter& stream)
+	void SampleBank::WriteToStream(FileWriter& stream)
 	{
 		THROW("Not implemented!");
 	}
 
-	void SoundBankList::ReadFromStream(FileReader& stream)
+	void SampleBank::ReadFromStream(FileReader& stream)
 	{
 		SoundBaseChunk::ReadFromStream(stream);
 		Check(stream);
@@ -26,25 +27,29 @@ namespace LibSWBF2::Chunks::LVL::sound
 		while (ThereIsAnother(stream))
 		{
 			ChunkHeader next = stream.ReadChunkHeader(true);
-			if (next == "SampleBank"_fnvh)
+			if (next == "Info"_fnvh)
 			{
-				READ_CHILD(stream, m_SampleBanks.Emplace())
+				READ_CHILD(stream, p_Info);
+			}
+			else if (next == "Data"_fnvh)
+			{
+				READ_CHILD(stream, m_DataChunks.Emplace());
 			}
 			else 
 			{
 				stream.SkipBytes(4);
-			}		
+			}
 		}
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String SoundBankList::ToString() const
+	String SampleBank::ToString() const
 	{
 		std::string result = fmt::format(
-			"{0}\nNum sample banks: {1}",
+			"{0}\n{1}",
 			SoundBaseChunk::ToString().Buffer(),
-			m_SampleBanks.Size()
+			p_Info == nullptr ? "No info chunk found" : p_Info -> ToString().Buffer()
 		);
 
 		return result.c_str();
