@@ -463,7 +463,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/scr_/scr_.h"
 
 #include "Chunks/LVL/sound/Stream.h"
-#include "Chunks/LVL/sound/StreamData.h"
+#include "Chunks/LVL/sound/SoundData.h"
 #include "Chunks/LVL/sound/SampleBank.h"
 
 
@@ -550,7 +550,7 @@ namespace LibSWBF2
 
 
     template class LIBSWBF2_API Types::List<LVL::sound::Stream *>;
-    template class LIBSWBF2_API Types::List<LVL::sound::StreamData *>;
+    template class LIBSWBF2_API Types::List<LVL::sound::SoundData *>;
     template class LIBSWBF2_API Types::List<LVL::sound::SampleBank *>;
 
 

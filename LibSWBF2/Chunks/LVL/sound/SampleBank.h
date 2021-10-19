@@ -4,12 +4,12 @@
 namespace LibSWBF2::Chunks::LVL::sound
 {
 	struct SampleBankInfo;
-	struct StreamData;
+	struct SoundData;
 
 	struct LIBSWBF2_API SampleBank : public SoundBaseChunk<"SampleBank"_fnv>
 	{
 		SampleBankInfo *p_Info;
-		List<StreamData *> m_DataChunks;
+		List<SoundData *> m_DataChunks;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

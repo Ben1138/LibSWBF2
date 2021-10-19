@@ -1,22 +1,22 @@
 #include "pch.h"
-#include "StreamData.h"
+#include "SoundData.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	void StreamData::RefreshSize()
+	void SoundData::RefreshSize()
 	{
 		THROW("Not implemented!");
 	}
 
-	void StreamData::WriteToStream(FileWriter& stream)
+	void SoundData::WriteToStream(FileWriter& stream)
 	{
 		THROW("Not implemented!");
 	}
 
-	void StreamData::ReadFromStream(FileReader& stream)
+	void SoundData::ReadFromStream(FileReader& stream)
 	{
 		SoundBaseChunk::ReadFromStream(stream);
 		Check(stream);

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SampleBank.h"
 #include "SampleBankInfo.h"
-#include "StreamData.h"
+#include "SoundData.h"
 #include "SoundBaseChunk.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"

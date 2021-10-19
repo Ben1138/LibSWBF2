@@ -56,7 +56,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template<uint32_t Header>
 	Types::String SoundBaseChunk<Header>::ToString() const
 	{
-		std::string r = fmt::format("Sound chunk with size: {0} (would've been mistaken for {1})", m_SignedSize, m_BadSize);
+		std::string r = "";// fmt::format("Sound chunk with size: {0} (would've been mistaken for {1})", m_SignedSize, m_BadSize);
 		return r.c_str();
 	}
 
