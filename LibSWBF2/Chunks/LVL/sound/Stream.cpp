@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Stream.h"
 #include "StreamInfo.h"
-#include "StreamData.h"
+#include "SoundData.h"
 #include "SoundBaseChunk.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"

@@ -8,8 +8,6 @@ namespace LibSWBF2::Chunks::LVL::sound
 	template<uint32_t Header>
 	struct LIBSWBF2_API SoundBaseChunk : public GenericChunk<Header>
 	{
-		int32_t m_SignedSize;
-
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;
