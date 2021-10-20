@@ -167,7 +167,7 @@ namespace LibSWBF2::Types
 	{
 		String clipName;
 		if (!FNV::Lookup(m_NameHash, clipName))
-			clipName = std::to_string(m_NameHash).c_str();
+			clipName = fmt::format("0x{0:x}", m_NameHash).c_str();// std::to_string(m_NameHash).c_str();
 
 		return fmt::format(
 			"Name: {}\n"

@@ -1,9 +1,9 @@
 #pragma once
-#include "SoundBaseChunk.h"
+#include "Chunks/GenericChunk.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	struct LIBSWBF2_API SoundData : public SoundBaseChunk<"Data"_fnv>
+	struct LIBSWBF2_API SoundData : public GenericChunk<"Data"_fnv>
 	{
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

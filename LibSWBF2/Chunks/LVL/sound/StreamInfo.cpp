@@ -19,7 +19,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	void StreamInfo::ReadFromStream(FileReader& stream)
 	{
-		SoundBaseChunk::ReadFromStream(stream);
+		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
 		bool breakOut = false;

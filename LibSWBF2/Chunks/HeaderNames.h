@@ -38,7 +38,7 @@ namespace LibSWBF2
 	
 	constexpr ChunkHeader operator""_fnvh(const char* chars, const size_t length)
 	{
-		uint32_t fnvHeader = (uint32_t) FNV::HashConstexpr({ chars, length });
+		FNVHash fnvHeader = FNV::HashConstexpr({ chars, length });
 		return *((ChunkHeader *) &fnvHeader);
 	}
 

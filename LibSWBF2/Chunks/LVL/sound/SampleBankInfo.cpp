@@ -5,7 +5,6 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-#include <iostream>
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
@@ -21,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	void SampleBankInfo::ReadFromStream(FileReader& stream)
 	{
-		SoundBaseChunk::ReadFromStream(stream);
+		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
 		bool breakOut = false;
@@ -52,9 +51,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 					break;
 
 				case "Sample"_fnv:
-					//std::cout << "  Reading another sample..." << std::endl;
 					m_SoundHeaders.Emplace().ReadHeaderFromStream(stream); 
-					//std::cout << m_SoundHeaders[m_SoundHeaders.Size() - 1].ToString().Buffer() << std::endl; 
 					break;	
 
 				case "Padding"_fnv:

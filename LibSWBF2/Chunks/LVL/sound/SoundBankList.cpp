@@ -20,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	void SoundBankList::ReadFromStream(FileReader& stream)
 	{
-		SoundBaseChunk::ReadFromStream(stream);
+		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
 		while (ThereIsAnother(stream))
@@ -42,8 +42,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	String SoundBankList::ToString() const
 	{
 		std::string result = fmt::format(
-			"{0}\nNum sample banks: {1}",
-			SoundBaseChunk::ToString().Buffer(),
+			"Num sample banks: {0}",
 			m_SampleBanks.Size()
 		);
 
