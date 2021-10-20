@@ -1,9 +1,9 @@
 #pragma once
-#include "SoundBaseChunk.h"
+#include "Chunks/GenericChunk.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
-	struct LIBSWBF2_API SampleBankInfo : public SoundBaseChunk<"Info"_fnv>
+	struct LIBSWBF2_API SampleBankInfo : public GenericChunk<"Info"_fnv>
 	{
 		FNVHash m_Name;
 		uint32_t m_Format;

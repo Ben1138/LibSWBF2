@@ -1,12 +1,12 @@
 #pragma once
-#include "SoundBaseChunk.h"
+#include "Chunks/GenericChunk.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
 	struct StreamInfo;
 	struct SoundData;
 
-	struct LIBSWBF2_API Stream : public SoundBaseChunk<"Stream"_fnv>
+	struct LIBSWBF2_API Stream : public GenericChunk<"Stream"_fnv>
 	{
 		StreamInfo *p_Info;
 		List<SoundData *> m_DataChunks;

@@ -18,7 +18,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	void StreamList::ReadFromStream(FileReader& stream)
 	{
-		SoundBaseChunk::ReadFromStream(stream);
+		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
 		while (ThereIsAnother(stream))
@@ -40,8 +40,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	String StreamList::ToString() const
 	{
 		std::string result = fmt::format(
-			"{0}\nNum streams: {1}",
-			SoundBaseChunk::ToString().Buffer(),
+			"Num streams: {0}",
 			m_Streams.Size()
 		);
 

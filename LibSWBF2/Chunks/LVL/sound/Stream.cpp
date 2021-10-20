@@ -2,7 +2,6 @@
 #include "Stream.h"
 #include "StreamInfo.h"
 #include "SoundData.h"
-#include "SoundBaseChunk.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
@@ -21,7 +20,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	void Stream::ReadFromStream(FileReader& stream)
 	{
-		SoundBaseChunk::ReadFromStream(stream);
+		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
 		while (ThereIsAnother(stream))
@@ -46,12 +45,6 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	String Stream::ToString() const
 	{
-		std::string result = fmt::format(
-			"{0}\n{1}",
-			SoundBaseChunk::ToString().Buffer(),
-			p_Info == nullptr ? "No info chunk found" : p_Info -> ToString().Buffer()
-		);
-
-		return result.c_str();
+		return p_Info == nullptr ? "No info chunk found" : p_Info -> ToString().Buffer();
 	}
 }
