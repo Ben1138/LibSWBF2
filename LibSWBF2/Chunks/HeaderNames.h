@@ -42,6 +42,6 @@ namespace LibSWBF2
 		return *((ChunkHeader *) &fnvHeader);
 	}
 
-	bool IsValidHeader(const ChunkHeader hedr);
+	bool IsPrintableHeader(const ChunkHeader hedr);
 	bool IsKnownHeader(const ChunkHeader hedr);
 }

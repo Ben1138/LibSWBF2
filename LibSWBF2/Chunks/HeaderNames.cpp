@@ -73,23 +73,23 @@ namespace LibSWBF2
 			return soundLookup -> second.c_str();
 		}
 
-		if (!IsValidHeader(*this))
+		std::string result;
+		if (!IsPrintableHeader(*this))
 		{
-			std::string tstResult = fmt::format("0x{0:x}", m_Magic);
-			return tstResult.c_str();
+			result = fmt::format("0x{0:x}", m_Magic);
 		}
 		else 
 		{
-			std::string result;
 			result += m_Name[0];
 			result += m_Name[1];
 			result += m_Name[2];
 			result += m_Name[3];
-			return result.c_str();
 		}
+
+		return result.c_str();
 	}
 
-	bool IsValidHeader(const ChunkHeader hedr)
+	bool IsPrintableHeader(const ChunkHeader hedr)
 	{
 		auto checkChar = [](char c)
 		{
