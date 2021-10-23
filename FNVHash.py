@@ -21,6 +21,7 @@ def Hash(str):
 
 hashval = Hash(sys.argv[1])
 hex_str = hex(hashval)
-hex_str_le_bytes = hex_str[8:10] + hex_str[6:8] + hex_str[4:6] + hex_str[2:4]
+hex_pad_str = hex_str[0:2] + (10 - len(hex_str)) * "0" + hex_str[2:]
+hex_str_le_bytes = hex_pad_str[8:10] + hex_pad_str[6:8] + hex_pad_str[4:6] + hex_pad_str[2:4]
 
-print(hashval, "(Hex: {}, LE byte-order hex: {})".format(hex_str[2:], hex_str_le_bytes))
+print(hashval, "(Hex: {}, LE byte-order: {})".format(hex_str[2:], hex_str_le_bytes))
