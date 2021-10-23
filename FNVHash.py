@@ -20,4 +20,7 @@ def Hash(str):
     return hash
 
 hashval = Hash(sys.argv[1])
-print(hashval, "({})".format(hex(hashval)))
+hex_str = hex(hashval)
+hex_str_le_bytes = hex_str[8:10] + hex_str[6:8] + hex_str[4:6] + hex_str[2:4]
+
+print(hashval, "(Hex: {}, LE byte-order hex: {})".format(hex_str[2:], hex_str_le_bytes))
