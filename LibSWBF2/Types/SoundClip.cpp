@@ -69,6 +69,10 @@ namespace LibSWBF2::Types
 					m_Padding = stream.ReadUInt32();
 					break;	
 
+				case "Alias"_fnv:
+					m_Alias = stream.ReadUInt32();
+					break;	
+
 				default:
 					break;
 			}
@@ -170,20 +174,22 @@ namespace LibSWBF2::Types
 			clipName = fmt::format("0x{0:x}", m_NameHash).c_str();// std::to_string(m_NameHash).c_str();
 
 		return fmt::format(
-			"Name: {}\n"
-			"Sample Rate: {}\n"
-			"Sample Count: {}\n"
-			"Data Length: {}\n"
-			"Header Position: {}\n"
-			"Data Position: {}\n"
-			"Padding: {}\n",
+			"Name: {0}\n"
+			"Sample Rate: {1}\n"
+			"Sample Count: {2}\n"
+			"Data Length: {3}\n"
+			"Header Position: {4}\n"
+			"Data Position: {5}\n"
+			"Padding: {6}\n"
+			"Alias: 0x{7:x}\n",
 			clipName,
 			m_SampleRate,
 			m_SampleCount,
 			m_DataLength,
 			m_HeaderPosition,
 			m_DataPosition,
-			m_Padding
+			m_Padding,
+			m_Alias
 		).c_str();
 	}
 }
