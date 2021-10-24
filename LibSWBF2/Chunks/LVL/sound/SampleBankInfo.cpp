@@ -72,7 +72,24 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String SampleBankInfo::ToString() const
+
+	String SampleBankInfo::HeaderToString() const
+	{
+		return fmt::format(
+			"Name: 0x{0:x}\n"
+			"Format (num channels): {1}\n"
+			"Num Samples: {2}\n"
+			"Combined Sound Size: {3}\n"
+			"Padding: {4}\n",
+			m_Name,
+			m_Format,
+			m_NumSamples,
+			m_CombinedSoundSize,
+			m_Padding
+		).c_str();
+	}
+
+	String SampleBankInfo::SampleInfoToString() const
 	{
 		String soundsStr;
 		for (int i = 0; i < m_SoundHeaders.Size(); i++)
@@ -80,23 +97,11 @@ namespace LibSWBF2::Chunks::LVL::sound
 			soundsStr = soundsStr + fmt::format("\n{}:\n", i).c_str();
 			soundsStr = soundsStr + m_SoundHeaders[i].ToString();
 		}
+		return soundsStr;
+	}
 
-		return fmt::format(
-			"Name: 0x{0:x}\n"
-			"Format: 0x{1:x}\n"
-			"Num Channels: {2}\n"
-			"Num Samples: {3}\n"
-			"Combined Sound Size: {4}\n"
-			"Padding: {5}\n"
-			"\n{6} Samples:\n{7}",
-			m_Name,
-			m_Format,
-			m_NumChannels,
-			m_NumSamples,
-			m_CombinedSoundSize,
-			m_Padding,
-			m_SoundHeaders.Size(),
-			soundsStr.Buffer()
-		).c_str();
+	String SampleBankInfo::ToString() const
+	{
+		return HeaderToString() + "\nSample headers: \n" + SampleInfoToString();
 	}
 }

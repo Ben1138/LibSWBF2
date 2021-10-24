@@ -45,6 +45,6 @@ namespace LibSWBF2::Chunks::LVL::sound
 
 	String Stream::ToString() const
 	{
-		return p_Info == nullptr ? "No info chunk found" : p_Info -> ToString().Buffer();
+		return p_Info == nullptr ? "No info chunk found..." : p_Info -> HeaderToString();
 	}
 }

@@ -20,5 +20,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 		void ReadFromStream(FileReader& stream) override;
 
 		String ToString() const override;
+		String HeaderToString() const;
+		String SampleInfoToString() const;
 	};
 }
