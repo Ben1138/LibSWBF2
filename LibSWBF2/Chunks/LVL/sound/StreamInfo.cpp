@@ -5,6 +5,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
+
 namespace LibSWBF2::Chunks::LVL::sound
 {
 	void StreamInfo::RefreshSize()
@@ -22,18 +23,9 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
 
-		bool breakOut = false;
-
 		while (ThereIsAnother(stream))
 		{
 			FNVHash next = (FNVHash) stream.ReadUInt32();
-
-			/*
-			if (m_NumSegments == m_SoundHeaders.Size() && m_NumSegments > 0)
-			{
-				break;
-			}
-			*/
 
 			switch (next)
 			{
@@ -56,29 +48,48 @@ namespace LibSWBF2::Chunks::LVL::sound
 					m_CombinedSoundSize = stream.ReadUInt32(); 
 					break;
 
-				case "Sample"_fnv:
-					m_SoundHeaders.Emplace().ReadHeaderFromStream(stream); 
+				case "SegmentInfo"_fnv:
+					next = (FNVHash) stream.ReadUInt32();
+					while (next == "Sample"_fnv)
+					{
+						m_SoundHeaders.Emplace().ReadHeaderFromStream(stream);
+						next = (FNVHash) stream.ReadUInt32(); 
+					}
+					stream.SetPosition(stream.GetPosition() - 4);
 					break;	
 
 				case "Padding"_fnv:
-					m_Padding = stream.ReadUInt32(); 
-					breakOut = true;
+					m_Padding = stream.ReadUInt32();
+					stream.SkipBytes(m_Padding - 4);
 					break;		
 
 				default:
 					break;
-			}
-
-			if (breakOut)
-			{ 
-				break;
 			}
 		}
 
 		BaseChunk::EnsureEnd(stream);
 	}
 
-	String StreamInfo::ToString() const
+	String StreamInfo::HeaderToString() const
+	{
+		return fmt::format(
+			"Name: 0x{0:x}\n"
+			"Format: 0x{1:x}\n"
+			"Num Channels: {2}\n"
+			"Num Segments: {3}\n"
+			"Combined Sound Size: {4}\n"
+			"Padding: {5}\n",
+			m_Name,
+			m_Format,
+			m_NumChannels,
+			m_NumSegments,
+			m_CombinedSoundSize,
+			m_Padding
+		).c_str();
+	}
+
+	String StreamInfo::SegmentInfoToString() const
 	{
 		String soundsStr;
 		for (int i = 0; i < m_SoundHeaders.Size(); i++)
@@ -86,23 +97,11 @@ namespace LibSWBF2::Chunks::LVL::sound
 			soundsStr = soundsStr + fmt::format("\n{}:\n", i).c_str();
 			soundsStr = soundsStr + m_SoundHeaders[i].ToString();
 		}
+		return soundsStr;
+	}
 
-		return fmt::format(
-			"Name: 0x{0:x}\n"
-			"Format: 0x{1:x}\n"
-			"Num Channels: {2}\n"
-			"Num Segments: {3}\n"
-			"Combined Sound Size: {4}\n"
-			"Padding: {5}\n"
-			"\n{6} Segments:\n{7}",
-			m_Name,
-			m_Format,
-			m_NumChannels,
-			m_NumSegments,
-			m_CombinedSoundSize,
-			m_Padding,
-			m_SoundHeaders.Size(),
-			soundsStr.Buffer()
-		).c_str();
+	String StreamInfo::ToString() const
+	{
+		return HeaderToString() + "\nSegment headers: \n" + SegmentInfoToString();
 	}
 }
