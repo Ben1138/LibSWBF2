@@ -23,6 +23,9 @@ namespace LibSWBF2.Enums
         Skydome = 0x5f796b73,
         Path = 0x68746170,
         Combo = 0x626d6f63,
+        Music = 0x5f73756d,
+        FoleyFX = 0x5f786666,
+        Sound = 0x5f646e73,
     }
 
     public enum ETopology : int
