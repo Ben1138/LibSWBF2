@@ -147,6 +147,36 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		snd_* soundChunk = dynamic_cast<snd_*>(root);
+		if (comboChunk != nullptr)
+		{
+			Config sound;
+			if (Config::FromChunk(soundChunk, sound))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(sound.m_Name + (uint32_t) sound.m_Type, m_Configs.Add(std::move(sound)));
+			}
+		}
+
+		mus_* musicChunk = dynamic_cast<mus_*>(root);
+		if (musicChunk != nullptr)
+		{
+			Config music;
+			if (Config::FromChunk(musicChunk, music))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(music.m_Name + (uint32_t) music.m_Type, m_Configs.Add(std::move(music)));
+			}
+		}
+
+		ffx_* foleyFXChunk = dynamic_cast<ffx_*>(root);
+		if (foleyFXChunk != nullptr)
+		{
+			Config foleyFX;
+			if (Config::FromChunk(foleyFXChunk, foleyFX))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(foleyFX.m_Name + (uint32_t) foleyFX.m_Type, m_Configs.Add(std::move(foleyFX)));
+			}
+		}
+		
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
