@@ -68,9 +68,15 @@ namespace LibSWBF2
 			p_LookupTable = new std::unordered_map<FNVHash, std::string>();
 		}
 
-		std::ifstream csv("lookup.csv");
+		std::ifstream csv(LOOKUP_CSV_PATH);
 		for (std::string line; std::getline(csv, line); )
 		{
+			// Exclude carriage return for Unix compatibility
+			if (!line.empty() && line.back() == 0x0D)
+			{
+				line.pop_back();
+			}
+
 			p_LookupTable->emplace(Hash(line.c_str()), line);
 		}
 	}
