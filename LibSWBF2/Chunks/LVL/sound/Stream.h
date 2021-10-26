@@ -1,15 +1,15 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
+#include "Chunks/RawData.h"
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
 	struct StreamInfo;
-	struct SoundData;
 
 	struct LIBSWBF2_API Stream : public GenericChunk<"Stream"_fnv>
 	{
 		StreamInfo *p_Info;
-		List<SoundData *> m_DataChunks;
+		RawData<"Data"_fnv> *p_Data;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
