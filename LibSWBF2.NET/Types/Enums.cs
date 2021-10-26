@@ -26,6 +26,7 @@ namespace LibSWBF2.Enums
         Music = 0x5f73756d,
         FoleyFX = 0x5f786666,
         Sound = 0x5f646e73,
+        TriggerSoundRegion = 0x5f727374,
     }
 
     public enum ETopology : int
