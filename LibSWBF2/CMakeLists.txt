@@ -115,6 +115,11 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Wrappers/Terrain.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/Texture.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/World.cpp"
+  "${PROJECT_SOURCE_DIR}/Wrappers/SoundStream.cpp"
+
+
+  "${PROJECT_SOURCE_DIR}/Chunks/BNK/BNK.cpp"
+
 
   # Chunks
   "${PROJECT_SOURCE_DIR}/Chunks/BaseChunk.cpp"
@@ -123,8 +128,6 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/RawData.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/STR.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/STRMULT.cpp"
-
-  "${PROJECT_SOURCE_DIR}/Chunks/BNK/BNK.cpp"
 
   # LVL
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/LVL.cpp"
