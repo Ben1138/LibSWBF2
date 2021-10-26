@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Stream.h"
 #include "StreamInfo.h"
-#include "SoundData.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
@@ -32,7 +31,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 			}
 			else if (next == "Data"_fnvh)
 			{
-				READ_CHILD(stream, m_DataChunks.Emplace());
+				READ_CHILD(stream, p_Data);
 			}
 			else 
 			{
