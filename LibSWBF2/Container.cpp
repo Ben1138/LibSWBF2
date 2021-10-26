@@ -5,7 +5,6 @@
 #include "FileReader.h"
 
 #include "Chunks/LVL/LVL.h"
-#include "Chunks/BNK/BNK.h"
 
 #include <vector>
 #include <future>
@@ -177,6 +176,7 @@ namespace LibSWBF2
 		status.m_Chunk = nullptr;
 	}
 
+	/*
 	void Container::LoadSoundBankAsync(const Schedule& scheduled)
 	{
 		// do not globally lock in order to not block
@@ -233,6 +233,7 @@ namespace LibSWBF2
 		LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
 		status.m_Chunk = nullptr;
 	}
+	*/
 
 	Container::Container()
 	{
@@ -275,6 +276,7 @@ namespace LibSWBF2
 		return handle;
 	}
 
+	/*
 	SWBF2Handle Container::AddSoundBank(const String& path, bool bRegisterContents)
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
@@ -293,6 +295,7 @@ namespace LibSWBF2
 		});
 		return handle;
 	}
+	*/
 
 	void Container::StartLoading()
 	{
@@ -306,14 +309,16 @@ namespace LibSWBF2
 		m_OverallSize = 0;
 		for (Schedule& scheduled : m_ThreadSafeMembers->m_Scheduled)
 		{
+			/*
 			if (scheduled.m_bIsSoundBank)
 			{
 				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadSoundBankAsync, this, scheduled));
 			}
-			else
-			{
+			*/
+			//else
+			//{
 				m_ThreadSafeMembers->m_Processes.push_back(std::async(std::launch::async, &Container::LoadLevelAsync, this, scheduled));
-			}
+			//}
 		}
 		m_ThreadSafeMembers->m_Scheduled.clear();
 	}
@@ -353,11 +358,14 @@ namespace LibSWBF2
 					Level::Destroy(status.m_Level);
 					status.m_Level = nullptr;
 				}
+
+				/*
 				if (status.m_SoundBank != nullptr)
 				{
 					SoundBank::Destroy(status.m_SoundBank);
 					status.m_SoundBank = nullptr;
 				}
+				*/
 			}
 		}
 
@@ -680,6 +688,29 @@ namespace LibSWBF2
 		}
 		return nullptr;
 	}
+
+	/*
+	const Sound* Container::FindSoundStream(String soundName) const
+	{
+		if (soundName.IsEmpty())
+		{
+			return nullptr;
+		}
+		return FindSoundStream(FNV::Hash(soundName));
+	}
+
+	const Sound* Container::FindSoundStream(FNVHash hashedSoundName) const
+	{
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_SoundDB.find(hashedSoundName);
+		if (it != m_ThreadSafeMembers->m_SoundDB.end())
+		{
+			return it->second;
+		}
+		return nullptr;
+	}
+	*/
+
 
 
 	bool Container::GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SoundBank.h"
-#include "Chunks/BNK/BNK.h"
+#include "Chunks/LVL/sound/SampleBank.h"
+#include "Chunks/LVL/sound/SampleBankInfo.h"
 
 #include "InternalHelpers.h"
 #include "Types/SoundClip.h"
@@ -10,72 +11,49 @@
 namespace LibSWBF2::Wrappers
 {
 	using Types::SoundClip;
-	using LibSWBF2::Chunks::BNK::BNK;
 
 
-	SoundBank::SoundBank(BNK* soundBank)
+	bool SoundBank::FromChunk(SampleBank* bankChunk, SoundBank& out)
 	{
-		p_soundBank = soundBank;
-		m_NameToIndexMaps = new SoundMapsWrapper();
+		if (bankChunk == nullptr)
+		{
+			LOG_WARN("Given SampleBank chunk is NULL!");
+			return false;
+		}
 
-		List<SoundClip>& clips = soundBank->m_SoundBank.m_Clips;
+		out.p_soundBank = bankChunk;
+		out.m_NameToIndexMaps = new SoundMapsWrapper();
+
+		List<SoundClip>& clips = bankChunk -> p_Info -> m_SoundHeaders;
 		for (size_t i = 0; i < clips.Size(); ++i)
 		{
 			Sound sound;
 			if (Sound::FromSoundClip(&clips[i], sound))
 			{
-				size_t index = m_Sounds.Add(sound);
-				m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
+				size_t index = out.m_Sounds.Add(sound);
+				out.m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
 			}
 		}
+
+		return true;
 	}
 
-	SoundBank::~SoundBank()
+
+	const uint32_t SoundBank::GetFormat() const
 	{
-		if (p_soundBank == nullptr)
-		{
-			LOG_ERROR("p_soundBank of SoundBank was NULL!");
-		}
-		else
-		{
-			BNK::Destroy(p_soundBank);
-		}
-		delete m_NameToIndexMaps;
+		return p_soundBank -> p_Info -> m_Format;	
 	}
 
-	SoundBank* SoundBank::FromFile(const String& path)
+	const FNVHash SoundBank::GetHashedName() const
 	{
-		BNK* soundBank = BNK::Create();
-		if (!soundBank->ReadFromFile(path))
-		{
-			BNK::Destroy(soundBank);
-			return nullptr;
-		}
-		
-		SoundBank* result = new SoundBank(soundBank);
-		return result;
+		return p_soundBank -> p_Info -> m_Name;			
 	}
 
-	SoundBank* SoundBank::FromChunk(BNK* soundChunk)
+	const bool SoundBank::HasData() const
 	{
-		if (soundChunk == nullptr)
-		{
-			LOG_WARN("Given soundCHunk is NULL!");
-			return nullptr;
-		}
-		return new SoundBank(soundChunk);
+		return p_soundBank -> p_Data != nullptr;
 	}
 
-	void SoundBank::Destroy(SoundBank* SoundBank)
-	{
-		if (SoundBank == nullptr)
-		{
-			LOG_ERROR("Given SoundBank was NULL!");
-			return;
-		}
-
-		delete SoundBank;
-	}
 
 	const List<Sound>& SoundBank::GetSounds() const
 	{
