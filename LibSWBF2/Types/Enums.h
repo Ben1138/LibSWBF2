@@ -104,6 +104,7 @@ namespace LibSWBF2
         Music = 0x5f73756d,
         FoleyFX = 0x5f786666,
         Sound = 0x5f646e73,
+        TriggerSoundRegion = 0x5f727374,
 	};
 
 	enum class ECollisionMaskFlags : uint32_t

@@ -19,7 +19,8 @@
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Chunks/LVL/common/GenericClass.h"
 #include "Chunks/LVL/wrld/wrld.h"
-#include "Chunks/LVL/sound/emo_.h"
+#include "Chunks/LVL/sound/Stream.h"
+#include "Chunks/LVL/sound/SampleBank.h"
 
 
 #include <unordered_map>
@@ -177,6 +178,15 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 		
+		tsr_* soundTriggerChunk = dynamic_cast<tsr_*>(root);
+		if (soundTriggerChunk != nullptr)
+		{
+			Config soundTrigger;
+			if (Config::FromChunk(soundTriggerChunk, soundTrigger))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(soundTrigger.m_Name + (uint32_t) soundTrigger.m_Type, m_Configs.Add(std::move(soundTrigger)));
+			}
+		}
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
@@ -340,19 +350,21 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		// TODO: uncomment once LVL sounds are working
-		//emo_* soundChunk = dynamic_cast<emo_*>(root);
-		//if (soundChunk != nullptr)
-		//{
-		//	Sound sound;
-		//	for (uint32_t i = 0; i < soundChunk->m_NumClips; ++i)
-		//	{
-		//		if (Sound::FromSoundClip(&soundChunk->m_Clips[i], sound))
-		//		{
-		//			m_NameToIndexMaps->SoundHashToIndex.emplace(sound.GetHashedName(), m_Sounds.Add(std::move(sound)));
-		//		}
-		//	}
-		//}
+		/*
+		Stream* streamChunk = dynamic_cast<Stream*>(root);
+
+		if (streamChunk != nullptr)
+		{
+			Sound sound;
+			for (uint32_t i = 0; i < soundChunk->m_NumClips; ++i)
+			{
+				if (Sound::FromSoundClip(&soundChunk->m_Clips[i], sound))
+				{
+					m_NameToIndexMaps->SoundHashToIndex.emplace(sound.GetHashedName(), m_Sounds.Add(std::move(sound)));
+				}
+			}
+		}
+		*/
 
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)

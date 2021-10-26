@@ -42,7 +42,7 @@ namespace LibSWBF2
 		"prp_"_h, "bnd_"_h, "regn"_h, "BARR"_h, "GRGR"_h, "shdw"_h, "Hint"_h, "inst"_h,
 		"BIN_"_h, "FFAZ"_h, "SREV"_h, "EZIS"_h, "SLTM"_h, "LTAM"_h, "STSJ"_h, "SNKS"_h,
 		"NIKS"_h, "LEKS"_h, "TNOJ"_h, "SYXP"_h, "SDHS"_h, "SMNA"_h, "MINA"_h, "TNJA"_h,
-		"TADA"_h, "emo_"_h, "_pad"_h, "snd_"_h, "mus_"_h, "ffx_"_h,
+		"TADA"_h, "emo_"_h, "_pad"_h, "snd_"_h, "mus_"_h, "ffx_"_h, "tsr_"_h,
 	};
 
 	bool ChunkHeader::operator==(const ChunkHeader other) const
