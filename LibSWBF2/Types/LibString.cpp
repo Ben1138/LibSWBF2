@@ -143,4 +143,17 @@ namespace LibSWBF2::Types
 	{
 		return buffer == nullptr || buffer[0] == 0;
 	}
+
+	void String::Replace(char toReplace, char replacement) 
+	{
+		if (buffer == nullptr) return;
+
+		for (int i = 0; i < length; i++)
+		{ 
+			if (buffer[i] == toReplace)
+			{
+				buffer[i] = replacement;
+			}
+		}
+	}
 }
