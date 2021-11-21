@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "anim.h"
+//#include "anim.INFO.h"
 #include "Logging/Logger.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
+//#include "Chunks/LVL/wrld/WorldAnimKeyChunk.h"
+
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {

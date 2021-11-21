@@ -90,6 +90,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Types/Vector3.cpp"
   "${PROJECT_SOURCE_DIR}/Types/Vector3u8.cpp"
   "${PROJECT_SOURCE_DIR}/Types/Vector4.cpp"
+  "${PROJECT_SOURCE_DIR}/Types/WorldAnimationKey.cpp"
 
   # Wrappers
   "${PROJECT_SOURCE_DIR}/Wrappers/AnimationBank.cpp"
@@ -200,6 +201,8 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/wrld.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/wrld.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/XFRM.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/WorldAnimKeyChunk.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anim.INFO.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/BIN_.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/MINA.cpp"

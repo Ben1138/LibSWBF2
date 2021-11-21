@@ -436,6 +436,7 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/SEGM.h"
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
+#include "WorldAnimationKey.h"
 
 #include "Chunks/LVL/common/SCOP.h"
 #include "Chunks/LVL/common/DATA.h"
@@ -464,6 +465,8 @@ namespace LibSWBF2::Types
 
 #include "Chunks/GenericChunk.h"
 
+#include "Chunks/LVL/wrld/WorldAnimKeyChunk.h"
+
 #include "Wrappers/Wrappers.h"
 
 #include "DirectX/D3D9FORMAT.h"
@@ -471,7 +474,7 @@ namespace LibSWBF2::Types
 namespace LibSWBF2
 {
 	using namespace Chunks;
-	using namespace Types; //Clangfix
+	using namespace Types;
 
 	template class LIBSWBF2_API Types::List<const char*>;
 	template class LIBSWBF2_API Types::List<uint8_t>;
@@ -486,9 +489,10 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Color4u8>;
 	template class LIBSWBF2_API Types::List<String>;
 	template class LIBSWBF2_API Types::List<Animation>;
+	template class LIBSWBF2_API Types::List<WorldAnimationKey>;
 
-	template class LIBSWBF2_API Types::List<Key<uint16_t>>;
-	template class LIBSWBF2_API Types::List<Key<float_t>>;
+	//template class LIBSWBF2_API Types::List<Key<uint16_t>>;
+	//template class LIBSWBF2_API Types::List<Key<float_t>>;
 
 	template class LIBSWBF2_API Types::List<BoneFrames>;
 	template class LIBSWBF2_API Types::List<Polygon>;
@@ -514,6 +518,8 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::wrld::regn*>;
    	template class LIBSWBF2_API Types::List<LVL::wrld::anmg*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::anim*>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::POSK*>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::ROTK*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::PTCH*>;
 	template class LIBSWBF2_API Types::List<LVL::terrain::VBUF*>;
 
@@ -534,9 +540,6 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
 
     template class LIBSWBF2_API Types::List<STRMULT<"ANIM"_m> *>;
-
-    template class LIBSWBF2_API Types::List<RawData<"POSK"_m> *>;
-    template class LIBSWBF2_API Types::List<RawData<"ROTK"_m> *>;
 
     template class LIBSWBF2_API Types::List<LVL::animation::TNOJ *>;
 
@@ -574,6 +577,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Region>;
+	//template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;

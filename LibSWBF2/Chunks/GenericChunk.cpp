@@ -411,6 +411,5 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
-
 }
 
