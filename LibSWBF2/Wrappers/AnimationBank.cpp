@@ -330,21 +330,5 @@ namespace LibSWBF2::Wrappers
 
 		return decompStatus;
 	}
-
-
-	Curve<uint16_t> AnimationBank::GetCurve(CRCChecksum anim, CRCChecksum bone, ECurveType comp) const
-	{
-		List<uint16_t> inds;
-		List<float_t> values;
-
-		if (GetCurve(anim, bone, (uint32_t) comp, inds, values))
-		{
-			return Curve<uint16_t>(std::move(inds), std::move(values));
-		}
-		else 
-		{
-			LOG_THROW("AnimationBank {0}: Error decompressing curve for bone: 0x{1:x} of animation 0x{2:x}", GetName().Buffer(), bone, anim);
-		}
-	}
 }
 

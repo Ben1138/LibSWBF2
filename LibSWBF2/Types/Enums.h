@@ -114,18 +114,6 @@ namespace LibSWBF2
         Flag = 32,
 	};
 
-	enum class ECurveType : uint32_t
-	{
-		RotX = 0,
-		RotY = 1,
-		RotZ = 2,
-		RotW = 3,
-
-		PosX = 4,
-		PosY = 5,
-		PosZ = 6,
-	};
-
 	enum class EWorldAnimKeyTransitionType : uint8_t
 	{
 		Pop = 0,
