@@ -491,9 +491,6 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Animation>;
 	template class LIBSWBF2_API Types::List<WorldAnimationKey>;
 
-	//template class LIBSWBF2_API Types::List<Key<uint16_t>>;
-	//template class LIBSWBF2_API Types::List<Key<float_t>>;
-
 	template class LIBSWBF2_API Types::List<BoneFrames>;
 	template class LIBSWBF2_API Types::List<Polygon>;
 	template class LIBSWBF2_API Types::List<VertexWeights>;
@@ -577,7 +574,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Region>;
-	//template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
+	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;
