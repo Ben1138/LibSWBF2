@@ -51,8 +51,64 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_Region -> p_Info -> p_Type -> m_Text;
 	}
-	
 
+
+	// World Animation
+
+	bool WorldAnimation::FromChunk(anim* chunk, WorldAnimation& animOut)
+	{
+		if (chunk -> p_Info == nullptr)
+		{
+			return false;
+		}
+
+		animOut.p_WorldAnimation = chunk;
+		return true;
+	}
+
+	const String& WorldAnimation::GetName() const
+	{
+		return p_WorldAnimation -> p_Info -> m_Name;
+	}
+
+	const float WorldAnimation::GetRunTime() const
+	{
+		return p_WorldAnimation -> p_Info -> m_RunTime;
+	}
+
+
+	const bool WorldAnimation::IsLooping() const
+	{
+		return p_WorldAnimation -> p_Info -> m_Looping == 1;
+	}
+
+	const bool WorldAnimation::IsTranslationLocal() const
+	{
+		return p_WorldAnimation -> p_Info -> m_LocalTranslation == 1;
+	}
+
+	List<WorldAnimationKey> WorldAnimation::GetRotationKeys() const
+	{
+		List<WorldAnimationKey> AnimKeys;
+		for (int i = 0; i < p_WorldAnimation -> m_RotationKeys.Size(); i++)
+		{
+			ROTK *currKey = p_WorldAnimation -> m_RotationKeys[i];
+			AnimKeys.Add(currKey -> m_Key);
+		}	
+		return AnimKeys;	
+	}
+	
+	List<WorldAnimationKey> WorldAnimation::GetPositionKeys() const
+	{
+		List<WorldAnimationKey> AnimKeys;
+		for (int i = 0; i < p_WorldAnimation -> m_PositionKeys.Size(); i++)
+		{
+			POSK *currKey = p_WorldAnimation -> m_PositionKeys[i];
+			AnimKeys.Add(currKey -> m_Key);
+		}		
+		return AnimKeys;
+	}
+	
 
 
 	// World
@@ -86,7 +142,17 @@ namespace LibSWBF2::Wrappers
 			{
 				out.m_Regions.Add(region);
 			}
-		}		
+		}
+
+		List<anim *>& animations = worldChunk -> m_Animations;
+		for (size_t i = 0; i < animations.Size(); ++i)
+		{
+			WorldAnimation anim;
+			if (WorldAnimation::FromChunk(animations[i], anim))
+			{
+				out.m_Animations.Add(anim);
+			}
+		}
 
 		return true;
 	}
@@ -125,17 +191,12 @@ namespace LibSWBF2::Wrappers
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
 
-
-	const List<String> World::GetAnimationNames() const
+	
+	const List<WorldAnimation>& World::GetAnimations() const
 	{
-		List<String> names;
-		const List<anim*>& animPtrs = p_World -> m_Animations;
-		for (uint16_t i = 0; i < animPtrs.Size(); i++)
-		{
-			names.Add(animPtrs[i] -> p_Info -> m_Text);
-		}
-		return names;
+		return m_Animations;
 	}
+	
 
 
 	const List<String> World::GetAnimationGroups() const
@@ -180,10 +241,4 @@ namespace LibSWBF2::Wrappers
 
 		return false;
 	}
-
-
-	//const Curve<float_t> World::GetAnimationCurve(const String& animName, ECurveType cc) const
-	//{
-	//	return Curve<float_t>();
-	//}
 }

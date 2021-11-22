@@ -6,7 +6,7 @@
 #include "Types/Vector3.h"
 #include "Types/Vector4.h"
 #include "Types/Enums.h"
-#include "Types/Curve.h"
+#include "Types/WorldAnimationKey.h"
 
 
 namespace LibSWBF2
@@ -17,6 +17,7 @@ namespace LibSWBF2
 	{
 		struct wrld;
 		struct regn;
+		struct anim;
 	}
 }
 
@@ -27,7 +28,7 @@ namespace LibSWBF2::Wrappers
 	using Types::String;
 	using Types::Vector3;
 	using Types::Vector4;
-	using Types::Curve;
+	using Types::WorldAnimationKey;
 
 	class Level;
 	class Instance;
@@ -54,6 +55,28 @@ namespace LibSWBF2::Wrappers
 		const Vector3& GetSize() const;
 	};
 
+	
+	class LIBSWBF2_API WorldAnimation
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::anim anim;
+
+		friend World;
+		friend List<WorldAnimation>;
+
+		anim* p_WorldAnimation;
+		WorldAnimation() = default;
+		static bool FromChunk(anim* chunk, WorldAnimation& animOut);		
+
+	public:
+		const String& GetName() const;
+		const float GetRunTime() const;
+		const bool IsLooping() const;
+		const bool IsTranslationLocal() const;
+		List<WorldAnimationKey> GetRotationKeys() const;
+		List<WorldAnimationKey> GetPositionKeys() const;
+	};
+
+
 
 	class LIBSWBF2_API World
 	{
@@ -70,6 +93,7 @@ namespace LibSWBF2::Wrappers
 
 		List<Instance> m_Instances;
 		List<Region> m_Regions;
+		List<WorldAnimation> m_Animations;
 
 		wrld* p_World;
 
@@ -85,19 +109,15 @@ namespace LibSWBF2::Wrappers
 		Types::String GetSkyName() const;
 
 
-		// Returns names of anims present 
-		const List<String> GetAnimationNames() const;
+		const List<WorldAnimation>& GetAnimations() const;
 
 		// Returns names of anim groups present
 		const List<String> GetAnimationGroups() const;
 
 		// Anim groups consist of pairs between instances and animations
-		// Returns false if <animGroup> not present
+		// Returns false if <animGroupName> not present
 		const bool GetAnimationGroupPairs(const String& animGroupName, 
 										List<String>& animNamesOut, 
 										List<String>& instanceNamesOut) const;
-
-		//Throws exception if <animName> is not among the anims present...
-		const Curve<float_t> GetAnimationCurve(const String& animName, ECurveType cc) const;
 	};
 }
