@@ -18,6 +18,7 @@ namespace LibSWBF2
 		struct wrld;
 		struct regn;
 		struct anim;
+		struct anmg;
 	}
 }
 
@@ -77,6 +78,25 @@ namespace LibSWBF2::Wrappers
 	};
 
 
+	class LIBSWBF2_API WorldAnimationGroup
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::anmg anmg;
+
+		friend World;
+		friend List<WorldAnimationGroup>;
+
+		anmg* p_WorldAnimationGroup;
+		WorldAnimationGroup() = default;
+		static bool FromChunk(anmg* chunk, WorldAnimationGroup& groupOut);		
+
+	public:
+		const String& GetName() const;
+		const bool GetField1() const;
+		const bool GetField2() const;
+		const void GetAnimationInstancePairs(List<String>& animNamesOut, List<String>& instanceNamesOut) const;
+	};
+
+
 
 	class LIBSWBF2_API World
 	{
@@ -94,6 +114,7 @@ namespace LibSWBF2::Wrappers
 		List<Instance> m_Instances;
 		List<Region> m_Regions;
 		List<WorldAnimation> m_Animations;
+		List<WorldAnimationGroup> m_AnimationGroups;
 
 		wrld* p_World;
 
@@ -108,16 +129,7 @@ namespace LibSWBF2::Wrappers
 		const Terrain* GetTerrain() const;
 		Types::String GetSkyName() const;
 
-
 		const List<WorldAnimation>& GetAnimations() const;
-
-		// Returns names of anim groups present
-		const List<String> GetAnimationGroups() const;
-
-		// Anim groups consist of pairs between instances and animations
-		// Returns false if <animGroupName> not present
-		const bool GetAnimationGroupPairs(const String& animGroupName, 
-										List<String>& animNamesOut, 
-										List<String>& instanceNamesOut) const;
+		const List<WorldAnimationGroup>& GetAnimationGroups() const;
 	};
 }
