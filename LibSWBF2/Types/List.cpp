@@ -575,6 +575,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Region>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
+	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimationGroup>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;

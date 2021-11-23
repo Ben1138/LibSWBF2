@@ -6,6 +6,7 @@
 #include "Container.h"
 
 #include "Chunks/LVL/wrld/wrld.h"
+#include "Chunks/LVL/wrld/anmg.INFO.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -108,6 +109,56 @@ namespace LibSWBF2::Wrappers
 		}		
 		return AnimKeys;
 	}
+
+
+
+	// World Animation Group
+
+	bool WorldAnimationGroup::FromChunk(anmg* chunk, WorldAnimationGroup& groupOut)
+	{
+		if (chunk -> p_Info == nullptr)
+		{
+			return false;
+		}
+
+		groupOut.p_WorldAnimationGroup = chunk;
+		return true;
+	}
+
+	const String& WorldAnimationGroup::GetName() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_Name;	
+	}
+
+	const bool WorldAnimationGroup::GetField1() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_0 == 1;
+	}
+
+	const bool WorldAnimationGroup::GetField2() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_1 == 1;
+	}
+
+	const void WorldAnimationGroup::GetAnimationInstancePairs(
+									List<String>& animNamesOut, 
+									List<String>& instanceNamesOut) const
+	{
+		animNamesOut.Clear();
+		instanceNamesOut.Clear();
+
+		for (uint16_t j = 0; j < p_WorldAnimationGroup -> m_AnimObjectPairs.Size(); j++)
+		{
+			auto& pair = p_WorldAnimationGroup -> m_AnimObjectPairs[j] -> m_Texts;
+			if (pair.Size() != 2)
+			{
+				continue;
+			}
+
+			animNamesOut.Add(pair[0]);
+			instanceNamesOut.Add(pair[1]);
+		}
+	}
 	
 
 
@@ -154,6 +205,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		List<anmg *>& animationGroups = worldChunk -> m_AnimationGroups;
+		for (size_t i = 0; i < animationGroups.Size(); ++i)
+		{
+			WorldAnimationGroup group;
+			if (WorldAnimationGroup::FromChunk(animationGroups[i], group))
+			{
+				out.m_AnimationGroups.Add(group);
+			}
+		}		
+
 		return true;
 	}
 
@@ -195,50 +256,5 @@ namespace LibSWBF2::Wrappers
 	const List<WorldAnimation>& World::GetAnimations() const
 	{
 		return m_Animations;
-	}
-	
-
-
-	const List<String> World::GetAnimationGroups() const
-	{
-		List<String> names;
-		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
-		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
-		{
-			names.Add(animGPtrs[i] -> p_Info -> m_Text);
-		}
-		return names;	
-	}
-
-
-	const bool World::GetAnimationGroupPairs(const String& animGroupName, 
-									List<String>& animNamesOut, 
-									List<String>& instanceNamesOut) const
-	{
-		animNamesOut.Clear();
-		instanceNamesOut.Clear();
-
-		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
-		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
-		{
-			if (animGroupName == animGPtrs[i] -> p_Info -> m_Text)
-			{
-				for (uint16_t j = 0; j < animGPtrs[i] -> m_AnimObjectPairs.Size(); j++)
-				{
-					auto& pair = animGPtrs[i] -> m_AnimObjectPairs[i] -> m_Texts;
-					if (pair.Size() != 2)
-					{
-						continue;
-					}
-
-					animNamesOut.Add(pair[0]);
-					instanceNamesOut.Add(pair[1]);
-				}
-
-				return true;
-			}
-		}
-
-		return false;
 	}
 }
