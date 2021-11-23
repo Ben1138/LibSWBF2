@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "anmg.h"
+#include "anmg.INFO.h"
 #include "Logging/Logger.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
