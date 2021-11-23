@@ -70,6 +70,8 @@ namespace LibSWBF2
 			std::unordered_map<std::string, size_t> AnimationSkeletonNameToIndex;
 			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
 			std::unordered_map<FNVHash, size_t> ConfigHashToIndex;
+			std::unordered_map<FNVHash, size_t> SoundStreamHashToIndex;
+			std::unordered_map<FNVHash, size_t> SoundBankHashToIndex;
 		};
 
 		class SoundMapsWrapper

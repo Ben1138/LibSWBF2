@@ -62,6 +62,13 @@ namespace LibSWBF2::Wrappers
 	}
 
 
+	bool SoundStream::HasData() const
+	{
+		return p_StreamChunk -> p_Data != nullptr;
+	}
+
+
+
 	const List<Sound>& SoundStream::GetSounds() const
 	{
 		return m_Sounds;

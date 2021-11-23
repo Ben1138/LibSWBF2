@@ -1,3 +1,4 @@
+/*
 #include "pch.h"
 #include "SoundData.h"
 #include "InternalHelpers.h"
@@ -23,3 +24,4 @@ namespace LibSWBF2::Chunks::LVL::sound
 		BaseChunk::EnsureEnd(stream);
 	}
 }
+*/

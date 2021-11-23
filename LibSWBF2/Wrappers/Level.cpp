@@ -34,11 +34,12 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	//using Chunks::LVL::sound::emo_;
+
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
     using namespace Chunks::LVL::animation;
     using namespace Chunks::LVL::config;
+    using namespace Chunks::LVL::sound;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
@@ -350,21 +351,36 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
-		/*
-		Stream* streamChunk = dynamic_cast<Stream*>(root);
-
-		if (streamChunk != nullptr)
+		
+		SampleBank* bankChunk = dynamic_cast<SampleBank*>(root);
+		if (bankChunk != nullptr)
 		{
-			Sound sound;
-			for (uint32_t i = 0; i < soundChunk->m_NumClips; ++i)
+			SoundBank bank;
+			if (SoundBank::FromChunk(bankChunk, bank))
 			{
-				if (Sound::FromSoundClip(&soundChunk->m_Clips[i], sound))
+				m_NameToIndexMaps->SoundBankHashToIndex.emplace(bank.GetHashedName(), m_SoundBanks.Add(std::move(bank)));
+				
+				if (bank.HasData())
 				{
-					m_NameToIndexMaps->SoundHashToIndex.emplace(sound.GetHashedName(), m_Sounds.Add(std::move(sound)));
+					const List<Sound>& sounds = bank.GetSounds(); 
+					for (uint32_t i = 0; i < sounds.Size(); i++)
+					{
+						m_NameToIndexMaps->SoundHashToIndex.emplace(sounds[i].GetHashedName(), m_Sounds.Add(sounds[i]));
+					}
 				}
 			}
 		}
-		*/
+		
+		Stream* streamChunk = dynamic_cast<Stream*>(root);
+		if (streamChunk != nullptr)
+		{
+			SoundStream stream;
+			if (SoundStream::FromChunk(streamChunk, stream))
+			{
+				m_NameToIndexMaps->SoundStreamHashToIndex.emplace(stream.GetHashedName(), m_SoundStreams.Add(std::move(stream)));
+			}
+		}
+
 
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
@@ -495,6 +511,17 @@ namespace LibSWBF2::Wrappers
 
 		return matchedConfigs;
 	}
+
+	const List<SoundStream>& Level::GetSoundStreams() const
+	{
+		return m_SoundStreams;
+	}
+
+	const List<SoundBank>& Level::GetSoundBanks() const
+	{
+		return m_SoundBanks;
+	}
+
 
 	const Model* Level::GetModel(const String& modelName) const
 	{
@@ -701,6 +728,26 @@ namespace LibSWBF2::Wrappers
 
 		return nullptr;
 		*/
+	}
+
+	const SoundStream* Level::GetSoundStream(FNVHash streamHashName) const
+	{
+		auto it = m_NameToIndexMaps->SoundStreamHashToIndex.find(streamHashName);
+		if (it != m_NameToIndexMaps->SoundStreamHashToIndex.end())
+		{
+			return &m_SoundStreams[it->second];
+		}
+		return nullptr;
+	}
+
+	const SoundBank* Level::GetSoundBank(FNVHash bankHashName) const
+	{
+		auto it = m_NameToIndexMaps->SoundBankHashToIndex.find(bankHashName);
+		if (it != m_NameToIndexMaps->SoundBankHashToIndex.end())
+		{
+			return &m_SoundBanks[it->second];
+		}
+		return nullptr;
 	}
 
 	const LibSWBF2::Chunks::LVL::LVL* Level::GetChunk() const

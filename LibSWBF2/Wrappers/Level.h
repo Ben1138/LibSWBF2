@@ -65,6 +65,8 @@ namespace LibSWBF2::Wrappers
 		List<AnimationSkeleton> m_AnimationSkeletons;
 		List<Sound> m_Sounds;
 		List<Config> m_Configs;
+		List<SoundStream> m_SoundStreams;
+		List<SoundBank> m_SoundBanks;
 
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
@@ -94,6 +96,9 @@ namespace LibSWBF2::Wrappers
 		const List<AnimationSkeleton>& GetAnimationSkeletons() const;
 		const List<Sound>& GetSounds() const;
 		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
+		const List<SoundStream>& GetSoundStreams() const;
+		const List<SoundBank>& GetSoundBanks() const;
+
 
 		const Model* GetModel(const String& modelName) const;
 		const Texture* GetTexture(const String& textureName) const;
@@ -107,6 +112,9 @@ namespace LibSWBF2::Wrappers
 		const Sound* GetSound(const String& soundName) const;
 		const Sound* GetSound(FNVHash soundHashName) const;
 		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
+		const SoundStream* GetSoundStream(FNVHash streamHashName) const;
+		const SoundBank* GetSoundBank(FNVHash bankHashName) const;
+
 
 		const LVL* GetChunk() const;
 

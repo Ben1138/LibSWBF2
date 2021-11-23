@@ -39,6 +39,8 @@ namespace LibSWBF2
 		class Localization;
 		struct Field;
 		struct Scope;
+		class SoundStream;
+		class SoundBank;
 	}
 
 	namespace Types
@@ -220,7 +222,27 @@ namespace LibSWBF2
 
 		// Wrappers - Sound
 		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);
+        LIBSWBF2_API const uint8_t Sound_FetchAllFields(const Sound *sound, 
+        	uint32_t& nameOut, uint32_t& sampleRate, uint32_t& sampleCount, 
+        	uint8_t& blockAlign, uint8_t& hasDataOut);
 		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
+
+
+		// Wrappers - SoundStream
+        LIBSWBF2_API const uint8_t SoundStream_FetchAllFields(
+        		const SoundStream *str, uint32_t& nameOut, uint8_t& hasDataOut,
+        		uint32_t& formatOut, uint32_t& numChannelsOut);
+        LIBSWBF2_API const uint8_t SoundStream_GetSound(const SoundStream *str, uint32_t soundName, const Sound*& soundOut);
+        LIBSWBF2_API const uint8_t SoundStream_GetSounds(const SoundStream *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc);
+
+		
+		// Wrappers - SoundBank
+        LIBSWBF2_API const uint8_t SoundBank_FetchAllFields(
+        		const SoundBank *str, uint32_t& nameOut, uint8_t& hasDataOut,
+        		uint32_t& formatOut);
+        LIBSWBF2_API const uint8_t SoundBank_GetSound(const SoundBank *str, uint32_t soundName, const Sound*& soundOut);
+        LIBSWBF2_API const uint8_t SoundBank_GetSounds(const SoundBank *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc);
+
 
 
 		// Wrappers - Localization

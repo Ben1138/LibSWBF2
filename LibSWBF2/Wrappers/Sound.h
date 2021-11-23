@@ -11,6 +11,7 @@ namespace LibSWBF2::Wrappers
 
 	class Level;
 	class SoundBank;
+	class SoundStream;
 
 	// I'm doing this extra Sound wrapper calls just to 
 	// follow the standardization..... Feels wrong though
@@ -19,16 +20,23 @@ namespace LibSWBF2::Wrappers
 	private:
 		friend Level;
 		friend SoundBank;
+		friend SoundStream;
 		friend List<Sound>;
 
 		Sound() = default;
 		~Sound() = default;
 
 	private:
+		uint32_t m_NumChannels = 1;
+		bool m_HasData;
+		uint32_t m_FileOffset;
+		uint8_t *m_DataPtr;
 		SoundClip* p_SoundClip;
 
 	public:
 		static bool FromSoundClip(SoundClip* soundClip, Sound& out);
+
+		bool HasData() const;
 
 		String GetName() const;
 		FNVHash GetHashedName() const;
