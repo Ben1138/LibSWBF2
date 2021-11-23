@@ -203,6 +203,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/XFRM.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/WorldAnimKeyChunk.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anim.INFO.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anmg.INFO.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/BIN_.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/MINA.cpp"
