@@ -156,4 +156,11 @@ namespace LibSWBF2.Enums
         Float,
 		String
     };
+
+    public enum EWorldAnimKeyTransitionType : byte
+    {
+        Pop = 0,
+        Linear = 1,
+        Spline = 2,
+    };
 }
