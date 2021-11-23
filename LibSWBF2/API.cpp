@@ -733,6 +733,7 @@ namespace LibSWBF2
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
 										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
+										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -757,6 +758,11 @@ namespace LibSWBF2
 		animArr = anims.GetArrayPtr();
 		animCount = (int32_t)anims.Size();
 		animInc = sizeof(WorldAnimation);
+
+    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
+		animGroupArr = animGroups.GetArrayPtr();
+		animGroupCount = (int32_t)animGroups.Size();
+		animGroupInc = sizeof(WorldAnimationGroup);
 
 		terrPtr = world -> GetTerrain();
 
@@ -798,6 +804,45 @@ namespace LibSWBF2
 		keyBuff = KeyCache.GetArrayPtr();
 		numKeys = KeyCache.Size();
     }
+
+
+	//Wrappers - World Animation Group
+
+    const uint8_t WorldAnimGroup_FetchAllFields(const WorldAnimationGroup* group, uint8_t& bool0, uint8_t& bool1, const char*& namePtr)
+    {
+    	static String nameCache;
+    	CheckPtr(group,false);
+
+    	nameCache = group -> GetName();
+    	namePtr = nameCache.Buffer();
+
+    	bool0 = group -> GetField1();
+    	bool1 = group -> GetField2();
+
+    	return true;
+    }
+
+    const void WorldAnimGroup_GetAnimInstPairs(const WorldAnimationGroup* group, const char**& animNames, const char**& instNames, int32_t& numPairs)
+    {
+    	static List<String> animsCache;
+    	static List<String> instsCache;
+    	static List<const char*> animsPtrsBuffer;
+    	static List<const char*> instsPtrsBuffer;
+
+    	numPairs = 0;
+    	CheckPtr(group,);
+
+    	group -> GetAnimationInstancePairs(animsCache, instsCache);
+
+		numPairs = (int32_t)animsCache.Size();
+
+		GetStringListPtrs(animsCache, animsPtrsBuffer);
+		GetStringListPtrs(instsCache, instsPtrsBuffer);
+		
+		animNames = animsPtrsBuffer.GetArrayPtr();
+		instNames = instsPtrsBuffer.GetArrayPtr();
+    }
+
 
     
 	// Wrappers - Script

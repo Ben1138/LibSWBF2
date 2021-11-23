@@ -25,6 +25,7 @@ namespace LibSWBF2
 		struct Joint;
 		class EntityClass;
 		class Script;
+		class WorldAnimationGroup;
 		class WorldAnimation;
 		class World;
 		class Texture;
@@ -169,11 +170,17 @@ namespace LibSWBF2
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
 										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
+										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
 										const Terrain*& terrPtr);
 
 		// Wrappers - WorldAnimation
 		LIBSWBF2_API const uint8_t WorldAnim_FetchAllFields(const WorldAnimation* anim, uint8_t& loop, uint8_t& localT, const char*& namePtr);
         LIBSWBF2_API const void WorldAnim_GetAnimKeys(const WorldAnimation* anim, WorldAnimationKey*& keyBuff, int32_t& numKeys, uint8_t IsRotation);
+
+		// Wrappers - WorldAnimationGroup
+		LIBSWBF2_API const uint8_t WorldAnimGroup_FetchAllFields(const WorldAnimationGroup* group, uint8_t& bool0, uint8_t& bool1, const char*& namePtr);
+        LIBSWBF2_API const void WorldAnimGroup_GetAnimInstPairs(const WorldAnimationGroup* group, const char**& animNames, const char**& instNames, int32_t& numKeys);
+
 
 
 		// Wrappers - Script
