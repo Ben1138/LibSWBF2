@@ -35,6 +35,52 @@ namespace LibSWBF2.Wrappers
         }
     }
 
+
+
+    public sealed class WorldAnimation : NativeWrapper
+    {
+        public string Name { get; private set; }
+        public bool IsLooping { get; private set; }
+        public bool IsTranslationLocal { get; private set; }
+
+        internal override void SetPtr(IntPtr ptr)
+        {
+            base.SetPtr(ptr);
+            if (APIWrapper.WorldAnim_FetchAllFields(ptr, out bool loop, out bool localT, 
+                                                    out IntPtr namePtr))
+            {
+                Name = Marshal.PtrToStringAnsi(namePtr);
+                IsLooping = loop;
+                IsTranslationLocal = localT;
+            }
+        }
+
+        public WorldAnimationKey[] GetRotationKeys()
+        {
+            CheckValidity();
+            APIWrapper.WorldAnim_GetAnimKeys(NativeInstance, out IntPtr keyBuff, out int numKeys, true);
+            return MemUtils.IntPtrToArray<WorldAnimationKey>(keyBuff, numKeys);            
+        }
+
+        public WorldAnimationKey[] GetPositionKeys()
+        {
+            CheckValidity();
+            APIWrapper.WorldAnim_GetAnimKeys(NativeInstance, out IntPtr keyBuff, out int numKeys, false);
+            return MemUtils.IntPtrToArray<WorldAnimationKey>(keyBuff, numKeys);            
+        }
+
+        public override string ToString()
+        {
+            CheckValidity();
+            return String.Format(
+                "{0}: IsLooping? {1}, Has Local Translation? {2}, Has {3} Rotation Keys and {4} Position Keys",
+                Name, IsLooping, IsTranslationLocal, GetRotationKeys().Length, GetPositionKeys().Length     
+            );
+        }
+    }
+
+
+
     public sealed class World : NativeWrapper
     {
         public string Name { get; private set; }
@@ -49,6 +95,9 @@ namespace LibSWBF2.Wrappers
         IntPtr regionArray;
         int regionCount, regionIncrement;
 
+        IntPtr animArray;
+        int animCount, animIncrement;
+
 
         internal override void SetPtr(IntPtr worldPtr)
         {
@@ -56,6 +105,7 @@ namespace LibSWBF2.Wrappers
             if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out instanceArray, out instanceCount, out instanceIncrement,
                                         out regionArray, out regionCount, out regionIncrement,
+                                        out animArray, out animCount, out animIncrement,
                                         out terrainPtr))
             {
                 Name = Marshal.PtrToStringAnsi(nameOut);
@@ -80,6 +130,12 @@ namespace LibSWBF2.Wrappers
         {
             CheckValidity();
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<Region>(regionArray, regionCount, regionIncrement));
+        }
+    
+        public WorldAnimation[] GetAnimations()
+        {
+            CheckValidity();
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimation>(animArray, animCount, animIncrement));
         }
     }
 }

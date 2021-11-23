@@ -7,12 +7,12 @@ namespace LibSWBF2
 
     internal static class APIWrapper
     {
-#if WIN32
-        const string LIB_NAME = "LibSWBF2";
-#endif
-#if UNIX
-        const string LIB_NAME = "libSWBF2";
-#endif
+//#if WIN32
+//        const string LIB_NAME = "LibSWBF2";
+//#endif
+//#if UNIX
+        const string LIB_NAME = "SWBF2";
+//#endif
 
         // Memory //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -176,7 +176,17 @@ namespace LibSWBF2
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
                                         out IntPtr regionArr, out int regCount, out int regInc,
+                                        out IntPtr animArr, out int animCount, out int animInc,
                                         out IntPtr terrPtr);
+
+        // World Animation //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool WorldAnim_FetchAllFields(IntPtr worldAnim, out bool loop, out bool localT, out IntPtr namePtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void WorldAnim_GetAnimKeys(IntPtr worldAnim, out IntPtr keyBuff, out int numKeys, bool IsRotation);
+
+
         // Region // 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

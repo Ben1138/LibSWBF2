@@ -732,6 +732,7 @@ namespace LibSWBF2
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
+										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -752,10 +753,51 @@ namespace LibSWBF2
 		regCount = (int32_t)regions.Size();
 		regInc = sizeof(Region);
 
+    	const List<WorldAnimation>& anims = world -> GetAnimations();
+		animArr = anims.GetArrayPtr();
+		animCount = (int32_t)anims.Size();
+		animInc = sizeof(WorldAnimation);
+
 		terrPtr = world -> GetTerrain();
 
 		return true;
 	}
+
+
+	//Wrappers - World Animation
+
+	const uint8_t WorldAnim_FetchAllFields(const WorldAnimation* anim, uint8_t& loop, uint8_t& localT, const char*& namePtr)
+	{
+		static String nameCache;
+		CheckPtr(anim,false);
+
+		loop = anim -> IsLooping();
+		localT = anim -> IsTranslationLocal();
+
+		nameCache = anim -> GetName();
+		namePtr = nameCache.Buffer();
+		
+		return true;
+	}
+
+    const void WorldAnim_GetAnimKeys(const WorldAnimation* anim, WorldAnimationKey*& keyBuff, int32_t& numKeys, uint8_t IsRotation)
+    {
+    	static List<WorldAnimationKey> KeyCache;
+    	numKeys = 0;
+		CheckPtr(anim,);
+
+		if (IsRotation)
+		{
+			KeyCache = anim -> GetRotationKeys();
+		}
+		else 
+		{
+			KeyCache = anim -> GetPositionKeys();
+		}
+
+		keyBuff = KeyCache.GetArrayPtr();
+		numKeys = KeyCache.Size();
+    }
 
     
 	// Wrappers - Script
