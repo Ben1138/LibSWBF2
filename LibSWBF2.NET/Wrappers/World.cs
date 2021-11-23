@@ -80,6 +80,52 @@ namespace LibSWBF2.Wrappers
     }
 
 
+    public sealed class WorldAnimationGroup : NativeWrapper
+    {
+        public string Name { get; private set; }
+        public bool Field1 { get; private set; }
+        public bool Field2 { get; private set; }
+
+        internal override void SetPtr(IntPtr ptr)
+        {
+            base.SetPtr(ptr);
+            if (APIWrapper.WorldAnimGroup_FetchAllFields(ptr, out bool f1, out bool f2, 
+                                                    out IntPtr namePtr))
+            {
+                Name = Marshal.PtrToStringAnsi(namePtr);
+                Field1 = f1;
+                Field2 = f2;
+            }
+        }
+
+        public List<Tuple<string, string>> GetAnimationInstancePairs()
+        {
+            CheckValidity();
+            APIWrapper.WorldAnimGroup_GetAnimInstPairs(NativeInstance, out IntPtr animNamesPtr, out IntPtr instNamesPtr, out int numPairs);
+            
+            string[] animNames = MemUtils.IntPtrToStringList(animNamesPtr, numPairs);
+            string[] instNames = MemUtils.IntPtrToStringList(instNamesPtr, numPairs);
+
+            List<Tuple<string, string>> pairs = new List<Tuple<string, string>>();
+            for (int i = 0; i < numPairs; i++)
+            {
+                pairs.Add(Tuple.Create(animNames[i], instNames[i]));
+            }
+
+            return pairs;          
+        }
+
+        public override string ToString()
+        {
+            CheckValidity();
+            return String.Format(
+                "{0}: F1? {1}, F2? {2}, Has {3} Animation-Instance pairs",
+                Name, Field1, Field2, GetAnimationInstancePairs().Count     
+            );
+        }
+    }
+
+
 
     public sealed class World : NativeWrapper
     {
@@ -97,7 +143,9 @@ namespace LibSWBF2.Wrappers
 
         IntPtr animArray;
         int animCount, animIncrement;
-
+        
+        IntPtr animGroupArray;
+        int animGroupCount, animGroupIncrement;
 
         internal override void SetPtr(IntPtr worldPtr)
         {
@@ -106,6 +154,7 @@ namespace LibSWBF2.Wrappers
                                         out instanceArray, out instanceCount, out instanceIncrement,
                                         out regionArray, out regionCount, out regionIncrement,
                                         out animArray, out animCount, out animIncrement,
+                                        out animGroupArray, out animGroupCount, out animGroupIncrement,
                                         out terrainPtr))
             {
                 Name = Marshal.PtrToStringAnsi(nameOut);
@@ -137,5 +186,11 @@ namespace LibSWBF2.Wrappers
             CheckValidity();
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimation>(animArray, animCount, animIncrement));
         }
+
+        public WorldAnimationGroup[] GetAnimationGroups()
+        {
+            CheckValidity();
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimationGroup>(animGroupArray, animGroupCount, animGroupIncrement));
+        }    
     }
 }

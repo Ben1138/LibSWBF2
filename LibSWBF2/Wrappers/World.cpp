@@ -251,10 +251,14 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
-
 	
 	const List<WorldAnimation>& World::GetAnimations() const
 	{
 		return m_Animations;
+	}
+
+	const List<WorldAnimationGroup>& World::GetAnimationGroups() const
+	{
+		return m_AnimationGroups;
 	}
 }
