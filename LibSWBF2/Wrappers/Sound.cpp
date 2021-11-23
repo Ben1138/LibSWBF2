@@ -46,4 +46,9 @@ namespace LibSWBF2::Wrappers
 		data = p_SoundClip->GetSampleData();
 		return data != nullptr;
 	}
+
+	bool Sound::HasData() const
+	{
+		return m_HasData;
+	}
 }

@@ -117,7 +117,7 @@ namespace LibSWBF2
 	uint16_t Container_AddSoundBank(Container* container, const char* path)
 	{
 		CheckPtr(container, UINT16_MAX)
-		return container->AddSoundBank(path);
+		return UINT16_MAX;//container->AddSoundBank(path);
 	}
 
 	void Container_FreeAll(Container* container, uint8_t force)
@@ -268,6 +268,10 @@ namespace LibSWBF2
 			return static_cast<const void*>(level->GetLocalization(name));
 		case 9:
 			return static_cast<const void*>(level->GetAnimationSkeleton(name));
+		case 10:
+			return static_cast<const void*>(level->GetSoundBank(FNV::Hash(name)));
+		case 11:
+			return static_cast<const void*>(level->GetSoundStream(FNV::Hash(name)));
 		default:
 			return nullptr;
 		}
@@ -350,6 +354,20 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)skels.Size();
 			wrapperSize = sizeof(AnimationSkeleton);
 			return static_cast<const void*>(skels.GetArrayPtr());
+		}
+		case 10:
+		{
+			const List<SoundBank>& banks = level->GetSoundBanks();
+			numWrappers = (uint32_t)banks.Size();
+			wrapperSize = sizeof(SoundBank);
+			return static_cast<const void*>(banks.GetArrayPtr());
+		}
+		case 11:
+		{
+			const List<SoundStream>& streams = level->GetSoundStreams();
+			numWrappers = (uint32_t)streams.Size();
+			wrapperSize = sizeof(SoundStream);
+			return static_cast<const void*>(streams.GetArrayPtr());
 		}
 		default:
 			return nullptr;
@@ -1156,7 +1174,7 @@ namespace LibSWBF2
     }
 
 
-
+    // Wrappers - Sound
 	const char* Sound_GetName(const Sound* sound)
 	{
 		CheckPtr(sound, nullptr);
@@ -1165,11 +1183,82 @@ namespace LibSWBF2
 		return name.Buffer();
 	}
 
+	const uint8_t Sound_FetchAllFields(const Sound *sound, 
+		uint32_t& nameOut, uint32_t& sampleRate, 
+		uint32_t& sampleCount, uint8_t& blockAlign,
+		uint8_t& hasDataOut)
+    {
+    	CheckPtr(sound, false);
+    	nameOut = sound -> GetHashedName();
+    	return true;
+    }
+
 	uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data)
 	{
 		CheckPtr(sound, false);
 		return (uint8_t)sound->GetData(sampleRate, sampleCount, blockAlign, data);
 	}
+
+
+
+	// Wrappers - SoundStream
+    const uint8_t SoundStream_FetchAllFields(const SoundStream *str, 
+     		uint32_t& nameOut, uint8_t& hasDataOut,
+    		uint32_t& formatOut, uint32_t& numChannelsOut)
+    {
+		CheckPtr(str, false);
+		hasDataOut = str -> HasData();
+		formatOut = str -> GetFormat();
+		nameOut = str -> GetHashedName();
+		numChannelsOut = str -> GetNumChannels();
+		return true;
+    }
+
+    const uint8_t SoundStream_GetSound(const SoundStream *str, uint32_t soundName, const Sound*& soundOut)
+    {
+		CheckPtr(str, false);
+		soundOut = str -> GetSound(soundName);
+		return soundOut != nullptr; 
+    }
+
+    const uint8_t SoundStream_GetSounds(const SoundStream *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc)
+    {
+		CheckPtr(str, false);
+		const List<Sound>& sounds = str -> GetSounds();
+		numSounds = sounds.Size();
+		soundInc = sizeof(Sound);
+		return numSounds > 0;
+    }
+
+		
+	// Wrappers - SoundBank
+    const uint8_t SoundBank_FetchAllFields(const SoundBank *bnk, 
+    	uint32_t& nameOut, uint8_t& hasDataOut, uint32_t& formatOut)
+    {
+		CheckPtr(bnk, false);
+		hasDataOut = bnk -> HasData();
+		formatOut = bnk -> GetFormat();
+		nameOut = bnk -> GetHashedName();
+		return true;
+    }
+
+    const uint8_t SoundBank_GetSound(const SoundBank *bnk, uint32_t soundName, const Sound*& soundOut)
+    {
+		CheckPtr(bnk, false);
+		soundOut = bnk -> GetSound(soundName);
+		return soundOut != nullptr; 
+    }
+
+    const uint8_t SoundBank_GetSounds(const SoundBank *bnk, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc)
+    {
+		CheckPtr(bnk, false);
+		const List<Sound>& sounds = bnk -> GetSounds();
+		numSounds = sounds.Size();
+		soundInc = sizeof(Sound);
+		return numSounds > 0;
+    }
+
+
 
 	const char* Localization_GetName(const Localization* local)
 	{

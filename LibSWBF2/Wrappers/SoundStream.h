@@ -53,11 +53,12 @@ namespace LibSWBF2::Wrappers
 		uint32_t GetFormat() const;
 		uint32_t GetNumChannels() const;
 
+		bool HasData() const;
+
 		bool HasSegment(FNVHash segmentName) const;
 
 		const List<Sound>& GetSounds() const;
 		const Sound* GetSound(const String& soundName) const;
 		const Sound* GetSound(FNVHash soundHash) const;
-
 	};
 }
