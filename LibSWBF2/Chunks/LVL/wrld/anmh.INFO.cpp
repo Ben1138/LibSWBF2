@@ -46,10 +46,10 @@ namespace LibSWBF2::Chunks::LVL::wrld
         }
         else 
         {
-            String rep = fmt::format("Root: {} ", m_Name).c_str();   
+            String rep = fmt::format("Root: {} ", m_RootName).c_str();   
             for (int i = 0; i < m_ChildNames.Size(); i++)
             {
-                rep = rep + fmt::format("\n  Child {0}: {1}", i, m_ChildNames[i]).c_str()
+                rep = rep + fmt::format("\n  Child {0}: {1}", i, m_ChildNames[i]).c_str();
             }  
 
             return rep;       

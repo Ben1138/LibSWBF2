@@ -458,6 +458,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/regn.h"
 #include "Chunks/LVL/wrld/anim.h"
 #include "Chunks/LVL/wrld/anmg.h"
+#include "Chunks/LVL/wrld/anmh.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
 
@@ -514,6 +515,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<LVL::wrld::inst*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::regn*>;
    	template class LIBSWBF2_API Types::List<LVL::wrld::anmg*>;
+   	template class LIBSWBF2_API Types::List<LVL::wrld::anmh*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::anim*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::POSK*>;
     template class LIBSWBF2_API Types::List<LVL::wrld::ROTK*>;
@@ -576,6 +578,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Region>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimationGroup>;
+	//template class LIBSWBF2_API Types::List<Wrappers::WorldAnimationHierarchy>;
 	template class LIBSWBF2_API Types::List<Wrappers::Script>;
 	template class LIBSWBF2_API Types::List<Wrappers::Sound>;
 	template class LIBSWBF2_API Types::List<Wrappers::Localization>;

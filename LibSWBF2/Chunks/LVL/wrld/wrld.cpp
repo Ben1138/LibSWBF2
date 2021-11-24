@@ -55,6 +55,10 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				READ_CHILD(stream, m_AnimationGroups.Emplace());
 			}
+			else if (nextHead == "anmh"_h)
+			{
+				READ_CHILD(stream, m_AnimationHierarchies.Emplace());
+			}
 			else
 			{
 				READ_CHILD_GENERIC(stream);
