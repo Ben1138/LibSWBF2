@@ -34,6 +34,19 @@ namespace LibSWBF2
 		memcpy(dest, src, numBytes);
 	}
 
+
+	// Hashing //
+
+	uint8_t Hashing_Lookup(uint32_t hash, const char *& str)
+	{
+		static String lookupCache;
+		bool r = FNV::Lookup(hash, lookupCache);
+		str = lookupCache.Buffer();
+		return r;
+	}
+
+
+
 	// Logging //
 	uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file)
 	{

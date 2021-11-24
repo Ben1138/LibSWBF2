@@ -18,6 +18,12 @@ namespace LibSWBF2
         public static unsafe extern void Memory_Blit(void *dest, void *src, int numBytes);
 
 
+        // Hash lookup //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Hashing_Lookup(uint hash, out IntPtr str);
+
+
         // Logging //
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
