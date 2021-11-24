@@ -1328,6 +1328,12 @@ namespace LibSWBF2
 		return cfg->GetFloat(index);
 	}
 
+    const uint32_t Field_GetUInt32(const Field* cfg, uint8_t index)
+    {
+		return cfg->GetUInt32(index);    	
+    }
+
+
 	const Vector2* Field_GetVec2(const Field* cfg)
 	{
 		static Vector2 cache;

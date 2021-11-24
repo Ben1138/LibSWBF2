@@ -436,6 +436,9 @@ namespace LibSWBF2
         public static extern float Field_GetFloat(IntPtr cfg, byte index);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern uint Field_GetUInt32(IntPtr cfg, byte index);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         public static extern IntPtr Field_GetVec2(IntPtr cfg); 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
