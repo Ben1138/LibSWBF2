@@ -160,6 +160,7 @@ namespace LibSWBF2::Types
 		delete[] m_Data;
 		m_Data = new uint8_t[m_DataLength];
 		stream.ReadBytes(m_Data, m_DataLength);
+		stream.SkipBytes(m_Padding);
 	}
 
 	bool SoundClip::TryLookupName(String& result)

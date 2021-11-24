@@ -21,10 +21,12 @@
 #include "Chunks/LVL/wrld/wrld.h"
 #include "Chunks/LVL/sound/Stream.h"
 #include "Chunks/LVL/sound/SampleBank.h"
+#include "Chunks/LVL/sound/SampleBankInfo.h"
 
 
 #include <unordered_map>
 #include <filesystem>
+#include <iostream>
 
 namespace fs = std::filesystem;
 
