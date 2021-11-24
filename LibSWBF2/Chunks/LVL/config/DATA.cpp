@@ -213,6 +213,19 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		return true;
 	}
+
+
+	bool DATA_CONFIG::GetUInt32(uint32_t& uintMember, uint8_t index) const
+	{
+		if (m_NumValues > index)
+		{
+			uintMember = *(((uint32_t *) p_Data) + index);
+			return true;
+		}
+
+		return false;
+	}
+
 	
 
 

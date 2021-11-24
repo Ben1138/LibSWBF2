@@ -84,7 +84,20 @@ namespace LibSWBF2::Wrappers
 		LOG_WARN("Could not get field float value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
 		return 0.0f;
 	}
+	
+
+	uint32_t Field::GetUInt32(uint8_t index) const
+	{	
+		uint32_t out;
+		if (p_Data->GetUInt32(out, index))
+		{
+			return out;
+		}
 		
+		LOG_WARN("Could not get field uint32 value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
+		return 0;
+	}	
+
 
 	Vector2 Field::GetVector2() const
 	{
