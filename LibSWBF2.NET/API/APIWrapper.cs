@@ -314,12 +314,49 @@ namespace LibSWBF2
 
 
         // Sound //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Sound_GetName(IntPtr sound);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Sound_GetData(IntPtr sound, out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data);
+
+
+
+        // SoundStream //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_FetchAllFields(
+                IntPtr str, out uint nameOut, out bool hasDataOut,
+                out uint formatOut, out uint numChannelsOut);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_GetSound(IntPtr str, uint soundName, out IntPtr soundOut);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_GetSounds(IntPtr str, out IntPtr soundsOut, out uint numSounds, out uint soundInc);
+
+        
+        // SoundBank //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_FetchAllFields(IntPtr str, out uint name, out bool hasData, out uint format);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_GetSound(IntPtr str, uint soundName, out IntPtr soundOut);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_GetSounds(IntPtr str, out IntPtr soundsOut, out uint numSounds, out uint soundInc);
+
+
+
 
 
         // Localization //

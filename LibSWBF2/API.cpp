@@ -1225,6 +1225,7 @@ namespace LibSWBF2
     {
 		CheckPtr(str, false);
 		const List<Sound>& sounds = str -> GetSounds();
+		soundsOut = sounds.GetArrayPtr();
 		numSounds = sounds.Size();
 		soundInc = sizeof(Sound);
 		return numSounds > 0;
@@ -1253,6 +1254,7 @@ namespace LibSWBF2
     {
 		CheckPtr(bnk, false);
 		const List<Sound>& sounds = bnk -> GetSounds();
+		soundsOut = sounds.GetArrayPtr();
 		numSounds = sounds.Size();
 		soundInc = sizeof(Sound);
 		return numSounds > 0;
