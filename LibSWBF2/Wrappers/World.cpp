@@ -7,6 +7,7 @@
 
 #include "Chunks/LVL/wrld/wrld.h"
 #include "Chunks/LVL/wrld/anmg.INFO.h"
+#include "Chunks/LVL/wrld/anmh.INFO.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -159,6 +160,31 @@ namespace LibSWBF2::Wrappers
 			instanceNamesOut.Add(pair[1]);
 		}
 	}
+
+
+
+	// World Animation Hierarchy
+
+	bool WorldAnimationHierarchy::FromChunk(anmh* chunk, WorldAnimationHierarchy& hierOut)
+	{
+		if (chunk -> p_Info == nullptr || chunk -> p_Info -> m_NumStrings == 0)
+		{
+			return false;
+		}
+
+		hierOut.p_WorldAnimationHierarchy = chunk;
+		return true;
+	}
+
+	const String& WorldAnimationHierarchy::GetRootName() const
+	{
+		return p_WorldAnimationHierarchy -> p_Info -> m_RootName;
+	}
+
+	const List<String>& WorldAnimationHierarchy::GetChildNames() const
+	{
+		return p_WorldAnimationHierarchy -> p_Info -> m_ChildNames;		
+	}
 	
 
 
@@ -215,6 +241,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}		
 
+		List<anmh *>& animationHiers = worldChunk -> m_AnimationHierarchies;
+		for (size_t i = 0; i < animationHiers.Size(); ++i)
+		{
+			WorldAnimationHierarchy hier;
+			if (WorldAnimationHierarchy::FromChunk(animationHiers[i], hier))
+			{
+				out.m_AnimationHierarchies.Add(hier);
+			}
+		}
+
 		return true;
 	}
 
@@ -260,5 +296,10 @@ namespace LibSWBF2::Wrappers
 	const List<WorldAnimationGroup>& World::GetAnimationGroups() const
 	{
 		return m_AnimationGroups;
+	}
+
+	const List<WorldAnimationHierarchy>& World::GetAnimationHierarchies() const
+	{
+		return m_AnimationHierarchies;
 	}
 }

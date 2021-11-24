@@ -19,6 +19,7 @@ namespace LibSWBF2
 		struct regn;
 		struct anim;
 		struct anmg;
+		struct anmh;
 	}
 }
 
@@ -97,6 +98,22 @@ namespace LibSWBF2::Wrappers
 	};
 
 
+	class LIBSWBF2_API WorldAnimationHierarchy
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::anmh anmh;
+
+		friend World;
+		friend List<WorldAnimationHierarchy>;
+
+		anmh* p_WorldAnimationHierarchy;
+		WorldAnimationHierarchy() = default;
+		static bool FromChunk(anmh* chunk, WorldAnimationHierarchy& heirOut);		
+
+	public:
+		const String& GetRootName() const;
+		const List<String>& GetChildNames() const;
+	};
+
 
 	class LIBSWBF2_API World
 	{
@@ -115,7 +132,8 @@ namespace LibSWBF2::Wrappers
 		List<Region> m_Regions;
 		List<WorldAnimation> m_Animations;
 		List<WorldAnimationGroup> m_AnimationGroups;
-
+		List<WorldAnimationHierarchy> m_AnimationHierarchies;
+		
 		wrld* p_World;
 
 
@@ -131,5 +149,6 @@ namespace LibSWBF2::Wrappers
 
 		const List<WorldAnimation>& GetAnimations() const;
 		const List<WorldAnimationGroup>& GetAnimationGroups() const;
+		const List<WorldAnimationHierarchy>& GetAnimationHierarchies() const;
 	};
 }
