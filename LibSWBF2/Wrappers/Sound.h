@@ -2,6 +2,7 @@
 #include "Types/SoundClip.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
+#include "Types/Enums.h"
 
 namespace LibSWBF2::Wrappers
 {
@@ -27,10 +28,12 @@ namespace LibSWBF2::Wrappers
 		~Sound() = default;
 
 	private:
+
+		// This info is in the SampleBank/Stream's INFO_fnv chunk
+		//  
 		uint32_t m_NumChannels = 1;
-		bool m_HasData;
-		uint32_t m_FileOffset;
-		uint8_t *m_DataPtr;
+		ESoundFormat m_Format = ESoundFormat::PCM16;
+
 		SoundClip* p_SoundClip;
 
 	public:
@@ -40,6 +43,12 @@ namespace LibSWBF2::Wrappers
 
 		String GetName() const;
 		FNVHash GetHashedName() const;
+
+		ESoundFormat GetFormat() const;
+		uint32_t GetNumChannels() const;
+		uint32_t GetSampleRate() const;
+		uint32_t GetNumSamples() const;
+
 		bool GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};
 }

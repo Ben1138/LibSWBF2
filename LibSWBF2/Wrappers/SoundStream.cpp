@@ -31,12 +31,10 @@ namespace LibSWBF2::Wrappers
 			Sound sound;
 			if (Sound::FromSoundClip(&clips[i], sound))
 			{
+				sound.m_Format = streamChunk -> p_Info -> m_Format;
+				sound.m_NumChannels = streamChunk -> p_Info -> m_NumChannels;
 				size_t index = out.m_Sounds.Add(sound);
 				out.m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
-			}
-			else 
-			{
-				std::cout << "Failed to add sound brah: " << i << std::endl;
 			}
 		}
 
