@@ -36,7 +36,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 					break;
 
 				case "Format"_fnv:
-					m_Format = stream.ReadUInt32(); 
+					m_Format = (ESoundFormat) stream.ReadUInt32(); 
 					break;
 
 				case "NumChannels"_fnv:
@@ -77,12 +77,12 @@ namespace LibSWBF2::Chunks::LVL::sound
 	{
 		return fmt::format(
 			"Name: 0x{0:x}\n"
-			"Format (num channels): {1}\n"
+			"Format: {1}\n"
 			"Num Samples: {2}\n"
 			"Combined Sound Size: {3}\n"
 			"Padding: {4}\n",
 			m_Name,
-			m_Format,
+			SoundFormatToString(m_Format),
 			m_NumSamples,
 			m_CombinedSoundSize,
 			m_Padding

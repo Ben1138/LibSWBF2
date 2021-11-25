@@ -1,6 +1,7 @@
 #pragma once
 #include "req.h"
 #include "Types/LibString.h"
+#include "Types/Enums.h"
 #include "Sound.h"
 
 
@@ -48,7 +49,7 @@ namespace LibSWBF2::Wrappers
 		const Sound* GetSound(const String& soundName) const;
 		const Sound* GetSound(FNVHash soundHash) const;
 
-		const uint32_t GetFormat() const;
+		const ESoundFormat GetFormat() const;
 		const FNVHash GetHashedName() const;
 	};
 }

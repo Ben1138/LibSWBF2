@@ -12,10 +12,10 @@ namespace LibSWBF2.Wrappers
 {
     public sealed class SoundStream : NativeWrapper
     {
-        public uint Name        { get; private set; }
-        public bool HasData     { get; private set; }
-        public uint Format      { get; private set; }
-        public uint NumChannels { get; private set; }
+        public uint Name            { get; private set; }
+        public bool HasData         { get; private set; }
+        public ESoundFormat Format  { get; private set; }
+        public uint NumChannels     { get; private set; }
         
 
         internal override void SetPtr(IntPtr streamPtr)
@@ -24,7 +24,7 @@ namespace LibSWBF2.Wrappers
             if (APIWrapper.SoundStream_FetchAllFields(streamPtr, out uint nameOut, out bool hasDataOut, 
                                                     out uint formatOut, out uint numChannelsOut))
             {
-                Format = formatOut;
+                Format = (ESoundFormat) formatOut;
                 Name = nameOut;
                 NumChannels = numChannelsOut;
                 HasData = hasDataOut;

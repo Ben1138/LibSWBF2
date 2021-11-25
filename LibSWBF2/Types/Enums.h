@@ -204,6 +204,16 @@ namespace LibSWBF2
 		String
 	};
 
+	enum class ESoundFormat : uint32_t
+	{
+		PCM8 = 1,
+		PCM16 = 2,
+		VAG = 3,
+		XADPCM = 4,
+		IMAADPCM = 5
+	};
+
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
@@ -217,7 +227,7 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
 	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 	Types::String LIBSWBF2_API WorldAnimKeyTransitionTypeToString(EWorldAnimKeyTransitionType type);
-
+	Types::String LIBSWBF2_API SoundFormatToString(ESoundFormat format);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -239,4 +249,6 @@ namespace LibSWBF2
 	bool LIBSWBF2_API operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs);
 
 	bool LIBSWBF2_API operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs);
+	
+	bool LIBSWBF2_API operator ==(ESoundFormat lhs, std::underlying_type<ESoundFormat>::type rhs);
 }

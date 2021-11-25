@@ -50,7 +50,7 @@ namespace LibSWBF2::Wrappers
 
 		FNVHash GetHashedName() const;
 
-		uint32_t GetFormat() const;
+		ESoundFormat GetFormat() const;
 		uint32_t GetNumChannels() const;
 
 		bool HasData() const;
