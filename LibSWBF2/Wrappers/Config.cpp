@@ -307,6 +307,22 @@ namespace LibSWBF2::Wrappers
 		{
 			type = EConfigType::Skydome;
 		}
+		else if (dynamic_cast<snd_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::Sound;
+		}
+		else if (dynamic_cast<mus_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::Music;
+		}
+		else if (dynamic_cast<ffx_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::FoleyFX;
+		}
+		else if (dynamic_cast<tsr_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::TriggerSoundRegion;
+		}
 		else 
 		{
 			LOG_ERROR("Couldn't wrap unhandled config chunk...");

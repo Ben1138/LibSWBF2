@@ -26,7 +26,6 @@
 
 #include <unordered_map>
 #include <filesystem>
-#include <iostream>
 
 namespace fs = std::filesystem;
 
@@ -152,7 +151,7 @@ namespace LibSWBF2::Wrappers
 		}
 
 		snd_* soundChunk = dynamic_cast<snd_*>(root);
-		if (comboChunk != nullptr)
+		if (soundChunk != nullptr)
 		{
 			Config sound;
 			if (Config::FromChunk(soundChunk, sound))
