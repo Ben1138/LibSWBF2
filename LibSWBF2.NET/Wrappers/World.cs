@@ -126,6 +126,32 @@ namespace LibSWBF2.Wrappers
     }
 
 
+    public sealed class WorldAnimationHierarchy : NativeWrapper
+    {
+        public string RootName { get; private set; }
+        public string[] ChildrenNames { get; private set; }
+
+        internal override void SetPtr(IntPtr ptr)
+        {
+            base.SetPtr(ptr);
+            if (APIWrapper.WorldAnimHier_FetchAllFields(ptr, out IntPtr namePtr, out IntPtr childrenBuf, out int numChildren))
+            {
+                RootName = Marshal.PtrToStringAnsi(namePtr);
+                ChildrenNames = MemUtils.IntPtrToStringList(childrenBuf, numChildren);
+            }
+        }
+
+        public override string ToString()
+        {
+            CheckValidity();
+            return String.Format(
+                "Animation Hierarchy with root {0} and {1} children",
+                RootName, ChildrenNames.Length   
+            );
+        }
+    }
+
+
 
     public sealed class World : NativeWrapper
     {
@@ -147,6 +173,9 @@ namespace LibSWBF2.Wrappers
         IntPtr animGroupArray;
         int animGroupCount, animGroupIncrement;
 
+        IntPtr animHierArray;
+        int animHierCount, animHierIncrement;
+
         internal override void SetPtr(IntPtr worldPtr)
         {
             base.SetPtr(worldPtr);
@@ -155,6 +184,7 @@ namespace LibSWBF2.Wrappers
                                         out regionArray, out regionCount, out regionIncrement,
                                         out animArray, out animCount, out animIncrement,
                                         out animGroupArray, out animGroupCount, out animGroupIncrement,
+                                        out animHierArray, out animHierCount, out animHierIncrement,
                                         out terrainPtr))
             {
                 Name = Marshal.PtrToStringAnsi(nameOut);
@@ -191,6 +221,12 @@ namespace LibSWBF2.Wrappers
         {
             CheckValidity();
             return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimationGroup>(animGroupArray, animGroupCount, animGroupIncrement));
-        }    
+        }  
+
+        public WorldAnimationHierarchy[] GetAnimationHierarchies()
+        {
+            CheckValidity();
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimationHierarchy>(animHierArray, animHierCount, animHierIncrement));
+        }   
     }
 }

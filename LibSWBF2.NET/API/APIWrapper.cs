@@ -178,6 +178,7 @@ namespace LibSWBF2
                                         out IntPtr regionArr, out int regCount, out int regInc,
                                         out IntPtr animArr, out int animCount, out int animInc,
                                         out IntPtr animGroupArr, out int animGroupCount, out int animGroupInc,
+                                        out IntPtr animHierArr, out int animHierCount, out int animHierInc,
                                         out IntPtr terrPtr);
 
         // World Animation //
@@ -195,6 +196,11 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void WorldAnimGroup_GetAnimInstPairs(IntPtr group, out IntPtr animNames, out IntPtr instNames, out int numPairs);
+
+        // World Animation Group //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool WorldAnimHier_FetchAllFields(IntPtr hier, out IntPtr rootPtr, out IntPtr children, out int numChildren);
 
 
         // Region // 

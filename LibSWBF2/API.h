@@ -26,6 +26,7 @@ namespace LibSWBF2
 		class EntityClass;
 		class Script;
 		class WorldAnimationGroup;
+		class WorldAnimationHierarchy;
 		class WorldAnimation;
 		class World;
 		class Texture;
@@ -171,6 +172,7 @@ namespace LibSWBF2
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
 										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
 										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
+										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr);
 
 		// Wrappers - WorldAnimation
@@ -181,6 +183,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const uint8_t WorldAnimGroup_FetchAllFields(const WorldAnimationGroup* group, uint8_t& bool0, uint8_t& bool1, const char*& namePtr);
         LIBSWBF2_API const void WorldAnimGroup_GetAnimInstPairs(const WorldAnimationGroup* group, const char**& animNames, const char**& instNames, int32_t& numKeys);
 
+		// Wrappers - WorldAnimationHierarchy
+    	LIBSWBF2_API const uint8_t WorldAnimHier_FetchAllFields(const WorldAnimationHierarchy* hier, const char *& rootPtr, const char**& childNames, int32_t& numChildren);
 
 
 		// Wrappers - Script
