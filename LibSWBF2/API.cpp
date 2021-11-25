@@ -1221,7 +1221,7 @@ namespace LibSWBF2
     {
 		CheckPtr(str, false);
 		hasDataOut = str -> HasData();
-		formatOut = str -> GetFormat();
+		formatOut = (uint32_t) str -> GetFormat();
 		nameOut = str -> GetHashedName();
 		numChannelsOut = str -> GetNumChannels();
 		return true;
@@ -1251,7 +1251,7 @@ namespace LibSWBF2
     {
 		CheckPtr(bnk, false);
 		hasDataOut = bnk -> HasData();
-		formatOut = bnk -> GetFormat();
+		formatOut = (uint32_t) bnk -> GetFormat();
 		nameOut = bnk -> GetHashedName();
 		return true;
     }

@@ -167,4 +167,13 @@ namespace LibSWBF2.Enums
         Linear = 1,
         Spline = 2,
     };
+
+    public enum ESoundFormat : uint
+    {
+        PCM8 = 1,
+        PCM16 = 2,
+        VAG = 3,
+        XADPCM = 4,
+        IMAADPCM = 5
+    };
 }

@@ -39,7 +39,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const uint32_t SoundBank::GetFormat() const
+	const ESoundFormat SoundBank::GetFormat() const
 	{
 		return p_soundBank -> p_Info -> m_Format;	
 	}

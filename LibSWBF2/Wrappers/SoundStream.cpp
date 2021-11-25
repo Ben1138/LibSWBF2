@@ -7,6 +7,7 @@
 #include "Types/SoundClip.h"
 #include "Hashing.h"
 #include <unordered_map>
+#include <iostream>
 
 namespace LibSWBF2::Wrappers
 {
@@ -33,6 +34,10 @@ namespace LibSWBF2::Wrappers
 				size_t index = out.m_Sounds.Add(sound);
 				out.m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
 			}
+			else 
+			{
+				std::cout << "Failed to add sound brah: " << i << std::endl;
+			}
 		}
 
 		return true;
@@ -44,7 +49,7 @@ namespace LibSWBF2::Wrappers
 		return p_StreamChunk -> p_Info -> m_Name;
 	}
 
-	uint32_t SoundStream::GetFormat() const
+	ESoundFormat SoundStream::GetFormat() const
 	{
 		return p_StreamChunk -> p_Info -> m_Format;
 	}

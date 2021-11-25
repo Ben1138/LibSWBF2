@@ -12,9 +12,9 @@ namespace LibSWBF2.Wrappers
 {
     public sealed class SoundBank : NativeWrapper
     {
-        public uint Name        { get; private set; }
-        public bool HasData     { get; private set; }
-        public uint Format      { get; private set; }
+        public uint Name            { get; private set; }
+        public bool HasData         { get; private set; }
+        public ESoundFormat Format  { get; private set; }
         
 
         internal override void SetPtr(IntPtr bankPtr)
@@ -23,7 +23,7 @@ namespace LibSWBF2.Wrappers
             if (APIWrapper.SoundBank_FetchAllFields(bankPtr, out uint nameOut, out bool hasDataOut, 
                                                     out uint formatOut))
             {
-                Format = formatOut;
+                Format = (ESoundFormat) formatOut;
                 Name = nameOut;
                 HasData = hasDataOut;
             }
