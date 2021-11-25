@@ -48,6 +48,7 @@ namespace LibSWBF2::Wrappers
 		uint32_t GetNumChannels() const;
 		uint32_t GetSampleRate() const;
 		uint32_t GetNumSamples() const;
+		uint32_t GetAlias() const;
 
 		bool GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};
