@@ -734,6 +734,7 @@ namespace LibSWBF2
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
 										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
 										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
+										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -763,6 +764,11 @@ namespace LibSWBF2
 		animGroupArr = animGroups.GetArrayPtr();
 		animGroupCount = (int32_t)animGroups.Size();
 		animGroupInc = sizeof(WorldAnimationGroup);
+
+    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
+		animHierArr = animHiers.GetArrayPtr();
+		animHierCount = (int32_t)animHiers.Size();
+		animHierInc = sizeof(WorldAnimationHierarchy);
 
 		terrPtr = world -> GetTerrain();
 
@@ -841,6 +847,26 @@ namespace LibSWBF2
 		
 		animNames = animsPtrsBuffer.GetArrayPtr();
 		instNames = instsPtrsBuffer.GetArrayPtr();
+    }
+
+
+    const uint8_t WorldAnimHier_FetchAllFields(const WorldAnimationHierarchy* hier, const char *& rootPtr, const char**& childNames, int32_t& numChildren)
+    {
+    	static String rootCache;
+    	static List<String> childrenCache;
+    	static List<const char*> childPtrsBuffer;
+    	CheckPtr(hier,false);
+
+    	rootCache = hier -> GetRootName();
+    	rootPtr = rootCache.Buffer();
+
+    	childrenCache = hier -> GetChildNames();
+    	GetStringListPtrs(childrenCache, childPtrsBuffer);
+
+    	childNames = childPtrsBuffer.GetArrayPtr();
+    	numChildren = childrenCache.Size();
+
+    	return true;
     }
 
 
