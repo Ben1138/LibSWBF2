@@ -52,6 +52,11 @@ namespace LibSWBF2::Wrappers
 		return p_SoundClip->m_SampleCount;
 	}
 
+	uint32_t Sound::GetAlias() const
+	{
+		return p_SoundClip->m_Alias;
+	}
+
 	bool Sound::GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{
 		if (p_SoundClip == nullptr)
