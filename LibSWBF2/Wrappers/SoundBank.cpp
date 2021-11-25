@@ -30,6 +30,8 @@ namespace LibSWBF2::Wrappers
 			Sound sound;
 			if (Sound::FromSoundClip(&clips[i], sound))
 			{
+				sound.m_Format = out.p_soundBank -> p_Info -> m_Format;
+				sound.m_NumChannels = 1;
 				size_t index = out.m_Sounds.Add(sound);
 				out.m_NameToIndexMaps->SoundHashToIndex.emplace(clips[i].m_NameHash, index);
 			}
