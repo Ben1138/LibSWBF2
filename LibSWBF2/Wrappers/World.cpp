@@ -131,14 +131,14 @@ namespace LibSWBF2::Wrappers
 		return p_WorldAnimationGroup -> p_Info -> m_Name;	
 	}
 
-	const bool WorldAnimationGroup::GetField1() const
+	const bool WorldAnimationGroup::IsPlayingAtStart() const
 	{
-		return p_WorldAnimationGroup -> p_Info -> m_0 == 1;
+		return p_WorldAnimationGroup -> p_Info -> m_PlayAtStart == 1;
 	}
 
-	const bool WorldAnimationGroup::GetField2() const
+	const bool WorldAnimationGroup::DisablesHierarchies() const
 	{
-		return p_WorldAnimationGroup -> p_Info -> m_1 == 1;
+		return p_WorldAnimationGroup -> p_Info -> m_DisableHierarchy == 1;
 	}
 
 	const void WorldAnimationGroup::GetAnimationInstancePairs(
