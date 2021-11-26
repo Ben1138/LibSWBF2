@@ -822,8 +822,8 @@ namespace LibSWBF2
     	nameCache = group -> GetName();
     	namePtr = nameCache.Buffer();
 
-    	bool0 = group -> GetField1();
-    	bool1 = group -> GetField2();
+    	bool0 = group -> IsPlayingAtStart();
+    	bool1 = group -> DisablesHierarchies();
 
     	return true;
     }

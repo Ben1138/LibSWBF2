@@ -83,8 +83,8 @@ namespace LibSWBF2.Wrappers
     public sealed class WorldAnimationGroup : NativeWrapper
     {
         public string Name { get; private set; }
-        public bool Field1 { get; private set; }
-        public bool Field2 { get; private set; }
+        public bool PlaysAtStart { get; private set; }
+        public bool DisablesHierarchies { get; private set; }
 
         internal override void SetPtr(IntPtr ptr)
         {
@@ -93,8 +93,8 @@ namespace LibSWBF2.Wrappers
                                                     out IntPtr namePtr))
             {
                 Name = Marshal.PtrToStringAnsi(namePtr);
-                Field1 = f1;
-                Field2 = f2;
+                PlaysAtStart = f1;
+                DisablesHierarchies = f2;
             }
         }
 
@@ -119,8 +119,8 @@ namespace LibSWBF2.Wrappers
         {
             CheckValidity();
             return String.Format(
-                "{0}: F1? {1}, F2? {2}, Has {3} Animation-Instance pairs",
-                Name, Field1, Field2, GetAnimationInstancePairs().Count     
+                "{0}: PlaysAtStart? {1}, DisablesHierarchies? {2}, Has {3} Animation-Instance pairs",
+                Name, PlaysAtStart, DisablesHierarchies, GetAnimationInstancePairs().Count     
             );
         }
     }

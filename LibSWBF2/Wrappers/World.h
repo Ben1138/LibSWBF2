@@ -92,8 +92,8 @@ namespace LibSWBF2::Wrappers
 
 	public:
 		const String& GetName() const;
-		const bool GetField1() const;
-		const bool GetField2() const;
+		const bool IsPlayingAtStart() const;
+		const bool DisablesHierarchies() const;
 		const void GetAnimationInstancePairs(List<String>& animNamesOut, List<String>& instanceNamesOut) const;
 	};
 
@@ -133,7 +133,7 @@ namespace LibSWBF2::Wrappers
 		List<WorldAnimation> m_Animations;
 		List<WorldAnimationGroup> m_AnimationGroups;
 		List<WorldAnimationHierarchy> m_AnimationHierarchies;
-		
+
 		wrld* p_World;
 
 

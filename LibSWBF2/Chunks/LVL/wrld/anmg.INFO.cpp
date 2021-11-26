@@ -22,18 +22,18 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
         m_Name = stream.ReadString();
 
-        m_0 = stream.ReadByte();
-        m_1 = stream.ReadByte();
+        m_PlayAtStart = stream.ReadByte();
+        m_DisableHierarchy = stream.ReadByte();
 
         BaseChunk::EnsureEnd(stream);
     }
 
     String anmg_INFO::ToString() const
     {
-        String rep = fmt::format("Name: {}, Field1: {}, Field2: {}", 
+        String rep = fmt::format("Name: {}, Is Played At Start? {}, Disables Hierarchy? {}", 
                         m_Name, 
-                        m_0 == 1,
-                        m_1 == 1).c_str();
+                        m_PlayAtStart == 1,
+                        m_DisableHierarchy == 1).c_str();
         return rep;
     }
 }
