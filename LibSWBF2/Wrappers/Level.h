@@ -99,7 +99,6 @@ namespace LibSWBF2::Wrappers
 		const List<SoundStream>& GetSoundStreams() const;
 		const List<SoundBank>& GetSoundBanks() const;
 
-
 		const Model* GetModel(const String& modelName) const;
 		const Texture* GetTexture(const String& textureName) const;
 		const World* GetWorld(const String& worldName) const;
@@ -109,7 +108,20 @@ namespace LibSWBF2::Wrappers
 		const EntityClass* GetEntityClass(const String& typeName) const;
 		const AnimationBank* GetAnimationBank(const String& setName) const;
 		const AnimationSkeleton* GetAnimationSkeleton(const String& skelName) const;
-		const Sound* GetSound(const String& soundName) const;
+		const Sound* GetSound(const String& soundHashName) const;
+		const Config* GetConfig(EConfigType cfgType, const String& cfgName) const;
+		const SoundStream* GetSoundStream(const String& streamName) const;
+		const SoundBank* GetSoundBank(const String& bankName) const;
+
+		const Model* GetModel(FNVHash modelName) const;
+		const Texture* GetTexture(FNVHash textureName) const;
+		const World* GetWorld(FNVHash worldName) const;
+		const Terrain* GetTerrain(FNVHash terrainName) const;
+		const Script* GetScript(FNVHash scriptName) const;
+		const Localization* GetLocalization(FNVHash loclName) const;
+		const EntityClass* GetEntityClass(FNVHash typeName) const;
+		const AnimationBank* GetAnimationBank(FNVHash setName) const;
+		const AnimationSkeleton* GetAnimationSkeleton(FNVHash skelName) const;
 		const Sound* GetSound(FNVHash soundHashName) const;
 		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;
 		const SoundStream* GetSoundStream(FNVHash streamHashName) const;
@@ -122,5 +134,6 @@ namespace LibSWBF2::Wrappers
 	private:
 		void ExploreChildrenRecursive(GenericBaseChunk* root);
 		skel* FindSkeleton(const String& skeletonName) const;
+		skel* FindSkeleton(FNVHash skeletonName) const;
 	};
 }

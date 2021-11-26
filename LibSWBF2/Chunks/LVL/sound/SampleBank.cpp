@@ -31,6 +31,12 @@ namespace LibSWBF2::Chunks::LVL::sound
 			}
 			else if (next == "Data"_fnvh)
 			{
+				size_t data_Pos = stream.GetPosition();
+				for (int i = 0; i < p_Info -> m_SoundHeaders.Size(); i++)
+				{
+					p_Info -> m_SoundHeaders[i].ReadDataFromStream(stream);
+				}
+				stream.SetPosition(data_Pos);
 				READ_CHILD(stream, p_Data);
 			}
 			else 

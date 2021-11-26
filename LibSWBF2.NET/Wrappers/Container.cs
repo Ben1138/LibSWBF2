@@ -131,6 +131,16 @@ namespace LibSWBF2.Wrappers
             return null;
         }
 
+        public T Get<T>(uint name) where T : NativeWrapper, new()
+        {
+            CheckValidity();
+            if (WrapperTypeMapping.ContainsKey(typeof(T)))
+            {
+                IntPtr ptr = APIWrapper.Container_GetWrapperFNV(NativeInstance, WrapperTypeMapping[typeof(T)], name);
+                return RegisterChild(FromNative<T>(ptr));
+            }
+            return null;
+        }
 
         public Config FindConfig(EConfigType type, uint nameHash=0)
         {

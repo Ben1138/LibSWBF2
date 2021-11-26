@@ -58,16 +58,16 @@ namespace LibSWBF2
 		class MapsWrapper
 		{
 		public:
-			std::unordered_map<std::string, size_t> TextureNameToIndex;
-			std::unordered_map<std::string, size_t> ModelNameToIndex;
-			std::unordered_map<std::string, size_t> WorldNameToIndex;
-			std::unordered_map<std::string, size_t> TerrainNameToIndex;
-			std::unordered_map<std::string, size_t> ScriptNameToIndex;
-			std::unordered_map<std::string, size_t> LocalizationNameToIndex;
-			std::unordered_map<std::string, size_t> EntityClassTypeToIndex;
-			std::unordered_map<std::string, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
-			std::unordered_map<std::string, size_t> AnimationBankNameToIndex;
-			std::unordered_map<std::string, size_t> AnimationSkeletonNameToIndex;
+			std::unordered_map<FNVHash, size_t> TextureNameToIndex;
+			std::unordered_map<FNVHash, size_t> ModelNameToIndex;
+			std::unordered_map<FNVHash, size_t> WorldNameToIndex;
+			std::unordered_map<FNVHash, size_t> TerrainNameToIndex;
+			std::unordered_map<FNVHash, size_t> ScriptNameToIndex;
+			std::unordered_map<FNVHash, size_t> LocalizationNameToIndex;
+			std::unordered_map<FNVHash, size_t> EntityClassTypeToIndex;
+			std::unordered_map<FNVHash, Chunks::LVL::skel::skel*> SkeletonNameToSkel;
+			std::unordered_map<FNVHash, size_t> AnimationBankNameToIndex;
+			std::unordered_map<FNVHash, size_t> AnimationSkeletonNameToIndex;
 			std::unordered_map<FNVHash, size_t> SoundHashToIndex;
 			std::unordered_map<FNVHash, size_t> ConfigHashToIndex;
 			std::unordered_map<FNVHash, size_t> SoundStreamHashToIndex;

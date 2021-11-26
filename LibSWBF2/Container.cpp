@@ -39,19 +39,17 @@ namespace LibSWBF2
 		std::vector<Schedule> m_Scheduled;
 
 		// TODO: rework once we allow modifications (add / delete) in Levels
-		std::unordered_map<std::string, const Texture*> m_TextureDB;
-		std::unordered_map<std::string,	const Model*> m_ModelDB;
-		std::unordered_map<std::string, const World*> m_WorldDB;
-		std::unordered_map<std::string, const Terrain*> m_TerrainDB;
-		std::unordered_map<std::string, const Script*> m_ScriptDB;
-		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
-		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
-		std::unordered_map<std::string, const AnimationSkeleton*> m_AnimationSkeletonDB;
-
+		std::unordered_map<FNVHash, const Texture*> m_TextureDB;
+		std::unordered_map<FNVHash,	const Model*> m_ModelDB;
+		std::unordered_map<FNVHash, const World*> m_WorldDB;
+		std::unordered_map<FNVHash, const Terrain*> m_TerrainDB;
+		std::unordered_map<FNVHash, const Script*> m_ScriptDB;
+		std::unordered_map<FNVHash, const EntityClass*> m_EntityClassDB;
+		std::unordered_map<FNVHash, const AnimationBank*> m_AnimationBankDB;
+		std::unordered_map<FNVHash, const AnimationSkeleton*> m_AnimationSkeletonDB;
 		std::unordered_map<FNVHash, const Config*> m_ConfigDB;
-
 		std::unordered_map<FNVHash, const Sound*> m_SoundDB;
-		std::unordered_map<std::string, List<const Localization*>> m_LocalizationDB;
+		std::unordered_map<FNVHash, List<const Localization*>> m_LocalizationDB;
 
 
 		List<const World*> m_Worlds;
@@ -511,6 +509,9 @@ namespace LibSWBF2
 		return m_ThreadSafeMembers->m_Worlds;
 	}
 
+
+
+	// Model
 	const Model* Container::FindModel(String modelName) const
 	{
 		if (modelName.IsEmpty())
@@ -518,8 +519,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindModel(FNV::Hash(modelName));
+	}
+
+	const Model* Container::FindModel(FNVHash modelName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_ModelDB.find(ToLower(modelName));
+		auto it = m_ThreadSafeMembers->m_ModelDB.find(modelName);
 		if (it != m_ThreadSafeMembers->m_ModelDB.end())
 		{
 			return it->second;
@@ -528,6 +534,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Texture
 	const Texture* Container::FindTexture(String textureName) const
 	{
 		if (textureName.IsEmpty())
@@ -535,8 +544,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindTexture(FNV::Hash(textureName));
+	}
+
+	const Texture* Container::FindTexture(FNVHash textureName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_TextureDB.find(ToLower(textureName));
+		auto it = m_ThreadSafeMembers->m_TextureDB.find(textureName);
 		if (it != m_ThreadSafeMembers->m_TextureDB.end())
 		{
 			return it->second;
@@ -545,6 +559,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// World
 	const World* Container::FindWorld(String worldName) const
 	{
 		if (worldName.IsEmpty())
@@ -552,8 +569,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindWorld(FNV::Hash(worldName));
+	}
+
+	const World* Container::FindWorld(FNVHash worldName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_WorldDB.find(ToLower(worldName));
+		auto it = m_ThreadSafeMembers->m_WorldDB.find(worldName);
 		if (it != m_ThreadSafeMembers->m_WorldDB.end())
 		{
 			return it->second;
@@ -562,6 +584,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Terrain
 	const Terrain* Container::FindTerrain(String terrainName) const
 	{
 		if (terrainName.IsEmpty())
@@ -569,8 +594,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindTerrain(FNV::Hash(terrainName));
+	}
+
+	const Terrain* Container::FindTerrain(FNVHash terrainName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_TerrainDB.find(ToLower(terrainName));
+		auto it = m_ThreadSafeMembers->m_TerrainDB.find(terrainName);
 		if (it != m_ThreadSafeMembers->m_TerrainDB.end())
 		{
 			return it->second;
@@ -579,6 +609,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Script
 	const Script* Container::FindScript(String scriptName) const
 	{
 		if (scriptName.IsEmpty())
@@ -586,8 +619,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindScript(FNV::Hash(scriptName));
+	}
+
+	const Script* Container::FindScript(FNVHash scriptName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_ScriptDB.find(ToLower(scriptName));
+		auto it = m_ThreadSafeMembers->m_ScriptDB.find(scriptName);
 		if (it != m_ThreadSafeMembers->m_ScriptDB.end())
 		{
 			return it->second;
@@ -596,12 +634,20 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// AnimationBank
 	const AnimationBank* Container::FindAnimationBank(String setName) const
 	{
 		if (setName.IsEmpty()) return nullptr;
 
+		return FindAnimationBank(FNV::Hash(setName));
+	}
+
+	const AnimationBank* Container::FindAnimationBank(FNVHash setName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(ToLower(setName));
+		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(setName);
 		if (it != m_ThreadSafeMembers->m_AnimationBankDB.end())
 		{
 			return it->second;
@@ -610,12 +656,20 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// AnimationSkeleton
 	const AnimationSkeleton* Container::FindAnimationSkeleton(String skelName) const
 	{
 		if (skelName.IsEmpty()) return nullptr;
 
+		return FindAnimationSkeleton(FNV::Hash(skelName));
+	}
+
+	const AnimationSkeleton* Container::FindAnimationSkeleton(FNVHash skelName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_AnimationSkeletonDB.find(ToLower(skelName));
+		auto it = m_ThreadSafeMembers->m_AnimationSkeletonDB.find(skelName);
 		if (it != m_ThreadSafeMembers->m_AnimationSkeletonDB.end())
 		{
 			return it->second;
@@ -624,6 +678,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Localization
 	const List<const Localization*>* Container::FindLocalizations(String languageName) const
 	{
 		if (languageName.IsEmpty())
@@ -631,8 +688,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindLocalizations(FNV::Hash(languageName));
+	}
+
+	const List<const Localization*>* Container::FindLocalizations(FNVHash languageName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_LocalizationDB.find(ToLower(languageName));
+		auto it = m_ThreadSafeMembers->m_LocalizationDB.find(languageName);
 		if (it != m_ThreadSafeMembers->m_LocalizationDB.end())
 		{
 			return &it->second;
@@ -641,6 +703,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// EntityClass
 	const EntityClass* Container::FindEntityClass(String typeName) const
 	{
 		if (typeName.IsEmpty())
@@ -648,8 +713,13 @@ namespace LibSWBF2
 			return nullptr;
 		}
 
+		return FindEntityClass(FNV::Hash(typeName));
+	}
+
+	const EntityClass* Container::FindEntityClass(FNVHash typeName) const
+	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
-		auto it = m_ThreadSafeMembers->m_EntityClassDB.find(ToLower(typeName));
+		auto it = m_ThreadSafeMembers->m_EntityClassDB.find(typeName);
 		if (it != m_ThreadSafeMembers->m_EntityClassDB.end())
 		{
 			return it->second;
@@ -658,6 +728,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Sound
 	const Sound* Container::FindSound(String soundName) const
 	{
 		if (soundName.IsEmpty())
@@ -678,6 +751,9 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
+
+
+	// Config
 	const Config* Container::FindConfig(EConfigType type, FNVHash hashedConfigName) const
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);

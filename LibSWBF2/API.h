@@ -93,6 +93,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const bool Container_Delete(Container* container);
 		
 		LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+		LIBSWBF2_API const void* Container_GetWrapperFNV(Container* container, uint32_t type, uint32_t name); 
         LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
 
 
@@ -107,6 +108,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs);
 
 		LIBSWBF2_API const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name);
+		LIBSWBF2_API const void* Level_GetWrapperFNV(const Level* level, uint32_t type, uint32_t name);
 		LIBSWBF2_API const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize);
 
 

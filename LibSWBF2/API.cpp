@@ -194,7 +194,7 @@ namespace LibSWBF2
     wrapperMap[typeof(Script)]        = 6;
 	*/
 
-	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
+	const void* Container_GetWrapperFNV(Container* container, uint32_t type, uint32_t name)
 	{
 		switch (type)
 		{
@@ -209,12 +209,18 @@ namespace LibSWBF2
 			case 5:
 				return static_cast<const void *>(container -> FindAnimationBank(name));
 			case 6:
-				return static_cast<const void*>(container->FindScript(name));
+				return static_cast<const void*>(container-> FindScript(name));
 			case 7:
-				return static_cast<const void*>(container->FindSound(name));
+				return static_cast<const void*>(container-> FindSound(name));
 			default:
 				return nullptr;
 		}
+	}
+
+
+	const void* Container_GetWrapper(Container* container, uint32_t type, const char *name)
+	{
+		return Container_GetWrapperFNV(container, type, (uint32_t) FNV::Hash(name));
 	}
 
 
@@ -257,6 +263,11 @@ namespace LibSWBF2
 
 	const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name)
 	{
+		return Level_GetWrapperFNV(level, type, (uint32_t) FNV::Hash(name));
+	}
+
+	const void* Level_GetWrapperFNV(const Level* level, uint32_t type, uint32_t name)
+	{
 		CheckPtr(level, nullptr);
 
 		switch (type)
@@ -282,9 +293,9 @@ namespace LibSWBF2
 		case 9:
 			return static_cast<const void*>(level->GetAnimationSkeleton(name));
 		case 10:
-			return static_cast<const void*>(level->GetSoundBank(FNV::Hash(name)));
+			return static_cast<const void*>(level->GetSoundBank(name));
 		case 11:
-			return static_cast<const void*>(level->GetSoundStream(FNV::Hash(name)));
+			return static_cast<const void*>(level->GetSoundStream(name));
 		default:
 			return nullptr;
 		}
