@@ -19,7 +19,6 @@
 #include "LVL/zaa_/zaa_.h"
 #include "LVL/zaf_/zaf_.h"
 #include "LVL/skel/skel.h"
-#include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
 #include "LVL/sound/StreamList.h"
 #include "LVL/sound/SoundBankList.h"
@@ -163,20 +162,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, zafbin);
 						chunk = zafbin;
 					}
-					/*
-					else if (nextHead == "emo_"_h)
-					{
-						LVL::sound::emo_* unknown;
-						READ_CHILD(stream, unknown);
-						chunk = unknown;
-					}
 					else if (nextHead == "_pad"_h)
 					{
 						LVL::sound::_pad* unknown;
 						READ_CHILD(stream, unknown);
 						chunk = unknown;
 					}
-					*/
 					else if (nextHead == "lght"_h)
 					{
 						LVL::config::lght* lighting;
@@ -382,7 +373,6 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
-	//template struct LIBSWBF2_API GenericChunk<"emo_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"_pad"_m>;
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
