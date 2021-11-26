@@ -50,8 +50,14 @@ namespace LibSWBF2::Chunks::LVL::sound
 					m_CombinedSoundSize = stream.ReadUInt32(); 
 					break;
 
-				case "Sample"_fnv:
-					m_SoundHeaders.Emplace().ReadHeaderFromStream(stream); 
+				case "SampleInfo"_fnv:
+					next = (FNVHash) stream.ReadUInt32();
+					while (next == "Sample"_fnv)
+					{
+						m_SoundHeaders.Emplace().ReadHeaderFromStream(stream);
+						next = (FNVHash) stream.ReadUInt32(); 
+					}
+					stream.SetPosition(stream.GetPosition() - 4);
 					break;	
 
 				case "Padding"_fnv:

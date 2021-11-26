@@ -70,6 +70,9 @@ namespace LibSWBF2
         public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetWrapperFNV(IntPtr container, uint type, uint name);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Container_GetConfig(IntPtr container, uint type, uint nameHash);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -114,6 +117,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetWrapper(IntPtr level, uint type, string name);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetWrapperFNV(IntPtr level, uint type, uint name);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetWrappers(IntPtr level, uint type, out uint num, out uint inc);
