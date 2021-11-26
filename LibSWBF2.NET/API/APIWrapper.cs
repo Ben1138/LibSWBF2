@@ -7,12 +7,12 @@ namespace LibSWBF2
 
     internal static class APIWrapper
     {
-//#if WIN32
-//        const string LIB_NAME = "LibSWBF2";
-//#endif
-//#if UNIX
+#if WIN32
+        const string LIB_NAME = "LibSWBF2";
+#endif
+#if UNIX
         const string LIB_NAME = "SWBF2";
-//#endif
+#endif
 
         // Memory //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
