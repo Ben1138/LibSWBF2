@@ -17,6 +17,8 @@ namespace LibSWBF2::Types
 		this->m_SampleRate = 0;
 		this->m_SampleCount = 0;
 		this->m_DataLength = 0;
+		this->m_Padding = 0;
+		this->m_Alias = 0;
 
 		this->m_Data = nullptr;
 	}
@@ -113,7 +115,7 @@ namespace LibSWBF2::Types
 	{
 		String clipName;
 		if (!FNV::Lookup(m_NameHash, clipName))
-			clipName = fmt::format("0x{0:x}", m_NameHash).c_str();// std::to_string(m_NameHash).c_str();
+			clipName = fmt::format("0x{0:x}", m_NameHash).c_str();
 
 		return fmt::format(
 			"Name: {0}\n"

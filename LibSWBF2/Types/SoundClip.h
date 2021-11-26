@@ -23,7 +23,7 @@ namespace LibSWBF2::Types
 		uint32_t m_SampleCount;
 		uint32_t m_DataLength;
 		uint32_t m_Padding;
-		uint32_t m_Alias = 0;
+		uint32_t m_Alias;
 
 		const uint8_t* GetSampleData() const;
 		uint8_t GetBytesPerSample() const;
