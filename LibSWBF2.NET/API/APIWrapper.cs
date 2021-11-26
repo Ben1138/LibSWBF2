@@ -9,8 +9,7 @@ namespace LibSWBF2
     {
 #if WIN32
         const string LIB_NAME = "LibSWBF2";
-#endif
-#if UNIX
+#else
         const string LIB_NAME = "SWBF2";
 #endif
 
