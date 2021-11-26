@@ -41,8 +41,6 @@ namespace LibSWBF2::Types
 
 	uint8_t SoundClip::ReadHeaderFromStream(FileReader& stream)
 	{
-		// Sound clip header are either 48 or 56 bytes in size
-
 		m_HeaderPosition = stream.GetPosition();
 		
 		FNVHash CurrentFieldName = (FNVHash) stream.ReadUInt32();

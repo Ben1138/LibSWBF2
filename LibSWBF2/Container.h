@@ -35,7 +35,7 @@ namespace LibSWBF2
 	};
 
 	// Procedure:
-	// - Schedule levels and sound banks to load via AddLevel / AddSoundBank
+	// - Schedule levels and sound banks to load via AddLevel
 	// - Call StartLoading();
 	// - Repeat as many times as you want. Also possible while loading.
 	class LIBSWBF2_API Container

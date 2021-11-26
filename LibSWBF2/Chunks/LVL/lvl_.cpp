@@ -43,12 +43,10 @@ namespace LibSWBF2::Chunks::LVL
         }
         else
         {
-            m_LVLType = root->m_LVLType;
-
             // also load when no specific sub LVLs have been specified at all
             if (root->m_SubLVLsToLoad.Size() == 0 || root->m_SubLVLsToLoad.Contains(m_NameHash))
             {
-                ReadContents(stream);
+                ReadGenerics(stream);
             }
             else
             {
@@ -60,30 +58,6 @@ namespace LibSWBF2::Chunks::LVL
         BaseChunk::EnsureEnd(stream);
     }
 
-    void lvl_::ReadContents(FileReader& stream)
-    {
-        // for sound LVLs, there's a regular Sound Bank Header section before
-        // other chunks (snd_) are following
-        /*
-        if (m_LVLType == ELVLType::Sound)
-        {
-            m_SoundBankHeader.ReadFromStream(stream);
-        }
-        else
-        {
-            // this else can be removed once we enable sound lvl_
-            // ReadGeneric down below
-            ReadGenerics(stream);
-        }
-        */
-
-        // there are snd_ child chunks, but further down the
-        // hierarchy there will be emo_ chunks who don't follow the spec
-        // of header (emo_) followed by chunk size (uint32)...
-        // ignore children fow now to not pollute the log with warnings
-        ReadGenerics(stream);
-    }
-
     String lvl_::ToString() const
     {
         String name;
@@ -91,16 +65,9 @@ namespace LibSWBF2::Chunks::LVL
             name = std::to_string(m_NameHash).c_str();
 
         std::string result = fmt::format(
-            "Name: {}\n"
-            "LVL Type: {}\n",
-            name,
-            LVLTypeToString(m_LVLType)
+            "Name: {}\n",
+            name
         );
-
-        if (m_LVLType == ELVLType::Sound)
-        {
-            result += "\n" + std::string(m_SoundBankHeader.ToString().Buffer());
-        }
 
         return result.c_str();
     }

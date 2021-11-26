@@ -174,13 +174,6 @@ namespace LibSWBF2
 		Spot = 3,
 		Unknown = 0,
 	};
-  
-	enum class ELVLType
-	{
-		Generic,
-		Sound,
-		Core
-	};
 
 	enum class EEntityClassType
 	{
@@ -221,7 +214,6 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API VBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
-	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);

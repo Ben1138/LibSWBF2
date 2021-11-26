@@ -248,21 +248,6 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String LVLTypeToString(ELVLType type)
-	{
-		switch (type)
-		{
-			case ELVLType::Generic:
-				return "Generic";
-			case ELVLType::Sound:
-				return "Sound";
-			case ELVLType::Core:
-				return "Core";
-			default:
-				return fmt::format("Unknown ELVLType: {}", (int)type).c_str();
-		}
-	}
-
 	Types::String EntityClassToString(EEntityClassType type)
 	{
 		switch (type)
