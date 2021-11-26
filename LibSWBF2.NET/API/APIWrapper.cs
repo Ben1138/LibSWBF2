@@ -49,9 +49,6 @@ namespace LibSWBF2
         public static extern ushort Container_AddLevelFiltered(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path, IntPtr[] subLVLs, uint subLVLCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ushort Container_AddSoundBank(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_FreeAll(IntPtr container, [MarshalAs(UnmanagedType.U1)] bool force);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
