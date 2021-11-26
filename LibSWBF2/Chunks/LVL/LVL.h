@@ -8,11 +8,6 @@ namespace LibSWBF2::Chunks::LVL
 	{
 	private:
 		List<FNVHash> m_SubLVLsToLoad;
-		ELVLType m_LVLType;
-
-		// only in Sound LVLs
-		uint32_t m_NameHash;
-		uint32_t m_SizeLeft;
 
 	public:
 		friend struct lvl_;
@@ -24,8 +19,6 @@ namespace LibSWBF2::Chunks::LVL
 
 		// All sub LVLs not specified in here won't be loaded!
 		bool ReadFromFile(String Path, const List<String>* subLVLsToLoad = nullptr);
-
-		String ToString() const override;
 
 	protected:
 		LVL() = default;
