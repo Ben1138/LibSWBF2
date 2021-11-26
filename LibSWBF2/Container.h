@@ -31,7 +31,6 @@ namespace LibSWBF2
 		SWBF2Handle m_Handle;
 		String m_Path;
 		List<String> m_SubLVLsToLoad;
-		bool m_bIsSoundBank = false;
 		bool bRegisterContents = true;
 	};
 
@@ -49,14 +48,12 @@ namespace LibSWBF2
 		uint64_t m_OverallSize = 0;
 
 		void LoadLevelAsync(const Schedule& scheduled);
-		//void LoadSoundBankAsync(const Schedule& scheduled);
 
 	public:
 		static Container* Create();
 		static void Delete(Container* instance);
 
 		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
-		//SWBF2Handle AddSoundBank(const String& path, bool bRegisterContents = true);
 		void StartLoading();
 		void FreeAll(bool bForce=false);
 		bool IsDone() const;

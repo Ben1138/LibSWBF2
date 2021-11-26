@@ -60,12 +60,6 @@ namespace LibSWBF2.Wrappers
             return h;
         }
 
-        public SWBF2Handle AddSoundBank(string path)
-        {
-            CheckValidity();
-            return new SWBF2Handle(APIWrapper.Container_AddSoundBank(NativeInstance, path));
-        }
-
         public void FreeAll(bool force)
         {
             CheckValidity();

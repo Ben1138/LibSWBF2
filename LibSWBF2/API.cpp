@@ -127,12 +127,6 @@ namespace LibSWBF2
 		return (uint32_t)container->AddLevel(path, &filter);
 	}
 
-	uint16_t Container_AddSoundBank(Container* container, const char* path)
-	{
-		CheckPtr(container, UINT16_MAX)
-		return UINT16_MAX;//container->AddSoundBank(path);
-	}
-
 	void Container_FreeAll(Container* container, uint8_t force)
 	{
 		CheckPtr(container,)
