@@ -118,9 +118,6 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Wrappers/SoundStream.cpp"
 
 
-  "${PROJECT_SOURCE_DIR}/Chunks/BNK/BNK.cpp"
-
-
   # Chunks
   "${PROJECT_SOURCE_DIR}/Chunks/BaseChunk.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/GenericChunk.cpp"
