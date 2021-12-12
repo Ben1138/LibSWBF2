@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "SEGM.h"
 #include "FileReader.h"
 #include "FileWriter.h"

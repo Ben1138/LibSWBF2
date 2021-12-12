@@ -1,5 +1,5 @@
 #include "req.h"
-#include "stdafx.h"
+#include "pch.h"
 
 #include "AnimationBank.h"
 #include "Chunks/LVL/zaa_/zaa_.h"

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "SoundBank.h"
 #include "Chunks/BNK/BNK.h"
 

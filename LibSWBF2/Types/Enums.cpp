@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Enums.h"
 #include <string>
 #include <fmt/format.h>
@@ -16,7 +16,7 @@ namespace LibSWBF2
 			case ELogType::Error:
 				return "Error";
 		}
-		return fmt::format("Unknown Log Type: {}", type).c_str();
+		return fmt::format("Unknown Log Type: {}", (int)type).c_str();
 	}
 
 	Types::String TopologyToString(ETopology topology)
@@ -36,7 +36,7 @@ namespace LibSWBF2
 			case ETopology::TriangleFan:
 				return "Triangle Strip";
 		}
-		return fmt::format("Unknown Topology: {}", topology).c_str();
+		return fmt::format("Unknown Topology: {}", (int)topology).c_str();
 	}
 
 	Types::String MaterialFlagsToString(EMaterialFlags flags)
@@ -159,7 +159,7 @@ namespace LibSWBF2
 			case EModelPurpose::Skeleton_BoneEnd:
 				return "Skeleton_BoneEnd";
 		}
-		return fmt::format("Unknown Model Purpose: {}", purpose).c_str();
+		return fmt::format("Unknown Model Purpose: {}", (int)purpose).c_str();
 	}
 
 	Types::String VBUFFlagsToString(EVBUFFlags flags)
@@ -351,7 +351,7 @@ namespace LibSWBF2
 			return "Empty";
 		}
 
-		return fmt::format("Unknown Collision Primitive Type: {}", (uint32_t) type).c_str();
+		return fmt::format("Unknown Collision Primitive Type: {}", (uint32_t)type).c_str();
 	}
 
 	Types::String LoadStatusToString(ELoadStatus type)

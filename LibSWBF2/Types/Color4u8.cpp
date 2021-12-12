@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Color4u8.h"
 #include "InternalHelpers.h"
 #include "FileWriter.h"

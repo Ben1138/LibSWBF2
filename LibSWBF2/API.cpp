@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "API.h"
 #include "InternalHelpers.h"
 #include "Types/LibString.h"

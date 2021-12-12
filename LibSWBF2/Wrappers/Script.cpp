@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "Script.h"
 #include "InternalHelpers.h"
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "tex_.INFO.h"
 #include "InternalHelpers.h"
 #include "DirectX/DXHelpers.h"

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "BoneFrames.h"
 #include "FileWriter.h"
 #include "FileReader.h"
