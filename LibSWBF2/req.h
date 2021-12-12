@@ -6,10 +6,10 @@
 
 #ifdef _WIN32
 
-#ifdef LIBSWBF2_EXPORTS
+#ifdef LibSWBF2_EXPORTS
 #define LIBSWBF2_API __declspec(dllexport)
 #else
-#define LIBSWBF2_API __declspec(dllimport)
+#define LibSWBF2_EXPORTS __declspec(dllimport)
 #endif //LIBSWBF2_EXPORTS
 
 #else

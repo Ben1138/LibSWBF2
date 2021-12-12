@@ -1,6 +1,7 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
 #include "Types/Enums.h"
+#include "DirectX/DXTexCrossPlat.h"
 
 #ifdef _WIN32
 namespace DirectX { class ScratchImage; }
@@ -14,12 +15,7 @@ namespace LibSWBF2::Chunks::LVL::LVL_texture
 	struct LIBSWBF2_API BODY : public GenericChunk<"BODY"_m>
 	{
 	private:
-
-#ifdef _WIN32
-		mutable DirectX::ScratchImage* p_Image = nullptr;
-#else
 		mutable DXTexCrossPlat::CrossPlatImage* p_Image = nullptr;
-#endif
 
 	public:
 		void RefreshSize() override;

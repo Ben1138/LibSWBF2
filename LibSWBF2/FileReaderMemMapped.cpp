@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #ifdef MEMORY_MAPPED_READER
 
 #include "FileReader.h"

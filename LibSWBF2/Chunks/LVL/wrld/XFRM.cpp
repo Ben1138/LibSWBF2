@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "XFRM.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"

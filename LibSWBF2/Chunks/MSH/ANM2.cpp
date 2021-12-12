@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "ANM2.h"
 #include "Chunks/HeaderNames.h"
 #include "FileReader.h"

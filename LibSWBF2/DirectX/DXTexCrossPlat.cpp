@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "DXTexCrossPlat.h"
 #include "DXTexCrossPlatConverters.h"
 #include "DXHelpers.h"
