@@ -71,9 +71,9 @@ namespace LibSWBF2::Chunks
 				WriteToStream(writer);
 				writer.Close();
 			}
-			catch (LibException& e)
+			catch (LibException e)
 			{
-				LOG_ERROR(e.what());
+				LOG_ERROR("{}", e.what());
 				LOG_ERROR("Aborting write process...");
 				return false;
 			}
@@ -102,9 +102,9 @@ namespace LibSWBF2::Chunks
 				LOG_INFO("Successfully finished reading process!");
 				bSuccess = true;
 			}
-			catch (std::runtime_error& e)
+			catch (LibException e)
 			{
-				LOG_ERROR(e.what());
+				LOG_ERROR("{}", e.what());
 				LOG_ERROR("Aborting read process...");
 				LOCK(m_ThreadHandling->m_Lock);
 				reader.Close();

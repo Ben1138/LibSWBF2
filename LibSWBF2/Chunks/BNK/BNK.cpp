@@ -31,9 +31,9 @@ namespace LibSWBF2::Chunks::BNK
 				m_SoundBank.m_Clips[i].ReadDataFromStream(stream);
 			}
 		}
-		catch (LibException& e)
+		catch (LibException e)
 		{
-			LOG_WARN(e.what());
+			LOG_WARN("{}", e.what());
 		}
 
 		BaseChunk::EnsureEnd(stream);

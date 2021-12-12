@@ -4,10 +4,13 @@ cmake_policy(SET CMP0079 NEW)
 project(LibSWBF2)
 
 # SETTINGS
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(LibSWBF2 SHARED)
+# produce relative code adresses, necessary for shared libs
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+add_library(SWBF2 SHARED)
 
 set(GLM_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/glm")
 set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
@@ -15,29 +18,30 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
-target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories(SWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
 
-target_link_libraries(LibSWBF2 glm)
-target_link_libraries(LibSWBF2 fmt)
+target_link_libraries(SWBF2 glm)
+target_link_libraries(SWBF2 fmt)
 
-target_precompile_headers(LibSWBF2 PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/pch.h>")
-target_compile_definitions(LibSWBF2 PUBLIC MEMORY_MAPPED_READER)
+target_precompile_headers(SWBF2 PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/pch.h>")
+target_compile_definitions(SWBF2 PUBLIC MEMORY_MAPPED_READER)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+  target_compile_options(SWBF2 PUBLIC -Wno-attributes)
+  #target_compile_options(SWBF2 PUBLIC -Wno-deprecated-volatile)
+
   if (NOT ${CMAKE_BUILD_TYPE} EQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+    target_compile_options(SWBF2 PUBLIC -O3)
   endif()
-  target_compile_options(LibSWBF2 PUBLIC -Wno-attributes)
-  target_compile_options(LibSWBF2 PUBLIC -Wno-deprecated-volatile)
 endif(UNIX)
 
 if(MSVC)
   # Enable multi processor compilation for VS projects
-  target_compile_options(LibSWBF2 PRIVATE "/MP")
+  target_compile_options(SWBF2 PRIVATE "/MP")
 endif()
 
-target_sources(LibSWBF2 PRIVATE 
+target_sources(SWBF2 PRIVATE 
 
   # Root
   "${PROJECT_SOURCE_DIR}/API.cpp"
