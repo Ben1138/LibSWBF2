@@ -54,9 +54,9 @@ namespace LibSWBF2::Chunks::LVL::sound
 				m_Clips[i].ReadDataFromStream(stream);
 			}
 		}
-		catch (LibException& e)
+		catch (LibException e)
 		{
-			LOG_ERROR(e.what());
+			LOG_ERROR("{}", e.what());
 		}
 
 		BaseChunk::EnsureEnd(stream);

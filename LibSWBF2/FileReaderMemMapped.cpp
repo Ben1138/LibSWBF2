@@ -101,7 +101,7 @@ namespace LibSWBF2
 		}
 		catch (LibException e)
 		{
-			LOG_ERROR(e.what());
+			LOG_ERROR("{}", e.what());
 			if (fileMappingHandle != NULL) CloseHandle(fileMappingHandle);
 			if (fileHandle != INVALID_HANDLE_VALUE) CloseHandle(fileHandle);
 			

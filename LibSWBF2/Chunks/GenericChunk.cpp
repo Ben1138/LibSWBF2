@@ -258,12 +258,12 @@ namespace LibSWBF2::Chunks
 
 					LOG_INFO("Adding Child '{}' to '{}'", chunk->GetHeader(), m_Header);
 				}
-				catch (LibException& e)
+				catch (LibException e)
 				{
 					delete chunk;
 					chunk = nullptr;
 
-					LOG_WARN(e.what());
+					LOG_WARN("{}", e.what());
 					//LOG_WARN("Skipping invalid Chunk: '{}' at pos: {:#x}", nextHead, stream.GetPosition() - 8);
 					break;
 				}
