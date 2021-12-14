@@ -104,59 +104,127 @@ namespace LibSWBF2.Wrappers
             return GetField(HashUtils.GetFNV(name));
         }
 
+        public bool GetField(string name, out Field fieldOut)
+        {
+            fieldOut = null;
+            CheckValidity();
+            fieldOut = GetField(name);
+            return fieldOut != null;
+        }
+
         public string GetString(string name)
+        {
+            GetString(name, out String r);
+            return r;
+        }
+
+        public bool GetString(string name, out string sOut)
         {
             CheckValidity();
             Field f = GetField(name);
+
             if (f == null)
             {
-                return "";
+                sOut = "";
+                return false;
             }
-            return f.GetString();
+            else 
+            {
+                sOut = f.GetString();
+                return true;
+            }
         }
 
         public float GetFloat(string name)
         {
+            GetFloat(name, out float r);
+            return r;
+        }
+
+        public bool GetFloat(string name, out float fOut)
+        {
             CheckValidity();
             Field f = GetField(name);
+
             if (f == null)
             {
-                return 0.0f;
+                fOut = 0f;
+                return false;
             }
-            return f.GetFloat();
+            else 
+            {
+                fOut = f.GetFloat();
+                return true;
+            }
         }
 
         public Vector2 GetVec2(string name)
         {
+            GetVec2(name, out Vector2 r);
+            return r;
+        }
+
+        public bool GetVec2(string name, out Vector2 vecOut)
+        {
             CheckValidity();
             Field f = GetField(name);
+
             if (f == null)
             {
-                return new Vector2();
+                vecOut = new Vector2();
+                return false;
             }
-            return f.GetVec2();
+            else 
+            {
+                vecOut = f.GetVec2();
+                return true;
+            }
         }
 
         public Vector3 GetVec3(string name)
         {
+            GetVec3(name, out Vector3 r);
+            return r;
+        }
+
+        public bool GetVec3(string name, out Vector3 vecOut)
+        {
             CheckValidity();
             Field f = GetField(name);
+
             if (f == null)
             {
-                return new Vector3();
+                vecOut = new Vector3();
+                return false;
             }
-            return f.GetVec3();
+            else 
+            {
+                vecOut = f.GetVec3();
+                return true;
+            }
         }
 
         public Vector4 GetVec4(string name)
         {
+            GetVec4(name, out Vector4 r);
+            return r;
+        }
+
+        public bool GetVec4(string name, out Vector4 vecOut)
+        {
             CheckValidity();
             Field f = GetField(name);
+
             if (f == null)
             {
-                return new Vector4();
+                vecOut = new Vector4();
+                return false;
             }
-            return f.GetVec4();
+            else 
+            {
+                vecOut = f.GetVec4();
+                return true;
+            }
         }
     }
 

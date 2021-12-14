@@ -322,7 +322,8 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Material_FetchAllFields(IntPtr matPtr, out IntPtr specular,
                                 out IntPtr diffuse, out IntPtr texNames, out int numTexes,
-                                out IntPtr attachedLightName, out uint matFlags, out uint specExp);
+                                out IntPtr attachedLightName, out uint matFlags, out uint specExp,
+                                out uint param1, out uint param2);
 
 
 

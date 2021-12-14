@@ -26,5 +26,10 @@ namespace LibSWBF2.Types
         {
             return "(" + X + ", " + Y + ", " + Z + ", " + W + ")";
         }
+
+        public float Magnitude()
+        {
+            return (float) Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
+        }
     }
 }
