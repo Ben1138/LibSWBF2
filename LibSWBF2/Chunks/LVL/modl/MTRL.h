@@ -12,7 +12,7 @@ namespace LibSWBF2::Chunks::LVL::modl
 		Color4u8 m_DiffuseColor;
 		Color4u8 m_SpecularColor;
 		uint32_t m_SpecularExponent;
-		uint32_t m_Unknown[2];
+		uint32_t m_Parameters[2];
 		String m_AttachedLight;
 
 	public:

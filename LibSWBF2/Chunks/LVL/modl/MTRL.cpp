@@ -24,8 +24,8 @@ namespace LibSWBF2::Chunks::LVL::modl
         m_DiffuseColor.ReadFromStream(stream);
         m_SpecularColor.ReadFromStream(stream);
         m_SpecularExponent = stream.ReadUInt32();
-        m_Unknown[0] = stream.ReadUInt32();
-        m_Unknown[1] = stream.ReadUInt32();
+        m_Parameters[0] = stream.ReadUInt32();
+        m_Parameters[1] = stream.ReadUInt32();
         m_AttachedLight = stream.ReadString();
 
         BaseChunk::EnsureEnd(stream);
