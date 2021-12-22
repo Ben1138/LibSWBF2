@@ -57,4 +57,4 @@ GetSound(String soundName)
 - ZAABIN
 
 ## Build
-This project uses the CMake
+This project uses CMake
