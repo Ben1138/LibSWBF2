@@ -55,7 +55,6 @@ GetSound(String soundName)
 - BNK
 - ZAFBIN
 - ZAABIN
-## Build dependencies (VS NuGet)
-- directxtex_desktop_win10
-- glm
-- fmt
+
+## Build
+This project uses the CMake
