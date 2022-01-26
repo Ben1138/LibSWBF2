@@ -12,15 +12,16 @@ namespace LibSWBF2.Wrappers
     {
         protected static readonly Dictionary<Type, uint> WrapperTypeMapping = new Dictionary<Type, uint>()
         {
-            { typeof(Terrain),       0 },
-            { typeof(Model),         1 },
-            { typeof(Texture),       2 },
-            { typeof(World),         3 },
-            { typeof(EntityClass),   4 },
-            { typeof(AnimationBank), 5 },
-            { typeof(Script),        6 },
-            { typeof(Sound),         7 },
-            { typeof(Localization),  8 }
+            { typeof(Terrain),            0 },
+            { typeof(Model),              1 },
+            { typeof(Texture),            2 },
+            { typeof(World),              3 },
+            { typeof(EntityClass),        4 },
+            { typeof(AnimationBank),      5 },
+            { typeof(Script),             6 },
+            { typeof(Sound),              7 },
+            { typeof(Localization),       8 },
+            { typeof(AnimationSkeleton),  9 }
         };
 
         // will be empty in most cases

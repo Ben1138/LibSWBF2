@@ -445,6 +445,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/prim/prim.h"
 #include "Wrappers/Config.h"
 
+#include "Chunks/LVL/zaf_/TNOJ.h"
 
 #include "Chunks/LVL/tex_/FMT_.h"
 #include "Chunks/LVL/tex_/tex_.LVL_.h"
@@ -537,6 +538,8 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<RawData<"POSK"_m> *>;
     template class LIBSWBF2_API Types::List<RawData<"ROTK"_m> *>;
 
+    template class LIBSWBF2_API Types::List<LVL::animation::TNOJ *>;
+
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment *>;
@@ -544,6 +547,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::World *>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config*>;
 
 
@@ -556,12 +560,14 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::Localization*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::CollisionPrimitive*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationBank*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Script*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Config*>;
 
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
 	template class LIBSWBF2_API Types::List<Wrappers::Bone>;
+	template class LIBSWBF2_API Types::List<Wrappers::Joint>;
 	template class LIBSWBF2_API Types::List<Wrappers::Material>;
 	template class LIBSWBF2_API Types::List<Wrappers::Texture>;
 	template class LIBSWBF2_API Types::List<Wrappers::World>;
@@ -574,6 +580,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::EntityClass>;
 	template class LIBSWBF2_API Types::List<Wrappers::CollisionPrimitive>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank>;
+	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;

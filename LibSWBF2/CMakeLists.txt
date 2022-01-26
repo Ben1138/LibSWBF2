@@ -93,6 +93,7 @@ target_sources(LibSWBF2 PRIVATE
 
   # Wrappers
   "${PROJECT_SOURCE_DIR}/Wrappers/AnimationBank.cpp"
+  "${PROJECT_SOURCE_DIR}/Wrappers/AnimationSkeleton.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/CollisionMesh.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/CollisionPrimitive.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/Config.cpp"
@@ -205,6 +206,11 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/TADA.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/TNJA.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/zaa_.cpp"
+
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/BIN_.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/LEKS.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/TNOJ.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/zaf_.cpp"
 
   # MSH
   "${PROJECT_SOURCE_DIR}/Chunks/MSH/ANM2.cpp"

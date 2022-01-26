@@ -17,6 +17,7 @@
 #include "LVL/tern/tern.h"
 #include "LVL/scr_/scr_.h"
 #include "LVL/zaa_/zaa_.h"
+#include "LVL/zaf_/zaf_.h"
 #include "LVL/skel/skel.h"
 #include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
@@ -152,6 +153,12 @@ namespace LibSWBF2::Chunks
 						LVL::animation::zaa_* zaabin;
 						READ_CHILD(stream, zaabin);
 						chunk = zaabin;
+					}
+					else if (nextHead == "zaf_"_h)
+					{
+						LVL::animation::zaf_* zafbin;
+						READ_CHILD(stream, zafbin);
+						chunk = zafbin;
 					}
 					else if (nextHead == "emo_"_h)
 					{
@@ -395,6 +402,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
 
 	//animation
+	template struct LIBSWBF2_API GenericChunk<"zaf_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LEKS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TNOJ"_m>;
+
 	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;

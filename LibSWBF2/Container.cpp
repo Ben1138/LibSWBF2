@@ -47,6 +47,7 @@ namespace LibSWBF2
 		std::unordered_map<std::string, const Script*> m_ScriptDB;
 		std::unordered_map<std::string, const EntityClass*> m_EntityClassDB;
 		std::unordered_map<std::string, const AnimationBank*> m_AnimationBankDB;
+		std::unordered_map<std::string, const AnimationSkeleton*> m_AnimationSkeletonDB;
 
 		std::unordered_map<FNVHash, const Config*> m_ConfigDB;
 
@@ -124,15 +125,16 @@ namespace LibSWBF2
 			{
 				if (scheduled.bRegisterContents)
 				{
-					CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,		level->m_Textures,		m_ThreadSafeMembers->m_TextureDB);
-					CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,			level->m_Models,		m_ThreadSafeMembers->m_ModelDB);
-					CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,			level->m_Worlds,		m_ThreadSafeMembers->m_WorldDB);
-					CopyMap(level->m_NameToIndexMaps->TerrainNameToIndex,		level->m_Terrains,		m_ThreadSafeMembers->m_TerrainDB);
-					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,		level->m_Scripts,		m_ThreadSafeMembers->m_ScriptDB);
-					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,	level->m_EntityClasses, m_ThreadSafeMembers->m_EntityClassDB);
-					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,	level->m_AnimationBanks,m_ThreadSafeMembers->m_AnimationBankDB);
-					CopyMap(level->m_NameToIndexMaps->ConfigHashToIndex,		level->m_Configs, 		m_ThreadSafeMembers->m_ConfigDB);
-					CopyMap(level->m_NameToIndexMaps->SoundHashToIndex,         level->m_Sounds,        m_ThreadSafeMembers->m_SoundDB);
+					CopyMap(level->m_NameToIndexMaps->TextureNameToIndex,			level->m_Textures,			 m_ThreadSafeMembers->m_TextureDB);
+					CopyMap(level->m_NameToIndexMaps->ModelNameToIndex,				level->m_Models,			 m_ThreadSafeMembers->m_ModelDB);
+					CopyMap(level->m_NameToIndexMaps->WorldNameToIndex,				level->m_Worlds,			 m_ThreadSafeMembers->m_WorldDB);
+					CopyMap(level->m_NameToIndexMaps->TerrainNameToIndex,			level->m_Terrains,			 m_ThreadSafeMembers->m_TerrainDB);
+					CopyMap(level->m_NameToIndexMaps->ScriptNameToIndex,			level->m_Scripts,			 m_ThreadSafeMembers->m_ScriptDB);
+					CopyMap(level->m_NameToIndexMaps->EntityClassTypeToIndex,		level->m_EntityClasses, 	 m_ThreadSafeMembers->m_EntityClassDB);
+					CopyMap(level->m_NameToIndexMaps->AnimationBankNameToIndex,		level->m_AnimationBanks,     m_ThreadSafeMembers->m_AnimationBankDB);
+					CopyMap(level->m_NameToIndexMaps->AnimationSkeletonNameToIndex,	level->m_AnimationSkeletons, m_ThreadSafeMembers->m_AnimationSkeletonDB);
+					CopyMap(level->m_NameToIndexMaps->ConfigHashToIndex,			level->m_Configs, 			 m_ThreadSafeMembers->m_ConfigDB);
+					CopyMap(level->m_NameToIndexMaps->SoundHashToIndex,         	level->m_Sounds,        	 m_ThreadSafeMembers->m_SoundDB);
 
 					CopyList(level->m_Worlds, m_ThreadSafeMembers->m_Worlds);
 
@@ -593,6 +595,20 @@ namespace LibSWBF2
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		auto it = m_ThreadSafeMembers->m_AnimationBankDB.find(ToLower(setName));
 		if (it != m_ThreadSafeMembers->m_AnimationBankDB.end())
+		{
+			return it->second;
+		}
+
+		return nullptr;
+	}
+
+	const AnimationSkeleton* Container::FindAnimationSkeleton(String skelName) const
+	{
+		if (skelName.IsEmpty()) return nullptr;
+
+		LOCK(m_ThreadSafeMembers->m_StatusLock);
+		auto it = m_ThreadSafeMembers->m_AnimationSkeletonDB.find(ToLower(skelName));
+		if (it != m_ThreadSafeMembers->m_AnimationSkeletonDB.end())
 		{
 			return it->second;
 		}
