@@ -3,6 +3,7 @@
 #include "Wrappers/Terrain.h"
 #include "Wrappers/Localization.h"
 #include "Wrappers/SoundBank.h"
+#include "Wrappers/AnimationSkeleton.h"
 #include "Types/LibString.h"
 #include "Types/List.h"
 #include "Types/Enums.h"
@@ -22,6 +23,7 @@ namespace LibSWBF2
 	using LibSWBF2::Wrappers::Localization;
 	using LibSWBF2::Wrappers::EntityClass;
 	using LibSWBF2::Wrappers::AnimationBank;
+	using LibSWBF2::Wrappers::AnimationSkeleton;
 	using LibSWBF2::Wrappers::Config;
 
 	struct Schedule
@@ -79,6 +81,7 @@ namespace LibSWBF2
 		const Sound* FindSound(String soundName) const;
 		const Sound* FindSound(FNVHash hashedSoundName) const;
 		const AnimationBank* FindAnimationBank(String setName) const;
+		const AnimationSkeleton* FindAnimationSkeleton(String skelName) const;
 
 		const Config* FindConfig(EConfigType type, FNVHash hashedConfigName) const;
 

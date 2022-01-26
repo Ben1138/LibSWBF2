@@ -7,6 +7,7 @@
 #include "Script.h"
 #include "Config.h"
 #include "AnimationBank.h"
+#include "AnimationSkeleton.h"
 #include "Localization.h"
 #include "CollisionMesh.h"
 #include "EntityClass.h"

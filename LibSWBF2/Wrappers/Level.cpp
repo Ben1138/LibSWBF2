@@ -14,6 +14,7 @@
 #include "Chunks/LVL/Locl/Locl.h"
 #include "Chunks/LVL/coll/coll.h"
 #include "Chunks/LVL/zaa_/zaa_.h"
+#include "Chunks/LVL/zaf_/zaf_.h"
 #include "Chunks/LVL/tern/tern.h"
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Chunks/LVL/common/GenericClass.h"
@@ -82,6 +83,16 @@ namespace LibSWBF2::Wrappers
 			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
 				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(animBank));
+			}	
+		}
+
+		zaf_* animSkelChunk = dynamic_cast<zaf_*>(root);
+		if (animSkelChunk != nullptr)
+		{
+			AnimationSkeleton animSkel;
+			if (AnimationSkeleton::FromChunk(animSkelChunk, animSkel))
+			{
+				m_NameToIndexMaps->AnimationSkeletonNameToIndex.emplace(ToLower(animSkel.GetName()), m_AnimationSkeletons.Add(animSkel));
 			}	
 		}
 
@@ -416,6 +427,11 @@ namespace LibSWBF2::Wrappers
 		return m_AnimationBanks;
 	}
 
+	const List<AnimationSkeleton>& Level::GetAnimationSkeletons() const
+	{
+		return m_AnimationSkeletons;
+	}
+
 	const List<Sound>& Level::GetSounds() const
 	{
 		return m_Sounds;
@@ -565,8 +581,25 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return nullptr;
-
 	}
+
+
+	const AnimationSkeleton* Level::GetAnimationSkeleton(const String& skelName) const
+	{
+		if (skelName.IsEmpty())
+		{
+			return nullptr;
+		}
+
+		auto it = m_NameToIndexMaps->AnimationSkeletonNameToIndex.find(ToLower(skelName));
+		if (it != m_NameToIndexMaps->AnimationSkeletonNameToIndex.end())
+		{
+			return &m_AnimationSkeletons[it->second];
+		}
+
+		return nullptr;
+	}
+
 
 	const Sound* Level::GetSound(const String& soundName) const
 	{

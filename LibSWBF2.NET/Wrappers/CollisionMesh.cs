@@ -16,6 +16,9 @@ namespace LibSWBF2.Wrappers
         public uint VertexCount { get; private set; }
         public Enums.ECollisionMaskFlags MaskFlags { get; private set; }
 
+        public string Name { get; private set; }
+        public string NodeName { get; private set; }
+
         IntPtr VertexBufferPtr;
         IntPtr IndexBufferPtr;
 
@@ -23,11 +26,15 @@ namespace LibSWBF2.Wrappers
         {
             base.SetPtr(cmPtr);
             if (APIWrapper.CollisionMesh_FetchAllFields(cmPtr, out uint indexCount, out IndexBufferPtr,
-                                                    out uint vertexCount, out VertexBufferPtr, out Enums.ECollisionMaskFlags maskFlags))
+                                                    out uint vertexCount, out VertexBufferPtr, out Enums.ECollisionMaskFlags maskFlags,
+                                                    out IntPtr namePtr, out IntPtr nodeNamePtr))
             {
                 IndexCount = indexCount;
                 VertexCount = vertexCount;
                 MaskFlags = maskFlags;
+
+                Name = Marshal.PtrToStringAnsi(namePtr);
+                NodeName = Marshal.PtrToStringAnsi(nodeNamePtr);
             }
         }
 

@@ -266,6 +266,8 @@ namespace LibSWBF2
 			return static_cast<const void*>(level->GetSound(name));
 		case 8:
 			return static_cast<const void*>(level->GetLocalization(name));
+		case 9:
+			return static_cast<const void*>(level->GetAnimationSkeleton(name));
 		default:
 			return nullptr;
 		}
@@ -341,6 +343,13 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)locals.Size();
 			wrapperSize = sizeof(Localization);
 			return static_cast<const void*>(locals.GetArrayPtr());
+		}
+		case 9:
+		{
+			const List<AnimationSkeleton>& skels = level->GetAnimationSkeletons();
+			numWrappers = (uint32_t)skels.Size();
+			wrapperSize = sizeof(AnimationSkeleton);
+			return static_cast<const void*>(skels.GetArrayPtr());
 		}
 		default:
 			return nullptr;
@@ -524,12 +533,24 @@ namespace LibSWBF2
 
 	// Wrappers - CollisionMesh
     const uint8_t CollisionMesh_FetchAllFields(const CollisionMesh *cmPtr, uint32_t& iCount, uint16_t*& iBuf,
-        										uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags)
+        										uint32_t& vCount, Vector3*& vBuf, uint32_t& maskFlags, 
+        										const char *& namePtr, const char *& nodeNamePtr)
     {
     	CheckPtr(cmPtr, false);
+    	
+    	static String name;
+    	static String nodeName;
+
     	cmPtr -> GetIndexBuffer(ETopology::TriangleList, iCount, iBuf);
     	cmPtr -> GetVertexBuffer(vCount, vBuf);
     	maskFlags = (uint32_t) cmPtr -> GetMaskFlags();
+
+    	name = cmPtr -> GetName();
+    	namePtr = name.Buffer();
+
+    	nodeName = cmPtr -> GetNodeName();
+    	nodeNamePtr = nodeName.Buffer();
+
     	return true;
     }
 
@@ -991,6 +1012,37 @@ namespace LibSWBF2
 		numBones = bones;
 		return status;
     }
+
+
+    // Wrappers - AnimationSkeleton
+    const char* AnimationSkeleton_GetName(const AnimationSkeleton* skelPtr)
+    {
+    	static String nameCache;
+    	CheckPtr(skelPtr, nullptr);
+    	nameCache = skelPtr -> GetName();
+
+    	return nameCache.Buffer();
+    }
+
+    const uint8_t AnimationSkeleton_GetJoints(const AnimationSkeleton* skelPtr, int32_t& numJoints, Joint*& jointsPtr)
+    {
+    	static List<Joint> jointsCache;
+    	CheckPtr(skelPtr, false);
+
+    	if (skelPtr -> GetJoints(jointsCache))
+    	{
+    		numJoints = (int32_t) jointsCache.Size();
+    		jointsPtr = jointsCache.GetArrayPtr();
+    		return true;
+    	}
+    	else 
+    	{
+    		numJoints = 0;
+    		return false;
+    	}
+    }
+
+
 
 	const char* Sound_GetName(const Sound* sound)
 	{

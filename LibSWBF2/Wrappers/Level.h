@@ -62,6 +62,7 @@ namespace LibSWBF2::Wrappers
 		List<Localization> m_Localizations;
 		List<EntityClass> m_EntityClasses;
 		List<AnimationBank> m_AnimationBanks;
+		List<AnimationSkeleton> m_AnimationSkeletons;
 		List<Sound> m_Sounds;
 		List<Config> m_Configs;
 
@@ -90,6 +91,7 @@ namespace LibSWBF2::Wrappers
 		const List<Localization>& GetLocalizations() const;
 		const List<EntityClass>& GetEntityClasses() const;
 		const List<AnimationBank>& GetAnimationBanks() const;
+		const List<AnimationSkeleton>& GetAnimationSkeletons() const;
 		const List<Sound>& GetSounds() const;
 		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
 
@@ -101,6 +103,7 @@ namespace LibSWBF2::Wrappers
 		const Localization* GetLocalization(const String& loclName) const;
 		const EntityClass* GetEntityClass(const String& typeName) const;
 		const AnimationBank* GetAnimationBank(const String& setName) const;
+		const AnimationSkeleton* GetAnimationSkeleton(const String& skelName) const;
 		const Sound* GetSound(const String& soundName) const;
 		const Sound* GetSound(FNVHash soundHashName) const;
 		const Config* GetConfig(EConfigType cfgType, FNVHash hash) const;

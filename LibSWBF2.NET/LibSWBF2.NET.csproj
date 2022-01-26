@@ -70,6 +70,7 @@
     <Compile Include="Wrappers\Material.cs" />
     <Compile Include="Wrappers\CollisionPrimitive.cs" />
     <Compile Include="Wrappers\AnimationBank.cs" />
+    <Compile Include="Wrappers\AnimationSkeleton.cs" />
     <Compile Include="Wrappers\Container.cs" />
     <Compile Include="Wrappers\EntityClass.cs" />
     <Compile Include="Wrappers\Config.cs" />
