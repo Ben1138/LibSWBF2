@@ -14,6 +14,8 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
 		List<STRMULT<"ANIM"_m> *> m_AnimObjectPairs;
 
+		GenericChunk<"NOHI"_m> * p_NoHierarchy; 
+
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;
 		void ReadFromStream(FileReader& stream) override;

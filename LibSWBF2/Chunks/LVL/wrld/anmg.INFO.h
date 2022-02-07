@@ -11,7 +11,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 		String m_Name;
 		
 		uint8_t m_PlayAtStart;
-		uint8_t m_DisableHierarchy;
+		uint8_t m_StopOnControl;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

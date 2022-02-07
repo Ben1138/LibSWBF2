@@ -5,6 +5,7 @@
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
+
 namespace LibSWBF2::Chunks::LVL::wrld
 {
     void anmg::RefreshSize()
@@ -32,6 +33,10 @@ namespace LibSWBF2::Chunks::LVL::wrld
             else if (next == "ANIM"_h)
             {
                 READ_CHILD(stream, m_AnimObjectPairs.Emplace());
+            }
+            else if (next == "NOHI"_h)
+            {
+                READ_CHILD(stream, p_NoHierarchy);
             }
             else
             {
