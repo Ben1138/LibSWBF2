@@ -136,9 +136,14 @@ namespace LibSWBF2::Wrappers
 		return p_WorldAnimationGroup -> p_Info -> m_PlayAtStart == 1;
 	}
 
+	const bool WorldAnimationGroup::IsStoppedOnControl() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_StopOnControl == 1;
+	}
+
 	const bool WorldAnimationGroup::DisablesHierarchies() const
 	{
-		return p_WorldAnimationGroup -> p_Info -> m_DisableHierarchy == 1;
+		return p_WorldAnimationGroup -> p_NoHierarchy != nullptr;
 	}
 
 	const void WorldAnimationGroup::GetAnimationInstancePairs(

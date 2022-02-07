@@ -93,6 +93,7 @@ namespace LibSWBF2::Wrappers
 	public:
 		const String& GetName() const;
 		const bool IsPlayingAtStart() const;
+		const bool IsStoppedOnControl() const;
 		const bool DisablesHierarchies() const;
 		const void GetAnimationInstancePairs(List<String>& animNamesOut, List<String>& instanceNamesOut) const;
 	};
