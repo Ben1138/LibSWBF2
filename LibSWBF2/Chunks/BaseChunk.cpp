@@ -151,15 +151,15 @@ namespace LibSWBF2::Chunks
 		return m_ChunkPosition + sizeof(ChunkHeader) + sizeof(ChunkSize);
 	}
 
-	bool BaseChunk::PositionInChunk(const size_t& CurrentPosition)
+	bool BaseChunk::PositionInChunk(const size_t& PossiblePosition)
 	{
 		size_t dataPosition = GetDataPosition();
-		return CurrentPosition >= dataPosition && CurrentPosition < dataPosition + m_Size;
+		return PossiblePosition >= dataPosition && PossiblePosition < dataPosition + m_Size;
 	}
 
 	bool BaseChunk::ThereIsAnother(FileReader& stream)
 	{
-		return stream.GetFileSize() - stream.GetPosition() >= 8 && PositionInChunk(stream.GetPosition() + 8);
+		return stream.GetFileSize() - stream.GetPosition() >= 8 && PositionInChunk(stream.GetPosition() + 7);
 	}
 
 	bool BaseChunk::SkipChunk(FileReader& stream, const bool& printWarn)
