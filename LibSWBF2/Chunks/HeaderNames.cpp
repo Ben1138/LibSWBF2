@@ -1,13 +1,20 @@
 #include "pch.h"
 #include "HeaderNames.h"
 #include "Types/LibString.h"
+#include "Hashing.h"
 #include <set>
 #include <array>
+#include <map>
 #include <string>
 
 namespace LibSWBF2
 {
-	const std::set<ChunkHeader> KNOWN_HEADERS =
+	const std::map<ChunkHeader, std::string> KNOWN_SOUND_HEADERS = 
+	{
+		{"StreamList"_fnvh, "StreamList"},
+	};
+
+	const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =
 	{
 		"HEDR"_h, "SHVO"_h, "MSH2"_h, "SINF"_h, "NAME"_h, "FRAM"_h, "BBOX"_h, "CAMR"_h,
 		"DATA"_h, "MATL"_h, "MATD"_h, "ATRB"_h, "TX0D"_h, "TX1D"_h, "TX2D"_h, "TX3D"_h,
@@ -55,6 +62,20 @@ namespace LibSWBF2
 
 	Types::String ChunkHeader::ToString() const
 	{
+		if (!IsValidHeader(*this))
+		{
+			auto soundLookup = KNOWN_SOUND_HEADERS.find(*this);
+			if (soundLookup != KNOWN_SOUND_HEADERS.end())
+			{
+				return soundLookup -> second.c_str();
+			}
+			else 
+			{
+				std::string tstResult = fmt::format("0x{0:x}", m_Magic);
+				return tstResult.c_str();
+			}
+		}
+
 		std::string result;
 		result += m_Name[0];
 		result += m_Name[1];
@@ -83,6 +104,6 @@ namespace LibSWBF2
 
 	bool IsKnownHeader(const ChunkHeader hedr)
 	{
-		return KNOWN_HEADERS.find(hedr) != KNOWN_HEADERS.end();
+		return KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end() || KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end();
 	}
 }
