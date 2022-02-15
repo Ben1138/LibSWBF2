@@ -7,10 +7,10 @@ namespace LibSWBF2::Chunks::LVL::animation
 	{
 	public:
 
-		List<uint32_t> m_BoneCRCs;
-		List<uint32_t> m_RotationOffsets;
-		List<uint32_t> m_TranslationOffsets;
-		List<float_t>  m_TranslationParams;
+		List<CRCChecksum> m_BoneCRCs;
+		List<uint32_t>    m_RotationOffsets;
+		List<uint32_t>    m_TranslationOffsets;
+		List<float_t>     m_TranslationParams;
 
 	public:
 		void RefreshSize() override;

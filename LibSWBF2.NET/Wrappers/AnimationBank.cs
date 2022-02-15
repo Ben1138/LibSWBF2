@@ -37,10 +37,10 @@ namespace LibSWBF2.Wrappers
             return MemUtils.IntPtrToArray<uint>(crcs, numAnims);
         }
 
-        public uint[] GetBoneCRCs()
+        public uint[] GetBoneCRCs(uint animCRC)
         {
             CheckValidity();
-            IntPtr crcs = APIWrapper.AnimationBank_GetBoneCRCs(NativeInstance, out int numAnims);
+            IntPtr crcs = APIWrapper.AnimationBank_GetBoneCRCs(NativeInstance, animCRC, out int numAnims);
             return MemUtils.IntPtrToArray<uint>(crcs, numAnims);
         }
 
