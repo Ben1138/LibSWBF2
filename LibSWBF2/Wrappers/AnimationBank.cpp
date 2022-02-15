@@ -238,17 +238,36 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<CRCChecksum> AnimationBank::GetBones() const
+	List<CRCChecksum> AnimationBank::GetBones(CRCChecksum animCRC) const
 	{
-		TNJA *index = p_AnimChunk -> p_Bin -> p_JointAddresses;
-
 		List<CRCChecksum> boneHashes;
 
-		int num_bones = p_AnimChunk -> p_Bin -> p_AnimsMetadata -> m_AnimBoneCounts[0];
+		MINA* metadata = p_AnimChunk->p_Bin->p_AnimsMetadata;
 
+		List<CRCChecksum>& animCRCs = metadata->m_AnimNameHashes;
+
+		int num_bones = -1;
+		for (int i = 0; i < animCRCs.Size(); i++)
+		{
+			if (animCRCs[i] == animCRC)
+			{
+				num_bones = (uint32_t)metadata->m_AnimBoneCounts[i];
+				break;
+			}
+		}
+		if (num_bones < 0)
+		{
+			LOG_WARN("Could not find animation metadata of animation 0x{0:x} in bank '{1}'", animCRC, p_AnimChunk->p_Name->m_Text.Buffer());
+			return boneHashes;
+		}
+
+		TNJA* index = p_AnimChunk->p_Bin->p_JointAddresses;
 		for (int i = 0; i < num_bones; i++)
 		{
-			boneHashes.Add(index -> m_BoneCRCs[i]);
+			// TODO: This returns bone duplicates!
+			// Maybe we have to index differently / somewhere else?
+			// Or maybe the reading is broken?
+			boneHashes.Add(index->m_BoneCRCs[i]);
 		}
 
 		return boneHashes;
