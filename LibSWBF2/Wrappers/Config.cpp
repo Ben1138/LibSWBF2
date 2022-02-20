@@ -156,6 +156,11 @@ namespace LibSWBF2::Wrappers
 
 	const void Scope::Cache() const
 	{
+		if (p_Scope == nullptr)
+		{
+			return;
+		}
+
 		m_Fields = std::move(Field::FieldsFromChunkChildren(p_Scope));
 		m_IsValid = true;
 	}
