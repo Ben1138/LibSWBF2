@@ -6,6 +6,8 @@
 #include "Container.h"
 
 #include "Chunks/LVL/wrld/wrld.h"
+#include "Chunks/LVL/wrld/anmg.INFO.h"
+#include "Chunks/LVL/wrld/anmh.INFO.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -51,8 +53,144 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_Region -> p_Info -> p_Type -> m_Text;
 	}
-	
 
+
+	// World Animation
+
+	bool WorldAnimation::FromChunk(anim* chunk, WorldAnimation& animOut)
+	{
+		if (chunk -> p_Info == nullptr)
+		{
+			return false;
+		}
+
+		animOut.p_WorldAnimation = chunk;
+		return true;
+	}
+
+	const String& WorldAnimation::GetName() const
+	{
+		return p_WorldAnimation -> p_Info -> m_Name;
+	}
+
+	const float WorldAnimation::GetRunTime() const
+	{
+		return p_WorldAnimation -> p_Info -> m_RunTime;
+	}
+
+
+	const bool WorldAnimation::IsLooping() const
+	{
+		return p_WorldAnimation -> p_Info -> m_Looping == 1;
+	}
+
+	const bool WorldAnimation::IsTranslationLocal() const
+	{
+		return p_WorldAnimation -> p_Info -> m_LocalTranslation == 1;
+	}
+
+	List<WorldAnimationKey> WorldAnimation::GetRotationKeys() const
+	{
+		List<WorldAnimationKey> AnimKeys;
+		for (int i = 0; i < p_WorldAnimation -> m_RotationKeys.Size(); i++)
+		{
+			ROTK *currKey = p_WorldAnimation -> m_RotationKeys[i];
+			AnimKeys.Add(currKey -> m_Key);
+		}	
+		return AnimKeys;	
+	}
+	
+	List<WorldAnimationKey> WorldAnimation::GetPositionKeys() const
+	{
+		List<WorldAnimationKey> AnimKeys;
+		for (int i = 0; i < p_WorldAnimation -> m_PositionKeys.Size(); i++)
+		{
+			POSK *currKey = p_WorldAnimation -> m_PositionKeys[i];
+			AnimKeys.Add(currKey -> m_Key);
+		}		
+		return AnimKeys;
+	}
+
+
+
+	// World Animation Group
+
+	bool WorldAnimationGroup::FromChunk(anmg* chunk, WorldAnimationGroup& groupOut)
+	{
+		if (chunk -> p_Info == nullptr)
+		{
+			return false;
+		}
+
+		groupOut.p_WorldAnimationGroup = chunk;
+		return true;
+	}
+
+	const String& WorldAnimationGroup::GetName() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_Name;	
+	}
+
+	const bool WorldAnimationGroup::IsPlayingAtStart() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_PlayAtStart == 1;
+	}
+
+	const bool WorldAnimationGroup::IsStoppedOnControl() const
+	{
+		return p_WorldAnimationGroup -> p_Info -> m_StopOnControl == 1;
+	}
+
+	const bool WorldAnimationGroup::DisablesHierarchies() const
+	{
+		return p_WorldAnimationGroup -> p_NoHierarchy != nullptr;
+	}
+
+	const void WorldAnimationGroup::GetAnimationInstancePairs(
+									List<String>& animNamesOut, 
+									List<String>& instanceNamesOut) const
+	{
+		animNamesOut.Clear();
+		instanceNamesOut.Clear();
+
+		for (uint16_t j = 0; j < p_WorldAnimationGroup -> m_AnimObjectPairs.Size(); j++)
+		{
+			auto& pair = p_WorldAnimationGroup -> m_AnimObjectPairs[j] -> m_Texts;
+			if (pair.Size() != 2)
+			{
+				continue;
+			}
+
+			animNamesOut.Add(pair[0]);
+			instanceNamesOut.Add(pair[1]);
+		}
+	}
+
+
+
+	// World Animation Hierarchy
+
+	bool WorldAnimationHierarchy::FromChunk(anmh* chunk, WorldAnimationHierarchy& hierOut)
+	{
+		if (chunk -> p_Info == nullptr || chunk -> p_Info -> m_NumStrings == 0)
+		{
+			return false;
+		}
+
+		hierOut.p_WorldAnimationHierarchy = chunk;
+		return true;
+	}
+
+	const String& WorldAnimationHierarchy::GetRootName() const
+	{
+		return p_WorldAnimationHierarchy -> p_Info -> m_RootName;
+	}
+
+	const List<String>& WorldAnimationHierarchy::GetChildNames() const
+	{
+		return p_WorldAnimationHierarchy -> p_Info -> m_ChildNames;		
+	}
+	
 
 
 	// World
@@ -86,7 +224,37 @@ namespace LibSWBF2::Wrappers
 			{
 				out.m_Regions.Add(region);
 			}
+		}
+
+		List<anim *>& animations = worldChunk -> m_Animations;
+		for (size_t i = 0; i < animations.Size(); ++i)
+		{
+			WorldAnimation anim;
+			if (WorldAnimation::FromChunk(animations[i], anim))
+			{
+				out.m_Animations.Add(anim);
+			}
+		}
+
+		List<anmg *>& animationGroups = worldChunk -> m_AnimationGroups;
+		for (size_t i = 0; i < animationGroups.Size(); ++i)
+		{
+			WorldAnimationGroup group;
+			if (WorldAnimationGroup::FromChunk(animationGroups[i], group))
+			{
+				out.m_AnimationGroups.Add(group);
+			}
 		}		
+
+		List<anmh *>& animationHiers = worldChunk -> m_AnimationHierarchies;
+		for (size_t i = 0; i < animationHiers.Size(); ++i)
+		{
+			WorldAnimationHierarchy hier;
+			if (WorldAnimationHierarchy::FromChunk(animationHiers[i], hier))
+			{
+				out.m_AnimationHierarchies.Add(hier);
+			}
+		}
 
 		return true;
 	}
@@ -124,66 +292,19 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_World->p_SkyName != nullptr ? p_World->p_SkyName->m_Text : "";
 	}
-
-
-	const List<String> World::GetAnimationNames() const
+	
+	const List<WorldAnimation>& World::GetAnimations() const
 	{
-		List<String> names;
-		const List<anim*>& animPtrs = p_World -> m_Animations;
-		for (uint16_t i = 0; i < animPtrs.Size(); i++)
-		{
-			names.Add(animPtrs[i] -> p_Info -> m_Text);
-		}
-		return names;
+		return m_Animations;
 	}
 
-
-	const List<String> World::GetAnimationGroups() const
+	const List<WorldAnimationGroup>& World::GetAnimationGroups() const
 	{
-		List<String> names;
-		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
-		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
-		{
-			names.Add(animGPtrs[i] -> p_Info -> m_Text);
-		}
-		return names;	
+		return m_AnimationGroups;
 	}
 
-
-	const bool World::GetAnimationGroupPairs(const String& animGroupName, 
-									List<String>& animNamesOut, 
-									List<String>& instanceNamesOut) const
+	const List<WorldAnimationHierarchy>& World::GetAnimationHierarchies() const
 	{
-		animNamesOut.Clear();
-		instanceNamesOut.Clear();
-
-		const List<anmg*>& animGPtrs = p_World -> m_AnimationGroups;
-		for (uint16_t i = 0; i < animGPtrs.Size(); i++)
-		{
-			if (animGroupName == animGPtrs[i] -> p_Info -> m_Text)
-			{
-				for (uint16_t j = 0; j < animGPtrs[i] -> m_AnimObjectPairs.Size(); j++)
-				{
-					auto& pair = animGPtrs[i] -> m_AnimObjectPairs[i] -> m_Texts;
-					if (pair.Size() != 2)
-					{
-						continue;
-					}
-
-					animNamesOut.Add(pair[0]);
-					instanceNamesOut.Add(pair[1]);
-				}
-
-				return true;
-			}
-		}
-
-		return false;
+		return m_AnimationHierarchies;
 	}
-
-
-	//const Curve<float_t> World::GetAnimationCurve(const String& animName, ECurveType cc) const
-	//{
-	//	return Curve<float_t>();
-	//}
 }

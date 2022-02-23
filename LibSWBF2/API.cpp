@@ -732,6 +732,9 @@ namespace LibSWBF2
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
+										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
+										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
+										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -752,10 +755,120 @@ namespace LibSWBF2
 		regCount = (int32_t)regions.Size();
 		regInc = sizeof(Region);
 
+    	const List<WorldAnimation>& anims = world -> GetAnimations();
+		animArr = anims.GetArrayPtr();
+		animCount = (int32_t)anims.Size();
+		animInc = sizeof(WorldAnimation);
+
+    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
+		animGroupArr = animGroups.GetArrayPtr();
+		animGroupCount = (int32_t)animGroups.Size();
+		animGroupInc = sizeof(WorldAnimationGroup);
+
+    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
+		animHierArr = animHiers.GetArrayPtr();
+		animHierCount = (int32_t)animHiers.Size();
+		animHierInc = sizeof(WorldAnimationHierarchy);
+
 		terrPtr = world -> GetTerrain();
 
 		return true;
 	}
+
+
+	//Wrappers - World Animation
+
+	const uint8_t WorldAnim_FetchAllFields(const WorldAnimation* anim, uint8_t& loop, uint8_t& localT, const char*& namePtr)
+	{
+		static String nameCache;
+		CheckPtr(anim,false);
+
+		loop = anim -> IsLooping();
+		localT = anim -> IsTranslationLocal();
+
+		nameCache = anim -> GetName();
+		namePtr = nameCache.Buffer();
+		
+		return true;
+	}
+
+    const void WorldAnim_GetAnimKeys(const WorldAnimation* anim, WorldAnimationKey*& keyBuff, int32_t& numKeys, uint8_t IsRotation)
+    {
+    	static List<WorldAnimationKey> KeyCache;
+    	numKeys = 0;
+		CheckPtr(anim,);
+
+		if (IsRotation)
+		{
+			KeyCache = anim -> GetRotationKeys();
+		}
+		else 
+		{
+			KeyCache = anim -> GetPositionKeys();
+		}
+
+		keyBuff = KeyCache.GetArrayPtr();
+		numKeys = KeyCache.Size();
+    }
+
+
+	//Wrappers - World Animation Group
+
+    const uint8_t WorldAnimGroup_FetchAllFields(const WorldAnimationGroup* group, uint8_t& bool0, uint8_t& bool1, const char*& namePtr)
+    {
+    	static String nameCache;
+    	CheckPtr(group,false);
+
+    	nameCache = group -> GetName();
+    	namePtr = nameCache.Buffer();
+
+    	bool0 = group -> IsPlayingAtStart();
+    	bool1 = group -> DisablesHierarchies();
+
+    	return true;
+    }
+
+    const void WorldAnimGroup_GetAnimInstPairs(const WorldAnimationGroup* group, const char**& animNames, const char**& instNames, int32_t& numPairs)
+    {
+    	static List<String> animsCache;
+    	static List<String> instsCache;
+    	static List<const char*> animsPtrsBuffer;
+    	static List<const char*> instsPtrsBuffer;
+
+    	numPairs = 0;
+    	CheckPtr(group,);
+
+    	group -> GetAnimationInstancePairs(animsCache, instsCache);
+
+		numPairs = (int32_t)animsCache.Size();
+
+		GetStringListPtrs(animsCache, animsPtrsBuffer);
+		GetStringListPtrs(instsCache, instsPtrsBuffer);
+		
+		animNames = animsPtrsBuffer.GetArrayPtr();
+		instNames = instsPtrsBuffer.GetArrayPtr();
+    }
+
+
+    const uint8_t WorldAnimHier_FetchAllFields(const WorldAnimationHierarchy* hier, const char *& rootPtr, const char**& childNames, int32_t& numChildren)
+    {
+    	static String rootCache;
+    	static List<String> childrenCache;
+    	static List<const char*> childPtrsBuffer;
+    	CheckPtr(hier,false);
+
+    	rootCache = hier -> GetRootName();
+    	rootPtr = rootCache.Buffer();
+
+    	childrenCache = hier -> GetChildNames();
+    	GetStringListPtrs(childrenCache, childPtrsBuffer);
+
+    	childNames = childPtrsBuffer.GetArrayPtr();
+    	numChildren = childrenCache.Size();
+
+    	return true;
+    }
+
 
     
 	// Wrappers - Script

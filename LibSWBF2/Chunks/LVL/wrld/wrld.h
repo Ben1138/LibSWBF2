@@ -6,6 +6,7 @@
 #include "regn.h"
 #include "anmg.h"
 #include "anim.h"
+#include "anmh.h"
 
 
 namespace LibSWBF2::Chunks::LVL::wrld
@@ -24,6 +25,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 
 		List<anim*> m_Animations;
 		List<anmg*> m_AnimationGroups;
+		List<anmh*> m_AnimationHierarchies;
 
 	public:
 		void RefreshSize() override;

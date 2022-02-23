@@ -1,24 +1,23 @@
 #include "pch.h"
-#include "anmg.h"
-#include "anmg.INFO.h"
+#include "anmh.h"
+#include "anmh.INFO.h"
 #include "Logging/Logger.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 
-
 namespace LibSWBF2::Chunks::LVL::wrld
 {
-    void anmg::RefreshSize()
+    void anmh::RefreshSize()
     {
         THROW("Not implemented!");
     }
 
-    void anmg::WriteToStream(FileWriter& stream)
+    void anmh::WriteToStream(FileWriter& stream)
     {
         THROW("Not implemented!");
     }
 
-    void anmg::ReadFromStream(FileReader& stream)
+    void anmh::ReadFromStream(FileReader& stream)
     {
         BaseChunk::ReadFromStream(stream);
         Check(stream);
@@ -29,14 +28,6 @@ namespace LibSWBF2::Chunks::LVL::wrld
             if (next == "INFO"_h)
             {
                 READ_CHILD(stream, p_Info);
-            }
-            else if (next == "ANIM"_h)
-            {
-                READ_CHILD(stream, m_AnimObjectPairs.Emplace());
-            }
-            else if (next == "NOHI"_h)
-            {
-                READ_CHILD(stream, p_NoHierarchy);
             }
             else
             {

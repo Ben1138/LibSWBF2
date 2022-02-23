@@ -1,20 +1,15 @@
 #pragma once
 #include "Chunks/GenericChunk.h"
-#include "Chunks/STRMULT.h"
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {
-	struct anmg_INFO;
+	struct anmh_INFO;
 
-	struct LIBSWBF2_API anmg : public GenericChunk<"anmg"_m>
+	struct LIBSWBF2_API anmh : public GenericChunk<"anmh"_m>
 	{
 	public:
 
-		anmg_INFO *p_Info;
-
-		List<STRMULT<"ANIM"_m> *> m_AnimObjectPairs;
-
-		GenericChunk<"NOHI"_m> * p_NoHierarchy; 
+		anmh_INFO *p_Info;
 
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

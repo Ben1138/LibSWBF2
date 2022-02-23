@@ -25,6 +25,9 @@ namespace LibSWBF2
 		struct Joint;
 		class EntityClass;
 		class Script;
+		class WorldAnimationGroup;
+		class WorldAnimationHierarchy;
+		class WorldAnimation;
 		class World;
 		class Texture;
 		class Config;
@@ -43,6 +46,7 @@ namespace LibSWBF2
 		struct Vector3;
 		struct Vector4;
 		struct Vector2;
+		struct WorldAnimationKey;
 	}
 
 	using namespace Wrappers;
@@ -166,7 +170,22 @@ namespace LibSWBF2
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
 										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
+										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
+										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
+										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr);
+
+		// Wrappers - WorldAnimation
+		LIBSWBF2_API const uint8_t WorldAnim_FetchAllFields(const WorldAnimation* anim, uint8_t& loop, uint8_t& localT, const char*& namePtr);
+        LIBSWBF2_API const void WorldAnim_GetAnimKeys(const WorldAnimation* anim, WorldAnimationKey*& keyBuff, int32_t& numKeys, uint8_t IsRotation);
+
+		// Wrappers - WorldAnimationGroup
+		LIBSWBF2_API const uint8_t WorldAnimGroup_FetchAllFields(const WorldAnimationGroup* group, uint8_t& bool0, uint8_t& bool1, const char*& namePtr);
+        LIBSWBF2_API const void WorldAnimGroup_GetAnimInstPairs(const WorldAnimationGroup* group, const char**& animNames, const char**& instNames, int32_t& numKeys);
+
+		// Wrappers - WorldAnimationHierarchy
+    	LIBSWBF2_API const uint8_t WorldAnimHier_FetchAllFields(const WorldAnimationHierarchy* hier, const char *& rootPtr, const char**& childNames, int32_t& numChildren);
+
 
 		// Wrappers - Script
 		LIBSWBF2_API const char* Script_GetName(const Script* script);

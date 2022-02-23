@@ -114,16 +114,11 @@ namespace LibSWBF2
         Flag = 32,
 	};
 
-	enum class ECurveType : uint32_t
+	enum class EWorldAnimKeyTransitionType : uint8_t
 	{
-		RotX = 0,
-		RotY = 1,
-		RotZ = 2,
-		RotW = 3,
-
-		PosX = 4,
-		PosY = 5,
-		PosZ = 6,
+		Pop = 0,
+		Linear = 1,
+		Spline = 2,
 	};
 
 	enum class ECollisionPrimitiveType : uint32_t
@@ -217,6 +212,8 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
 	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
+	Types::String LIBSWBF2_API WorldAnimKeyTransitionTypeToString(EWorldAnimKeyTransitionType type);
+
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -237,4 +234,5 @@ namespace LibSWBF2
 
 	bool LIBSWBF2_API operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs);
 
+	bool LIBSWBF2_API operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs);
 }
