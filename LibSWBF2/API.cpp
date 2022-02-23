@@ -1100,14 +1100,14 @@ namespace LibSWBF2
     	return crcs.GetArrayPtr();
     }
 
-	const uint32_t* AnimationBank_GetBoneCRCs(const AnimationBank* setPtr, int& numCRCs)
+	const uint32_t* AnimationBank_GetBoneCRCs(const AnimationBank* setPtr, uint32_t animCRC, int& numCRCs)
 	{
 		static List<uint32_t> crcs;
 
 		numCRCs = 0;
 		CheckPtr(setPtr, nullptr);
 
-		crcs = setPtr->GetBones();
+		crcs = setPtr->GetBones(animCRC);
 
 		numCRCs = (int32_t)crcs.Size();
 		return crcs.GetArrayPtr();

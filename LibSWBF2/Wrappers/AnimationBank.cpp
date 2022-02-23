@@ -238,17 +238,46 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	List<CRCChecksum> AnimationBank::GetBones() const
+	List<CRCChecksum> AnimationBank::GetBones(CRCChecksum animCRC) const
 	{
-		TNJA *index = p_AnimChunk -> p_Bin -> p_JointAddresses;
-
 		List<CRCChecksum> boneHashes;
 
-		int num_bones = p_AnimChunk -> p_Bin -> p_AnimsMetadata -> m_AnimBoneCounts[0];
+		TNJA *index = p_AnimChunk -> p_Bin -> p_JointAddresses;
+		MINA *metadata = p_AnimChunk -> p_Bin -> p_AnimsMetadata;	
 
-		for (int i = 0; i < num_bones; i++)
+
+		List<CRCChecksum> &animCRCs = metadata -> m_AnimNameHashes;	
+
+		uint32_t TNJAOffset = 0;
+
+		bool foundAnim = false;
+
+		for (uint32_t i = 0; i < animCRCs.Size(); i++)
 		{
-			boneHashes.Add(index -> m_BoneCRCs[i]);
+			if (animCRCs[i] == animCRC)
+			{
+				foundAnim = true;
+
+				uint32_t num_bones = metadata -> m_AnimBoneCounts[i];
+
+				for (uint32_t j = 0; j < num_bones; j++)
+				{
+					CRCChecksum currCRC = index -> m_BoneCRCs[TNJAOffset + j];
+					if (!boneHashes.Contains(currCRC))
+					{
+						boneHashes.Add(currCRC);
+					}
+				}
+			}
+			else 
+			{
+				TNJAOffset += metadata -> m_AnimBoneCounts[i];
+			}
+		}
+
+		if (!foundAnim)
+		{
+			LOG_WARN("Unable to get bones of missing animation 0x{0:x} in bank '{1}'", animCRC, p_AnimChunk->p_Name->m_Text.Buffer());
 		}
 
 		return boneHashes;
