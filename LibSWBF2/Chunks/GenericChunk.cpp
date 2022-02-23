@@ -352,6 +352,8 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
 	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
 	template struct LIBSWBF2_API GenericChunk<"anmg"_m>;
+	template struct LIBSWBF2_API GenericChunk<"NOHI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anmh"_m>;
 	template struct LIBSWBF2_API GenericChunk<"anim"_m>;
 	template struct LIBSWBF2_API GenericChunk<"POSK"_m>;
 	template struct LIBSWBF2_API GenericChunk<"ROTK"_m>;
@@ -411,6 +413,5 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
-
 }
 

@@ -9,9 +9,8 @@ namespace LibSWBF2
     {
 #if WIN32
         const string LIB_NAME = "LibSWBF2";
-#endif
-#if UNIX
-        const string LIB_NAME = "libSWBF2";
+#else
+        const string LIB_NAME = "SWBF2";
 #endif
 
         // Memory //
@@ -176,7 +175,33 @@ namespace LibSWBF2
         public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
                                         out IntPtr instanceArr, out int instCount, out int instInc,
                                         out IntPtr regionArr, out int regCount, out int regInc,
+                                        out IntPtr animArr, out int animCount, out int animInc,
+                                        out IntPtr animGroupArr, out int animGroupCount, out int animGroupInc,
+                                        out IntPtr animHierArr, out int animHierCount, out int animHierInc,
                                         out IntPtr terrPtr);
+
+        // World Animation //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool WorldAnim_FetchAllFields(IntPtr worldAnim, out bool loop, out bool localT, out IntPtr namePtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void WorldAnim_GetAnimKeys(IntPtr worldAnim, out IntPtr keyBuff, out int numKeys, bool IsRotation);
+
+
+        // World Animation Group //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool WorldAnimGroup_FetchAllFields(IntPtr group, out bool bool0, out bool bool1, out IntPtr namePtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void WorldAnimGroup_GetAnimInstPairs(IntPtr group, out IntPtr animNames, out IntPtr instNames, out int numPairs);
+
+        // World Animation Group //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool WorldAnimHier_FetchAllFields(IntPtr hier, out IntPtr rootPtr, out IntPtr children, out int numChildren);
+
+
         // Region // 
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]

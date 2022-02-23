@@ -52,6 +52,7 @@
     <Compile Include="Types\Vector2.cs" />
     <Compile Include="Types\Vector3.cs" />
     <Compile Include="Types\Vector4.cs" />
+    <Compile Include="Types\WorldAnimationKey.cs" />
     <Compile Include="Types\Enums.cs" />
     <Compile Include="Wrappers\Interfaces.cs" />
     <Compile Include="Wrappers\Level.cs" />

@@ -370,6 +370,22 @@ namespace LibSWBF2
 				return fmt::format("Unknown ELoadStatus: {}", (int)type).c_str();
 		}
 	}
+
+	Types::String WorldAnimKeyTransitionTypeToString(EWorldAnimKeyTransitionType type)
+	{
+		switch (type)
+		{
+			case EWorldAnimKeyTransitionType::Pop:
+				return "Pop";
+			case EWorldAnimKeyTransitionType::Linear:
+				return "Linear";		
+			case EWorldAnimKeyTransitionType::Spline:
+				return "Spline";
+			default:
+				return fmt::format("Unknown EWorldAnimKeyTransitionType: {}", (uint8_t)type).c_str();
+		}
+	}
+
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
@@ -452,10 +468,13 @@ namespace LibSWBF2
 		return static_cast<std::underlying_type<ECollisionMaskFlags>::type>(lhs) != rhs;
 	}
 
-
-
 	bool operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs)
 	{
 		return static_cast<std::underlying_type<EConfigType>::type>(lhs) == rhs;
+	}
+
+	bool operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs)
+	{
+		return static_cast<std::underlying_type<EWorldAnimKeyTransitionType>::type>(lhs) == rhs;
 	}
 }
