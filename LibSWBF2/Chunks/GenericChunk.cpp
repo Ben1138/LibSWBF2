@@ -22,6 +22,8 @@
 #include "LVL/sound/_pad.h"
 #include "LVL/sound/StreamList.h"
 #include "LVL/sound/SoundBankList.h"
+#include "LVL/sound/Stream.h"
+#include "LVL/sound/SampleBank.h"
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
@@ -287,6 +289,18 @@ namespace LibSWBF2::Chunks
 						LVL::sound::SoundBankList* bankList;
 						READ_CHILD(stream, bankList);
 						chunk = bankList; 
+					}
+					else if (nextHead == "Stream"_fnvh)
+					{
+						LVL::sound::Stream* sstream;
+						READ_CHILD(stream, sstream);
+						chunk = sstream; 
+					}
+					else if (nextHead == "SampleBank"_fnvh)
+					{
+						LVL::sound::SampleBank* bank;
+						READ_CHILD(stream, bank);
+						chunk = bank; 
 					}
 					else
 					{
