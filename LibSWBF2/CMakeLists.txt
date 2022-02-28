@@ -3,13 +3,15 @@ cmake_policy(SET CMP0079 NEW)
 
 project(LibSWBF2_Project)
 
+# Use folders for generators that supports them (VS, XCode, ...)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # SETTINGS
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # produce relative code adresses, necessary for shared libs
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 
 add_library(LibSWBF2 SHARED)
 
@@ -19,9 +21,9 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
-
-target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
-
+if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+  target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
+endif()
 
 target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
 
@@ -35,7 +37,7 @@ if (UNIX)
   target_compile_options(LibSWBF2 PUBLIC -Wno-attributes)
   #target_compile_options(LibSWBF2 PUBLIC -Wno-deprecated-volatile)
 
-  if (NOT ${CMAKE_BUILD_TYPE} EQUAL "Debug")
+  if (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
     target_compile_options(LibSWBF2 PUBLIC -O3)
   endif()
@@ -50,6 +52,33 @@ if(MSVC)
   # Enable multi processor compilation for VS projects
   target_compile_options(LibSWBF2 PRIVATE "/MP")
 endif()
+
+# Just for folder display in generated project
+# TODO: There is probably a way to do this procedurally
+source_group("Source" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/*")
+source_group("Source/DirectX" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/DirectX/*")
+source_group("Source/Logging" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Logging/*")
+source_group("Source/Types" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Types/*")
+source_group("Source/Wrappers" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Wrappers/*")
+source_group("Source/Chunks" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/*")
+source_group("Source/Chunks/LVL" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/*")
+source_group("Source/Chunks/LVL/coll" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/coll/*")
+source_group("Source/Chunks/LVL/common" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/common/*")
+source_group("Source/Chunks/LVL/config" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/config/*")
+source_group("Source/Chunks/LVL/gmod" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/gmod/*")
+source_group("Source/Chunks/LVL/Locl" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/Locl/*")
+source_group("Source/Chunks/LVL/modl" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/modl/*")
+source_group("Source/Chunks/LVL/prim" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/prim/*")
+source_group("Source/Chunks/LVL/scr_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/scr_/*")
+source_group("Source/Chunks/LVL/skel" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/skel/*")
+source_group("Source/Chunks/LVL/sound" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/*")
+source_group("Source/Chunks/LVL/tern" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/tern/*")
+source_group("Source/Chunks/LVL/tex_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/tex_/*")
+source_group("Source/Chunks/LVL/wrld" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/*")
+source_group("Source/Chunks/LVL/zaa_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/*")
+source_group("Source/Chunks/LVL/zaf_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/*")
+source_group("Source/Chunks/MSH" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/MSH/*")
+source_group("Source/Chunks/TERR" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/TERR/*")
 
 target_sources(LibSWBF2 PRIVATE 
 

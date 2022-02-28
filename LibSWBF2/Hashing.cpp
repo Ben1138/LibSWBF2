@@ -5,7 +5,9 @@
 
 namespace LibSWBF2
 {
+#ifdef LOOKUP_CSV_PATH
 	std::unordered_map<FNVHash, std::string>* FNV::p_LookupTable = nullptr;
+#endif // LOOKUP_CSV_PATH
 
 	CRCChecksum CRC::CalcLowerCRC(const char* str)
 	{
@@ -45,6 +47,7 @@ namespace LibSWBF2
 
 	bool FNV::Lookup(FNVHash hash, Types::String& result)
 	{
+#ifdef LOOKUP_CSV_PATH
 		if (p_LookupTable == nullptr)
 		{
 			// This should not happen, since ReadLookupTable() is called
@@ -58,9 +61,10 @@ namespace LibSWBF2
 			result = it->second.data();
 			return true;
 		}
+#endif // LOOKUP_CSV_PATH
 		return false;
 	}
-
+#ifdef LOOKUP_CSV_PATH
 	void FNV::ReadLookupTable()
 	{
 		if (p_LookupTable == nullptr)
@@ -80,12 +84,12 @@ namespace LibSWBF2
 			p_LookupTable->emplace(Hash(line.c_str()), line);
 		}
 	}
-
 	void FNV::ReleaseLookupTable()
 	{
 		delete p_LookupTable;
 		p_LookupTable = nullptr;
 	}
+#endif // LOOKUP_CSV_PATH
 
 
 	// CRC table

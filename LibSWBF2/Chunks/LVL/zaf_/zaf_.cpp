@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::animation
 		}
 		catch (LibException le)
 		{
-			LOG_ERROR(le.what());
+			LOG_ERROR("{0}", le.what());
 			p_Bin = nullptr;
 		}
 
