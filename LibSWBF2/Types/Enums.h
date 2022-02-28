@@ -101,6 +101,10 @@ namespace LibSWBF2
         Skydome = 0x5f796b73,
         Path = 0x68746170,
         Combo = 0x626d6f63,
+        Music = 0x5f73756d,
+        FoleyFX = 0x5f786666,
+        Sound = 0x5f646e73,
+        TriggerSoundRegion = 0x5f727374,
 	};
 
 	enum class ECollisionMaskFlags : uint32_t
@@ -170,13 +174,6 @@ namespace LibSWBF2
 		Spot = 3,
 		Unknown = 0,
 	};
-  
-	enum class ELVLType
-	{
-		Generic,
-		Sound,
-		Core
-	};
 
 	enum class EEntityClassType
 	{
@@ -200,6 +197,16 @@ namespace LibSWBF2
 		String
 	};
 
+	enum class ESoundFormat : uint32_t
+	{
+		PCM8 = 1,
+		PCM16 = 2,
+		VAG = 3,
+		XADPCM = 4,
+		IMAADPCM = 5
+	};
+
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
@@ -207,13 +214,12 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API VBUFFlagsToString(EVBUFFlags flags);
 	Types::String LIBSWBF2_API TerrainBufferTypeToString(ETerrainBufferType type);
 	Types::String LIBSWBF2_API LightTypeToString(ELightType type);
-	Types::String LIBSWBF2_API LVLTypeToString(ELVLType type);
 	Types::String LIBSWBF2_API EntityClassToString(EEntityClassType type);
 	Types::String LIBSWBF2_API CollisionMaskTypeToString(ECollisionMaskFlags type);
 	Types::String LIBSWBF2_API CollisionPrimitiveTypeToString(ECollisionPrimitiveType type);
 	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 	Types::String LIBSWBF2_API WorldAnimKeyTransitionTypeToString(EWorldAnimKeyTransitionType type);
-
+	Types::String LIBSWBF2_API SoundFormatToString(ESoundFormat format);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -235,4 +241,6 @@ namespace LibSWBF2
 	bool LIBSWBF2_API operator ==(EConfigType lhs, std::underlying_type<EConfigType>::type rhs);
 
 	bool LIBSWBF2_API operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs);
+	
+	bool LIBSWBF2_API operator ==(ESoundFormat lhs, std::underlying_type<ESoundFormat>::type rhs);
 }

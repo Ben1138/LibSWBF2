@@ -31,12 +31,11 @@ namespace LibSWBF2
 		SWBF2Handle m_Handle;
 		String m_Path;
 		List<String> m_SubLVLsToLoad;
-		bool m_bIsSoundBank = false;
 		bool bRegisterContents = true;
 	};
 
 	// Procedure:
-	// - Schedule levels and sound banks to load via AddLevel / AddSoundBank
+	// - Schedule levels and sound banks to load via AddLevel
 	// - Call StartLoading();
 	// - Repeat as many times as you want. Also possible while loading.
 	class LIBSWBF2_API Container
@@ -49,14 +48,12 @@ namespace LibSWBF2
 		uint64_t m_OverallSize = 0;
 
 		void LoadLevelAsync(const Schedule& scheduled);
-		void LoadSoundBankAsync(const Schedule& scheduled);
 
 	public:
 		static Container* Create();
 		static void Delete(Container* instance);
 
 		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
-		SWBF2Handle AddSoundBank(const String& path, bool bRegisterContents = true);
 		void StartLoading();
 		void FreeAll(bool bForce=false);
 		bool IsDone() const;
@@ -71,7 +68,6 @@ namespace LibSWBF2
 
 		const List<const World*>& GetWorlds();
 
-		//const Light* FindLight(String lightName) const;
 		const Model* FindModel(String modelName) const;
 		const Texture* FindTexture(String textureName) const;
 		const World* FindWorld(String worldName) const;
@@ -79,13 +75,26 @@ namespace LibSWBF2
 		const Script* FindScript(String scriptName) const;
 		const EntityClass* FindEntityClass(String typeName) const;
 		const Sound* FindSound(String soundName) const;
-		const Sound* FindSound(FNVHash hashedSoundName) const;
 		const AnimationBank* FindAnimationBank(String setName) const;
 		const AnimationSkeleton* FindAnimationSkeleton(String skelName) const;
+
+
+		const Model* FindModel(FNVHash modelName) const;
+		const Texture* FindTexture(FNVHash textureName) const;
+		const World* FindWorld(FNVHash worldName) const;
+		const Terrain* FindTerrain(FNVHash terrainName) const;
+		const Script* FindScript(FNVHash scriptName) const;
+		const EntityClass* FindEntityClass(FNVHash typeName) const;
+		const Sound* FindSound(FNVHash hashedSoundName) const;
+		const AnimationBank* FindAnimationBank(FNVHash setName) const;
+		const AnimationSkeleton* FindAnimationSkeleton(FNVHash skelName) const;
+
 
 		const Config* FindConfig(EConfigType type, FNVHash hashedConfigName) const;
 
 		const List<const Localization*>* FindLocalizations(String languageName) const;
+		const List<const Localization*>* FindLocalizations(FNVHash languageName) const;
+
 		// count is number of wide chars, NOT number of bytes!
 		bool GetLocalizedWideString(const String& language, const String& path, uint16_t*& chars, uint32_t& count) const;
 	};

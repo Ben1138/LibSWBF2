@@ -1,13 +1,25 @@
 #include "pch.h"
 #include "HeaderNames.h"
 #include "Types/LibString.h"
+#include "Hashing.h"
 #include <set>
 #include <array>
+#include <map>
 #include <string>
 
 namespace LibSWBF2
 {
-	const std::set<ChunkHeader> KNOWN_HEADERS =
+	const std::map<ChunkHeader, std::string> KNOWN_SOUND_HEADERS = 
+	{
+		{"StreamList"_fnvh, 	"StreamList"},
+		{"Stream"_fnvh, 		"Stream"},
+		{"Info"_fnvh, 			"Info"},
+		{"SoundBankList"_fnvh, 	"SoundBankList"},
+		{"Data"_fnvh, 			"Data"},
+		{"SampleBank"_fnvh, 	"SampleBank"},
+	};
+
+	const std::set<ChunkHeader> KNOWN_GENERIC_HEADERS =
 	{
 		"HEDR"_h, "SHVO"_h, "MSH2"_h, "SINF"_h, "NAME"_h, "FRAM"_h, "BBOX"_h, "CAMR"_h,
 		"DATA"_h, "MATL"_h, "MATD"_h, "ATRB"_h, "TX0D"_h, "TX1D"_h, "TX2D"_h, "TX3D"_h,
@@ -30,7 +42,7 @@ namespace LibSWBF2
 		"prp_"_h, "bnd_"_h, "regn"_h, "BARR"_h, "GRGR"_h, "shdw"_h, "Hint"_h, "inst"_h,
 		"BIN_"_h, "FFAZ"_h, "SREV"_h, "EZIS"_h, "SLTM"_h, "LTAM"_h, "STSJ"_h, "SNKS"_h,
 		"NIKS"_h, "LEKS"_h, "TNOJ"_h, "SYXP"_h, "SDHS"_h, "SMNA"_h, "MINA"_h, "TNJA"_h,
-		"TADA"_h, "emo_"_h, "_pad"_h, "snd_"_h
+		"TADA"_h, "_pad"_h, "snd_"_h, "mus_"_h, "ffx_"_h, "tsr_"_h,
 	};
 
 	bool ChunkHeader::operator==(const ChunkHeader other) const
@@ -55,15 +67,29 @@ namespace LibSWBF2
 
 	Types::String ChunkHeader::ToString() const
 	{
+		auto soundLookup = KNOWN_SOUND_HEADERS.find(*this);
+		if (soundLookup != KNOWN_SOUND_HEADERS.end())
+		{
+			return soundLookup -> second.c_str();
+		}
+
 		std::string result;
-		result += m_Name[0];
-		result += m_Name[1];
-		result += m_Name[2];
-		result += m_Name[3];
+		if (!IsPrintableHeader(*this))
+		{
+			result = fmt::format("0x{0:x}", m_Magic);
+		}
+		else 
+		{
+			result += m_Name[0];
+			result += m_Name[1];
+			result += m_Name[2];
+			result += m_Name[3];
+		}
+
 		return result.c_str();
 	}
 
-	bool IsValidHeader(const ChunkHeader hedr)
+	bool IsPrintableHeader(const ChunkHeader hedr)
 	{
 		auto checkChar = [](char c)
 		{
@@ -83,6 +109,6 @@ namespace LibSWBF2
 
 	bool IsKnownHeader(const ChunkHeader hedr)
 	{
-		return KNOWN_HEADERS.find(hedr) != KNOWN_HEADERS.end();
+		return (KNOWN_GENERIC_HEADERS.find(hedr) != KNOWN_GENERIC_HEADERS.end()) || (KNOWN_SOUND_HEADERS.find(hedr) != KNOWN_SOUND_HEADERS.end());
 	}
 }

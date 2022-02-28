@@ -80,4 +80,8 @@ namespace LibSWBF2::Chunks::LVL::config
 	template struct LIBSWBF2_API ConfigChunk<"prp_"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"path"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"comb"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"snd_"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"mus_"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"ffx_"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"tsr_"_m>;
 }

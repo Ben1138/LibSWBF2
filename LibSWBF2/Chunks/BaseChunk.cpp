@@ -50,11 +50,6 @@ namespace LibSWBF2::Chunks
 		LOG_INFO("Header: {}", m_Header);
 		LOG_INFO("Size: {:#x}", m_Size);
 
-		if (!IsValidHeader(m_Header) || m_Size < 0)
-		{
-			THROW("Invalid Chunk: '{}' Size: {:#x} At Position: {:#x} with File Size of: {:#x}", m_Header, m_Size, stream.GetPosition(), stream.GetFileSize());
-		}
-
 		if (stream.GetPosition() + m_Size > 8 + stream.GetFileSize())
 		{
 			THROW("Chunk is too big and will end up out of file! Chunk: '{}' Size: {:#x} At Position: {:#x} with File Size of: {:#x}", m_Header, m_Size, stream.GetPosition() - 8, stream.GetFileSize());

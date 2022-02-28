@@ -19,7 +19,9 @@
 #include "Chunks/LVL/config/ConfigChunk.h"
 #include "Chunks/LVL/common/GenericClass.h"
 #include "Chunks/LVL/wrld/wrld.h"
-#include "Chunks/LVL/sound/emo_.h"
+#include "Chunks/LVL/sound/Stream.h"
+#include "Chunks/LVL/sound/SampleBank.h"
+#include "Chunks/LVL/sound/SampleBankInfo.h"
 
 
 #include <unordered_map>
@@ -33,11 +35,12 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
-	using Chunks::LVL::sound::emo_;
+
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
     using namespace Chunks::LVL::animation;
     using namespace Chunks::LVL::config;
+    using namespace Chunks::LVL::sound;
 
 	Level::Level(LVL* lvl, Container* mainContainer)
 	{
@@ -72,7 +75,7 @@ namespace LibSWBF2::Wrappers
 			Texture texture;
 			if (Texture::FromChunk(textureChunk, texture))
 			{
-				m_NameToIndexMaps->TextureNameToIndex.emplace(ToLower(texture.GetName()), m_Textures.Add(std::move(texture)));
+				m_NameToIndexMaps->TextureNameToIndex.emplace(FNV::Hash(texture.GetName()), m_Textures.Add(std::move(texture)));
 			}
 		}
 		
@@ -82,7 +85,7 @@ namespace LibSWBF2::Wrappers
 			AnimationBank animBank;
 			if (AnimationBank::FromChunk(animationChunk, animBank))
 			{
-				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(ToLower(animBank.GetName()), m_AnimationBanks.Add(animBank));
+				m_NameToIndexMaps->AnimationBankNameToIndex.emplace(FNV::Hash(animBank.GetName()), m_AnimationBanks.Add(animBank));
 			}	
 		}
 
@@ -92,7 +95,7 @@ namespace LibSWBF2::Wrappers
 			AnimationSkeleton animSkel;
 			if (AnimationSkeleton::FromChunk(animSkelChunk, animSkel))
 			{
-				m_NameToIndexMaps->AnimationSkeletonNameToIndex.emplace(ToLower(animSkel.GetName()), m_AnimationSkeletons.Add(animSkel));
+				m_NameToIndexMaps->AnimationSkeletonNameToIndex.emplace(FNV::Hash(animSkel.GetName()), m_AnimationSkeletons.Add(animSkel));
 			}	
 		}
 
@@ -147,12 +150,51 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		snd_* soundChunk = dynamic_cast<snd_*>(root);
+		if (soundChunk != nullptr)
+		{
+			Config sound;
+			if (Config::FromChunk(soundChunk, sound))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(sound.m_Name + (uint32_t) sound.m_Type, m_Configs.Add(std::move(sound)));
+			}
+		}
+
+		mus_* musicChunk = dynamic_cast<mus_*>(root);
+		if (musicChunk != nullptr)
+		{
+			Config music;
+			if (Config::FromChunk(musicChunk, music))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(music.m_Name + (uint32_t) music.m_Type, m_Configs.Add(std::move(music)));
+			}
+		}
+
+		ffx_* foleyFXChunk = dynamic_cast<ffx_*>(root);
+		if (foleyFXChunk != nullptr)
+		{
+			Config foleyFX;
+			if (Config::FromChunk(foleyFXChunk, foleyFX))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(foleyFX.m_Name + (uint32_t) foleyFX.m_Type, m_Configs.Add(std::move(foleyFX)));
+			}
+		}
+		
+		tsr_* soundTriggerChunk = dynamic_cast<tsr_*>(root);
+		if (soundTriggerChunk != nullptr)
+		{
+			Config soundTrigger;
+			if (Config::FromChunk(soundTriggerChunk, soundTrigger))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(soundTrigger.m_Name + (uint32_t) soundTrigger.m_Type, m_Configs.Add(std::move(soundTrigger)));
+			}
+		}
 
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
 		if (skelChunk != nullptr)
 		{
-			m_NameToIndexMaps->SkeletonNameToSkel.emplace(ToLower(skelChunk->p_Info->m_ModelName), skelChunk);
+			m_NameToIndexMaps->SkeletonNameToSkel.emplace(FNV::Hash(skelChunk->p_Info->m_ModelName), skelChunk);
 		}
 
 		// IMPORTANT: crawl models BEFORE worlds, so model references via string can be resolved in worlds
@@ -162,7 +204,7 @@ namespace LibSWBF2::Wrappers
 			Model model;
 			if (Model::FromChunk(this, modelChunk, model))
 			{
-				m_NameToIndexMaps->ModelNameToIndex.emplace(ToLower(model.GetName()), m_Models.Add(std::move((model))));
+				m_NameToIndexMaps->ModelNameToIndex.emplace(FNV::Hash(model.GetName()), m_Models.Add(std::move((model))));
 			}
 		}
 
@@ -172,9 +214,9 @@ namespace LibSWBF2::Wrappers
 			CollisionMesh collMesh;
 			if (CollisionMesh::FromChunk(collisionChunk, collMesh))
 			{
-				if (m_NameToIndexMaps -> ModelNameToIndex.count(ToLower(collMesh.GetName())) == 1)
+				if (m_NameToIndexMaps -> ModelNameToIndex.count(FNV::Hash(collMesh.GetName())) == 1)
 				{
-					size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(collMesh.GetName())];
+					size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[FNV::Hash(collMesh.GetName())];
 					m_Models[modelIndex].m_CollisionMesh = collMesh;
 				}
 				else 
@@ -209,9 +251,9 @@ namespace LibSWBF2::Wrappers
 			String& modelName = primChunk -> p_InfoChunk -> m_ModelName;
 
 			if (m_NameToIndexMaps -> ModelNameToIndex.count(
-				ToLower(modelName)) == 1)
+				FNV::Hash(modelName)) == 1)
 			{
-				size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[ToLower(modelName)];
+				size_t modelIndex = m_NameToIndexMaps -> ModelNameToIndex[FNV::Hash(modelName)];
 				m_Models[modelIndex].m_CollisionPrimitives = std::move(primitives);	
 			} 
 			else
@@ -225,7 +267,7 @@ namespace LibSWBF2::Wrappers
 		{
 			// LVLs potentially contain the SAME wrld chunk more than once...
 			// Check for wrld name to prevent duplicates!
-			std::string name = ToLower(worldChunk->p_Name->m_Text);
+			FNVHash name = FNV::Hash(worldChunk->p_Name->m_Text);
 			if (m_NameToIndexMaps->WorldNameToIndex.find(name) == m_NameToIndexMaps->WorldNameToIndex.end())
 			{
 				World world;
@@ -242,7 +284,7 @@ namespace LibSWBF2::Wrappers
 			Terrain terrain;
 			if (Terrain::FromChunk(terrainChunk, terrain))
 			{
-				m_NameToIndexMaps->TerrainNameToIndex.emplace(ToLower(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
+				m_NameToIndexMaps->TerrainNameToIndex.emplace(FNV::Hash(terrain.GetName()), m_Terrains.Add(std::move(terrain)));
 			}
 		}
 
@@ -252,7 +294,7 @@ namespace LibSWBF2::Wrappers
 			Script script;
 			if (Script::FromChunk(scriptChunk, script))
 			{
-				m_NameToIndexMaps->ScriptNameToIndex.emplace(ToLower(script.GetName()), m_Scripts.Add(std::move(script)));
+				m_NameToIndexMaps->ScriptNameToIndex.emplace(FNV::Hash(script.GetName()), m_Scripts.Add(std::move(script)));
 			}
 		}
 
@@ -262,7 +304,7 @@ namespace LibSWBF2::Wrappers
 			Localization localization;
 			if (Localization::FromChunk(loclChunk, localization))
 			{
-				m_NameToIndexMaps->LocalizationNameToIndex.emplace(ToLower(localization.GetName()), m_Localizations.Add(std::move(localization)));
+				m_NameToIndexMaps->LocalizationNameToIndex.emplace(FNV::Hash(localization.GetName()), m_Localizations.Add(std::move(localization)));
 			}
 		}
 
@@ -272,7 +314,7 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, entityChunk, entityClass))
 			{
-				std::string name = ToLower(entityClass.GetTypeName());
+				FNVHash name = FNV::Hash(entityClass.GetTypeName());
 				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
@@ -283,7 +325,7 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, ordenanceChunk, entityClass))
 			{
-				std::string name = ToLower(entityClass.GetTypeName());
+				FNVHash name = FNV::Hash(entityClass.GetTypeName());
 				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
@@ -294,7 +336,7 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, weaponChunk, entityClass))
 			{
-				std::string name = ToLower(entityClass.GetTypeName());
+				FNVHash name = FNV::Hash(entityClass.GetTypeName());
 				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
@@ -305,24 +347,41 @@ namespace LibSWBF2::Wrappers
 			EntityClass entityClass;
 			if (EntityClass::FromChunk(p_MainContainer, explosionChunk, entityClass))
 			{
-				std::string name = ToLower(entityClass.GetTypeName());
+				FNVHash name = FNV::Hash(entityClass.GetTypeName());
 				m_NameToIndexMaps->EntityClassTypeToIndex.emplace(name, m_EntityClasses.Add(std::move(entityClass)));
 			}
 		}
 
-		// TODO: uncomment once LVL sounds are working
-		//emo_* soundChunk = dynamic_cast<emo_*>(root);
-		//if (soundChunk != nullptr)
-		//{
-		//	Sound sound;
-		//	for (uint32_t i = 0; i < soundChunk->m_NumClips; ++i)
-		//	{
-		//		if (Sound::FromSoundClip(&soundChunk->m_Clips[i], sound))
-		//		{
-		//			m_NameToIndexMaps->SoundHashToIndex.emplace(sound.GetHashedName(), m_Sounds.Add(std::move(sound)));
-		//		}
-		//	}
-		//}
+		
+		SampleBank* bankChunk = dynamic_cast<SampleBank*>(root);
+		if (bankChunk != nullptr)
+		{
+			SoundBank bank;
+			if (SoundBank::FromChunk(bankChunk, bank))
+			{
+				m_NameToIndexMaps->SoundBankHashToIndex.emplace(bank.GetHashedName(), m_SoundBanks.Add(std::move(bank)));
+				
+				if (bank.HasData())
+				{
+					const List<Sound>& sounds = bank.GetSounds(); 
+					for (uint32_t i = 0; i < sounds.Size(); i++)
+					{
+						m_NameToIndexMaps->SoundHashToIndex.emplace(sounds[i].GetHashedName(), m_Sounds.Add(sounds[i]));
+					}
+				}
+			}
+		}
+		
+		Stream* streamChunk = dynamic_cast<Stream*>(root);
+		if (streamChunk != nullptr)
+		{
+			SoundStream stream;
+			if (SoundStream::FromChunk(streamChunk, stream))
+			{
+				m_NameToIndexMaps->SoundStreamHashToIndex.emplace(stream.GetHashedName(), m_SoundStreams.Add(std::move(stream)));
+			}
+		}
+
 
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
@@ -454,14 +513,26 @@ namespace LibSWBF2::Wrappers
 		return matchedConfigs;
 	}
 
+	const List<SoundStream>& Level::GetSoundStreams() const
+	{
+		return m_SoundStreams;
+	}
+
+	const List<SoundBank>& Level::GetSoundBanks() const
+	{
+		return m_SoundBanks;
+	}
+
+
+	// Model
 	const Model* Level::GetModel(const String& modelName) const
 	{
-		if (modelName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return modelName.IsEmpty() ? nullptr : GetModel(FNV::Hash(modelName));
+	}
 
-		auto it = m_NameToIndexMaps->ModelNameToIndex.find(ToLower(modelName));
+	const Model* Level::GetModel(FNVHash modelName) const
+	{
+		auto it = m_NameToIndexMaps->ModelNameToIndex.find(modelName);
 		if (it != m_NameToIndexMaps->ModelNameToIndex.end())
 		{
 			return &m_Models[it->second];
@@ -470,14 +541,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
+
+	// Texture
 	const Texture* Level::GetTexture(const String& textureName) const
 	{
-		if (textureName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return textureName.IsEmpty() ? nullptr : GetTexture(FNV::Hash(textureName));
+	}
 
-		auto it = m_NameToIndexMaps->TextureNameToIndex.find(ToLower(textureName));
+	const Texture* Level::GetTexture(FNVHash textureName) const
+	{
+		auto it = m_NameToIndexMaps->TextureNameToIndex.find(textureName);
 		if (it != m_NameToIndexMaps->TextureNameToIndex.end())
 		{
 			return &m_Textures[it->second];
@@ -486,14 +560,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
+
+	// World
 	const World* Level::GetWorld(const String& worldName) const
 	{
-		if (worldName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return worldName.IsEmpty() ? nullptr : GetWorld(FNV::Hash(worldName));
+	}
 
-		auto it = m_NameToIndexMaps->WorldNameToIndex.find(ToLower(worldName));
+	const World* Level::GetWorld(FNVHash worldName) const
+	{
+		auto it = m_NameToIndexMaps->WorldNameToIndex.find(worldName);
 		if (it != m_NameToIndexMaps->WorldNameToIndex.end())
 		{
 			return &m_Worlds[it->second];
@@ -502,14 +579,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
+
+	// Terrain
 	const Terrain* Level::GetTerrain(const String& terrainName) const
 	{
-		if (terrainName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return terrainName.IsEmpty() ? nullptr : GetTerrain(FNV::Hash(terrainName));
+	}
 
-		auto it = m_NameToIndexMaps->TerrainNameToIndex.find(ToLower(terrainName));
+	const Terrain* Level::GetTerrain(FNVHash terrainName) const
+	{
+		auto it = m_NameToIndexMaps->TerrainNameToIndex.find(terrainName);
 		if (it != m_NameToIndexMaps->TerrainNameToIndex.end())
 		{
 			return &m_Terrains[it->second];
@@ -518,14 +598,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
+
+	// Script
 	const Script* Level::GetScript(const String& scriptName) const
 	{
-		if (scriptName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return scriptName.IsEmpty() ? nullptr : GetScript(FNV::Hash(scriptName));
+	}
 
-		auto it = m_NameToIndexMaps->ScriptNameToIndex.find(ToLower(scriptName));
+	const Script* Level::GetScript(FNVHash scriptName) const
+	{
+		auto it = m_NameToIndexMaps->ScriptNameToIndex.find(scriptName);
 		if (it != m_NameToIndexMaps->ScriptNameToIndex.end())
 		{
 			return &m_Scripts[it->second];
@@ -534,14 +617,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const Localization* Level::GetLocalization(const String& loclName) const
-	{
-		if (loclName.IsEmpty())
-		{
-			return nullptr;
-		}
 
-		auto it = m_NameToIndexMaps->LocalizationNameToIndex.find(ToLower(loclName));
+
+	// Localization
+	const Localization* Level::GetLocalization(const String& locName) const
+	{
+		return locName.IsEmpty() ? nullptr : GetLocalization(FNV::Hash(locName));
+	}
+
+	const Localization* Level::GetLocalization(FNVHash loclName) const
+	{
+		auto it = m_NameToIndexMaps->LocalizationNameToIndex.find(loclName);
 		if (it != m_NameToIndexMaps->LocalizationNameToIndex.end())
 		{
 			return &m_Localizations[it->second];
@@ -550,14 +636,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	const EntityClass* Level::GetEntityClass(const String& typeName) const
-	{
-		if (typeName.IsEmpty())
-		{
-			return nullptr;
-		}
 
-		auto it = m_NameToIndexMaps->EntityClassTypeToIndex.find(ToLower(typeName));
+
+	// EntityClass
+	const EntityClass* Level::GetEntityClass(const String& ecName) const
+	{
+		return ecName.IsEmpty() ? nullptr : GetEntityClass(FNV::Hash(ecName));
+	}
+
+	const EntityClass* Level::GetEntityClass(FNVHash typeName) const
+	{
+		auto it = m_NameToIndexMaps->EntityClassTypeToIndex.find(typeName);
 		if (it != m_NameToIndexMaps->EntityClassTypeToIndex.end())
 		{
 			return &m_EntityClasses[it->second];
@@ -567,14 +656,16 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	const AnimationBank* Level::GetAnimationBank(const String& setName) const
-	{
-		if (setName.IsEmpty())
-		{
-			return nullptr;
-		}
 
-		auto it = m_NameToIndexMaps->AnimationBankNameToIndex.find(ToLower(setName));
+	// AnimationBank
+	const AnimationBank* Level::GetAnimationBank(const String& bankName) const
+	{
+		return bankName.IsEmpty() ? nullptr : GetAnimationBank(FNV::Hash(bankName));
+	}
+
+	const AnimationBank* Level::GetAnimationBank(FNVHash setName) const
+	{
+		auto it = m_NameToIndexMaps->AnimationBankNameToIndex.find(setName);
 		if (it != m_NameToIndexMaps->AnimationBankNameToIndex.end())
 		{
 			return &m_AnimationBanks[it->second];
@@ -584,14 +675,16 @@ namespace LibSWBF2::Wrappers
 	}
 
 
+
+	// AnimationSkeleton
 	const AnimationSkeleton* Level::GetAnimationSkeleton(const String& skelName) const
 	{
-		if (skelName.IsEmpty())
-		{
-			return nullptr;
-		}
+		return skelName.IsEmpty() ? nullptr : GetAnimationSkeleton(FNV::Hash(skelName));
+	}
 
-		auto it = m_NameToIndexMaps->AnimationSkeletonNameToIndex.find(ToLower(skelName));
+	const AnimationSkeleton* Level::GetAnimationSkeleton(FNVHash skelName) const
+	{
+		auto it = m_NameToIndexMaps->AnimationSkeletonNameToIndex.find(skelName);
 		if (it != m_NameToIndexMaps->AnimationSkeletonNameToIndex.end())
 		{
 			return &m_AnimationSkeletons[it->second];
@@ -601,13 +694,11 @@ namespace LibSWBF2::Wrappers
 	}
 
 
+
+	// Sound
 	const Sound* Level::GetSound(const String& soundName) const
 	{
-		if (soundName.IsEmpty())
-		{
-			return nullptr;
-		}
-		return GetSound(FNV::Hash(soundName));
+		return soundName.IsEmpty() ? nullptr : GetSound(FNV::Hash(soundName));
 	}
 
 	const Sound* Level::GetSound(FNVHash soundHashName) const
@@ -620,14 +711,17 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
-	skel* Level::FindSkeleton(const String& skeletonName) const
-	{
-		if (skeletonName.IsEmpty())
-		{
-			return nullptr;
-		}
 
-		auto it = m_NameToIndexMaps->SkeletonNameToSkel.find(ToLower(skeletonName));
+
+	// Skeleton
+	skel* Level::FindSkeleton(const String& skelName) const
+	{
+		return skelName.IsEmpty() ? nullptr : FindSkeleton(FNV::Hash(skelName));
+	}
+
+	skel* Level::FindSkeleton(FNVHash skeletonName) const
+	{
+		auto it = m_NameToIndexMaps->SkeletonNameToSkel.find(skeletonName);
 		if (it != m_NameToIndexMaps->SkeletonNameToSkel.end())
 		{
 			return it->second;
@@ -636,6 +730,13 @@ namespace LibSWBF2::Wrappers
 		return nullptr;
 	}
 
+
+
+	// Config
+	const Config* Level::GetConfig(EConfigType cfgType, const String& cfgName) const
+	{
+		return cfgName.IsEmpty() ? nullptr : GetConfig(cfgType, FNV::Hash(cfgName));
+	}
 
 	const Config* Level::GetConfig(EConfigType cfgType, FNVHash hash) const
 	{
@@ -646,19 +747,42 @@ namespace LibSWBF2::Wrappers
 		}
 
 		return nullptr;
-		/*
-		for (int i = 0; i < m_Configs.Size(); i++)
+	}
+
+
+
+	// SoundStream
+	const SoundStream* Level::GetSoundStream(const String& streamName) const
+	{
+		return streamName.IsEmpty() ? nullptr : GetSoundStream(FNV::Hash(streamName));
+	}
+
+	const SoundStream* Level::GetSoundStream(FNVHash streamHashName) const
+	{
+		auto it = m_NameToIndexMaps->SoundStreamHashToIndex.find(streamHashName);
+		if (it != m_NameToIndexMaps->SoundStreamHashToIndex.end())
 		{
-			const Config& cfg = m_Configs[i];
-
-			if (cfg.m_Name == hash && cfg.m_ConfigType == cfgType)
-			{
-				return &cfg;
-			}
+			return &m_SoundStreams[it->second];
 		}
-
 		return nullptr;
-		*/
+	}
+
+
+
+	// SoundBank
+	const SoundBank* Level::GetSoundBank(const String& bankName) const
+	{
+		return bankName.IsEmpty() ? nullptr : GetSoundBank(FNV::Hash(bankName));
+	}
+
+	const SoundBank* Level::GetSoundBank(FNVHash bankHashName) const
+	{
+		auto it = m_NameToIndexMaps->SoundBankHashToIndex.find(bankHashName);
+		if (it != m_NameToIndexMaps->SoundBankHashToIndex.end())
+		{
+			return &m_SoundBanks[it->second];
+		}
+		return nullptr;
 	}
 
 	const LibSWBF2::Chunks::LVL::LVL* Level::GetChunk() const

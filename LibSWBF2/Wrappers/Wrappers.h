@@ -14,3 +14,5 @@
 #include "SoundBank.h"
 #include "Level.h"
 #include "Instance.h"
+#include "Sound.h"
+#include "SoundStream.h"

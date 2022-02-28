@@ -21,6 +21,7 @@ namespace LibSWBF2::Chunks::LVL::config
 		bool GetVec3(Vector3 &vec3Out) const;
 		bool GetVec4(Vector4 &vec4Out) const;
 		bool GetString(String &stringOut, uint8_t index=0) const;
+		bool GetUInt32(uint32_t &intOut, uint8_t index=0) const;
 
 	private:
 		size_t m_ContentSize;

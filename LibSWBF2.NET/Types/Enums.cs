@@ -23,6 +23,10 @@ namespace LibSWBF2.Enums
         Skydome = 0x5f796b73,
         Path = 0x68746170,
         Combo = 0x626d6f63,
+        Music = 0x5f73756d,
+        FoleyFX = 0x5f786666,
+        Sound = 0x5f646e73,
+        TriggerSoundRegion = 0x5f727374,
     }
 
     public enum ETopology : int
@@ -162,5 +166,14 @@ namespace LibSWBF2.Enums
         Pop = 0,
         Linear = 1,
         Spline = 2,
+    };
+
+    public enum ESoundFormat : uint
+    {
+        PCM8 = 1,
+        PCM16 = 2,
+        VAG = 3,
+        XADPCM = 4,
+        IMAADPCM = 5
     };
 }

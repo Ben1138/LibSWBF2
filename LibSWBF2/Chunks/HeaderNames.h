@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "Hashing.h"
 
 namespace LibSWBF2
 {
@@ -34,7 +35,13 @@ namespace LibSWBF2
 		result |= chars[3] << 24;
 		return result;
 	}
+	
+	constexpr ChunkHeader operator""_fnvh(const char* chars, const size_t length)
+	{
+		FNVHash fnvHeader = FNV::HashConstexpr({ chars, length });
+		return *((ChunkHeader *) &fnvHeader);
+	}
 
-	bool IsValidHeader(const ChunkHeader hedr);
+	bool IsPrintableHeader(const ChunkHeader hedr);
 	bool IsKnownHeader(const ChunkHeader hedr);
 }
