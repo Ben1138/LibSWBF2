@@ -32,6 +32,31 @@ namespace LibSWBF2::Wrappers
 		return p_SoundClip->m_NameHash;
 	}
 
+	ESoundFormat Sound::GetFormat() const
+	{
+		return m_Format;
+	}
+
+	uint32_t Sound::GetNumChannels() const
+	{
+		return m_NumChannels;
+	}
+
+	uint32_t Sound::GetSampleRate() const
+	{
+		return p_SoundClip->m_SampleRate;
+	}
+
+	uint32_t Sound::GetNumSamples() const
+	{
+		return p_SoundClip->m_SampleCount;
+	}
+
+	uint32_t Sound::GetAlias() const
+	{
+		return p_SoundClip->m_Alias;
+	}
+
 	bool Sound::GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{
 		if (p_SoundClip == nullptr)
@@ -45,5 +70,10 @@ namespace LibSWBF2::Wrappers
 		blockAlign = p_SoundClip->GetBytesPerSample();
 		data = p_SoundClip->GetSampleData();
 		return data != nullptr;
+	}
+
+	bool Sound::HasData() const
+	{
+		return p_SoundClip -> GetSampleData() != nullptr;
 	}
 }

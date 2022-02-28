@@ -462,6 +462,11 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
 
+#include "Chunks/LVL/sound/Stream.h"
+#include "Chunks/LVL/sound/SampleBank.h"
+
+
+
 #include "Chunks/RawData.h"
 
 #include "Chunks/GenericChunk.h"
@@ -542,6 +547,11 @@ namespace LibSWBF2
 
     template class LIBSWBF2_API Types::List<LVL::animation::TNOJ *>;
 
+
+    template class LIBSWBF2_API Types::List<LVL::sound::Stream *>;
+    template class LIBSWBF2_API Types::List<LVL::sound::SampleBank *>;
+
+
 	template class LIBSWBF2_API Types::List<Wrappers::Model>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment>;
 	template class LIBSWBF2_API Types::List<Wrappers::Segment *>;
@@ -551,6 +561,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank*>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config*>;
+	template class LIBSWBF2_API Types::List<Wrappers::SoundStream*>;
+	template class LIBSWBF2_API Types::List<Wrappers::SoundBank*>;
 
 
 	template class LIBSWBF2_API Types::List<const Wrappers::Instance*>;
@@ -565,6 +577,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<const Wrappers::AnimationSkeleton*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Script*>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Config*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::SoundStream*>;
+	template class LIBSWBF2_API Types::List<const Wrappers::SoundBank*>;
 
 
 	template class LIBSWBF2_API Types::List<Wrappers::VertexWeight>;
@@ -587,6 +601,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationBank>;
 	template class LIBSWBF2_API Types::List<Wrappers::AnimationSkeleton>;
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
+	template class LIBSWBF2_API Types::List<Wrappers::SoundStream>;
+	template class LIBSWBF2_API Types::List<Wrappers::SoundBank>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;

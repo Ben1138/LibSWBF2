@@ -38,4 +38,8 @@ namespace LibSWBF2::Chunks::LVL::config
 	struct LIBSWBF2_API prp_ : public ConfigChunk<"prp_"_m> {};
 	struct LIBSWBF2_API path : public ConfigChunk<"path"_m> {};
 	struct LIBSWBF2_API comb : public ConfigChunk<"comb"_m> {};
+	struct LIBSWBF2_API snd_ : public ConfigChunk<"snd_"_m> {};
+	struct LIBSWBF2_API mus_ : public ConfigChunk<"mus_"_m> {};
+	struct LIBSWBF2_API ffx_ : public ConfigChunk<"ffx_"_m> {};
+	struct LIBSWBF2_API tsr_ : public ConfigChunk<"tsr_"_m> {};
 }

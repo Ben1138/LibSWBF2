@@ -39,6 +39,8 @@ namespace LibSWBF2
 		class Localization;
 		struct Field;
 		struct Scope;
+		class SoundStream;
+		class SoundBank;
 	}
 
 	namespace Types
@@ -55,8 +57,12 @@ namespace LibSWBF2
 	// Provide mangling free C-functions to be accessible from C# wrapper
 	extern "C"
 	{
-		//Memory //
+		// Memory //
 		LIBSWBF2_API void Memory_Blit(void *dest, void *src, int numBytes);
+
+		// Hashing //
+		LIBSWBF2_API uint8_t Hashing_Lookup(uint32_t hash, const char *& str);
+
 
 		// Logging //
 		LIBSWBF2_API uint8_t LOG_GetNextLog(const char*& msg, ELogType& level, uint32_t& line, const char*& file);
@@ -74,7 +80,6 @@ namespace LibSWBF2
         LIBSWBF2_API const Container* Container_Initialize();  
         LIBSWBF2_API uint16_t Container_AddLevel(Container* container, const char *path);
 		LIBSWBF2_API uint16_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount);
-		LIBSWBF2_API uint16_t Container_AddSoundBank(Container* container, const char* path);
 		LIBSWBF2_API void Container_FreeAll(Container* container, uint8_t force);
         LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
         LIBSWBF2_API float_t Container_GetOverallProgress(Container* container);  
@@ -87,6 +92,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const bool Container_Delete(Container* container);
 		
 		LIBSWBF2_API const void* Container_GetWrapper(Container* container, uint32_t type, const char *name); 
+		LIBSWBF2_API const void* Container_GetWrapperFNV(Container* container, uint32_t type, uint32_t name); 
         LIBSWBF2_API const Config* Container_GetConfig(Container* container, uint32_t type, uint32_t nameHash); 
 
 
@@ -101,6 +107,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const Config** Level_GetConfigs(const Level* level, uint32_t header, int32_t& numConfigs);
 
 		LIBSWBF2_API const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name);
+		LIBSWBF2_API const void* Level_GetWrapperFNV(const Level* level, uint32_t type, uint32_t name);
 		LIBSWBF2_API const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize);
 
 
@@ -220,7 +227,27 @@ namespace LibSWBF2
 
 		// Wrappers - Sound
 		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);
+        LIBSWBF2_API const uint8_t Sound_FetchAllFields(const Sound *sound, 
+        	uint32_t& nameOut, uint32_t& sampleRate, uint32_t& sampleCount, 
+        	uint8_t& blockAlign, uint8_t& hasDataOut);
 		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
+
+
+		// Wrappers - SoundStream
+        LIBSWBF2_API const uint8_t SoundStream_FetchAllFields(
+        		const SoundStream *str, uint32_t& nameOut, uint8_t& hasDataOut,
+        		uint32_t& formatOut, uint32_t& numChannelsOut);
+        LIBSWBF2_API const uint8_t SoundStream_GetSound(const SoundStream *str, uint32_t soundName, const Sound*& soundOut);
+        LIBSWBF2_API const uint8_t SoundStream_GetSounds(const SoundStream *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc);
+
+		
+		// Wrappers - SoundBank
+        LIBSWBF2_API const uint8_t SoundBank_FetchAllFields(
+        		const SoundBank *str, uint32_t& nameOut, uint8_t& hasDataOut,
+        		uint32_t& formatOut);
+        LIBSWBF2_API const uint8_t SoundBank_GetSound(const SoundBank *str, uint32_t soundName, const Sound*& soundOut);
+        LIBSWBF2_API const uint8_t SoundBank_GetSounds(const SoundBank *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc);
+
 
 
 		// Wrappers - Localization
@@ -237,6 +264,7 @@ namespace LibSWBF2
 		LIBSWBF2_API const uint8_t Field_GetNumValues(const Field* cfg);
 		LIBSWBF2_API const uint8_t Field_GetValueType(const Field* cfg, uint8_t index);
         LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg, uint8_t index);
+        LIBSWBF2_API const uint32_t Field_GetUInt32(const Field* cfg, uint8_t index);
         LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 
         LIBSWBF2_API const Vector3* Field_GetVec3(const Field* cfg); 
         LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 

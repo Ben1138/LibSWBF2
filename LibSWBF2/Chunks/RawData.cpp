@@ -56,6 +56,13 @@ namespace LibSWBF2::Chunks
 
 		BaseChunk::EnsureEnd(stream);
 	}
+
+	template<uint32_t Header>
+	String RawData<Header>::ToString() const
+	{
+		return fmt::format("Raw data chunk with {} bytes of data.\nData successfully read: {}", BaseChunk::GetDataSize(), p_Data != nullptr).c_str();
+	}
+
 }
 
 namespace LibSWBF2::Chunks
@@ -64,4 +71,5 @@ namespace LibSWBF2::Chunks
     template LIBSWBF2_API struct RawData<"DATA"_m>;
     template LIBSWBF2_API struct RawData<"POSK"_m>;
     template LIBSWBF2_API struct RawData<"ROTK"_m>;
+    template LIBSWBF2_API struct RawData<"Data"_fnv>;
 }

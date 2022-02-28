@@ -19,6 +19,10 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
+
+target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
+
+
 target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(LibSWBF2 glm)
@@ -111,6 +115,8 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Wrappers/Terrain.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/Texture.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/World.cpp"
+  "${PROJECT_SOURCE_DIR}/Wrappers/SoundStream.cpp"
+
 
   # Chunks
   "${PROJECT_SOURCE_DIR}/Chunks/BaseChunk.cpp"
@@ -119,8 +125,6 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/RawData.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/STR.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/STRMULT.cpp"
-
-  "${PROJECT_SOURCE_DIR}/Chunks/BNK/BNK.cpp"
 
   # LVL
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/LVL.cpp"
@@ -171,8 +175,14 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/skel/skel.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/skel/skel.XFRM.cpp"
 
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/StreamList.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/Stream.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/StreamInfo.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SoundBankList.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBankData.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBank.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBankInfo.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/_pad.cpp"
-  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/emo_.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/tern/DTEX.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/tern/LTEX.cpp"

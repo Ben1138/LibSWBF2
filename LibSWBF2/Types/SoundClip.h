@@ -22,6 +22,8 @@ namespace LibSWBF2::Types
 		uint32_t m_SampleRate;
 		uint32_t m_SampleCount;
 		uint32_t m_DataLength;
+		uint32_t m_Padding;
+		uint32_t m_Alias;
 
 		const uint8_t* GetSampleData() const;
 		uint8_t GetBytesPerSample() const;
@@ -34,6 +36,6 @@ namespace LibSWBF2::Types
 		String ToString() const;
 
 	private:
-		uint8_t* m_Data;
+		uint8_t* m_Data = nullptr;
 	};
 }

@@ -19,8 +19,9 @@
 #include "LVL/zaa_/zaa_.h"
 #include "LVL/zaf_/zaf_.h"
 #include "LVL/skel/skel.h"
-#include "LVL/sound/emo_.h"
 #include "LVL/sound/_pad.h"
+#include "LVL/sound/StreamList.h"
+#include "LVL/sound/SoundBankList.h"
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
@@ -29,6 +30,8 @@
 
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
+
+#include <iostream>
 
 
 namespace LibSWBF2::Chunks
@@ -78,7 +81,6 @@ namespace LibSWBF2::Chunks
 		{
 			ChunkHeader nextHead = stream.ReadChunkHeader(true);
 			if (IsKnownHeader(nextHead))
-			//if (IsValidHeader(nextHead))
 			{
 				GenericBaseChunk* chunk = nullptr;
 				try
@@ -160,12 +162,6 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, zafbin);
 						chunk = zafbin;
 					}
-					else if (nextHead == "emo_"_h)
-					{
-						LVL::sound::emo_* unknown;
-						READ_CHILD(stream, unknown);
-						chunk = unknown;
-					}
 					else if (nextHead == "_pad"_h)
 					{
 						LVL::sound::_pad* unknown;
@@ -214,6 +210,30 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, combo);
 						chunk = combo;	
 					}
+					else if (nextHead == "snd_"_h)
+					{
+						LVL::config::snd_* sound;
+						READ_CHILD(stream, sound);
+						chunk = sound;	
+					}
+					else if (nextHead == "mus_"_h)
+					{
+						LVL::config::mus_* music;
+						READ_CHILD(stream, music);
+						chunk = music;	
+					}
+					else if (nextHead == "ffx_"_h)
+					{
+						LVL::config::ffx_* foleyFx;
+						READ_CHILD(stream, foleyFx);
+						chunk = foleyFx;	
+					}
+					else if (nextHead == "tsr_"_h)
+					{
+						LVL::config::tsr_* triggerSoundRegion;
+						READ_CHILD(stream, triggerSoundRegion);
+						chunk = triggerSoundRegion;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -256,6 +276,18 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, collisionPrimitives);
 						chunk = collisionPrimitives;
 					}
+					else if (nextHead == "StreamList"_fnvh)
+					{
+						LVL::sound::StreamList* streamList;
+						READ_CHILD(stream, streamList);
+						chunk = streamList; 
+					}
+					else if (nextHead == "SoundBankList"_fnvh)
+					{
+						LVL::sound::SoundBankList* bankList;
+						READ_CHILD(stream, bankList);
+						chunk = bankList; 
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -277,7 +309,7 @@ namespace LibSWBF2::Chunks
 			}
 			else
 			{
-				break;
+				stream.SkipBytes(4);
 			}
 		}
 	}
@@ -341,7 +373,6 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
 	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
-	template struct LIBSWBF2_API GenericChunk<"emo_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"_pad"_m>;
 	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
 	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
@@ -394,6 +425,10 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"prp_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"path"_m>;
 	template struct LIBSWBF2_API GenericChunk<"comb"_m>;
+	template struct LIBSWBF2_API GenericChunk<"snd_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"mus_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ffx_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"tsr_"_m>;
 
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
@@ -413,5 +448,13 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
 	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
+
+	//sound
+	template struct LIBSWBF2_API GenericChunk<"StreamList"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Stream"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Info"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Data"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SampleBank"_fnv>;
 }
 

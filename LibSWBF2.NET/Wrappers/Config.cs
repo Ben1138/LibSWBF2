@@ -56,6 +56,12 @@ namespace LibSWBF2.Wrappers
             return APIWrapper.Field_GetFloat(NativeInstance, index);
         }
 
+        public uint GetUInt(byte index=0)
+        {
+            CheckValidity();
+            return APIWrapper.Field_GetUInt32(NativeInstance, index);
+        }
+
         public Vector2 GetVec2()
         {
             CheckValidity();
@@ -146,17 +152,26 @@ namespace LibSWBF2.Wrappers
             CheckValidity();
             Field f = GetField(name);
 
-            if (f == null)
-            {
-                fOut = 0f;
-                return false;
-            }
-            else 
-            {
-                fOut = f.GetFloat();
-                return true;
-            }
+            fOut = f == null ? 0f : f.GetFloat();
+            return f != null;
         }
+
+
+        public uint GetUInt(string name)
+        {
+            GetUInt(name, out uint r);
+            return r;
+        }
+
+        public bool GetUInt(string name, out uint uOut)
+        {
+            CheckValidity();
+            Field f = GetField(name);
+
+            uOut = f == null ? 0 : f.GetUInt();
+            return f != null;
+        }
+
 
         public Vector2 GetVec2(string name)
         {

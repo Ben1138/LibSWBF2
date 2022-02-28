@@ -72,6 +72,7 @@ namespace LibSWBF2::Wrappers
 		uint8_t GetNumValues() const;
 		EDataValueType GetValueType(uint8_t index) const;
 		float_t GetFloat(uint8_t index=0) const;
+		uint32_t GetUInt32(uint8_t index=0) const;
 		Vector2 GetVector2() const;
 		Vector3 GetVector3() const;
 		Vector4 GetVector4() const;

@@ -43,6 +43,33 @@ namespace LibSWBF2.Utils
             return hash;
         }
 
+        public static string FNVToString(uint hash, bool lookup = true)
+        {
+            if (lookup && FNVLookup(hash, out string result))
+            {
+                return result;
+            }
+            else 
+            {
+                return String.Format("0x{0:X}", hash);
+            }
+        }
+
+        public static bool FNVLookup(uint hash, out string result)
+        {
+            if (APIWrapper.Hashing_Lookup(hash, out IntPtr strPtr))
+            {
+                result = Marshal.PtrToStringAnsi(strPtr);
+                return true;
+            }
+            else 
+            {
+                result = "";
+                return false;
+            }
+
+        }
+
         // CRC table
         private static uint[] m_Table32 =
         {

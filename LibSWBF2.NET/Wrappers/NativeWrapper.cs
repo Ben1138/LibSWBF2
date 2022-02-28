@@ -21,7 +21,9 @@ namespace LibSWBF2.Wrappers
             { typeof(Script),             6 },
             { typeof(Sound),              7 },
             { typeof(Localization),       8 },
-            { typeof(AnimationSkeleton),  9 }
+            { typeof(AnimationSkeleton),  9 },
+            { typeof(SoundBank),          10 },
+            { typeof(SoundStream),        11 },
         };
 
         // will be empty in most cases

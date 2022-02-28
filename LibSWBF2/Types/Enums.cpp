@@ -248,21 +248,6 @@ namespace LibSWBF2
 		}
 	}
 
-	Types::String LVLTypeToString(ELVLType type)
-	{
-		switch (type)
-		{
-			case ELVLType::Generic:
-				return "Generic";
-			case ELVLType::Sound:
-				return "Sound";
-			case ELVLType::Core:
-				return "Core";
-			default:
-				return fmt::format("Unknown ELVLType: {}", (int)type).c_str();
-		}
-	}
-
 	Types::String EntityClassToString(EEntityClassType type)
 	{
 		switch (type)
@@ -386,6 +371,25 @@ namespace LibSWBF2
 		}
 	}
 
+	Types::String LIBSWBF2_API SoundFormatToString(ESoundFormat format)
+	{
+		switch (format)
+		{
+			case ESoundFormat::PCM8:
+				return "PCM8";
+			case ESoundFormat::PCM16:
+				return "PCM16";
+			case ESoundFormat::VAG:
+				return "VAG";
+			case ESoundFormat::XADPCM:
+				return "X ADPCM";
+			case ESoundFormat::IMAADPCM:
+				return "IMA ADPCM";
+			default:
+				return fmt::format("Unknown ESoundFormat: {}", (uint32_t)format).c_str();
+		}	
+	}
+
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
@@ -476,5 +480,10 @@ namespace LibSWBF2
 	bool operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs)
 	{
 		return static_cast<std::underlying_type<EWorldAnimKeyTransitionType>::type>(lhs) == rhs;
+	}
+
+	bool operator ==(ESoundFormat lhs, std::underlying_type<ESoundFormat>::type rhs)
+	{
+		return static_cast<std::underlying_type<ESoundFormat>::type>(lhs) == rhs;		
 	}
 }

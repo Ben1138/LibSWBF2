@@ -18,6 +18,12 @@ namespace LibSWBF2
         public static unsafe extern void Memory_Blit(void *dest, void *src, int numBytes);
 
 
+        // Hash lookup //
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Hashing_Lookup(uint hash, out IntPtr str);
+
+
         // Logging //
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -43,9 +49,6 @@ namespace LibSWBF2
         public static extern ushort Container_AddLevelFiltered(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path, IntPtr[] subLVLs, uint subLVLCount);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ushort Container_AddSoundBank(IntPtr container, [MarshalAs(UnmanagedType.LPStr)] string path);
-
-        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Container_FreeAll(IntPtr container, [MarshalAs(UnmanagedType.U1)] bool force);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -62,6 +65,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Container_GetWrapper(IntPtr container, uint type, [MarshalAs(UnmanagedType.LPStr)] string name);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Container_GetWrapperFNV(IntPtr container, uint type, uint name);        
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Container_GetConfig(IntPtr container, uint type, uint nameHash);
@@ -108,6 +114,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetWrapper(IntPtr level, uint type, string name);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_GetWrapperFNV(IntPtr level, uint type, uint name);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_GetWrappers(IntPtr level, uint type, out uint num, out uint inc);
@@ -314,12 +323,49 @@ namespace LibSWBF2
 
 
         // Sound //
+
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Sound_GetName(IntPtr sound);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Sound_GetData(IntPtr sound, out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data);
+
+
+
+        // SoundStream //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_FetchAllFields(
+                IntPtr str, out uint nameOut, out bool hasDataOut,
+                out uint formatOut, out uint numChannelsOut);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_GetSound(IntPtr str, uint soundName, out IntPtr soundOut);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_GetSounds(IntPtr str, out IntPtr soundsOut, out uint numSounds, out uint soundInc);
+
+        
+        // SoundBank //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_FetchAllFields(IntPtr str, out uint name, out bool hasData, out uint format);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_GetSound(IntPtr str, uint soundName, out IntPtr soundOut);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundBank_GetSounds(IntPtr str, out IntPtr soundsOut, out uint numSounds, out uint soundInc);
+
+
+
 
 
         // Localization //
@@ -397,6 +443,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         public static extern float Field_GetFloat(IntPtr cfg, byte index);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern uint Field_GetUInt32(IntPtr cfg, byte index);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         public static extern IntPtr Field_GetVec2(IntPtr cfg); 

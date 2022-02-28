@@ -84,7 +84,20 @@ namespace LibSWBF2::Wrappers
 		LOG_WARN("Could not get field float value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
 		return 0.0f;
 	}
+	
+
+	uint32_t Field::GetUInt32(uint8_t index) const
+	{	
+		uint32_t out;
+		if (p_Data->GetUInt32(out, index))
+		{
+			return out;
+		}
 		
+		LOG_WARN("Could not get field uint32 value at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
+		return 0;
+	}	
+
 
 	Vector2 Field::GetVector2() const
 	{
@@ -293,6 +306,22 @@ namespace LibSWBF2::Wrappers
 		else if (dynamic_cast<sky_*>(cfgPtr) != nullptr)
 		{
 			type = EConfigType::Skydome;
+		}
+		else if (dynamic_cast<snd_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::Sound;
+		}
+		else if (dynamic_cast<mus_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::Music;
+		}
+		else if (dynamic_cast<ffx_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::FoleyFX;
+		}
+		else if (dynamic_cast<tsr_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::TriggerSoundRegion;
 		}
 		else 
 		{
