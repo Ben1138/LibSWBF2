@@ -226,11 +226,13 @@ namespace LibSWBF2
 
 
 		// Wrappers - Sound
-		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);
-        LIBSWBF2_API const uint8_t Sound_FetchAllFields(const Sound *sound, 
-        	uint32_t& nameOut, uint32_t& sampleRate, uint32_t& sampleCount, 
-        	uint8_t& blockAlign, uint8_t& hasDataOut);
 		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
+		LIBSWBF2_API uint8_t Sound_FillDataBuffer(const Sound* sound, void* buffer);
+        LIBSWBF2_API uint8_t Sound_FetchAllFields(const Sound* soundPtr, uint32_t& format, 
+                                                int32_t& numChannels, int32_t& sampleRate,
+                                                int32_t& numSamples, uint32_t& alias, 
+                                                uint8_t& hasData, uint32_t& name);
+
 
 
 		// Wrappers - SoundStream

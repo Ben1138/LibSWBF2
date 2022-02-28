@@ -331,6 +331,17 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Sound_GetData(IntPtr sound, out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data);
 
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern unsafe bool Sound_FillDataBuffer(IntPtr sound, void* buffer);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool Sound_FetchAllFields(IntPtr soundPtr, out uint format, 
+                                                out int numChannels, out int sampleRate,
+                                                out int numSamples, out uint alias, 
+                                                out bool hasData, out uint name);
+
 
 
         // SoundStream //
