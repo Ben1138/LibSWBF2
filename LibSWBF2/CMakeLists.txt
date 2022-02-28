@@ -90,6 +90,9 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/DirectX/detex/decompress-bc.c"
   "${PROJECT_SOURCE_DIR}/DirectX/detex/division-tables.c"
 
+  # Sound
+  "${PROJECT_SOURCE_DIR}/Audio/SoundDecoder.cpp"  
+
   # Logging
   "${PROJECT_SOURCE_DIR}/Logging/Logger.cpp"
   "${PROJECT_SOURCE_DIR}/Logging/LoggerEntry.cpp"
