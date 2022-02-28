@@ -53,6 +53,10 @@ namespace LibSWBF2::Chunks::LVL::sound
 					m_NumSubstreams = stream.ReadUInt32();
 					break;
 
+				case "SubstreamInterleave"_fnv:
+					m_SubstreamInterleave = stream.ReadUInt32();
+					break;
+
 				case "Size"_fnv:
 					m_CombinedSoundSize = stream.ReadUInt32(); 
 					break;

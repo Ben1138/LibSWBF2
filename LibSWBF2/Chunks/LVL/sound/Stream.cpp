@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Stream.h"
 #include "StreamInfo.h"
+#include "StreamData.h"
 #include "InternalHelpers.h"
 #include "FileReader.h"
 

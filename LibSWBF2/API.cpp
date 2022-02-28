@@ -1193,29 +1193,34 @@ namespace LibSWBF2
 
 
     // Wrappers - Sound
-	const char* Sound_GetName(const Sound* sound)
-	{
-		CheckPtr(sound, nullptr);
-		static String name;
-		name = sound->GetName();
-		return name.Buffer();
-	}
-
-	const uint8_t Sound_FetchAllFields(const Sound *sound, 
-		uint32_t& nameOut, uint32_t& sampleRate, 
-		uint32_t& sampleCount, uint8_t& blockAlign,
-		uint8_t& hasDataOut)
-    {
-    	CheckPtr(sound, false);
-    	nameOut = sound -> GetHashedName();
-    	return true;
-    }
-
 	uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data)
 	{
 		CheckPtr(sound, false);
 		return (uint8_t)sound->GetData(sampleRate, sampleCount, blockAlign, data);
 	}
+
+	uint8_t Sound_FillDataBuffer(const Sound* sound, void* buffer)
+	{
+		CheckPtr(sound, false);
+		return sound -> FillDataBuffer(ESoundFormat::PCM16, (int16_t *) buffer);
+	}
+
+    uint8_t Sound_FetchAllFields(const Sound* sound, uint32_t& format, 
+                                int32_t& numChannels, int32_t& sampleRate,
+                                int32_t& numSamples, uint32_t& alias, 
+                                uint8_t& hasData, uint32_t& name)
+    {
+		CheckPtr(sound, false);
+		format = (uint32_t) sound -> GetFormat();
+		numChannels = (int32_t) sound -> GetNumChannels();
+		sampleRate = (int32_t) sound -> GetSampleRate();
+		numSamples = (int32_t) sound -> GetNumSamples();
+		alias = sound -> GetAlias();
+		hasData = sound -> HasData();
+		name = sound -> GetHashedName();
+		return true;
+    }
+
 
 
 
