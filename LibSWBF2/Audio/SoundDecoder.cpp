@@ -19,14 +19,7 @@ namespace LibSWBF2
 		stepIndex += ima_index_table[nibble];
 
 		// Clamp new index to step table size
-		if (stepIndex > 88)
-		{
-			stepIndex = 88;
-		}
-		else if (stepIndex < 0)
-		{
-			stepIndex = 0;
-		}
+		stepIndex = stepIndex > 88 ? 88 : stepIndex < 0 ? 0 : stepIndex;
 
 		// Below is the optimized version which avoids the float division/mult
 		int32_t delta = step >> 3;
@@ -53,78 +46,66 @@ namespace LibSWBF2
 		}
 
 		// Clamp to int16 boundaries (since PCM16 is our testing destination)
-		if (predicted > 0x7FFF)
-		{
-			predicted = 0x7FFF;
-		}
-		else if (predicted < -0x8000)
-		{
-			predicted = -0x8000;
-		}
+		predicted = predicted > 0x7FFF ? 0x7FFF : predicted < -0x8000 ? -0x8000 : predicted;
 	}
 
 
 
 	bool SoundDecoder::DecodeIMAADPCMAndFillPCM16(int16_t *buffer)
 	{
-		auto finalData = buffer;
-		uint32_t finalDataLength = p_Sound -> GetNumChannels() * p_Sound -> GetNumSamples();
+		auto DecodedDataBuffer = buffer;
+		uint32_t DecodedDataLength = p_Sound -> GetNumChannels() * p_Sound -> GetNumSamples();
 
-		const uint8_t *origData = p_Sound -> GetDataPtr();
-		uint32_t len = p_Sound -> GetDataLength() - (p_Sound -> GetNumChannels() == 1 ? 4 : 8);
+		const uint8_t *ADPCMBuffer = p_Sound -> GetDataPtr();
+		uint32_t ADPCMBufferLength = p_Sound -> GetDataLength();
 
 		int32_t nibble;
 		int destIndex = 0;
 
 		if (p_Sound -> GetNumChannels() == 1)
 		{
-			int32_t predictedValue;
+			int32_t predictor;
 			int32_t stepIndex;
 
-			for (uint32_t i = 0; i < len; ++i)
+			for (uint32_t i = 0; i < ADPCMBufferLength; ++i)
 			{
 				if (i % 36 == 0)
 				{
-					predictedValue = origData[i+0] | (origData[i+1] << 8);
-					stepIndex = origData[i+2];
+					predictor = *((int16_t *) (ADPCMBuffer + i));
+					stepIndex = *((int16_t *) (ADPCMBuffer + i + 2));
+
 					i+=4;					
 				}
 
-				nibble = (origData[i] >> 4) & 0x0F;
-				DecodeSingleNibble(nibble, stepIndex, predictedValue);
-				finalData[destIndex++] = (int16_t) predictedValue;
+				nibble = ADPCMBuffer[i] & 0x0F;
+				DecodeSingleNibble(nibble, stepIndex, predictor);
+				DecodedDataBuffer[destIndex++] = (int16_t) predictor;
 
-				nibble = origData[i] & 0x0F;
-				DecodeSingleNibble(nibble, stepIndex, predictedValue);
-				finalData[destIndex++] = (int16_t) predictedValue;
+				nibble = (ADPCMBuffer[i] >> 4) & 0x0F;
+				DecodeSingleNibble(nibble, stepIndex, predictor);
+				DecodedDataBuffer[destIndex++] = (int16_t) predictor;
 			}
 		}
 		else
 		{
-			int32_t predictedValueL;
+			int32_t predictorL;
 			int32_t stepIndexL;
 
-			int32_t predictedValueR;
+			int32_t predictorR;
 			int32_t stepIndexR;
 
-			int finalInd, j;
+			int DecodedDataBufferIndex, j;
 
-			// Produces mostly correct result, slightly less distorted than mono...
-			for (uint32_t i = 0; i < len; i+=8)
+			// Keeping destination index checks even though I
+			for (uint32_t i = 0; i < ADPCMBufferLength; i+=8)
 			{	
-				if (i % 0x9000 == 0 && i > 0)
-				{
-					i+=0x9000;
-				}
-
-
 				if (i % 72 == 0)
 				{
-					predictedValueL = origData[i] | (origData[i+1] << 8);
-					stepIndexL = origData[i+2] | (origData[i+3] << 8);
+					predictorL = *((int16_t *) (ADPCMBuffer + i));
+					stepIndexL = *((int16_t *) (ADPCMBuffer + i + 2));
 
-					predictedValueR = origData[i+4] | (origData[i+5] << 8);
-					stepIndexR = origData[i+6] | (origData[i+7] << 8);	
+					predictorR = *((int16_t *) (ADPCMBuffer + i + 4));
+					stepIndexR = *((int16_t *) (ADPCMBuffer + i + 6));
 
 					i+=8;
 				}			
@@ -132,34 +113,40 @@ namespace LibSWBF2
 
 				for (j = 0; j < 4; ++j)
 				{
-					nibble = origData[i + j] & 0x0F;
-					DecodeSingleNibble(nibble, stepIndexL, predictedValueL);
+					nibble = ADPCMBuffer[i + j] & 0x0F;
+					DecodeSingleNibble(nibble, stepIndexL, predictorL);
 					
-					finalInd = destIndex + 4 * j;
-					if (finalInd >= finalDataLength) return true;
-					finalData[finalInd] = (int16_t) predictedValueL;
+					DecodedDataBufferIndex = destIndex + 4 * j;
+					
+					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) predictorL;
 
-					nibble = (origData[i + j] >> 4) & 0x0F;
-					DecodeSingleNibble(nibble, stepIndexL, predictedValueL);
+					nibble = (ADPCMBuffer[i + j] >> 4) & 0x0F;
+					DecodeSingleNibble(nibble, stepIndexL, predictorL);
 
-					finalInd = destIndex + 4 * j + 2; 
-					if (finalInd >= finalDataLength) return true;
-					finalData[finalInd] = (int16_t) predictedValueL;
+					DecodedDataBufferIndex = destIndex + 4 * j + 2; 
+					
+					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) predictorL;
 				}
 
 				for (j = 0; j < 4; ++j)
 				{
-					nibble = origData[i + j + 4] & 0x0F;
-					DecodeSingleNibble(nibble, stepIndexR, predictedValueR);
-					finalInd = destIndex + 4 * j + 1;
-					if (finalInd >= finalDataLength) return true;
-					finalData[finalInd] = (int16_t) predictedValueR;
+					nibble = ADPCMBuffer[i + j + 4] & 0x0F;
+					DecodeSingleNibble(nibble, stepIndexR, predictorR);
 					
-					nibble = (origData[i + j + 4] >> 4) & 0x0F;
-					DecodeSingleNibble(nibble, stepIndexR, predictedValueR);
-					finalInd = destIndex + 4 * j + 3;
-					if (finalInd >= finalDataLength) return true;
-					finalData[finalInd] = (int16_t) predictedValueR;
+					DecodedDataBufferIndex = destIndex + 4 * j + 1;
+					
+					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) predictorR;
+					
+					nibble = (ADPCMBuffer[i + j + 4] >> 4) & 0x0F;
+					DecodeSingleNibble(nibble, stepIndexR, predictorR);
+					
+					DecodedDataBufferIndex = destIndex + 4 * j + 3;
+					
+					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) predictorR;
 				}
 
 				destIndex += 16;
