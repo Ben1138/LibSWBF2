@@ -52,6 +52,8 @@ namespace LibSWBF2::Wrappers
 		const uint8_t* GetDataPtr() const;
 		const size_t GetDataLength() const;
 
+		const size_t GetDataPosition() const;
+
 
 		bool GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};

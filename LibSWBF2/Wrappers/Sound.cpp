@@ -2,6 +2,7 @@
 #include "Sound.h"
 #include "InternalHelpers.h"
 #include "Audio/SoundDecoder.h"
+#include "Audio/IMAADPCMDecoder.h"
 
 
 namespace LibSWBF2::Wrappers
@@ -71,14 +72,22 @@ namespace LibSWBF2::Wrappers
 		}
 		else if (destFormat == ESoundFormat::PCM16 && m_Format == ESoundFormat::IMAADPCM)
 		{
-			SoundDecoder dec(this);
-			return dec.DecodeIMAADPCMAndFillPCM16(bufferToFill);
+			IMAADPCMDecoder dec(GetNumChannels(), 4);
+			dec.DecodeAndFillPCM16((void *) GetDataPtr(), GetDataLength(), bufferToFill, GetNumSamples());
+			return true;
 		}
 		else 
 		{
 			return false;
 		}
 	}
+
+
+	const size_t Sound::GetDataPosition() const 
+	{
+		return p_SoundClip->m_DataPosition;
+	}
+
 
 
 
