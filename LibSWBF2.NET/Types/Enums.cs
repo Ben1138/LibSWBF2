@@ -168,6 +168,7 @@ namespace LibSWBF2.Enums
         PCM16 = 2,
         VAG = 3,
         XADPCM = 4,
-        IMAADPCM = 5
+        IMAADPCM = 5,
+        Unity
     };
 }
