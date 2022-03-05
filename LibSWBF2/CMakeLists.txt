@@ -21,7 +21,10 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
-target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR} "${PROJECT_SOURCE_DIR}/IO")
+
+target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
+
 
 target_link_libraries(LibSWBF2 glm)
 target_link_libraries(LibSWBF2 fmt)
@@ -77,11 +80,13 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/API.cpp"
   "${PROJECT_SOURCE_DIR}/Container.cpp"
   "${PROJECT_SOURCE_DIR}/dllmain.cpp"
-  "${PROJECT_SOURCE_DIR}/FileReader.cpp"
-  "${PROJECT_SOURCE_DIR}/FileReaderMemMapped.cpp"
-  "${PROJECT_SOURCE_DIR}/FileWriter.cpp"
   "${PROJECT_SOURCE_DIR}/Hashing.cpp"
   "${PROJECT_SOURCE_DIR}/InternalHelpers.cpp"
+
+  # IO
+  "${PROJECT_SOURCE_DIR}/IO/FileReader.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/FileReaderMemMapped.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/FileWriter.cpp"
 
   # DirectX
   "${PROJECT_SOURCE_DIR}/DirectX/DXHelpers.cpp"
