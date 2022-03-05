@@ -97,6 +97,7 @@ target_sources(LibSWBF2 PRIVATE
 
   # Sound
   "${PROJECT_SOURCE_DIR}/Audio/IMAADPCMDecoder.cpp"  
+  "${PROJECT_SOURCE_DIR}/Audio/PCM16Decoder.cpp"  
 
   # Logging
   "${PROJECT_SOURCE_DIR}/Logging/Logger.cpp"
