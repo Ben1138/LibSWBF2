@@ -29,6 +29,15 @@ namespace LibSWBF2::Chunks
 			chunk->ReadFromStream(stream);
 		}
 
+		void ReadExplicitNoCtor(GenericBaseChunk* parent, FileReader& stream, GenericBaseChunk* chunkPtr)
+		{
+			parent->m_Children.Add(chunkPtr);
+			chunkPtr->m_Parent = parent;
+
+			// Important: start reading AFTER parent and child have been set!
+			chunkPtr->ReadFromStream(stream);
+		}
+
 		void ReadGenerics(FileReader& stream);
 
 	private:
