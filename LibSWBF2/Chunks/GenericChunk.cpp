@@ -30,6 +30,7 @@
 
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
+#include "LVL/plan/plan.h"
 
 #include <iostream>
 
@@ -288,6 +289,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, bankList);
 						chunk = bankList; 
 					}
+					else if (nextHead == "plan"_h)
+					{
+						plan::plan* plan;
+						READ_CHILD(stream, plan);
+						chunk = plan;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -456,5 +463,11 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"Data"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"SampleBank"_fnv>;
+
+	//plan
+	template struct LIBSWBF2_API GenericChunk<"plan"_m>;
+	template struct LIBSWBF2_API GenericChunk<"NODE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ARCS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PLNS"_m>;
 }
 

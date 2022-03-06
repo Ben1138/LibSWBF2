@@ -70,6 +70,7 @@ source_group("Source/Chunks/LVL/zaa_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/
 source_group("Source/Chunks/LVL/zaf_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/*")
 source_group("Source/Chunks/MSH" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/MSH/*")
 source_group("Source/Chunks/TERR" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/TERR/*")
+source_group("Source/Chunks/LVL/plan" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/*")
 
 target_sources(LibSWBF2 PRIVATE 
 
@@ -280,4 +281,9 @@ target_sources(LibSWBF2 PRIVATE
 
   # TERR
   "${PROJECT_SOURCE_DIR}/Chunks/TERR/TERR.cpp"
+
+
+    #PLAN
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/plan.cpp"
 )
+
