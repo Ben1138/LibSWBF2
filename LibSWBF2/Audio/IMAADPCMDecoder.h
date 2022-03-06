@@ -3,7 +3,7 @@
 #include "Types/List.h"
 #include "Logging/Logger.h"
 #include "Wrappers/Sound.h"
-#include "SoundDecoder.h"
+#include "Audio/SoundDecoder.h"
 
 
 /*
@@ -59,9 +59,11 @@ namespace LibSWBF2
 
 			void Reset();
 
-			int32_t DecodeAndFillUnity(void * source, uint32_t maxBytes, float * sampleSink, size_t numSamplesToExtract);
-			int32_t DecodeAndFillPCM16(void * source, uint32_t maxBytes, int16_t * sampleSink, size_t numSamplesToExtract);
+			int32_t DecodeAndFillPCM16(void * source, uint32_t maxBytes, int16_t * sampleSink, size_t numSamplesToExtract, size_t& bytesReadOut);
+			int32_t DecodeAndFillUnity(void * source, uint32_t maxBytes, float * sampleSink, size_t numSamplesToExtract, size_t& bytesReadOut);
 	
 			size_t BytesNeededForSamples(size_t numSamples);
+
+			size_t SamplesInBytes(size_t numBytes);
 	};
 }
