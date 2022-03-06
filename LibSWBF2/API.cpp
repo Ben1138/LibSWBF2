@@ -11,6 +11,8 @@
 
 #include "Chunks/HeaderNames.h"
 
+#include "FileReader.h"
+
 
 namespace LibSWBF2
 {
@@ -35,8 +37,29 @@ namespace LibSWBF2
 	}
 
 
-	// Hashing //
+	// FileReader //
+	const FileReader * FileReader_FromFile(const char *path, bool UseMemoryMapping)
+	{
+		FileReader * reader = new FileReader();
+		if (reader -> Open(path))
+		{
+			return reader;
+		}
+		else 
+		{
+			delete reader;
+			return nullptr;
+		}
+	}
 
+	const void FileReader_Delete(FileReader * readerPtr)
+	{
+		delete readerPtr;
+	}
+
+
+
+	// Hashing //
 	uint8_t Hashing_Lookup(uint32_t hash, const char *& str)
 	{
 		static String lookupCache;
@@ -232,6 +255,57 @@ namespace LibSWBF2
 		Container::Delete(container);
 		return true;
 	}
+
+
+
+	// AudioStreamer
+	/*
+    const bool AudioStreamer_SetStreamAndSegment(AudioStreamer * str, uint32_t StreamID, uint32_t SegmentID)
+    {
+    	CheckPtr(str,false);
+    	return str -> SetStreamAndSegment(StreamID, SegmentID);
+    }
+
+    const bool AudioStreamer_AddStream(AudioStreamer * str, uint32_t StreamID)
+    {
+    	CheckPtr(str,false);
+    	return str -> AddStream(StreamID);
+    }
+
+    const SoundStream * AudioStreamer_GetSoundStream(AudioStreamer * str, uint32_t StreamID)
+    {
+    	CheckPtr(str, nullptr);
+    	return str -> GetSoundStream(StreamID);
+    }
+
+
+    const int32_t AudioStreamer_FetchAndDecodeSamples(AudioStreamer * str, int32_t NumSamples)
+    {
+    	CheckPtr(str,-1);
+    	return str -> FetchAndDecodeSamples(NumSamples);
+    }
+
+    const bool AudioStreamer_SetSinks(AudioStreamer * str, uint32_t SizeSinks, void * b0, void * b1, void * b2, void * b3)
+    {
+    	CheckPtr(str,false);
+    	return str -> SetSampleSinks(SizeSinks, (uint8_t *) b0, (uint8_t *) b1, (uint8_t *) b2, (uint8_t *) b3);
+    }
+
+
+    const AudioStreamer * AudioStreamer_FromFile(const char *path)
+    {
+    	CheckPtr(path, nullptr);
+    	return AudioStreamer::FromFile(path);
+    }
+
+    const bool AudioStreamer_Delete(AudioStreamer * str)
+    {
+    	CheckPtr(str, false);
+    	return AudioStreamer::Delete(str);
+    }
+    */
+
+
 
 
 
@@ -1227,13 +1301,16 @@ namespace LibSWBF2
 	// Wrappers - SoundStream
     const uint8_t SoundStream_FetchAllFields(const SoundStream *str, 
      		uint32_t& nameOut, uint8_t& hasDataOut,
-    		uint32_t& formatOut, uint32_t& numChannelsOut)
+    		uint32_t& formatOut, uint32_t& numChannelsOut,
+    		uint32_t& numSubstreamsOut, uint32_t& substreamInterleaveOut)
     {
 		CheckPtr(str, false);
 		hasDataOut = str -> HasData();
 		formatOut = (uint32_t) str -> GetFormat();
 		nameOut = str -> GetHashedName();
 		numChannelsOut = str -> GetNumChannels();
+		numSubstreamsOut = str -> GetNumSubstreams();
+		substreamInterleaveOut = str -> GetSubstreamInterleave();
 		return true;
     }
 
@@ -1253,6 +1330,57 @@ namespace LibSWBF2
 		soundInc = sizeof(Sound);
 		return numSounds > 0;
     }
+
+	/*
+    const int32_t SoundStream_SampleReadMethod(
+    		SoundStream *str, void * sBuf, int32_t sBufLength,
+    		int32_t numToRead, ESoundFormat format, int32_t& numBytesRead, bool ReadSamples)
+    {
+		CheckPtr(str, -1);
+		if (ReadSamples)
+		{
+			return str -> ReadSamples(sBuf, sBufLength, numToRead, format);
+		}
+		else 
+		{
+			return str -> ReadSamplesFromBytes(sBuf, sBufLength, numToRead, format, numBytesRead);
+		}
+    }
+
+    const int32_t SoundStream_GetNumSamplesInBytes(SoundStream *str, int32_t NumBytes)
+    {
+    	CheckPtr(str, -1);
+    	return str -> GetNumSamplesInBytes(NumBytes);
+    }
+    
+    const bool SoundStream_SetFileReader(SoundStream *str, FileReader * readerPtr)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetFileReader(readerPtr);
+    }
+
+    const bool SoundStream_SetStreamBuffer(SoundStream *str, void * bufferPtr, int32_t bufferLgenth)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetFileStreamBuffer((uint8_t *) bufferPtr, bufferLgenth);
+    }
+
+    const int32_t SoundStream_ReadBytesFromStream(SoundStream *str, int32_t numBytes)
+    {
+    	CheckPtr(str, -1);
+    	return str -> ReadBytesFromStream(numBytes);
+    }
+
+    const bool SoundStream_SetSegment(SoundStream *str, FNVHash name)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetSegment(name);
+    }
+    */
+
+
+
+
 
 		
 	// Wrappers - SoundBank
