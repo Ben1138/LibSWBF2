@@ -50,6 +50,17 @@ namespace LibSWBF2
 	}
 
 
+	size_t IMAADPCMDecoder::SamplesInBytes(size_t numBytes)
+	{
+		int BlockSize = m_NumChannels * 36;
+
+		if (numBytes % BlockSize != 0) return 0;
+
+		return (numBytes / BlockSize) * m_NumChannels * 64;
+	}
+
+
+
 
 	void IMAADPCMDecoder::DecodeSingleNibble(int32_t nibble, int32_t &stepIndex, int32_t &predicted)
 	{
@@ -90,19 +101,26 @@ namespace LibSWBF2
 
 
 
-	int32_t IMAADPCMDecoder::DecodeAndFillPCM16(void * source, uint32_t maxBytes, int16_t * sampleSink, size_t numSamplesToExtract)
+	int32_t IMAADPCMDecoder::DecodeAndFillPCM16(void * source, uint32_t maxBytes, int16_t * sampleSink, size_t numSamplesToExtract, size_t& bytesReadOut)
 	{
 		auto DecodedDataBuffer = sampleSink;
-		uint32_t DecodedDataLength = numSamplesToExtract; //p_Sound -> GetNumChannels() * p_Sound -> GetNumSamples();
 
-		const uint8_t *ADPCMBuffer = (uint8_t *) source;// p_Sound -> GetDataPtr();
+		const uint8_t *ADPCMBuffer = (uint8_t *) source;
 		uint32_t ADPCMBufferLength = maxBytes;
 
 		int32_t nibble;
 		int destIndex = 0;
 
+		bytesReadOut = m_BytesRead;
+
+		int32_t NumSamplesRead = 0;
+
+		int DecodedDataBufferIndex = 0;
+
+
 		if (m_NumChannels == 1)
 		{
+			// This loop is safe because the munger is guaranteed to fill out partial blocks
 			for (uint32_t i = 0; i < ADPCMBufferLength; ++i)
 			{
 				if (m_BytesRead % 36 == 0)
@@ -114,21 +132,28 @@ namespace LibSWBF2
 					m_BytesRead += 4;					
 				}
 
+				m_BytesRead++;
+
 				nibble = ADPCMBuffer[i] & 0x0F;
 				DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
-				DecodedDataBuffer[destIndex++] = (int16_t) m_Predictor0;
+				DecodedDataBuffer[DecodedDataBufferIndex++] = (int16_t) m_Predictor0;
+
+				NumSamplesRead++;
+
+				if (DecodedDataBufferIndex >= numSamplesToExtract) break;
 
 				nibble = (ADPCMBuffer[i] >> 4) & 0x0F;
 				DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
-				DecodedDataBuffer[destIndex++] = (int16_t) m_Predictor0;
+				DecodedDataBuffer[DecodedDataBufferIndex++] = (int16_t) m_Predictor0;
 
-				m_BytesRead++;
+				NumSamplesRead++;
+
+				if (DecodedDataBufferIndex >= numSamplesToExtract) break;
 			}
 		}
 		else
 		{
-			int DecodedDataBufferIndex, j;
-
+			int j;
 			// Keeping destination index checks even though I
 			for (uint32_t i = 0; i < ADPCMBufferLength; i+=8)
 			{	
@@ -142,17 +167,21 @@ namespace LibSWBF2
 
 					i+=8;
 					m_BytesRead += 8;
-				}			
-
+				}
 
 				for (j = 0; j < 4; ++j)
 				{
+					m_BytesRead++;
+
 					nibble = ADPCMBuffer[i + j] & 0x0F;
 					DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
 					
 					DecodedDataBufferIndex = destIndex + 4 * j;
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) m_Predictor0;
 
 					nibble = (ADPCMBuffer[i + j] >> 4) & 0x0F;
@@ -160,12 +189,13 @@ namespace LibSWBF2
 
 					DecodedDataBufferIndex = destIndex + 4 * j + 2; 
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) m_Predictor0;
 
-					m_BytesRead++;
 				}
-
 
 				for (j = 0; j < 4; ++j)
 				{
@@ -174,7 +204,10 @@ namespace LibSWBF2
 					
 					DecodedDataBufferIndex = destIndex + 4 * j + 1;
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) m_Predictor1;
 					
 					nibble = (ADPCMBuffer[i + j + 4] >> 4) & 0x0F;
@@ -182,7 +215,10 @@ namespace LibSWBF2
 					
 					DecodedDataBufferIndex = destIndex + 4 * j + 3;
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					DecodedDataBuffer[DecodedDataBufferIndex] = (int16_t) m_Predictor1;
 
 					m_BytesRead++;
@@ -192,22 +228,30 @@ namespace LibSWBF2
 			}
 		}
 
-		return 1;
+		bytesReadOut = m_BytesRead - bytesReadOut;
+
+		return NumSamplesRead;
 	}
 
 
 
 
-	int32_t IMAADPCMDecoder::DecodeAndFillUnity(void * source, uint32_t maxBytes, float * sampleSink, size_t numSamplesToExtract)
+	int32_t IMAADPCMDecoder::DecodeAndFillUnity(void * source, uint32_t maxBytes, float * sampleSink, size_t numSamplesToExtract, size_t& bytesReadOut)
 	{
 		auto DecodedDataBuffer = sampleSink;
-		uint32_t DecodedDataLength = numSamplesToExtract; //p_Sound -> GetNumChannels() * p_Sound -> GetNumSamples();
+		uint32_t DecodedDataLength = numSamplesToExtract;
 
 		const uint8_t *ADPCMBuffer = (uint8_t *) source;
 		uint32_t ADPCMBufferLength = maxBytes;
 
 		int32_t nibble;
-		int destIndex = 0;
+
+		bytesReadOut = m_BytesRead;
+
+		int32_t NumSamplesRead = 0;
+
+		int DecodedDataBufferIndex = 0;
+
 
 		if (m_NumChannels == 1)
 		{
@@ -222,20 +266,31 @@ namespace LibSWBF2
 					m_BytesRead+=4;					
 				}
 
+				m_BytesRead++;
+
 				nibble = ADPCMBuffer[i] & 0x0F;
 				DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
-				sampleSink[destIndex++] = fMult * m_Predictor0;
+
+				if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+				NumSamplesRead++;
+
+				sampleSink[DecodedDataBufferIndex++] = fMult * m_Predictor0;
 
 				nibble = (ADPCMBuffer[i] >> 4) & 0x0F;
 				DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
-				sampleSink[destIndex++] = fMult * m_Predictor0;
 
-				m_BytesRead++;
+				if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+				NumSamplesRead++;
+
+				sampleSink[DecodedDataBufferIndex++] = fMult * m_Predictor0;
 			}
 		}
 		else
 		{
-			int DecodedDataBufferIndex, j;
+			int j;
+			int destIndex = 0;
 
 			// Keeping destination index checks even though I
 			for (uint32_t i = 0; i < ADPCMBufferLength; i+=8)
@@ -259,8 +314,11 @@ namespace LibSWBF2
 					DecodeSingleNibble(nibble, m_StepIndex0, m_Predictor0);
 					
 					DecodedDataBufferIndex = destIndex + 4 * j;
-					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					sampleSink[DecodedDataBufferIndex] = fMult * m_Predictor0 ;
 
 					nibble = (ADPCMBuffer[i + j] >> 4) & 0x0F;
@@ -268,7 +326,11 @@ namespace LibSWBF2
 
 					DecodedDataBufferIndex = destIndex + 4 * j + 2; 
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
+
 					sampleSink[DecodedDataBufferIndex] = fMult * m_Predictor0;
 
 					m_BytesRead++;
@@ -281,15 +343,22 @@ namespace LibSWBF2
 					
 					DecodedDataBufferIndex = destIndex + 4 * j + 1;
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					sampleSink[DecodedDataBufferIndex] = fMult * m_Predictor1;
+
 					
 					nibble = (ADPCMBuffer[i + j + 4] >> 4) & 0x0F;
 					DecodeSingleNibble(nibble, m_StepIndex1, m_Predictor1);
 					
 					DecodedDataBufferIndex = destIndex + 4 * j + 3;
 					
-					if (DecodedDataBufferIndex >= DecodedDataLength) return true;
+					if (DecodedDataBufferIndex >= numSamplesToExtract) break;
+
+					NumSamplesRead++;
+
 					sampleSink[DecodedDataBufferIndex] = fMult * m_Predictor1;
 
 					m_BytesRead++;
@@ -299,6 +368,8 @@ namespace LibSWBF2
 			}
 		}
 
-		return 1;
+		bytesReadOut = m_BytesRead - bytesReadOut;
+
+		return NumSamplesRead;
 	}
 }
