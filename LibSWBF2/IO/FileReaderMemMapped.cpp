@@ -332,6 +332,12 @@ namespace LibSWBF2
 	{
 		return m_LatestChunkPos;
 	}
+
+
+	const Types::String& FileReader::GetFileName()
+	{
+		return m_FileName;
+	}
 }
 
 #endif

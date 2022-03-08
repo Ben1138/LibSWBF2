@@ -17,7 +17,7 @@ namespace LibSWBF2
 
 	FileReader::~FileReader()
 	{
-
+		try { Close(); } catch (...) {}
 	}
 
 	bool FileReader::Open(const Types::String& File)
@@ -250,6 +250,12 @@ namespace LibSWBF2
 	size_t FileReader::GetLatestChunkPosition()
 	{
 		return m_LatestChunkPos;
+	}
+
+
+	const Types::String& FileReader::GetFileName()
+	{
+		return m_FileName;
 	}
 }
 

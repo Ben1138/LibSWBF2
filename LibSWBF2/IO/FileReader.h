@@ -34,8 +34,11 @@ namespace LibSWBF2
 		
 		size_t GetLatestChunkPosition();
 
-	private:
+		const Types::String& GetFileName();
+
 		bool CheckGood(size_t ReadSize);
+
+	private:
 
 		size_t m_FileSize = 0;
 		Types::String m_FileName;
