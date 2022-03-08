@@ -8,6 +8,25 @@
 
 namespace LibSWBF2::Chunks::LVL::sound
 {
+	FNVHash Stream::PeekStreamName(FileReader& stream)
+	{
+		size_t OriginalPosition = stream.GetPosition();
+
+		FNVHash result = 0;
+
+		if (stream.CheckGood(20))
+		{
+			stream.SkipBytes(20);
+			result = stream.ReadUInt32();
+		}
+
+		stream.SetPosition(OriginalPosition);
+
+		return result;
+	}
+
+
+
 	void Stream::RefreshSize()
 	{
 		THROW("Not implemented!");
