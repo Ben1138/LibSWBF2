@@ -477,6 +477,8 @@ namespace LibSWBF2::Types
 
 #include "DirectX/D3D9FORMAT.h"
 
+#include "Audio/SoundDecoder.h"
+
 namespace LibSWBF2
 {
 	using namespace Chunks;
@@ -484,6 +486,7 @@ namespace LibSWBF2
 
 	template class LIBSWBF2_API Types::List<const char*>;
 	template class LIBSWBF2_API Types::List<uint8_t>;
+	template class LIBSWBF2_API Types::List<uint8_t *>;
 	template class LIBSWBF2_API Types::List<uint16_t>;
 	template class LIBSWBF2_API Types::List<uint32_t>;
 	template class LIBSWBF2_API Types::List<float_t>;
@@ -607,5 +610,6 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;
 
+	template class LIBSWBF2_API Types::List<SoundDecoder*>;
 }
 
