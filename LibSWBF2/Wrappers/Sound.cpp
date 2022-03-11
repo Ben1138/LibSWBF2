@@ -73,7 +73,8 @@ namespace LibSWBF2::Wrappers
 		else if (destFormat == ESoundFormat::PCM16 && m_Format == ESoundFormat::IMAADPCM)
 		{
 			IMAADPCMDecoder dec(GetNumChannels(), 4);
-			dec.DecodeAndFillPCM16((void *) GetDataPtr(), GetDataLength(), bufferToFill, GetNumSamples());
+			size_t numBytesRead;
+			dec.DecodeAndFillPCM16((void *) GetDataPtr(), GetDataLength(), bufferToFill, GetNumSamples(), numBytesRead);
 			return true;
 		}
 		else 
