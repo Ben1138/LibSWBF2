@@ -15,6 +15,7 @@ namespace LibSWBF2.Wrappers
         public int          NumSamples { get; private set; }
         public uint         Alias { get; private set; }
         public bool         HasData { get; private set; }
+        public uint         NumBytes { get; private set; }
 
 
         internal override void SetPtr(IntPtr soundPtr)
@@ -23,7 +24,7 @@ namespace LibSWBF2.Wrappers
             if (APIWrapper.Sound_FetchAllFields(soundPtr, out uint format, 
                                                 out int numChannels, out int sampleRate,
                                                 out int numSamples, out uint alias, 
-                                                out bool hasData, out uint name))
+                                                out bool hasData, out uint name, out uint numBytes))
             {
                 Format = (ESoundFormat) format;
                 NumChannels = numChannels;
@@ -32,6 +33,7 @@ namespace LibSWBF2.Wrappers
                 Alias = alias;
                 HasData = hasData;
                 Name = name;
+                NumBytes = numBytes;
             }
         }
 
