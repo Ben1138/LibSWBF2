@@ -18,6 +18,14 @@ namespace LibSWBF2
         public static unsafe extern void Memory_Blit(void *dest, void *src, int numBytes);
 
 
+        // FileReader // 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr FileReader_FromFile([MarshalAs(UnmanagedType.LPStr)] string path, bool UseMemoryMapping);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FileReader_Delete(IntPtr readerPtr);
+
         // Hash lookup //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -87,10 +95,45 @@ namespace LibSWBF2
         public static extern byte Container_GetStatus(IntPtr container, uint handle);
 
 
+        // AudioStreamer //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AudioStreamer_SetStreamAndSegment(IntPtr streamerptr, uint StreamID, uint SegmentID);
+         
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AudioStreamer_AddStream(IntPtr streamerptr, uint StreamID);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr AudioStreamer_GetSoundStream(IntPtr streamerptr, uint StreamID);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AudioStreamer_SetSampleSinks(IntPtr ptr, int Length, IntPtr Sink0, IntPtr Sink1, IntPtr Sink2, IntPtr Sink3);    
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int AudioStreamer_FetchAndDecodeSamples(IntPtr ptr, int NumSamples);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr AudioStreamer_FromFile([MarshalAs(UnmanagedType.LPStr)] string path);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool AudioStreamer_Delete(IntPtr streamerptr);
+
+
         // Level //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Level_FromFile([MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_FromStream(IntPtr fileReaderPtr);        
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Level_FindAndIndexSoundStream(IntPtr lvlPtr, IntPtr streamPtr, uint StreamName);
+
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Level_Destroy(IntPtr level);
@@ -340,7 +383,7 @@ namespace LibSWBF2
         public static extern bool Sound_FetchAllFields(IntPtr soundPtr, out uint format, 
                                                 out int numChannels, out int sampleRate,
                                                 out int numSamples, out uint alias, 
-                                                out bool hasData, out uint name);
+                                                out bool hasData, out uint name, out uint numBytes);
 
 
 
@@ -350,7 +393,8 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool SoundStream_FetchAllFields(
                 IntPtr str, out uint nameOut, out bool hasDataOut,
-                out uint formatOut, out uint numChannelsOut);
+                out uint formatOut, out uint numChannelsOut, 
+                out uint numSubstreamsOut, out uint substreamInterleave);
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -359,6 +403,28 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool SoundStream_GetSounds(IntPtr str, out IntPtr soundsOut, out uint numSounds, out uint soundInc);
+
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int SoundStream_SampleReadMethod(IntPtr str, IntPtr sBuf, int sBufLength, int numToRead, ESoundFormat format, out int numBytesRead, bool ReadSamples);
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_SetFileReader(IntPtr str, IntPtr readerPtr);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_SetStreamBuffer(IntPtr str, IntPtr bufferPtr, int NumBytes);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int SoundStream_ReadBytesFromStream(IntPtr str, int NumBytes);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int SoundStream_GetNumSamplesInBytes(IntPtr str, int NumBytes);
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SoundStream_SetSegment(IntPtr str, uint name);        
 
         
         // SoundBank //

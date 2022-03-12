@@ -247,8 +247,6 @@ namespace LibSWBF2
 		return container -> FindConfig((EConfigType) type, nameHash);
 	}
 
-
-
 	const bool Container_Delete(Container* container)
 	{
 		CheckPtr(container,false);
@@ -257,64 +255,27 @@ namespace LibSWBF2
 	}
 
 
-
-	// AudioStreamer
-	/*
-    const bool AudioStreamer_SetStreamAndSegment(AudioStreamer * str, uint32_t StreamID, uint32_t SegmentID)
-    {
-    	CheckPtr(str,false);
-    	return str -> SetStreamAndSegment(StreamID, SegmentID);
-    }
-
-    const bool AudioStreamer_AddStream(AudioStreamer * str, uint32_t StreamID)
-    {
-    	CheckPtr(str,false);
-    	return str -> AddStream(StreamID);
-    }
-
-    const SoundStream * AudioStreamer_GetSoundStream(AudioStreamer * str, uint32_t StreamID)
-    {
-    	CheckPtr(str, nullptr);
-    	return str -> GetSoundStream(StreamID);
-    }
-
-
-    const int32_t AudioStreamer_FetchAndDecodeSamples(AudioStreamer * str, int32_t NumSamples)
-    {
-    	CheckPtr(str,-1);
-    	return str -> FetchAndDecodeSamples(NumSamples);
-    }
-
-    const bool AudioStreamer_SetSinks(AudioStreamer * str, uint32_t SizeSinks, void * b0, void * b1, void * b2, void * b3)
-    {
-    	CheckPtr(str,false);
-    	return str -> SetSampleSinks(SizeSinks, (uint8_t *) b0, (uint8_t *) b1, (uint8_t *) b2, (uint8_t *) b3);
-    }
-
-
-    const AudioStreamer * AudioStreamer_FromFile(const char *path)
-    {
-    	CheckPtr(path, nullptr);
-    	return AudioStreamer::FromFile(path);
-    }
-
-    const bool AudioStreamer_Delete(AudioStreamer * str)
-    {
-    	CheckPtr(str, false);
-    	return AudioStreamer::Delete(str);
-    }
-    */
-
-
-
-
-
 	// Wrappers
 	Level* Level_FromFile(const char* path)
 	{
 		CheckPtr(path, nullptr);
 		return Level::FromFile(path);
 	}
+
+	Level* Level_FromStream(FileReader* stream)
+	{
+		CheckPtr(stream, nullptr);
+		return Level::FromStream(*stream);
+	}
+
+	SoundStream * Level_FindAndIndexSoundStream(Level * level, FileReader* stream, uint32_t StreamName)
+	{
+		CheckPtr(stream, nullptr);
+		CheckPtr(level, nullptr);
+
+		return level -> FindAndIndexSoundStream(*stream, StreamName);
+	}
+
 
 	void Level_Destroy(Level* level)
 	{
@@ -1282,7 +1243,7 @@ namespace LibSWBF2
     uint8_t Sound_FetchAllFields(const Sound* sound, uint32_t& format, 
                                 int32_t& numChannels, int32_t& sampleRate,
                                 int32_t& numSamples, uint32_t& alias, 
-                                uint8_t& hasData, uint32_t& name)
+                                uint8_t& hasData, uint32_t& name, uint32_t& numBytes)
     {
 		CheckPtr(sound, false);
 		format = (uint32_t) sound -> GetFormat();
@@ -1292,6 +1253,7 @@ namespace LibSWBF2
 		alias = sound -> GetAlias();
 		hasData = sound -> HasData();
 		name = sound -> GetHashedName();
+		numBytes = sound -> GetDataLength();
 		return true;
     }
 
@@ -1331,7 +1293,7 @@ namespace LibSWBF2
 		return numSounds > 0;
     }
 
-	/*
+	
     const int32_t SoundStream_SampleReadMethod(
     		SoundStream *str, void * sBuf, int32_t sBufLength,
     		int32_t numToRead, ESoundFormat format, int32_t& numBytesRead, bool ReadSamples)
@@ -1376,8 +1338,6 @@ namespace LibSWBF2
     	CheckPtr(str, false);
     	return str -> SetSegment(name);
     }
-    */
-
 
 
 
