@@ -2,9 +2,11 @@
 #include "TERR.h"
 #include "InternalHelpers.h"
 #include "Logging/Logger.h"
-#include "FileReader.h"
+#include "StreamReader.h"
 #include <algorithm>
 #include <vector>
+
+
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {
@@ -294,7 +296,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 
 	bool TERR::ReadFromFile(const String& Path)
 	{
-		FileReader reader;
+		StreamReader reader;
 		if (reader.Open(Path))
 		{
 			try

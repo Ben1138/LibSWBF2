@@ -11,7 +11,8 @@
 
 #include "Chunks/HeaderNames.h"
 
-#include "FileReader.h"
+#include "MemoryMappedReader.h"
+#include "StreamReader.h"
 
 
 namespace LibSWBF2
@@ -40,7 +41,16 @@ namespace LibSWBF2
 	// FileReader //
 	const FileReader * FileReader_FromFile(const char *path, bool UseMemoryMapping)
 	{
-		FileReader * reader = new FileReader();
+		FileReader * reader;
+		if (UseMemoryMapping)
+		{
+			reader = new MemoryMappedReader();
+		}
+		else 
+		{
+			reader = new StreamReader();
+		}
+
 		if (reader -> Open(path))
 		{
 			return reader;

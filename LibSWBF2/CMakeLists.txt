@@ -84,8 +84,8 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/InternalHelpers.cpp"
 
   # IO
-  "${PROJECT_SOURCE_DIR}/IO/FileReader.cpp"
-  "${PROJECT_SOURCE_DIR}/IO/FileReaderMemMapped.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/StreamReader.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/MemoryMappedReader.cpp"
   "${PROJECT_SOURCE_DIR}/IO/FileWriter.cpp"
 
   # DirectX

@@ -1,7 +1,7 @@
 #include "pch.h"
-#ifndef MEMORY_MAPPED_READER
+//#ifndef MEMORY_MAPPED_READER
 
-#include "FileReader.h"
+#include "StreamReader.h"
 
 #include "InternalHelpers.h"
 
@@ -10,17 +10,17 @@ namespace LibSWBF2
 {
 	using LibSWBF2::Logging::Logger;
 
-	FileReader::FileReader()
+	StreamReader::StreamReader()
 	{
 		m_LatestChunkPos = 0;
 	}
 
-	FileReader::~FileReader()
+	StreamReader::~StreamReader()
 	{
 		try { Close(); } catch (...) {}
 	}
 
-	bool FileReader::Open(const Types::String& File)
+	bool StreamReader::Open(const Types::String& File)
 	{
 		m_Reader.open(File.Buffer(), std::ofstream::in | std::ofstream::binary | std::ofstream::ate);
 		bool success = m_Reader.good() && m_Reader.is_open();
@@ -40,7 +40,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-	ChunkHeader FileReader::ReadChunkHeader(bool peek)
+	ChunkHeader StreamReader::ReadChunkHeader(bool peek)
 	{
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
@@ -59,7 +59,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	ChunkSize FileReader::ReadChunkSize()
+	ChunkSize StreamReader::ReadChunkSize()
 	{
 		ChunkSize value = 0;
 		if (CheckGood(sizeof(ChunkSize)))
@@ -69,7 +69,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint8_t FileReader::ReadByte()
+	uint8_t StreamReader::ReadByte()
 	{
 		uint8_t value = 0;
 		if (CheckGood(sizeof(uint8_t)))
@@ -79,7 +79,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	bool FileReader::ReadBytes(uint8_t* data, size_t length)
+	bool StreamReader::ReadBytes(uint8_t* data, size_t length)
 	{
 		if (CheckGood(length))
 		{
@@ -89,7 +89,7 @@ namespace LibSWBF2
 		return false;
 	}
 
-	int32_t FileReader::ReadInt32()
+	int32_t StreamReader::ReadInt32()
 	{
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
@@ -99,7 +99,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	int16_t FileReader::ReadInt16()
+	int16_t StreamReader::ReadInt16()
 	{
 		int16_t value = 0;
 		if (CheckGood(sizeof(int16_t)))
@@ -109,7 +109,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint32_t FileReader::ReadUInt32()
+	uint32_t StreamReader::ReadUInt32()
 	{
 		uint32_t value = 0;
 		if (CheckGood(sizeof(uint32_t)))
@@ -119,7 +119,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint16_t FileReader::ReadUInt16()
+	uint16_t StreamReader::ReadUInt16()
 	{
 		uint16_t value = 0;
 		if (CheckGood(sizeof(uint16_t)))
@@ -129,7 +129,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	float_t FileReader::ReadFloat()
+	float_t StreamReader::ReadFloat()
 	{
 		float_t value = 0.0f;
 		if (CheckGood(sizeof(float_t)))
@@ -139,7 +139,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	Types::String FileReader::ReadString(size_t length)
+	Types::String StreamReader::ReadString(size_t length)
 	{
 		Types::String value;
 		if (CheckGood(length))
@@ -153,7 +153,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	Types::String FileReader::ReadString()
+	Types::String StreamReader::ReadString()
 	{
 		char str[1024]; // should be enough
 		uint8_t current = 1;
@@ -170,7 +170,7 @@ namespace LibSWBF2
 		return str;
 	}
 
-	void FileReader::Close()
+	void StreamReader::Close()
 	{
 		if (!m_Reader.is_open())
 		{
@@ -181,12 +181,12 @@ namespace LibSWBF2
 		m_Reader.close();
 	}
 
-	size_t FileReader::GetPosition()
+	size_t StreamReader::GetPosition()
 	{
 		return (size_t)m_Reader.tellg();
 	}
 
-	void FileReader::SetPosition(size_t NewPosition)
+	void StreamReader::SetPosition(size_t NewPosition)
 	{
 		if (NewPosition < 0 || NewPosition > m_FileSize)
 		{
@@ -197,12 +197,12 @@ namespace LibSWBF2
 		m_Reader.seekg(NewPosition);
 	}
 
-	size_t FileReader::GetFileSize()
+	size_t StreamReader::GetFileSize()
 	{
 		return m_FileSize;
 	}
 
-	bool FileReader::CheckGood(size_t ReadSize)
+	bool StreamReader::CheckGood(size_t ReadSize)
 	{
 		if (!m_Reader.is_open())
 		{
@@ -236,7 +236,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-	bool FileReader::SkipBytes(const size_t& Amount)
+	bool StreamReader::SkipBytes(const size_t& Amount)
 	{
 		if (CheckGood(Amount))
 		{
@@ -245,18 +245,6 @@ namespace LibSWBF2
 		}
 		return false;
 	}
-
-
-	size_t FileReader::GetLatestChunkPosition()
-	{
-		return m_LatestChunkPos;
-	}
-
-
-	const Types::String& FileReader::GetFileName()
-	{
-		return m_FileName;
-	}
 }
 
-#endif
+//#endif
