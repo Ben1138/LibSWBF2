@@ -7,6 +7,8 @@
 #include <string>
 #include <mutex>
 
+#include "MemoryMappedReader.h"
+
 namespace LibSWBF2::Chunks
 {
 	class MultiThreadHandling
@@ -81,7 +83,7 @@ namespace LibSWBF2::Chunks
 
 	bool BaseChunk::ReadFromFile(const String& Path)
 	{
-		FileReader reader;
+		MemoryMappedReader reader;
 		{
 			LOCK(m_ThreadHandling->m_Lock);
 			m_ThreadHandling->m_CurrentReader = &reader;
@@ -113,6 +115,7 @@ namespace LibSWBF2::Chunks
 			LOCK(m_ThreadHandling->m_Lock);
 			m_ThreadHandling->m_CurrentReader = nullptr;
 		}
+
 		return bSuccess;
 	}
 
