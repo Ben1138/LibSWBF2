@@ -262,7 +262,6 @@ namespace LibSWBF2
 
 		LIBSWBF2_API const uint32_t Field_GetNameHash(const Field* cfg);
 		LIBSWBF2_API const uint8_t Field_GetNumValues(const Field* cfg);
-		LIBSWBF2_API const uint8_t Field_GetValueType(const Field* cfg, uint8_t index);
         LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg, uint8_t index);
         LIBSWBF2_API const uint32_t Field_GetUInt32(const Field* cfg, uint8_t index);
         LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 

@@ -15,7 +15,6 @@ namespace LibSWBF2::Chunks::LVL::config
 	
 		String ToString() const override;
 		
-		bool GetValueType(EDataValueType& type, uint8_t index) const;
 		bool GetFloat(float_t& floatMember, uint8_t index=0) const;
 		bool GetVec2(Vector2 &vec2Out) const;
 		bool GetVec3(Vector3 &vec3Out) const;

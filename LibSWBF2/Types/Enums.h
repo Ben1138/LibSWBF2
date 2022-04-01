@@ -191,12 +191,6 @@ namespace LibSWBF2
 		Failed
 	};
 
-	enum class EDataValueType : uint8_t
-	{
-		Float,
-		String
-	};
-
 	enum class ESoundFormat : uint32_t
 	{
 		PCM8 = 1,

@@ -155,12 +155,6 @@ namespace LibSWBF2.Enums
 		Cube = 4,
 	};
 
-    public enum EDataValueType : byte
-    {
-        Float,
-		String
-    };
-
     public enum EWorldAnimKeyTransitionType : byte
     {
         Pop = 0,

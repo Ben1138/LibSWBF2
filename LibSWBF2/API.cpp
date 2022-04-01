@@ -1336,11 +1336,6 @@ namespace LibSWBF2
 		return cfg->GetNumValues();
 	}
 
-	const uint8_t Field_GetValueType(const Field* cfg, uint8_t index)
-	{
-		return (uint8_t)cfg->GetValueType(index);
-	}
-
 	const float_t Field_GetFloat(const Field* cfg, uint8_t index)
 	{
 		return cfg->GetFloat(index);
