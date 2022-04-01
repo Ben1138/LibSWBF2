@@ -8,7 +8,7 @@ namespace LibSWBF2::Chunks::LVL::sound
 	{
 	public:
 		uint32_t m_Unknown1;
-		uint32_t m_Unknown2;
+		uint32_t m_SizeNextStreamChunk;
 
 	public:
 		void RefreshSize() override;
