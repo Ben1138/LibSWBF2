@@ -75,25 +75,6 @@ namespace LibSWBF2::Chunks::LVL::config
         BaseChunk::EnsureEnd(stream);
 	}
 
-	bool DATA_CONFIG::GetValueType(EDataValueType& type, uint8_t index) const
-	{
-		if (m_NumValues > index)
-		{
-			type = EDataValueType::Float;
-
-			// Let's consider a value to be a string, if the last 3 of the 4 bytes are 0x00
-			// TODO: Idk a better approach right now...
-			uint8_t* value = p_Data + sizeof(float_t) * index;
-			if (value[1] == 0 && value[2] == 0 && value[3] == 0)
-			{
-				type = EDataValueType::String;
-			}
-			return true;
-		}
-
-		return false;
-	}
-
 	bool DATA_CONFIG::GetFloat(float_t& floatMember, uint8_t index) const
 	{
 		if (m_NumValues > index)
@@ -104,7 +85,6 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		return false;
 	}
-
 	
 	bool DATA_CONFIG::GetVec2(Vector2 &vec2Out) const
 	{
@@ -118,7 +98,6 @@ namespace LibSWBF2::Chunks::LVL::config
 		return false;
 	}
 
-
 	bool DATA_CONFIG::GetVec3(Vector3 &vec3Out) const
 	{
 		if (m_NumValues >= 3)
@@ -130,7 +109,6 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		return false;
 	}
-
 
 	bool DATA_CONFIG::GetVec4(Vector4 &vec4Out) const
 	{
@@ -144,7 +122,6 @@ namespace LibSWBF2::Chunks::LVL::config
 		return false;
 	}
 
-
 	bool DATA_CONFIG::GetString(String &stringOut, uint8_t index) const
 	{
 		stringOut = "";
@@ -153,67 +130,21 @@ namespace LibSWBF2::Chunks::LVL::config
 			return false;
 		}
 
-		// NOTE: I want to match the index behaviour of GetFloat() here, such that in a DATA block like
-		// 
-		//           InputLock(0.15, "Sprint", "Jump", "Crouch")
-		// 
-		//       GetString(index = 2) returns "Jump" (since it's at index 2) and not "Crouch", 
-		//       which would be the case if we were just splitting the suffixed string 
-		//       "Sprint.Jump.Crouch" (see table and examples above)
-		// 
-		//       Additionally, the call GetString(index = 0) should return "0.15" as string
+		// For strings, the 4 byte value slot serves as an offset to where the string starts
+		const uint32_t strOffset = *(((uint32_t*)p_Data) + index);
+		const uint8_t* strStart = (p_Data + 4 + strOffset);
 
-		EDataValueType type;
-		GetValueType(type, index);
-
-		if (type == EDataValueType::Float)
+		uint32_t concatStringsLength = *((uint32_t*) (p_Data + 4 * m_NumValues));
+		if (concatStringsLength == 0 || strOffset >= (m_ContentSize - 1))
 		{
-			float floatMember = *(((float_t*)p_Data) + index);
-			stringOut = std::to_string(floatMember).c_str();
-			return true;
+			LOG_ERROR("GetString failed! No string present at index {0}!", index);
+			stringOut = "ERROR";
+			return false;
 		}
 
-		// Count number of string values to our index, in order to obtain the string split index
-		uint8_t splitIdx = 0;
-		for (uint8_t i = 0; i < index; ++i)
-		{
-			GetValueType(type, i);
-			if (type == EDataValueType::String)
-			{
-				splitIdx++;
-			}
-		}
-
-		const uint8_t* strStart = (p_Data + 4 * m_NumValues + 4);
-		uint32_t stringLength = *((uint32_t *) (p_Data + 4 * m_NumValues));
-		if (stringLength > 0 && strStart[0] != 0)
-		{
-			std::vector<const uint8_t*> strings;
-			strings.emplace_back(strStart);
-
-			for (uint32_t i = 1; i < stringLength - 1; ++i)
-			{
-				if (strStart[i] == 0)
-				{
-					strings.emplace_back(&strStart[++i]);
-				}
-			}
-
-			if (splitIdx >= strings.size())
-			{
-				LOG_ERROR("GetString at index {0} resolved to split index {1}, which is out of range of {2}!", index, splitIdx, (int)strings.size());
-				stringOut = "ERROR";
-				return false;
-			}
-			else
-			{
-				stringOut = (const char*)strings[splitIdx];
-			}
-		}
-
+		stringOut = (const char*)strStart;
 		return true;
 	}
-
 
 	bool DATA_CONFIG::GetUInt32(uint32_t& uintMember, uint8_t index) const
 	{
@@ -225,9 +156,6 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		return false;
 	}
-
-	
-
 
 	String DATA_CONFIG::ToString() const
 	{
@@ -242,20 +170,16 @@ namespace LibSWBF2::Chunks::LVL::config
 
 		for (uint8_t i = 0; i < m_NumValues; ++i)
 		{
-			EDataValueType type;
-			GetValueType(type, i);
-
 			String str;
 			GetString(str, i);
 
-			if (type == EDataValueType::String)
-			{
-				rep += fmt::format("\t[{0}] String\t = \"{1}\"\n", i, str.Buffer());
-			}
-			else
-			{
-				rep += fmt::format("\t[{0}] Float\t = {1}\n", i, str.Buffer());
-			}
+			float f;
+			GetFloat(f, i);
+
+			uint32_t uint;
+			GetUInt32(uint, i);
+
+			rep += fmt::format("\t[{0}]\t\t{1}\t{2}\t\"{3}\"\n", i, f, uint, str.Buffer());
 		}
 
 		return rep.c_str();

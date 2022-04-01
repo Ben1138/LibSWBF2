@@ -44,12 +44,6 @@ namespace LibSWBF2.Wrappers
             return Marshal.PtrToStringAnsi(APIWrapper.Field_GetString(NativeInstance, index));
         }
 
-        public EDataValueType GetValueType(byte index=0)
-        {
-            CheckValidity();
-            return APIWrapper.Field_GetValueType(NativeInstance, index);
-        }
-
         public float GetFloat(byte index=0)
         {
             CheckValidity();

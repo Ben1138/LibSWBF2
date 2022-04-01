@@ -61,18 +61,6 @@ namespace LibSWBF2::Wrappers
 		return p_Data->m_NumValues;
 	}
 
-	EDataValueType Field::GetValueType(uint8_t index) const
-	{
-		EDataValueType out;
-		if (p_Data->GetValueType(out, index))
-		{
-			return out;
-		}
-
-		LOG_WARN("Could not get field value type at index {0} in DATA chunk '{1}'!", index, GetName().Buffer());
-		return EDataValueType::Float;
-	}
-
 	float_t Field::GetFloat(uint8_t index) const
 	{	
 		float_t out;
