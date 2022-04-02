@@ -84,4 +84,5 @@ namespace LibSWBF2::Chunks::LVL::config
 	template struct LIBSWBF2_API ConfigChunk<"mus_"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"ffx_"_m>;
 	template struct LIBSWBF2_API ConfigChunk<"tsr_"_m>;
+	template struct LIBSWBF2_API ConfigChunk<"hud_"_m>;
 }

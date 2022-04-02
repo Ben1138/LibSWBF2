@@ -236,6 +236,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, triggerSoundRegion);
 						chunk = triggerSoundRegion;	
 					}
+					else if (nextHead == "hud_"_h)
+					{
+						LVL::config::hud_* hudConfig;
+						READ_CHILD(stream, hudConfig);
+						chunk = hudConfig;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -443,6 +449,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"mus_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"ffx_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tsr_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"hud_"_m>;
 
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
