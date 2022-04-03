@@ -461,6 +461,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/anmh.h"
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
+#include "Chunks/LVL/plan/plan.h"
 
 #include "Chunks/LVL/sound/Stream.h"
 #include "Chunks/LVL/sound/SampleBank.h"
@@ -606,6 +607,9 @@ namespace LibSWBF2
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;
+
+	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::plan::NODE::Hub>;
+	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::plan::ARCS::Connection>;
 
 }
 

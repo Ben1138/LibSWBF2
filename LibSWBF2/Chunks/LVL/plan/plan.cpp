@@ -87,7 +87,7 @@ void LibSWBF2::Chunks::plan::NODE::ReadFromStream(FileReader& stream)
 
         stream.SkipBytes(sum * m_iCount);
 
-        m_aHubs.push_back(hub);
+        m_aHubs.Add(hub);
     }
 
     BaseChunk::EnsureEnd(stream);
@@ -118,7 +118,7 @@ void LibSWBF2::Chunks::plan::ARCS::ReadFromStream(FileReader& stream)
         connection.flag_one = stream.ReadUInt32();
         connection.flag_two = stream.ReadUInt32();
 
-        m_aConnections.push_back(connection);
+        m_aConnections.Add(connection);
     }
 
     BaseChunk::EnsureEnd(stream);
