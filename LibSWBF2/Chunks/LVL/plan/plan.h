@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::plan
 		NODE(uint16_t count);
 
 		uint16_t m_iCount;
-		std::vector<Hub> m_aHubs;
+		Types::List<Hub> m_aHubs;
 
 		void ReadFromStream(FileReader& stream) override;
 	};
@@ -46,7 +46,7 @@ namespace LibSWBF2::Chunks::plan
 		ARCS(uint16_t count);
 
 		uint16_t m_iCount;
-		std::vector<Connection> m_aConnections;
+		Types::List<Connection> m_aConnections;
 
 		void ReadFromStream(FileReader& stream) override;
 	};
