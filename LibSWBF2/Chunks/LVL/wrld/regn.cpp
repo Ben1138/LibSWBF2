@@ -30,7 +30,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
             }
             else if (next == "PROP"_h)
             {
-                READ_CHILD(stream, p_Prop);
+                READ_CHILD(stream, m_Props.Emplace());
             }
             else 
             {
