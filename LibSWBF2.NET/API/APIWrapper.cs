@@ -260,7 +260,10 @@ namespace LibSWBF2
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool Region_FetchAllFields(IntPtr reg, out IntPtr size, 
                                                         out IntPtr pos, out IntPtr rot,
-                                                        out IntPtr name, out IntPtr type);       
+                                                        out IntPtr name, out IntPtr type); 
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Region_GetProperties(IntPtr reg, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);      
         
 
         // Script //
