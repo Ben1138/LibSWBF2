@@ -182,6 +182,8 @@ namespace LibSWBF2
         LIBSWBF2_API const uint8_t Region_FetchAllFields(const Region* reg, const Vector3*& sizeOut, 
         											const Vector3*& posOut, const Vector4*& rotOut, 
         											const char *&nameOut, const char*& typeOut);
+        LIBSWBF2_API const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
+
         // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,

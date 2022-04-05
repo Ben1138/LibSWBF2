@@ -808,6 +808,23 @@ namespace LibSWBF2
 	}
 
 
+    const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	{
+		count = 0;
+		CheckPtr(reg,)
+		static List<const char*> ptrsBuffer;
+		static List<String> values;
+		static List<uint32_t> hashes;
+
+		reg->GetProperties(hashes, values);
+
+		hashesBuffer = hashes.GetArrayPtr();
+		count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
+	}
+
+
 	//Wrappers - World
 
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
