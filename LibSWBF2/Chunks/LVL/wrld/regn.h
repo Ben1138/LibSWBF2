@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::LVL::wrld
 	{
 	public:
 		INFO* p_Info;
-		PROP* p_Prop = nullptr;
+		List<PROP*> m_Props;
 
 	public:
 		void RefreshSize() override;
