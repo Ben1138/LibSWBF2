@@ -21,6 +21,7 @@ namespace LibSWBF2
 		struct anmg;
 		struct anmh;
 		struct BARR;
+		struct Hint;
 	}
 }
 
@@ -38,6 +39,26 @@ namespace LibSWBF2::Wrappers
 	class Terrain;
 	class World;
 
+
+
+	class HintNode
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::Hint Hint;
+
+		friend World;
+		friend List<HintNode>;
+
+		Hint * p_HintNode;
+		HintNode() = default;
+
+		static bool FromChunk(Hint* chunk, HintNode& hintOut);
+
+	public:
+		const String& GetName() const;
+		const Vector3& GetPosition() const;
+		Vector4 GetRotation() const;
+		const uint16_t& GetType() const;
+	};
 
 
 	class Barrier
@@ -155,6 +176,7 @@ namespace LibSWBF2::Wrappers
 		List<Instance> m_Instances;
 		List<Region> m_Regions;
 		List<Barrier> m_Barriers;
+		List<HintNode> m_HintNodes;
 		List<WorldAnimation> m_Animations;
 		List<WorldAnimationGroup> m_AnimationGroups;
 		List<WorldAnimationHierarchy> m_AnimationHierarchies;
@@ -169,6 +191,7 @@ namespace LibSWBF2::Wrappers
 		const List<Instance>& GetInstances() const;
 		const List<Region>& GetRegions() const;
 		const List<Barrier>& GetBarriers() const;
+		const List<HintNode>& GetHintNodes() const;
 		Types::String GetTerrainName() const;
 		const Terrain* GetTerrain() const;
 		Types::String GetSkyName() const;

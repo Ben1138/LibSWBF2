@@ -13,6 +13,45 @@
 namespace LibSWBF2::Wrappers
 {
 
+	// HintNode
+
+	bool HintNode::FromChunk(Hint* chunk, HintNode& hintOut)
+	{
+		if (chunk -> p_Info == nullptr ||
+			chunk -> p_Info -> p_Name == nullptr ||
+			chunk -> p_Info -> p_Type == nullptr ||
+			chunk -> p_Info -> p_Transform == nullptr)
+		{
+			return false;
+		}
+
+		hintOut.p_HintNode = chunk;
+		return true;
+	}
+
+	const String& HintNode::GetName() const
+	{
+		return p_HintNode -> p_Info -> p_Name -> m_Text;
+	}
+
+	const Vector3& HintNode::GetPosition() const
+	{
+		return p_HintNode -> p_Info -> p_Transform -> m_Position;
+	}
+
+	Vector4 HintNode::GetRotation() const
+	{
+		return MatrixToQuaternion(p_HintNode -> p_Info -> p_Transform -> m_RotationMatrix);
+	}
+
+	const uint16_t& HintNode::GetType() const
+	{
+		return p_HintNode -> p_Info -> p_Type -> m_Type;
+	}
+
+
+
+
 	// Barrier
 
 	bool Barrier::FromChunk(BARR* chunk, Barrier& barrOut)
@@ -281,6 +320,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		List<Hint *>& hintNodes = worldChunk -> m_HintNodes;
+		for (size_t i = 0; i < hintNodes.Size(); ++i)
+		{
+			HintNode hintNode;
+			if (HintNode::FromChunk(hintNodes[i], hintNode))
+			{
+				out.m_HintNodes.Add(hintNode);
+			}
+		}
+
 		List<anim *>& animations = worldChunk -> m_Animations;
 		for (size_t i = 0; i < animations.Size(); ++i)
 		{
@@ -332,6 +381,11 @@ namespace LibSWBF2::Wrappers
 	const List<Barrier>& World::GetBarriers() const
 	{
 		return m_Barriers;
+	}
+
+	const List<HintNode>& World::GetHintNodes() const
+	{
+		return m_HintNodes;
 	}
 
 	Types::String World::GetTerrainName() const
