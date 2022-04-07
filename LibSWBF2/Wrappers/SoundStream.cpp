@@ -19,6 +19,12 @@ namespace LibSWBF2::Wrappers
 	using Types::SoundClip;
 
 
+	SoundStream::~SoundStream()
+	{
+		delete p_Decoder;
+	}
+
+
 	bool SoundStream::SetFileReader(FileReader * reader)
 	{
 		p_Reader = reader;
@@ -45,19 +51,19 @@ namespace LibSWBF2::Wrappers
 	{
 		if (p_StreamBuffer == nullptr)
 		{
-			std::cout << "Stream buffer is not set..." << std::endl;
+			LOG_ERROR("Cannot read encoded bytes, stream buffer is not set!");
 			return -1;
 		}
 
 		if (p_Reader == nullptr)
 		{
-			std::cout << "Reader is not set..." << std::endl;
+			LOG_ERROR("Cannot read encoded bytes, stream reader is not set!");
 			return -1;
 		}
 
 		if (p_CurrentSegment == nullptr)
 		{
-			std::cout << "Current segment is not defined!" << std::endl;
+			LOG_ERROR("Cannot read encoded bytes, the segment to be read is not set!");
 			return -1;
 		}
 
@@ -75,9 +81,7 @@ namespace LibSWBF2::Wrappers
 			p_Reader -> ReadBytes(p_StreamBuffer, NumBytesToRead);
 
 			m_SegmentOffset += NumBytesToRead;
-
 			m_StreamBufferDataSize = NumBytesToRead;
-
 			m_StreamBufferReadOffset = 0;
 
 			return NumBytesToRead;  
@@ -91,7 +95,7 @@ namespace LibSWBF2::Wrappers
 
     int32_t SoundStream::GetNumSamplesInBytes(int32_t NumBytes)
     {
-    	return m_Decoders[m_SubstreamIndex] -> SamplesInBytes(NumBytes);
+    	return p_Decoder -> SamplesInBytes(NumBytes);
     }
 
 
@@ -121,34 +125,24 @@ namespace LibSWBF2::Wrappers
 	    		NumBytesLeftInBuffer = m_StreamBufferDataSize - m_StreamBufferReadOffset;
     		}
 
-    		int32_t NumSamplesJustRead;
+    		int32_t NumSamplesDecoded;
 
 	    	if (format == ESoundFormat::Unity)
 	    	{
-				NumSamplesJustRead = m_Decoders[0] -> DecodeAndFillUnity(p_StreamBuffer + m_StreamBufferReadOffset, NumBytesLeftInBuffer, (float *) samplesBuffer + NumSamplesRead, (size_t) numSamplesToRead - NumSamplesRead, BytesRead);
+				NumSamplesDecoded = p_Decoder -> DecodeAndFillUnity(p_StreamBuffer + m_StreamBufferReadOffset, NumBytesLeftInBuffer, (float *) samplesBuffer + NumSamplesRead, (size_t) numSamplesToRead - NumSamplesRead, BytesRead);
 	    	}
 	    	else if (format == ESoundFormat::PCM16)
 	    	{
-				NumSamplesJustRead = m_Decoders[0] -> DecodeAndFillPCM16(p_StreamBuffer + m_StreamBufferReadOffset, NumBytesLeftInBuffer, (int16_t *) samplesBuffer + NumSamplesRead, (size_t) numSamplesToRead - NumSamplesRead, BytesRead);
+				NumSamplesDecoded = p_Decoder -> DecodeAndFillPCM16(p_StreamBuffer + m_StreamBufferReadOffset, NumBytesLeftInBuffer, (int16_t *) samplesBuffer + NumSamplesRead, (size_t) numSamplesToRead - NumSamplesRead, BytesRead);
 	    	}
 	    	else 
 	    	{
 	    		return -1;
 	    	}
 
-	    	NumSamplesRead += NumSamplesJustRead;
+	    	NumSamplesRead += NumSamplesDecoded;
 
 	    	m_StreamBufferReadOffset += BytesRead;
-
-	    	//std::cout << "Read " << NumSamplesJustRead << " samples, " << numSamplesToRead - NumSamplesRead << " remain..." << std::endl;
-
-	    	/*
-	    	if (BytesLeftInBuffer == 0)
-	    	{
-	    		ReadBytesFromStream(m_SizeStreamBuffer);
-	    		BytesLeftInBuffer = m_SizeStreamBuffer - m_StreamBufferReadOffset;
-	    	}
-	    	*/
     	}
 
     	return NumSamplesRead;
@@ -157,12 +151,10 @@ namespace LibSWBF2::Wrappers
 
 
 
-
+    /*
     int32_t SoundStream::ReadSamplesFromBytes(void * samplesBuffer, size_t samplesBufferLength, 
         							size_t numBytesToRead, ESoundFormat format, int32_t &bytesRead)
-    {
-    	return -1;
-    	/*
+    {    	
     	if (format == ESoundFormat::Unity)
     	{
 			return DecodeAndFillUnity(p_StreamBuffer, numBytesToRead, (float *) samplesBuffer, samplesBufferLength, bytesRead);
@@ -175,8 +167,8 @@ namespace LibSWBF2::Wrappers
     	{
     		return -1;
     	}
-    	*/
     }
+    */
 
 
 
@@ -185,13 +177,13 @@ namespace LibSWBF2::Wrappers
     {
     	if (p_Reader == nullptr)
     	{	
-    		std::cout << "Cannot set segment, reader is unassigned!" << std::endl;
+    		LOG_ERROR("Cannot set segment, reader is unassigned!");
     		return false;
     	}
 
     	if (p_StreamBuffer == nullptr)
     	{
-    		std::cout << "Cannot set segment, stream buffer is unassigned!" << std::endl;
+    		LOG_ERROR("Cannot set segment, stream buffer is unassigned!");
     		return false;
     	}
 
@@ -208,12 +200,8 @@ namespace LibSWBF2::Wrappers
     		m_StreamBufferDataSize = 0;
     		m_StreamBufferReadOffset = 0;
 
-    		for (int i = 0; i < m_Decoders.Size(); i++)
-    		{
-    			m_Decoders[i] -> Reset();
-    		}
+    		p_Decoder -> Reset();
 
-    		//std::cout << "Setting reader position to current segment" << std::endl;
     		p_Reader -> SetPosition(p_CurrentSegment -> GetDataPosition());
 
     		return true;
@@ -235,20 +223,14 @@ namespace LibSWBF2::Wrappers
 
 		for (int i = 0; i < streamChunk -> p_Info -> m_NumSubstreams; i++)
 		{
-			SoundDecoder * dec = nullptr;
 			auto format = streamChunk -> p_Info -> m_Format;
 			if (format == ESoundFormat::IMAADPCM)
 			{
-				dec = new IMAADPCMDecoder(streamChunk -> p_Info -> m_NumChannels, streamChunk -> p_Info -> m_ChannelInterleave);
+				out.p_Decoder = new IMAADPCMDecoder(streamChunk -> p_Info -> m_NumChannels, streamChunk -> p_Info -> m_ChannelInterleave);
 			}
 			else if (format == ESoundFormat::PCM16)
 			{
-				dec = new PCM16Decoder();
-			}
-
-			if (dec != nullptr)
-			{
-				out.m_Decoders.Add(dec);
+				out.p_Decoder = new PCM16Decoder();
 			}
 		}
 

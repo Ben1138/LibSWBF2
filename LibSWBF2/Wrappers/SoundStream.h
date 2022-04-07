@@ -30,93 +30,44 @@ namespace LibSWBF2::Wrappers
 
 	class Level;
 
-	/*
-	class LIBSWBF2_API SoundStreamReader
-	{
-		friend SoundStream;
-		
-		FileReader * p_Reader = nullptr;
-
-		uint8_t * p_StreamBuffer = nullptr;
-		size_t m_SizeStreamBuffer;
-
-		size_t m_StreamBufferReadOffset;
-		size_t m_NumBytesInStreamBuffer;
-
-		size_t m_SegmentOffset;
-
-		SoundDecoder * p_Decoder;
-
-		bool m_IsSubstream;
-		size_t m_InterleaveSize;
-		Sound * p_CurrentSegment = nullptr;
-
-		int32_t BytesLeftInSegment();
-
-	public: 
-
-		~SoundStreamReader()
-		{
-			delete p_StreamBuffer;
-			delete p_Decoder;
-		}
-
-		SoundStreamReader() = delete;
-		SoundStreamReader(const SoundStreamReader&) = delete;
-
-		SoundStreamReader(const SoundStream& str, const FileReader * reader, 
-						size_t streamBufferSize, int32_t SubStreamIndex=-1)
-		{
-			p_StreamBuffer = new uint8_t[streamBufferSize];
-
-			if (str.GetNumSubstreams() > 1)
-			{
-
-			}
-		}
-
-		bool SetSegment(FNVHash segmentNameHash);
-        int32_t ReadSamples(void * samplesBuffer, size_t numSamplesToRead, ESoundFormat format);
-        int32_t GetNumSamplesInBytes(int32_t NumBytes);
-
-        int32_t Buffer(int32_t NumBytesToBuffer = -1)
-        {
-
-        }
-	}
-	*/
-
-
 	class LIBSWBF2_API SoundStream
 	{
 	private:
 		friend Level;
-		//friend AudioStreamer;
 		friend List<SoundStream>;
 
 		SoundStream() = default;
+		~SoundStream();
+
 
 		Stream* p_StreamChunk;
 
 		List<Sound> m_Sounds;
 
+		/*
+		File stream reader and buffer fields
+		*/
 
 		FileReader * p_Reader = nullptr;
-
 		uint8_t * p_StreamBuffer = nullptr;
 		size_t m_SizeStreamBuffer;
 
-		size_t m_StreamBufferReadOffset;
-		size_t m_StreamBufferDataSize;
-
-		size_t m_SegmentOffset;
-
-
-		uint8_t m_SubstreamIndex = 0;
-		List<SoundDecoder *> m_Decoders;
+		/*
+		Fields relating stream/buffer to current segment properties
+		*/
 
 		Sound * p_CurrentSegment = nullptr;
+		size_t m_StreamBufferReadOffset;
+		size_t m_StreamBufferDataSize;
+		size_t m_SegmentOffset;
 
+		/*
+		Decoder, there was originally one for each substream,
+		but soundmunge exe says substream interleave will never interrupt a
+		IMAADPCM block, so one will do. 
+		*/
+
+		SoundDecoder * p_Decoder = nullptr;
 
 		class SoundMapsWrapper* p_NameToIndexMaps;
 
@@ -124,21 +75,36 @@ namespace LibSWBF2::Wrappers
 
 	public:
 
+		// Caller must provide stream (any subclass of FileReader) and pre-allocate/provide...
 		bool SetFileReader(FileReader * reader);
 
+		// the stream buffer and...
 		bool SetFileStreamBuffer(uint8_t * buffer, size_t numBytes);
 
-		int32_t ReadBytesFromStream(int32_t NumBytes);
-
-		int32_t BytesLeftInSegment();
-
+		// identify the specific segment to be read before calling...
 		bool SetSegment(FNVHash segmentNameHash);
 
+		// ReadBytesFromStream, which puts the encoded bytes in the stream buffer, after which
+		// the final call to ReadSamples can proceed.
+		int32_t ReadBytesFromStream(int32_t NumBytes);
+
+		// Complicated, but I figured these params would need to be experimented with a lot
+		// from C# so I wanted to keep all this exposed until we nail down exactly what 
+		// buffering behavior is best in Unity.
+		// Plus, we know from the Lua API that only one stream can be played from a given file
+		// at any time, so it makes sense to give the option of sharing one stream and buffer
+		// between multiple SoundStreams of the same file... 
         int32_t ReadSamples(void * samplesBuffer, size_t samplesBufferLength, 
         					size_t numSamplesToRead, ESoundFormat format);
 
+		int32_t BytesLeftInSegment();
+
+        /*
+        // This method might not be needed, it depends on whether or not we
+		// encounter other formats or if IMAADPCM block boundaries can be violated...
         int32_t ReadSamplesFromBytes(void * samplesBuffer, size_t samplesBufferLength, 
         							size_t numBytesToRead, ESoundFormat format, int32_t &bytesRead);
+        */
 
         int32_t GetNumSamplesInBytes(int32_t NumBytes);
 
