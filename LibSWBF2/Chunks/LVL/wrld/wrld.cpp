@@ -63,6 +63,10 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				READ_CHILD(stream, m_Barriers.Emplace());
 			}
+			else if (nextHead == "Hint"_h)
+			{
+				READ_CHILD(stream, m_HintNodes.Emplace());
+			}
 			else
 			{
 				READ_CHILD_GENERIC(stream);
