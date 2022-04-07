@@ -460,6 +460,7 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/anmg.h"
 #include "Chunks/LVL/wrld/anmh.h"
 #include "Chunks/LVL/wrld/BARR.h"
+#include "Chunks/LVL/wrld/Hint.h"
 
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
@@ -544,6 +545,7 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
     
     template class LIBSWBF2_API Types::List<LVL::wrld::BARR *>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::Hint *>;
 
     template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;

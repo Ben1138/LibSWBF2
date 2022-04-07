@@ -404,6 +404,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"FLAG"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BARR"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Hint"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
