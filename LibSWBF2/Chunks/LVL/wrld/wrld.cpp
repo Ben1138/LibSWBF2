@@ -59,6 +59,10 @@ namespace LibSWBF2::Chunks::LVL::wrld
 			{
 				READ_CHILD(stream, m_AnimationHierarchies.Emplace());
 			}
+			else if (nextHead == "BARR"_h)
+			{
+				READ_CHILD(stream, m_Barriers.Emplace());
+			}
 			else
 			{
 				READ_CHILD_GENERIC(stream);

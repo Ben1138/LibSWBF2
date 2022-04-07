@@ -7,6 +7,7 @@
 #include "anmg.h"
 #include "anim.h"
 #include "anmh.h"
+#include "BARR.h"
 
 
 namespace LibSWBF2::Chunks::LVL::wrld
@@ -26,6 +27,8 @@ namespace LibSWBF2::Chunks::LVL::wrld
 		List<anim*> m_Animations;
 		List<anmg*> m_AnimationGroups;
 		List<anmh*> m_AnimationHierarchies;
+
+		List<BARR*> m_Barriers;
 
 	public:
 		void RefreshSize() override;

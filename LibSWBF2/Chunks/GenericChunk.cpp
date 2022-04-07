@@ -402,6 +402,8 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"FLAG"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BARR"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
@@ -466,7 +468,6 @@ namespace LibSWBF2::Chunks
 
 	//plan
 	template struct LIBSWBF2_API GenericChunk<"plan"_m>;
-	template struct LIBSWBF2_API GenericChunk<"NODE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"ARCS"_m>;
 	template struct LIBSWBF2_API GenericChunk<"PLNS"_m>;
 }

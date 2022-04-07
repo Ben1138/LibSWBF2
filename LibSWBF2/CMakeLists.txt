@@ -21,6 +21,10 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
+#if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
+#endif()
+
 target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(LibSWBF2 glm)
@@ -116,6 +120,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Types/Vector3u8.cpp"
   "${PROJECT_SOURCE_DIR}/Types/Vector4.cpp"
   "${PROJECT_SOURCE_DIR}/Types/WorldAnimationKey.cpp"
+  "${PROJECT_SOURCE_DIR}/Types/Planning.cpp"
 
   # Wrappers
   "${PROJECT_SOURCE_DIR}/Wrappers/AnimationBank.cpp"
@@ -237,6 +242,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anim.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anmg.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anmh.INFO.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/BARR.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/BIN_.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/MINA.cpp"
