@@ -12,6 +12,51 @@
 
 namespace LibSWBF2::Wrappers
 {
+
+	// Barrier
+
+	bool Barrier::FromChunk(BARR* chunk, Barrier& barrOut)
+	{
+		if (chunk -> p_Info == nullptr ||
+			chunk -> p_Info -> p_Name == nullptr ||
+			chunk -> p_Info -> p_Flag == nullptr ||
+			chunk -> p_Info -> p_Size == nullptr ||
+			chunk -> p_Info -> p_Transform == nullptr)
+		{
+			return false;
+		}
+
+		barrOut.p_Barrier = chunk;
+		return true;
+	}
+
+	const String& Barrier::GetName() const
+	{
+		return p_Barrier -> p_Info -> p_Name -> m_Text;
+	}
+
+	const Vector3& Barrier::GetPosition() const
+	{
+		return p_Barrier -> p_Info -> p_Transform -> m_Position;
+	}
+
+	Vector4 Barrier::GetRotation() const
+	{
+		return MatrixToQuaternion(p_Barrier -> p_Info -> p_Transform -> m_RotationMatrix);
+	}
+
+	const Vector3& Barrier::GetSize() const
+	{
+		return p_Barrier -> p_Info -> p_Size -> m_Dimensions;
+	}
+
+	const uint32_t& Barrier::GetFlag() const
+	{
+		return p_Barrier -> p_Info -> p_Flag -> m_Flag;
+	}
+
+
+
 	// Region
 
 	bool Region::FromChunk(regn* chunk, Region& regOut)
@@ -226,6 +271,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		List<BARR *>& barriers = worldChunk -> m_Barriers;
+		for (size_t i = 0; i < barriers.Size(); ++i)
+		{
+			Barrier barrier;
+			if (Barrier::FromChunk(barriers[i], barrier))
+			{
+				out.m_Barriers.Add(barrier);
+			}
+		}
+
 		List<anim *>& animations = worldChunk -> m_Animations;
 		for (size_t i = 0; i < animations.Size(); ++i)
 		{
@@ -272,6 +327,11 @@ namespace LibSWBF2::Wrappers
 	const List<Region>& World::GetRegions() const
 	{
 		return m_Regions;
+	}
+
+	const List<Barrier>& World::GetBarriers() const
+	{
+		return m_Barriers;
 	}
 
 	Types::String World::GetTerrainName() const
