@@ -43,19 +43,44 @@ namespace LibSWBF2::Chunks::LVL::sound
 					Types::SoundClip& currClip = info -> m_SoundHeaders[i];
 
 					size_t EndPos = stream.GetPosition() + currClip.m_DataLength + currClip.m_Padding;
-					if (!PositionInChunk(EndPos - 1))
-					{
-						LOG_ERROR("Attempt to read Stream's SoundClip data would overshoot file...");
-						break;
-					}
+					//if (!PositionInChunk(EndPos - 1))
+					//{
+						//LOG_ERROR("Attempt to read Stream's SoundClip data would overshoot file...");
+						//break;
+					//}
 
 					// If sound header has alias we skip it
 					if (currClip.m_Alias != 0)
 					{
+						LOG_WARN("Encountered aliased stream in file: {}, stream {:#x}, segment {:#x}", stream.GetFileName(), info -> m_Name, currClip.m_NameHash);
 						continue;
 					}
 
-					currClip.ReadDataFromStream(stream);
+					currClip.m_DataPosition = stream.GetPosition();
+
+					if (!PositionInChunk(currClip.m_DataPosition + currClip.m_DataLength - 1))
+					{
+						LOG_WARN("Stream segment's data overruns chunk by {} bytes. (file: {}, stream: {:#x})", 
+								(currClip.m_DataPosition + currClip.m_DataLength) - (GetDataPosition() + m_Size),
+								stream.GetFileName(), info -> m_Name);
+						continue;
+					}
+					else 
+					{
+						stream.SkipBytes(currClip.m_DataLength);
+					}
+
+					if (!PositionInChunk(stream.GetPosition() + currClip.m_Padding - 1))
+					{
+						LOG_WARN("Stream segment's padding overruns chunk by {} bytes. (file: {}, stream: {:#x})", 
+								(stream.GetPosition() + currClip.m_Padding) - (GetDataPosition() + m_Size),
+								stream.GetFileName(), info -> m_Name);
+						continue;
+					}
+					else 
+					{
+						stream.SkipBytes(currClip.m_Padding);
+					}
 				}
 			}
 		}

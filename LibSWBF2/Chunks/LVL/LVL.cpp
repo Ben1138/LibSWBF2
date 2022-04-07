@@ -9,23 +9,29 @@
 #include "Chunks/LVL/sound/StreamInfo.h"
 
 #include <sstream>
+#include <iostream>
 
 namespace LibSWBF2::Chunks::LVL
 {
 	using LibSWBF2::Chunks::LVL::sound::Stream;
 
 
-	LVL* LVL::Create(bool Lazy)
+	LVL* LVL::Create()
 	{
-		LVL* lvl = new LVL();
-		lvl -> m_Lazy = Lazy;
-		return lvl;
+		return new LVL();
 	}
 
 	void LVL::Destroy(LVL* lvl)
 	{
 		delete lvl;
 	}
+
+
+	void LVL::SetLazy(bool Lazy)
+	{
+		m_Lazy = true;
+	}
+
 
 	void LVL::ReadFromStream(FileReader& stream)
 	{
@@ -63,7 +69,7 @@ namespace LibSWBF2::Chunks::LVL
 			{
 				try
 				{
-					if (nextHead == "StreamList"_fnvh || nextHead == "lvl_"_h)
+					if (nextHead == "StreamList"_fnvh || nextHead == "lvl_"_h || nextHead == "_pad"_h)
 					{
 						stream.SkipBytes(8);
 					}
@@ -74,7 +80,7 @@ namespace LibSWBF2::Chunks::LVL
 					}
 					else 
 					{
-						BaseChunk::SkipChunk(stream,true);
+						BaseChunk::SkipChunk(stream,false);
 					}
 				}
 				catch (LibException e)

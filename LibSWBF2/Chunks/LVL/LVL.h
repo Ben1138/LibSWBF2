@@ -13,13 +13,15 @@ namespace LibSWBF2::Chunks::LVL
 	{
 	private:
 		List<FNVHash> m_SubLVLsToLoad;
-		bool m_Lazy;
+		bool m_Lazy = false;
 
 	public:
 		friend struct lvl_;
 
-		static LVL* Create(bool Lazy = false);
+		static LVL* Create();
 		static void Destroy(LVL* lvl);
+
+		void SetLazy(bool Lazy = true);
 
 		void ReadFromStream(FileReader& stream) override;
 

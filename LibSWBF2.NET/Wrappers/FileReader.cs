@@ -18,7 +18,7 @@ namespace LibSWBF2.Wrappers
 
         ~FileReader()
         {
-            //CheckValidity();
+            CheckValidity();
             APIWrapper.FileReader_Delete(NativeInstance);
             Invalidate();
         }

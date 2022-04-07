@@ -52,6 +52,11 @@ namespace LibSWBF2::Chunks::LVL::sound
 			else if (next == "Data"_fnvh)
 			{
 				READ_CHILD(stream, p_Data);
+				if (!PositionInChunk(stream.GetPosition()))
+				{
+					stream.SetPosition(GetDataPosition() + GetAlignedSize());
+					break;
+				}
 			}
 			else 
 			{
