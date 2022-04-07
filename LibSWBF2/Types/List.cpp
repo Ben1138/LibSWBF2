@@ -459,6 +459,8 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/anim.h"
 #include "Chunks/LVL/wrld/anmg.h"
 #include "Chunks/LVL/wrld/anmh.h"
+#include "Chunks/LVL/wrld/BARR.h"
+
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
 #include "Chunks/LVL/plan/plan.h"
@@ -541,6 +543,8 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
     template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
     
+    template class LIBSWBF2_API Types::List<LVL::wrld::BARR *>;
+
     template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
 
@@ -608,8 +612,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;
 
-	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::plan::NODE::Hub>;
-	template class LIBSWBF2_API Types::List<LibSWBF2::Chunks::plan::ARCS::Connection>;
+	template class LIBSWBF2_API Types::List<Hub>;
+	template class LIBSWBF2_API Types::List<Connection>;
 
 }
 
