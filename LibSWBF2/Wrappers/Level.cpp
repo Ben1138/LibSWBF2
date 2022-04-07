@@ -192,6 +192,16 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		hud_* hudChunk = dynamic_cast<hud_*>(root);
+		if (hudChunk != nullptr)
+		{
+			Config HUD;
+			if (Config::FromChunk(hudChunk, HUD))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(HUD.m_Name + (uint32_t) HUD.m_Type, m_Configs.Add(std::move(HUD)));
+			}
+		}
+
 		// IMPORTANT: crawl skeletons BEFORE models, so skeleton references via string can be resolved in models
 		skel* skelChunk = dynamic_cast<skel*>(root);
 		if (skelChunk != nullptr)
@@ -420,7 +430,8 @@ namespace LibSWBF2::Wrappers
 
 	Level* Level::FromStream(FileReader& reader)
 	{
-		LVL* lvl = LVL::Create(true);
+		LVL* lvl = LVL::Create();
+		lvl -> SetLazy(true);
 		lvl -> ReadFromStream(reader);
 
 		Level* result = new Level(lvl, nullptr);
@@ -820,15 +831,22 @@ namespace LibSWBF2::Wrappers
 
 	SoundStream* Level::FindAndIndexSoundStream(FileReader& stream, FNVHash StreamName)
 	{
-		Stream* streamChunk;
-		if (p_lvl -> FindAndReadSoundStream(stream, StreamName, streamChunk))
+		auto it = m_NameToIndexMaps->SoundStreamHashToIndex.find(StreamName);
+		if (it != m_NameToIndexMaps->SoundStreamHashToIndex.end())
 		{
-			return WrapStreamChunk(streamChunk);
+			return &m_SoundStreams[it->second];
 		}
 		else 
 		{
-			return nullptr;
+			Stream* streamChunk;
+			if (p_lvl -> FindAndReadSoundStream(stream, StreamName, streamChunk))
+			{
+				return WrapStreamChunk(streamChunk);
+			}
+			else 
+			{
+				return nullptr;
+			}			
 		}
 	}
-
 }
