@@ -1332,7 +1332,9 @@ namespace LibSWBF2
 		}
 		else 
 		{
-			return str -> ReadSamplesFromBytes(sBuf, sBufLength, numToRead, format, numBytesRead);
+			// This method might not be needed, it depends on whether or not we
+			// encounter other formats or if IMAADPCM block boundaries can be violated...
+			return -1;// str -> ReadSamplesFromBytes(sBuf, sBufLength, numToRead, format, numBytesRead);
 		}
     }
 
