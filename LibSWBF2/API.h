@@ -180,7 +180,7 @@ namespace LibSWBF2
         LIBSWBF2_API const void * Barrier_GetFieldPtr(const Barrier* bar, uint8_t fieldID);
 
 		// Wrappers - Region
-        LIBSWBF2_API const void * HintNode_GetFieldPtr(const Barrier* bar, uint8_t fieldID);
+        LIBSWBF2_API const void * HintNode_GetFieldPtr(const HintNode* hnt, uint8_t fieldID);
 
         // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,

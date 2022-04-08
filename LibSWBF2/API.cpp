@@ -796,9 +796,32 @@ namespace LibSWBF2
     }
 
 	// Wrappers - HintNode
-    const void * HintNode_GetFieldPtr(const Barrier* bar, uint8_t fieldID)
+    const void * HintNode_GetFieldPtr(const HintNode* hnt, uint8_t fieldID)
     {
-    	return nullptr;
+    	CheckPtr(hnt, nullptr);
+    	static Vector4 rotCache;
+
+    	void *fieldPtr = nullptr;
+    	switch (fieldID)
+    	{
+    		case 0:
+    			fieldPtr = (void *) &(hnt -> GetPosition());
+    			break;
+    		case 1:
+    			rotCache = hnt -> GetRotation();
+    			fieldPtr = (void *) &rotCache;
+    			break;
+    		case 2:
+    			fieldPtr = (void *) &(hnt -> GetType());
+    			break;
+    		case 3:
+    			fieldPtr = (void *) hnt -> GetName().Buffer();
+    			break;
+    		default:
+    			break; 
+    	}
+
+    	return fieldPtr;
     }
 
 
