@@ -763,14 +763,50 @@ namespace LibSWBF2
 	}
 
 
+	// Wrappers - Barrier
+    const void * Barrier_GetFieldPtr(const Barrier* bar, uint8_t fieldID)
+    {
+    	CheckPtr(bar, nullptr);
+    	static Vector4 rotCache;
+
+    	void *fieldPtr = nullptr;
+    	switch (fieldID)
+    	{
+    		case 0:
+    			fieldPtr = (void *) &(bar -> GetPosition());
+    			break;
+    		case 1:
+    			rotCache = bar -> GetRotation();
+    			fieldPtr = (void *) &rotCache;
+    			break;
+    		case 2:
+    			fieldPtr = (void *) &(bar -> GetFlag());
+    			break;
+    		case 3:
+    			fieldPtr = (void *) bar -> GetName().Buffer();
+    			break;
+    		case 4:
+    			fieldPtr = (void *) &(bar -> GetSize());
+    			break;
+    		default:
+    			break; 
+    	}
+
+    	return fieldPtr;
+    }
+
+	// Wrappers - HintNode
+    const void * HintNode_GetFieldPtr(const Barrier* bar, uint8_t fieldID)
+    {
+    	return nullptr;
+    }
+
+
+
+
 	//Wrappers - World
 
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
-										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
-										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
-										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
-										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -781,35 +817,82 @@ namespace LibSWBF2
 		skyNameCache = world -> GetSkyName();
 		skyNameOut = skyNameCache.Buffer();
 
-    	const List<Instance>& instances = world -> GetInstances();
-		instanceArr = instances.GetArrayPtr();
-		instCount = (int32_t)instances.Size();
-		instInc = sizeof(Instance);
-
-    	const List<Region>& regions = world -> GetRegions();
-		regionArr = regions.GetArrayPtr();
-		regCount = (int32_t)regions.Size();
-		regInc = sizeof(Region);
-
-    	const List<WorldAnimation>& anims = world -> GetAnimations();
-		animArr = anims.GetArrayPtr();
-		animCount = (int32_t)anims.Size();
-		animInc = sizeof(WorldAnimation);
-
-    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
-		animGroupArr = animGroups.GetArrayPtr();
-		animGroupCount = (int32_t)animGroups.Size();
-		animGroupInc = sizeof(WorldAnimationGroup);
-
-    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
-		animHierArr = animHiers.GetArrayPtr();
-		animHierCount = (int32_t)animHiers.Size();
-		animHierInc = sizeof(WorldAnimationHierarchy);
-
 		terrPtr = world -> GetTerrain();
 
 		return true;
 	}
+
+
+	const bool World_GetChildrenList(const World* world, uint8_t listID, void *& listPtr, int32_t& listCount, int32_t& wrapperSize)
+	{
+		CheckPtr(world,false);
+
+		listPtr = nullptr;
+		switch (listID)
+		{
+			case 0:
+			{
+		    	const List<Instance>& instances = world -> GetInstances();
+				listPtr = (void *) instances.GetArrayPtr();
+				listCount = (int32_t)instances.Size();
+				wrapperSize = sizeof(Instance);
+				break;
+			}
+			case 1:
+			{
+		    	const List<Region>& regions = world -> GetRegions();
+				listPtr = regions.GetArrayPtr();
+				listCount = (int32_t)regions.Size();
+				wrapperSize = sizeof(Region);
+				break;
+			}
+			case 2:
+			{
+		    	const List<WorldAnimation>& anims = world -> GetAnimations();
+				listPtr = anims.GetArrayPtr();
+				listCount = (int32_t)anims.Size();
+				wrapperSize = sizeof(WorldAnimation);
+				break;
+			}
+			case 3:
+			{
+		    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
+				listPtr = animGroups.GetArrayPtr();
+				listCount = (int32_t)animGroups.Size();
+				wrapperSize = sizeof(WorldAnimationGroup);
+				break;
+			}
+			case 4:
+			{
+		    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
+				listPtr = animHiers.GetArrayPtr();
+				listCount = (int32_t)animHiers.Size();
+				wrapperSize = sizeof(WorldAnimationHierarchy);
+				break;
+			}
+			case 5:
+			{
+		    	const List<Barrier>& barriers = world -> GetBarriers();
+				listPtr = barriers.GetArrayPtr();
+				listCount = (int32_t)barriers.Size();
+				wrapperSize = sizeof(Barrier);
+				break;
+			}
+			case 6:
+			{
+		    	const List<HintNode>& hintNodes = world -> GetHintNodes();
+				listPtr = hintNodes.GetArrayPtr();
+				listCount = (int32_t)hintNodes.Size();
+				wrapperSize = sizeof(HintNode);
+				break;
+			}
+			default:
+				break;
+		}
+
+		return listPtr != nullptr;
+	}
+
 
 
 	//Wrappers - World Animation
