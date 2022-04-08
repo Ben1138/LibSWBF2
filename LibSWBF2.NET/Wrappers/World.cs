@@ -64,10 +64,42 @@ namespace LibSWBF2.Wrappers
 
     public sealed class HintNode : NativeWrapper
     {
-        public Vector3 Position { get; private set; }
-        public Vector4 Rotation { get; private set; }
-        public string  Name { get; private set; }
-        public string  Type { get; private set; }
+        public Vector3 Position 
+        { 
+            get 
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector3>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 0));
+            }
+        }
+
+        public Vector4 Rotation 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector4>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 1));
+            } 
+        }
+
+        public uint Type 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<ushort>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 2));
+            }
+        }
+
+        public string Name 
+        { 
+            get
+            {
+                CheckValidity();
+                return Marshal.PtrToStringAnsi(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 3));
+            }
+        }
+
         public HintNode(){}
     }
 
@@ -274,7 +306,6 @@ namespace LibSWBF2.Wrappers
             return GetChildWrappers<Instance>();
         }
 
-
         public Region[] GetRegions()
         {
             CheckValidity();
@@ -285,6 +316,12 @@ namespace LibSWBF2.Wrappers
         {
             CheckValidity();
             return GetChildWrappers<Barrier>();
+        }
+
+        public HintNode[] GetHintNodes()
+        {
+            CheckValidity();
+            return GetChildWrappers<HintNode>();
         }
     
         public WorldAnimation[] GetAnimations()
