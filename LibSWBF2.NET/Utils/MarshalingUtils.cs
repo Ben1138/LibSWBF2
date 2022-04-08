@@ -33,7 +33,7 @@ namespace LibSWBF2.Utils
         // an array of NativeWrappers using each pointer element of the native buffer.
         public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count) where T : NativeWrapper, new()
         {
-            if (nativePtr == IntPtr.Zero) return new T[0];
+            if (nativePtr == IntPtr.Zero || count == 0) return new T[0];
 
             T[] wrappers = new T[count];
             IntPtr[] ptrArr = new IntPtr[count];
@@ -111,5 +111,24 @@ namespace LibSWBF2.Utils
                 Marshal.FreeHGlobal(stringPtrs[i]);
             }
         }
+
+
+        public static T DerefUnmanaged<T>(IntPtr ptr) where T : unmanaged
+        {
+            T result;
+
+
+            unsafe
+            {
+                T* srcPtr = (T*) ptr.ToPointer();
+                result = *srcPtr;
+            } 
+            
+
+            return result;
+        }
+
+
+
     }
 }
