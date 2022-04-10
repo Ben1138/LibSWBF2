@@ -14,6 +14,19 @@ namespace LibSWBF2::Types
 	Hub
 	*/
 
+	/*
+	void Hub::UnpackConnectionWeight(uint8_t PackedWeight)
+	{
+		float weight;
+		uint8_t connectionIndex;
+
+		weight = (PackedWeight >> 3) / 31f;
+		connectionIndex = PackedWeight & 0x3;
+	}
+	*/
+
+
+
 	void Hub::ReadFromStream(FileReader& stream, uint16_t count)
 	{
 		   //Names are a constant length
@@ -25,30 +38,25 @@ namespace LibSWBF2::Types
         position.ReadFromStream(stream);
         radius = stream.ReadFloat();
 
-        //Unknown 8 bytes
-        stream.SkipBytes(8);
-
-        //5 weight counts?
-        //uint8_t weightCounts[5];
-
-        stream.ReadBytes(layerWeights, 5);
+        stream.ReadBytes(connectionIndices, 8);
+        stream.ReadBytes(connectionsPerLayer, 5);
 
         uint32_t sum = 0;
         for (int i = 0; i < 5; i++)
         {
-            sum += layerWeights[i];
+            sum += connectionsPerLayer[i];
         }
 
-        stream.SkipBytes(sum * count);
+        quantizedDataBuffer = new uint8_t[sum * count];
+        stream.ReadBytes(quantizedDataBuffer, sum * count);
 	}
 
 
 	String Hub::ToString() const
 	{
 		return fmt::format(
-			"Name: {0}, Position: {1}, Radius: {2} Weight bytes: {3}, {4}, {5}, {6}, {7}", 
-			name.Buffer(), position.ToString().Buffer(), radius, 
-			layerWeights[0], layerWeights[1], layerWeights[2], layerWeights[3], layerWeights[4]
+			"Name: {0}, Position: {1}, Radius: {2}", 
+			name.Buffer(), position.ToString().Buffer(), radius
 		).c_str();
 	}
 

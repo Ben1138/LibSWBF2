@@ -69,38 +69,6 @@ void LibSWBF2::Chunks::plan::NODE::ReadFromStream(FileReader& stream)
 
     for (int i = 0; i < m_iCount; i++)
     {
-        /*
-        Hub hub;
-
-        //Names are a constant length
-        uint8_t chars[NAME_LENGTH];
-
-        stream.ReadBytes(chars, NAME_LENGTH);
-        hub.name = new LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
-
-        hub.position.ReadFromStream(stream);
-        hub.radius = stream.ReadFloat();
-
-        //Unknown 8 bytes
-        stream.SkipBytes(8);
-
-        //5 weight counts?
-        uint8_t weightCounts[5];
-
-        stream.ReadBytes(weightCounts, 5);
-
-        uint32_t sum = 0;
-        for (int i = 0; i < 5; i++)
-        {
-            sum += weightCounts[i];
-        }
-
-        stream.SkipBytes(sum * m_iCount);
-        
-
-        m_aHubs.Add(hub);
-        */
-
         m_aHubs.Emplace().ReadFromStream(stream, m_iCount);
     }
 
@@ -132,23 +100,6 @@ void LibSWBF2::Chunks::plan::ARCS::ReadFromStream(FileReader& stream)
 
     for (int i = 0; i < m_iCount; i++)
     {
-        /*
-        Connection connection;
-
-        //Names are a constant length
-        uint8_t chars[NAME_LENGTH];
-
-        stream.ReadBytes(chars, NAME_LENGTH);
-        connection.name = new LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
-
-        connection.start = stream.ReadByte();
-        connection.end = stream.ReadByte();
-        connection.flag_one = stream.ReadUInt32();
-        connection.flag_two = stream.ReadUInt32();
-
-
-        m_aConnections.Add(connection);
-        */
         m_aConnections.Emplace().ReadFromStream(stream);
     }
 
