@@ -8,6 +8,7 @@
 
 #define NAME_LENGTH 16
 
+
 void LibSWBF2::Chunks::plan::PLAN_INFO::ReadFromStream(FileReader& stream)
 {
     BaseChunk::ReadFromStream(stream);

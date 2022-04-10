@@ -43,6 +43,7 @@ namespace LibSWBF2
 		struct Scope;
 		class SoundStream;
 		class SoundBank;
+		class PlanSet;
 	}
 
 	namespace Types
@@ -51,6 +52,8 @@ namespace LibSWBF2
 		struct Vector4;
 		struct Vector2;
 		struct WorldAnimationKey;
+		struct Hub;
+		struct Connection;
 	}
 
 	using namespace Wrappers;
@@ -276,5 +279,15 @@ namespace LibSWBF2
         LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 
         LIBSWBF2_API const char* Field_GetString(const Field* cfg, uint8_t index);
 		LIBSWBF2_API const char* Field_GetName(const Field* cfg);
+
+
+		// PlanSet //
+        LIBSWBF2_API const uint8_t PlanSet_GetChildWrappers(const PlanSet* ps, uint8_t id, void*& listPtr, int32_t& listSize, int32_t& elSize);        
+        
+        // Hub //
+        LIBSWBF2_API const void * Hub_GetFieldPtr(const Hub* hub, uint8_t id, int32_t& numBytes);        
+
+        // Connection //
+        LIBSWBF2_API const void * Connection_GetFieldPtr(const Connection* con, uint8_t id); 
 	}
 }

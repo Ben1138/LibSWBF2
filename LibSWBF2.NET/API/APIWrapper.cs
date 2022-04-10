@@ -481,13 +481,13 @@ namespace LibSWBF2
         // Hub //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Hub_GetFieldPtr(IntPtr hub, byte id);        
+        public static extern IntPtr Hub_GetFieldPtr(IntPtr hub, byte id, out int NumBytes);        
          
 
         // Connection //
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Connection_GetFieldPtr(IntPtr hub, byte id); 
+        public static extern IntPtr Connection_GetFieldPtr(IntPtr con, byte id); 
 
     }
 }

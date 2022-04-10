@@ -24,6 +24,7 @@ namespace LibSWBF2.Wrappers
             { typeof(AnimationSkeleton),  9 },
             { typeof(SoundBank),          10 },
             { typeof(SoundStream),        11 },
+            { typeof(PlanSet),            12 },
         };
 
         // will be empty in most cases
