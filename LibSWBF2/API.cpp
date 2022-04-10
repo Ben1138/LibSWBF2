@@ -3,6 +3,7 @@
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
 #include "Types/Enums.h"
+#include "Types/Planning.h"
 #include "Chunks/MSH/MSH.h"
 
 #include <string.h>
@@ -386,6 +387,13 @@ namespace LibSWBF2
 			numWrappers = (uint32_t)streams.Size();
 			wrapperSize = sizeof(SoundStream);
 			return static_cast<const void*>(streams.GetArrayPtr());
+		}
+		case 12:
+		{
+			const List<PlanSet>& planSets = level->GetPlanSets();
+			numWrappers = (uint32_t)planSets.Size();
+			wrapperSize = sizeof(PlanSet);
+			return static_cast<const void*>(planSets.GetArrayPtr());
 		}
 		default:
 			return nullptr;
@@ -1487,4 +1495,92 @@ namespace LibSWBF2
 		cache = cfg->GetName();
 		return cache.Buffer();
 	}
+
+
+	// PlanSet //
+    const uint8_t PlanSet_GetChildWrappers(const PlanSet* ps, uint8_t id, void*& listPtr, int32_t& listSize, int32_t& elSize)
+    {
+    	CheckPtr(ps,false);
+
+    	listSize = 0;
+    	listPtr = nullptr;
+    	switch (id)
+    	{
+    		case 0:
+    		{
+    			const List<Hub>& hubs = ps -> GetHubs();
+    			listPtr = (void *) hubs.GetArrayPtr();
+    			listSize = hubs.Size();
+    			elSize = (int32_t) sizeof(Hub);
+    			break;
+    		}
+    		case 1:
+    		{
+    			const List<Connection>& cons = ps -> GetConnections();
+    			listPtr = (void *) cons.GetArrayPtr();
+    			listSize = cons.Size();
+    			elSize = (int32_t) sizeof(Connection);
+    			break;
+    		}
+    		default:
+    			return false;
+    	}
+
+    	return listPtr != nullptr;
+    }        
+    
+
+    // Hub //
+    const void * Hub_GetFieldPtr(const Hub* hub, uint8_t id, int32_t& numBytes)
+    {
+    	CheckPtr(hub,nullptr);
+    	switch (id)
+    	{
+    		case 0:
+    		    return (void *) hub -> name.Buffer();
+    		case 1:
+    			return (void *) &(hub -> position);
+    		case 2:
+    			return (void *) &(hub -> radius);
+    		case 3:
+    			return (void *) hub -> connectionIndices;
+    		case 4:
+    			return (void *) hub -> connectionsPerLayer;
+    		case 5:
+    		{
+ 				numBytes = (int32_t) hub -> quantizedDataBuffer.Size();
+    			return (void *) hub -> quantizedDataBuffer.GetArrayPtr();
+    		}
+    		default:
+    			return nullptr;
+    	}
+    }      
+
+    // Connection //
+    const void * Connection_GetFieldPtr(const Connection* con, uint8_t id)
+    {
+    	CheckPtr(con,nullptr);
+    	switch (id)
+    	{
+    		case 0:
+    			return (void *) con -> name.Buffer();
+    		case 1:
+    			return (void *) &(con -> start);
+    		case 2:
+    			return (void *) &(con -> end);
+    		case 3:
+    			return (void *) &(con -> flag_one);
+    		case 4:
+    			return (void *) &(con -> flag_two);
+    		default:
+    			return nullptr;
+    	}
+    }
+
+
+
+
+
+
+
 }

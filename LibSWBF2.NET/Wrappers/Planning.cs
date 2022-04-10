@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+using LibSWBF2.Utils;
+using LibSWBF2.Types;
+using LibSWBF2.Wrappers;
+
+
+
 namespace LibSWBF2.Wrappers
 {
     public sealed class Hub : NativeWrapper
     {
-        public Name 
+        public string Name 
         {
             get 
             {
                 CheckValidity();
-                return Marshal
+                return Marshal.PtrToStringAnsi(APIWrapper.Hub_GetFieldPtr(NativeInstance, 0, out _));
             }
         }
 
@@ -19,7 +25,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 CheckValidity();
-                return //
+                return MemUtils.DerefUnmanaged<Vector3>(APIWrapper.Hub_GetFieldPtr(NativeInstance, 1, out _));
             }   
         }
 
@@ -28,7 +34,7 @@ namespace LibSWBF2.Wrappers
             get
             {
                 CheckValidity();
-                return //
+                return MemUtils.DerefUnmanaged<float>(APIWrapper.Hub_GetFieldPtr(NativeInstance, 2, out _));
             }
         }
 
@@ -37,7 +43,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 CheckValidity();
-                return //
+                return MemUtils.IntPtrToArray<byte>(APIWrapper.Hub_GetFieldPtr(NativeInstance, 3, out _), 8);
             }
         }
 
@@ -46,19 +52,55 @@ namespace LibSWBF2.Wrappers
             get
             {
                 CheckValidity();
-
+                return MemUtils.IntPtrToArray<byte>(APIWrapper.Hub_GetFieldPtr(NativeInstance, 4, out _), 5);
             }
         }
 
-        public byte[] QuantizedData
+        public byte[] QuantizedWeights
         {
             get 
             {
                 CheckValidity();
+                IntPtr bufPtr = APIWrapper.Hub_GetFieldPtr(NativeInstance, 5, out int bufSize);
+                return MemUtils.IntPtrToArray<byte>(bufPtr, bufSize);                
             }
         }
 
-        Hub(){}
+
+        string ConIndsToString()
+        {
+            string rep = "[";
+
+            foreach (byte b in ConnectionIndices)
+            {
+                rep += b.ToString() + ",";
+            }
+
+            rep += "]";
+            return rep;
+        }
+
+        string ConsPerLayerToString()
+        {
+            string rep = "[";
+
+            foreach (byte b in ConnectionsPerLayer)
+            {
+                rep += b.ToString() + ",";
+            }
+
+            rep += "]";
+            return rep;   
+        }
+
+
+
+        public override string ToString()
+        {
+            return String.Format("Name: {0}, Position: {1}, Radius: {2}, ConInds: {3}, ConsPerLayer: {4}, Length buffer: {5}", Name, Position.ToString(), Radius, ConIndsToString(), ConsPerLayerToString(), QuantizedWeights.Length);
+        }
+
+        public Hub(){}
     }
 
 
@@ -66,12 +108,12 @@ namespace LibSWBF2.Wrappers
 
     public sealed class Connection : NativeWrapper
     {
-        public Name 
+        public string Name 
         {
             get 
             {
                 CheckValidity();
-                return Marshal
+                return Marshal.PtrToStringAnsi(APIWrapper.Connection_GetFieldPtr(NativeInstance, 0));
             }
         }
 
@@ -80,7 +122,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 CheckValidity();
-                return //
+                return MemUtils.DerefUnmanaged<byte>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 1));
             }   
         }
 
@@ -89,7 +131,7 @@ namespace LibSWBF2.Wrappers
             get
             {
                 CheckValidity();
-                return //
+                return MemUtils.DerefUnmanaged<byte>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 2));
             }
         }
 
@@ -98,7 +140,7 @@ namespace LibSWBF2.Wrappers
             get 
             {
                 CheckValidity();
-                return //
+                return MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 3));
             }
         }
 
@@ -107,11 +149,16 @@ namespace LibSWBF2.Wrappers
             get
             {
                 CheckValidity();
-
+                return MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 4));
             }
         }
 
-        Connection(){}
+        public override string ToString()
+        {
+            return String.Format("Name: {0}, StartIndex: {1}, EndIndex: {2}, Flag1: {3}, Flag2: {4}", Name, Start, End, Flag1, Flag2);
+        }
+
+        public Connection(){}
     }
 
 
@@ -123,14 +170,18 @@ namespace LibSWBF2.Wrappers
     {
         public Hub[] GetHubs()
         {
-
+            CheckValidity();
+            APIWrapper.PlanSet_GetChildWrappers(NativeInstance, 0, out IntPtr listPtr, out int listSize, out int elSize);
+            return MemUtils.IntPtrToWrapperArray<Hub>(listPtr, listSize, elSize);        
         }
 
         public Connection[] GetConnections()
         {
-
+            CheckValidity();
+            APIWrapper.PlanSet_GetChildWrappers(NativeInstance, 1, out IntPtr listPtr, out int listSize, out int elSize);        
+            return MemUtils.IntPtrToWrapperArray<Connection>(listPtr, listSize, elSize);        
         }
 
-        PlanSet(){}
+        public PlanSet(){}
     }
 }

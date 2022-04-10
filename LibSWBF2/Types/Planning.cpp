@@ -3,7 +3,6 @@
 #include "FileWriter.h"
 #include "FileReader.h"
 
-
 #define NAME_LENGTH 16
 
 
@@ -29,7 +28,7 @@ namespace LibSWBF2::Types
 
 	void Hub::ReadFromStream(FileReader& stream, uint16_t count)
 	{
-		   //Names are a constant length
+		//Names are a constant length
         uint8_t chars[NAME_LENGTH];
 
         stream.ReadBytes(chars, NAME_LENGTH);
@@ -47,8 +46,12 @@ namespace LibSWBF2::Types
             sum += connectionsPerLayer[i];
         }
 
-        quantizedDataBuffer = new uint8_t[sum * count];
-        stream.ReadBytes(quantizedDataBuffer, sum * count);
+        size_t quantizedDataBufferSize = sum * count;
+        quantizedDataBuffer = List<uint8_t>(quantizedDataBufferSize);
+        for (int i = 0; i < quantizedDataBufferSize; i++)
+        {
+        	quantizedDataBuffer.Add(stream.ReadByte());
+        }
 	}
 
 

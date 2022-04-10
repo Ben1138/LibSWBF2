@@ -18,24 +18,12 @@ namespace LibSWBF2::Types
 
 		uint8_t connectionsPerLayer[5];
 
-		uint8_t * quantizedDataBuffer = nullptr;
+		// Would ideally use shared_ptr here but will stick with List for now
+		// since handling a raw buffer would be a headache without shared_ptr
+		List<uint8_t> quantizedDataBuffer;
 
 		String ToString() const;
 		void ReadFromStream(FileReader& stream, uint16_t count);
-
-		~Hub()
-		{
-			ReleaseDataBuffer();
-		}
-
-		void ReleaseDataBuffer()
-		{
-			if (quantizedDataBuffer != nullptr)
-			{
-				delete[] quantizedDataBuffer;
-				quantizedDataBuffer = nullptr;	
-			}
-		}
 	};
 
 

@@ -437,6 +437,7 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
 #include "WorldAnimationKey.h"
+#include "Planning.h"
 
 #include "Chunks/LVL/common/SCOP.h"
 #include "Chunks/LVL/common/DATA.h"
@@ -612,6 +613,7 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
 	template class LIBSWBF2_API Types::List<Wrappers::SoundStream>;
 	template class LIBSWBF2_API Types::List<Wrappers::SoundBank>;
+	template class LIBSWBF2_API Types::List<Wrappers::PlanSet>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;

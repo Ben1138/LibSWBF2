@@ -142,6 +142,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Wrappers/Texture.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/World.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/SoundStream.cpp"
+  "${PROJECT_SOURCE_DIR}/Wrappers/PlanSet.cpp"
 
 
   # Chunks
