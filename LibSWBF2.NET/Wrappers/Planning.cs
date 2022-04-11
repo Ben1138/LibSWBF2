@@ -134,7 +134,7 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public uint Flag1
+        public uint FilterFlags
         {
             get 
             {
@@ -143,7 +143,7 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public uint Flag2
+        public uint AttributeFlags
         {
             get
             {
@@ -154,7 +154,7 @@ namespace LibSWBF2.Wrappers
 
         public override string ToString()
         {
-            return String.Format("Name: {0}, StartIndex: {1}, EndIndex: {2}, Flag1: {3}, Flag2: {4}", Name, Start, End, Flag1, Flag2);
+            return String.Format("Name: {0}, StartIndex: {1}, EndIndex: {2}, Size filter: {3}, Attributes: {4}", Name, Start, End, FilterFlags, AttributeFlags);
         }
 
         public Connection(){}
