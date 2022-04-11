@@ -32,25 +32,25 @@ namespace LibSWBF2::Types
         uint8_t chars[NAME_LENGTH];
 
         stream.ReadBytes(chars, NAME_LENGTH);
-        name = LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
+        m_Name = LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
 
-        position.ReadFromStream(stream);
-        radius = stream.ReadFloat();
+        m_Position.ReadFromStream(stream);
+        m_Radius = stream.ReadFloat();
 
-        stream.ReadBytes(connectionIndices, 8);
-        stream.ReadBytes(connectionsPerLayer, 5);
+        stream.ReadBytes(m_ConnectionIndices, 8);
+        stream.ReadBytes(m_ConnectionsPerLayer, 5);
 
         uint32_t sum = 0;
         for (int i = 0; i < 5; i++)
         {
-            sum += connectionsPerLayer[i];
+            sum += m_ConnectionsPerLayer[i];
         }
 
         size_t quantizedDataBufferSize = sum * count;
-        quantizedDataBuffer = List<uint8_t>(quantizedDataBufferSize);
+        m_QuantizedDataBuffer = List<uint8_t>(quantizedDataBufferSize);
         for (int i = 0; i < quantizedDataBufferSize; i++)
         {
-        	quantizedDataBuffer.Add(stream.ReadByte());
+        	m_QuantizedDataBuffer.Add(stream.ReadByte());
         }
 	}
 
@@ -59,7 +59,7 @@ namespace LibSWBF2::Types
 	{
 		return fmt::format(
 			"Name: {0}, Position: {1}, Radius: {2}", 
-			name.Buffer(), position.ToString().Buffer(), radius
+			m_Name.Buffer(), m_Position.ToString().Buffer(), m_Radius
 		).c_str();
 	}
 
@@ -75,20 +75,20 @@ namespace LibSWBF2::Types
         uint8_t chars[NAME_LENGTH];
 
         stream.ReadBytes(chars, NAME_LENGTH);
-        name = LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
+        m_Name = LibSWBF2::Types::String(reinterpret_cast<char*>(chars));
 
-        start = stream.ReadByte();
-        end = stream.ReadByte();
-        flag_one = stream.ReadUInt32();
-        flag_two = stream.ReadUInt32();
+        m_Start = stream.ReadByte();
+        m_End = stream.ReadByte();
+        m_FilterFlags = stream.ReadUInt32();
+        m_AttributeFlags = stream.ReadUInt32();
 	}
 
 
 	String Connection::ToString() const
 	{
 		return fmt::format(
-			"Name: {0}, Start: {1}, End: {2}, Flag1: {3}, Flag2: {4}", 
-			name.Buffer(), start, end, flag_one, flag_two
+			"Name: {0}, Start: {1}, End: {2}, Filters: {3}, Attributes: {4}", 
+			m_Name.Buffer(), m_Start, m_End, m_FilterFlags, m_AttributeFlags
 		).c_str();
 	}
 }

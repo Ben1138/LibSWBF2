@@ -1537,19 +1537,19 @@ namespace LibSWBF2
     	switch (id)
     	{
     		case 0:
-    		    return (void *) hub -> name.Buffer();
+    		    return (void *) hub -> m_Name.Buffer();
     		case 1:
-    			return (void *) &(hub -> position);
+    			return (void *) &(hub -> m_Position);
     		case 2:
-    			return (void *) &(hub -> radius);
+    			return (void *) &(hub -> m_Radius);
     		case 3:
-    			return (void *) hub -> connectionIndices;
+    			return (void *) hub -> m_ConnectionIndices;
     		case 4:
-    			return (void *) hub -> connectionsPerLayer;
+    			return (void *) hub -> m_ConnectionsPerLayer;
     		case 5:
     		{
- 				numBytes = (int32_t) hub -> quantizedDataBuffer.Size();
-    			return (void *) hub -> quantizedDataBuffer.GetArrayPtr();
+ 				numBytes = (int32_t) hub -> m_QuantizedDataBuffer.Size();
+    			return (void *) hub -> m_QuantizedDataBuffer.GetArrayPtr();
     		}
     		default:
     			return nullptr;
@@ -1563,15 +1563,15 @@ namespace LibSWBF2
     	switch (id)
     	{
     		case 0:
-    			return (void *) con -> name.Buffer();
+    			return (void *) con -> m_Name.Buffer();
     		case 1:
-    			return (void *) &(con -> start);
+    			return (void *) &(con -> m_Start);
     		case 2:
-    			return (void *) &(con -> end);
+    			return (void *) &(con -> m_End);
     		case 3:
-    			return (void *) &(con -> flag_one);
+    			return (void *) &(con -> m_FilterFlags);
     		case 4:
-    			return (void *) &(con -> flag_two);
+    			return (void *) &(con -> m_AttributeFlags);
     		default:
     			return nullptr;
     	}
