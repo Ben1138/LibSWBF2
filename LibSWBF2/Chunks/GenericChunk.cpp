@@ -31,8 +31,7 @@
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
 #include "LVL/plan/plan.h"
-
-#include <iostream>
+#include "LVL/plan/plnp.h"
 
 
 namespace LibSWBF2::Chunks
@@ -295,6 +294,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, plan);
 						chunk = plan;
 					}
+					else if (nextHead == "plnp"_h)
+					{
+						plnp::plnp* plnp;
+						READ_CHILD(stream, plnp);
+						chunk = plnp;
+					}
 					else
 					{
 						GenericChunkNC* generic;
@@ -469,6 +474,7 @@ namespace LibSWBF2::Chunks
 
 	//plan
 	template struct LIBSWBF2_API GenericChunk<"plan"_m>;
+	template struct LIBSWBF2_API GenericChunk<"plnp"_m>;
 	template struct LIBSWBF2_API GenericChunk<"ARCS"_m>;
 	template struct LIBSWBF2_API GenericChunk<"PLNS"_m>;
 }

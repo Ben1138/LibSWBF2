@@ -290,8 +290,8 @@ target_sources(LibSWBF2 PRIVATE
   # TERR
   "${PROJECT_SOURCE_DIR}/Chunks/TERR/TERR.cpp"
 
-
-    #PLAN
+  # PLAN
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/plan.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/plnp.cpp"
 )
 
