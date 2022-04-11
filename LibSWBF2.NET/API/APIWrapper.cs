@@ -470,6 +470,24 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Field_GetName(IntPtr cfg);
+
+
+        // Planning //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool PlanSet_GetChildWrappers(IntPtr ps, byte id, out IntPtr listPtr, out int listSize, out int elSize);        
          
+
+        // Hub //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Hub_GetFieldPtr(IntPtr hub, byte id);        
+         
+
+        // Connection //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Connection_GetFieldPtr(IntPtr hub, byte id); 
+
     }
 }

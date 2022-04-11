@@ -62,6 +62,8 @@ namespace LibSWBF2.Wrappers
     }
 
 
+
+
     public sealed class HintNode : NativeWrapper
     {
         public Vector3 Position 
