@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 using LibSWBF2.Utils;
 using LibSWBF2.Types;
@@ -93,8 +94,6 @@ namespace LibSWBF2.Wrappers
             return rep;   
         }
 
-
-
         public override string ToString()
         {
             return String.Format("Name: {0}, Position: {1}, Radius: {2}, ConInds: {3}, ConsPerLayer: {4}, Length buffer: {5}", Name, Position.ToString(), Radius, ConIndsToString(), ConsPerLayerToString(), QuantizedWeights.Length);
@@ -181,6 +180,65 @@ namespace LibSWBF2.Wrappers
             APIWrapper.PlanSet_GetChildWrappers(NativeInstance, 1, out IntPtr listPtr, out int listSize, out int elSize);        
             return MemUtils.IntPtrToWrapperArray<Connection>(listPtr, listSize, elSize);        
         }
+
+
+        public List<Tuple<float, Connection>> GetBranchWeights(string StartHubName, string DestHubName, int Layer)
+        {
+            List<Tuple<float, Connection>> WeightConPairs = new List<Tuple<float, Connection>>();
+
+            Hub[] hubs = GetHubs();
+            Connection[] cons = GetConnections();
+
+            int startIndex = -1;
+            int destIndex = -1;
+
+            for (int i = 0; i < hubs.Length; i++)
+            {
+                if (startIndex < 0 && hubs[i].Name == StartHubName)
+                {
+                    startIndex = i;
+                }
+
+                if (destIndex < 0 && hubs[i].Name == DestHubName)
+                {
+                    destIndex = i;
+                }
+            }
+
+            if (startIndex < 0 || destIndex < 0)
+            {
+                return null;
+            }
+
+            Hub StartHub = hubs[startIndex];
+
+            byte[] ConInds = StartHub.ConnectionIndices;
+            byte[] ConsPerLayer = StartHub.ConnectionsPerLayer;
+            byte[] Weights = StartHub.QuantizedWeights;
+
+            int WeightsOffset = destIndex;
+            int LayerWeightsLength = 0;
+            for (int j = 0; j < 5; j++)
+            {
+                if (Layer == j)
+                {
+                    LayerWeightsLength = hubs.Length * ConsPerLayer[j];
+                    break;
+                }
+                else 
+                {
+                    WeightsOffset += (ConsPerLayer[j] * hubs.Length);
+                }
+            }
+
+            for (int k = WeightsOffset; k < WeightsOffset + LayerWeightsLength; k+=hubs.Length)
+            {
+                WeightConPairs.Add(Tuple.Create(((Weights[k] >> 3) / 31.0f), cons[ConInds[Weights[k] & 0x3]]));
+            }
+
+            return WeightConPairs;
+        }
+
 
         public PlanSet(){}
     }
