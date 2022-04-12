@@ -179,11 +179,13 @@ namespace LibSWBF2
         											const Vector3*& posOut, const Vector4*& rotOut, 
         											const char *&nameOut, const char*& typeOut);
 
-		// Wrappers - Region
+		// Wrappers - Barrier
         LIBSWBF2_API const void * Barrier_GetFieldPtr(const Barrier* bar, uint8_t fieldID);
 
-		// Wrappers - Region
+		// Wrappers - HintNode
         LIBSWBF2_API const void * HintNode_GetFieldPtr(const HintNode* hnt, uint8_t fieldID);
+		LIBSWBF2_API const void HintNode_GetProperties(const HintNode* hnt, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
+
 
         // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,

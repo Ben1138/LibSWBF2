@@ -833,6 +833,20 @@ namespace LibSWBF2
     }
 
 
+	const void HintNode_GetProperties(const HintNode* hnt, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	{
+		CheckPtr(hnt,);
+		static List<const char*> ptrsBuffer;
+		static List<String> values;
+		static List<uint32_t> hashes;
+
+		hnt->GetProperties(hashes, values);
+
+		hashesBuffer = hashes.GetArrayPtr();
+		count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
+	}
 
 
 	//Wrappers - World

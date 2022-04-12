@@ -102,6 +102,14 @@ namespace LibSWBF2.Wrappers
             }
         }
 
+        public void GetProperties(out uint[] properties, out string[] values)
+        {
+            CheckValidity();
+            APIWrapper.HintNode_GetProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
+        }
+
         public HintNode(){}
     }
 
