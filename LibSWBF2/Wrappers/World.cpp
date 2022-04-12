@@ -49,6 +49,20 @@ namespace LibSWBF2::Wrappers
 		return p_HintNode -> p_Info -> p_Type -> m_Type;
 	}
 
+	const void HintNode::GetProperties(List<FNVHash>& outHashes, List<String>& outValues) const
+	{
+		outHashes.Clear();
+		outValues.Clear();
+
+		List<PROP*>& properties = p_HintNode->m_Properties;
+		for (int i = 0; i < properties.Size(); i++)
+		{
+			outHashes.Add(properties[i]->m_PropertyName);
+			outValues.Add(properties[i]->m_Value);
+		}
+	}
+
+
 
 
 

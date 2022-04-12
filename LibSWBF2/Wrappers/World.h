@@ -58,6 +58,8 @@ namespace LibSWBF2::Wrappers
 		const Vector3& GetPosition() const;
 		Vector4 GetRotation() const;
 		const uint16_t& GetType() const;
+
+		const void GetProperties(List<FNVHash>& outHashes, List<String>& outValues) const;
 	};
 
 

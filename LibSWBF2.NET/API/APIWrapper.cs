@@ -230,6 +230,9 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
         public static extern IntPtr HintNode_GetFieldPtr(IntPtr hnt, byte fieldID);  
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern void HintNode_GetProperties(IntPtr hnt, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
 
 
         // Script //
