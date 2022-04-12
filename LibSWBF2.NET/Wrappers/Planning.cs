@@ -172,14 +172,14 @@ namespace LibSWBF2.Wrappers
         {
             CheckValidity();
             APIWrapper.PlanSet_GetChildWrappers(NativeInstance, 0, out IntPtr listPtr, out int listSize, out int elSize);
-            return MemUtils.IntPtrToWrapperArray<Hub>(listPtr, listSize, elSize);        
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Hub>(listPtr, listSize, elSize));        
         }
 
         public Connection[] GetConnections()
         {
             CheckValidity();
             APIWrapper.PlanSet_GetChildWrappers(NativeInstance, 1, out IntPtr listPtr, out int listSize, out int elSize);        
-            return MemUtils.IntPtrToWrapperArray<Connection>(listPtr, listSize, elSize);        
+            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Connection>(listPtr, listSize, elSize));        
         }
 
 
