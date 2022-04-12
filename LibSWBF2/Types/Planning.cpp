@@ -79,8 +79,8 @@ namespace LibSWBF2::Types
 
         m_Start = stream.ReadByte();
         m_End = stream.ReadByte();
-        m_FilterFlags = stream.ReadUInt32();
-        m_AttributeFlags = stream.ReadUInt32();
+        m_FilterFlags = (EArcFilterFlags) stream.ReadUInt32();
+        m_AttributeFlags = (EArcAttributeFlags) stream.ReadUInt32();
 	}
 
 
@@ -88,7 +88,7 @@ namespace LibSWBF2::Types
 	{
 		return fmt::format(
 			"Name: {0}, Start: {1}, End: {2}, Filters: {3}, Attributes: {4}", 
-			m_Name.Buffer(), m_Start, m_End, m_FilterFlags, m_AttributeFlags
+			m_Name.Buffer(), m_Start, m_End, ArcFilterToString(m_FilterFlags).Buffer(), ArcAttributesToString(m_AttributeFlags).Buffer()
 		).c_str();
 	}
 }

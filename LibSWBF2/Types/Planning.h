@@ -1,7 +1,10 @@
 #pragma once
 
 
+#include "Types/Enums.h"
+
 using LibSWBF2::Types::String;
+
 
 
 namespace LibSWBF2::Types
@@ -32,8 +35,8 @@ namespace LibSWBF2::Types
 		LibSWBF2::Types::String m_Name;
 		uint8_t m_Start;
 		uint8_t m_End;
-		uint32_t m_FilterFlags;
-		uint32_t m_AttributeFlags;
+		EArcFilterFlags m_FilterFlags;
+		EArcAttributeFlags m_AttributeFlags;
 
 		String ToString() const;
 		void ReadFromStream(FileReader& stream);
