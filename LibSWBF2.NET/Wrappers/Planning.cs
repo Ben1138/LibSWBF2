@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using LibSWBF2.Utils;
 using LibSWBF2.Types;
 using LibSWBF2.Wrappers;
+using LibSWBF2.Enums;
 
 
 
@@ -134,27 +135,27 @@ namespace LibSWBF2.Wrappers
             }
         }
 
-        public uint FilterFlags
+        public EArcFilterFlags FilterFlags
         {
             get 
             {
                 CheckValidity();
-                return MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 3));
+                return (EArcFilterFlags) MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 3));
             }
         }
 
-        public uint AttributeFlags
+        public EArcAttributeFlags AttributeFlags
         {
             get
             {
                 CheckValidity();
-                return MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 4));
+                return (EArcAttributeFlags) MemUtils.DerefUnmanaged<uint>(APIWrapper.Connection_GetFieldPtr(NativeInstance, 4));
             }
         }
 
         public override string ToString()
         {
-            return String.Format("Name: {0}, StartIndex: {1}, EndIndex: {2}, Size filter: {3}, Attributes: {4}", Name, Start, End, FilterFlags, AttributeFlags);
+            return String.Format("Name: {0}, StartIndex: {1}, EndIndex: {2}, Size filter: {3}, Attributes: {4}", Name, Start, End, FilterFlags.ToString(), AttributeFlags.ToString());
         }
 
         public Connection(){}
