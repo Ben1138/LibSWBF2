@@ -21,10 +21,6 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
-if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
-endif()
-
 target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(LibSWBF2 glm)
@@ -36,11 +32,6 @@ target_compile_definitions(LibSWBF2 PUBLIC MEMORY_MAPPED_READER)
 if (UNIX)
   target_compile_options(LibSWBF2 PUBLIC -Wno-attributes)
   #target_compile_options(LibSWBF2 PUBLIC -Wno-deprecated-volatile)
-
-  if (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-    target_compile_options(LibSWBF2 PUBLIC -O3)
-  endif()
 
   # Per convention, in UNIX shared libraries start with a lower 
   # case "lib" prefix, which would result in "libLibSWBF2". 
