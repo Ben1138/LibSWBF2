@@ -101,6 +101,8 @@ namespace LibSWBF2::Wrappers
 		Vector4 GetRotation() const;
 		const String& GetType() const;
 		const Vector3& GetSize() const;
+
+		const void GetProperties(List<FNVHash>& outHashes, List<String>& outValues) const;
 	};
 
 	

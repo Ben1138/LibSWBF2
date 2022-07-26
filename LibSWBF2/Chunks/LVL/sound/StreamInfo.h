@@ -12,6 +12,9 @@ namespace LibSWBF2::Chunks::LVL::sound
 		uint32_t m_NumChannels;
 		uint32_t m_CombinedSoundSize; // Seems to always be garbage?
 		uint32_t m_Padding;
+		uint32_t m_NumSubstreams = 1;
+		uint32_t m_SubstreamInterleave;
+		uint32_t m_ChannelInterleave;
 
 		List<Types::SoundClip> m_SoundHeaders; //TODO: make a separate type for SoundHeaders in bnk/emo_
 

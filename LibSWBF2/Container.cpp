@@ -10,7 +10,7 @@
 #include <future>
 #include <map>
 
-
+#include "StreamReader.h"
 
 
 namespace LibSWBF2
@@ -95,7 +95,7 @@ namespace LibSWBF2
 			LOCK(m_ThreadSafeMembers->m_StatusLock);
 			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[scheduled.m_Handle];
 
-			FileReader reader;
+			StreamReader reader;
 			if (!reader.Open(scheduled.m_Path))
 			{
 				status.m_LoadStatus = ELoadStatus::Failed;

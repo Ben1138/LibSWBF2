@@ -1,7 +1,7 @@
 #include "pch.h"
-#ifdef MEMORY_MAPPED_READER
+//#ifdef MEMORY_MAPPED_READER
 
-#include "FileReader.h"
+#include "MemoryMappedReader.h"
 
 #include "InternalHelpers.h"
 
@@ -30,19 +30,19 @@ namespace LibSWBF2
 {
 	using LibSWBF2::Logging::Logger;
 
-	FileReader::FileReader()
+	MemoryMappedReader::MemoryMappedReader()
 	{
 		m_LatestChunkPos = 0;
 	    p_ReaderHead = nullptr;
 	    p_MappingBase = nullptr;
 	}
 
-	FileReader::~FileReader()
+	MemoryMappedReader::~MemoryMappedReader()
 	{
 		try { Close(); } catch (...) {/*Do nothing if no mapping is set...*/}
 	}
 
-	bool FileReader::Open(const Types::String& File)
+	bool MemoryMappedReader::Open(const Types::String& File)
 	{
 		if (p_MappingBase != nullptr)
 		{
@@ -119,7 +119,7 @@ namespace LibSWBF2
 	}
 
 
-	ChunkHeader FileReader::ReadChunkHeader(bool peek)
+	ChunkHeader MemoryMappedReader::ReadChunkHeader(bool peek)
 	{
 		ChunkHeader value;
 		if (CheckGood(sizeof(ChunkHeader)))
@@ -140,7 +140,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	ChunkSize FileReader::ReadChunkSize()
+	ChunkSize MemoryMappedReader::ReadChunkSize()
 	{
 		ChunkSize value = 0;
 		if (CheckGood(sizeof(ChunkSize)))
@@ -151,7 +151,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint8_t FileReader::ReadByte()
+	uint8_t MemoryMappedReader::ReadByte()
 	{
 		uint8_t value = 0;
 		if (CheckGood(sizeof(uint8_t)))
@@ -161,7 +161,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	bool FileReader::ReadBytes(uint8_t* data, size_t length)
+	bool MemoryMappedReader::ReadBytes(uint8_t* data, size_t length)
 	{
 		if (CheckGood(length))
 		{
@@ -173,7 +173,7 @@ namespace LibSWBF2
 		return false;
 	}
 
-	int32_t FileReader::ReadInt32()
+	int32_t MemoryMappedReader::ReadInt32()
 	{
 		int32_t value = 0;
 		if (CheckGood(sizeof(int32_t)))
@@ -184,7 +184,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	int16_t FileReader::ReadInt16()
+	int16_t MemoryMappedReader::ReadInt16()
 	{
 		int16_t value = 0;
 		if (CheckGood(sizeof(int16_t)))
@@ -195,7 +195,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint32_t FileReader::ReadUInt32()
+	uint32_t MemoryMappedReader::ReadUInt32()
 	{
 		uint32_t value = 0;
 		if (CheckGood(sizeof(uint32_t)))
@@ -206,7 +206,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	uint16_t FileReader::ReadUInt16()
+	uint16_t MemoryMappedReader::ReadUInt16()
 	{
 		uint16_t value = 0;
 		if (CheckGood(sizeof(uint16_t)))
@@ -217,7 +217,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	float_t FileReader::ReadFloat()
+	float_t MemoryMappedReader::ReadFloat()
 	{
 		float_t value = 0.0f;
 		if (CheckGood(sizeof(float_t)))
@@ -228,7 +228,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	Types::String FileReader::ReadString(size_t length)
+	Types::String MemoryMappedReader::ReadString(size_t length)
 	{
 		Types::String value;
 		if (CheckGood(length))
@@ -244,7 +244,7 @@ namespace LibSWBF2
 		return value;
 	}
 
-	Types::String FileReader::ReadString()
+	Types::String MemoryMappedReader::ReadString()
 	{
 		char str[1024]; // should be enough
 		uint8_t current = 1;
@@ -261,7 +261,7 @@ namespace LibSWBF2
 		return str;
 	}
 
-	void FileReader::Close()
+	void MemoryMappedReader::Close()
 	{
 		if (p_MappingBase == nullptr)
 		{
@@ -280,12 +280,12 @@ namespace LibSWBF2
 		p_ReaderHead = nullptr;
 	}
 
-	size_t FileReader::GetPosition()
+	size_t MemoryMappedReader::GetPosition()
 	{
 		return (size_t) (p_ReaderHead - p_MappingBase);
 	}
 
-	void FileReader::SetPosition(size_t NewPosition)
+	void MemoryMappedReader::SetPosition(size_t NewPosition)
 	{
 		if (NewPosition < 0 || NewPosition > m_FileSize)
 		{
@@ -296,12 +296,12 @@ namespace LibSWBF2
 		p_ReaderHead = p_MappingBase + NewPosition;
 	}
 
-	size_t FileReader::GetFileSize()
+	size_t MemoryMappedReader::GetFileSize()
 	{
 		return m_FileSize;
 	}
 
-	bool FileReader::CheckGood(size_t ReadSize)
+	bool MemoryMappedReader::CheckGood(size_t ReadSize)
 	{
 		if (p_MappingBase == nullptr) 
 		{
@@ -317,7 +317,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-	bool FileReader::SkipBytes(const size_t& Amount)
+	bool MemoryMappedReader::SkipBytes(const size_t& Amount)
 	{
 		if (CheckGood(Amount))
 		{
@@ -326,12 +326,6 @@ namespace LibSWBF2
 		}
 		return false;
 	}
-
-
-	size_t FileReader::GetLatestChunkPosition()
-	{
-		return m_LatestChunkPos;
-	}
 }
 
-#endif
+//#endif
