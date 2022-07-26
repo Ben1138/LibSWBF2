@@ -32,8 +32,8 @@
 
 #include "LVL/coll/coll.h"
 #include "LVL/prim/prim.h"
-
-#include <iostream>
+#include "LVL/plan/plan.h"
+#include "LVL/plan/plnp.h"
 
 
 namespace LibSWBF2::Chunks
@@ -296,6 +296,17 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, bankList);
 						chunk = bankList; 
 					}
+					else if (nextHead == "plan"_h)
+					{
+						plan::plan* plan;
+						READ_CHILD(stream, plan);
+						chunk = plan;
+					}
+					else if (nextHead == "plnp"_h)
+					{
+						plnp::plnp* plnp;
+						READ_CHILD(stream, plnp);
+						chunk = plnp;
 					else if (nextHead == "Stream"_fnvh)
 					{
 						LVL::sound::Stream* sstream;
@@ -415,6 +426,9 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
 	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
 	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"FLAG"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BARR"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Hint"_m>;
 
 	// string chunks (see STR.cpp)
 	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
@@ -477,5 +491,11 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"Data"_fnv>;
 	template struct LIBSWBF2_API GenericChunk<"SampleBank"_fnv>;
+
+	//plan
+	template struct LIBSWBF2_API GenericChunk<"plan"_m>;
+	template struct LIBSWBF2_API GenericChunk<"plnp"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ARCS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PLNS"_m>;
 }
 

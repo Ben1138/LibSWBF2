@@ -77,6 +77,7 @@
     <Compile Include="Wrappers\Config.cs" />
     <Compile Include="Wrappers\SoundBank.cs" />
     <Compile Include="Wrappers\SoundStream.cs" />
+    <Compile Include="Wrappers\Planning.cs" />
     <Compile Include="Wrappers\FileReader.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MarshalingUtils.cs" />

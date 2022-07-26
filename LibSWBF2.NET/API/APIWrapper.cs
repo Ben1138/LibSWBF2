@@ -224,13 +224,14 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut,
-                                        out IntPtr instanceArr, out int instCount, out int instInc,
-                                        out IntPtr regionArr, out int regCount, out int regInc,
-                                        out IntPtr animArr, out int animCount, out int animInc,
-                                        out IntPtr animGroupArr, out int animGroupCount, out int animGroupInc,
-                                        out IntPtr animHierArr, out int animHierCount, out int animHierInc,
-                                        out IntPtr terrPtr);
+        public static extern bool World_FetchAllFields(IntPtr world, out IntPtr nameOut, out IntPtr skyNameOut, out IntPtr terrPtr);
+
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool World_GetChildrenList(IntPtr world, byte listID, out IntPtr listPtr, out int listCount, out int wrapperSize);
+
+
 
         // World Animation //
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -265,6 +266,20 @@ namespace LibSWBF2
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Region_GetProperties(IntPtr reg, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);      
         
+        // Barrier //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr Barrier_GetFieldPtr(IntPtr bar, byte fieldID);    
+
+
+        // HintNode //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr HintNode_GetFieldPtr(IntPtr hnt, byte fieldID);  
+        
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]        
+        public static extern void HintNode_GetProperties(IntPtr hnt, out IntPtr hashBuffer, out IntPtr valueBuffer, out int count);
+
 
         // Script //
 
@@ -538,6 +553,24 @@ namespace LibSWBF2
 
         [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Field_GetName(IntPtr cfg);
+
+
+        // Planning //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool PlanSet_GetChildWrappers(IntPtr ps, byte id, out IntPtr listPtr, out int listSize, out int elSize);        
          
+
+        // Hub //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Hub_GetFieldPtr(IntPtr hub, byte id, out int NumBytes);        
+         
+
+        // Connection //
+
+        [DllImport(LIB_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr Connection_GetFieldPtr(IntPtr con, byte id); 
+
     }
 }

@@ -35,6 +35,8 @@ namespace LibSWBF2
 		class Material;
 		class Instance;
 		class Region;
+		class Barrier;
+		class HintNode;
 		class Script;
 		class Sound;
 		class Localization;
@@ -42,6 +44,7 @@ namespace LibSWBF2
 		struct Scope;
 		class SoundStream;
 		class SoundBank;
+		class PlanSet;
 		//class FileReader;
 	}
 
@@ -51,6 +54,8 @@ namespace LibSWBF2
 		struct Vector4;
 		struct Vector2;
 		struct WorldAnimationKey;
+		struct Hub;
+		struct Connection;
 	}
 
 	using namespace Wrappers;
@@ -182,16 +187,22 @@ namespace LibSWBF2
         LIBSWBF2_API const uint8_t Region_FetchAllFields(const Region* reg, const Vector3*& sizeOut, 
         											const Vector3*& posOut, const Vector4*& rotOut, 
         											const char *&nameOut, const char*& typeOut);
+
+		// Wrappers - Barrier
+        LIBSWBF2_API const void * Barrier_GetFieldPtr(const Barrier* bar, uint8_t fieldID);
+
+		// Wrappers - HintNode
+        LIBSWBF2_API const void * HintNode_GetFieldPtr(const HintNode* hnt, uint8_t fieldID);
+		LIBSWBF2_API const void HintNode_GetProperties(const HintNode* hnt, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
+
         LIBSWBF2_API const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
 
         // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
-										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
-										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
-										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
-										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr);
+
+        LIBSWBF2_API const bool World_GetChildrenList(const World* world, uint8_t listID, void *& listPtr, int32_t& listCount, int32_t& wrapperSize);
+
 
 		// Wrappers - WorldAnimation
 		LIBSWBF2_API const uint8_t WorldAnim_FetchAllFields(const WorldAnimation* anim, uint8_t& loop, uint8_t& localT, const char*& namePtr);
@@ -295,5 +306,15 @@ namespace LibSWBF2
         LIBSWBF2_API const Vector4* Field_GetVec4(const Field* cfg); 
         LIBSWBF2_API const char* Field_GetString(const Field* cfg, uint8_t index);
 		LIBSWBF2_API const char* Field_GetName(const Field* cfg);
+
+
+		// PlanSet //
+        LIBSWBF2_API const uint8_t PlanSet_GetChildWrappers(const PlanSet* ps, uint8_t id, void*& listPtr, int32_t& listSize, int32_t& elSize);        
+        
+        // Hub //
+        LIBSWBF2_API const void * Hub_GetFieldPtr(const Hub* hub, uint8_t id, int32_t& numBytes);        
+
+        // Connection //
+        LIBSWBF2_API const void * Connection_GetFieldPtr(const Connection* con, uint8_t id); 
 	}
 }

@@ -437,6 +437,7 @@ namespace LibSWBF2::Types
 #include "Chunks/MSH/MATD.h"
 #include "Chunks/MSH/MODL.h"
 #include "WorldAnimationKey.h"
+#include "Planning.h"
 
 #include "Chunks/LVL/common/SCOP.h"
 #include "Chunks/LVL/common/DATA.h"
@@ -459,8 +460,12 @@ namespace LibSWBF2::Types
 #include "Chunks/LVL/wrld/anim.h"
 #include "Chunks/LVL/wrld/anmg.h"
 #include "Chunks/LVL/wrld/anmh.h"
+#include "Chunks/LVL/wrld/BARR.h"
+#include "Chunks/LVL/wrld/Hint.h"
+
 #include "Chunks/LVL/tern/PTCH.h"
 #include "Chunks/LVL/scr_/scr_.h"
+#include "Chunks/LVL/plan/plan.h"
 
 #include "Chunks/LVL/sound/Stream.h"
 #include "Chunks/LVL/sound/SampleBank.h"
@@ -543,6 +548,9 @@ namespace LibSWBF2
     template class LIBSWBF2_API Types::List<LVL::wrld::XFRM *>;
     template class LIBSWBF2_API Types::List<LVL::prim::DATA_PRIM *>;
     
+    template class LIBSWBF2_API Types::List<LVL::wrld::BARR *>;
+    template class LIBSWBF2_API Types::List<LVL::wrld::Hint *>;
+
     template class LIBSWBF2_API Types::List<STR<"NAME"_m> *>;
     template class LIBSWBF2_API Types::List<STR<"PRNT"_m> *>;
 
@@ -593,6 +601,8 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Terrain>;
 	template class LIBSWBF2_API Types::List<Wrappers::Instance>;
 	template class LIBSWBF2_API Types::List<Wrappers::Region>;
+	template class LIBSWBF2_API Types::List<Wrappers::Barrier>;
+	template class LIBSWBF2_API Types::List<Wrappers::HintNode>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimation>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimationGroup>;
 	template class LIBSWBF2_API Types::List<Wrappers::WorldAnimationHierarchy>;
@@ -606,10 +616,13 @@ namespace LibSWBF2
 	template class LIBSWBF2_API Types::List<Wrappers::Config>;
 	template class LIBSWBF2_API Types::List<Wrappers::SoundStream>;
 	template class LIBSWBF2_API Types::List<Wrappers::SoundBank>;
+	template class LIBSWBF2_API Types::List<Wrappers::PlanSet>;
 
 	template class LIBSWBF2_API Types::List<Wrappers::Field>;
 	template class LIBSWBF2_API Types::List<const Wrappers::Field *>;
 
+	template class LIBSWBF2_API Types::List<Hub>;
+	template class LIBSWBF2_API Types::List<Connection>;
 	template class LIBSWBF2_API Types::List<SoundDecoder*>;
 }
 

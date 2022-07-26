@@ -392,6 +392,70 @@ namespace LibSWBF2
 		}	
 	}
 
+	Types::String LIBSWBF2_API ArcFilterToString(EArcFilterFlags flags)
+	{
+		std::string result = "[";
+		if ((flags & EArcFilterFlags::Soldier) != 0)
+		{
+			result += "Soldier, ";
+		}
+		if ((flags & EArcFilterFlags::Small) != 0)
+		{
+			result += "Small, ";
+		}
+		if ((flags & EArcFilterFlags::Medium) != 0)
+		{
+			result += "Medium, ";
+		}
+		if ((flags & EArcFilterFlags::Hover) != 0)
+		{
+			result += "Hover, ";
+		}
+		if ((flags & EArcFilterFlags::Large) != 0)
+		{
+			result += "Large, ";
+		}
+		if ((flags & EArcFilterFlags::Huge) != 0)
+		{
+			result += "Huge, ";
+		}
+
+		size_t resultSize = result.size();
+		if (resultSize > 1)
+		{
+			result.resize(resultSize - 2);
+		}
+
+		result += "]";
+		return result.c_str();
+	}
+
+	Types::String LIBSWBF2_API ArcAttributesToString(EArcAttributeFlags flags)
+	{
+		std::string result = "[";
+		if ((flags & EArcAttributeFlags::OneWay) != 0)
+		{
+			result += "OneWay, ";
+		}
+		if ((flags & EArcAttributeFlags::Jump) != 0)
+		{
+			result += "Jump, ";
+		}
+		if ((flags & EArcAttributeFlags::JetJump) != 0)
+		{
+			result += "JetJump, ";
+		}
+
+		size_t resultSize = result.size();
+		if (resultSize > 1)
+		{
+			result.resize(resultSize - 2);
+		}
+
+		result += "]";
+		return result.c_str();
+	}
+
 	
 	EMaterialFlags operator &(EMaterialFlags lhs, EMaterialFlags rhs)
 	{
@@ -487,5 +551,43 @@ namespace LibSWBF2
 	bool operator ==(ESoundFormat lhs, std::underlying_type<ESoundFormat>::type rhs)
 	{
 		return static_cast<std::underlying_type<ESoundFormat>::type>(lhs) == rhs;		
+	}
+
+	EArcFilterFlags operator &(EArcFilterFlags lhs, EArcFilterFlags rhs)
+	{
+		return static_cast<EArcFilterFlags> (
+			static_cast<std::underlying_type<EArcFilterFlags>::type>(lhs) &
+			static_cast<std::underlying_type<EArcFilterFlags>::type>(rhs)
+			);
+	}
+
+	bool operator ==(EArcFilterFlags lhs, std::underlying_type<EArcFilterFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EArcFilterFlags>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(EArcFilterFlags lhs, std::underlying_type<EArcFilterFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EArcFilterFlags>::type>(lhs) != rhs;
+	}
+
+
+	
+	EArcAttributeFlags operator &(EArcAttributeFlags lhs, EArcAttributeFlags rhs)
+	{
+		return static_cast<EArcAttributeFlags> (
+			static_cast<std::underlying_type<EArcAttributeFlags>::type>(lhs) &
+			static_cast<std::underlying_type<EArcAttributeFlags>::type>(rhs)
+			);
+	}
+
+	bool operator ==(EArcAttributeFlags lhs, std::underlying_type<EArcAttributeFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EArcAttributeFlags>::type>(lhs) == rhs;
+	}
+
+	bool operator !=(EArcAttributeFlags lhs, std::underlying_type<EArcAttributeFlags>::type rhs)
+	{
+		return static_cast<std::underlying_type<EArcAttributeFlags>::type>(lhs) != rhs;
 	}
 }

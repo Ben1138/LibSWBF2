@@ -12,6 +12,104 @@
 
 namespace LibSWBF2::Wrappers
 {
+
+	// HintNode
+
+	bool HintNode::FromChunk(Hint* chunk, HintNode& hintOut)
+	{
+		if (chunk -> p_Info == nullptr ||
+			chunk -> p_Info -> p_Name == nullptr ||
+			chunk -> p_Info -> p_Type == nullptr ||
+			chunk -> p_Info -> p_Transform == nullptr)
+		{
+			return false;
+		}
+
+		hintOut.p_HintNode = chunk;
+		return true;
+	}
+
+	const String& HintNode::GetName() const
+	{
+		return p_HintNode -> p_Info -> p_Name -> m_Text;
+	}
+
+	const Vector3& HintNode::GetPosition() const
+	{
+		return p_HintNode -> p_Info -> p_Transform -> m_Position;
+	}
+
+	Vector4 HintNode::GetRotation() const
+	{
+		return MatrixToQuaternion(p_HintNode -> p_Info -> p_Transform -> m_RotationMatrix);
+	}
+
+	const uint16_t& HintNode::GetType() const
+	{
+		return p_HintNode -> p_Info -> p_Type -> m_Type;
+	}
+
+	const void HintNode::GetProperties(List<FNVHash>& outHashes, List<String>& outValues) const
+	{
+		outHashes.Clear();
+		outValues.Clear();
+
+		List<PROP*>& properties = p_HintNode->m_Properties;
+		for (int i = 0; i < properties.Size(); i++)
+		{
+			outHashes.Add(properties[i]->m_PropertyName);
+			outValues.Add(properties[i]->m_Value);
+		}
+	}
+
+
+
+
+
+	// Barrier
+
+	bool Barrier::FromChunk(BARR* chunk, Barrier& barrOut)
+	{
+		if (chunk -> p_Info == nullptr ||
+			chunk -> p_Info -> p_Name == nullptr ||
+			chunk -> p_Info -> p_Flag == nullptr ||
+			chunk -> p_Info -> p_Size == nullptr ||
+			chunk -> p_Info -> p_Transform == nullptr)
+		{
+			return false;
+		}
+
+		barrOut.p_Barrier = chunk;
+		return true;
+	}
+
+	const String& Barrier::GetName() const
+	{
+		return p_Barrier -> p_Info -> p_Name -> m_Text;
+	}
+
+	const Vector3& Barrier::GetPosition() const
+	{
+		return p_Barrier -> p_Info -> p_Transform -> m_Position;
+	}
+
+	Vector4 Barrier::GetRotation() const
+	{
+		return MatrixToQuaternion(p_Barrier -> p_Info -> p_Transform -> m_RotationMatrix);
+	}
+
+	const Vector3& Barrier::GetSize() const
+	{
+		return p_Barrier -> p_Info -> p_Size -> m_Dimensions;
+	}
+
+	const uint32_t& Barrier::GetFlag() const
+	{
+		return p_Barrier -> p_Info -> p_Flag -> m_Flag;
+	}
+
+
+
 	// Region
 
 	bool Region::FromChunk(regn* chunk, Region& regOut)
@@ -240,6 +338,26 @@ namespace LibSWBF2::Wrappers
 			}
 		}
 
+		List<BARR *>& barriers = worldChunk -> m_Barriers;
+		for (size_t i = 0; i < barriers.Size(); ++i)
+		{
+			Barrier barrier;
+			if (Barrier::FromChunk(barriers[i], barrier))
+			{
+				out.m_Barriers.Add(barrier);
+			}
+		}
+
+		List<Hint *>& hintNodes = worldChunk -> m_HintNodes;
+		for (size_t i = 0; i < hintNodes.Size(); ++i)
+		{
+			HintNode hintNode;
+			if (HintNode::FromChunk(hintNodes[i], hintNode))
+			{
+				out.m_HintNodes.Add(hintNode);
+			}
+		}
+
 		List<anim *>& animations = worldChunk -> m_Animations;
 		for (size_t i = 0; i < animations.Size(); ++i)
 		{
@@ -286,6 +404,16 @@ namespace LibSWBF2::Wrappers
 	const List<Region>& World::GetRegions() const
 	{
 		return m_Regions;
+	}
+
+	const List<Barrier>& World::GetBarriers() const
+	{
+		return m_Barriers;
+	}
+
+	const List<HintNode>& World::GetHintNodes() const
+	{
+		return m_HintNodes;
 	}
 
 	Types::String World::GetTerrainName() const
