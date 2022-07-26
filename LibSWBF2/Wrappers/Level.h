@@ -18,6 +18,10 @@ namespace LibSWBF2
 			{
 				struct skel;
 			}
+			namespace sound
+			{
+				struct Stream;
+			}
 		}
 	}
 
@@ -41,6 +45,7 @@ namespace LibSWBF2::Wrappers
 	typedef LibSWBF2::Chunks::LVL::LVL LVL;
 	typedef LibSWBF2::Chunks::GenericBaseChunk GenericBaseChunk;
 	typedef LibSWBF2::Chunks::LVL::skel::skel skel;
+	typedef LibSWBF2::Chunks::LVL::sound::Stream Stream;
 
 
 	private:
@@ -73,6 +78,8 @@ namespace LibSWBF2::Wrappers
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
 
+		SoundStream * WrapStreamChunk(Stream* streamChunk);
+
 	public:
 		friend class Model;
 		friend class Segment;
@@ -81,6 +88,8 @@ namespace LibSWBF2::Wrappers
 		// contents will be copied and hashed.
 		static Level* FromFile(const String& path, const List<String>* subLVLsToLoad = nullptr);
 		static Level* FromChunk(LVL* lvl, Container* mainContainer);
+		static Level* FromStream(FileReader& Stream);
+
 		static void Destroy(Level* level);
 
 		const String& GetLevelPath() const;
@@ -132,6 +141,8 @@ namespace LibSWBF2::Wrappers
 
 
 		const LVL* GetChunk() const;
+
+		SoundStream* FindAndIndexSoundStream(FileReader& stream, FNVHash StreamName);
 
 
 	private:

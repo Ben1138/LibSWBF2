@@ -385,6 +385,8 @@ namespace LibSWBF2
 				return "X ADPCM";
 			case ESoundFormat::IMAADPCM:
 				return "IMA ADPCM";
+			case ESoundFormat::Unity:
+				return "Unity";
 			default:
 				return fmt::format("Unknown ESoundFormat: {}", (uint32_t)format).c_str();
 		}	

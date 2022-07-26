@@ -137,6 +137,14 @@ namespace LibSWBF2.Wrappers
                 Type = Marshal.PtrToStringAnsi(typePtr);
             }
         }
+
+        public void GetProperties(out uint[] properties, out string[] values)
+        {
+            CheckValidity();
+            APIWrapper.Region_GetProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
+        }
     }
 
 

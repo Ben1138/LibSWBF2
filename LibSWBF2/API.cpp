@@ -12,6 +12,9 @@
 
 #include "Chunks/HeaderNames.h"
 
+#include "MemoryMappedReader.h"
+#include "StreamReader.h"
+
 
 namespace LibSWBF2
 {
@@ -36,8 +39,38 @@ namespace LibSWBF2
 	}
 
 
-	// Hashing //
+	// FileReader //
+	const FileReader * FileReader_FromFile(const char *path, bool UseMemoryMapping)
+	{
+		FileReader * reader;
+		if (UseMemoryMapping)
+		{
+			reader = new MemoryMappedReader();
+		}
+		else 
+		{
+			reader = new StreamReader();
+		}
 
+		if (reader -> Open(path))
+		{
+			return reader;
+		}
+		else 
+		{
+			delete reader;
+			return nullptr;
+		}
+	}
+
+	const void FileReader_Delete(FileReader * readerPtr)
+	{
+		delete readerPtr;
+	}
+
+
+
+	// Hashing //
 	uint8_t Hashing_Lookup(uint32_t hash, const char *& str)
 	{
 		static String lookupCache;
@@ -225,8 +258,6 @@ namespace LibSWBF2
 		return container -> FindConfig((EConfigType) type, nameHash);
 	}
 
-
-
 	const bool Container_Delete(Container* container)
 	{
 		CheckPtr(container,false);
@@ -235,13 +266,27 @@ namespace LibSWBF2
 	}
 
 
-
 	// Wrappers
 	Level* Level_FromFile(const char* path)
 	{
 		CheckPtr(path, nullptr);
 		return Level::FromFile(path);
 	}
+
+	Level* Level_FromStream(FileReader* stream)
+	{
+		CheckPtr(stream, nullptr);
+		return Level::FromStream(*stream);
+	}
+
+	SoundStream * Level_FindAndIndexSoundStream(Level * level, FileReader* stream, uint32_t StreamName)
+	{
+		CheckPtr(stream, nullptr);
+		CheckPtr(level, nullptr);
+
+		return level -> FindAndIndexSoundStream(*stream, StreamName);
+	}
+
 
 	void Level_Destroy(Level* level)
 	{
@@ -836,11 +881,28 @@ namespace LibSWBF2
 	const void HintNode_GetProperties(const HintNode* hnt, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
 	{
 		CheckPtr(hnt,);
+		count = 0;
 		static List<const char*> ptrsBuffer;
 		static List<String> values;
 		static List<uint32_t> hashes;
 
-		hnt->GetProperties(hashes, values);
+		hnt->GetProperties(hashes, values)
+
+		hashesBuffer = hashes.GetArrayPtr();
+		count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
+	}
+  
+  const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	{
+		count = 0;
+		CheckPtr(reg,)
+		static List<const char*> ptrsBuffer;
+		static List<String> values;
+		static List<uint32_t> hashes;
+
+		reg->GetProperties(hashes, values);
 
 		hashesBuffer = hashes.GetArrayPtr();
 		count = (int32_t)values.Size();
@@ -1321,42 +1383,51 @@ namespace LibSWBF2
 
 
     // Wrappers - Sound
-	const char* Sound_GetName(const Sound* sound)
-	{
-		CheckPtr(sound, nullptr);
-		static String name;
-		name = sound->GetName();
-		return name.Buffer();
-	}
-
-	const uint8_t Sound_FetchAllFields(const Sound *sound, 
-		uint32_t& nameOut, uint32_t& sampleRate, 
-		uint32_t& sampleCount, uint8_t& blockAlign,
-		uint8_t& hasDataOut)
-    {
-    	CheckPtr(sound, false);
-    	nameOut = sound -> GetHashedName();
-    	return true;
-    }
-
 	uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data)
 	{
 		CheckPtr(sound, false);
 		return (uint8_t)sound->GetData(sampleRate, sampleCount, blockAlign, data);
 	}
 
+	uint8_t Sound_FillDataBuffer(const Sound* sound, void* buffer)
+	{
+		CheckPtr(sound, false);
+		return sound -> FillDataBuffer(ESoundFormat::PCM16, (int16_t *) buffer);
+	}
+
+    uint8_t Sound_FetchAllFields(const Sound* sound, uint32_t& format, 
+                                int32_t& numChannels, int32_t& sampleRate,
+                                int32_t& numSamples, uint32_t& alias, 
+                                uint8_t& hasData, uint32_t& name, uint32_t& numBytes)
+    {
+		CheckPtr(sound, false);
+		format = (uint32_t) sound -> GetFormat();
+		numChannels = (int32_t) sound -> GetNumChannels();
+		sampleRate = (int32_t) sound -> GetSampleRate();
+		numSamples = (int32_t) sound -> GetNumSamples();
+		alias = sound -> GetAlias();
+		hasData = sound -> HasData();
+		name = sound -> GetHashedName();
+		numBytes = sound -> GetDataLength();
+		return true;
+    }
+
+
 
 
 	// Wrappers - SoundStream
     const uint8_t SoundStream_FetchAllFields(const SoundStream *str, 
      		uint32_t& nameOut, uint8_t& hasDataOut,
-    		uint32_t& formatOut, uint32_t& numChannelsOut)
+    		uint32_t& formatOut, uint32_t& numChannelsOut,
+    		uint32_t& numSubstreamsOut, uint32_t& substreamInterleaveOut)
     {
 		CheckPtr(str, false);
 		hasDataOut = str -> HasData();
 		formatOut = (uint32_t) str -> GetFormat();
 		nameOut = str -> GetHashedName();
 		numChannelsOut = str -> GetNumChannels();
+		numSubstreamsOut = str -> GetNumSubstreams();
+		substreamInterleaveOut = str -> GetSubstreamInterleave();
 		return true;
     }
 
@@ -1376,6 +1447,57 @@ namespace LibSWBF2
 		soundInc = sizeof(Sound);
 		return numSounds > 0;
     }
+
+	
+    const int32_t SoundStream_SampleReadMethod(
+    		SoundStream *str, void * sBuf, int32_t sBufLength,
+    		int32_t numToRead, ESoundFormat format, int32_t& numBytesRead, bool ReadSamples)
+    {
+		CheckPtr(str, -1);
+		if (ReadSamples)
+		{
+			return str -> ReadSamples(sBuf, sBufLength, numToRead, format);
+		}
+		else 
+		{
+			// This method might not be needed, it depends on whether or not we
+			// encounter other formats or if IMAADPCM block boundaries can be violated...
+			return -1;// str -> ReadSamplesFromBytes(sBuf, sBufLength, numToRead, format, numBytesRead);
+		}
+    }
+
+    const int32_t SoundStream_GetNumSamplesInBytes(SoundStream *str, int32_t NumBytes)
+    {
+    	CheckPtr(str, -1);
+    	return str -> GetNumSamplesInBytes(NumBytes);
+    }
+    
+    const bool SoundStream_SetFileReader(SoundStream *str, FileReader * readerPtr)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetFileReader(readerPtr);
+    }
+
+    const bool SoundStream_SetStreamBuffer(SoundStream *str, void * bufferPtr, int32_t bufferLgenth)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetFileStreamBuffer((uint8_t *) bufferPtr, bufferLgenth);
+    }
+
+    const int32_t SoundStream_ReadBytesFromStream(SoundStream *str, int32_t numBytes)
+    {
+    	CheckPtr(str, -1);
+    	return str -> ReadBytesFromStream(numBytes);
+    }
+
+    const bool SoundStream_SetSegment(SoundStream *str, FNVHash name)
+    {
+    	CheckPtr(str, false);
+    	return str -> SetSegment(name);
+    }
+
+
+
 
 		
 	// Wrappers - SoundBank

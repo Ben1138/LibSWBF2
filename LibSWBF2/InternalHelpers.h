@@ -94,7 +94,7 @@ struct fmt::formatter<LibSWBF2::Types::String> {
 	template <typename FormatContext>
 	auto format(const LibSWBF2::Types::String& str, FormatContext& ctx)
 	{
-		return format_to(ctx.out(), "{}", str.Buffer());
+		return fmt::format_to(ctx.out(), "{}", str.Buffer());
 	}
 };
 
@@ -108,7 +108,7 @@ struct fmt::formatter<LibSWBF2::ChunkHeader> {
 	template <typename FormatContext>
 	auto format(const LibSWBF2::ChunkHeader& header, FormatContext& ctx)
 	{
-		return format_to(ctx.out(), "{}", header.ToString().Buffer());
+		return fmt::format_to(ctx.out(), "{}", header.ToString().Buffer());
 	}
 };
 
