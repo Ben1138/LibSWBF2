@@ -5,14 +5,15 @@
 #include <atomic>
 
 
+#include "FileReader.h"
 
 namespace LibSWBF2
 {
-	class FileReader
+	class StreamReader : public FileReader
 	{
 	public:
-		FileReader();
-		~FileReader();
+		StreamReader();
+		~StreamReader();
 
 		bool Open(const Types::String& File);
 		ChunkHeader ReadChunkHeader(bool peek);
@@ -31,22 +32,11 @@ namespace LibSWBF2
 		size_t GetFileSize();
 		bool SkipBytes(const size_t& Amount);
 		void Close();
-		
-		size_t GetLatestChunkPosition();
 
-	private:
 		bool CheckGood(size_t ReadSize);
 
-		size_t m_FileSize = 0;
-		Types::String m_FileName;
+	private:
 
-	#ifndef MEMORY_MAPPED_READER
 		std::ifstream m_Reader;
-	#else
-		uint8_t* p_ReaderHead = nullptr;
-		uint8_t* p_MappingBase = nullptr;
-	#endif
-		
-		std::atomic_size_t m_LatestChunkPos;
 	};
 }

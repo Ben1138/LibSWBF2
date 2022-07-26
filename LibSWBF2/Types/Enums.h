@@ -105,6 +105,7 @@ namespace LibSWBF2
         FoleyFX = 0x5f786666,
         Sound = 0x5f646e73,
         TriggerSoundRegion = 0x5f727374,
+        HUD = 0x5f647568,
 	};
 
 	enum class ECollisionMaskFlags : uint32_t
@@ -197,7 +198,8 @@ namespace LibSWBF2
 		PCM16 = 2,
 		VAG = 3,
 		XADPCM = 4,
-		IMAADPCM = 5
+		IMAADPCM = 5,
+		Unity = 6
 	};
 
 

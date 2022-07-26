@@ -311,6 +311,10 @@ namespace LibSWBF2::Wrappers
 		{
 			type = EConfigType::TriggerSoundRegion;
 		}
+		else if (dynamic_cast<hud_*>(cfgPtr) != nullptr)
+		{
+			type = EConfigType::HUD;
+		}
 		else 
 		{
 			LOG_ERROR("Couldn't wrap unhandled config chunk...");

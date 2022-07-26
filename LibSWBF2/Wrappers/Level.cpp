@@ -23,6 +23,8 @@
 #include "Chunks/LVL/sound/SampleBank.h"
 #include "Chunks/LVL/sound/SampleBankInfo.h"
 
+#include "FileReader.h"
+
 
 #include <unordered_map>
 #include <filesystem>
@@ -187,6 +189,16 @@ namespace LibSWBF2::Wrappers
 			if (Config::FromChunk(soundTriggerChunk, soundTrigger))
 			{
 				m_NameToIndexMaps->ConfigHashToIndex.emplace(soundTrigger.m_Name + (uint32_t) soundTrigger.m_Type, m_Configs.Add(std::move(soundTrigger)));
+			}
+		}
+
+		hud_* hudChunk = dynamic_cast<hud_*>(root);
+		if (hudChunk != nullptr)
+		{
+			Config HUD;
+			if (Config::FromChunk(hudChunk, HUD))
+			{
+				m_NameToIndexMaps->ConfigHashToIndex.emplace(HUD.m_Name + (uint32_t) HUD.m_Type, m_Configs.Add(std::move(HUD)));
 			}
 		}
 
@@ -375,11 +387,7 @@ namespace LibSWBF2::Wrappers
 		Stream* streamChunk = dynamic_cast<Stream*>(root);
 		if (streamChunk != nullptr)
 		{
-			SoundStream stream;
-			if (SoundStream::FromChunk(streamChunk, stream))
-			{
-				m_NameToIndexMaps->SoundStreamHashToIndex.emplace(stream.GetHashedName(), m_SoundStreams.Add(std::move(stream)));
-			}
+			WrapStreamChunk(streamChunk);
 		}
 
 
@@ -400,8 +408,8 @@ namespace LibSWBF2::Wrappers
 		}
 
 		Level* result = new Level(lvl, nullptr);
-		result->ExploreChildrenRecursive(lvl);
 		result->m_FullPath = path;
+		result->ExploreChildrenRecursive(lvl);
 
 		return result;
 	}
@@ -420,6 +428,19 @@ namespace LibSWBF2::Wrappers
 		return result;
 	}
 
+	Level* Level::FromStream(FileReader& reader)
+	{
+		LVL* lvl = LVL::Create();
+		lvl -> SetLazy(true);
+		lvl -> ReadFromStream(reader);
+
+		Level* result = new Level(lvl, nullptr);
+		result -> m_FullPath = reader.GetFileName();
+
+		// Don't read all children since we're streaming...
+		return result;
+	}
+
 	void Level::Destroy(Level* level)
 	{
 		if (level == nullptr)
@@ -435,6 +456,24 @@ namespace LibSWBF2::Wrappers
 	{
 		return m_FullPath;
 	}
+
+
+	SoundStream * Level::WrapStreamChunk(Stream *streamChunk)
+	{
+		SoundStream stream;
+		if (SoundStream::FromChunk(streamChunk, stream))
+		{
+			auto streamIndex = m_SoundStreams.Add(std::move(stream));
+			m_NameToIndexMaps->SoundStreamHashToIndex.emplace(stream.GetHashedName(), streamIndex);
+
+			return &(m_SoundStreams[streamIndex]);
+		}
+		else 
+		{
+			return nullptr;
+		}
+	}
+
 
 	String Level::GetLevelName() const
 	{
@@ -788,5 +827,26 @@ namespace LibSWBF2::Wrappers
 	const LibSWBF2::Chunks::LVL::LVL* Level::GetChunk() const
 	{
 		return p_lvl;
+	}
+
+	SoundStream* Level::FindAndIndexSoundStream(FileReader& stream, FNVHash StreamName)
+	{
+		auto it = m_NameToIndexMaps->SoundStreamHashToIndex.find(StreamName);
+		if (it != m_NameToIndexMaps->SoundStreamHashToIndex.end())
+		{
+			return &m_SoundStreams[it->second];
+		}
+		else 
+		{
+			Stream* streamChunk;
+			if (p_lvl -> FindAndReadSoundStream(stream, StreamName, streamChunk))
+			{
+				return WrapStreamChunk(streamChunk);
+			}
+			else 
+			{
+				return nullptr;
+			}			
+		}
 	}
 }

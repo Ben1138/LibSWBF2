@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Sound.h"
 #include "InternalHelpers.h"
+#include "Audio/SoundDecoder.h"
+#include "Audio/IMAADPCMDecoder.h"
+
 
 namespace LibSWBF2::Wrappers
 {
@@ -15,16 +18,6 @@ namespace LibSWBF2::Wrappers
 		out.p_SoundClip = soundClip;
 
 		return true;
-	}
-
-	String Sound::GetName() const
-	{
-		String name;
-		if (!p_SoundClip->TryLookupName(name))
-		{
-			name = std::to_string(p_SoundClip->m_NameHash).c_str();
-		}
-		return name;
 	}
 
 	FNVHash Sound::GetHashedName() const
@@ -56,6 +49,50 @@ namespace LibSWBF2::Wrappers
 	{
 		return p_SoundClip->m_Alias;
 	}
+
+	const uint8_t* Sound::GetDataPtr() const
+	{
+		return p_SoundClip->GetSampleData();
+	}
+
+	const size_t Sound::GetDataLength() const
+	{
+		return p_SoundClip->m_DataLength;
+	}
+
+
+	bool Sound::FillDataBuffer(ESoundFormat destFormat, int16_t* bufferToFill) const
+	{
+		if (!HasData()) return false;
+
+		if (destFormat == ESoundFormat::PCM16 && m_Format == ESoundFormat::PCM16)
+		{
+			memcpy((void*)bufferToFill, (void*)p_SoundClip->GetSampleData(), p_SoundClip->m_DataLength);
+			return true;
+		}
+		else if (destFormat == ESoundFormat::PCM16 && m_Format == ESoundFormat::IMAADPCM)
+		{
+			IMAADPCMDecoder dec(GetNumChannels(), 4);
+			size_t numBytesRead;
+			dec.DecodeAndFillPCM16((void *) GetDataPtr(), GetDataLength(), bufferToFill, GetNumSamples(), numBytesRead);
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+
+
+	const size_t Sound::GetDataPosition() const 
+	{
+		return p_SoundClip->m_DataPosition;
+	}
+
+
+
+
+
 
 	bool Sound::GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const
 	{

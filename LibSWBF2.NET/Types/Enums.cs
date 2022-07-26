@@ -27,6 +27,7 @@ namespace LibSWBF2.Enums
         FoleyFX = 0x5f786666,
         Sound = 0x5f646e73,
         TriggerSoundRegion = 0x5f727374,
+        HUD = 0x5f647568,
     }
 
     public enum ETopology : int
@@ -168,6 +169,7 @@ namespace LibSWBF2.Enums
         PCM16 = 2,
         VAG = 3,
         XADPCM = 4,
-        IMAADPCM = 5
+        IMAADPCM = 5,
+        Unity
     };
 }

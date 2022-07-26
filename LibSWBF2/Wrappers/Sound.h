@@ -14,8 +14,6 @@ namespace LibSWBF2::Wrappers
 	class SoundBank;
 	class SoundStream;
 
-	// I'm doing this extra Sound wrapper calls just to 
-	// follow the standardization..... Feels wrong though
 	class LIBSWBF2_API Sound
 	{
 	private:
@@ -30,7 +28,6 @@ namespace LibSWBF2::Wrappers
 	private:
 
 		// This info is in the SampleBank/Stream's INFO_fnv chunk
-		//  
 		uint32_t m_NumChannels = 1;
 		ESoundFormat m_Format = ESoundFormat::PCM16;
 
@@ -41,7 +38,6 @@ namespace LibSWBF2::Wrappers
 
 		bool HasData() const;
 
-		String GetName() const;
 		FNVHash GetHashedName() const;
 
 		ESoundFormat GetFormat() const;
@@ -49,6 +45,15 @@ namespace LibSWBF2::Wrappers
 		uint32_t GetSampleRate() const;
 		uint32_t GetNumSamples() const;
 		uint32_t GetAlias() const;
+
+
+		bool FillDataBuffer(ESoundFormat format, int16_t* bufferToFill) const;
+
+		const uint8_t* GetDataPtr() const;
+		const size_t GetDataLength() const;
+
+		const size_t GetDataPosition() const;
+
 
 		bool GetData(uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data) const;
 	};

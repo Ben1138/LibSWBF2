@@ -4,10 +4,18 @@
 #include "Hashing.h"
 #include "FileReader.h"
 #include "Chunks/HeaderNames.h"
+
+#include "Chunks/LVL/sound/Stream.h"
+#include "Chunks/LVL/sound/StreamInfo.h"
+
 #include <sstream>
+#include <iostream>
 
 namespace LibSWBF2::Chunks::LVL
 {
+	using LibSWBF2::Chunks::LVL::sound::Stream;
+
+
 	LVL* LVL::Create()
 	{
 		return new LVL();
@@ -18,13 +26,80 @@ namespace LibSWBF2::Chunks::LVL
 		delete lvl;
 	}
 
+
+	void LVL::SetLazy(bool Lazy)
+	{
+		m_Lazy = true;
+	}
+
+
 	void LVL::ReadFromStream(FileReader& stream)
 	{
 		BaseChunk::ReadFromStream(stream);
 		Check(stream);
-		ReadGenerics(stream);
+		if (!m_Lazy)
+		{
+			ReadGenerics(stream);
+		}
 		BaseChunk::EnsureEnd(stream);
 	}
+
+
+	bool LVL::FindAndReadSoundStream(FileReader& stream, FNVHash StreamName, Stream *& streamChunk)
+	{
+		// First check if we already loaded the stream...
+		const List<GenericBaseChunk*>& children = GetChildren();
+		for (int i = 0; i < children.Size(); i++)
+		{
+			streamChunk = dynamic_cast<Stream*>(children[i]);
+			if (streamChunk != nullptr && 
+				streamChunk -> p_Info != nullptr &&
+				streamChunk -> p_Info -> m_Name == StreamName)
+			{
+				return true;
+			}
+		}
+
+		stream.SetPosition(GetDataPosition());
+
+		while (ThereIsAnother(stream))
+		{
+			ChunkHeader nextHead = stream.ReadChunkHeader(true);
+			if (IsKnownHeader(nextHead))
+			{
+				try
+				{
+					if (nextHead == "StreamList"_fnvh || nextHead == "lvl_"_h || nextHead == "_pad"_h)
+					{
+						stream.SkipBytes(8);
+					}
+					else if (nextHead == "Stream"_fnvh && Stream::PeekStreamName(stream) == StreamName)
+					{
+						READ_CHILD(stream, streamChunk);
+						return true;
+					}
+					else 
+					{
+						BaseChunk::SkipChunk(stream,false);
+					}
+				}
+				catch (LibException e)
+				{
+					LOG_WARN("{}", e.what());
+					return false;
+				}
+			}
+			else 
+			{
+				stream.SkipBytes(4);
+			}
+		}
+
+		return false;
+	}
+
+
+
 
 	bool LVL::ReadFromFile(String Path, const List<String>* subLVLsToLoad)
 	{
