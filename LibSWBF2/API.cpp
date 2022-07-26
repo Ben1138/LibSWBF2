@@ -886,7 +886,7 @@ namespace LibSWBF2
 		static List<String> values;
 		static List<uint32_t> hashes;
 
-		hnt->GetProperties(hashes, values)
+		hnt->GetProperties(hashes, values);
 
 		hashesBuffer = hashes.GetArrayPtr();
 		count = (int32_t)values.Size();

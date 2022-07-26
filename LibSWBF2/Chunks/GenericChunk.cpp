@@ -307,6 +307,7 @@ namespace LibSWBF2::Chunks
 						plnp::plnp* plnp;
 						READ_CHILD(stream, plnp);
 						chunk = plnp;
+					}
 					else if (nextHead == "Stream"_fnvh)
 					{
 						LVL::sound::Stream* sstream;
