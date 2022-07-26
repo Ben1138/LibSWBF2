@@ -73,6 +73,7 @@ source_group("Source/Chunks/LVL/zaa_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/
 source_group("Source/Chunks/LVL/zaf_" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaf_/*")
 source_group("Source/Chunks/MSH" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/MSH/*")
 source_group("Source/Chunks/TERR" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/TERR/*")
+source_group("Source/Chunks/LVL/plan" REGULAR_EXPRESSION "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/*")
 
 target_sources(LibSWBF2 PRIVATE 
 
@@ -124,6 +125,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Types/Vector3u8.cpp"
   "${PROJECT_SOURCE_DIR}/Types/Vector4.cpp"
   "${PROJECT_SOURCE_DIR}/Types/WorldAnimationKey.cpp"
+  "${PROJECT_SOURCE_DIR}/Types/Planning.cpp"
 
   # Wrappers
   "${PROJECT_SOURCE_DIR}/Wrappers/AnimationBank.cpp"
@@ -145,6 +147,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Wrappers/Texture.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/World.cpp"
   "${PROJECT_SOURCE_DIR}/Wrappers/SoundStream.cpp"
+  "${PROJECT_SOURCE_DIR}/Wrappers/PlanSet.cpp"
 
 
   # Chunks
@@ -246,6 +249,8 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anim.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anmg.INFO.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/anmh.INFO.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/BARR.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/wrld/Hint.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/BIN_.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/zaa_/MINA.cpp"
@@ -290,4 +295,9 @@ target_sources(LibSWBF2 PRIVATE
 
   # TERR
   "${PROJECT_SOURCE_DIR}/Chunks/TERR/TERR.cpp"
+
+  # PLAN
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/plan.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/plan/plnp.cpp"
 )
+

@@ -172,4 +172,23 @@ namespace LibSWBF2.Enums
         IMAADPCM = 5,
         Unity
     };
+
+    [Flags]
+    public enum EArcFilterFlags : uint
+    {
+        Soldier = 1,
+        Small = 2,
+        Medium = 4,
+        Hover = 8,
+        Large = 16,
+        Huge = 32,
+    };
+
+    [Flags]
+    public enum EArcAttributeFlags : uint
+    {
+        OneWay = 1,
+        Jump = 2,
+        JetJump = 4,
+    };
 }

@@ -12,7 +12,6 @@
 #include "Chunks/MSH/MSH.h"
 #include "Chunks/TERR/TERR.h"
 #include "Chunks/LVL/LVL.h"
-#include "Chunks/BNK/BNK.h"
 
 #include "Wrappers/Wrappers.h"
 

@@ -20,6 +20,8 @@ namespace LibSWBF2
 		struct anim;
 		struct anmg;
 		struct anmh;
+		struct BARR;
+		struct Hint;
 	}
 }
 
@@ -36,6 +38,50 @@ namespace LibSWBF2::Wrappers
 	class Instance;
 	class Terrain;
 	class World;
+
+
+
+	class HintNode
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::Hint Hint;
+
+		friend World;
+		friend List<HintNode>;
+
+		Hint * p_HintNode;
+		HintNode() = default;
+
+		static bool FromChunk(Hint* chunk, HintNode& hintOut);
+
+	public:
+		const String& GetName() const;
+		const Vector3& GetPosition() const;
+		Vector4 GetRotation() const;
+		const uint16_t& GetType() const;
+
+		const void GetProperties(List<FNVHash>& outHashes, List<String>& outValues) const;
+	};
+
+
+	class Barrier
+	{
+	typedef LibSWBF2::Chunks::LVL::wrld::BARR BARR;
+
+		friend World;
+		friend List<Barrier>;
+
+		BARR * p_Barrier;
+		Barrier() = default;
+
+		static bool FromChunk(BARR* chunk, Barrier& barrOut);
+
+	public:
+		const String& GetName() const;
+		const Vector3& GetPosition() const;
+		Vector4 GetRotation() const;
+		const uint32_t& GetFlag() const;
+		const Vector3& GetSize() const;		
+	};
 
 
 	class LIBSWBF2_API Region
@@ -133,6 +179,8 @@ namespace LibSWBF2::Wrappers
 
 		List<Instance> m_Instances;
 		List<Region> m_Regions;
+		List<Barrier> m_Barriers;
+		List<HintNode> m_HintNodes;
 		List<WorldAnimation> m_Animations;
 		List<WorldAnimationGroup> m_AnimationGroups;
 		List<WorldAnimationHierarchy> m_AnimationHierarchies;
@@ -146,6 +194,8 @@ namespace LibSWBF2::Wrappers
 		const String& GetName() const;
 		const List<Instance>& GetInstances() const;
 		const List<Region>& GetRegions() const;
+		const List<Barrier>& GetBarriers() const;
+		const List<HintNode>& GetHintNodes() const;
 		Types::String GetTerrainName() const;
 		const Terrain* GetTerrain() const;
 		Types::String GetSkyName() const;

@@ -3,6 +3,7 @@
 #include "InternalHelpers.h"
 #include "Types/LibString.h"
 #include "Types/Enums.h"
+#include "Types/Planning.h"
 #include "Chunks/MSH/MSH.h"
 
 #include <string.h>
@@ -432,6 +433,13 @@ namespace LibSWBF2
 			wrapperSize = sizeof(SoundStream);
 			return static_cast<const void*>(streams.GetArrayPtr());
 		}
+		case 12:
+		{
+			const List<PlanSet>& planSets = level->GetPlanSets();
+			numWrappers = (uint32_t)planSets.Size();
+			wrapperSize = sizeof(PlanSet);
+			return static_cast<const void*>(planSets.GetArrayPtr());
+		}
 		default:
 			return nullptr;
 		}
@@ -808,7 +816,85 @@ namespace LibSWBF2
 	}
 
 
-    const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	// Wrappers - Barrier
+    const void * Barrier_GetFieldPtr(const Barrier* bar, uint8_t fieldID)
+    {
+    	CheckPtr(bar, nullptr);
+    	static Vector4 rotCache;
+
+    	void *fieldPtr = nullptr;
+    	switch (fieldID)
+    	{
+    		case 0:
+    			fieldPtr = (void *) &(bar -> GetPosition());
+    			break;
+    		case 1:
+    			rotCache = bar -> GetRotation();
+    			fieldPtr = (void *) &rotCache;
+    			break;
+    		case 2:
+    			fieldPtr = (void *) &(bar -> GetFlag());
+    			break;
+    		case 3:
+    			fieldPtr = (void *) bar -> GetName().Buffer();
+    			break;
+    		case 4:
+    			fieldPtr = (void *) &(bar -> GetSize());
+    			break;
+    		default:
+    			break; 
+    	}
+
+    	return fieldPtr;
+    }
+
+	// Wrappers - HintNode
+    const void * HintNode_GetFieldPtr(const HintNode* hnt, uint8_t fieldID)
+    {
+    	CheckPtr(hnt, nullptr);
+    	static Vector4 rotCache;
+
+    	void *fieldPtr = nullptr;
+    	switch (fieldID)
+    	{
+    		case 0:
+    			fieldPtr = (void *) &(hnt -> GetPosition());
+    			break;
+    		case 1:
+    			rotCache = hnt -> GetRotation();
+    			fieldPtr = (void *) &rotCache;
+    			break;
+    		case 2:
+    			fieldPtr = (void *) &(hnt -> GetType());
+    			break;
+    		case 3:
+    			fieldPtr = (void *) hnt -> GetName().Buffer();
+    			break;
+    		default:
+    			break; 
+    	}
+
+    	return fieldPtr;
+    }
+
+
+	const void HintNode_GetProperties(const HintNode* hnt, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
+	{
+		CheckPtr(hnt,);
+		count = 0;
+		static List<const char*> ptrsBuffer;
+		static List<String> values;
+		static List<uint32_t> hashes;
+
+		hnt->GetProperties(hashes, values)
+
+		hashesBuffer = hashes.GetArrayPtr();
+		count = (int32_t)values.Size();
+		GetStringListPtrs(values, ptrsBuffer);
+		valuesBuffer = ptrsBuffer.GetArrayPtr();
+	}
+  
+  const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count)
 	{
 		count = 0;
 		CheckPtr(reg,)
@@ -828,11 +914,6 @@ namespace LibSWBF2
 	//Wrappers - World
 
 	const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
-										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
-										const Region*& regionArr, int32_t& regCount, int32_t& regInc,
-										const WorldAnimation*& animArr, int32_t& animCount, int32_t& animInc,
-										const WorldAnimationGroup*& animGroupArr, int32_t& animGroupCount, int32_t& animGroupInc,
-										const WorldAnimationHierarchy*& animHierArr, int32_t& animHierCount, int32_t& animHierInc,
 										const Terrain*& terrPtr)
 	{
 		CheckPtr(world,false);
@@ -843,35 +924,82 @@ namespace LibSWBF2
 		skyNameCache = world -> GetSkyName();
 		skyNameOut = skyNameCache.Buffer();
 
-    	const List<Instance>& instances = world -> GetInstances();
-		instanceArr = instances.GetArrayPtr();
-		instCount = (int32_t)instances.Size();
-		instInc = sizeof(Instance);
-
-    	const List<Region>& regions = world -> GetRegions();
-		regionArr = regions.GetArrayPtr();
-		regCount = (int32_t)regions.Size();
-		regInc = sizeof(Region);
-
-    	const List<WorldAnimation>& anims = world -> GetAnimations();
-		animArr = anims.GetArrayPtr();
-		animCount = (int32_t)anims.Size();
-		animInc = sizeof(WorldAnimation);
-
-    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
-		animGroupArr = animGroups.GetArrayPtr();
-		animGroupCount = (int32_t)animGroups.Size();
-		animGroupInc = sizeof(WorldAnimationGroup);
-
-    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
-		animHierArr = animHiers.GetArrayPtr();
-		animHierCount = (int32_t)animHiers.Size();
-		animHierInc = sizeof(WorldAnimationHierarchy);
-
 		terrPtr = world -> GetTerrain();
 
 		return true;
 	}
+
+
+	const bool World_GetChildrenList(const World* world, uint8_t listID, void *& listPtr, int32_t& listCount, int32_t& wrapperSize)
+	{
+		CheckPtr(world,false);
+
+		listPtr = nullptr;
+		switch (listID)
+		{
+			case 0:
+			{
+		    	const List<Instance>& instances = world -> GetInstances();
+				listPtr = (void *) instances.GetArrayPtr();
+				listCount = (int32_t)instances.Size();
+				wrapperSize = sizeof(Instance);
+				break;
+			}
+			case 1:
+			{
+		    	const List<Region>& regions = world -> GetRegions();
+				listPtr = regions.GetArrayPtr();
+				listCount = (int32_t)regions.Size();
+				wrapperSize = sizeof(Region);
+				break;
+			}
+			case 2:
+			{
+		    	const List<WorldAnimation>& anims = world -> GetAnimations();
+				listPtr = anims.GetArrayPtr();
+				listCount = (int32_t)anims.Size();
+				wrapperSize = sizeof(WorldAnimation);
+				break;
+			}
+			case 3:
+			{
+		    	const List<WorldAnimationGroup>& animGroups = world -> GetAnimationGroups();
+				listPtr = animGroups.GetArrayPtr();
+				listCount = (int32_t)animGroups.Size();
+				wrapperSize = sizeof(WorldAnimationGroup);
+				break;
+			}
+			case 4:
+			{
+		    	const List<WorldAnimationHierarchy>& animHiers = world -> GetAnimationHierarchies();
+				listPtr = animHiers.GetArrayPtr();
+				listCount = (int32_t)animHiers.Size();
+				wrapperSize = sizeof(WorldAnimationHierarchy);
+				break;
+			}
+			case 5:
+			{
+		    	const List<Barrier>& barriers = world -> GetBarriers();
+				listPtr = barriers.GetArrayPtr();
+				listCount = (int32_t)barriers.Size();
+				wrapperSize = sizeof(Barrier);
+				break;
+			}
+			case 6:
+			{
+		    	const List<HintNode>& hintNodes = world -> GetHintNodes();
+				listPtr = hintNodes.GetArrayPtr();
+				listCount = (int32_t)hintNodes.Size();
+				wrapperSize = sizeof(HintNode);
+				break;
+			}
+			default:
+				break;
+		}
+
+		return listPtr != nullptr;
+	}
+
 
 
 	//Wrappers - World Animation
@@ -1503,4 +1631,92 @@ namespace LibSWBF2
 		cache = cfg->GetName();
 		return cache.Buffer();
 	}
+
+
+	// PlanSet //
+    const uint8_t PlanSet_GetChildWrappers(const PlanSet* ps, uint8_t id, void*& listPtr, int32_t& listSize, int32_t& elSize)
+    {
+    	CheckPtr(ps,false);
+
+    	listSize = 0;
+    	listPtr = nullptr;
+    	switch (id)
+    	{
+    		case 0:
+    		{
+    			const List<Hub>& hubs = ps -> GetHubs();
+    			listPtr = (void *) hubs.GetArrayPtr();
+    			listSize = hubs.Size();
+    			elSize = (int32_t) sizeof(Hub);
+    			break;
+    		}
+    		case 1:
+    		{
+    			const List<Connection>& cons = ps -> GetConnections();
+    			listPtr = (void *) cons.GetArrayPtr();
+    			listSize = cons.Size();
+    			elSize = (int32_t) sizeof(Connection);
+    			break;
+    		}
+    		default:
+    			return false;
+    	}
+
+    	return listPtr != nullptr;
+    }        
+    
+
+    // Hub //
+    const void * Hub_GetFieldPtr(const Hub* hub, uint8_t id, int32_t& numBytes)
+    {
+    	CheckPtr(hub,nullptr);
+    	switch (id)
+    	{
+    		case 0:
+    		    return (void *) hub -> m_Name.Buffer();
+    		case 1:
+    			return (void *) &(hub -> m_Position);
+    		case 2:
+    			return (void *) &(hub -> m_Radius);
+    		case 3:
+    			return (void *) hub -> m_ConnectionIndices;
+    		case 4:
+    			return (void *) hub -> m_ConnectionsPerLayer;
+    		case 5:
+    		{
+ 				numBytes = (int32_t) hub -> m_QuantizedDataBuffer.Size();
+    			return (void *) hub -> m_QuantizedDataBuffer.GetArrayPtr();
+    		}
+    		default:
+    			return nullptr;
+    	}
+    }      
+
+    // Connection //
+    const void * Connection_GetFieldPtr(const Connection* con, uint8_t id)
+    {
+    	CheckPtr(con,nullptr);
+    	switch (id)
+    	{
+    		case 0:
+    			return (void *) con -> m_Name.Buffer();
+    		case 1:
+    			return (void *) &(con -> m_Start);
+    		case 2:
+    			return (void *) &(con -> m_End);
+    		case 3:
+    			return (void *) &(con -> m_FilterFlags);
+    		case 4:
+    			return (void *) &(con -> m_AttributeFlags);
+    		default:
+    			return nullptr;
+    	}
+    }
+
+
+
+
+
+
+
 }

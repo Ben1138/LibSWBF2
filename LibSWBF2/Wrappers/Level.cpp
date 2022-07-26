@@ -22,6 +22,7 @@
 #include "Chunks/LVL/sound/Stream.h"
 #include "Chunks/LVL/sound/SampleBank.h"
 #include "Chunks/LVL/sound/SampleBankInfo.h"
+#include "Chunks/LVL/plan/plan.h"
 
 #include "FileReader.h"
 
@@ -37,6 +38,7 @@ namespace LibSWBF2::Wrappers
 	using Chunks::LVL::texture::tex_;
 	using Chunks::LVL::modl::modl;
 	using Chunks::LVL::terrain::tern;
+	using Chunks::plan::plan;
 
     using namespace Chunks::LVL::common;
     using namespace Chunks::LVL::coll;
@@ -390,6 +392,16 @@ namespace LibSWBF2::Wrappers
 			WrapStreamChunk(streamChunk);
 		}
 
+		plan* planChunk = dynamic_cast<plan*>(root);
+		if (planChunk != nullptr)
+		{
+			PlanSet ps;
+			if (PlanSet::FromChunk(planChunk, ps))
+			{
+				m_PlanSets.Add(ps);
+			}
+		}
+
 
 		const List<GenericBaseChunk*>& children = root->GetChildren();
 		for (size_t i = 0; i < children.Size(); ++i)
@@ -560,6 +572,11 @@ namespace LibSWBF2::Wrappers
 	const List<SoundBank>& Level::GetSoundBanks() const
 	{
 		return m_SoundBanks;
+	}
+
+	const List<PlanSet>& Level::GetPlanSets() const
+	{
+		return m_PlanSets;
 	}
 
 

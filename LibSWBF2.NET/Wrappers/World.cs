@@ -11,6 +11,109 @@ using LibSWBF2.Types;
 
 namespace LibSWBF2.Wrappers
 {
+    public sealed class Barrier : NativeWrapper
+    {
+        public Vector3 Position 
+        { 
+            get 
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector3>(APIWrapper.Barrier_GetFieldPtr(NativeInstance, 0));
+            }
+        }
+
+        public Vector4 Rotation 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector4>(APIWrapper.Barrier_GetFieldPtr(NativeInstance, 1));
+            } 
+        }
+
+        public uint Flag 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<uint>(APIWrapper.Barrier_GetFieldPtr(NativeInstance, 2));
+            }
+        }
+
+        public string Name 
+        { 
+            get
+            {
+                CheckValidity();
+                return Marshal.PtrToStringAnsi(APIWrapper.Barrier_GetFieldPtr(NativeInstance, 3));
+            }
+        }
+
+        public Vector3 Size 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector3>(APIWrapper.Barrier_GetFieldPtr(NativeInstance, 4));                
+            }
+        }
+
+        public Barrier(){}
+    }
+
+
+
+
+    public sealed class HintNode : NativeWrapper
+    {
+        public Vector3 Position 
+        { 
+            get 
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector3>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 0));
+            }
+        }
+
+        public Vector4 Rotation 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<Vector4>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 1));
+            } 
+        }
+
+        public uint Type 
+        { 
+            get
+            {
+                CheckValidity();
+                return MemUtils.DerefUnmanaged<ushort>(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 2));
+            }
+        }
+
+        public string Name 
+        { 
+            get
+            {
+                CheckValidity();
+                return Marshal.PtrToStringAnsi(APIWrapper.HintNode_GetFieldPtr(NativeInstance, 3));
+            }
+        }
+
+        public void GetProperties(out uint[] properties, out string[] values)
+        {
+            CheckValidity();
+            APIWrapper.HintNode_GetProperties(NativeInstance, out IntPtr props, out IntPtr vals, out int count);
+            properties = MemUtils.IntPtrToArray<uint>(props, count);
+            values = MemUtils.IntPtrToStringList(vals, count).ToArray();
+        }
+
+        public HintNode(){}
+    }
+
+
     public sealed class Region : NativeWrapper
     {
         public Vector3 Position { get; private set; }
@@ -18,6 +121,7 @@ namespace LibSWBF2.Wrappers
         public Vector4 Rotation { get; private set; }
         public string  Name { get; private set; }
         public string  Type { get; private set; }
+        public Region(){}
 
         internal override void SetPtr(IntPtr ptr)
         {
@@ -50,6 +154,7 @@ namespace LibSWBF2.Wrappers
         public string Name { get; private set; }
         public bool IsLooping { get; private set; }
         public bool IsTranslationLocal { get; private set; }
+        public WorldAnimation(){}
 
         internal override void SetPtr(IntPtr ptr)
         {
@@ -93,6 +198,7 @@ namespace LibSWBF2.Wrappers
         public string Name { get; private set; }
         public bool PlaysAtStart { get; private set; }
         public bool DisablesHierarchies { get; private set; }
+        public WorldAnimationGroup(){}
 
         internal override void SetPtr(IntPtr ptr)
         {
@@ -138,6 +244,7 @@ namespace LibSWBF2.Wrappers
     {
         public string RootName { get; private set; }
         public string[] ChildrenNames { get; private set; }
+        public WorldAnimationHierarchy(){}
 
         internal override void SetPtr(IntPtr ptr)
         {
@@ -163,48 +270,33 @@ namespace LibSWBF2.Wrappers
 
     public sealed class World : NativeWrapper
     {
+        static readonly Dictionary<Type, byte> SubWrapperTypeMapping = new Dictionary<Type, byte>()
+        {
+            { typeof(Instance),                0 },
+            { typeof(Region),                  1 },
+            { typeof(WorldAnimation),          2 },
+            { typeof(WorldAnimationGroup),     3 },
+            { typeof(WorldAnimationHierarchy), 4 },
+            { typeof(Barrier),                 5 },
+            { typeof(HintNode),                6 },
+        };
+
+
+
         public string Name { get; private set; }
         public string SkydomeName { get; private set; }
 
 
         IntPtr terrainPtr;
 
-        IntPtr instanceArray;
-        int instanceCount, instanceIncrement;
-
-        IntPtr regionArray;
-        int regionCount, regionIncrement;
-
-        IntPtr animArray;
-        int animCount, animIncrement;
-        
-        IntPtr animGroupArray;
-        int animGroupCount, animGroupIncrement;
-
-        IntPtr animHierArray;
-        int animHierCount, animHierIncrement;
-
         internal override void SetPtr(IntPtr worldPtr)
         {
             base.SetPtr(worldPtr);
-            if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut,
-                                        out instanceArray, out instanceCount, out instanceIncrement,
-                                        out regionArray, out regionCount, out regionIncrement,
-                                        out animArray, out animCount, out animIncrement,
-                                        out animGroupArray, out animGroupCount, out animGroupIncrement,
-                                        out animHierArray, out animHierCount, out animHierIncrement,
-                                        out terrainPtr))
+            if (APIWrapper.World_FetchAllFields(worldPtr, out IntPtr nameOut, out IntPtr skyNameOut, out terrainPtr))
             {
                 Name = Marshal.PtrToStringAnsi(nameOut);
                 SkydomeName = Marshal.PtrToStringAnsi(skyNameOut);
             }
-        }
-
-
-        public Instance[] GetInstances()
-        {
-            CheckValidity();
-            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Instance>(instanceArray, instanceCount, instanceIncrement));
         }
 
         public Terrain GetTerrain()
@@ -213,28 +305,59 @@ namespace LibSWBF2.Wrappers
             return RegisterChild(FromNative<Terrain>(terrainPtr));
         }
 
+
+        T[] GetChildWrappers<T>() where T : NativeWrapper, new()
+        {
+            if (SubWrapperTypeMapping.TryGetValue(typeof(T), out byte typeID))
+            {
+                APIWrapper.World_GetChildrenList(NativeInstance, typeID, out IntPtr listPtr, out int listCount, out int elSize);
+                return RegisterChildren(MemUtils.IntPtrToWrapperArray<T>(listPtr, listCount, elSize));
+            }
+
+            return null;
+        } 
+
+
+        public Instance[] GetInstances()
+        {
+            CheckValidity();
+            return GetChildWrappers<Instance>();
+        }
+
         public Region[] GetRegions()
         {
             CheckValidity();
-            return RegisterChildren(MemUtils.IntPtrToWrapperArray<Region>(regionArray, regionCount, regionIncrement));
+            return GetChildWrappers<Region>();
+        }
+
+        public Barrier[] GetBarriers()
+        {
+            CheckValidity();
+            return GetChildWrappers<Barrier>();
+        }
+
+        public HintNode[] GetHintNodes()
+        {
+            CheckValidity();
+            return GetChildWrappers<HintNode>();
         }
     
         public WorldAnimation[] GetAnimations()
         {
             CheckValidity();
-            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimation>(animArray, animCount, animIncrement));
+            return GetChildWrappers<WorldAnimation>();
         }
 
         public WorldAnimationGroup[] GetAnimationGroups()
         {
             CheckValidity();
-            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimationGroup>(animGroupArray, animGroupCount, animGroupIncrement));
+            return GetChildWrappers<WorldAnimationGroup>();
         }  
 
         public WorldAnimationHierarchy[] GetAnimationHierarchies()
         {
             CheckValidity();
-            return RegisterChildren(MemUtils.IntPtrToWrapperArray<WorldAnimationHierarchy>(animHierArray, animHierCount, animHierIncrement));
+            return GetChildWrappers<WorldAnimationHierarchy>();
         }   
     }
 }

@@ -203,6 +203,25 @@ namespace LibSWBF2
 	};
 
 
+	enum class EArcFilterFlags : uint32_t
+	{
+		Soldier = 1,
+		Small = 2,
+		Medium = 4,
+		Hover = 8,
+		Large = 16,
+		Huge = 32
+	};
+
+
+	enum class EArcAttributeFlags : uint32_t
+	{
+		OneWay = 1,
+		Jump = 2,
+		JetJump = 4
+	};
+
+
 	Types::String LIBSWBF2_API LogTypeToString(ELogType type);
 	Types::String LIBSWBF2_API TopologyToString(ETopology topology);
 	Types::String LIBSWBF2_API MaterialFlagsToString(EMaterialFlags flags);
@@ -216,6 +235,8 @@ namespace LibSWBF2
 	Types::String LIBSWBF2_API LoadStatusToString(ELoadStatus type);
 	Types::String LIBSWBF2_API WorldAnimKeyTransitionTypeToString(EWorldAnimKeyTransitionType type);
 	Types::String LIBSWBF2_API SoundFormatToString(ESoundFormat format);
+	Types::String LIBSWBF2_API ArcFilterToString(EArcFilterFlags filter);
+	Types::String LIBSWBF2_API ArcAttributesToString(EArcAttributeFlags attributes);
 
 	EMaterialFlags LIBSWBF2_API operator &(EMaterialFlags lhs, EMaterialFlags rhs);
 	bool LIBSWBF2_API operator ==(EMaterialFlags lhs, std::underlying_type<EMaterialFlags>::type rhs);
@@ -239,4 +260,12 @@ namespace LibSWBF2
 	bool LIBSWBF2_API operator ==(EWorldAnimKeyTransitionType lhs, std::underlying_type<EWorldAnimKeyTransitionType>::type rhs);
 	
 	bool LIBSWBF2_API operator ==(ESoundFormat lhs, std::underlying_type<ESoundFormat>::type rhs);
+
+	EArcFilterFlags LIBSWBF2_API operator &(EArcFilterFlags lhs, EArcFilterFlags rhs);
+	bool LIBSWBF2_API operator ==(EArcFilterFlags lhs, std::underlying_type<EArcFilterFlags>::type rhs);
+	bool LIBSWBF2_API operator !=(EArcFilterFlags lhs, std::underlying_type<EArcFilterFlags>::type rhs);
+
+	EArcAttributeFlags LIBSWBF2_API operator &(EArcAttributeFlags lhs, EArcAttributeFlags rhs);
+	bool LIBSWBF2_API operator ==(EArcAttributeFlags lhs, std::underlying_type<EArcAttributeFlags>::type rhs);
+	bool LIBSWBF2_API operator !=(EArcAttributeFlags lhs, std::underlying_type<EArcAttributeFlags>::type rhs);
 }

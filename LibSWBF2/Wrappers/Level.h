@@ -73,6 +73,8 @@ namespace LibSWBF2::Wrappers
 		List<SoundStream> m_SoundStreams;
 		List<SoundBank> m_SoundBanks;
 
+		List<PlanSet> m_PlanSets;
+
 		// fast pimpl to avoid inclusion of std::unordered_map
 		class MapsWrapper* m_NameToIndexMaps;
 
@@ -107,6 +109,7 @@ namespace LibSWBF2::Wrappers
 		const List<const Config *> GetConfigs(EConfigType cfgType = EConfigType::All) const;
 		const List<SoundStream>& GetSoundStreams() const;
 		const List<SoundBank>& GetSoundBanks() const;
+		const List<PlanSet>& GetPlanSets() const;
 
 		const Model* GetModel(const String& modelName) const;
 		const Texture* GetTexture(const String& textureName) const;
