@@ -21,7 +21,10 @@ set(FMT_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty/fmt")
 add_subdirectory(${GLM_DIR} "${CMAKE_CURRENT_BINARY_DIR}/glm")
 add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
-target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories(LibSWBF2 PRIVATE ${PROJECT_SOURCE_DIR} "${PROJECT_SOURCE_DIR}/IO")
+
+target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/../lookup.csv")
+
 
 target_link_libraries(LibSWBF2 glm)
 target_link_libraries(LibSWBF2 fmt)
@@ -77,11 +80,13 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/API.cpp"
   "${PROJECT_SOURCE_DIR}/Container.cpp"
   "${PROJECT_SOURCE_DIR}/dllmain.cpp"
-  "${PROJECT_SOURCE_DIR}/FileReader.cpp"
-  "${PROJECT_SOURCE_DIR}/FileReaderMemMapped.cpp"
-  "${PROJECT_SOURCE_DIR}/FileWriter.cpp"
   "${PROJECT_SOURCE_DIR}/Hashing.cpp"
   "${PROJECT_SOURCE_DIR}/InternalHelpers.cpp"
+
+  # IO
+  "${PROJECT_SOURCE_DIR}/IO/StreamReader.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/MemoryMappedReader.cpp"
+  "${PROJECT_SOURCE_DIR}/IO/FileWriter.cpp"
 
   # DirectX
   "${PROJECT_SOURCE_DIR}/DirectX/DXHelpers.cpp"
@@ -89,6 +94,10 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/DirectX/DXTexCrossPlatConverters.cpp"
   "${PROJECT_SOURCE_DIR}/DirectX/detex/decompress-bc.c"
   "${PROJECT_SOURCE_DIR}/DirectX/detex/division-tables.c"
+
+  # Sound
+  "${PROJECT_SOURCE_DIR}/Audio/IMAADPCMDecoder.cpp"  
+  "${PROJECT_SOURCE_DIR}/Audio/PCM16Decoder.cpp"  
 
   # Logging
   "${PROJECT_SOURCE_DIR}/Logging/Logger.cpp"
@@ -203,6 +212,7 @@ target_sources(LibSWBF2 PRIVATE
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBank.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/SampleBankInfo.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/_pad.cpp"
+  "${PROJECT_SOURCE_DIR}/Chunks/LVL/sound/StreamData.cpp"
 
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/tern/DTEX.cpp"
   "${PROJECT_SOURCE_DIR}/Chunks/LVL/tern/LTEX.cpp"

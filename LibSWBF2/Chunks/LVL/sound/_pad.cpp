@@ -25,7 +25,16 @@ namespace LibSWBF2::Chunks::LVL::sound
 		// sure to write also 0 as size back!
 
 		m_Unknown1 = stream.ReadUInt32();
-		m_Unknown2 = stream.ReadUInt32();
+
+		// Is always the size of the following Stream chunk
+		m_SizeNextStreamChunk = stream.ReadUInt32();
+
+		if (m_Unknown1 != 1538883361)
+		{
+			LOG_WARN("Found unusual m_Unknown1 value in a _pad chunk: {}", m_Unknown1);
+		}
+
+		m_Size = 8;
 
 		BaseChunk::EnsureEnd(stream);
 	}
@@ -34,9 +43,9 @@ namespace LibSWBF2::Chunks::LVL::sound
 	{
 		return fmt::format(
 			"Unknown 1: {}\n"
-			"Unknown 2: {}",
+			"Size of next stream chunk: {}",
 			m_Unknown1,
-			m_Unknown2
+			m_SizeNextStreamChunk
 		).c_str();
 	}
 }

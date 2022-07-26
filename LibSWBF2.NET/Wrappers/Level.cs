@@ -41,6 +41,17 @@ namespace LibSWBF2.Wrappers
             return FromNative<Level>(APIWrapper.Level_FromFile(path));
         }
 
+        public static Level FromStream(FileReader fileStream)
+        {
+            return FromNative<Level>(APIWrapper.Level_FromStream(fileStream.GetNativePtr()));
+        }
+
+        public SoundStream FindAndIndexSoundStream(FileReader fileStream, uint SoundStreamName)
+        {
+            return FromNative<SoundStream>(APIWrapper.Level_FindAndIndexSoundStream(NativeInstance, fileStream.GetNativePtr(), SoundStreamName));
+        }
+
+
         public bool IsWorldLevel
         {
             get { CheckValidity(); return APIWrapper.Level_IsWorldLevel(NativeInstance); }

@@ -6,6 +6,7 @@
 namespace LibSWBF2
 {
 	class Container;
+	class AudioStreamer;
 
 	namespace Chunks::MSH { struct MSH; }
 	namespace Chunks::MSH { struct MODL; }
@@ -41,6 +42,7 @@ namespace LibSWBF2
 		struct Scope;
 		class SoundStream;
 		class SoundBank;
+		//class FileReader;
 	}
 
 	namespace Types
@@ -62,6 +64,10 @@ namespace LibSWBF2
 
 		// Hashing //
 		LIBSWBF2_API uint8_t Hashing_Lookup(uint32_t hash, const char *& str);
+
+		// FileReader //
+		LIBSWBF2_API const FileReader * FileReader_FromFile(const char *path, bool UseMemoryMapping);
+		LIBSWBF2_API const void FileReader_Delete(FileReader * readerPtr);
 
 
 		// Logging //
@@ -98,6 +104,7 @@ namespace LibSWBF2
 
 		// Wrappers - Level
 		LIBSWBF2_API Level*  Level_FromFile(const char* path);
+		LIBSWBF2_API Level*  Level_FromStream(FileReader* stream);
 		LIBSWBF2_API void    Level_Destroy(Level* level);
 		LIBSWBF2_API uint8_t Level_IsWorldLevel(const Level* level);
 
@@ -109,6 +116,8 @@ namespace LibSWBF2
 		LIBSWBF2_API const void* Level_GetWrapper(const Level* level, uint32_t type, const char* name);
 		LIBSWBF2_API const void* Level_GetWrapperFNV(const Level* level, uint32_t type, uint32_t name);
 		LIBSWBF2_API const void* Level_GetWrappers(const Level* level, uint32_t type, uint32_t& numWrappers, uint32_t& wrapperSize);
+
+		LIBSWBF2_API SoundStream * Level_FindAndIndexSoundStream(Level * level, FileReader* stream, uint32_t StreamName);
 
 
 		//Wrappers - Texture
@@ -173,6 +182,8 @@ namespace LibSWBF2
         LIBSWBF2_API const uint8_t Region_FetchAllFields(const Region* reg, const Vector3*& sizeOut, 
         											const Vector3*& posOut, const Vector4*& rotOut, 
         											const char *&nameOut, const char*& typeOut);
+        LIBSWBF2_API const void Region_GetProperties(const Region* reg, uint32_t*& hashesBuffer, const char**& valuesBuffer, int32_t& count);
+
         // Wrappers - World
 		LIBSWBF2_API const uint8_t World_FetchAllFields(const World* world, const char*&nameOut, const char*&skyNameOut,
 										const Instance*& instanceArr, int32_t& instCount, int32_t& instInc,
@@ -226,21 +237,36 @@ namespace LibSWBF2
 
 
 		// Wrappers - Sound
-		LIBSWBF2_API const char* Sound_GetName(const Sound* sound);
-        LIBSWBF2_API const uint8_t Sound_FetchAllFields(const Sound *sound, 
-        	uint32_t& nameOut, uint32_t& sampleRate, uint32_t& sampleCount, 
-        	uint8_t& blockAlign, uint8_t& hasDataOut);
 		LIBSWBF2_API uint8_t Sound_GetData(const Sound* sound, uint32_t& sampleRate, uint32_t& sampleCount, uint8_t& blockAlign, const uint8_t*& data);
+		LIBSWBF2_API uint8_t Sound_FillDataBuffer(const Sound* sound, void* buffer);
+        LIBSWBF2_API uint8_t Sound_FetchAllFields(const Sound* soundPtr, uint32_t& format, 
+                                                int32_t& numChannels, int32_t& sampleRate,
+                                                int32_t& numSamples, uint32_t& alias, 
+                                                uint8_t& hasData, uint32_t& name, uint32_t& numBytes);
+
 
 
 		// Wrappers - SoundStream
         LIBSWBF2_API const uint8_t SoundStream_FetchAllFields(
         		const SoundStream *str, uint32_t& nameOut, uint8_t& hasDataOut,
-        		uint32_t& formatOut, uint32_t& numChannelsOut);
+        		uint32_t& formatOut, uint32_t& numChannelsOut, uint32_t& numSubstreamsOut, uint32_t& substreamInterleaveOut);
         LIBSWBF2_API const uint8_t SoundStream_GetSound(const SoundStream *str, uint32_t soundName, const Sound*& soundOut);
         LIBSWBF2_API const uint8_t SoundStream_GetSounds(const SoundStream *str, const Sound*& soundsOut, uint32_t& numSounds, uint32_t& soundInc);
 
-		
+        LIBSWBF2_API const int32_t SoundStream_SampleReadMethod(
+        		SoundStream *str, void * sBuf, int32_t sBufLength,
+        		int32_t numToRead, ESoundFormat format, int32_t& numBytesRead, bool ReadSamples);
+        
+        LIBSWBF2_API const bool SoundStream_SetFileReader(SoundStream *str, FileReader * readerPtr);
+
+        LIBSWBF2_API const bool SoundStream_SetStreamBuffer(SoundStream *str, void * bufferPtr, int32_t bufferLgenth);
+
+        LIBSWBF2_API const int32_t SoundStream_ReadBytesFromStream(SoundStream *str, int32_t NumBytes);
+
+        LIBSWBF2_API const int32_t SoundStream_GetNumSamplesInBytes(SoundStream *str, int32_t NumBytes);
+
+    	LIBSWBF2_API const bool SoundStream_SetSegment(SoundStream *str, FNVHash name);
+				
 		// Wrappers - SoundBank
         LIBSWBF2_API const uint8_t SoundBank_FetchAllFields(
         		const SoundBank *str, uint32_t& nameOut, uint8_t& hasDataOut,

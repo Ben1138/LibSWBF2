@@ -1,18 +1,42 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+
+using LibSWBF2.Enums;
+
 namespace LibSWBF2.Wrappers
 {
     public sealed class Sound : NativeWrapper
     {
-        public string Name
+        public uint         Name { get; private set; }
+        public ESoundFormat Format { get; private set; }
+        public int          NumChannels { get; private set; }
+        public int          SampleRate { get; private set; }
+        public int          NumSamples { get; private set; }
+        public uint         Alias { get; private set; }
+        public bool         HasData { get; private set; }
+        public uint         NumBytes { get; private set; }
+
+
+        internal override void SetPtr(IntPtr soundPtr)
         {
-            get
+            base.SetPtr(soundPtr);
+            if (APIWrapper.Sound_FetchAllFields(soundPtr, out uint format, 
+                                                out int numChannels, out int sampleRate,
+                                                out int numSamples, out uint alias, 
+                                                out bool hasData, out uint name, out uint numBytes))
             {
-                CheckValidity();
-                return Marshal.PtrToStringAnsi(APIWrapper.Sound_GetName(NativeInstance));
+                Format = (ESoundFormat) format;
+                NumChannels = numChannels;
+                SampleRate = sampleRate;
+                NumSamples = numSamples;
+                Alias = alias;
+                HasData = hasData;
+                Name = name;
+                NumBytes = numBytes;
             }
         }
+
 
         public bool GetData(out uint sampleRate, out uint sampleCount, out byte blockAlign, out IntPtr data)
         {
@@ -32,6 +56,23 @@ namespace LibSWBF2.Wrappers
             }
             data = null;
             return false;
+        }
+
+
+        public short[] GetPCM16()
+        {
+            CheckValidity();
+            short[] buffer = new short[NumSamples * NumChannels];
+            bool result;
+            unsafe
+            {
+                fixed (short* destPtr = buffer)
+                {
+                    result = APIWrapper.Sound_FillDataBuffer(NativeInstance, destPtr);
+                }
+            }  
+
+            return result ? buffer : new short[0];             
         }
     }
 }

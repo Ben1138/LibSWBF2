@@ -41,8 +41,21 @@ namespace LibSWBF2::Chunks::LVL::sound
 					m_NumChannels = stream.ReadUInt32();
 					break;
 
+				case "ChannelInterleave"_fnv:
+					m_ChannelInterleave = stream.ReadUInt32();
+					break;
+
 				case "NumSegments"_fnv:
 					m_NumSegments = stream.ReadUInt32();
+					break;
+
+				case "NumSubstreams"_fnv:
+					m_NumSubstreams = stream.ReadUInt32();
+					break;
+
+				case "SubstreamInterleave"_fnv:
+					m_SubstreamInterleave = stream.ReadUInt32();
+					break;
 
 				case "Size"_fnv:
 					m_CombinedSoundSize = stream.ReadUInt32(); 
@@ -77,13 +90,19 @@ namespace LibSWBF2::Chunks::LVL::sound
 			"Name: 0x{0:x}\n"
 			"Format: {1}\n"
 			"Num Channels: {2}\n"
-			"Num Segments: {3}\n"
-			"Combined Sound Size: {4}\n"
-			"Padding: {5}\n",
+			"Channel Interleave: {3}\n"
+			"Num Segments: {4}\n"
+			"Num Substreams: {5}\n"
+			"Substream Interleave: {6}\n"
+			"Combined Sound Size: {7}\n"
+			"Padding: {8}\n",
 			m_Name,
 			SoundFormatToString(m_Format),
 			m_NumChannels,
+			m_ChannelInterleave,
 			m_NumSegments,
+			m_NumSubstreams,
+			m_SubstreamInterleave,
 			m_CombinedSoundSize,
 			m_Padding
 		).c_str();

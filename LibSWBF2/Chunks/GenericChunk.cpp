@@ -22,6 +22,8 @@
 #include "LVL/sound/_pad.h"
 #include "LVL/sound/StreamList.h"
 #include "LVL/sound/SoundBankList.h"
+#include "LVL/sound/Stream.h"
+#include "LVL/sound/SampleBank.h"
 #include "LVL/Locl/Locl.h"
 #include "LVL/lvl_.h"
 #include "LVL/LVL.h"
@@ -234,6 +236,12 @@ namespace LibSWBF2::Chunks
 						READ_CHILD(stream, triggerSoundRegion);
 						chunk = triggerSoundRegion;	
 					}
+					else if (nextHead == "hud_"_h)
+					{
+						LVL::config::hud_* hudConfig;
+						READ_CHILD(stream, hudConfig);
+						chunk = hudConfig;	
+					}
 					else if (nextHead == "Locl"_h)
 					{
 						LVL::Localization::Locl* localizeChunk;
@@ -287,6 +295,18 @@ namespace LibSWBF2::Chunks
 						LVL::sound::SoundBankList* bankList;
 						READ_CHILD(stream, bankList);
 						chunk = bankList; 
+					}
+					else if (nextHead == "Stream"_fnvh)
+					{
+						LVL::sound::Stream* sstream;
+						READ_CHILD(stream, sstream);
+						chunk = sstream; 
+					}
+					else if (nextHead == "SampleBank"_fnvh)
+					{
+						LVL::sound::SampleBank* bank;
+						READ_CHILD(stream, bank);
+						chunk = bank; 
 					}
 					else
 					{
@@ -429,6 +449,7 @@ namespace LibSWBF2::Chunks
 	template struct LIBSWBF2_API GenericChunk<"mus_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"ffx_"_m>;
 	template struct LIBSWBF2_API GenericChunk<"tsr_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"hud_"_m>;
 
 	// collision
 	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
