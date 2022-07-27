@@ -1,27 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Runtime.InteropServices.WindowsRuntime;
-
-
-using LibSWBF2.Wrappers;
 
 namespace LibSWBF2.Utils
 {
-    public static class HashUtils {
-
+    public static class HashUtils
+    {
         public static uint GetCRC(string str)
         {
             if (str == null) return 0;
-            
+
             uint crc = 0xFFFFFFFF;
             foreach (char p in str)
             {
-                crc = (crc << 8) ^ m_Table32[(crc >> 24) ^ m_ToLower[(byte) p]];
+                crc = (crc << 8) ^ m_Table32[(crc >> 24) ^ m_ToLower[(byte)p]];
             }
 
             return ~crc;
@@ -36,7 +27,7 @@ namespace LibSWBF2.Utils
 
             foreach (char c in str)
             {
-                hash ^= (uint) (c | 0x20);
+                hash ^= (uint)(c | 0x20);
                 hash *= FNV_prime;
             }
 
@@ -49,7 +40,7 @@ namespace LibSWBF2.Utils
             {
                 return result;
             }
-            else 
+            else
             {
                 return String.Format("0x{0:X}", hash);
             }
@@ -62,7 +53,7 @@ namespace LibSWBF2.Utils
                 result = Marshal.PtrToStringAnsi(strPtr);
                 return true;
             }
-            else 
+            else
             {
                 result = "";
                 return false;
@@ -71,7 +62,7 @@ namespace LibSWBF2.Utils
         }
 
         // CRC table
-        private static uint[] m_Table32 =
+        private static readonly uint[] m_Table32 =
         {
             0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9,
             0x130476DC, 0x17C56B6B, 0x1A864DB2, 0x1E475005,
@@ -140,7 +131,7 @@ namespace LibSWBF2.Utils
         };
 
         // case translation table
-        private static byte[] m_ToLower =
+        private static readonly byte[] m_ToLower =
         {
             0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
             0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f,

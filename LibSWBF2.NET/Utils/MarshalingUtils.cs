@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Runtime.InteropServices.WindowsRuntime;
 using LibSWBF2.Wrappers;
+using System;
+using System.Runtime.InteropServices;
 
 namespace LibSWBF2.Utils
 {
-    class MemUtils {
-
-
+    class MemUtils
+    {
         // Given a pointer to a buffer of class instances, a count, and the size of the C++ class, this method will
         // return NativeWrappers using the offsets of each class element in the native buffer.
         public static T[] IntPtrToWrapperArray<T>(IntPtr nativePtr, int count, int elSize) where T : NativeWrapper, new()
@@ -21,7 +14,8 @@ namespace LibSWBF2.Utils
 
             T[] wrappers = new T[count];
 
-            for (int i = 0; i < count; i++){
+            for (int i = 0; i < count; i++)
+            {
                 wrappers[i] = NativeWrapper.FromNative<T>(IntPtr.Add(nativePtr, elSize * i));
             }
 
@@ -39,7 +33,8 @@ namespace LibSWBF2.Utils
             IntPtr[] ptrArr = new IntPtr[count];
             Marshal.Copy(nativePtr, ptrArr, 0, count);
 
-            for (int i = 0; i < count; i++){
+            for (int i = 0; i < count; i++)
+            {
                 wrappers[i] = NativeWrapper.FromNative<T>(ptrArr[i]);
             }
 
@@ -55,17 +50,17 @@ namespace LibSWBF2.Utils
             T[] array = new T[count];
 
             if (dataPtr == IntPtr.Zero || count == 0) return array;
-            
+
             unsafe
             {
                 int numBytes = count * sizeof(T);
-                T* srcPtr = (T*) dataPtr.ToPointer();
+                T* srcPtr = (T*)dataPtr.ToPointer();
                 fixed (T* destPtr = array)
                 {
                     APIWrapper.Memory_Blit(destPtr, srcPtr, numBytes);
                 }
-            }    
-            
+            }
+
             return array;
         }
 
@@ -120,10 +115,10 @@ namespace LibSWBF2.Utils
 
             unsafe
             {
-                T* srcPtr = (T*) ptr.ToPointer();
+                T* srcPtr = (T*)ptr.ToPointer();
                 result = *srcPtr;
-            } 
-            
+            }
+
 
             return result;
         }
