@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Chunks/BaseChunk.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileWriter.h>
 #include <LibSWBF2/IO/FileReader.h>
 #include <LibSWBF2/IO/MemoryMappedReader.h>

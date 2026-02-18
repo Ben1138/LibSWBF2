@@ -3,7 +3,7 @@
 #include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
 #include <LibSWBF2/Chunks/LVL/sound/SampleBankInfo.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Types/SoundClip.h>
 #include <LibSWBF2/Hashing.h>
 #include <unordered_map>

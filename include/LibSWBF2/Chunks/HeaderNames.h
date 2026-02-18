@@ -1,7 +1,7 @@
 #pragma once
-
-#include <stdint.h>
 #include <LibSWBF2/Hashing.h>
+#include <stdint.h>
+#include <assert.h>
 
 namespace LibSWBF2
 {
@@ -23,11 +23,14 @@ namespace LibSWBF2
 
 	constexpr ChunkHeader operator""_h(const char* chars, const size_t length)
 	{
+		assert(length == 4);
 		return *(ChunkHeader*)chars;
 	}
 
 	constexpr uint32_t operator""_m(const char* chars, const size_t length)
 	{
+		assert(length == 4);
+
 		uint32_t result = 0;
 		result |= chars[0] << 0;
 		result |= chars[1] << 8;
@@ -38,8 +41,9 @@ namespace LibSWBF2
 	
 	constexpr ChunkHeader operator""_fnvh(const char* chars, const size_t length)
 	{
-		FNVHash fnvHeader = FNV::HashConstexpr(chars, length);
-		return *((ChunkHeader *) &fnvHeader);
+		ChunkHeader ch;
+		ch.m_Magic = FNV::HashConstexpr(chars, length);
+		return ch;
 	}
 
 	bool IsPrintableHeader(const ChunkHeader hedr);

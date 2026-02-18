@@ -3,7 +3,7 @@
 #include <LibSWBF2/Wrappers/Config.h>
 #include <LibSWBF2/Chunks/LVL/config/ConfigChunk.h>
 #include <LibSWBF2/Chunks/LVL/config/SCOP.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2::Wrappers

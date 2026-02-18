@@ -2,7 +2,7 @@
 
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/CollisionPrimitive.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <stdint.h>
 
 

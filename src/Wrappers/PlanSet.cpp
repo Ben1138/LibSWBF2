@@ -3,7 +3,7 @@
 
 #include <LibSWBF2/Chunks/LVL/plan/plan.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2::Wrappers

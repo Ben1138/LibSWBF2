@@ -2,9 +2,8 @@
 #include <LibSWBF2/DirectX/DXTexCrossPlat.h>
 #include <LibSWBF2/DirectX/DXTexCrossPlatConverters.h>
 #include <LibSWBF2/DirectX/DXHelpers.h>
-
-#include <LibSWBF2/InternalHelpers.h>
 #include <LibSWBF2/Logging/Logger.h>
+#include "InternalHelpers.h"
 
 namespace DXTexCrossPlat {
 

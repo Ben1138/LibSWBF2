@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Chunks/LVL/tex_/FMT_.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::texture

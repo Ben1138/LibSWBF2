@@ -2,7 +2,7 @@
 #include <LibSWBF2/Chunks/LVL/wrld/anim.h>
 //#include <LibSWBF2/Chunks/LVL/wrld/anim.INFO.h>
 #include <LibSWBF2/Logging/Logger.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 //#include <LibSWBF2/Chunks/LVL/wrld/WorldAnimKeyChunk.h>
 

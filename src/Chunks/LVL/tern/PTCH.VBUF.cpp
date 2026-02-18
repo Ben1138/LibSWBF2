@@ -2,7 +2,7 @@
 #include <LibSWBF2/Chunks/LVL/tern/PTCH.VBUF.h>
 #include <LibSWBF2/Chunks/LVL/tern/PTCH.INFO.h>
 #include <LibSWBF2/Chunks/LVL/tern/PTCH.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 
 

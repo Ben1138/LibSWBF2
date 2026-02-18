@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Container.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Hashing.h>
 #include <LibSWBF2/IO/FileReader.h>
 #include <LibSWBF2/IO/StreamReader.h>

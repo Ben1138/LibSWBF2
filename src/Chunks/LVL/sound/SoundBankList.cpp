@@ -2,7 +2,7 @@
 #include <LibSWBF2/Chunks/LVL/sound/SoundBankList.h>
 #include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
 #include <LibSWBF2/IO/FileReader.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Hashing.h>
 
 

@@ -2,6 +2,7 @@
 #include <LibSWBF2/Chunks/HeaderNames.h>
 #include <LibSWBF2/Types/LibString.h>
 #include <LibSWBF2/Hashing.h>
+#include <fmt/format.h>
 #include <set>
 #include <array>
 #include <map>

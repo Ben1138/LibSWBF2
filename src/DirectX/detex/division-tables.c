@@ -16,7 +16,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
 
-#include <detex.h>
+#include "detex.h"
 
 // Integer division using look-up tables, used by BC1/2/3 and RGTC (BC4/5)
 // decompression.

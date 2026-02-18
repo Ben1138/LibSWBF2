@@ -4,7 +4,7 @@
 #include <LibSWBF2/Wrappers/AnimationBank.h>
 #include <LibSWBF2/Chunks/LVL/zaa_/zaa_.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 
 

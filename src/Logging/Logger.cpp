@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Logging/Logger.h>
 #include <LibSWBF2/IO/FileWriter.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 namespace LibSWBF2::Logging
 {

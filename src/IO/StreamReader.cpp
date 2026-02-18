@@ -3,7 +3,7 @@
 
 #include <LibSWBF2/IO/StreamReader.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 
 namespace LibSWBF2

@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Instance.h>
 #include <LibSWBF2/Types/LibString.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Hashing.h>
 #include <LibSWBF2/Wrappers/Level.h>
 #include <LibSWBF2/Container.h>

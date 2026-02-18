@@ -29,15 +29,13 @@ namespace LibSWBF2::Wrappers
 	};
 	#pragma pack(pop)
 
-	struct Level;
+
+	class Level;
 
 	class LIBSWBF2_API AnimationSkeleton
 	{
-	typedef LibSWBF2::Chunks::LVL::animation::zaf_ zaf_ ;
-
-
+		typedef LibSWBF2::Chunks::LVL::animation::zaf_ zaf_ ;
 		friend Types::List<AnimationSkeleton>;
-
 
 	private:
 		friend Level;

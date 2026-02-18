@@ -2,6 +2,7 @@
 #include <LibSWBF2/Types/Planning.h>
 #include <LibSWBF2/IO/FileWriter.h>
 #include <LibSWBF2/IO/FileReader.h>
+#include <fmt/format.h>
 
 #define NAME_LENGTH 16
 

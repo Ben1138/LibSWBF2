@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Sound.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Audio/SoundDecoder.h>
 #include <LibSWBF2/Audio/IMAADPCMDecoder.h>
 

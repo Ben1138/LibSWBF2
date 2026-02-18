@@ -1,13 +1,9 @@
 #pragma once
 #include <LibSWBF2/Types/SoundClip.h>
-#include <LibSWBF2/InternalHelpers.h>
 #include <LibSWBF2/Wrappers/Sound.h>
 #include <LibSWBF2/Audio/SoundDecoder.h>
-//#include <LibSWBF2/Audio/AudioStreamer.h>
 #include <LibSWBF2/Types/LibString.h>
 #include <LibSWBF2/Types/List.h>
-
-
 
 
 namespace LibSWBF2
@@ -94,36 +90,29 @@ namespace LibSWBF2::Wrappers
 		// Plus, we know from the Lua API that only one stream can be played from a given file
 		// at any time, so it makes sense to give the option of sharing one stream and buffer
 		// between multiple SoundStreams of the same file... 
-        int32_t ReadSamples(void * samplesBuffer, size_t samplesBufferLength, 
-        					size_t numSamplesToRead, ESoundFormat format);
+		int32_t ReadSamples(void * samplesBuffer, size_t samplesBufferLength, 
+		size_t numSamplesToRead, ESoundFormat format);
 
 		int32_t BytesLeftInSegment();
 
-        /*
-        // This method might not be needed, it depends on whether or not we
+		/*
+		// This method might not be needed, it depends on whether or not we
 		// encounter other formats or if IMAADPCM block boundaries can be violated...
-        int32_t ReadSamplesFromBytes(void * samplesBuffer, size_t samplesBufferLength, 
-        							size_t numBytesToRead, ESoundFormat format, int32_t &bytesRead);
-        */
+		int32_t ReadSamplesFromBytes(void * samplesBuffer, size_t samplesBufferLength, 
+									size_t numBytesToRead, ESoundFormat format, int32_t &bytesRead);
+		*/
 
-        int32_t GetNumSamplesInBytes(int32_t NumBytes);
-
-
-
+		int32_t GetNumSamplesInBytes(int32_t NumBytes);
 		static bool FromChunk(Stream* stream, SoundStream& out);
 
-
 		FNVHash GetHashedName() const;
-
 		ESoundFormat GetFormat() const;
 		uint32_t GetNumChannels() const;
-
 		uint32_t GetNumSubstreams() const;
 		uint32_t GetSubstreamInterleave() const;
 		uint32_t GetChannelInterleave() const;
 
 		bool HasData() const;
-
 		bool HasSegment(FNVHash segmentName) const;
 
 		const List<Sound>& GetSounds() const;

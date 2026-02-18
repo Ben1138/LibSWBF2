@@ -4,7 +4,7 @@
 #include <LibSWBF2/Wrappers/Level.h>
 
 #include <LibSWBF2/Container.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 
 #include <LibSWBF2/Chunks/LVL/modl/MTRL.h>

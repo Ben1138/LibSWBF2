@@ -4,7 +4,7 @@
 #include <LibSWBF2/Logging/Logger.h>
 #include <LibSWBF2/DirectX/DXHelpers.h>
 #include <LibSWBF2/DirectX/DXTexCrossPlat.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 #include <algorithm>
 #include <cstring>

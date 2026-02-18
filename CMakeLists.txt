@@ -23,7 +23,7 @@ add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set(INC_DIR "${PROJECT_SOURCE_DIR}/include")
-target_include_directories(LibSWBF2 PRIVATE ${INC_DIR} "${INC_DIR}/LibSWBF2/DirectX" "${INC_DIR}/LibSWBF2/DirectX/detex")
+target_include_directories(LibSWBF2 PRIVATE "${SRC_DIR}" "${INC_DIR}" "${INC_DIR}/LibSWBF2/DirectX" "${INC_DIR}/LibSWBF2/DirectX/detex")
 
 target_link_libraries(LibSWBF2 glm)
 target_link_libraries(LibSWBF2 fmt)

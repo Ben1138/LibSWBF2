@@ -1,8 +1,8 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Chunks/LVL/tex_/tex_.INFO.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/DirectX/DXHelpers.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 #include <fmt/format.h>
 

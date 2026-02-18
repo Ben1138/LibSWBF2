@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Chunks/LVL/lvl_.h>
 #include <LibSWBF2/Chunks/LVL/LVL.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 #include <LibSWBF2/Hashing.h>
 

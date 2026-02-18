@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Chunks/LVL/prim/prim.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 #include <LibSWBF2/Types/Enums.h>
 #include <LibSWBF2/Logging/Logger.h>

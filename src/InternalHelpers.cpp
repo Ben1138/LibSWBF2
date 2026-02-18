@@ -1,5 +1,5 @@
+#include "InternalHelpers.h"
 #include <LibSWBF2/pch.h>
-#include <LibSWBF2/InternalHelpers.h>
 #include <LibSWBF2/Logging/Logger.h>
 
 namespace LibSWBF2

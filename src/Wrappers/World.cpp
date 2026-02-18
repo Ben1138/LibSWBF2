@@ -2,7 +2,7 @@
 #include <LibSWBF2/Wrappers/World.h>
 #include <LibSWBF2/Wrappers/Instance.h>
 #include <LibSWBF2/Wrappers/Terrain.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Container.h>
 
 #include <LibSWBF2/Chunks/LVL/wrld/wrld.h>

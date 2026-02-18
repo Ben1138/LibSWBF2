@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Segment.h>
 #include <LibSWBF2/Wrappers/Level.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 #include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
 #include <LibSWBF2/Chunks/LVL/modl/modl.VBUF.h>

@@ -3,7 +3,7 @@
 #include <LibSWBF2/Chunks/LVL/sound/StreamData.h>
 #include <LibSWBF2/Chunks/LVL/sound/Stream.h>
 #include <LibSWBF2/Chunks/LVL/sound/StreamInfo.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/IO/FileReader.h>
 
 

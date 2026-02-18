@@ -16,7 +16,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
 
-#include <detex.h>
+#include "detex.h"
 #include <stdio.h>
 
 /* Decompress a 64-bit 4x4 pixel texture block compressed using the BC1 */

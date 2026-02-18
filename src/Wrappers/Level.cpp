@@ -3,7 +3,7 @@
 
 #include <LibSWBF2/Wrappers/Wrappers.h>
 
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 #include <LibSWBF2/Chunks/LVL/LVL.h>
 

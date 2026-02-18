@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Script.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 #include <LibSWBF2/Chunks/LVL/scr_/scr_.h>
 

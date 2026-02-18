@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Localization.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Hashing.h>
 #include <LibSWBF2/Chunks/LVL/Locl/Locl.h>
 #include <map>

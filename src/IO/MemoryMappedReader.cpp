@@ -1,7 +1,7 @@
 #include <LibSWBF2/pch.h>
 //#ifdef MEMORY_MAPPED_READER
 #include <LibSWBF2/IO/MemoryMappedReader.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 #ifndef WIN32
 

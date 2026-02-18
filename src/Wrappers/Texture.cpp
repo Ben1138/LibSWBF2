@@ -1,6 +1,6 @@
 #include <LibSWBF2/pch.h>
 #include <LibSWBF2/Wrappers/Texture.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 
 #include <LibSWBF2/Chunks/LVL/tex_/tex_.h>
 #include <LibSWBF2/Chunks/LVL/tex_/tex_.LVL_.h>

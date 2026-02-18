@@ -32,8 +32,3 @@
 #include <LibSWBF2/Exceptions.h>
 #include <LibSWBF2/DirectX/DXHelpers.h>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/mat3x3.hpp>
-#include <fmt/core.h>
-#include <fmt/format.h>

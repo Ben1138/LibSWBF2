@@ -3,7 +3,7 @@
 #include <LibSWBF2/DirectX/DXTexCrossPlatConverters.h>
 
 #define DETEX_VERSION 1
-#include <detex/detex.h>
+#include "detex/detex.h"
 #include <math.h>
 
 

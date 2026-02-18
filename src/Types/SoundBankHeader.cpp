@@ -2,7 +2,7 @@
 #include <LibSWBF2/Types/LibString.h>
 #include <LibSWBF2/Types/SoundBankHeader.h>
 #include <LibSWBF2/IO/FileReader.h>
-#include <LibSWBF2/InternalHelpers.h>
+#include "InternalHelpers.h"
 #include <LibSWBF2/Hashing.h>
 
 namespace LibSWBF2::Types
