@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Chunks/LVL/sound/SoundBankList.h>
-#include <Chunks/LVL/sound/SampleBank.h>
-#include <IO/FileReader.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/sound/SoundBankList.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
 
 
 namespace LibSWBF2::Chunks::LVL::sound

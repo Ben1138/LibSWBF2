@@ -1,11 +1,11 @@
-#include <pch.h>
-#include <Wrappers/SoundBank.h>
-#include <Chunks/LVL/sound/SampleBank.h>
-#include <Chunks/LVL/sound/SampleBankInfo.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/SoundBank.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBankInfo.h>
 
-#include <InternalHelpers.h>
-#include <Types/SoundClip.h>
-#include <Hashing.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Types/SoundClip.h>
+#include <LibSWBF2/Hashing.h>
 #include <unordered_map>
 
 namespace LibSWBF2::Wrappers

@@ -1,5 +1,5 @@
-#include <pch.h>
-#include <Chunks/MSH/TRAN.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/MSH/TRAN.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

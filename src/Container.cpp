@@ -1,16 +1,13 @@
-#include <pch.h>
-#include <Container.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
-#include <IO/FileReader.h>
-
-#include <Chunks/LVL/LVL.h>
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Container.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/StreamReader.h>
+#include <LibSWBF2/Chunks/LVL/LVL.h>
 #include <vector>
 #include <future>
 #include <map>
-
-#include <IO/StreamReader.h>
 
 
 namespace LibSWBF2

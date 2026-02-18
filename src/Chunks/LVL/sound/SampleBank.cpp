@@ -1,12 +1,11 @@
-#include <pch.h>
-#include <Chunks/LVL/sound/SampleBank.h>
-#include <Chunks/LVL/sound/SampleBankInfo.h>
-#include <Chunks/LVL/sound/SampleBankData.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBankInfo.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBankData.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 #include <iostream>
+
 
 namespace LibSWBF2::Chunks::LVL::sound
 {

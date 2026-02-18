@@ -1,14 +1,14 @@
-#include <req.h>
-#include <pch.h>
+#include <LibSWBF2/req.h>
+#include <LibSWBF2/pch.h>
 
-#include <Wrappers/AnimationSkeleton.h>
-#include <Wrappers/Level.h>
-#include <Chunks/LVL/zaf_/zaf_.h>
-#include <Chunks/LVL/zaf_/TNOJ.h>
-#include <Chunks/LVL/zaf_/BIN_.h>
-#include <Chunks/LVL/zaf_/LEKS.h>
+#include <LibSWBF2/Wrappers/AnimationSkeleton.h>
+#include <LibSWBF2/Wrappers/Level.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/zaf_.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/TNOJ.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/BIN_.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/LEKS.h>
 
-#include <InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 
 

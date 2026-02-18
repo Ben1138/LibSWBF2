@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Chunks/LVL/wrld/anmh.h>
-#include <Chunks/LVL/wrld/anmh.INFO.h>
-#include <Logging/Logger.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmh.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmh.INFO.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {

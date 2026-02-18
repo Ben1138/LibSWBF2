@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Chunks/LVL/config/DATA.h>
-#include <IO/FileReader.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/config/DATA.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
 
 
 namespace LibSWBF2::Chunks::LVL::config

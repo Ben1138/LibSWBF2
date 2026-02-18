@@ -1,11 +1,11 @@
-#include <pch.h>
-#include <Chunks/LVL/tex_/BODY.h>
-#include <Chunks/LVL/tex_/FMT_.h>
-#include <Logging/Logger.h>
-#include <DirectX/DXHelpers.h>
-#include <DirectX/DXTexCrossPlat.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/tex_/BODY.h>
+#include <LibSWBF2/Chunks/LVL/tex_/FMT_.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/DirectX/DXHelpers.h>
+#include <LibSWBF2/DirectX/DXTexCrossPlat.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 #include <algorithm>
 #include <cstring>
 

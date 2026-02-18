@@ -1,6 +1,6 @@
-#include <pch.h>
-#include <Types/List.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Types/List.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 namespace LibSWBF2::Types
 {
@@ -423,66 +423,66 @@ namespace LibSWBF2::Types
 // ============== Explicit List instantiations ================
 // ============================================================
 
-#include <Types/Vector4.h>
-#include <Types/Vector3u8.h>
-#include <Types/Color4.h>
-#include <Types/Color4u8.h>
-#include <Types/Animation.h>
-#include <Types/BoneFrames.h>
-#include <Types/Polygon.h>
-#include <Types/LibString.h>
-#include <Types/SoundClip.h>
-#include <Types/LocalizeEntry.h>
-#include <Chunks/MSH/SEGM.h>
-#include <Chunks/MSH/MATD.h>
-#include <Chunks/MSH/MODL.h>
-#include <Types/WorldAnimationKey.h>
-#include <Types/Planning.h>
+#include <LibSWBF2/Types/Vector4.h>
+#include <LibSWBF2/Types/Vector3u8.h>
+#include <LibSWBF2/Types/Color4.h>
+#include <LibSWBF2/Types/Color4u8.h>
+#include <LibSWBF2/Types/Animation.h>
+#include <LibSWBF2/Types/BoneFrames.h>
+#include <LibSWBF2/Types/Polygon.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/Types/SoundClip.h>
+#include <LibSWBF2/Types/LocalizeEntry.h>
+#include <LibSWBF2/Chunks/MSH/SEGM.h>
+#include <LibSWBF2/Chunks/MSH/MATD.h>
+#include <LibSWBF2/Chunks/MSH/MODL.h>
+#include <LibSWBF2/Types/WorldAnimationKey.h>
+#include <LibSWBF2/Types/Planning.h>
 
-#include <Chunks/LVL/common/SCOP.h>
-#include <Chunks/LVL/common/DATA.h>
-#include <Chunks/LVL/common/PROP.h>
-#include <Chunks/LVL/coll/TREE.NODE.h>
-#include <Chunks/LVL/coll/TREE.LEAF.h>
-#include <Chunks/LVL/prim/prim.h>
-#include <Wrappers/Config.h>
+#include <LibSWBF2/Chunks/LVL/common/SCOP.h>
+#include <LibSWBF2/Chunks/LVL/common/DATA.h>
+#include <LibSWBF2/Chunks/LVL/common/PROP.h>
+#include <LibSWBF2/Chunks/LVL/coll/TREE.NODE.h>
+#include <LibSWBF2/Chunks/LVL/coll/TREE.LEAF.h>
+#include <LibSWBF2/Chunks/LVL/prim/prim.h>
+#include <LibSWBF2/Wrappers/Config.h>
 
-#include <Chunks/LVL/zaf_/TNOJ.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/TNOJ.h>
 
-#include <Chunks/LVL/tex_/FMT_.h>
-#include <Chunks/LVL/tex_/tex_.LVL_.h>
-#include <Chunks/LVL/modl/LVL.modl.h>
-#include <Chunks/LVL/modl/modl.segm.h>
-#include <Chunks/LVL/modl/modl.VBUF.h>
-#include <Chunks/LVL/modl/TNAM.h>
-#include <Chunks/LVL/wrld/inst.h>
-#include <Chunks/LVL/wrld/regn.h>
-#include <Chunks/LVL/wrld/anim.h>
-#include <Chunks/LVL/wrld/anmg.h>
-#include <Chunks/LVL/wrld/anmh.h>
-#include <Chunks/LVL/wrld/BARR.h>
-#include <Chunks/LVL/wrld/Hint.h>
+#include <LibSWBF2/Chunks/LVL/tex_/FMT_.h>
+#include <LibSWBF2/Chunks/LVL/tex_/tex_.LVL_.h>
+#include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
+#include <LibSWBF2/Chunks/LVL/modl/modl.segm.h>
+#include <LibSWBF2/Chunks/LVL/modl/modl.VBUF.h>
+#include <LibSWBF2/Chunks/LVL/modl/TNAM.h>
+#include <LibSWBF2/Chunks/LVL/wrld/inst.h>
+#include <LibSWBF2/Chunks/LVL/wrld/regn.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anim.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmg.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmh.h>
+#include <LibSWBF2/Chunks/LVL/wrld/BARR.h>
+#include <LibSWBF2/Chunks/LVL/wrld/Hint.h>
 
-#include <Chunks/LVL/tern/PTCH.h>
-#include <Chunks/LVL/scr_/scr_.h>
-#include <Chunks/LVL/plan/plan.h>
+#include <LibSWBF2/Chunks/LVL/tern/PTCH.h>
+#include <LibSWBF2/Chunks/LVL/scr_/scr_.h>
+#include <LibSWBF2/Chunks/LVL/plan/plan.h>
 
-#include <Chunks/LVL/sound/Stream.h>
-#include <Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/Chunks/LVL/sound/Stream.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
 
 
 
-#include <Chunks/RawData.h>
+#include <LibSWBF2/Chunks/RawData.h>
 
-#include <Chunks/GenericChunk.h>
+#include <LibSWBF2/Chunks/GenericChunk.h>
 
-#include <Chunks/LVL/wrld/WorldAnimKeyChunk.h>
+#include <LibSWBF2/Chunks/LVL/wrld/WorldAnimKeyChunk.h>
 
-#include <Wrappers/Wrappers.h>
+#include <LibSWBF2/Wrappers/Wrappers.h>
 
-#include <DirectX/D3D9FORMAT.h>
+#include <LibSWBF2/DirectX/D3D9FORMAT.h>
 
-#include <Audio/SoundDecoder.h>
+#include <LibSWBF2/Audio/SoundDecoder.h>
 
 namespace LibSWBF2
 {

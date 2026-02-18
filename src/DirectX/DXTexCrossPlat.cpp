@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <DirectX/DXTexCrossPlat.h>
-#include <DirectX/DXTexCrossPlatConverters.h>
-#include <DirectX/DXHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/DirectX/DXTexCrossPlat.h>
+#include <LibSWBF2/DirectX/DXTexCrossPlatConverters.h>
+#include <LibSWBF2/DirectX/DXHelpers.h>
 
-#include <InternalHelpers.h>
-#include <Logging/Logger.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Logging/Logger.h>
 
 namespace DXTexCrossPlat {
 

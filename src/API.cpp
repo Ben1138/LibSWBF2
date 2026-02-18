@@ -1,19 +1,16 @@
-#include <pch.h>
-#include <API.h>
-#include <InternalHelpers.h>
-#include <Types/LibString.h>
-#include <Types/Enums.h>
-#include <Types/Planning.h>
-#include <Chunks/MSH/MSH.h>
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/API.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/Types/Enums.h>
+#include <LibSWBF2/Types/Planning.h>
+#include <LibSWBF2/Chunks/MSH/MSH.h>
+#include <LibSWBF2/Container.h>
+#include <LibSWBF2/Wrappers/Wrappers.h>
+#include <LibSWBF2/Chunks/HeaderNames.h>
+#include <LibSWBF2/IO/MemoryMappedReader.h>
+#include <LibSWBF2/IO/StreamReader.h>
 #include <string.h>
-#include <Container.h>
-#include <Wrappers/Wrappers.h>
-
-#include <Chunks/HeaderNames.h>
-
-#include <IO/MemoryMappedReader.h>
-#include <IO/StreamReader.h>
 
 
 namespace LibSWBF2

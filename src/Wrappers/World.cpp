@@ -1,13 +1,13 @@
-#include <pch.h>
-#include <Wrappers/World.h>
-#include <Wrappers/Instance.h>
-#include <Wrappers/Terrain.h>
-#include <InternalHelpers.h>
-#include <Container.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/World.h>
+#include <LibSWBF2/Wrappers/Instance.h>
+#include <LibSWBF2/Wrappers/Terrain.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Container.h>
 
-#include <Chunks/LVL/wrld/wrld.h>
-#include <Chunks/LVL/wrld/anmg.INFO.h>
-#include <Chunks/LVL/wrld/anmh.INFO.h>
+#include <LibSWBF2/Chunks/LVL/wrld/wrld.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmg.INFO.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anmh.INFO.h>
 
 
 namespace LibSWBF2::Wrappers

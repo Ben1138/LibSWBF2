@@ -1,10 +1,10 @@
-#include <req.h>
-#include <pch.h>
+#include <LibSWBF2/req.h>
+#include <LibSWBF2/pch.h>
 
-#include <Wrappers/AnimationBank.h>
-#include <Chunks/LVL/zaa_/zaa_.h>
+#include <LibSWBF2/Wrappers/AnimationBank.h>
+#include <LibSWBF2/Chunks/LVL/zaa_/zaa_.h>
 
-#include <InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 
 

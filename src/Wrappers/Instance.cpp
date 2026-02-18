@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <Wrappers/Instance.h>
-#include <Types/LibString.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
-#include <Wrappers/Level.h>
-#include <Container.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Instance.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
+#include <LibSWBF2/Wrappers/Level.h>
+#include <LibSWBF2/Container.h>
 
 namespace LibSWBF2::Wrappers
 {

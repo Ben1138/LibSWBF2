@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <Chunks/LVL/zaa_/BIN_.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/zaa_/BIN_.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

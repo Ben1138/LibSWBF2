@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Chunks/LVL/tern/PTCH.VBUF.h>
-#include <Chunks/LVL/tern/PTCH.INFO.h>
-#include <Chunks/LVL/tern/PTCH.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/tern/PTCH.VBUF.h>
+#include <LibSWBF2/Chunks/LVL/tern/PTCH.INFO.h>
+#include <LibSWBF2/Chunks/LVL/tern/PTCH.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 
 
 namespace LibSWBF2::Chunks::LVL::terrain

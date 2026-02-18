@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <Chunks/HeaderNames.h>
-#include <Types/LibString.h>
-#include <Hashing.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/HeaderNames.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/Hashing.h>
 #include <set>
 #include <array>
 #include <map>

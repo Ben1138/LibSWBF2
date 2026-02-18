@@ -1,34 +1,34 @@
-#include <pch.h>
-#include <Wrappers/Level.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Level.h>
 
-#include <Wrappers/Wrappers.h>
+#include <LibSWBF2/Wrappers/Wrappers.h>
 
-#include <InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 
-#include <Chunks/LVL/LVL.h>
+#include <LibSWBF2/Chunks/LVL/LVL.h>
 
-#include <Chunks/LVL/skel/skel.h>
-#include <Chunks/LVL/tex_/tex_.h>
-#include <Chunks/LVL/modl/LVL.modl.h>
-#include <Chunks/LVL/scr_/scr_.h>
-#include <Chunks/LVL/Locl/Locl.h>
-#include <Chunks/LVL/coll/coll.h>
-#include <Chunks/LVL/zaa_/zaa_.h>
-#include <Chunks/LVL/zaf_/zaf_.h>
-#include <Chunks/LVL/tern/tern.h>
-#include <Chunks/LVL/config/ConfigChunk.h>
-#include <Chunks/LVL/common/GenericClass.h>
-#include <Chunks/LVL/wrld/wrld.h>
-#include <Chunks/LVL/sound/Stream.h>
-#include <Chunks/LVL/sound/SampleBank.h>
-#include <Chunks/LVL/sound/SampleBankInfo.h>
-#include <Chunks/LVL/plan/plan.h>
+#include <LibSWBF2/Chunks/LVL/skel/skel.h>
+#include <LibSWBF2/Chunks/LVL/tex_/tex_.h>
+#include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
+#include <LibSWBF2/Chunks/LVL/scr_/scr_.h>
+#include <LibSWBF2/Chunks/LVL/Locl/Locl.h>
+#include <LibSWBF2/Chunks/LVL/coll/coll.h>
+#include <LibSWBF2/Chunks/LVL/zaa_/zaa_.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/zaf_.h>
+#include <LibSWBF2/Chunks/LVL/tern/tern.h>
+#include <LibSWBF2/Chunks/LVL/config/ConfigChunk.h>
+#include <LibSWBF2/Chunks/LVL/common/GenericClass.h>
+#include <LibSWBF2/Chunks/LVL/wrld/wrld.h>
+#include <LibSWBF2/Chunks/LVL/sound/Stream.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBankInfo.h>
+#include <LibSWBF2/Chunks/LVL/plan/plan.h>
 
-#include <IO/FileReader.h>
-
+#include <LibSWBF2/IO/FileReader.h>
 
 #include <unordered_map>
 #include <filesystem>
+
 
 namespace fs = std::filesystem;
 

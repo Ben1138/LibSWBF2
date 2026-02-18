@@ -1,7 +1,6 @@
-#include <Types/List.h>
-#include <Logging/Logger.h>
-#include <Audio/IMAADPCMDecoder.h>
-
+#include <LibSWBF2/Types/List.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/Audio/IMAADPCMDecoder.h>
 #include <iostream>
 
 namespace LibSWBF2

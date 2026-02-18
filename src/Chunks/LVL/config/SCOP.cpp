@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Logging/Logger.h>
-#include <DirectX/DXHelpers.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-#include <Chunks/LVL/config/SCOP.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/DirectX/DXHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/Chunks/LVL/config/SCOP.h>
 #include <algorithm>
 #include <cstring>
 #include <iostream>

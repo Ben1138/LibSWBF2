@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <Chunks/LVL/config/ConfigChunk.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/config/ConfigChunk.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 
-#include <Chunks/LVL/config/SCOP.h>
-#include <Chunks/LVL/config/DATA.h>
+#include <LibSWBF2/Chunks/LVL/config/SCOP.h>
+#include <LibSWBF2/Chunks/LVL/config/DATA.h>
 
 namespace LibSWBF2::Chunks::LVL::config
 {

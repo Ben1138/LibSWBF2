@@ -1,6 +1,6 @@
-#include <pch.h>
-#include <Wrappers/CollisionMesh.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/CollisionMesh.h>
+#include <LibSWBF2/InternalHelpers.h>
 #include <stdint.h>
 
 

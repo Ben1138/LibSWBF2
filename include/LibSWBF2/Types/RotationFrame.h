@@ -1,0 +1,22 @@
+#pragma once
+#include <LibSWBF2/Types/Vector4.h>
+
+namespace LibSWBF2
+{
+	class FileReader;
+	class FileWriter;
+}
+
+namespace LibSWBF2::Types
+{
+	struct LIBSWBF2_API RotationFrame
+	{
+		static const ChunkSize SIZE = sizeof(uint32_t) + Vector4::SIZE;
+
+		void WriteToStream(FileWriter& stream);
+		void ReadFromStream(FileReader& stream);
+
+		uint32_t m_FrameIndex = 0;
+		Vector4 m_Rotation;
+	};
+}

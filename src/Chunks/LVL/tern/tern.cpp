@@ -1,8 +1,9 @@
-#include <pch.h>
-#include <Chunks/LVL/tern/tern.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/tern/tern.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 #include <fmt/format.h>
+
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {

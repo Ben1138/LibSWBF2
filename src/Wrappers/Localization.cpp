@@ -1,11 +1,10 @@
-#include <pch.h>
-#include <Wrappers/Localization.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
-
-#include <Chunks/LVL/Locl/Locl.h>
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Localization.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
+#include <LibSWBF2/Chunks/LVL/Locl/Locl.h>
 #include <map>
+
 
 namespace LibSWBF2::Wrappers
 {

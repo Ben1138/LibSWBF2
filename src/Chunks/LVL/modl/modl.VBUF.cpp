@@ -1,12 +1,13 @@
-#include <pch.h>
-#include <Chunks/LVL/modl/modl.VBUF.h>
-#include <Chunks/LVL/modl/LVL.modl.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-#include <Logging/Logger.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/modl/modl.VBUF.h>
+#include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 #include <limits>
+
 
 #undef min
 #undef max

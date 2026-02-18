@@ -1,15 +1,14 @@
-#include <pch.h>
-#include <Chunks/LVL/LVL.h>
-#include <InternalHelpers.h>
-#include <Hashing.h>
-#include <IO/FileReader.h>
-#include <Chunks/HeaderNames.h>
-
-#include <Chunks/LVL/sound/Stream.h>
-#include <Chunks/LVL/sound/StreamInfo.h>
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/LVL.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Hashing.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/Chunks/HeaderNames.h>
+#include <LibSWBF2/Chunks/LVL/sound/Stream.h>
+#include <LibSWBF2/Chunks/LVL/sound/StreamInfo.h>
 #include <sstream>
 #include <iostream>
+
 
 namespace LibSWBF2::Chunks::LVL
 {

@@ -1,12 +1,7 @@
-#include <pch.h>
+#include <LibSWBF2/pch.h>
 //#ifdef MEMORY_MAPPED_READER
-
-#include <IO/MemoryMappedReader.h>
-
-#include <InternalHelpers.h>
-
-#include <limits>
-#include <memory>
+#include <LibSWBF2/IO/MemoryMappedReader.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 #ifndef WIN32
 
@@ -19,12 +14,13 @@
 
 #endif
 
-
+#include <limits>
+#include <memory>
 #include <filesystem>
 #include <iostream>
 
-namespace fs = std::filesystem;
 
+namespace fs = std::filesystem;
 
 namespace LibSWBF2
 {

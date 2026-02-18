@@ -1,10 +1,11 @@
-#include <pch.h>
-#include <Chunks/LVL/tex_/FMT_.INFO.h>
-#include <InternalHelpers.h>
-#include <DirectX/DXHelpers.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/tex_/FMT_.INFO.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/DirectX/DXHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 #include <fmt/format.h>
+
 
 namespace LibSWBF2::Chunks::LVL::FMT
 {

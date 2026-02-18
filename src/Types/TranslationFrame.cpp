@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <Types/TranslationFrame.h>
-#include <IO/FileWriter.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Types/TranslationFrame.h>
+#include <LibSWBF2/IO/FileWriter.h>
+#include <LibSWBF2/IO/FileReader.h>
 
 namespace LibSWBF2::Types
 {

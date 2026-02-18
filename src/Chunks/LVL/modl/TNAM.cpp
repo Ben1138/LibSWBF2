@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <Chunks/LVL/modl/TNAM.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/modl/TNAM.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::modl
 {

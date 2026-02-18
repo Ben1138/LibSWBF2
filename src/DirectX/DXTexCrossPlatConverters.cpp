@@ -1,10 +1,9 @@
-#include <pch.h>
-#include <DirectX/DXTexCrossPlat.h>
-#include <DirectX/DXTexCrossPlatConverters.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/DirectX/DXTexCrossPlat.h>
+#include <LibSWBF2/DirectX/DXTexCrossPlatConverters.h>
 
 #define DETEX_VERSION 1
 #include <detex/detex.h>
-
 #include <math.h>
 
 

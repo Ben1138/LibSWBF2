@@ -1,6 +1,6 @@
-#include <pch.h>
-#include <Hashing.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Hashing.h>
+#include <LibSWBF2/InternalHelpers.h>
 #include <fstream>
 
 namespace LibSWBF2

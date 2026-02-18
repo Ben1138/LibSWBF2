@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Chunks/MSH/MSH.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-#include <IO/FileWriter.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/MSH/MSH.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/FileWriter.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

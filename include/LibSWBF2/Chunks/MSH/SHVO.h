@@ -1,0 +1,22 @@
+#pragma once
+#include <LibSWBF2/Chunks/BaseChunk.h>
+
+namespace LibSWBF2::Chunks::MSH
+{
+	struct MSH;
+
+	struct LIBSWBF2_API SHVO : public BaseChunk
+	{
+		SHVO() = default;
+		~SHVO() = default;
+
+		int32_t m_ShadowVolume = 0;
+
+	protected:
+		friend MSH;
+		
+		void RefreshSize() override;
+		void WriteToStream(FileWriter& stream) override;
+		void ReadFromStream(FileReader& stream) override;
+	};
+}

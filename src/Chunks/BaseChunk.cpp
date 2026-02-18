@@ -1,13 +1,13 @@
-#include <pch.h>
-#include <Chunks/BaseChunk.h>
-#include <InternalHelpers.h>
-#include <IO/FileWriter.h>
-#include <IO/FileReader.h>
-#include <Logging/Logger.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/BaseChunk.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileWriter.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/MemoryMappedReader.h>
+#include <LibSWBF2/Logging/Logger.h>
 #include <string>
 #include <mutex>
 
-#include <IO/MemoryMappedReader.h>
 
 namespace LibSWBF2::Chunks
 {

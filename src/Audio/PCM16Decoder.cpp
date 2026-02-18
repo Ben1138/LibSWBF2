@@ -1,7 +1,6 @@
-#include <Types/List.h>
-#include <Logging/Logger.h>
-#include <Audio/PCM16Decoder.h>
-
+#include <LibSWBF2/Types/List.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/Audio/PCM16Decoder.h>
 #include <iostream>
 
 namespace LibSWBF2

@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Chunks/LVL/skel/skel.XFRM.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-#include <Chunks/LVL/skel/skel.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/skel/skel.XFRM.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/Chunks/LVL/skel/skel.h>
 
 namespace LibSWBF2::Chunks::LVL::skel
 {

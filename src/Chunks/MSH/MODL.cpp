@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Chunks/MSH/MODL.h>
-#include <IO/FileReader.h>
-#include <IO/FileWriter.h>
-
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/MSH/MODL.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/FileWriter.h>
 #include <string>
+
 
 namespace LibSWBF2::Chunks::MSH
 {

@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Chunks/TERR/TERR.h>
-#include <InternalHelpers.h>
-#include <Logging/Logger.h>
-#include <IO/StreamReader.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/TERR/TERR.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/IO/StreamReader.h>
 #include <algorithm>
 #include <vector>
 

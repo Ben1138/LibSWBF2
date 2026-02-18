@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <IO/FileWriter.h>
-#include <InternalHelpers.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/IO/FileWriter.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 #include <string>
 
 namespace LibSWBF2

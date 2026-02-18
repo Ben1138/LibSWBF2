@@ -1,9 +1,9 @@
-#include <pch.h>
+#include <LibSWBF2/pch.h>
 //#ifndef MEMORY_MAPPED_READER
 
-#include <IO/StreamReader.h>
+#include <LibSWBF2/IO/StreamReader.h>
 
-#include <InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 
 namespace LibSWBF2

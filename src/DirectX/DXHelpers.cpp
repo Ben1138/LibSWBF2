@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <DirectX/DXHelpers.h>
-#include <InternalHelpers.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/DirectX/DXHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 namespace LibSWBF2
 {

@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <Chunks/LVL/plan/plnp.h>
-#include <IO/FileReader.h>
-#include <InternalHelpers.h>
-#include <Types/Enums.h>
-#include <Logging/Logger.h>
-#include <Types/List.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/plan/plnp.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Types/Enums.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/Types/List.h>
 
 
 

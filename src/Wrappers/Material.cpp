@@ -1,15 +1,15 @@
-#include <pch.h>
-#include <Wrappers/Material.h>
-#include <Wrappers/Texture.h>
-#include <Wrappers/Level.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Material.h>
+#include <LibSWBF2/Wrappers/Texture.h>
+#include <LibSWBF2/Wrappers/Level.h>
 
-#include <Container.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/Container.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 
-#include <Chunks/LVL/modl/MTRL.h>
-#include <Chunks/LVL/modl/TNAM.h>
-#include <Chunks/LVL/modl/modl.segm.h>
+#include <LibSWBF2/Chunks/LVL/modl/MTRL.h>
+#include <LibSWBF2/Chunks/LVL/modl/TNAM.h>
+#include <LibSWBF2/Chunks/LVL/modl/modl.segm.h>
 
 
 

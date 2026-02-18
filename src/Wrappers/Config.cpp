@@ -1,9 +1,9 @@
-#include <req.h>
-#include <pch.h>
-#include <Wrappers/Config.h>
-#include <Chunks/LVL/config/ConfigChunk.h>
-#include <Chunks/LVL/config/SCOP.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/req.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Config.h>
+#include <LibSWBF2/Chunks/LVL/config/ConfigChunk.h>
+#include <LibSWBF2/Chunks/LVL/config/SCOP.h>
+#include <LibSWBF2/InternalHelpers.h>
 
 
 namespace LibSWBF2::Wrappers

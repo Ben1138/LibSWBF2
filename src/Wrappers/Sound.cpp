@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Wrappers/Sound.h>
-#include <InternalHelpers.h>
-#include <Audio/SoundDecoder.h>
-#include <Audio/IMAADPCMDecoder.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Sound.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/Audio/SoundDecoder.h>
+#include <LibSWBF2/Audio/IMAADPCMDecoder.h>
 
 
 namespace LibSWBF2::Wrappers

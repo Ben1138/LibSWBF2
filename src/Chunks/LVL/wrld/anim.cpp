@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <Chunks/LVL/wrld/anim.h>
-//#include <Chunks/LVL/wrld/anim.INFO.h>
-#include <Logging/Logger.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-//#include <Chunks/LVL/wrld/WorldAnimKeyChunk.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/wrld/anim.h>
+//#include <LibSWBF2/Chunks/LVL/wrld/anim.INFO.h>
+#include <LibSWBF2/Logging/Logger.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+//#include <LibSWBF2/Chunks/LVL/wrld/WorldAnimKeyChunk.h>
 
 
 namespace LibSWBF2::Chunks::LVL::wrld

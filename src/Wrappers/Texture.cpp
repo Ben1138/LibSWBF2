@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Wrappers/Texture.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Texture.h>
+#include <LibSWBF2/InternalHelpers.h>
 
-#include <Chunks/LVL/tex_/tex_.h>
-#include <Chunks/LVL/tex_/tex_.LVL_.h>
+#include <LibSWBF2/Chunks/LVL/tex_/tex_.h>
+#include <LibSWBF2/Chunks/LVL/tex_/tex_.LVL_.h>
 
 namespace LibSWBF2::Wrappers
 {

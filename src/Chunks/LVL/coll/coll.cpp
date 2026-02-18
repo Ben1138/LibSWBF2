@@ -1,9 +1,9 @@
-#include <pch.h>
-#include <Chunks/LVL/coll/coll.h>
-#include <InternalHelpers.h>
-#include <IO/FileReader.h>
-#include <Types/Enums.h>
-#include <Logging/Logger.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/LVL/coll/coll.h>
+#include <LibSWBF2/InternalHelpers.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/Types/Enums.h>
+#include <LibSWBF2/Logging/Logger.h>
 
 
 namespace LibSWBF2::Chunks::LVL::coll

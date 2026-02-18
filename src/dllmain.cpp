@@ -1,7 +1,7 @@
-#include <pch.h>
+#include <LibSWBF2/pch.h>
 
 #ifdef WIN32
-#include <Hashing.h>
+#include <LibSWBF2/Hashing.h>
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,

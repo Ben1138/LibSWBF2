@@ -1,5 +1,5 @@
-#include <pch.h>
-#include <Logging/LoggerEntry.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Logging/LoggerEntry.h>
 #include <string>
 
 namespace LibSWBF2::Logging

@@ -1,10 +1,10 @@
-#include <pch.h>
-#include <Wrappers/Level.h>
-#include <Wrappers/Model.h>
-#include <InternalHelpers.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Wrappers/Level.h>
+#include <LibSWBF2/Wrappers/Model.h>
+#include <LibSWBF2/InternalHelpers.h>
 
-#include <Chunks/LVL/modl/LVL.modl.h>
-#include <Chunks/LVL/skel/skel.h>
+#include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
+#include <LibSWBF2/Chunks/LVL/skel/skel.h>
 
 static LibSWBF2::String empty = "";
 

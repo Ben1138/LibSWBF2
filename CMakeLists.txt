@@ -23,12 +23,12 @@ add_subdirectory(${FMT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/fmt")
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set(INC_DIR "${PROJECT_SOURCE_DIR}/include")
-target_include_directories(LibSWBF2 PRIVATE ${INC_DIR} "${INC_DIR}/IO" "${INC_DIR}/DirectX" "${INC_DIR}/DirectX/detex")
+target_include_directories(LibSWBF2 PRIVATE ${INC_DIR} "${INC_DIR}/LibSWBF2/DirectX" "${INC_DIR}/LibSWBF2/DirectX/detex")
 
 target_link_libraries(LibSWBF2 glm)
 target_link_libraries(LibSWBF2 fmt)
 
-target_precompile_headers(LibSWBF2 PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${INC_DIR}/pch.h>")
+target_precompile_headers(LibSWBF2 PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${INC_DIR}/LibSWBF2/pch.h>")
 target_compile_definitions(LibSWBF2 PUBLIC MEMORY_MAPPED_READER)
 target_compile_definitions(LibSWBF2 PRIVATE LOOKUP_CSV_PATH="${PROJECT_SOURCE_DIR}/lookup.csv")
 

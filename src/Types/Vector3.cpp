@@ -1,9 +1,10 @@
-#include <pch.h>
-#include <Types/LibString.h>
-#include <Types/Vector3.h>
-#include <IO/FileReader.h>
-#include <IO/FileWriter.h>
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/Types/Vector3.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/FileWriter.h>
 #include <fmt/format.h>
+
 
 namespace LibSWBF2::Types
 {
