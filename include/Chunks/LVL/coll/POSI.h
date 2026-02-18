@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "Types/List.h"
-#include "Types/LibString.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Types/List.h>
+#include <Types/LibString.h>
 
 
 namespace LibSWBF2::Chunks::LVL::coll

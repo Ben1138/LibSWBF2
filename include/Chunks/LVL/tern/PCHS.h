@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "PTCH.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/LVL/tern/PTCH.h>
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {

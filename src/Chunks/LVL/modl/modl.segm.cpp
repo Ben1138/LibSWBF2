@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/modl/modl.segm.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 #include <Chunks/LVL/modl/MTRL.h>

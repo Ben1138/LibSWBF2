@@ -1,7 +1,7 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/TERR/TERR.h>
-#include <./InternalHelpers.h>
-#include "Logging/Logger.h"
+#include <InternalHelpers.h>
+#include <Logging/Logger.h>
 #include <IO/StreamReader.h>
 #include <algorithm>
 #include <vector>

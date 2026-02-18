@@ -1,14 +1,14 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "Chunks/STRMULT.h"
-#include "inst.h"
-#include "regn.h"
-#include "anmg.h"
-#include "anim.h"
-#include "anmh.h"
-#include "BARR.h"
-#include "Hint.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/STRMULT.h>
+#include <Chunks/LVL/wrld/inst.h>
+#include <Chunks/LVL/wrld/regn.h>
+#include <Chunks/LVL/wrld/anmg.h>
+#include <Chunks/LVL/wrld/anim.h>
+#include <Chunks/LVL/wrld/anmh.h>
+#include <Chunks/LVL/wrld/BARR.h>
+#include <Chunks/LVL/wrld/Hint.h>
 
 
 namespace LibSWBF2::Chunks::LVL::wrld

@@ -1,6 +1,6 @@
 
 #pragma once
-#include "Chunks/GenericChunk.h"
+#include <Chunks/GenericChunk.h>
 
 namespace LibSWBF2::Chunks::LVL::sound
 {

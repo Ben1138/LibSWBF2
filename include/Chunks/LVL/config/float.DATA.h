@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/RawData.h"
-#include "DATA.h"
-#include "Types/Enums.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/RawData.h>
+#include <Chunks/LVL/config/DATA.h>
+#include <Types/Enums.h>
 
 
 namespace LibSWBF2::Chunks::LVL::config

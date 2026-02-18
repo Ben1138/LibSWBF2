@@ -1,6 +1,6 @@
 #pragma once
-#include "BaseChunk.h"
-#include "HeaderNames.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/HeaderNames.h>
 
 
 namespace LibSWBF2::Chunks

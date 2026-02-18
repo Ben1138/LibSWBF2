@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/skel/skel.XFRM.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <Chunks/LVL/skel/skel.h>
 

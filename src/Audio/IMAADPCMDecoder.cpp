@@ -1,6 +1,6 @@
-#include "Types/List.h"
-#include "Logging/Logger.h"
-#include "Audio/IMAADPCMDecoder.h"
+#include <Types/List.h>
+#include <Logging/Logger.h>
+#include <Audio/IMAADPCMDecoder.h>
 
 #include <iostream>
 

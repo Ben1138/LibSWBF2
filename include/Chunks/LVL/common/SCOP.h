@@ -1,7 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "DATA.h"
-#include "Types/List.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/List.h>
 
 /*
 This is a common chunk type, but for now its

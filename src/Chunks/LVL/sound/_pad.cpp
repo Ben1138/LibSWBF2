@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/sound/_pad.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::sound

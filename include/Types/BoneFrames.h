@@ -1,7 +1,7 @@
 #pragma once
-#include "TranslationFrame.h"
-#include "RotationFrame.h"
-#include "List.h"
+#include <Types/TranslationFrame.h>
+#include <Types/RotationFrame.h>
+#include <Types/List.h>
 
 namespace LibSWBF2
 {

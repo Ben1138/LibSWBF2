@@ -1,10 +1,10 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "POSI.h"
-#include "TREE.h"
-#include "../prim/MASK.h"
-#include "coll.INFO.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/coll/POSI.h>
+#include <Chunks/LVL/coll/TREE.h>
+#include <Chunks/LVL/prim/MASK.h>
+#include <Chunks/LVL/coll/coll.INFO.h>
 
 
 namespace LibSWBF2::Chunks::LVL::coll

@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "LVL_.INFO.h"
-#include "BODY.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/LVL/tex_/LVL_.INFO.h>
+#include <Chunks/LVL/tex_/BODY.h>
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture
 {

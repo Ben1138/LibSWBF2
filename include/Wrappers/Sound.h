@@ -1,8 +1,8 @@
 #pragma once
-#include "Types/SoundClip.h"
-#include "Types/LibString.h"
-#include "Types/List.h"
-#include "Types/Enums.h"
+#include <Types/SoundClip.h>
+#include <Types/LibString.h>
+#include <Types/List.h>
+#include <Types/Enums.h>
 
 namespace LibSWBF2::Wrappers
 {

@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "INFO.h"
-#include "modl.segm.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/modl/INFO.h>
+#include <Chunks/LVL/modl/modl.segm.h>
 
 namespace LibSWBF2::Chunks::LVL::modl
 {

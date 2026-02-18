@@ -1,15 +1,13 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/config/ConfigChunk.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
-#include <Chunks/LVL/common/SCOP.h>
-#include <Chunks/LVL/common/DATA.h>
+#include <Chunks/LVL/config/SCOP.h>
+#include <Chunks/LVL/config/DATA.h>
 
 namespace LibSWBF2::Chunks::LVL::config
 {
-	using namespace LibSWBF2::Chunks::LVL::common;
-
 	template<uint32_t Header>
 	void ConfigChunk<Header>::RefreshSize()
 	{
@@ -28,10 +26,9 @@ namespace LibSWBF2::Chunks::LVL::config
 		BaseChunk::ReadFromStream(stream);
 		GenericChunk<Header>::Check(stream);
 		
-		
-        while (GenericChunk<Header>::ThereIsAnother(stream))
-        {
-            ChunkHeader next = stream.ReadChunkHeader(true);
+		while (GenericChunk<Header>::ThereIsAnother(stream))
+		{
+			ChunkHeader next = stream.ReadChunkHeader(true);
 			if (next == "NAME"_h)
 			{
 				GenericChunk<Header>::READ_CHILD(stream, p_Hash);
@@ -52,7 +49,7 @@ namespace LibSWBF2::Chunks::LVL::config
 				BaseChunk::EnsureEnd(stream);
 				//GenericChunk<Header>::READ_CHILD_GENERIC(stream);
 			}
-        }
+		}
 
 		BaseChunk::EnsureEnd(stream);
 	}

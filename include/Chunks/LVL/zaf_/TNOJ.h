@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/Vector3.h"
-#include "Types/Vector4.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/Vector3.h>
+#include <Types/Vector4.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

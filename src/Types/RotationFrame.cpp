@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/RotationFrame.h"
+#include <pch.h>
+#include <Types/RotationFrame.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
 

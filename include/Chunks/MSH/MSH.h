@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/BaseChunk.h"
-#include "SHVO.h"
-#include "MSH2.h"
-#include "ANM2.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/MSH/SHVO.h>
+#include <Chunks/MSH/MSH2.h>
+#include <Chunks/MSH/ANM2.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

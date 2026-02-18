@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/Color4u8.h"
-#include "Types/Enums.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/Color4u8.h>
+#include <Types/Enums.h>
 
 namespace LibSWBF2::Chunks::LVL::modl
 {

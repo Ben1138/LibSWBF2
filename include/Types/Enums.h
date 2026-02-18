@@ -1,7 +1,7 @@
 #pragma once
 #include <type_traits>
-#include "req.h"
-#include "Types/LibString.h"
+#include <req.h>
+#include <Types/LibString.h>
 
 namespace LibSWBF2
 {

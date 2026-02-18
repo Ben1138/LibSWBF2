@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/MSH/ANM2.h>
-#include "Chunks/HeaderNames.h"
+#include <Chunks/HeaderNames.h>
 #include <IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::MSH

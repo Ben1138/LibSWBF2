@@ -1,9 +1,9 @@
 
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/sound/StreamData.h>
 #include <Chunks/LVL/sound/Stream.h>
 #include <Chunks/LVL/sound/StreamInfo.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 

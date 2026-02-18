@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "PROP.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/common/PROP.h>
 
 namespace LibSWBF2::Chunks::LVL::common
 {

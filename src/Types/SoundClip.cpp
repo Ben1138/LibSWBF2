@@ -1,10 +1,10 @@
-#include <./pch.h>
-#include "Types/LibString.h"
-#include "Types/SoundClip.h"
+#include <pch.h>
+#include <Types/LibString.h>
+#include <Types/SoundClip.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
-#include <./InternalHelpers.h>
-#include <./Hashing.h>
+#include <InternalHelpers.h>
+#include <Hashing.h>
 
 namespace LibSWBF2::Types
 {

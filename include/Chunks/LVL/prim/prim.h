@@ -1,10 +1,10 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "prim.INFO.h"
-#include "MASK.h"
-#include "prim.DATA.h"
-#include "../wrld/XFRM.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/prim/prim.INFO.h>
+#include <Chunks/LVL/prim/MASK.h>
+#include <Chunks/LVL/prim/prim.DATA.h>
+#include <Chunks/LVL/wrld/XFRM.h>
 
 
 namespace LibSWBF2::Chunks::LVL::prim

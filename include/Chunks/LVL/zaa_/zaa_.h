@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "BIN_.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/zaa_/BIN_.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

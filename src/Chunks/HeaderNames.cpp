@@ -1,7 +1,7 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/HeaderNames.h>
-#include "Types/LibString.h"
-#include <./Hashing.h>
+#include <Types/LibString.h>
+#include <Hashing.h>
 #include <set>
 #include <array>
 #include <map>

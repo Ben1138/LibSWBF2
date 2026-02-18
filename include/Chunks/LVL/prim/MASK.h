@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "../wrld/XFRM.h"
-#include "Types/Enums.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/wrld/XFRM.h>
+#include <Types/Enums.h>
 
 
 namespace LibSWBF2::Chunks::LVL::prim

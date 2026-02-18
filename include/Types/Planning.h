@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Types/Enums.h"
+#include <Types/Enums.h>
 
 using LibSWBF2::Types::String;
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "req.h"
-#include "Types/LibString.h"
-#include "Types/Enums.h"
-#include "Sound.h"
+#include <req.h>
+#include <Types/LibString.h>
+#include <Types/Enums.h>
+#include <Wrappers/Sound.h>
 
 
 

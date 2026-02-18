@@ -1,8 +1,8 @@
 
 
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/CollisionPrimitive.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <stdint.h>
 
 

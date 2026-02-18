@@ -1,11 +1,11 @@
 #pragma once
-#include "Chunks/BaseChunk.h"
-#include "MATI.h"
-#include "POSL.h"
-#include "WGHT.h"
-#include "NRML.h"
-#include "UV0L.h"
-#include "STRP.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/MSH/MATI.h>
+#include <Chunks/MSH/POSL.h>
+#include <Chunks/MSH/WGHT.h>
+#include <Chunks/MSH/NRML.h>
+#include <Chunks/MSH/UV0L.h>
+#include <Chunks/MSH/STRP.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

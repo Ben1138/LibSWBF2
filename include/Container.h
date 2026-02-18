@@ -1,12 +1,12 @@
 #pragma once
-#include "Wrappers/Level.h"
-#include "Wrappers/Terrain.h"
-#include "Wrappers/Localization.h"
-#include "Wrappers/SoundBank.h"
-#include "Wrappers/AnimationSkeleton.h"
-#include "Types/LibString.h"
-#include "Types/List.h"
-#include "Types/Enums.h"
+#include <Wrappers/Level.h>
+#include <Wrappers/Terrain.h>
+#include <Wrappers/Localization.h>
+#include <Wrappers/SoundBank.h>
+#include <Wrappers/AnimationSkeleton.h>
+#include <Types/LibString.h>
+#include <Types/List.h>
+#include <Types/Enums.h>
 
 namespace LibSWBF2
 {

@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/tex_/FMT_.INFO.h>
-#include <./InternalHelpers.h>
-#include "DirectX/DXHelpers.h"
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
+#include <DirectX/DXHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <fmt/format.h>
 

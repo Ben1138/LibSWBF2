@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/Animation.h"
+#include <pch.h>
+#include <Types/Animation.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
 

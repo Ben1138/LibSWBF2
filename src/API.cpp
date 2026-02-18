@@ -1,16 +1,16 @@
-#include <./pch.h>
-#include <./API.h>
-#include <./InternalHelpers.h>
-#include "Types/LibString.h"
-#include "Types/Enums.h"
-#include "Types/Planning.h"
-#include "Chunks/MSH/MSH.h"
+#include <pch.h>
+#include <API.h>
+#include <InternalHelpers.h>
+#include <Types/LibString.h>
+#include <Types/Enums.h>
+#include <Types/Planning.h>
+#include <Chunks/MSH/MSH.h>
 
 #include <string.h>
-#include <./Container.h>
-#include "Wrappers/Wrappers.h"
+#include <Container.h>
+#include <Wrappers/Wrappers.h>
 
-#include "Chunks/HeaderNames.h"
+#include <Chunks/HeaderNames.h>
 
 #include <IO/MemoryMappedReader.h>
 #include <IO/StreamReader.h>

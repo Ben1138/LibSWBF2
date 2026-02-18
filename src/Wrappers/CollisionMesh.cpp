@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/CollisionMesh.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <stdint.h>
 
 

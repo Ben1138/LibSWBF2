@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/LibString.h"
+#include <pch.h>
+#include <Types/LibString.h>
 #include <Types/Matrix3x3.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>

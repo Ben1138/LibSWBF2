@@ -1,8 +1,8 @@
-#include <./pch.h>
-#include <./InternalHelpers.h>
+#include <pch.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include "Types/Enums.h"
-#include "Logging/Logger.h"
+#include <Types/Enums.h>
+#include <Logging/Logger.h>
 
 #include <Chunks/LVL/config/float.DATA.h>
 

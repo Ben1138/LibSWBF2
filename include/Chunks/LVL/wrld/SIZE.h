@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/List.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/List.h>
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {

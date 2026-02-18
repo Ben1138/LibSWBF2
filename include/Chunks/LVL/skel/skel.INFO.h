@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/LibString.h"
-#include "Types/Enums.h"
-#include "Types/Vector3.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/LibString.h>
+#include <Types/Enums.h>
+#include <Types/Vector3.h>
 
 namespace LibSWBF2::Chunks::LVL::skel
 {

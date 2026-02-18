@@ -1,13 +1,13 @@
 #pragma once
-#include "Chunks/LVL/prim/prim.h"
-#include "Chunks/LVL/prim/prim.DATA.h"
-#include "Chunks/LVL/prim/MASK.h"
-#include "Chunks/LVL/wrld/XFRM.h"
-#include "Chunks/STR.h"
+#include <Chunks/LVL/prim/prim.h>
+#include <Chunks/LVL/prim/prim.DATA.h>
+#include <Chunks/LVL/prim/MASK.h>
+#include <Chunks/LVL/wrld/XFRM.h>
+#include <Chunks/STR.h>
 
-#include "Types/Vector4.h"
-#include "Types/Vector3.h"
-#include "Types/Matrix3x3.h"
+#include <Types/Vector4.h>
+#include <Types/Vector3.h>
+#include <Types/Matrix3x3.h>
 
 
 namespace LibSWBF2::Wrappers

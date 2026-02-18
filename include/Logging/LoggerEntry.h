@@ -1,6 +1,6 @@
 #pragma once
-#include "Types/LibString.h"
-#include "Types/Enums.h"
+#include <Types/LibString.h>
+#include <Types/Enums.h>
 
 namespace LibSWBF2::Logging
 {

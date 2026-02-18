@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/plan/plan.h>
 #include <IO/FileReader.h>
-#include <./InternalHelpers.h>
-#include "Types/Enums.h"
-#include "Logging/Logger.h"
-#include "Types/List.h"
+#include <InternalHelpers.h>
+#include <Types/Enums.h>
+#include <Logging/Logger.h>
+#include <Types/List.h>
 
 #define NAME_LENGTH 16
 

@@ -1,13 +1,13 @@
 #pragma once
-#include "Chunks/BaseChunk.h"
-#include "Chunks/STR.h"
-#include "Types/Enums.h"
-#include "MTYP.h"
-#include "MNDX.h"
-#include "FLGS.h"
-#include "TRAN.h"
-#include "GEOM.h"
-#include "SWCI.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/STR.h>
+#include <Types/Enums.h>
+#include <Chunks/MSH/MTYP.h>
+#include <Chunks/MSH/MNDX.h>
+#include <Chunks/MSH/FLGS.h>
+#include <Chunks/MSH/TRAN.h>
+#include <Chunks/MSH/GEOM.h>
+#include <Chunks/MSH/SWCI.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

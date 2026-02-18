@@ -1,11 +1,11 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/wrld/BARR.h>
 
 #include <Chunks/LVL/wrld/XFRM.h>
 #include <Chunks/LVL/wrld/SIZE.h>
 
-#include "Logging/Logger.h"
-#include <./InternalHelpers.h>
+#include <Logging/Logger.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::wrld

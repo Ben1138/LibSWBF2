@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/tern/PTCH.VBUF.h>
 #include <Chunks/LVL/tern/PTCH.INFO.h>
 #include <Chunks/LVL/tern/PTCH.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 

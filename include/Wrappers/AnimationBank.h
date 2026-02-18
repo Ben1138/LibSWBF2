@@ -1,5 +1,5 @@
 #pragma once
-#include "Types/Enums.h"
+#include <Types/Enums.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

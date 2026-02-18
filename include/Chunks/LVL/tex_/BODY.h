@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/Enums.h"
-#include "DirectX/DXTexCrossPlat.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/Enums.h>
+#include <DirectX/DXTexCrossPlat.h>
 
 #ifdef _WIN32
 namespace DirectX { class ScratchImage; }

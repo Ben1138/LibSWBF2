@@ -1,7 +1,7 @@
 #pragma once
-#include "Types/Color4.h"
-#include "Types/Vector4.h"
-#include "Types/Vector3.h"
+#include <Types/Color4.h>
+#include <Types/Vector4.h>
+#include <Types/Vector3.h>
 
 
 namespace LibSWBF2::Chunks

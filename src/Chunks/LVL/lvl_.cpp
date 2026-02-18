@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/lvl_.h>
 #include <Chunks/LVL/LVL.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include <./Hashing.h>
+#include <Hashing.h>
 
 namespace LibSWBF2::Chunks::LVL
 {

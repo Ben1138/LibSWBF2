@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/HeaderNames.h"
-#include "Types/LibString.h"
+#include <Chunks/HeaderNames.h>
+#include <Types/LibString.h>
 #include <atomic>
 
 

@@ -1,4 +1,4 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/MSH/NRML.h>
 #include <IO/FileReader.h>
 #include <IO/FileWriter.h>

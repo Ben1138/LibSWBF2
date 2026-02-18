@@ -1,5 +1,6 @@
 #pragma once
-#include "Chunks/RawData.h"
+#include <Chunks/RawData.h>
+#include <Chunks/LVL/common/DATA.h>
 
 namespace LibSWBF2::Chunks::LVL::config
 {

@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "Locl.BODY.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/Locl/Locl.BODY.h>
 
 namespace LibSWBF2::Chunks::LVL::Localization
 {

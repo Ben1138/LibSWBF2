@@ -1,10 +1,10 @@
-#include <./req.h>
-#include <./pch.h>
+#include <req.h>
+#include <pch.h>
 
 #include <Wrappers/AnimationBank.h>
-#include "Chunks/LVL/zaa_/zaa_.h"
+#include <Chunks/LVL/zaa_/zaa_.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
 
 

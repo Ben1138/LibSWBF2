@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector4.h"
+#include <Types/Vector4.h>
 
 namespace LibSWBF2
 {

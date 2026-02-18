@@ -1,11 +1,11 @@
 #pragma once
-#include "Types/SoundClip.h"
-#include "InternalHelpers.h"
-#include "Wrappers/Sound.h"
-#include "Audio/SoundDecoder.h"
-//#include "Audio/AudioStreamer.h"
-#include "Types/LibString.h"
-#include "Types/List.h"
+#include <Types/SoundClip.h>
+#include <InternalHelpers.h>
+#include <Wrappers/Sound.h>
+#include <Audio/SoundDecoder.h>
+//#include <Audio/AudioStreamer.h>
+#include <Types/LibString.h>
+#include <Types/List.h>
 
 
 

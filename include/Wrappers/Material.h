@@ -1,8 +1,8 @@
 #pragma once
-#include "req.h"
-#include "Types/List.h"
-#include "Types/Color4u8.h"
-#include "Types/LibString.h"
+#include <req.h>
+#include <Types/List.h>
+#include <Types/Color4u8.h>
+#include <Types/LibString.h>
 
 namespace LibSWBF2
 {

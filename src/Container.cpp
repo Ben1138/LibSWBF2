@@ -1,10 +1,10 @@
-#include <./pch.h>
-#include <./Container.h>
-#include <./InternalHelpers.h>
-#include <./Hashing.h>
+#include <pch.h>
+#include <Container.h>
+#include <InternalHelpers.h>
+#include <Hashing.h>
 #include <IO/FileReader.h>
 
-#include "Chunks/LVL/LVL.h"
+#include <Chunks/LVL/LVL.h>
 
 #include <vector>
 #include <future>

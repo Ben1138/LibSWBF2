@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/GenericChunk.h>
 #include <Chunks/BaseChunk.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <IO/FileWriter.h>
-#include "Logging/Logger.h"
+#include <Logging/Logger.h>
 
 #include <Chunks/STR.h>
 

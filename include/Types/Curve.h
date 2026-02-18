@@ -1,6 +1,6 @@
 #pragma once
-#include "req.h"
-#include "Types/List.h"
+#include <req.h>
+#include <Types/List.h>
 
 
 namespace LibSWBF2::Types

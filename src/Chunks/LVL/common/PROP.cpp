@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/common/PROP.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include <./Hashing.h>
+#include <Hashing.h>
 
 namespace LibSWBF2::Chunks::LVL::common
 {

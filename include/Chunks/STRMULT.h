@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/LibString.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/LibString.h>
 
 namespace LibSWBF2::Chunks
 {

@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/BaseChunk.h"
-#include "MATD.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/MSH/MATD.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/BaseChunk.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
-#include "Logging/Logger.h"
+#include <Logging/Logger.h>
 #include <string>
 #include <mutex>
 

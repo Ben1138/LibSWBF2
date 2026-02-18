@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/Vector3.h"
-#include "Types/Matrix3x3.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/Vector3.h>
+#include <Types/Matrix3x3.h>
 
 namespace LibSWBF2::Chunks::LVL::skel
 {

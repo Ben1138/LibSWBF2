@@ -1,6 +1,6 @@
-#include <./pch.h>
-#include "Types/Vector2.h"
-#include "Types/LibString.h"
+#include <pch.h>
+#include <Types/Vector2.h>
+#include <Types/LibString.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
 #include <fmt/format.h>

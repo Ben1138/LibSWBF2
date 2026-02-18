@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/LVL/coll/coll.h"
-#include "Chunks/STR.h"
+#include <Chunks/LVL/coll/coll.h>
+#include <Chunks/STR.h>
 
-#include "Types/Vector3.h"
+#include <Types/Vector3.h>
 
 
 namespace LibSWBF2::Wrappers

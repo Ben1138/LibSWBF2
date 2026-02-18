@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-//#include "TNOJ.h"
+#include <Chunks/GenericChunk.h>
+//#include <Chunks/LVL/zaf_/TNOJ.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

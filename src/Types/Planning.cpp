@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/Planning.h"
+#include <pch.h>
+#include <Types/Planning.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
 

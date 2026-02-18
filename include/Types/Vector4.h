@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.h"
+#include <Types/Vector3.h>
 
 namespace LibSWBF2::Types
 {

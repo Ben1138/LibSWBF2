@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Types/List.h"
-#include "Logging/Logger.h"
-#include "Wrappers/Sound.h"
-#include "Audio/SoundDecoder.h"
+#include <Types/List.h>
+#include <Logging/Logger.h>
+#include <Wrappers/Sound.h>
+#include <Audio/SoundDecoder.h>
 
 
 /*

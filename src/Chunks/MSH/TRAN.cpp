@@ -1,4 +1,4 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/MSH/TRAN.h>
 
 namespace LibSWBF2::Chunks::MSH

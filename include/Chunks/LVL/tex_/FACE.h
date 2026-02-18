@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "tex_.LVL_.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/LVL/tex_/tex_.LVL_.h>
 
 namespace LibSWBF2::Chunks::LVL::texture
 {

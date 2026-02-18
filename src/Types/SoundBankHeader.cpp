@@ -1,9 +1,9 @@
-#include <./pch.h>
-#include "Types/LibString.h"
-#include "Types/SoundBankHeader.h"
+#include <pch.h>
+#include <Types/LibString.h>
+#include <Types/SoundBankHeader.h>
 #include <IO/FileReader.h>
-#include <./InternalHelpers.h>
-#include <./Hashing.h>
+#include <InternalHelpers.h>
+#include <Hashing.h>
 
 namespace LibSWBF2::Types
 {

@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Localization.h>
-#include <./InternalHelpers.h>
-#include <./Hashing.h>
+#include <InternalHelpers.h>
+#include <Hashing.h>
 
-#include "Chunks/LVL/Locl/Locl.h"
+#include <Chunks/LVL/Locl/Locl.h>
 
 #include <map>
 

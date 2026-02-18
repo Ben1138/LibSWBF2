@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Hashing.h"
+#include <Chunks/GenericChunk.h>
+#include <Hashing.h>
 
 
 namespace LibSWBF2::Chunks::LVL::config

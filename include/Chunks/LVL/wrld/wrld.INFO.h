@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "XFRM.h"
-#include "SIZE.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/wrld/XFRM.h>
+#include <Chunks/LVL/wrld/SIZE.h>
 
 namespace LibSWBF2::Chunks::LVL::wrld
 {

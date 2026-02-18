@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "Hashing.h"
+#include <Hashing.h>
 
 namespace LibSWBF2
 {

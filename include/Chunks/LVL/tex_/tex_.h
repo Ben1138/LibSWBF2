@@ -1,9 +1,9 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "DirectX/D3D9FORMAT.h"
-#include "Chunks/STR.h"
-#include "tex_.INFO.h"
-#include "FMT_.h"
+#include <Chunks/GenericChunk.h>
+#include <DirectX/D3D9FORMAT.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/tex_/tex_.INFO.h>
+#include <Chunks/LVL/tex_/FMT_.h>
 
 namespace LibSWBF2::Chunks::LVL::texture
 {

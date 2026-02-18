@@ -1,11 +1,11 @@
 #pragma once
-#include "Chunks/HeaderNames.h"
-#include "Types/LibString.h"
+#include <Chunks/HeaderNames.h>
+#include <Types/LibString.h>
 #include <fstream>
 #include <atomic>
 
 
-#include "FileReader.h"
+#include <IO/FileReader.h>
 
 
 namespace LibSWBF2

@@ -1,9 +1,9 @@
 #pragma once
-#include "req.h"
+#include <req.h>
 
-#include "Types/LibString.h"
-#include "Types/List.h"
-#include "Types/Planning.h"
+#include <Types/LibString.h>
+#include <Types/List.h>
+#include <Types/Planning.h>
 
 
 namespace LibSWBF2::Chunks::plan

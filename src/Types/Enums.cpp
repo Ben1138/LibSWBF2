@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/Enums.h"
+#include <pch.h>
+#include <Types/Enums.h>
 #include <string>
 #include <fmt/format.h>
 

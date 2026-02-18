@@ -1,10 +1,10 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "tern.INFO.h"
-#include "PCHS.h"
-#include "LTEX.h"
-#include "DTEX.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/tern/tern.INFO.h>
+#include <Chunks/LVL/tern/PCHS.h>
+#include <Chunks/LVL/tern/LTEX.h>
+#include <Chunks/LVL/tern/DTEX.h>
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {

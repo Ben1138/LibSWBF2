@@ -1,9 +1,9 @@
 #pragma once
-#include "req.h"
-#include "API.h"
+#include <req.h>
+#include <API.h>
 
-#include "Types/LibString.h"
-#include "Types/List.h"
+#include <Types/LibString.h>
+#include <Types/List.h>
 
 
 namespace LibSWBF2

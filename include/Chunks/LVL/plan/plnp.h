@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Chunks/GenericChunk.h"
+#include <Chunks/GenericChunk.h>
 
-#include "Types/Planning.h"
+#include <Types/Planning.h>
 
 
 using LibSWBF2::Types::String;

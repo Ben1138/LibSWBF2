@@ -1,7 +1,7 @@
 #pragma once
-#include "Material.h"
-#include "Types/LibString.h"
-#include "Types/List.h"
+#include <Wrappers/Material.h>
+#include <Types/LibString.h>
+#include <Types/List.h>
 
 
 namespace LibSWBF2::Chunks::LVL::modl

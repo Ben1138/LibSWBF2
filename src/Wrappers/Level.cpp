@@ -1,28 +1,28 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Level.h>
 
-#include "Wrappers/Wrappers.h"
+#include <Wrappers/Wrappers.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
-#include "Chunks/LVL/LVL.h"
+#include <Chunks/LVL/LVL.h>
 
-#include "Chunks/LVL/skel/skel.h"
-#include "Chunks/LVL/tex_/tex_.h"
-#include "Chunks/LVL/modl/LVL.modl.h"
-#include "Chunks/LVL/scr_/scr_.h"
-#include "Chunks/LVL/Locl/Locl.h"
-#include "Chunks/LVL/coll/coll.h"
-#include "Chunks/LVL/zaa_/zaa_.h"
-#include "Chunks/LVL/zaf_/zaf_.h"
-#include "Chunks/LVL/tern/tern.h"
-#include "Chunks/LVL/config/ConfigChunk.h"
-#include "Chunks/LVL/common/GenericClass.h"
-#include "Chunks/LVL/wrld/wrld.h"
-#include "Chunks/LVL/sound/Stream.h"
-#include "Chunks/LVL/sound/SampleBank.h"
-#include "Chunks/LVL/sound/SampleBankInfo.h"
-#include "Chunks/LVL/plan/plan.h"
+#include <Chunks/LVL/skel/skel.h>
+#include <Chunks/LVL/tex_/tex_.h>
+#include <Chunks/LVL/modl/LVL.modl.h>
+#include <Chunks/LVL/scr_/scr_.h>
+#include <Chunks/LVL/Locl/Locl.h>
+#include <Chunks/LVL/coll/coll.h>
+#include <Chunks/LVL/zaa_/zaa_.h>
+#include <Chunks/LVL/zaf_/zaf_.h>
+#include <Chunks/LVL/tern/tern.h>
+#include <Chunks/LVL/config/ConfigChunk.h>
+#include <Chunks/LVL/common/GenericClass.h>
+#include <Chunks/LVL/wrld/wrld.h>
+#include <Chunks/LVL/sound/Stream.h>
+#include <Chunks/LVL/sound/SampleBank.h>
+#include <Chunks/LVL/sound/SampleBankInfo.h>
+#include <Chunks/LVL/plan/plan.h>
 
 #include <IO/FileReader.h>
 

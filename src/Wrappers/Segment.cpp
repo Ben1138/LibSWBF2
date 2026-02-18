@@ -1,13 +1,13 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Segment.h>
 #include <Wrappers/Level.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
-#include "Chunks/LVL/modl/LVL.modl.h"
-#include "Chunks/LVL/modl/modl.VBUF.h"
-#include "Chunks/LVL/modl/IBUF.h"
-#include "Chunks/LVL/modl/BMAP.h"
-#include "Chunks/LVL/modl/modl.segm.h"
+#include <Chunks/LVL/modl/LVL.modl.h>
+#include <Chunks/LVL/modl/modl.VBUF.h>
+#include <Chunks/LVL/modl/IBUF.h>
+#include <Chunks/LVL/modl/BMAP.h>
+#include <Chunks/LVL/modl/modl.segm.h>
 
 
 namespace LibSWBF2::Wrappers

@@ -1,14 +1,14 @@
-#include <./req.h>
-#include <./pch.h>
+#include <req.h>
+#include <pch.h>
 
 #include <Wrappers/AnimationSkeleton.h>
 #include <Wrappers/Level.h>
-#include "Chunks/LVL/zaf_/zaf_.h"
-#include "Chunks/LVL/zaf_/TNOJ.h"
-#include "Chunks/LVL/zaf_/BIN_.h"
-#include "Chunks/LVL/zaf_/LEKS.h"
+#include <Chunks/LVL/zaf_/zaf_.h>
+#include <Chunks/LVL/zaf_/TNOJ.h>
+#include <Chunks/LVL/zaf_/BIN_.h>
+#include <Chunks/LVL/zaf_/LEKS.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
 
 

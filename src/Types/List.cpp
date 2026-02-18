@@ -1,6 +1,6 @@
-#include <./pch.h>
-#include "Types/List.h"
-#include <./InternalHelpers.h>
+#include <pch.h>
+#include <Types/List.h>
+#include <InternalHelpers.h>
 
 namespace LibSWBF2::Types
 {
@@ -433,56 +433,56 @@ namespace LibSWBF2::Types
 #include <Types/LibString.h>
 #include <Types/SoundClip.h>
 #include <Types/LocalizeEntry.h>
-#include "Chunks/MSH/SEGM.h"
-#include "Chunks/MSH/MATD.h"
-#include "Chunks/MSH/MODL.h"
+#include <Chunks/MSH/SEGM.h>
+#include <Chunks/MSH/MATD.h>
+#include <Chunks/MSH/MODL.h>
 #include <Types/WorldAnimationKey.h>
 #include <Types/Planning.h>
 
-#include "Chunks/LVL/common/SCOP.h"
-#include "Chunks/LVL/common/DATA.h"
-#include "Chunks/LVL/common/PROP.h"
-#include "Chunks/LVL/coll/TREE.NODE.h"
-#include "Chunks/LVL/coll/TREE.LEAF.h"
-#include "Chunks/LVL/prim/prim.h"
-#include "Wrappers/Config.h"
+#include <Chunks/LVL/common/SCOP.h>
+#include <Chunks/LVL/common/DATA.h>
+#include <Chunks/LVL/common/PROP.h>
+#include <Chunks/LVL/coll/TREE.NODE.h>
+#include <Chunks/LVL/coll/TREE.LEAF.h>
+#include <Chunks/LVL/prim/prim.h>
+#include <Wrappers/Config.h>
 
-#include "Chunks/LVL/zaf_/TNOJ.h"
+#include <Chunks/LVL/zaf_/TNOJ.h>
 
-#include "Chunks/LVL/tex_/FMT_.h"
-#include "Chunks/LVL/tex_/tex_.LVL_.h"
-#include "Chunks/LVL/modl/LVL.modl.h"
-#include "Chunks/LVL/modl/modl.segm.h"
-#include "Chunks/LVL/modl/modl.VBUF.h"
-#include "Chunks/LVL/modl/TNAM.h"
-#include "Chunks/LVL/wrld/inst.h"
-#include "Chunks/LVL/wrld/regn.h"
-#include "Chunks/LVL/wrld/anim.h"
-#include "Chunks/LVL/wrld/anmg.h"
-#include "Chunks/LVL/wrld/anmh.h"
-#include "Chunks/LVL/wrld/BARR.h"
-#include "Chunks/LVL/wrld/Hint.h"
+#include <Chunks/LVL/tex_/FMT_.h>
+#include <Chunks/LVL/tex_/tex_.LVL_.h>
+#include <Chunks/LVL/modl/LVL.modl.h>
+#include <Chunks/LVL/modl/modl.segm.h>
+#include <Chunks/LVL/modl/modl.VBUF.h>
+#include <Chunks/LVL/modl/TNAM.h>
+#include <Chunks/LVL/wrld/inst.h>
+#include <Chunks/LVL/wrld/regn.h>
+#include <Chunks/LVL/wrld/anim.h>
+#include <Chunks/LVL/wrld/anmg.h>
+#include <Chunks/LVL/wrld/anmh.h>
+#include <Chunks/LVL/wrld/BARR.h>
+#include <Chunks/LVL/wrld/Hint.h>
 
-#include "Chunks/LVL/tern/PTCH.h"
-#include "Chunks/LVL/scr_/scr_.h"
-#include "Chunks/LVL/plan/plan.h"
+#include <Chunks/LVL/tern/PTCH.h>
+#include <Chunks/LVL/scr_/scr_.h>
+#include <Chunks/LVL/plan/plan.h>
 
-#include "Chunks/LVL/sound/Stream.h"
-#include "Chunks/LVL/sound/SampleBank.h"
+#include <Chunks/LVL/sound/Stream.h>
+#include <Chunks/LVL/sound/SampleBank.h>
 
 
 
-#include "Chunks/RawData.h"
+#include <Chunks/RawData.h>
 
-#include "Chunks/GenericChunk.h"
+#include <Chunks/GenericChunk.h>
 
-#include "Chunks/LVL/wrld/WorldAnimKeyChunk.h"
+#include <Chunks/LVL/wrld/WorldAnimKeyChunk.h>
 
-#include "Wrappers/Wrappers.h"
+#include <Wrappers/Wrappers.h>
 
-#include "DirectX/D3D9FORMAT.h"
+#include <DirectX/D3D9FORMAT.h>
 
-#include "Audio/SoundDecoder.h"
+#include <Audio/SoundDecoder.h>
 
 namespace LibSWBF2
 {

@@ -1,15 +1,15 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Material.h>
 #include <Wrappers/Texture.h>
 #include <Wrappers/Level.h>
 
-#include <./Container.h>
-#include <./InternalHelpers.h>
+#include <Container.h>
+#include <InternalHelpers.h>
 
 
-#include "Chunks/LVL/modl/MTRL.h"
-#include "Chunks/LVL/modl/TNAM.h"
-#include "Chunks/LVL/modl/modl.segm.h"
+#include <Chunks/LVL/modl/MTRL.h>
+#include <Chunks/LVL/modl/TNAM.h>
+#include <Chunks/LVL/modl/modl.segm.h>
 
 
 

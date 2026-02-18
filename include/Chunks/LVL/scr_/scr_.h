@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "scr_.INFO.h"
-#include "Chunks/RawData.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/scr_/scr_.INFO.h>
+#include <Chunks/RawData.h>
 
 namespace LibSWBF2::Chunks::LVL::script
 {

@@ -1,6 +1,6 @@
-#include <./pch.h>
-#include <./InternalHelpers.h>
-#include "Logging/Logger.h"
+#include <pch.h>
+#include <InternalHelpers.h>
+#include <Logging/Logger.h>
 
 namespace LibSWBF2
 {

@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
 
-#include "Chunks/LVL/common/PROP.h"
+#include <Chunks/LVL/common/PROP.h>
 
 
 

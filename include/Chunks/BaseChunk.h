@@ -1,10 +1,10 @@
 #pragma once
-#include "HeaderNames.h"
-#include "Types/Color4u8.h"
-#include "Types/Vector4.h"
-#include "Types/Vector3u8.h"
-#include "Types/List.h"
-#include "Types/LibString.h"
+#include <Chunks/HeaderNames.h>
+#include <Types/Color4u8.h>
+#include <Types/Vector4.h>
+#include <Types/Vector3u8.h>
+#include <Types/List.h>
+#include <Types/LibString.h>
 
 #include <chrono>
 

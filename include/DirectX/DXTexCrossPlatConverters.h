@@ -6,7 +6,7 @@ since most libraries (glaring at you GLI) that claimed to handle
 this exact task kept pretty dismal or no documentation... 
 */
 
-#include "D3D9FORMAT.h"
+#include <DirectX/D3D9FORMAT.h>
 #include <stdint.h>
 
 namespace DXTexCrossPlat {

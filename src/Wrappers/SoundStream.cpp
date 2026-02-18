@@ -1,16 +1,16 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/SoundStream.h>
-#include "Chunks/LVL/sound/Stream.h"
-#include "Chunks/LVL/sound/StreamInfo.h"
+#include <Chunks/LVL/sound/Stream.h>
+#include <Chunks/LVL/sound/StreamInfo.h>
 
-#include "Audio/IMAADPCMDecoder.h"
-#include "Audio/PCM16Decoder.h"
+#include <Audio/IMAADPCMDecoder.h>
+#include <Audio/PCM16Decoder.h>
 
 #include <IO/FileReader.h>
 
-#include <./InternalHelpers.h>
-#include "Types/SoundClip.h"
-#include <./Hashing.h>
+#include <InternalHelpers.h>
+#include <Types/SoundClip.h>
+#include <Hashing.h>
 #include <unordered_map>
 #include <iostream>
 

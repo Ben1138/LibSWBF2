@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/prim/prim.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include "Types/Enums.h"
-#include "Logging/Logger.h"
+#include <Types/Enums.h>
+#include <Logging/Logger.h>
 
 
 

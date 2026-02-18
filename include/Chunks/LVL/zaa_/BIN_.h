@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "TADA.h"
-#include "MINA.h"
-#include "TNJA.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/LVL/zaa_/TADA.h>
+#include <Chunks/LVL/zaa_/MINA.h>
+#include <Chunks/LVL/zaa_/TNJA.h>
 
 namespace LibSWBF2::Chunks::LVL::animation
 {

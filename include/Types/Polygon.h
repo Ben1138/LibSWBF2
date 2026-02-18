@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "List.h"
+#include <Types/List.h>
 
 namespace LibSWBF2::Types
 {

@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <DirectX/DXTexCrossPlat.h>
 #include <DirectX/DXTexCrossPlatConverters.h>
 
 #define DETEX_VERSION 1
-#include "detex/detex.h"
+#include <detex/detex.h>
 
 #include <math.h>
 

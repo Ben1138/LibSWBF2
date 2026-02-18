@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Types/TerrainBufferEntry.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>
 #include <algorithm>

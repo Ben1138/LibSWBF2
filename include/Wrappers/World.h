@@ -1,12 +1,12 @@
 #pragma once
-#include "req.h"
+#include <req.h>
 
-#include "Types/LibString.h"
-#include "Types/List.h"
-#include "Types/Vector3.h"
-#include "Types/Vector4.h"
-#include "Types/Enums.h"
-#include "Types/WorldAnimationKey.h"
+#include <Types/LibString.h>
+#include <Types/List.h>
+#include <Types/Vector3.h>
+#include <Types/Vector4.h>
+#include <Types/Enums.h>
+#include <Types/WorldAnimationKey.h>
 
 
 namespace LibSWBF2

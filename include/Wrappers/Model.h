@@ -1,8 +1,8 @@
 #pragma once
-#include "req.h"
-#include "Segment.h"
-#include "CollisionPrimitive.h"
-#include "CollisionMesh.h"
+#include <req.h>
+#include <Wrappers/Segment.h>
+#include <Wrappers/CollisionPrimitive.h>
+#include <Wrappers/CollisionMesh.h>
 
 
 namespace LibSWBF2

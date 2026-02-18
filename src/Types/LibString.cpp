@@ -1,6 +1,6 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Types/LibString.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
 
 namespace LibSWBF2::Types

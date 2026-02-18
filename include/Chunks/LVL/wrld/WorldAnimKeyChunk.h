@@ -1,6 +1,6 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/WorldAnimationKey.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/WorldAnimationKey.h>
 
 
 namespace LibSWBF2::Chunks::LVL::wrld

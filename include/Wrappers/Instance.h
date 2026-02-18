@@ -1,9 +1,9 @@
 #pragma once
-#include "req.h"
-#include "EntityClass.h"
-#include "Types/Vector4.h"
-#include "Types/List.h"
-#include "Chunks/LVL/wrld/inst.h"
+#include <req.h>
+#include <Wrappers/EntityClass.h>
+#include <Types/Vector4.h>
+#include <Types/List.h>
+#include <Chunks/LVL/wrld/inst.h>
 
 namespace LibSWBF2
 {

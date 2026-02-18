@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/EntityClass.h>
-#include <./InternalHelpers.h>
-#include <./Hashing.h>
-#include <./Container.h>
+#include <InternalHelpers.h>
+#include <Hashing.h>
+#include <Container.h>
 
-#include "Chunks/LVL/common/GenericClass.h"
+#include <Chunks/LVL/common/GenericClass.h>
 
 #include <string>
 #include <map>

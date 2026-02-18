@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/modl/modl.VBUF.h>
 #include <Chunks/LVL/modl/LVL.modl.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include "Logging/Logger.h"
-#include <./InternalHelpers.h>
+#include <Logging/Logger.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <limits>
 

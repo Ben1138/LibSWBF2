@@ -1,8 +1,8 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "PTCH.VBUF.h"
-#include "PTCH.IBUF.h"
-#include "PTCH.INFO.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/LVL/tern/PTCH.VBUF.h>
+#include <Chunks/LVL/tern/PTCH.IBUF.h>
+#include <Chunks/LVL/tern/PTCH.INFO.h>
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {

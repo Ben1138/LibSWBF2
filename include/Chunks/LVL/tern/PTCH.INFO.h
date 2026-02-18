@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/Enums.h"
-#include "Types/TerrainBufferEntry.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/Enums.h>
+#include <Types/TerrainBufferEntry.h>
 
 namespace LibSWBF2::Chunks::LVL::terrain
 {

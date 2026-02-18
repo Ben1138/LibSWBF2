@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Script.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
-#include "Chunks/LVL/scr_/scr_.h"
+#include <Chunks/LVL/scr_/scr_.h>
 
 
 namespace LibSWBF2::Wrappers

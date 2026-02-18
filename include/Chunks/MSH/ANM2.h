@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/BaseChunk.h"
-#include "CYCL.h"
-#include "KFR3.h"
+#include <Chunks/BaseChunk.h>
+#include <Chunks/MSH/CYCL.h>
+#include <Chunks/MSH/KFR3.h>
 
 namespace LibSWBF2::Chunks::MSH
 {

@@ -1,9 +1,9 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "Chunks/STRMULT.h"
-#include "skel.INFO.h"
-#include "skel.XFRM.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/STRMULT.h>
+#include <Chunks/LVL/skel/skel.INFO.h>
+#include <Chunks/LVL/skel/skel.XFRM.h>
 
 namespace LibSWBF2::Chunks::LVL::skel
 {

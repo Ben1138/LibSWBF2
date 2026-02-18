@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/tex_/BODY.h>
 #include <Chunks/LVL/tex_/FMT_.h>
-#include "Logging/Logger.h"
-#include "DirectX/DXHelpers.h"
-#include "DirectX/DXTexCrossPlat.h"
-#include <./InternalHelpers.h>
+#include <Logging/Logger.h>
+#include <DirectX/DXHelpers.h>
+#include <DirectX/DXTexCrossPlat.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <algorithm>
 #include <cstring>

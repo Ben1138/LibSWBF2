@@ -1,4 +1,4 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Types/BoneFrames.h>
 #include <IO/FileWriter.h>
 #include <IO/FileReader.h>

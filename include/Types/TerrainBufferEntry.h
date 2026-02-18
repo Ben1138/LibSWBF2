@@ -1,7 +1,7 @@
 #pragma once
-#include "LibString.h"
-#include "Vector3.h"
-#include "Color4u8.h"
+#include <Types/LibString.h>
+#include <Types/Vector3.h>
+#include <Types/Color4u8.h>
 
 namespace LibSWBF2
 {

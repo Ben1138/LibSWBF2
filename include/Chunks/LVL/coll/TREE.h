@@ -1,9 +1,9 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
 
-#include "TREE.NODE.h"
-#include "TREE.LEAF.h"
+#include <Chunks/LVL/coll/TREE.NODE.h>
+#include <Chunks/LVL/coll/TREE.LEAF.h>
 
 
 namespace LibSWBF2::Chunks::LVL::coll

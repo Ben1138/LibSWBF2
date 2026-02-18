@@ -1,7 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Types/List.h"
-#include "Types/LocalizeEntry.h"
+#include <Chunks/GenericChunk.h>
+#include <Types/List.h>
+#include <Types/LocalizeEntry.h>
 
 namespace LibSWBF2::Chunks::LVL::Localization
 {

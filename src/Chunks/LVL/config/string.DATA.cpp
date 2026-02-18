@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/config/string.DATA.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
-#include "Types/Enums.h"
-#include "Logging/Logger.h"
+#include <Types/Enums.h>
+#include <Logging/Logger.h>
 
 
 namespace LibSWBF2::Chunks::LVL::config

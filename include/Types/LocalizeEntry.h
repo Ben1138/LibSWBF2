@@ -1,6 +1,6 @@
 #pragma once
-#include "LibString.h"
-#include "List.h"
+#include <Types/LibString.h>
+#include <Types/List.h>
 
 namespace LibSWBF2
 {

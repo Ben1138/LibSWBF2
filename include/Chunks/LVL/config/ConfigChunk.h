@@ -1,9 +1,7 @@
 #pragma once
-#include "Chunks/GenericChunk.h"
-#include "Chunks/STR.h"
-#include "config.NAME.h"
-
-#include "DATA.h"
+#include <Chunks/GenericChunk.h>
+#include <Chunks/STR.h>
+#include <Chunks/LVL/config/config.NAME.h>
 
 
 //namespace LibSWBF2::Chunks::LVL::config

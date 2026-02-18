@@ -3,7 +3,7 @@
 #include <memory>
 #include <stdint.h>
 
-#include "D3D9FORMAT.h"
+#include <DirectX/D3D9FORMAT.h>
 
 
 namespace LibSWBF2::Chunks::LVL::LVL_texture

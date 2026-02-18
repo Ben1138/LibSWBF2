@@ -1,7 +1,7 @@
-#include <./pch.h>
-#include "Logging/Logger.h"
-#include "DirectX/DXHelpers.h"
-#include <./InternalHelpers.h>
+#include <pch.h>
+#include <Logging/Logger.h>
+#include <DirectX/DXHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 #include <Chunks/LVL/config/SCOP.h>
 #include <algorithm>

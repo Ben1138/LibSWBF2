@@ -1,10 +1,10 @@
-#include <./pch.h>
+#include <pch.h>
 #include <DirectX/DXTexCrossPlat.h>
 #include <DirectX/DXTexCrossPlatConverters.h>
 #include <DirectX/DXHelpers.h>
 
-#include <./InternalHelpers.h>
-#include "Logging/Logger.h"
+#include <InternalHelpers.h>
+#include <Logging/Logger.h>
 
 namespace DXTexCrossPlat {
 

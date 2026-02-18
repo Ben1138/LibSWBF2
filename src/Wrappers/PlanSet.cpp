@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/PlanSet.h>
 
-#include "Chunks/LVL/plan/plan.h"
+#include <Chunks/LVL/plan/plan.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
 
 namespace LibSWBF2::Wrappers

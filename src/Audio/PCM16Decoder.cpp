@@ -1,6 +1,6 @@
-#include "Types/List.h"
-#include "Logging/Logger.h"
-#include "Audio/PCM16Decoder.h"
+#include <Types/List.h>
+#include <Logging/Logger.h>
+#include <Audio/PCM16Decoder.h>
 
 #include <iostream>
 

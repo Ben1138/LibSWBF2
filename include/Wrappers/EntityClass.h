@@ -1,6 +1,6 @@
 #pragma once
-#include "Types/Enums.h"
-#include "Types/List.h"
+#include <Types/Enums.h>
+#include <Types/List.h>
 
 namespace LibSWBF2
 {

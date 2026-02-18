@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 
 #include <Chunks/LVL/sound/SampleBankInfo.h>
 #include <Chunks/LVL/sound/SampleBank.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 

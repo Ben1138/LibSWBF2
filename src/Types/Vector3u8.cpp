@@ -1,5 +1,5 @@
-#include <./pch.h>
-#include "Types/Vector3u8.h"
+#include <pch.h>
+#include <Types/Vector3u8.h>
 #include <IO/FileReader.h>
 #include <IO/FileWriter.h>
 #include <fmt/format.h>

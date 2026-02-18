@@ -1,6 +1,6 @@
 #pragma once
-#include "List.h"
-#include "SoundClip.h"
+#include <Types/List.h>
+#include <Types/SoundClip.h>
 
 namespace LibSWBF2
 {

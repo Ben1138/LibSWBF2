@@ -1,7 +1,7 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Chunks/LVL/sound/StreamList.h>
 #include <Chunks/LVL/sound/Stream.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 #include <IO/FileReader.h>
 
 namespace LibSWBF2::Chunks::LVL::sound

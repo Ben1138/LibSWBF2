@@ -1,7 +1,7 @@
 #pragma once
-//#include "Chunks/HeaderNames.h"
-//#include "LibSWBF2.h"
-#include "Types/LibString.h"
+//#include <Chunks/HeaderNames.h>
+//#include <LibSWBF2.h>
+#include <Types/LibString.h>
 #include <fstream>
 
 namespace LibSWBF2

@@ -1,8 +1,8 @@
-#include <./pch.h>
+#include <pch.h>
 #include <Wrappers/Terrain.h>
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
-#include "Chunks/LVL/tern/tern.h"
+#include <Chunks/LVL/tern/tern.h>
 
 
 namespace LibSWBF2::Wrappers

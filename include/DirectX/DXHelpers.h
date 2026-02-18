@@ -1,8 +1,8 @@
 // THIS IS NOT MEANT TO BE INCLUDED IN OTHER EXPOSDED HEADERS
 #pragma once
 
-#include "DirectX/D3D9FORMAT.h"
-#include "Types/Enums.h"
+#include <DirectX/D3D9FORMAT.h>
+#include <Types/Enums.h>
 
 namespace LibSWBF2
 {

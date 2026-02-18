@@ -1,9 +1,9 @@
-#include <./pch.h>
+#include <pch.h>
 //#ifdef MEMORY_MAPPED_READER
 
 #include <IO/MemoryMappedReader.h>
 
-#include <./InternalHelpers.h>
+#include <InternalHelpers.h>
 
 #include <limits>
 #include <memory>
