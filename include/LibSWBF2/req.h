@@ -1,22 +1,17 @@
-// External requirements to compile the include headers in third party applications
 #pragma once
-
 #include <stdint.h>		// for uint32_t, etc. declarations
-#include <math.h>		// for float declaration
+#include <stddef.h>		// for size_t declaration
 
 #ifdef WIN32
-
-#ifdef LibSWBF2_EXPORTS
-#define LIBSWBF2_API __declspec(dllexport)
+	#ifdef LibSWBF2_EXPORTS
+		#define LIBSWBF2_API __declspec(dllexport)
+	#else
+		#define LIBSWBF2_API __declspec(dllimport)
+	#endif //LIBSWBF2_EXPORTS
 #else
-#define LIBSWBF2_API __declspec(dllimport)
-#endif //LIBSWBF2_EXPORTS
-
-#else
-
-#define LIBSWBF2_API __attribute__((visibility("default")))
-
+	#define LIBSWBF2_API __attribute__((visibility("default")))
 #endif //_WIN32
+
 
 namespace LibSWBF2
 {
@@ -28,6 +23,5 @@ namespace LibSWBF2
 	typedef uint32_t FNVHash;
 
 	typedef uint16_t Handle;
-
-#define SWBF2HANDLE_INVALID 0xffff
+	#define SWBF2HANDLE_INVALID 0xffff
 }

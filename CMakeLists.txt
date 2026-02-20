@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # produce relative code adresses, necessary for shared libs
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_library(LibSWBF2 STATIC)
+add_library(LibSWBF2 SHARED)
 
 set(GLM_DIR "${PROJECT_SOURCE_DIR}/ThirdParty/glm")
 set(FMT_DIR "${PROJECT_SOURCE_DIR}/ThirdParty/fmt")
