@@ -1,0 +1,52 @@
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Types/LibString.h>
+#include <LibSWBF2/Types/Matrix3x3.h>
+#include <LibSWBF2/IO/FileWriter.h>
+#include <LibSWBF2/IO/FileReader.h>
+#include <fmt/format.h>
+
+
+namespace LibSWBF2::Types
+{
+	void Matrix3x3::WriteToStream(FileWriter& stream)
+	{
+		stream.WriteFloat(matrix[0][0]);
+		stream.WriteFloat(matrix[0][1]);
+		stream.WriteFloat(matrix[0][2]);
+
+		stream.WriteFloat(matrix[1][0]);
+		stream.WriteFloat(matrix[1][1]);
+		stream.WriteFloat(matrix[1][2]);
+
+		stream.WriteFloat(matrix[2][0]);
+		stream.WriteFloat(matrix[2][1]);
+		stream.WriteFloat(matrix[2][2]);
+	}
+
+	void Matrix3x3::ReadFromStream(FileReader& stream)
+	{
+		matrix[0][0] = stream.ReadFloat();
+		matrix[0][1] = stream.ReadFloat();
+		matrix[0][2] = stream.ReadFloat();
+
+		matrix[1][0] = stream.ReadFloat();
+		matrix[1][1] = stream.ReadFloat();
+		matrix[1][2] = stream.ReadFloat();
+
+		matrix[2][0] = stream.ReadFloat();
+		matrix[2][1] = stream.ReadFloat();
+		matrix[2][2] = stream.ReadFloat();
+	}
+
+	String Matrix3x3::ToString() const
+	{
+		return fmt::format(
+			"[{}, {}, {}]\n"
+			"[{}, {}, {}]\n"
+			"[{}, {}, {}]\n",
+			matrix[0][0], matrix[0][1], matrix[0][2],
+			matrix[1][0], matrix[1][1], matrix[1][2],
+			matrix[2][0], matrix[2][1], matrix[2][2]
+		).c_str();
+	}
+}

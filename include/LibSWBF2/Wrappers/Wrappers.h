@@ -1,0 +1,19 @@
+#pragma once
+
+#include <LibSWBF2/Wrappers/Model.h>
+#include <LibSWBF2/Wrappers/Texture.h>
+#include <LibSWBF2/Wrappers/World.h>
+#include <LibSWBF2/Wrappers/Terrain.h>
+#include <LibSWBF2/Wrappers/Script.h>
+#include <LibSWBF2/Wrappers/Config.h>
+#include <LibSWBF2/Wrappers/AnimationBank.h>
+#include <LibSWBF2/Wrappers/AnimationSkeleton.h>
+#include <LibSWBF2/Wrappers/Localization.h>
+#include <LibSWBF2/Wrappers/CollisionMesh.h>
+#include <LibSWBF2/Wrappers/EntityClass.h>
+#include <LibSWBF2/Wrappers/SoundBank.h>
+#include <LibSWBF2/Wrappers/Level.h>
+#include <LibSWBF2/Wrappers/Instance.h>
+#include <LibSWBF2/Wrappers/Sound.h>
+#include <LibSWBF2/Wrappers/SoundStream.h>
+#include <LibSWBF2/Wrappers/PlanSet.h>

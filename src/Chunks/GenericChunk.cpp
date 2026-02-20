@@ -1,0 +1,501 @@
+#include <LibSWBF2/pch.h>
+#include <LibSWBF2/Chunks/GenericChunk.h>
+#include <LibSWBF2/Chunks/BaseChunk.h>
+#include "InternalHelpers.h"
+#include <LibSWBF2/IO/FileReader.h>
+#include <LibSWBF2/IO/FileWriter.h>
+#include <LibSWBF2/Logging/Logger.h>
+
+#include <LibSWBF2/Chunks/STR.h>
+
+#include <LibSWBF2/Chunks/LVL/tex_/tex_.h>
+#include <LibSWBF2/Chunks/LVL/modl/LVL.modl.h>
+#include <LibSWBF2/Chunks/LVL/gmod/gmod.h>
+#include <LibSWBF2/Chunks/LVL/wrld/wrld.h>
+#include <LibSWBF2/Chunks/LVL/wrld/SIZE.h>
+#include <LibSWBF2/Chunks/LVL/wrld/XFRM.h>
+#include <LibSWBF2/Chunks/LVL/tern/tern.h>
+#include <LibSWBF2/Chunks/LVL/scr_/scr_.h>
+#include <LibSWBF2/Chunks/LVL/zaa_/zaa_.h>
+#include <LibSWBF2/Chunks/LVL/zaf_/zaf_.h>
+#include <LibSWBF2/Chunks/LVL/skel/skel.h>
+#include <LibSWBF2/Chunks/LVL/sound/_pad.h>
+#include <LibSWBF2/Chunks/LVL/sound/StreamList.h>
+#include <LibSWBF2/Chunks/LVL/sound/SoundBankList.h>
+#include <LibSWBF2/Chunks/LVL/sound/Stream.h>
+#include <LibSWBF2/Chunks/LVL/sound/SampleBank.h>
+#include <LibSWBF2/Chunks/LVL/Locl/Locl.h>
+#include <LibSWBF2/Chunks/LVL/lvl_.h>
+#include <LibSWBF2/Chunks/LVL/LVL.h>
+#include <LibSWBF2/Chunks/LVL/common/GenericClass.h>
+#include <LibSWBF2/Chunks/LVL/config/ConfigChunk.h>
+#include <LibSWBF2/Chunks/LVL/coll/coll.h>
+#include <LibSWBF2/Chunks/LVL/prim/prim.h>
+#include <LibSWBF2/Chunks/LVL/plan/plan.h>
+#include <LibSWBF2/Chunks/LVL/plan/plnp.h>
+
+
+namespace LibSWBF2::Chunks
+{
+	GenericBaseChunk::~GenericBaseChunk()
+	{
+		for (size_t i = 0; i < m_Children.Size(); ++i)
+		{
+			delete m_Children[i];
+		}
+	}
+
+	template<uint32_t Header>
+	void GenericChunk<Header>::Check(FileReader& stream)
+	{
+		// check for correct header
+		ChunkHeader expected;
+		expected.m_Magic = Header;
+		if (Header != 0 && m_Header != expected)
+		{
+			THROW("Expected '{}' but got '{}'", expected, m_Header);
+		}
+
+		// check if current "chunk" exceeds parents data size
+		GenericBaseChunk* parent = GetParent();
+		if (parent != nullptr && (stream.GetPosition() + m_Size) > (parent->GetDataPosition() + parent->GetDataSize()))
+		{
+			THROW("Current chunk size {:#x} exceeds parent data size!", m_Size);
+		}
+	}
+
+	template<uint32_t Header>
+	void GenericChunk<Header>::RefreshSize()
+	{
+		THROW("Not implemented!");
+	}
+
+	template<uint32_t Header>
+	void GenericChunk<Header>::WriteToStream(FileWriter& stream)
+	{
+		THROW("Not implemented!");
+	}
+
+	void GenericBaseChunk::ReadGenerics(FileReader& stream)
+	{
+		while (ThereIsAnother(stream))
+		{
+			ChunkHeader nextHead = stream.ReadChunkHeader(true);
+			if (IsKnownHeader(nextHead))
+			{
+				GenericBaseChunk* chunk = nullptr;
+				try
+				{
+					// Special case: lvl_ might not be loaded!
+					// See lvl_.cpp for more information
+					if (nextHead == "lvl_"_h)
+					{
+						LVL::lvl_* subLVL;
+						READ_CHILD(stream, subLVL);
+						chunk = subLVL;
+					}
+
+					else if (nextHead == "gmod"_h)
+					{
+						LVL::gmod::gmod* lodInfo;
+						READ_CHILD(stream, lodInfo);
+						chunk = lodInfo;
+					}
+
+					else if (nextHead == "NAME"_h)
+					{
+						STR<"NAME"_m>* name;
+						READ_CHILD(stream, name);
+						chunk = name;
+					}
+					else if (nextHead == "PRNT"_h)
+					{
+						// TODO: is PRNT really always just a string?
+						STR<"PRNT"_m>* name;
+						READ_CHILD(stream, name);
+						chunk = name;
+					}
+					else if (nextHead == "tex_"_h)
+					{
+						LVL::texture::tex_* name;
+						READ_CHILD(stream, name);
+						chunk = name;
+					}
+					else if (nextHead == "modl"_h)
+					{
+						LVL::modl::modl* model;
+						READ_CHILD(stream, model);
+						chunk = model;
+					}
+					else if (nextHead == "skel"_h)
+					{
+						LVL::skel::skel* skeleton;
+						READ_CHILD(stream, skeleton);
+						chunk = skeleton;
+					}
+					else if (nextHead == "wrld"_h)
+					{
+						LVL::wrld::wrld* world;
+						READ_CHILD(stream, world);
+						chunk = world;
+					}
+					else if (nextHead == "tern"_h)
+					{
+						LVL::terrain::tern* terrain;
+						READ_CHILD(stream, terrain);
+						chunk = terrain;
+					}
+					else if (nextHead == "scr_"_h)
+					{
+						LVL::script::scr_* script;
+						READ_CHILD(stream, script);
+						chunk = script;
+					}
+					else if (nextHead == "zaa_"_h)
+					{
+						LVL::animation::zaa_* zaabin;
+						READ_CHILD(stream, zaabin);
+						chunk = zaabin;
+					}
+					else if (nextHead == "zaf_"_h)
+					{
+						LVL::animation::zaf_* zafbin;
+						READ_CHILD(stream, zafbin);
+						chunk = zafbin;
+					}
+					else if (nextHead == "_pad"_h)
+					{
+						LVL::sound::_pad* unknown;
+						READ_CHILD(stream, unknown);
+						chunk = unknown;
+					}
+					else if (nextHead == "lght"_h)
+					{
+						LVL::config::lght* lighting;
+						READ_CHILD(stream, lighting);
+						chunk = lighting;
+					}
+					else if (nextHead == "sky_"_h)
+					{
+						LVL::config::sky_* skyDome;
+						READ_CHILD(stream, skyDome);
+						chunk = skyDome;	
+					}
+					else if (nextHead == "fx__"_h)
+					{
+						LVL::config::fx__* fx;
+						READ_CHILD(stream, fx);
+						chunk = fx;	
+					}
+					else if (nextHead == "bnd_"_h)
+					{
+						LVL::config::bnd_* boundary;
+						READ_CHILD(stream, boundary);
+						chunk = boundary;	
+					}
+					else if (nextHead == "prp_"_h)
+					{
+						LVL::config::prp_* idk;
+						READ_CHILD(stream, idk);
+						chunk = idk;	
+					}
+					else if (nextHead == "path"_h)
+					{
+						LVL::config::path* path;
+						READ_CHILD(stream, path);
+						chunk = path;	
+					}
+					else if (nextHead == "comb"_h)
+					{
+						LVL::config::comb* combo;
+						READ_CHILD(stream, combo);
+						chunk = combo;	
+					}
+					else if (nextHead == "snd_"_h)
+					{
+						LVL::config::snd_* sound;
+						READ_CHILD(stream, sound);
+						chunk = sound;	
+					}
+					else if (nextHead == "mus_"_h)
+					{
+						LVL::config::mus_* music;
+						READ_CHILD(stream, music);
+						chunk = music;	
+					}
+					else if (nextHead == "ffx_"_h)
+					{
+						LVL::config::ffx_* foleyFx;
+						READ_CHILD(stream, foleyFx);
+						chunk = foleyFx;	
+					}
+					else if (nextHead == "tsr_"_h)
+					{
+						LVL::config::tsr_* triggerSoundRegion;
+						READ_CHILD(stream, triggerSoundRegion);
+						chunk = triggerSoundRegion;	
+					}
+					else if (nextHead == "hud_"_h)
+					{
+						LVL::config::hud_* hudConfig;
+						READ_CHILD(stream, hudConfig);
+						chunk = hudConfig;	
+					}
+					else if (nextHead == "Locl"_h)
+					{
+						LVL::Localization::Locl* localizeChunk;
+						READ_CHILD(stream, localizeChunk);
+						chunk = localizeChunk;
+					}
+					else if (nextHead == "entc"_h)
+					{
+						LVL::common::entc* entityClass;
+						READ_CHILD(stream, entityClass);
+						chunk = entityClass;
+					}
+					else if (nextHead == "ordc"_h)
+					{
+						LVL::common::ordc* ordenanceClass;
+						READ_CHILD(stream, ordenanceClass);
+						chunk = ordenanceClass;
+					}
+					else if (nextHead == "wpnc"_h)
+					{
+						LVL::common::wpnc* weaponClass;
+						READ_CHILD(stream, weaponClass);
+						chunk = weaponClass;
+					}
+					else if (nextHead == "expc"_h)
+					{
+						LVL::common::expc* explosionClass;
+						READ_CHILD(stream, explosionClass);
+						chunk = explosionClass;
+					}
+					else if (nextHead == "coll"_h)
+					{
+						LVL::coll::coll* collisionMesh;
+						READ_CHILD(stream, collisionMesh);
+						chunk = collisionMesh;
+					}					
+					else if (nextHead == "prim"_h)
+					{
+						LVL::prim::prim* collisionPrimitives;
+						READ_CHILD(stream, collisionPrimitives);
+						chunk = collisionPrimitives;
+					}
+					else if (nextHead == "StreamList"_fnvh)
+					{
+						LVL::sound::StreamList* streamList;
+						READ_CHILD(stream, streamList);
+						chunk = streamList; 
+					}
+					else if (nextHead == "SoundBankList"_fnvh)
+					{
+						LVL::sound::SoundBankList* bankList;
+						READ_CHILD(stream, bankList);
+						chunk = bankList; 
+					}
+					else if (nextHead == "plan"_h)
+					{
+						plan::plan* plan;
+						READ_CHILD(stream, plan);
+						chunk = plan;
+					}
+					else if (nextHead == "plnp"_h)
+					{
+						plnp::plnp* plnp;
+						READ_CHILD(stream, plnp);
+						chunk = plnp;
+					}
+					else if (nextHead == "Stream"_fnvh)
+					{
+						LVL::sound::Stream* sstream;
+						READ_CHILD(stream, sstream);
+						chunk = sstream; 
+					}
+					else if (nextHead == "SampleBank"_fnvh)
+					{
+						LVL::sound::SampleBank* bank;
+						READ_CHILD(stream, bank);
+						chunk = bank; 
+					}
+					else
+					{
+						GenericChunkNC* generic;
+						READ_CHILD(stream, generic);
+						chunk = generic;
+					}
+
+					LOG_INFO("Adding Child '{}' to '{}'", chunk->GetHeader(), m_Header);
+				}
+				catch (LibException e)
+				{
+					delete chunk;
+					chunk = nullptr;
+
+					LOG_WARN("{}", e.what());
+					//LOG_WARN("Skipping invalid Chunk: '{}' at pos: {:#x}", nextHead, stream.GetPosition() - 8);
+					break;
+				}
+			}
+			else
+			{
+				stream.SkipBytes(4);
+			}
+		}
+	}
+
+	template<uint32_t Header>
+	void GenericChunk<Header>::ReadFromStream(FileReader& stream)
+	{
+		BaseChunk::ReadFromStream(stream);
+		Check(stream);
+		ReadGenerics(stream);
+		BaseChunk::EnsureEnd(stream);
+	}
+
+	String GenericBaseChunk::GetHeaderName() const
+	{
+		return m_Header.ToString();
+	}
+
+	GenericBaseChunk* GenericBaseChunk::GetParent() const
+	{
+		return m_Parent;
+	}
+
+	const List<GenericBaseChunk*>& GenericBaseChunk::GetChildren() const
+	{
+		return m_Children;
+	}
+
+	String GenericBaseChunk::ToString() const
+	{
+		return "No Info";
+	}
+}
+
+// ============================================================
+// ============== Explicit Chunk instantiations ===============
+// ============================================================
+
+namespace LibSWBF2::Chunks
+{
+	template struct LIBSWBF2_API GenericChunk<0>;
+	template struct LIBSWBF2_API GenericChunk<"ucfb"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LVL_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"INFO"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TYPE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BODY"_m>;
+	template struct LIBSWBF2_API GenericChunk<"FACE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"FMT_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"tex_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"modl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"gmod"_m>;
+	template struct LIBSWBF2_API GenericChunk<"segm"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MTRL"_m>;
+	template struct LIBSWBF2_API GenericChunk<"tern"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PCHS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PTCH"_m>;
+	template struct LIBSWBF2_API GenericChunk<"VBUF"_m>;
+	template struct LIBSWBF2_API GenericChunk<"IBUF"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LTEX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"scr_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"skel"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SKIN"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BMAP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"_pad"_m>;
+	template struct LIBSWBF2_API GenericChunk<"XFRM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"inst"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DTEX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Locl"_m>;
+	template struct LIBSWBF2_API GenericChunk<"lvl_"_m>;
+	
+	template struct LIBSWBF2_API GenericChunk<"wrld"_m>;
+	template struct LIBSWBF2_API GenericChunk<"regn"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anmg"_m>;
+	template struct LIBSWBF2_API GenericChunk<"NOHI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anmh"_m>;
+	template struct LIBSWBF2_API GenericChunk<"anim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ROTK"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ANIM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SIZE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Name"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DATA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SCOP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BASE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PROP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"FLAG"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BARR"_m>;
+	template struct LIBSWBF2_API GenericChunk<"Hint"_m>;
+
+	// string chunks (see STR.cpp)
+	template struct LIBSWBF2_API GenericChunk<"NAME"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TNAM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"SNAM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TX0D"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TX1D"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TX2D"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TX3D"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PRNT"_m>;
+	template struct LIBSWBF2_API GenericChunk<"NODE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"RTYP"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BNAM"_m>;
+	template struct LIBSWBF2_API GenericChunk<"DTLX"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MNAM"_m>;
+
+	// odf class types (see common/GenericCLass.cpp)
+	template struct LIBSWBF2_API GenericChunk<"entc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ordc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"wpnc"_m>;
+	template struct LIBSWBF2_API GenericChunk<"expc"_m>;
+
+	// configs
+	template struct LIBSWBF2_API GenericChunk<"lght"_m>;
+	template struct LIBSWBF2_API GenericChunk<"fx__"_m>;
+	template struct LIBSWBF2_API GenericChunk<"sky_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"bnd_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prp_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"path"_m>;
+	template struct LIBSWBF2_API GenericChunk<"comb"_m>;
+	template struct LIBSWBF2_API GenericChunk<"snd_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"mus_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ffx_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"tsr_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"hud_"_m>;
+
+	// collision
+	template struct LIBSWBF2_API GenericChunk<"coll"_m>;
+	template struct LIBSWBF2_API GenericChunk<"POSI"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TREE"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LEAF"_m>;
+	template struct LIBSWBF2_API GenericChunk<"prim"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MASK"_m>;
+
+	//animation
+	template struct LIBSWBF2_API GenericChunk<"zaf_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"LEKS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TNOJ"_m>;
+
+	template struct LIBSWBF2_API GenericChunk<"zaa_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"BIN_"_m>;
+	template struct LIBSWBF2_API GenericChunk<"MINA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TNJA"_m>;
+	template struct LIBSWBF2_API GenericChunk<"TADA"_m>;
+
+	//sound
+	template struct LIBSWBF2_API GenericChunk<"StreamList"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Stream"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Info"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SoundBankList"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"Data"_fnv>;
+	template struct LIBSWBF2_API GenericChunk<"SampleBank"_fnv>;
+
+	//plan
+	template struct LIBSWBF2_API GenericChunk<"plan"_m>;
+	template struct LIBSWBF2_API GenericChunk<"plnp"_m>;
+	template struct LIBSWBF2_API GenericChunk<"ARCS"_m>;
+	template struct LIBSWBF2_API GenericChunk<"PLNS"_m>;
+}
+
