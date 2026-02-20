@@ -28,7 +28,7 @@ namespace LibSWBF2
 
 	struct Schedule
 	{
-		SWBF2Handle m_Handle;
+		Handle m_Handle;
 		String m_Path;
 		List<String> m_SubLVLsToLoad;
 		bool bRegisterContents = true;
@@ -53,14 +53,14 @@ namespace LibSWBF2
 		static Container* Create();
 		static void Delete(Container* instance);
 
-		SWBF2Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
+		Handle AddLevel(const String& path, const List<String>* subLVLsToLoad = nullptr, bool bRegisterContents=true);
 		void StartLoading();
 		void FreeAll(bool bForce=false);
 		bool IsDone() const;
-		List<SWBF2Handle> GetLoadedLevels() const;
-		ELoadStatus GetStatus(SWBF2Handle handle) const;
-		float_t GetLevelProgress(SWBF2Handle handle) const;
-		Level* GetLevel(SWBF2Handle handle) const;
+		List<Handle> GetLoadedLevels() const;
+		ELoadStatus GetStatus(Handle handle) const;
+		float_t GetLevelProgress(Handle handle) const;
+		Level* GetLevel(Handle handle) const;
 		float_t GetOverallProgress();
 
 		// will return the first encountered world LVL, if existent

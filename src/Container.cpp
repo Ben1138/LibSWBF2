@@ -192,14 +192,14 @@ namespace LibSWBF2
 		delete instance;
 	}
 
-	SWBF2Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad, bool bRegisterContents)
+	Handle Container::AddLevel(const String& path, const List<String>* subLVLsToLoad, bool bRegisterContents)
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		LoadStatus& status = m_ThreadSafeMembers->m_Statuses.emplace_back();
 #ifdef _DEBUG
 		status.m_LVLPath = path.Buffer();
 #endif
-		SWBF2Handle handle = (SWBF2Handle)m_ThreadSafeMembers->m_Statuses.size() - 1;
+		Handle handle = (Handle)m_ThreadSafeMembers->m_Statuses.size() - 1;
 		m_ThreadSafeMembers->m_Scheduled.push_back(
 		{ 
 			handle, 
@@ -286,21 +286,21 @@ namespace LibSWBF2
 		return bIsDone;
 	}
 
-	List<SWBF2Handle> Container::GetLoadedLevels() const
+	List<Handle> Container::GetLoadedLevels() const
 	{
-		List<SWBF2Handle> handles;
+		List<Handle> handles;
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		for (size_t i = 0; i < m_ThreadSafeMembers->m_Statuses.size(); ++i)
 		{
 			if (m_ThreadSafeMembers->m_Statuses[i].m_Level != nullptr)
 			{
-				handles.Add((SWBF2Handle)i);
+				handles.Add((Handle)i);
 			}
 		}
 		return handles;
 	}
 
-	ELoadStatus Container::GetStatus(SWBF2Handle handle) const
+	ELoadStatus Container::GetStatus(Handle handle) const
 	{
 		if (handle >= m_ThreadSafeMembers->m_Processes.size())
 		{
@@ -312,7 +312,7 @@ namespace LibSWBF2
 		return m_ThreadSafeMembers->m_Statuses[handle].m_LoadStatus;
 	}
 
-	float_t Container::GetLevelProgress(SWBF2Handle handle) const
+	float_t Container::GetLevelProgress(Handle handle) const
 	{
 		if (handle >= m_ThreadSafeMembers->m_Processes.size())
 		{
@@ -329,7 +329,7 @@ namespace LibSWBF2
 		return status.m_Chunk->GetReadingProgress();
 	}
 
-	Level* Container::GetLevel(SWBF2Handle handle) const
+	Level* Container::GetLevel(Handle handle) const
 	{
 		if (handle >= m_ThreadSafeMembers->m_Processes.size())
 		{
