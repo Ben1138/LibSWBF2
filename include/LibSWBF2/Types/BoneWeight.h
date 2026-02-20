@@ -10,13 +10,13 @@ namespace LibSWBF2::Types
 {
 	struct LIBSWBF2_API BoneWeight
 	{
-		static const ChunkSize SIZE = sizeof(float_t) + sizeof(uint32_t);
+		static const ChunkSize SIZE = sizeof(float) + sizeof(uint32_t);
 
 		void WriteToStream(FileWriter& stream);
 		void ReadFromStream(FileReader& stream);
 
 		uint32_t m_EnvelopeIndex = 0;
-		float_t m_WeightValue = 0.0f;		// 0.0-1.0
+		float m_WeightValue = 0.0f;		// 0.0-1.0
 	};
 
 	struct LIBSWBF2_API VertexWeights

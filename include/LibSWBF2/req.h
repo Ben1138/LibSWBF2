@@ -2,7 +2,7 @@
 #pragma once
 
 #include <stdint.h>		// for uint32_t, etc. declarations
-#include <math.h>		// for float_t declaration
+#include <math.h>		// for float declaration
 
 #ifdef WIN32
 

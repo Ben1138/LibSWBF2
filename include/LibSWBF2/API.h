@@ -92,8 +92,8 @@ namespace LibSWBF2
         LIBSWBF2_API uint16_t Container_AddLevel(Container* container, const char *path);
 		LIBSWBF2_API uint16_t Container_AddLevelFiltered(Container* container, const char* path, const char** subLVLs, uint32_t subLVLCount);
 		LIBSWBF2_API void Container_FreeAll(Container* container, uint8_t force);
-        LIBSWBF2_API float_t Container_GetProgress(Container* container, uint32_t handle);  
-        LIBSWBF2_API float_t Container_GetOverallProgress(Container* container);  
+        LIBSWBF2_API float Container_GetProgress(Container* container, uint32_t handle);  
+        LIBSWBF2_API float Container_GetOverallProgress(Container* container);  
         LIBSWBF2_API const Level* Container_GetLevel(Container* container, uint32_t handle);
 		LIBSWBF2_API void Container_GetLoadedLevels(Container* container, uint16_t*& handles, uint16_t handleCount);
         LIBSWBF2_API uint8_t Container_GetStatus(Container* container, uint32_t handle);
@@ -158,7 +158,7 @@ namespace LibSWBF2
 
         // Wrappers - CollisionPrimitive
         LIBSWBF2_API const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
-                                                    float_t& f1, float_t& f2, float_t& f3,
+                                                    float& f1, float& f2, float& f3,
                                                     const char *& name, const char *& parentName,
                                                     uint32_t& maskFlags, uint32_t& primitiveType,
                                                     Vector3*& pos, Vector4*& rot);
@@ -175,11 +175,11 @@ namespace LibSWBF2
 
 		// Wrappers - Terrain
 		LIBSWBF2_API const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, const char**& texNames,
-															float_t& heightUpper, float_t& heightLower, 
+															float& heightUpper, float& heightLower, 
 															uint32_t& numVerts, Vector3*& vBuf,
 															uint32_t& numNormals, Vector3*& nBuf,
 															uint32_t& numUVs, Vector2*& uvBuf);
-		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData);
+		LIBSWBF2_API const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float*& heightData);
 		LIBSWBF2_API const void Terrain_GetBlendMap(const Terrain *ter, uint32_t& width, uint32_t& numLayers, uint8_t*& data);
 		LIBSWBF2_API const void Terrain_GetIndexBuffer(const Terrain *terr, uint32_t*& indicies, uint32_t& numInds);
 
@@ -236,7 +236,7 @@ namespace LibSWBF2
 
 		// Wrappers - AnimationBank
 		LIBSWBF2_API const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
-                                                        const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int32_t& numKeys);
+                                                        const uint16_t*& indicesBuffer, const float*& valuesBuffer, int32_t& numKeys);
         LIBSWBF2_API const uint32_t* AnimationBank_GetAnimationCRCs(const AnimationBank* setPtr, int32_t& numCRCs);
         LIBSWBF2_API const uint32_t* AnimationBank_GetBoneCRCs(const AnimationBank* setPtr, uint32_t animCRC, int32_t& numCRCs);
         LIBSWBF2_API const bool AnimationBank_GetAnimationMetadata(const AnimationBank* setPtr, uint32_t animCRC,
@@ -299,7 +299,7 @@ namespace LibSWBF2
 
 		LIBSWBF2_API const uint32_t Field_GetNameHash(const Field* cfg);
 		LIBSWBF2_API const uint8_t Field_GetNumValues(const Field* cfg);
-        LIBSWBF2_API const float_t Field_GetFloat(const Field* cfg, uint8_t index);
+        LIBSWBF2_API const float Field_GetFloat(const Field* cfg, uint8_t index);
         LIBSWBF2_API const uint32_t Field_GetUInt32(const Field* cfg, uint8_t index);
         LIBSWBF2_API const Vector2* Field_GetVec2(const Field* cfg); 
         LIBSWBF2_API const Vector3* Field_GetVec3(const Field* cfg); 

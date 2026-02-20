@@ -21,7 +21,7 @@ namespace LibSWBF2
 		virtual int16_t ReadInt16() = 0;
 		virtual uint32_t ReadUInt32() = 0;
 		virtual uint16_t ReadUInt16() = 0;
-		virtual float_t ReadFloat() = 0;
+		virtual float ReadFloat() = 0;
 		virtual Types::String ReadString(size_t length) = 0;
 		virtual Types::String ReadString() = 0;// will read until the first null terminator
 		virtual size_t GetPosition() = 0;

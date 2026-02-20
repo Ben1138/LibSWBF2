@@ -129,10 +129,10 @@ namespace LibSWBF2
 		return value;
 	}
 
-	float_t StreamReader::ReadFloat()
+	float StreamReader::ReadFloat()
 	{
-		float_t value = 0.0f;
-		if (CheckGood(sizeof(float_t)))
+		float value = 0.0f;
+		if (CheckGood(sizeof(float)))
 		{
 			m_Reader.read((char*)&value, sizeof(value));
 		}

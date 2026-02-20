@@ -28,16 +28,16 @@ namespace LibSWBF2::Wrappers
 		out.p_Terrain = terrainChunk;
 
 		uint16_t& gridSize = out.p_Terrain->p_Info->m_GridSize;
-		float_t& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
+		float& gridUnitSize = out.p_Terrain->p_Info->m_GridUnitSize;
 		uint16_t& numVertsPerPatchEdge = out.p_Terrain->p_Info->m_PatchEdgeSize;
 		uint16_t dataEdgeSize = numVertsPerPatchEdge + 1;
-		float_t patchDistance = gridUnitSize * numVertsPerPatchEdge;
+		float patchDistance = gridUnitSize * numVertsPerPatchEdge;
 
 		uint16_t numPatchesPerRow = gridSize / numVertsPerPatchEdge;
 		uint16_t patchColumnIndex = 0;
 
-		float_t terrainEdgeUnitSize = gridSize * gridUnitSize;
-		float_t distToCenter = terrainEdgeUnitSize / 2.0f;
+		float terrainEdgeUnitSize = gridSize * gridUnitSize;
+		float distToCenter = terrainEdgeUnitSize / 2.0f;
 
 		// apparently patch data overlaps with neighbouring patches by one (e.g. 9x9=81 instead of 8x8=64)
 		uint32_t numVertsPerPatch = dataEdgeSize * dataEdgeSize;
@@ -104,12 +104,12 @@ namespace LibSWBF2::Wrappers
 				out.m_Colors.Add(terrainBuffer[j].m_Color);
 
 				// global UV calculation
-				//float_t u = ((pos.x + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
-				//float_t v = ((pos.z + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
+				//float u = ((pos.x + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
+				//float v = ((pos.z + distToCenter) / (terrainEdgeUnitSize)) * 2.0f;
 
 				// per patch UV calculation
-				float_t u = (terrainBuffer[j].m_Position.m_X / (dataEdgeSize * gridUnitSize)) * 2.0f;
-				float_t v = (terrainBuffer[j].m_Position.m_Z / (dataEdgeSize * gridUnitSize)) * 2.0f;
+				float u = (terrainBuffer[j].m_Position.m_X / (dataEdgeSize * gridUnitSize)) * 2.0f;
+				float v = (terrainBuffer[j].m_Position.m_Z / (dataEdgeSize * gridUnitSize)) * 2.0f;
 				out.m_TexCoords.Add({ u, v });
 			}
 		}
@@ -303,7 +303,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetHeightMap(uint32_t& dim, uint32_t& dimScale, float_t*& heightData) const
+	void Terrain::GetHeightMap(uint32_t& dim, uint32_t& dimScale, float*& heightData) const
     {
         auto info = p_Terrain -> p_Info;
     	dim = (uint32_t) info -> m_GridSize;
@@ -311,25 +311,25 @@ namespace LibSWBF2::Wrappers
 
     	if (p_HeightMap == nullptr) //lazy init
     	{
-	        float_t gridSize     = (float_t) dim;
-			float_t gridUnitSize = (float_t) info -> m_GridUnitSize;
+	        float gridSize     = (float) dim;
+			float gridUnitSize = (float) info -> m_GridUnitSize;
 
-			float_t maxY = info -> m_HeightCeiling;
-	       	float_t minY = info -> m_HeightFloor;
+			float maxY = info -> m_HeightCeiling;
+	       	float minY = info -> m_HeightFloor;
 
-	       	float_t halfLength = gridSize * gridUnitSize / 2.0f;
-	       	float_t maxZ = halfLength, minZ = halfLength * -1.0f;
-	       	float_t maxX = halfLength, minX = halfLength * -1.0f;
+	       	float halfLength = gridSize * gridUnitSize / 2.0f;
+	       	float maxZ = halfLength, minZ = halfLength * -1.0f;
+	       	float maxX = halfLength, minX = halfLength * -1.0f;
 
 	       	int heightDataLength = dim * dim;
-			p_HeightMap = new float_t[heightDataLength]();
+			p_HeightMap = new float[heightDataLength]();
 
 			uint32_t ibufLength;
 			uint32_t*ibufData;
 			GetIndexBuffer(ETopology::TriangleList, ibufLength, ibufData);
 
 			//Inits to -5.96541e+29
-			memset((void *) p_HeightMap, 0xf0, sizeof(float_t) * heightDataLength);
+			memset((void *) p_HeightMap, 0xf0, sizeof(float) * heightDataLength);
 
 			for (int i = 0; i < (int) ibufLength; i++)
 			{
@@ -355,7 +355,7 @@ namespace LibSWBF2::Wrappers
 	}
 
 
-	void Terrain::GetHeightBounds(float_t& floor, float_t& ceiling) const 
+	void Terrain::GetHeightBounds(float& floor, float& ceiling) const 
 	{
 		ceiling = p_Terrain -> p_Info -> m_HeightCeiling;
        	floor   = p_Terrain -> p_Info -> m_HeightFloor;

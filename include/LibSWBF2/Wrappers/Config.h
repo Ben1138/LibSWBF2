@@ -1,5 +1,5 @@
 #pragma once
-#include <LibSWBF2/Types/Color4.h>
+#include <LibSWBF2/Types/Color4f.h>
 #include <LibSWBF2/Types/Vector4.h>
 #include <LibSWBF2/Types/Vector3.h>
 
@@ -70,7 +70,7 @@ namespace LibSWBF2::Wrappers
 		FNVHash GetNameHash() const;
 
 		uint8_t GetNumValues() const;
-		float_t GetFloat(uint8_t index=0) const;
+		float GetFloat(uint8_t index=0) const;
 		uint32_t GetUInt32(uint8_t index=0) const;
 		Vector2 GetVector2() const;
 		Vector3 GetVector3() const;

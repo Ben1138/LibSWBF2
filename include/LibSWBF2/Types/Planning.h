@@ -13,7 +13,7 @@ namespace LibSWBF2::Types
 	{
 		LibSWBF2::Types::String m_Name;
 		Vector3 m_Position;
-		float_t m_Radius;
+		float m_Radius;
 
 		// Indices into ARCS, referenced by last 3 bytes of
 		// each quantized branchweight

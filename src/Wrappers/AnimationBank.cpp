@@ -20,7 +20,7 @@ namespace LibSWBF2::Wrappers
 		AnimDecompressor(void * buf, size_t len) : p_Buffer((int8_t *) buf), m_Length(len){}
 		AnimDecompressor() : p_Buffer(nullptr), m_Length(0) {}
 
-		void SetDecompressionParams(float_t mult = 1.0f / 2047.0f, float_t offset = 0.0) const
+		void SetDecompressionParams(float mult = 1.0f / 2047.0f, float offset = 0.0) const
 		{
 			m_Bias = offset;
 			m_Multiplier = mult;
@@ -28,10 +28,10 @@ namespace LibSWBF2::Wrappers
 
 		bool DecompressFromOffset(size_t offset, uint16_t num_frames, 
 								List<uint16_t> &frame_indicies, 
-								List<float_t> &frame_values) const
+								List<float> &frame_values) const
 		{
 			List<uint16_t> indicies;
-			List<float_t> values;
+			List<float> values;
 
 			m_ReadHead = offset;
 
@@ -115,7 +115,7 @@ namespace LibSWBF2::Wrappers
 		size_t m_Length;
 
 		mutable size_t m_ReadHead;
-		mutable float_t m_Bias, m_Multiplier;
+		mutable float m_Bias, m_Multiplier;
 
 		inline bool ReadInt16(int16_t &val) const
 		{
@@ -285,7 +285,7 @@ namespace LibSWBF2::Wrappers
 	
 
 	bool AnimationBank::GetCurve(CRCChecksum animName, CRCChecksum boneName, uint16_t component,
-										List<uint16_t> &frame_indices, List<float_t> &frame_values) const
+										List<uint16_t> &frame_indices, List<float> &frame_values) const
 	{
 		TNJA *index = p_AnimChunk -> p_Bin -> p_JointAddresses;
 		TADA *data = p_AnimChunk -> p_Bin -> p_CompressedAnimData;
@@ -293,7 +293,7 @@ namespace LibSWBF2::Wrappers
 
 		bool decompStatus = false;
 
-		List<float_t> values;
+		List<float> values;
 		List<uint16_t> indicies;
 
 		List<CRCChecksum> &animCRCs = metadata -> m_AnimNameHashes;	
@@ -338,8 +338,8 @@ namespace LibSWBF2::Wrappers
 				}
 				else
 				{
-					float_t bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
-					float_t mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
+					float bias = index -> m_TranslationParams[4 * TNJAOffset + component - 4];
+					float mult = index -> m_TranslationParams[4 * TNJAOffset + 3];
 
 					p_Decompressor -> SetDecompressionParams(mult, bias);
 					TADAOffset = index -> m_TranslationOffsets[TNJAOffset * 3 + component - 4];

@@ -51,7 +51,7 @@ namespace LibSWBF2::Chunks
 		ChunkSize GetFullSize() const;		// size of the whole chunk, including header, data and trailling bytes
 
 		// thread safe call
-		float_t GetReadingProgress();
+		float GetReadingProgress();
 
 	protected:
 		// since these variables are critical

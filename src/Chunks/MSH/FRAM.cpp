@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	void FRAM::RefreshSize()
 	{
-		m_Size = sizeof(int32_t) + sizeof(int32_t) + sizeof(float_t);
+		m_Size = sizeof(int32_t) + sizeof(int32_t) + sizeof(float);
 	}
 
 	void FRAM::WriteToStream(FileWriter& stream)

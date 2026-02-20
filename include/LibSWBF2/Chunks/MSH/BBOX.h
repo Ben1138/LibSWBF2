@@ -14,7 +14,7 @@ namespace LibSWBF2::Chunks::MSH
 		Vector4 m_Quaternion;
 		Vector3 m_Center;
 		Vector3 m_Extent;
-		float_t m_SphereRadius = 0.0f;
+		float m_SphereRadius = 0.0f;
 
 	protected:
 		friend GEOM;

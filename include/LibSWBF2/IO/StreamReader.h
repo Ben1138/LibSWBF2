@@ -24,7 +24,7 @@ namespace LibSWBF2
 		int16_t ReadInt16();
 		uint32_t ReadUInt32();
 		uint16_t ReadUInt16();
-		float_t ReadFloat();
+		float ReadFloat();
 		Types::String ReadString(size_t length);
 		Types::String ReadString(); // will read until the first null terminator
 		size_t GetPosition();

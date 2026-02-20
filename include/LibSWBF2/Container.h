@@ -59,9 +59,9 @@ namespace LibSWBF2
 		bool IsDone() const;
 		List<Handle> GetLoadedLevels() const;
 		ELoadStatus GetStatus(Handle handle) const;
-		float_t GetLevelProgress(Handle handle) const;
+		float GetLevelProgress(Handle handle) const;
 		Level* GetLevel(Handle handle) const;
-		float_t GetOverallProgress();
+		float GetOverallProgress();
 
 		// will return the first encountered world LVL, if existent
 		Level* TryGetWorldLevel() const;

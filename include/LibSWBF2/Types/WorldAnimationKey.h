@@ -17,7 +17,7 @@ namespace LibSWBF2::Types
 	#pragma pack(push,1)
 	struct LIBSWBF2_API WorldAnimationKey
 	{
-		float_t m_Time;
+		float m_Time;
 		Vector3 m_Value;
 		EWorldAnimKeyTransitionType m_TransitionType;
 		Vector3 m_EaseOut;

@@ -211,7 +211,7 @@ namespace LibSWBF2::Chunks
 		LOG_WARN("[{}] Forwarded to next header at {:#x}, skipped {} bytes!", m_Header, stream.GetPosition(), skipped);
 	}
 
-	float_t BaseChunk::GetReadingProgress()
+	float BaseChunk::GetReadingProgress()
 	{
 		LOCK(m_ThreadHandling->m_Lock);
 		if (m_ThreadHandling->m_CurrentReader == nullptr)
@@ -219,6 +219,6 @@ namespace LibSWBF2::Chunks
 			return 1.0f;
 		}
 
-		return (float_t)m_ThreadHandling->m_CurrentReader->GetLatestChunkPosition() / (float_t)m_ThreadHandling->m_CurrentReader->GetFileSize();
+		return (float)m_ThreadHandling->m_CurrentReader->GetLatestChunkPosition() / (float)m_ThreadHandling->m_CurrentReader->GetFileSize();
 	}
 }

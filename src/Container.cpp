@@ -312,7 +312,7 @@ namespace LibSWBF2
 		return m_ThreadSafeMembers->m_Statuses[handle].m_LoadStatus;
 	}
 
-	float_t Container::GetLevelProgress(Handle handle) const
+	float Container::GetLevelProgress(Handle handle) const
 	{
 		if (handle >= m_ThreadSafeMembers->m_Processes.size())
 		{
@@ -364,7 +364,7 @@ namespace LibSWBF2
 		return nullptr;
 	}
 
-	float_t Container::GetOverallProgress()
+	float Container::GetOverallProgress()
 	{
 		LOCK(m_ThreadSafeMembers->m_StatusLock);
 		size_t num = m_ThreadSafeMembers->m_Statuses.size();
@@ -383,14 +383,14 @@ namespace LibSWBF2
 			}
 		}
 
-		float_t progress = 0.0f;
+		float progress = 0.0f;
 		for (size_t i = 0; i < num; ++i)
 		{
 			LoadStatus& status = m_ThreadSafeMembers->m_Statuses[i];
 			if (status.m_FileSize > 0)
 			{
 				float lvlProgress = status.m_Chunk != nullptr ? status.m_Chunk->GetReadingProgress() : 1.0f;
-				lvlProgress *= status.m_FileSize / (float_t)m_OverallSize;
+				lvlProgress *= status.m_FileSize / (float)m_OverallSize;
 				progress += lvlProgress;
 			}
 		}

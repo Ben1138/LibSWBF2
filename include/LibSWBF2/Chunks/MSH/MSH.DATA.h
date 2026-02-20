@@ -13,7 +13,7 @@ namespace LibSWBF2::Chunks::MSH
 		Color4u8 m_Diffuse;
 		Color4u8 m_Specular;
 		Color4u8 m_Ambient;
-		float_t m_SpecularSharpness = 0.0f;
+		float m_SpecularSharpness = 0.0f;
 
 	protected:
 		friend MATD;

@@ -75,11 +75,11 @@ namespace LibSWBF2::Chunks::LVL::config
         BaseChunk::EnsureEnd(stream);
 	}
 
-	bool DATA_CONFIG::GetFloat(float_t& floatMember, uint8_t index) const
+	bool DATA_CONFIG::GetFloat(float& floatMember, uint8_t index) const
 	{
 		if (m_NumValues > index)
 		{
-			floatMember = *(((float_t *) p_Data) + index);
+			floatMember = *(((float *) p_Data) + index);
 			return true;
 		}
 
@@ -90,7 +90,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumValues >= 2)
 		{
-			float_t *floatsPtr = (float_t *) p_Data;
+			float *floatsPtr = (float *) p_Data;
 			vec2Out = Vector2(floatsPtr[0], floatsPtr[1]);
 			return true;
 		}
@@ -102,7 +102,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumValues >= 3)
 		{
-			float_t *floatsPtr = (float_t *) p_Data;
+			float *floatsPtr = (float *) p_Data;
 			vec3Out = Vector3(floatsPtr[0], floatsPtr[1], floatsPtr[2]);
 			return true;
 		}
@@ -114,7 +114,7 @@ namespace LibSWBF2::Chunks::LVL::config
 	{
 		if (m_NumValues >= 4)
 		{
-			float_t *floatsPtr = (float_t *) p_Data;
+			float *floatsPtr = (float *) p_Data;
 			vec4Out = Vector4(floatsPtr[0], floatsPtr[1], floatsPtr[2], floatsPtr[3]);
 			return true;
 		}

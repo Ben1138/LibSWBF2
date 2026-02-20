@@ -24,7 +24,7 @@
 #include <LibSWBF2/Types/Vector2.h>
 #include <LibSWBF2/Types/Vector3.h>
 #include <LibSWBF2/Types/Vector4.h>
-#include <LibSWBF2/Types/Color4.h>
+#include <LibSWBF2/Types/Color4f.h>
 #include <LibSWBF2/Types/Color4u8.h>
 #include <LibSWBF2/Types/Matrix3x3.h>
 #include <LibSWBF2/Types/List.h>

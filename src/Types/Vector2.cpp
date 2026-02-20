@@ -14,7 +14,7 @@ namespace LibSWBF2::Types
 		m_Y = 0.0;
 	}
 
-	Vector2::Vector2(const float_t x, const float_t y)
+	Vector2::Vector2(const float x, const float y)
 	{
 		m_X = x;
 		m_Y = y;
@@ -39,6 +39,6 @@ namespace LibSWBF2::Types
 
 	Types::String Vector2::ToString() const
 	{
-		return fmt::format("[{}, {}]", (float_t) m_X, (float_t) m_Y).c_str();
+		return fmt::format("[{}, {}]", (float) m_X, (float) m_Y).c_str();
 	}
 }

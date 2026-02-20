@@ -43,7 +43,7 @@ namespace LibSWBF2::Wrappers
 
 		mutable List<uint32_t> m_Indices;
 
-		mutable float_t* p_HeightMap; //perhaps not commonly used, so lazy init
+		mutable float* p_HeightMap; //perhaps not commonly used, so lazy init
 		mutable uint8_t* p_BlendMap;  //
 
 	public:
@@ -66,11 +66,11 @@ namespace LibSWBF2::Wrappers
 		// count is number of vectors, NOT number of bytes!
 		void GetUVBuffer(uint32_t& count, Vector2*& uvBuffer) const;
 
-		void GetHeightMap(uint32_t& dim, uint32_t& dimScale, float_t*& heightData) const;
+		void GetHeightMap(uint32_t& dim, uint32_t& dimScale, float*& heightData) const;
 
 		void GetBlendMap(uint32_t& dim, uint32_t& numLayers, uint8_t*& imgData) const;
 
-		void GetHeightBounds(float_t& floor, float_t& ceiling) const;
+		void GetHeightBounds(float& floor, float& ceiling) const;
  
 		// Texture name for each terrain layer. Usually 16 layers
 		const List<String>& GetLayerTextures() const;

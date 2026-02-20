@@ -13,10 +13,10 @@ namespace LibSWBF2::Types
 	Color4u8::Color4u8(const uint8_t Red, const uint8_t Green, const uint8_t Blue) : Color4u8(Red, Green, Blue, 1) { }
 
 	Color4u8::Color4u8(const uint8_t Red, const uint8_t Green, const uint8_t Blue, const uint8_t Alpha) :
-		m_Red(std::clamp(m_Red, (uint8_t)0, (uint8_t)255)),
-		m_Green(std::clamp(m_Green, (uint8_t)0, (uint8_t)255)),
-		m_Blue(std::clamp(m_Blue, (uint8_t)0, (uint8_t)255)),
-		m_Alpha(std::clamp(m_Alpha, (uint8_t)0, (uint8_t)255))
+		m_Red(m_Red),
+		m_Green(m_Green),
+		m_Blue(m_Blue),
+		m_Alpha(m_Alpha)
 	{
 		
 	}

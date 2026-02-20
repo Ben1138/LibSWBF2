@@ -103,7 +103,7 @@ namespace LibSWBF2
 		}
 	}
 
-	void FileWriter::WriteFloat(float_t value)
+	void FileWriter::WriteFloat(float value)
 	{
 		if (CheckGood())
 		{

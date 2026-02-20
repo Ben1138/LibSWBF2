@@ -58,7 +58,7 @@ namespace LibSWBF2::Wrappers
         return p_MaskChunk == nullptr ? ECollisionMaskFlags::All : p_MaskChunk -> m_MaskFlags;
     }
     
-    bool CollisionPrimitive::GetCubeDims(float_t& xOut, float_t& yOut, float_t& zOut) const
+    bool CollisionPrimitive::GetCubeDims(float& xOut, float& yOut, float& zOut) const
     {
         bool status = p_FieldsChunk -> m_PrimitiveType == ECollisionPrimitiveType::Cube;
         if (status)
@@ -70,7 +70,7 @@ namespace LibSWBF2::Wrappers
         return status;
     }
 
-    bool CollisionPrimitive::GetCylinderDims(float_t& radiusOut, float_t& heightOut) const 
+    bool CollisionPrimitive::GetCylinderDims(float& radiusOut, float& heightOut) const 
     {
         bool status = p_FieldsChunk -> m_PrimitiveType == ECollisionPrimitiveType::Cylinder;
         if (status)
@@ -82,7 +82,7 @@ namespace LibSWBF2::Wrappers
 
     }
 
-    bool CollisionPrimitive::GetSphereRadius(float_t &radiusOut) const 
+    bool CollisionPrimitive::GetSphereRadius(float &radiusOut) const 
     {
         bool status = p_FieldsChunk -> m_PrimitiveType == ECollisionPrimitiveType::Sphere;
         if (status)

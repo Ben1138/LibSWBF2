@@ -24,7 +24,7 @@ namespace LibSWBF2::Wrappers
 		static bool FromChunk(zaa_ *chunk, AnimationBank &setOut);
 
 		bool GetCurve(CRCChecksum anim, CRCChecksum bone, uint16_t component,
-					List<uint16_t> &frame_indices, List<float_t> &frame_values) const;
+					List<uint16_t> &frame_indices, List<float> &frame_values) const;
 	
 		bool ContainsAnimation(CRCChecksum anim) const;
 

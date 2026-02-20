@@ -27,7 +27,7 @@ namespace LibSWBF2::Wrappers
 	#pragma pack(push,1)
 	struct LIBSWBF2_API VertexWeight
 	{
-		float_t m_WeightValue;
+		float m_WeightValue;
 		uint8_t m_BoneIndex;
 	};
 	#pragma pack(pop)

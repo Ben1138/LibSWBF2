@@ -108,7 +108,7 @@ target_sources(LibSWBF2 PRIVATE
   "${SRC_DIR}/Types/Animation.cpp"
   "${SRC_DIR}/Types/BoneFrames.cpp"
   "${SRC_DIR}/Types/BoneWeight.cpp"
-  "${SRC_DIR}/Types/Color4.cpp"
+  "${SRC_DIR}/Types/Color4f.cpp"
   "${SRC_DIR}/Types/Color4u8.cpp"
   "${SRC_DIR}/Types/Enums.cpp"
   "${SRC_DIR}/Types/LibString.cpp"

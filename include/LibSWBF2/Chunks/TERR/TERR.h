@@ -26,7 +26,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 	// TODO: Move to Types into a dedicated header file
 	struct LIBSWBF2_API WaterLayer
 	{
-		float_t WaterHeight;
+		float WaterHeight;
 		Vector2 UVAnimationVelocity;
 		Vector2 UVAnimationRepeat;
 		uint8_t RGBA[4]; // TODO: Introduce new Color32 type and use here
@@ -51,10 +51,10 @@ namespace LibSWBF2::Chunks::LVL::terrain
 #pragma region Header
 		uint32_t FileVersion;
 		uint16_t TerrainExtents[4];
-		float_t TileRange[16];
+		float TileRange[16];
 		uint8_t TextureLayerMapping[16];
-		float_t MapHeightMultiplier;
-		float_t GridScale;
+		float MapHeightMultiplier;
+		float GridScale;
 		uint32_t MapSize;
 		uint32_t TerrainOptions;
 		TextureLayer TextureLayers[16];

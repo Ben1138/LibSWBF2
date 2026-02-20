@@ -79,14 +79,14 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
 
-                    float_t one = (float) data[1];
-                    float_t two = (float) data[2];
+                    float one = (float) data[1];
+                    float two = (float) data[2];
                     m_Weights.Add({ two, one, 1.0f - two - one});
                 }
                 else
                 {
-                    float_t x = stream.ReadFloat();
-                    float_t y = stream.ReadFloat();
+                    float x = stream.ReadFloat();
+                    float y = stream.ReadFloat();
                     m_Weights.Add({ x, y, 1.0f - x - y});
                 }
             }
@@ -137,7 +137,7 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    glm::vec3 normal((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 normal((float)data[0], (float)data[1], (float)data[2]);
                     normal = (normal * 2.0f) - 1.0f;
                     m_Normals.Add(ToLib(normal));
                 }
@@ -156,7 +156,7 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    glm::vec3 tangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 tangent((float)data[0], (float)data[1], (float)data[2]);
                     tangent = (tangent * 2.0f) - 1.0f;
                     m_Tangents.Add(ToLib(tangent));
 
@@ -164,7 +164,7 @@ namespace LibSWBF2::Chunks::LVL::modl
                     data[1] = stream.ReadByte();
                     data[2] = stream.ReadByte();
                     data[3] = stream.ReadByte();
-                    glm::vec3 biTangent((float_t)data[0], (float_t)data[1], (float_t)data[2]);
+                    glm::vec3 biTangent((float)data[0], (float)data[1], (float)data[2]);
                     biTangent = (biTangent * 2.0f) - 1.0f;
                     m_BiTangents.Add(ToLib(biTangent));
                 }
@@ -192,7 +192,7 @@ namespace LibSWBF2::Chunks::LVL::modl
                     uint16_t data[2];
                     data[0] = stream.ReadByte();
                     data[1] = stream.ReadByte();
-                    glm::vec2 uv((float_t)data[0], (float_t)data[1]);
+                    glm::vec2 uv((float)data[0], (float)data[1]);
                     uv = uv / 2048.0f;
                     m_TexCoords.Add(ToLib(uv));
                 }

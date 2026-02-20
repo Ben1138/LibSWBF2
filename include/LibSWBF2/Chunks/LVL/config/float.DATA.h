@@ -9,7 +9,7 @@ namespace LibSWBF2::Chunks::LVL::config
 {
 	struct LIBSWBF2_API DATA_FLOAT : public DATA_CONFIG
 	{
-		List<float_t> m_Floats;
+		List<float> m_Floats;
 	
 		void RefreshSize() override;
 		void WriteToStream(FileWriter& stream) override;

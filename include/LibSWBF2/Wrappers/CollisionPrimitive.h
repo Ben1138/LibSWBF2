@@ -51,9 +51,9 @@ namespace LibSWBF2::Wrappers
 		ECollisionPrimitiveType GetPrimitiveType() const;
 		ECollisionMaskFlags GetMaskFlags() const;
 
-		bool GetCubeDims(float_t& xOut, float_t& yOut, float_t& zOut) const;
-		bool GetCylinderDims(float_t& radiusOut, float_t& heightOut) const;
-		bool GetSphereRadius(float_t &radiusOut) const;
+		bool GetCubeDims(float& xOut, float& yOut, float& zOut) const;
+		bool GetCylinderDims(float& radiusOut, float& heightOut) const;
+		bool GetSphereRadius(float &radiusOut) const;
 		
 		String ToString() const;
 	};

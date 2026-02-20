@@ -13,7 +13,7 @@ namespace LibSWBF2::Types
 	struct LIBSWBF2_API Key 
 	{
 		T time;
-		float_t value;
+		float value;
 	};
 	#pragma pack(pop)
 
@@ -26,7 +26,7 @@ namespace LibSWBF2::Types
 			return m_Indices;
 		}
 
-		const List<float_t>& GetValues() const
+		const List<float>& GetValues() const
 		{
 			return m_Values;
 		}
@@ -49,7 +49,7 @@ namespace LibSWBF2::Types
 			return keys;
 		}
 
-		Curve(List<T>&& inds, List<float_t>&& vals)
+		Curve(List<T>&& inds, List<float>&& vals)
 		{
 			m_Indices = inds;
 			m_Values = vals;
@@ -60,6 +60,6 @@ namespace LibSWBF2::Types
 
 	private:
 		List<T> m_Indices;
-		List<float_t> m_Values; 
+		List<float> m_Values; 
 	};
 }

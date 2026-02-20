@@ -7,10 +7,10 @@ namespace LibSWBF2::Chunks::LVL::terrain
 	struct LIBSWBF2_API INFO : public GenericChunk<"INFO"_m>
 	{
 	public:
-		float_t m_GridUnitSize;
-		float_t m_HeightScale;
-		float_t m_HeightFloor;		// lowest Y value in all vertex buffers
-		float_t m_HeightCeiling;	// heighest Y value in all vertex buffers
+		float m_GridUnitSize;
+		float m_HeightScale;
+		float m_HeightFloor;		// lowest Y value in all vertex buffers
+		float m_HeightCeiling;	// heighest Y value in all vertex buffers
 		uint16_t m_GridSize;
 		uint16_t m_PatchEdgeSize;	// number of vertices per patch edge
 		uint16_t m_TexturePatches;

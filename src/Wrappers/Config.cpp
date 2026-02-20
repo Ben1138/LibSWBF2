@@ -61,9 +61,9 @@ namespace LibSWBF2::Wrappers
 		return p_Data->m_NumValues;
 	}
 
-	float_t Field::GetFloat(uint8_t index) const
+	float Field::GetFloat(uint8_t index) const
 	{	
-		float_t out;
+		float out;
 		if (p_Data->GetFloat(out, index))
 		{
 			return out;

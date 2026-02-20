@@ -213,13 +213,13 @@ namespace LibSWBF2
 		return value;
 	}
 
-	float_t MemoryMappedReader::ReadFloat()
+	float MemoryMappedReader::ReadFloat()
 	{
-		float_t value = 0.0f;
-		if (CheckGood(sizeof(float_t)))
+		float value = 0.0f;
+		if (CheckGood(sizeof(float)))
 		{
-			value = *((float_t *) p_ReaderHead);
-			p_ReaderHead+=sizeof(float_t);
+			value = *((float *) p_ReaderHead);
+			p_ReaderHead+=sizeof(float);
 		}
 		return value;
 	}

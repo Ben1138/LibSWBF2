@@ -15,7 +15,7 @@ namespace LibSWBF2::Types
 		m_W = 0.0;
 	}
 
-	Vector4::Vector4(const float_t x, const float_t y, const float_t z, const float_t w)
+	Vector4::Vector4(const float x, const float y, const float z, const float w)
 	{
 		m_X = x;
 		m_Y = y;
@@ -46,6 +46,6 @@ namespace LibSWBF2::Types
 
 	String Vector4::ToString() const
 	{
-		return fmt::format("[{}, {}, {}, {}]",(float_t) m_X, (float_t) m_Y,(float_t) m_Z,(float_t) m_W).c_str();
+		return fmt::format("[{}, {}, {}, {}]",(float) m_X, (float) m_Y,(float) m_Z,(float) m_W).c_str();
 	}
 }

@@ -160,7 +160,7 @@ namespace LibSWBF2::Chunks::LVL::terrain
 				Water height value (twice)
 			*/
 			WaterLayers[i].WaterHeight = stream.ReadFloat();
-			stream.SkipBytes(sizeof(float_t)); // just ignore second height
+			stream.SkipBytes(sizeof(float)); // just ignore second height
 
 			/*
 				Type: byte[8]

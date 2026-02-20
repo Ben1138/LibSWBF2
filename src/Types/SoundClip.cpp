@@ -35,7 +35,7 @@ namespace LibSWBF2::Types
 
 	uint8_t SoundClip::GetBytesPerSample() const
 	{
-		float_t blockAlign = (float_t)m_DataLength / (float_t)m_SampleCount;
+		float blockAlign = (float)m_DataLength / (float)m_SampleCount;
 		return (uint8_t)std::ceil(blockAlign);
 	}
 

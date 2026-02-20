@@ -164,13 +164,13 @@ namespace LibSWBF2
 		container->FreeAll((bool)force);
 	}
 
-	float_t Container_GetProgress(Container* container, uint32_t handleNum)
+	float Container_GetProgress(Container* container, uint32_t handleNum)
 	{
 		CheckPtr(container, -1.0f)
 		return container -> GetLevelProgress((uint16_t) handleNum);
 	}  
 
-	float_t Container_GetOverallProgress(Container* container)
+	float Container_GetOverallProgress(Container* container)
 	{
 		CheckPtr(container, -1.0f)
 		return container->GetOverallProgress();
@@ -509,7 +509,7 @@ namespace LibSWBF2
 	
 	//Wrappers - Terrain
 	const uint8_t Terrain_FetchSimpleFields(const Terrain* ter, int32_t &numTexes, const char**& texNamesOut,
-											float_t& hU, float_t& hL, uint32_t& numVerts, Vector3*& vBuf,
+											float& hU, float& hL, uint32_t& numVerts, Vector3*& vBuf,
 											uint32_t& numNormals, Vector3*& nBuf, uint32_t& numUVs, Vector2*& uvBuf)
 	{
 		static List<const char*> texNamesPtrs;
@@ -528,7 +528,7 @@ namespace LibSWBF2
 		return true;
 	}
 
-    const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float_t*& heightData)
+    const void Terrain_GetHeightMap(const Terrain *ter, uint32_t& dim, uint32_t& dimScale, float*& heightData)
     {
     	dim = 0;
     	CheckPtr(ter, );
@@ -643,7 +643,7 @@ namespace LibSWBF2
 
     //Wrappers - CollisionPrimitive
     const void CollisionPrimitive_FetchAllFields(CollisionPrimitive *primPtr,
-                                            float_t& f1, float_t& f2, float_t& f3,
+                                            float& f1, float& f2, float& f3,
                                             const char *& namePtr, const char *& parentNamePtr,
                                             uint32_t& maskFlags, uint32_t& primitiveType,
                                             Vector3*& pos, Vector4*& rot)
@@ -1290,10 +1290,10 @@ namespace LibSWBF2
 
     // Wrappers - AnimationBank
 	const bool AnimationBank_GetCurve(const AnimationBank* setPtr, uint32_t animCRC, uint32_t boneCRC, uint32_t comp, 
-                                                    const uint16_t*& indicesBuffer, const float_t*& valuesBuffer, int& numKeys)
+                                                    const uint16_t*& indicesBuffer, const float*& valuesBuffer, int& numKeys)
 	{
 		static List<uint16_t> indices;
-		static List<float_t>  values;
+		static List<float>  values;
 
 		CheckPtr(setPtr, false);
 
@@ -1583,7 +1583,7 @@ namespace LibSWBF2
 		return cfg->GetNumValues();
 	}
 
-	const float_t Field_GetFloat(const Field* cfg, uint8_t index)
+	const float Field_GetFloat(const Field* cfg, uint8_t index)
 	{
 		return cfg->GetFloat(index);
 	}

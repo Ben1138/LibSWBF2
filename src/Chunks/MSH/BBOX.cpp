@@ -7,7 +7,7 @@ namespace LibSWBF2::Chunks::MSH
 {
 	void BBOX::RefreshSize()
 	{
-		m_Size = Vector4::SIZE + Vector3::SIZE + Vector3::SIZE + sizeof(float_t);
+		m_Size = Vector4::SIZE + Vector3::SIZE + Vector3::SIZE + sizeof(float);
 	}
 
 	void BBOX::WriteToStream(FileWriter& stream)
